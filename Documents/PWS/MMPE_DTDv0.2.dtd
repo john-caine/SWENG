@@ -1,0 +1,94 @@
+<!ELEMENT slideshow (documentinfo, defaults, slide+)>
+
+<!-- Document information section -->
+<!ELEMENT documentinfo (author?, version?, comment?, width?, height?)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT version (#PCDATA)>
+<!ELEMENT comment (#PCDATA)>
+<!ELEMENT width (#PCDATA)>
+<!ELEMENT height (#PCDATA)>
+
+<!-- Defaults section -->
+<!ELEMENT defaults (backgroundcolor?, font?, fontsize?, fontcolor?, linecolor?, fillcolor?)>
+<!ELEMENT backgroundcolor (#PCDATA)>
+<!ELEMENT font (#PCDATA)>
+<!ELEMENT fontsize (#PCDATA)>
+<!ELEMENT fontcolor (#PCDATA)>
+<!ELEMENT linecolor (#PCDATA)>
+<!ELEMENT fillcolor (#PCDATA)>
+
+<!-- Slide section -->
+<!ELEMENT slide (text | shape | audio | image | video)+>
+<!ATTLIST slide 
+	id ID #REQUIRED
+	duration CDATA #IMPLIED
+	lastSlide (true | false) #IMPLIED>
+
+<!-- text instance in a slide -->
+<!ELEMENT text (#PCDATA | b | i | u)*>
+<!ATTLIST text 
+	font CDATA #IMPLIED
+	fontsize CDATA #IMPLIED
+	fontcolor CDATA #IMPLIED
+	xstart CDATA #REQUIRED
+	ystart CDATA #REQUIRED
+	xend CDATA	#REQUIRED
+	yend CDATA	#REQUIRED
+	starttime CDATA #IMPLIED
+	duration CDATA #IMPLIED
+	layer   CDATA #IMPLIED
+	textbody CDATA #REQUIRED>
+<!ELEMENT b (#PCDATA)>
+<!ELEMENT i (#PCDATA)>
+<!ELEMENT u (#PCDATA)>
+
+
+<!-- shape instance in a slide -->
+<!ELEMENT shape (point?)>
+<!ATTLIST shape 
+	totalpoints CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	fillcolor CDATA #IMPLIED
+	starttime CDATA #IMPLIED
+	duration CDATA #IMPLIED
+	layer   CDATA #IMPLIED
+	lineColor CDATA	#IMPLIED
+	branch CDATA	#IMPLIED>
+<!ELEMENT point EMPTY>
+<!ATTLIST point 
+	x CDATA #REQUIRED
+	y CDATA #REQUIRED
+	num CDATA #REQUIRED>
+
+<!-- audio instance in a slide -->
+<!ELEMENT audio EMPTY>
+<!ATTLIST audio 
+	urlname CDATA #REQUIRED
+	starttime CDATA #IMPLIED
+	loop (true | false) #IMPLIED>
+
+<!-- image instance in a slide -->
+<!ELEMENT image EMPTY>
+<!ATTLIST image 
+	urlname CDATA #REQUIRED
+	xstart CDATA #REQUIRED
+	ystart CDATA #REQUIRED
+	width CDATA #IMPLIED
+	height CDATA #IMPLIED
+	starttime CDATA #IMPLIED
+	duration CDATA #IMPLIED
+	layer   CDATA #IMPLIED
+	branch CDATA	#IMPLIED>
+
+<!-- video instance in a slide -->
+<!ELEMENT video EMPTY>
+<!ATTLIST video 
+	urlname CDATA #REQUIRED
+	starttime CDATA #IMPLIED
+	loop (true | false) #IMPLIED
+	xstart CDATA #REQUIRED
+	ystart CDATA #REQUIRED
+	layer   CDATA #IMPLIED
+	playTime CDATA	#IMPLIED
+	Duration CDATA	#IMPLIED>
