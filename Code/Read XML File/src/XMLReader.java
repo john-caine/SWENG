@@ -1,19 +1,29 @@
-import java.io.IOException;
+/* Title: XMLReader
+ * 
+ * Programmers: Ankita, Max
+ * 
+ * Date Created: 14/02/14
+ * 
+ * Description: A simple XML reader which extracts strings from XML elements,
+ * 				creates Recipe instances as appropriate, writing element values to the correct attributes.
+ * 				Once all 'Recipes' have been created, an instance of 'Cookbook' is created, which all recipes are stored in.
+ * 
+ * Notes: Print statements within methods have been commented out but remain for future debugging purposes.
+ * 
+ * Version History: v1.01 (27/02/14) - Class modified to include functionality to extract 'ImageFileName' fields
+ */
 
+import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**
- * enum type for keeping track of when we need to store content in certain elements
- * 
- */
+// enumerated type for keeping track of when we need to store content in certain elements
 enum ProcessingElement {
-	NONE, ID, TITLE, PEOPLE, TIME, CHEF, DESCRIPTION
+	NONE, ID, TITLE, PEOPLE, TIME, CHEF, DESCRIPTION, IMAGEFILENAME
 };
 
 public class XMLReader extends DefaultHandler {
@@ -31,7 +41,6 @@ public class XMLReader extends DefaultHandler {
 	}
 
 	public void readXMLFile(String inputFile) {
-
 		try {
 			// use the default parser
 			cookBook = new CookBook(inputFile);
@@ -48,17 +57,14 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 
-	/**
-	 * Called by the parser when it encounters the start of the XML file.
-	 */
+	
+	// called by the parser when it encounters the start of the XML file
 	public void startDocument() throws SAXException {
 //		System.out.println("\nXML Parser: starting to process document: " + inputFile);
-//		System.out.println("-----------------------------------------------------");
 	}
 
-	/**
-	 * Called by the parser when it encounters any start element tag.
-	 */
+
+	// called by the parser when it encounters any start element tag
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// sort out element name if (no) namespace in use
@@ -84,14 +90,12 @@ public class XMLReader extends DefaultHandler {
 			currentElement = ProcessingElement.CHEF;
 		} else if (elementName.equals("description")) {
 			currentElement = ProcessingElement.DESCRIPTION;
+		} else if (elementName.equals("imageFileName")) {
+			currentElement = ProcessingElement.IMAGEFILENAME;
 		}
-
 	}
 
-	/**
-	 * Called by the parser when it encounters characters in the main body of an
-	 * element.
-	 */
+	// called by the parser when it encounters characters in the main body of an element
 	public void characters(char[] ch, int start, int length) throws SAXException {		
 		String elementValue = new String(ch,start,length);
 		switch (currentElement) {
@@ -116,14 +120,16 @@ public class XMLReader extends DefaultHandler {
 			recipe.setDescription(elementValue);
 //			System.out.println("\tValue of element " + currentElement + ": " + recipe.getDescription());			
 			break;
+		case IMAGEFILENAME:
+			recipe.setImageFileName(elementValue);
+//			System.out.println("\tValue of element " + currentElement + ": " + recipe.getImageFileName());			
+			break;
 		default:
 			break;
 		}
 	}
 
-	/**
-	 * Called by the parser when it encounters any end element tag.
-	 */
+	// called by the parser when it encounters any end element tag
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		// sort out element name if (no) namespace in use
@@ -131,13 +137,14 @@ public class XMLReader extends DefaultHandler {
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
+		
 //		System.out.println("\tEnd of element: " + elementName);
 
-		// finished adding stuff to current VideoFile, so add video to videoList
+		// finished adding stuff to current Recipe, so add recipe to cookbook
 		if (elementName.equals("recipe")) {
 			cookBook.addRecipe(recipe);
 		}
-		// finished adding content from various sub-elements of video
+		// reset processing element identifier
 		else if (elementName.equals("title")) {
 			currentElement = ProcessingElement.NONE;
 		} else if (elementName.equals("people")) {
@@ -148,21 +155,17 @@ public class XMLReader extends DefaultHandler {
 			currentElement = ProcessingElement.NONE;
 		} else if (elementName.equals("description")) {
 			currentElement = ProcessingElement.NONE;
+		} else if (elementName.equals("imageFileName")) {
+			currentElement = ProcessingElement.NONE;
 		}
-		
 	}
 
-	/**
-	 * Called by the parser when it encounters the end of the XML file.
-	 */
+	// called by the parser when it encounters the end of the XML file.
 	public void endDocument() throws SAXException {
 //		System.out.println("XML Parser: finished processing document: " + inputFile);
-//		System.out.println("-----------------------------------------------------");
 	}
-
 
 	public static void main(String[] args) {
 		DefaultHandler handler = new XMLReader();
 	}
-
 }

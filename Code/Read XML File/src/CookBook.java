@@ -1,3 +1,14 @@
+/* Title: CookBook
+ * 
+ * Programmers: Ankita, Max
+ * 
+ * Date Created: 14/02/14
+ * 
+ * Description: A class to hold a number of 'Recipe' files in a list.
+ * 				Methods include adding a recipe, getting a specific recipe and getting the number of recipes in the list.
+ * 				More attributes and methods are expected to be added later.
+ */
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
