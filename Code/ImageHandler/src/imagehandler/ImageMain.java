@@ -16,7 +16,7 @@ public class ImageMain extends Application {
 	    scene.setFill(Color.BLACK); 
 
 	    //ImageHandler image1 = new ImageHandler("D:/Pictures/bike.jpg", 300, 300, 500, 500, null, null, null, null);
-	    ImageHandler image2 = new ImageHandler("D:/Pictures/bike2.jpg", 50, 50, 100, 100, 5, 15, null, null);
+	    ImageHandler image2 = new ImageHandler("C:/Users/R T/workspace/ExampleProject/src/DOGE.png", 50, 50, 100, 100, 5, 5, null, null);
 	    
 		//root.getChildren().add(image1.box);
 		root.getChildren().add(image2.box);

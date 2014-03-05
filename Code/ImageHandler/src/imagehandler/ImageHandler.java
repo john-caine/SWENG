@@ -35,13 +35,14 @@ public class ImageHandler {
         	resizeImage(iv1, width, height);
         box = new HBox();
         box.getChildren().add(iv1);
+        box.setVisible(false);
         setImageLocation(box, xStart, yStart); 
         if (startTime == null) {
         	this.startTime = 0;
-        	startTimerThread.run();
+        	startTimerThread.start();
         }
         else 
-        	startTimerThread.run();
+        	startTimerThread.start();
 	}
 	
 	public void resizeImage(ImageView imageView, Integer width, Integer height){
@@ -91,7 +92,7 @@ public class ImageHandler {
 		 
 		 showImage();
 		 if (duration != null && duration != 0)
-			 durationTimerThread.run();
+			 durationTimerThread.start();
 		 }
 	 };
 	 
