@@ -30,7 +30,6 @@ public class ImageHandler {
         if (width != null || height != null)
         	resizeImage(iv1, width, height);
         setImageLocation(iv1, xStart, yStart);
-        returnImage(iv1);
 	}
 	
 	/*
@@ -55,7 +54,7 @@ public class ImageHandler {
 	/*
 	 * Retrieve the image from its location via a input stream. Error if image not found.
 	 */
-    private Image retrieveImage(String imageLocationPath) {
+    public Image retrieveImage(String imageLocationPath) {
     	InputStream inputStream = null;
     	Image image;
     	try {
@@ -78,7 +77,7 @@ public class ImageHandler {
     /*
      * Return an ImageView object.
      */
-    public ImageView returnImage(ImageView image) {
-    	return  image;
+    public ImageView returnImage() {
+    	return  iv1;
     }   
 }

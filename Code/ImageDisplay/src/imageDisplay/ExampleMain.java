@@ -28,8 +28,12 @@ public class ExampleMain extends Application {
 		root = new Group();
 	    scene = new Scene(root);
 	    scene.setFill(Color.BLACK);
-	    ImageHandler image = new ImageHandler("D:/Pictures/149-2094.jpg", 200, 200, 300, 500); 
-	    root.getChildren().add(image);
+	    ImageHandler image = new ImageHandler("C:/Users/R T/workspace/ExampleProject/src/DOGE.png", 200, 200, 300, 500);
+	    ImageHandler image1 = new ImageHandler("C:/Users/R T/workspace/ExampleProject/src/DOGE.png", 200, 200, 300, null);
+	    ImageHandler image2 = new ImageHandler("C:/Users/R T/workspace/ExampleProject/src/DOGE.png", 600, 300, null, 500);
+	    root.getChildren().add(image.returnImage());
+	    root.getChildren().add(image1.returnImage());
+	    root.getChildren().add(image2.returnImage());
 	    stage.setTitle("ImageView");
 	    stage.setFullScreen(true);
 	    stage.setScene(scene); 
