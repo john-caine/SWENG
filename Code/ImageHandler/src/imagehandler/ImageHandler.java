@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 public class ImageHandler {
 	
-	HBox box;
+	protected HBox box;
 	private Integer duration;
 	private Integer startTime;
 	
@@ -25,7 +25,7 @@ public class ImageHandler {
         showImage();
 	}
 	
-	public ImageHandler(String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch){
+	public ImageHandler(String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation){
 		/*Display the original Image in ImageView*/
 		this.duration = duration;
 		this.startTime = startTime;
@@ -33,9 +33,11 @@ public class ImageHandler {
         iv1.setImage(retrieveImage(path));
         if (width != null && height != null) 
         	resizeImage(iv1, width, height);
+        if (orientation != null)
+        	rotateImage(iv1, orientation);
         box = new HBox();
-        box.getChildren().add(iv1);
         box.setVisible(false);
+        box.getChildren().add(iv1);
         setImageLocation(box, xStart, yStart); 
         if (startTime == null) {
         	this.startTime = 0;
@@ -43,6 +45,10 @@ public class ImageHandler {
         }
         else 
         	startTimerThread.start();
+	}
+	
+	public void rotateImage(ImageView imageView, Integer orientation) {
+		imageView.setRotate(orientation);
 	}
 	
 	public void resizeImage(ImageView imageView, Integer width, Integer height){
