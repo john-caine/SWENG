@@ -77,7 +77,7 @@ public class ImageHandler {
     /*
      * Return an ImageView object.
      */
-    public ImageView returnImage() {
+    protected ImageView returnImage() {
     	return  iv1;
     }   
 }
