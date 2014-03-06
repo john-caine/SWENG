@@ -38,7 +38,7 @@ public class Slide {
 		stage.setY(bounds.getMinY());
 		stage.setWidth(bounds.getWidth());
 		stage.setHeight(bounds.getHeight());
-        stage.setFullScreen(true);
+        stage.setFullScreen(true); 
         stage.show();
         
         /*Exit Slide when exit slide button is pressed*/

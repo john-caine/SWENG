@@ -57,10 +57,10 @@ public class ImageHandler {
     	imageView.setSmooth(true);
     	imageView.setCache(true);
     }
-    
-    private Image retrieveImage(String imageLocationPath){
-    	InputStream inputStream = null;
-    	Image image;
+	
+	public Image retrieveImage(String imageLocationPath) {
+    InputStream inputStream = null;	
+	Image image;
     	try {
     		inputStream = new FileInputStream(imageLocationPath);
 		} catch (FileNotFoundException e) {
