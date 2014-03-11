@@ -9,14 +9,19 @@ package mainmenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 
 public class MainMenuButton {
 	public Button createSlide;
 	public SlideMain slide;
+	Stage stage;
 
 	public MainMenuButton() {
 			BorderPane border = new BorderPane();	
@@ -27,9 +32,18 @@ public class MainMenuButton {
 			border.setBottom(hbox);
 		
 		createSlide.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
+
+				@Override
 	            public void handle(ActionEvent event) {
-	                new SlideMain();
+					stage = new Stage();
+	                Group root = new Group();
+	                Scene scene = new SlideMain(root).scene;
+	                
+	                stage.setTitle("ImageView");
+	        	    stage.setScene(scene); 
+	        	    stage.sizeToScene();
+	        	    stage.setFullScreen(true);
+	        		stage.show();
 	            }
 	        });
 	}

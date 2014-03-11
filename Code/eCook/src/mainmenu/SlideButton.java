@@ -18,6 +18,7 @@ public class SlideButton {
 	public SlideButton(){
         
         exitSlide = new Button("Exit Slide");
+        exitSlide.setPrefWidth(80);
 		    
         /*Exit Slide when exit slide button is pressed*/
         exitSlide.setOnAction(new EventHandler<ActionEvent>() {
