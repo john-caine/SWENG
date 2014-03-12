@@ -1,4 +1,4 @@
-/* Title: XMLReader
+/* Title: Recipe
  * 
  * Programmers: Ankita, Max
  * 
@@ -11,73 +11,38 @@
  * Version History: v1.01 (27/02/14) - Class modified to include functionality to set and get imageFileName fields
  * 									 - Type of 'people' and 'time' variables changed from String to int
  * 									 - Setters now take Object as input, and do type conversion as appropriate to the field
+ * 					v1.1  (05/03/14) - Recipe class now complies with PWS standards from sample XML file
+ * 									 - New fields of type Info and Defaults, with a list to hold slide instances
+ * 					
  */
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Recipe implements Serializable {
-	private static final long serialVersionUID = 1L;
-	String id, title, chef, description, imageFileName;
-	int people, time;
+public class Recipe {
+	Info info;
+	Defaults defaults;
+	List<Slide> slides;
 		
 	public Recipe() {
+		slides = new ArrayList<Slide>();
+		info = new Info();
+		defaults = new Defaults();
 	}
 
-	// getters
-	public String getID() {
-		return id;
+	public List<Slide> getSlides() {
+		return slides;
 	}
 
-	public String getTitle() {
-		return title;
+	public Slide getSlide(int slideNumber) {
+		return slides.get(slideNumber);
 	}
 
-	public int getPeople() {
-		return people;
-	}
-	
-	public int getTime() {
-		return time;
-	}
-	
-	public String getChef() {
-		return chef;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public String getImageFileName() {
-		return imageFileName;
-	}
-	
-	// setters
-	public void setID(Object id) {
-		this.id = (String) id;
-	}
-	
-	public void setTitle(Object title) {
-		this.title = (String) title;		
+	public void addSlide(Slide slide) {
+		slides.add(slide);
 	}
 
-	public void setPeople(Object people) {
-		this.people = Integer.valueOf((String) people);		
-	}
-	
-	public void setTime(Object time) {
-		this.time = Integer.valueOf((String) time);
-	}
-	
-	public void setChef(Object chef) {
-		this.chef = (String) chef;
-	}
-	
-	public void setDescription(Object description) {
-		this.description = (String) description;
-	}
-	
-	public void setImageFileName(Object imageFileName) {
-		this.imageFileName = (String) imageFileName;
+	public int getNumberOfSlides() {
+		return slides.size();
 	}
 }

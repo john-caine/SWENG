@@ -9,13 +9,11 @@
  * 				More attributes and methods are expected to be added later.
  */
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CookBook implements Serializable {
+public class CookBook {
 
-	private static final long serialVersionUID = 1L;
 	private String name;
 	private List<Recipe> recipes;
 	private int bookLength;
@@ -41,18 +39,18 @@ public class CookBook implements Serializable {
 		recipes.add(recipe);
 	}
 
-	public int getSize() {
+	public int getNumberOfRecipes() {
 		return recipes.size();
 	}
 
-	public String[] getTitles() {
+	public String[] getComments() {
 		bookLength = recipes.size();
-		String[] allTitles = new String[100]; // for now, max size of cookbook is 100
+		String[] allComments = new String[100]; // for now, max size of cookbook is 100
 
-		for (int i = 0; i < bookLength; i++) {
-			allTitles[i] = recipes.get(i).getTitle();
+		for (int i=0; i<bookLength; i++) {
+			allComments[i] = recipes.get(i).info.getComment();
 		}
 
-		return allTitles;
+		return allComments;
 	}
 }
