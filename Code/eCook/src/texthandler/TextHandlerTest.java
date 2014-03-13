@@ -9,8 +9,10 @@ package texthandler;
  */
 
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -18,15 +20,21 @@ import javafx.scene.text.Text;
 public class TextHandlerTest {
 	
 	TextHandler text_object;
-	String input_string = "Here is some text";
+	String inputString = "Here is some text";
 	String font = "Times New Roman";
-	int x_start = 20;
-	int y_start = 20;
+	Integer x_start = 20;
+	Integer y_start = 20;
+	private Integer fontsize;
+	private String fontcolor;
+	private String linecolor;
+	private Integer x_end;
+	private Integer startTime;
+	private Integer duration;
 	
 	@Before 
 	public void SetUp() {
 	
-	text_object = new TextHandler(input_string, font, x_start, y_start);
+	text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration);
 	
 	
 

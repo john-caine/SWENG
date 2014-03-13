@@ -6,13 +6,10 @@ import imagehandler.*;
 import XMLParser.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class eCook extends Application {
@@ -26,7 +23,7 @@ public class eCook extends Application {
 		new XMLReader();
 		ImageHandler image1 = new ImageHandler("../resources/bike.jpg", 300, 300, 500, 500, null, null, null, null, null);
 	    ImageHandler image2 = new ImageHandler("../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
-	    TextHandler text1 = new TextHandler("I am some text.", "Times New Roman", 100, 600);
+	    TextHandler text1 = new TextHandler("I am some text.", "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
 	    
 	    root.getChildren().add(image1.box);
 		root.getChildren().add(image2.box);

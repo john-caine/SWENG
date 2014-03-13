@@ -8,16 +8,22 @@ import javafx.stage.Stage;
 public class TextMain extends Application {
 
 	private TextHandler text_object;
-	private String input = "Times New Roman";
+	private String inputString = "Times New Roman";
 	private String font = "Times New Roman";
-	private int x_start = 100;
-	private int y_start = 600;
+	private Integer x_start = 100;
+	private Integer y_start = 600;
+	private Integer fontsize;
+	private String fontcolor;
+	private String linecolor;
+	private Integer x_end;
+	private Integer startTime;
+	private Integer duration;
 	
 	
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		text_object = new TextHandler(input, font, x_start, y_start);
+		text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration);
 		Group root = new Group();
 		root.getChildren().add(text_object.textBox);
 		Scene scene = new Scene(root);
