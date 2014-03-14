@@ -34,7 +34,7 @@ public class TextHandlerTest {
 	@Before 
 	public void SetUp() {
 	
-	text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration);
+	text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, duration, duration, duration);
 	
 	
 

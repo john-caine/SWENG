@@ -24,7 +24,9 @@ public class SlideMain {
 		scene =  new Scene (root, screenBounds.getWidth(), screenBounds.getHeight());
 		
 	    HBox hbox = new HBox();
+	    hbox.getChildren().add(new SlideButton().previousSlide);
         hbox.getChildren().add(new SlideButton().exitSlide);
+        hbox.getChildren().add(new SlideButton().nextSlide);
         hbox.setAlignment(Pos.CENTER);
         hbox.setLayoutX((screenBounds.getWidth()- new SlideButton().exitSlide.getPrefWidth())/2);
         hbox.setLayoutY(screenBounds.getHeight());

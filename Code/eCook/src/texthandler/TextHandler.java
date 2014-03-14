@@ -9,11 +9,13 @@ package texthandler;
 
 import java.util.concurrent.TimeUnit;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBuilder;
+import javafx.stage.Screen;
 
 public class TextHandler {
 	
@@ -27,6 +29,7 @@ public class TextHandler {
 			String fontcolor, String linecolor, Integer x_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branch, Integer orientation){
 		
+		 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		 this.startTime = startTime;
 		 this.duration = duration;
 		
@@ -34,6 +37,9 @@ public class TextHandler {
 		 text.setStroke(Color.web(linecolor));
 		 text.setFont(Font.font(font, (double)fontsize));
 		 text.setFill(Color.web(fontcolor));
+		 if (x_end == null){
+			 x_end = (int)screenBounds.getWidth();
+		 }
 		 text.setWrappingWidth((x_end - x_start));
 		 textBox = new HBox();
 		 textBox.setVisible(false);

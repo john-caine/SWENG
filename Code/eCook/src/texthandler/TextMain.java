@@ -23,7 +23,7 @@ public class TextMain extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration);
+		text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, duration, duration, duration);
 		Group root = new Group();
 		root.getChildren().add(text_object.textBox);
 		Scene scene = new Scene(root);
