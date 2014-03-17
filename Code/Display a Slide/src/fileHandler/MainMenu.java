@@ -4,15 +4,17 @@
  Description: Create a Slide
  Version : 1.0 26/2/2014
  */
-package application;
+package fileHandler;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class MainMenu extends Application {
+	private String filepath;
 	@Override
 	public void start(Stage primaryStage) {
-		new Slide();
+		FileHandler aFileHandler = new FileHandler();
+		filepath = aFileHandler.openFile();
 	}
 	
 	public static void main(String[] args) {
