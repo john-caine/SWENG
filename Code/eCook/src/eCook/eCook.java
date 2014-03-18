@@ -3,7 +3,7 @@ package eCook;
 import mainmenu.SlideMain;
 import texthandler.*;
 import imagehandler.*;
-import XMLParser.*;
+import xmlparser.*;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;

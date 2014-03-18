@@ -10,7 +10,6 @@ import texthandler.TextHandler;
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -73,20 +72,25 @@ public class SlideButton {
             public void handle(ActionEvent event) {
             	Node  source = (Node)  event.getSource();
             	Stage stage  = (Stage) source.getScene().getWindow();
-            	stage.setFullScreen(false);
-            	Group root = new Group();
-            	Scene scene = new SlideMain(root).scene;
+//            	stage.setFullScreen(false);
+//            	Group root = new Group();
+//          	Scene scene = new SlideMain(root).scene;
+            	
+            	Group root2 = new Group();
+            	Scene scene2 = new SlideMain(root2).scene;
+            	
             	ImageHandler image1 = new ImageHandler("../resources/bike.jpg", 300, 300, 500, 500, null, null, null, null, null);
         	    ImageHandler image2 = new ImageHandler("../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
         	    TextHandler text1 = new TextHandler("I am some text.", "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
         	    TextHandler text2 = new TextHandler("I am some other text stuff.", "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
         	    
-        	    root.getChildren().add(image1.box);
-        		root.getChildren().add(image2.box);
-        		root.getChildren().add(text1.textBox);
-        		root.getChildren().add(text2.textBox);
-            	stage.setScene(scene);
+        	    root2.getChildren().add(image1.box);
+        		root2.getChildren().add(image2.box);
+        		root2.getChildren().add(text1.textBox);
+        		root2.getChildren().add(text2.textBox);
+            	stage.setScene(scene2);
             	stage.sizeToScene();
+            	stage.setFullScreen(false);
             	stage.setFullScreen(true);
             	stage.show();
             }
