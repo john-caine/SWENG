@@ -4,7 +4,7 @@
  Description: Create a create slide button
  Version : 1.0 27/2/2014
  */
-package mainmenu;
+package eCook;
 	
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -4,7 +4,7 @@
  Description: Create a Main Menu
  Version : 1.0 27/2/2014
  */
-package mainmenu;
+package eCook;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;

@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import mainmenu.SlideMain;
+import eCook.SlideMain;
+import eCook.SlideShow;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -22,6 +23,7 @@ public class ImageHandler {
 	private Integer duration;
 	private Integer startTime;
 	private Integer branchID;
+	private SlideShow parent;
 	
 	public ImageHandler(String path, int xStart, int yStart){
 		/*Display the original Image in ImageView*/
@@ -33,11 +35,12 @@ public class ImageHandler {
         showImage();
 	}
 	
-	public ImageHandler(String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation){
+	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation){
 		/*Display the original Image in ImageView*/
 		this.duration = duration;
 		this.startTime = startTime;
 		this.branchID = branch;
+		this.parent = parent;
     	ImageView iv1 = new ImageView();
         iv1.setImage(retrieveImage(path));
         if (width != null && height != null) 
@@ -133,28 +136,8 @@ public class ImageHandler {
 		 box.setOnMouseClicked(new EventHandler<MouseEvent> ()
 		{
 			public void handle(MouseEvent e) {
-				//newSlide(branchID, true);
+				parent.newSlide(branchID, true);
 			}
 		});
 	 }
 }
-
-/*
-	private void newSlide(Integer slideID, Boolean isBranch) {
-		Node  source = (Node)  event.getSource();
-    	Stage stage  = (Stage) source.getScene().getWindow();
-		
-		root.setVisible(false);
-		
-		Group root2 = new Group();
-    	Scene scene2 = new SlideMain(root2).scene;
-    	
-    	//root.getChildren().add()
-    	
-    	stage.setScene(scene2);
-    	stage.sizeToScene();
-    	stage.setFullScreen(false);
-    	stage.setFullScreen(true);
-    	stage.show();
-	}
-*/

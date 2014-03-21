@@ -17,7 +17,7 @@
  			   When "ESC" key is pressed, the slide window closes and return to main menu.
  */
 
-package mainmenu;
+package eCook;
 
 import static org.junit.Assert.*;
 
