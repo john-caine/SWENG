@@ -3,4 +3,9 @@
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
 <fullyQualifiedTypeName name="javafx.scene.text.TextBuilder"/>
 <fullyQualifiedTypeName name="javafx.scene.paint.Color"/>
+<fullyQualifiedTypeName name="xmlparser.TextBody"/>
+<fullyQualifiedTypeName name="javafx.scene.text.FontWeight"/>
+<fullyQualifiedTypeName name="javafx.scene.text.FontPosture"/>
+<fullyQualifiedTypeName name="xmlparser.TextString"/>
+<fullyQualifiedTypeName name="eCook.SlideShow"/>
 </qualifiedTypeNameHistroy>

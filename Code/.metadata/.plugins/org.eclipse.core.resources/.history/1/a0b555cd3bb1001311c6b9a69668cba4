@@ -3,8 +3,7 @@
  * Date Created: 01/03/2014
  * Description: The text module class, creates a Hbox with the text object added to it.
  * Version History: 1.0 - Created.
- * 					1.1 - Start Time and Duration threads added with show image methods
- * 					1.2 Branching, bold italic and underlined text methods added
+ * 
  */
 package texthandler;
 
@@ -49,7 +48,7 @@ public class TextHandler {
 		 
 		
 		
-			 //Set the text weight value to Bold if getBold is true
+			 
 			 if((textString.getBold() == null) || (textString.getBold() == false) ){
 				 weight = FontWeight.NORMAL;
 			 }
@@ -59,7 +58,7 @@ public class TextHandler {
 		 
 		 
 		
-			//Set the text posture value to Italic if getItalic is true 
+			
 			 if ((textString.getItalic() == null) || (textString.getItalic() == false)){
 				 posture = FontPosture.REGULAR;
 			 }
@@ -69,41 +68,28 @@ public class TextHandler {
 		
 		 
 		 
-		//Create the text object which contains a string
+		
 		 text = TextBuilder.create().text(textString.getText()).build();
-		 
-		// Set the font, bold, italic and font size 
+		 text.setStroke(Color.web(linecolor));
 		 text.setFont(Font.font(font,weight, posture, (double)fontsize));
 		 
-		//Underlines the text if true, no underline if false
 		 if(textString.getUnderline() != null){
 			 
 		 text.setUnderline(textString.getUnderline());
 		 
 		 }
-		 
-		 //Sets the colour of the text, set Fill sets the interior fill colour
-		 // Set stroke sets the outline of the text.
 		 text.setFill(Color.web(fontcolor));
-		 text.setStroke(Color.web(linecolor));
 		 
-		 //Sets the wrapping width of the text object, if  x end is null, the wrapping width is set to the edge 
-		 // of the screen.
 		 if (x_end == null){
 			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 			 x_end = (int)screenBounds.getWidth();
 		 }
 		 text.setWrappingWidth((x_end - x_start));
-		 
-		 //Creates new Hbox textBox, sets to invisible and adds the text object.
 		 textBox = new HBox();
 		 textBox.setVisible(false);
 		 textBox.getChildren().add(text);
-		 
-		 //Sets the XY position of textBox
 		 setStartXY(x_start, y_start, textBox);
 		 
-		 //Begin the start Timer thread
 		 if (startTime == null) {
 			 this.startTime = 0;
 			 startTimerThread.start();
@@ -132,7 +118,7 @@ public class TextHandler {
 	 public void removeText() {
 		 textBox.setVisible(false);
 	 }
-	// Thread waits until count = startTime then sets the visibility of the image to true.
+	
 	 Thread startTimerThread = new Thread("startTimer") {
 		 public void run() {
 			 int count=0;
@@ -149,8 +135,6 @@ public class TextHandler {
 			 
 		 
 		 showText();
-		 
-		 //Check if the textobject has an associated branch a
 		 if (branchID != null && branchID != 0)
 			 doBranch();
 		 
@@ -159,7 +143,6 @@ public class TextHandler {
 		 }
 	 };
 	 
-	 // Thread waits until duration and then sets the image visibility to false once duration = count.
 	 Thread durationTimerThread = new Thread("durationTimer") {
 		 public void run() {
 			 int count=0;
@@ -176,7 +159,7 @@ public class TextHandler {
 			 removeText();
 		 }
 	 };
-	 // When textBox is clicked on, a new branch slide is created with an id of branchID
+	 
 	 private void doBranch() {
 		 textBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
 		{
