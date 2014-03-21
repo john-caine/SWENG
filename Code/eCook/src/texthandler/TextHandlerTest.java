@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import eCook.SlideShow;
+import xmlparser.TextString;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -24,17 +26,27 @@ public class TextHandlerTest {
 	String font = "Times New Roman";
 	Integer x_start = 20;
 	Integer y_start = 20;
-	private Integer fontsize;
-	private String fontcolor;
-	private String linecolor;
-	private Integer x_end;
-	private Integer startTime;
-	private Integer duration;
-	
+	private Integer fontsize = 20;
+	private String fontcolor = "#00FF00";
+	private String linecolor = "#0000FF";
+	private Integer x_end = 40;
+	private Integer startTime = 5;
+	private Integer duration = 20;
+	private TextString textString;
+	private SlideShow parent;
+	private Integer layer;
+	private Integer branchID;
+	private Integer orientation;
 	@Before 
 	public void SetUp() {
+		
+		textString = new TextString();
+		textString.setText(inputString);
+		textString.setBold(false);
+		textString.setItalic(true);
+		textString.setUnderline(true);
 	
-	text_object = new TextHandler(inputString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, duration, duration, duration);
+	text_object = new TextHandler(parent, textString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, layer, branchID, orientation);
 	
 	
 
@@ -57,7 +69,9 @@ public class TextHandlerTest {
 		assertTrue(text_object.textBox.getChildren().get(0) instanceof Text);
 		Text testText = (Text) text_object.textBox.getChildren().get(0);
 		assertEquals("Here is some text", testText.getText());
-		assertEquals("Times New Roman", testText.getFont().getName());
+		assertEquals("Times New Roman Italic", testText.getFont().getName());
+		assertEquals("0x00ff00ff", testText.getFill().toString());
+		assertTrue(testText.isUnderline());
 		
 		
 		

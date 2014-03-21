@@ -47,7 +47,7 @@ public class XMLReader extends DefaultHandler {
 	private Content content;
 	private Info info;
 	private Defaults defaults;
-	private Text text;
+	private TextBody text;
 	private TextString textString;
 	private Shape shape;
 	private Audio audio;
@@ -168,7 +168,7 @@ public class XMLReader extends DefaultHandler {
 		// slide
 		if (recipeElement.equals(ProcessingElement.SLIDE)) {
 			if (elementName.equals("text")) {
-				text = new Text();
+				text = new TextBody();
 				slideElement = ProcessingElement.TEXT;
 			}
 			else if (elementName.equals("shape")) {

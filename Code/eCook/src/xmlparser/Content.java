@@ -17,14 +17,14 @@ public class Content {
 	int xStart, yStart, layer, startTime, duration, width, height;
 	String urlName;
 	Boolean loop;
-	List<Text> texts;
+	List<TextBody> texts;
 	List<Shape> shapes;
 	List<Audio> audios;
 	List<Image> images;
 	List<Video> videos;
 	
 	public Content() {
-		texts = new ArrayList<Text>();
+		texts = new ArrayList<TextBody>();
 		shapes = new ArrayList<Shape>();
 		audios = new ArrayList<Audio>();
 		images = new ArrayList<Image>();
@@ -110,15 +110,15 @@ public class Content {
 	 * getting lists and getting lists lengths
 	 */
 	// text
-	public List<Text> getTexts() {
+	public List<TextBody> getTexts() {
 		return texts;
 	}
 
-	public Text getText(int textNumber) {
+	public TextBody getText(int textNumber) {
 		return texts.get(textNumber);
 	}
 
-	public void addText(Text text) {
+	public void addText(TextBody text) {
 		texts.add(text);
 	}
 

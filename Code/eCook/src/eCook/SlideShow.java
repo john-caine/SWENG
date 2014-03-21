@@ -14,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
+import xmlparser.TextString;
 import xmlparser.XMLReader;
 
 public class SlideShow {
@@ -22,9 +23,20 @@ public class SlideShow {
 	private Group slideRoot;
 	public int currentSlideID = 0, nextSlideID = 1, prevSlideID = -1;
 	private Button exitSlide, previousSlide, nextSlide;
+	private TextString textString;
+	private TextString textString2;
 
 	
 	public SlideShow(Stage stage) {
+		
+		//Create 2 temporary text String objects to populate textHandlers 
+		//REMOVE ME WHEN XML Parser Implementation is complete!
+		textString = new TextString();
+		textString2 = new TextString();
+		textString.setText("I am some text");
+		textString2.setText("I am some other text");
+		
+		
 		// Create a new group for objects
 		slideRoot = new Group();
 		
@@ -91,8 +103,8 @@ public class SlideShow {
         // Temp - just add some objects 
         ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, null, null);
 	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
-	    TextHandler text1 = new TextHandler("I am some text.", "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
-	    TextHandler text2 = new TextHandler("I am some other text stuff.", "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
+	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
+	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
 	    slideRoot.getChildren().add(image1.box);
 	    slideRoot.getChildren().add(image2.box);
 	    slideRoot.getChildren().add(text1.textBox);

@@ -1,5 +1,5 @@
-/mainmenu
 /eCook
-/xmlparser
+/fxml
 /imagehandler
-/PWSExamplePlaylist.xml
+/texthandler
+/xmlparser

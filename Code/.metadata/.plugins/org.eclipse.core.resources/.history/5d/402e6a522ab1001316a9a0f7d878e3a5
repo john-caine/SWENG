@@ -1,0 +1,47 @@
+package texthandler;
+
+import xmlparser.TextString;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class TextMain extends Application {
+
+	private TextHandler text_object;
+	private String inputString = "Times New Roman";
+	private String font = "Times New Roman";
+	private Integer x_start = 100;
+	private Integer y_start = 600;
+	private Integer fontsize;
+	private String fontcolor;
+	private String linecolor;
+	private Integer x_end;
+	private Integer startTime;
+	private Integer duration;
+	private TextString textString;
+	
+	
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		textString = new TextString();
+		textString.setText(inputString);
+		textString.setBold(true);
+		textString.setItalic(true);
+		text_object = new TextHandler(textString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, duration, duration, duration);
+		Group root = new Group();
+		root.getChildren().add(text_object.textBox);
+		Scene scene = new Scene(root);
+		stage.setFullScreen(true);
+		stage.setScene(scene);
+		stage.sizeToScene();
+		stage.show();
+		
+	}
+	
+	public static void main(String[] args) {
+        Application.launch(args);
+    }
+
+}

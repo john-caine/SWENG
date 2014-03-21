@@ -90,7 +90,7 @@ public class XMLReaderTest {
 		
 		// loop through the three shape objects, printing out the contents
 		for (int i=0; i<recipe.slides.get(0).content.getNumberOfTexts(); i++) {
-			Text text = recipe.slides.get(0).content.texts.get(i);
+			TextBody text = recipe.slides.get(0).content.texts.get(i);
 			System.out.println("\nSlide 1: Text Object "+ (i+1));
 			System.out.println("\tXStart: " + text.getXStart());
 			System.out.println("\tXEnd: " + text.getXEnd());
