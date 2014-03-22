@@ -12,10 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -24,7 +21,6 @@ import javafx.stage.Stage;
 public class MainMenuButton {
 	public HBox mainMenuButtonHbox;
 	private Button createSlideShow;
-	public SlideMain slide;
 	
 
 

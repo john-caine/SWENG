@@ -4,18 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
-import eCook.SlideMain;
 import eCook.SlideShow;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 public class ImageHandler {
 	

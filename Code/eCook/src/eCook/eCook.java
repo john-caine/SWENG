@@ -1,19 +1,8 @@
 package eCook;
 
-import texthandler.*;
-import imagehandler.*;
-import xmlparser.*;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class eCook extends Application {
@@ -22,9 +11,8 @@ public class eCook extends Application {
 	Scene scene; 
 	Stage stage;
 	SlideShow slideShow;
-	private MainMenu mainMenu;
 
-	public void start(Stage stage) {		
+	public void start(Stage stage) {				
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();
 	    
@@ -33,9 +21,9 @@ public class eCook extends Application {
 	    stage.sizeToScene();
 	    stage.setFullScreen(true);
 		stage.show();
-		mainMenu = new MainMenu(stage);	
-		 //
-	    
+		
+		@SuppressWarnings("unused")
+		MainMenu mainMenu = new MainMenu(stage);	
 	}
 	
 		public static void main(String[] args) {

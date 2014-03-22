@@ -7,12 +7,9 @@
 package eCook;
 
 
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -21,23 +18,19 @@ public class MainMenu {
 
 	private Group menuGroup;
 	private Scene scene;
-	private HBox hbox;
 	private MainMenuButton mainMenuButton;
-	public MainMenu(Stage stage){
-		
-		
-		
-		
-		Screen screen = Screen.getPrimary();
+	
+	public MainMenu(Stage stage) {
+
 		//Get the visual bounds of the screen
+		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		
-        menuGroup = new Group();
+		// Create a new group for the main menu so that the stage doesn't require changing
+        menuGroup = new Group();     
         
-        
-        mainMenuButton = new MainMenuButton(stage);
-//        hbox = new HBox();
-//        
+        // Add the main menu buttons to the view.
+        mainMenuButton = new MainMenuButton(stage);       
         
         //Add creates slide button to menu group
         menuGroup.getChildren().add(mainMenuButton.mainMenuButtonHbox);

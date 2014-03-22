@@ -11,7 +11,6 @@ package texthandler;
 import java.util.concurrent.TimeUnit;
 
 import eCook.SlideShow;
-import xmlparser.TextBody;
 import xmlparser.TextString;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
