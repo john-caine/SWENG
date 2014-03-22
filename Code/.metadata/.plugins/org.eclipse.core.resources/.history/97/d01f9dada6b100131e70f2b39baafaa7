@@ -1,0 +1,57 @@
+/*
+ Programmers : Roger & Prakruti
+ Date created: 27/2/2014
+ Description: Create a Main Menu
+ Version : 1.0 27/2/2014
+ */
+package eCook;
+
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+public class MainMenu {
+
+	private HBox hbox;
+	private eCook parent;
+	private Stage stage;
+	private Group menuGroup;
+	public MainMenu(Stage stage){
+		
+		this.stage = stage;
+		
+		
+		//BorderPane border = new BorderPane();
+		//Screen screen = Screen.getPrimary();
+		//Rectangle2D bounds = screen.getVisualBounds();
+		//scene =  new Scene(border);
+		hbox = new HBox();
+        hbox.getChildren().add(new MainMenuButton().createSlide);
+        hbox.setAlignment(Pos.CENTER);
+        //border.setBottom(hbox);
+        menuGroup = new Group();
+        menuGroup.getChildren().add(hbox);
+        stage.getScene().setRoot(menuGroup);
+        
+		
+	}
+
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+//		
+//		
+//		
+//        
+//        primaryStage.setX(bounds.getMinX());
+//        primaryStage.setY(bounds.getMinY());
+//        primaryStage.setWidth(bounds.getWidth());
+//        primaryStage.setHeight(bounds.getHeight());
+//		primaryStage.setScene(scene);
+//		primaryStage.setFullScreen(true);
+//		primaryStage.show();
+//	}
+
+}

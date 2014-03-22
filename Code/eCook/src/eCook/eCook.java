@@ -22,6 +22,7 @@ public class eCook extends Application {
 	Scene scene; 
 	Stage stage;
 	SlideShow slideShow;
+	private MainMenu mainMenu;
 
 	public void start(Stage stage) {		
 		// This is the group for the main menu - DONT DELETE IT!
@@ -32,8 +33,8 @@ public class eCook extends Application {
 	    stage.sizeToScene();
 	    stage.setFullScreen(true);
 		stage.show();
-			
-		 slideShow = new SlideShow(stage);
+		mainMenu = new MainMenu(stage);	
+		 //
 	    
 	}
 	

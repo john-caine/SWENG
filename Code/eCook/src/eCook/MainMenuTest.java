@@ -42,11 +42,11 @@ public class MainMenuTest{
 		assertTrue(mainMenuButton.createSlide.isVisible());
 	}
 	
-	@Test
-	public void slideButton(){
-		System.out.print("Slide Button's Text = " + slideButton.exitSlide.getText() + "\n");
-		assertEquals("Exit Slide", slideButton.exitSlide.getText());
-		assertTrue(slideButton.exitSlide.isVisible());
-	}
+//	@Test
+//	public void slideButton(){
+//		System.out.print("Slide Button's Text = " + slideButton.exitSlide.getText() + "\n");
+//		assertEquals("Exit Slide", slideButton.exitSlide.getText());
+//		assertTrue(slideButton.exitSlide.isVisible());
+//	}
 	
 }
