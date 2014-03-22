@@ -101,7 +101,7 @@ public class SlideShow {
         
         // Itterate over the objects for the slide calling relevant handlers
         // Temp - just add some objects 
-        ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, null, null);
+        ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, 3, null);
 	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
 	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
 	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);

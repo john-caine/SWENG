@@ -29,22 +29,25 @@ public class ImageHandler {
         showImage();
 	}
 	
-	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation){
-		/*Display the original Image in ImageView*/
+	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation) {
 		this.duration = duration;
 		this.startTime = startTime;
 		this.branchID = branch;
 		this.parent = parent;
+		
     	ImageView iv1 = new ImageView();
         iv1.setImage(retrieveImage(path));
+        
         if (width != null && height != null) 
         	resizeImage(iv1, width, height);
         if (orientation != null)
         	rotateImage(iv1, orientation);
+       
         box = new HBox();
         box.setVisible(false);
         box.getChildren().add(iv1);
         setImageLocation(box, xStart, yStart); 
+        
         if (startTime == null) {
         	this.startTime = 0;
         	startTimerThread.start();
