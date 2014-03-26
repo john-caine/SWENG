@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -49,7 +50,7 @@ public class MediaControl {
     private boolean atEndOfMedia = false;
     private Duration duration;
     private Slider timeSlider, timeSlider1;
-    private Label playTime;
+    private Label playTime, playTime1;
     private CheckBox repeatBox;  
     private Slider volumeSlider;
 	VBox box;
@@ -62,8 +63,6 @@ public class MediaControl {
 	MediaView mediaView;
 	HBox hbox;
 	Label timeLabel1;
-	Timeline slideIn;
-	Timeline slideOut;
 	Button playButton, playButton1;
 	
 	public MediaControl(final MediaPlayer mp,  final int xStart, final int yStart){
@@ -81,13 +80,13 @@ public class MediaControl {
 		final HBox mediaBar = new HBox();
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
-				inputStream = new FileInputStream("C:/Users/ProBookMac/workspace/VideoPlayer/play.png");
+				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/play.png");
 				image = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/ProBookMac/workspace/VideoPlayer/pause.png");
+				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/pause.png");
 				image1 = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/ProBookMac/workspace/VideoPlayer/stop.png");
+				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/stop.png");
 				image2 = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/ProBookMac/workspace/VideoPlayer/fullscreen.png");
+				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/fullscreen.png");
 				image3 = new Image(inputStream);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -234,7 +233,7 @@ public class MediaControl {
 	            	mediaView.setVisible(false);
 	            	Node  source = (Node)  e.getSource();
 	            	stage  = (Stage) source.getScene().getWindow();
-	            	Group root = new Group();
+	            	final Group root = new Group();
 	            	MediaView mediaView1 = new MediaView(mp);
 	            	mediaView1.setFitWidth(bounds.getWidth());
 	            	mediaView1.setPreserveRatio(true);
@@ -244,12 +243,11 @@ public class MediaControl {
 	            	root.getChildren().add(hbox);
 
 	            	
-	            	Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
+	            	final Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
 	         
 	            	stage1.setScene(scene);
 	            	stage1.setFullScreen(true);
 	            	stage1.show();
-	            	
 	                root.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	                    @Override
 	                    public void handle(MouseEvent mouseEvent) {
@@ -261,30 +259,25 @@ public class MediaControl {
 	                        }
 	                    }
 	                });
-	                root.setOnMouseEntered(new EventHandler<MouseEvent>() {
-	                    @Override
-	                    public void handle(MouseEvent mouseEvent) {
-	                    	hbox.setVisible(true);
-	                    	slideIn.play();
-	                    }
-	                });
-	                root.setOnMouseExited(new EventHandler<MouseEvent>() {
-	                    @Override
-	                    public void handle(MouseEvent mouseEvent) {
-	                    	slideOut.play();
-	                    }
-	                });
+	                
+	                final FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
+	                fadeTransition.setFromValue(2.0);
+	                fadeTransition.setToValue(0.0);
 	                
 	                root.setOnMouseMoved(new EventHandler<MouseEvent>(){
-	               	 
+	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
-	    	                FadeTransition fadeTransition 
-	    	                        = new FadeTransition(Duration.millis(2500), hbox);
-	    	                fadeTransition.setFromValue(1.0);
-	    	                fadeTransition.setToValue(0.0);
-	    	                fadeTransition.play();
+	                		scene.setCursor(Cursor.DEFAULT);
+	                		fadeTransition.play();  		
 	    	            }
 	    	        });
+	                
+	                fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+	                    @Override
+	                    public void handle(ActionEvent event) {
+	                        scene.setCursor(Cursor.NONE);
+	                    }
+	                });
 	                	              
 	    	         
 	    	      
@@ -372,10 +365,8 @@ public class MediaControl {
 	        
 	        box.getChildren().add(mediaBar);
 	        
-	    	slideIn = new Timeline();
-        	slideOut = new Timeline();
         	timeSlider1 = new Slider();
-        	timeSlider1.setMinWidth(bounds.getWidth()-50);
+        	timeSlider1.setMinWidth(bounds.getWidth()-100);
         	
         	timeSlider1.valueProperty().addListener(new InvalidationListener() {
 
@@ -396,15 +387,17 @@ public class MediaControl {
    	                mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
    	            }
    	        });
+   	        
+   	        playTime1 = new Label();
+	        playTime1.setMinWidth(50);
+	        playTime1.setTextFill(Color.WHITE);
+	        
    	        hbox = new HBox();  
    	        hbox.getChildren().add(playButton1);
    	        hbox.getChildren().add(timeSlider1);
+   	        hbox.getChildren().add(playTime1);
    	        hbox.setLayoutY(bounds.getHeight());
-   	   
-   	        hbox.setVisible(true);
-   	     
-   	     
-   	     
+   	        hbox.setVisible(true);     
 	    	}
 	    protected void updateValues() {
 	        if (playTime != null && timeSlider != null && volumeSlider != null)  {
@@ -413,6 +406,7 @@ public class MediaControl {
 	                public void run() {
 	                    Duration currentTime = mp.getCurrentTime();
 	                    playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+	                    playTime1.setText(formatTime(currentTime, mp.getMedia().getDuration()));
 	                    if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
 	                        timeSlider.setValue(currentTime.divide(duration.toMillis()).toMillis()*100);
 	                    }

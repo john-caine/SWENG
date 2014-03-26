@@ -20,18 +20,12 @@ public class VideoPlayerMain extends Application {
     public void start(final Stage primaryStage) {
     	Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setTitle("Video Player");
-        
-        Button button = new Button("Button");
-        button.setStyle("-fx-background-color: red;");
-        button.setScaleX(200);
-        button.setScaleX(200);
         Group root = new Group();
         
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         scene.setFill(Color.BLACK);
-        
-        
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("C:/Users/ProBookMac/workspace/VideoPlayer/src/avengers-featurehp.mp4", 400, 400);
+            
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 400, 600);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
