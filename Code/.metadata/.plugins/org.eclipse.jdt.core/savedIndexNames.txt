@@ -1,21 +1,12 @@
 INDEX VERSION 1.126+C:\Users\Phainax\Documents\GitHub\SWENG\Code\.metadata\.plugins\org.eclipse.jdt.core
-3289962814.index
 30765161.index
-675629977.index
-1299022128.index
 4108727661.index
-745075937.index
-1498219845.index
+1299022128.index
 1115467115.index
-1793206251.index
 3133528496.index
-4121182341.index
-1769153892.index
 3647507183.index
-4066072013.index
 4155206848.index
 4041092966.index
-894465460.index
 3645389179.index
 1697886153.index
 3974580528.index
@@ -25,5 +16,4 @@ INDEX VERSION 1.126+C:\Users\Phainax\Documents\GitHub\SWENG\Code\.metadata\.plug
 3564796324.index
 1975065755.index
 3065916431.index
-880354857.index
 3326793721.index
