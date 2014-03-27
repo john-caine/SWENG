@@ -20,33 +20,72 @@
 package eCook;
 
 import static org.junit.Assert.*;
-
+import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+
+
+
 public class MainMenuTest{
+	//Declare Variables
+	private MainMenu mainMenu;
+	private Stage stage;
+	private Rectangle2D screenBounds;
+	// Run tests on JavaFX thread ref. Andy Till
+		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
+		@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+		private MainMenuButton menuButton;
+		private ObservableList<Node> childList;
+		private Node button;
+
 	
-	private MainMenuButton mainMenuButton;
-	private SlideButton slideButton;
 	@Before
 	public void setup(){
-		mainMenuButton =  new MainMenuButton();
-		slideButton = new SlideButton();
+		stage = new Stage();
+		mainMenu =  new MainMenu(stage);
+		Screen screen = Screen.getPrimary();
+		screenBounds = screen.getVisualBounds();
+		stage.show();
+	}
+	
+	//Tests that a full screen stage is created.
+	@Test
+	public void fullScreenStage() {
+		//Gets the size of the screen
+	
+		
+		//asserts that the size of the main menu stage is the same as the size of the screen.
+		// The plus 40 accounts is to account for the task bar, getHeight for screen bounds doesn't seem to include it
+		// 
+		assertEquals(screenBounds.getWidth(), stage.getWidth(), 0.1);
+		assertEquals(screenBounds.getHeight() + 40 , stage.getHeight() , 0.1);
 	}
 	
 	@Test
-	public void mainMenuButton(){
-		System.out.print("Main Menu Button's Text = " + mainMenuButton.createSlide.getText() + "\n");
-		assertEquals("Create Slide",mainMenuButton.createSlide.getText());
-		assertTrue(mainMenuButton.createSlide.isVisible());
+	public void StageContent() {
+		
+		//Checks that the Main Menu stage has a scene added to it
+		assertNotNull(stage.getScene());
+		
+		//Assert that Scene contains a group
+		assertNotNull(stage.getScene().getRoot());
+		
+		
+		//Check that the scene group is not null
+		assertNotNull(stage.getScene().getRoot().getChildrenUnmodifiable());
+		
+		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof HBox);
+		
+		
 	}
-	
-//	@Test
-//	public void slideButton(){
-//		System.out.print("Slide Button's Text = " + slideButton.exitSlide.getText() + "\n");
-//		assertEquals("Exit Slide", slideButton.exitSlide.getText());
-//		assertTrue(slideButton.exitSlide.isVisible());
-//	}
+
 	
 }
