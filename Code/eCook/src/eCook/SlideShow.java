@@ -14,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
+import xmlparser.TextBody;
 import xmlparser.TextString;
 import xmlparser.XMLReader;
 
@@ -25,6 +26,12 @@ public class SlideShow {
 	private Button exitSlide, previousSlide, nextSlide;
 	private TextString textString;
 	private TextString textString2;
+	private TextBody textBody;
+	private TextBody textBody2;
+	private TextString textString3;
+	private TextString textString4;
+	private TextString textString5;
+	private TextString textString6;
 	
 
 	
@@ -34,11 +41,39 @@ public class SlideShow {
 		
 		//Create 2 temporary text String objects to populate textHandlers 
 		//REMOVE ME WHEN XML Parser Implementation is complete!
+		textBody = new TextBody();
 		textString = new TextString();
 		textString2 = new TextString();
-		textString.setText("I am some text");
-		textString2.setText("I am some other text");
+		textString.setText("I am some text.");
+		textString2.setText("with some BOLD  text");
+		textString2.setBold(true);
+		textBody.addTextString(0, textString);
+		textBody.addTextString(1,textString2);
 		
+		textBody2 = new TextBody();
+		textString3 = new TextString();
+		textString3.setText("I am ");
+		
+		textString4 = new TextString();
+		textString4.setText("bold");
+		textString4.setBold(true);
+		
+		textString5 = new TextString();
+		textString5.setText("italic");
+		textString5.setItalic(true);
+		
+		textString6 = new TextString();
+		textString6.setText("underlined and really long to try and test the text wrapping, I rather hope this works"
+				+ " otherwise it will be really annoying");
+								
+		textString6.setUnderline(true);
+		textString6.setItalic(true);
+		
+		
+		textBody2.addTextString(0, textString3);
+		textBody2.addTextString(1, textString4);
+		textBody2.addTextString(2, textString5);
+		textBody2.addTextString(3, textString6);
 		
 		// Create a new group for objects
 		slideRoot = new Group();
@@ -55,7 +90,7 @@ public class SlideShow {
     	
     	//stage.sizeToScene();
     	//stage.setFullScreen(false);
-    	//stage.setFullScreen(true);
+    	stage.setFullScreen(true);
     	//stage.show();
 		
 		// Call XML parser
@@ -110,8 +145,8 @@ public class SlideShow {
         // Temp - just add some objects 
         ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, 3, null);
 	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
-	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
-	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
+	    TextHandler text1 = new TextHandler(this,textBody, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 140, 5, 10, null, null, null);
+	    TextHandler text2 = new TextHandler(this, textBody2, "Helvetica", 800, 500, 40, "#FFF600", "#FFF600", null, 8, 30, null, null, null);
 	    slideRoot.getChildren().add(image1.box);
 	    slideRoot.getChildren().add(image2.box);
 	    slideRoot.getChildren().add(text1.textBox);

@@ -76,9 +76,15 @@ public class TextBody extends Content {
 
 	public void addTextString(TextString textString) {
 		textBody.add(textString);
+		
 	}
 
 	public int getNumberOfTextStrings() {
 		return textBody.size();
+	}
+
+	public void addTextString(int i, TextString textString) {
+		textBody.add(i, textString);
+		
 	}
 }

@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
+
 import eCook.SlideShow;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +22,7 @@ public class ImageHandler {
 	private Integer startTime;
 	private Integer branchID;
 	private SlideShow parent;
+	private Task<?> task;
 	
 	public ImageHandler(String path, int xStart, int yStart){
 		/*Display the original Image in ImageView*/
@@ -50,10 +55,10 @@ public class ImageHandler {
         
         if (startTime == null) {
         	this.startTime = 0;
-        	startTimerThread.start();
+        	new Thread(startTimerThread).start();
         }
         else 
-        	startTimerThread.start();
+        	new Thread(startTimerThread).start();
 	}
 	
 	public void rotateImage(ImageView imageView, Integer orientation) {
@@ -92,8 +97,11 @@ public class ImageHandler {
 		 box.setVisible(false);
 	 }
 
-	 Thread startTimerThread = new Thread("startTimer") {
-		 public void run() {
+	 Task<Object> startTimerThread = new Task<Object>() {
+		 
+		
+		@Override
+		protected Object call() throws Exception {
 			 int count=0;
 			 while (count <= startTime && startTime != 0) {
 				try {
@@ -105,16 +113,31 @@ public class ImageHandler {
 				count++;
 		 	}
 		 
-		 showImage();
+		Platform.runLater( new Runnable(){
+			public void run(){
+				showImage();
+			}
+		});	 
+		 
 		 if (branchID != null && branchID != 0)
 			 doBranch();
 		 if (duration != null && duration != 0)
-			 durationTimerThread.start();
-		 }
+			 new Thread(durationTimerThread).start();
+		 
+
+			return null;
+		}
 	 };
 	 
-	 Thread durationTimerThread = new Thread("durationTimer") {
-		 public void run() {
+	 Task<Object> durationTimerThread = new Task<Object>() {
+		 
+			
+	
+		 
+
+		@Override
+		protected Object call() throws Exception {
+			
 			 int count=0;
 			 while (count <= duration) {
 				try {
@@ -125,8 +148,13 @@ public class ImageHandler {
 				}
 				 count++;
 			 }
-			 removeImage();
-		 }
+			 Platform.runLater( new Runnable(){
+					public void run(){
+						 removeImage();
+					}
+				});	 
+			return null;
+		}
 	 };
 	 
 	 private void doBranch() {

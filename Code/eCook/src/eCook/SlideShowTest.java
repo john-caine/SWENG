@@ -16,6 +16,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -37,6 +39,9 @@ public class SlideShowTest {
 			private Button nextSlide;
 			private Button previousSlide;
 			private Button exitSlide;
+			private HBox imageBox;
+			private HBox textBox;
+			private ImageView image;
 
 	@Before
 	public void setUp() throws Exception {
@@ -67,6 +72,20 @@ public class SlideShowTest {
 		
 		childList = stage.getScene().getRoot().getChildrenUnmodifiable();
 		
+		//Gets the first Image Box added to the slide
+		imageBox = (HBox)childList.get(0);
+		
+		//Gets the first node and casts to ImageView
+		image = (ImageView) imageBox.getChildren().get(0);
+		
+		//Tests that the ImageView contains an image
+		assertTrue(image.getImage() instanceof Image);
+		
+		//Tests that the Image has loaded fully
+		assertEquals(1, image.getImage().getProgress(), 0.1);
+		
+		//Gets the first Text Box added to the slide
+		textBox = (HBox)childList.get(2);
 		
 		//Tests that the correct buttons are created and add to the scene
 		
@@ -76,21 +95,23 @@ public class SlideShowTest {
 		
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		
-		System.out.println(screenBounds.getWidth());
-		System.out.println(screenBounds.getHeight());
-		//Tests that the button HBox is in the centre at the bottom of the screen.
-	
 		
+		//Gets the buttons from the HBox
 		previousSlide = (Button) buttonBox.getChildren().get(0);
 		exitSlide = (Button) buttonBox.getChildren().get(1);
 		nextSlide = (Button) buttonBox.getChildren().get(2);
 		
+		//Tests that the button HBox is in the centre at the bottom of the screen.
 		assertEquals((screenBounds.getWidth()- exitSlide.getPrefWidth())/2, buttonBox.getLayoutX(), 0.1);
 		assertEquals(screenBounds.getHeight(), buttonBox.getLayoutY(), 0.1);
 		
+		
+		//Tests that the correct text is displayed on each button
 		assertEquals ("Previous Slide", previousSlide.getText());
 		assertEquals("Exit SlideShow", exitSlide.getText());
 		assertEquals("Next Slide", nextSlide.getText());
+		
+		
 		
 		
 		
