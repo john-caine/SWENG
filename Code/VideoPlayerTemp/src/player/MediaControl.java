@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -74,9 +73,7 @@ public class MediaControl {
 		mediaView = new MediaView(mp);
 		viewBox.getChildren().add(mediaView);
 		box.getChildren().add(viewBox);
-		
-		
-		
+			
 		final HBox mediaBar = new HBox();
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
@@ -224,7 +221,7 @@ public class MediaControl {
 	        });
 	        mediaBar.getChildren().add(stopButton);
 	        
-	       Button fullscreenButton = new Button();
+	        Button fullscreenButton = new Button();
 	        fullscreenButton.setGraphic(new ImageView(image3));
 	        stage1 = new Stage();
 	        fullscreenButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -261,41 +258,50 @@ public class MediaControl {
 	                });
 	                
 	                final FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
-	                fadeTransition.setFromValue(2.0);
+	                fadeTransition.setFromValue(1.0);
 	                fadeTransition.setToValue(0.0);
 	                
-	                root.setOnMouseMoved(new EventHandler<MouseEvent>(){
+	                scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
 	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
+	                		hbox.setDisable(false);
 	                		scene.setCursor(Cursor.DEFAULT);
-	                		fadeTransition.play();  		
+	                		fadeTransition.play();
 	    	            }
 	    	        });
 	                
 	                fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(ActionEvent event) {
+	                    	hbox.setDisable(true);
 	                        scene.setCursor(Cursor.NONE);
 	                    }
-	                });
-	                	              
-	    	         
-	    	      
+	                }); 
+	                
+	                hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+	                	@Override
+	    	            public void handle(MouseEvent mouseEvent){
+	                		fadeTransition.stop();
+	                		hbox.setLayoutY(bounds.getHeight());
+	    	            }
+	    	        });
+	                
 	                stage1.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
 	        		    @Override
 	        		    public void handle(KeyEvent event){
 	        			    if(event.getCode() == KeyCode.ESCAPE){
 	        	            	stage1.close();
+	        	            	stage.getScene().setCursor(Cursor.DEFAULT);
 	        	            	mediaView.setVisible(true);
-	        	            	stage.show();
 	        	            	stage.setFullScreen(true);
+	        	            	stage.show();
 	        			    }	                                 
 	        		    }
-	                });
-	                  
+	                });                
+	                
 	            }
 	        });
-	        
+	     	        
 	        mediaBar.getChildren().add(fullscreenButton);
 	        Label timeLabel = new Label("   Time: ");
 	        timeLabel.setTextFill(Color.WHITE);
@@ -397,7 +403,6 @@ public class MediaControl {
    	        hbox.getChildren().add(timeSlider1);
    	        hbox.getChildren().add(playTime1);
    	        hbox.setLayoutY(bounds.getHeight());
-   	        hbox.setVisible(true);     
 	    	}
 	    protected void updateValues() {
 	        if (playTime != null && timeSlider != null && volumeSlider != null)  {
