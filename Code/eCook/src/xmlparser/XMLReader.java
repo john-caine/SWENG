@@ -88,23 +88,14 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 
-	
-	// called by the parser when it encounters the start of the XML file
-	public void startDocument() throws SAXException {
-//		System.out.println("\nXML Parser: starting to process document: " + inputFile);
-	}
-
-
 	// called by the parser when it encounters any start element tag
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// sort out element name if (no) namespace in use
 		String elementName = localName;
-		if ("".equals(elementName)) {
+		if (elementName == null || elementName.isEmpty()) {
 			elementName = qName;
 		}
-		
-//		System.out.println("\tStart of element: " + elementName);
 		
 		/* create classes for each element as required
 		 * add attributes directly if present
@@ -252,25 +243,25 @@ public class XMLReader extends DefaultHandler {
 					
 					// set bold/italic/underline attributes
 					try {
-						if (!(attributes.getValue("bold") == null)) {
+						if (attributes.getValue("bold") != null) {
 							textString.setBold(attributes.getValue("bold"));
 						}
 						else {
 							textString.setBold("false");
 						}
-						if (!(attributes.getValue("italic") == null)) {
+						if (attributes.getValue("italic") != null) {
 							textString.setItalic(attributes.getValue("italic"));
 						}
 						else {
 							textString.setItalic("false");
 						}
-						if (!(attributes.getValue("underlined") == null)) {
+						if (attributes.getValue("underlined") != null) {
 							textString.setUnderline(attributes.getValue("underlined"));
 						}
 						else {
 							textString.setUnderline("false");
 						}
-						if (!(attributes.getValue("branch") == null)) {
+						if (attributes.getValue("branch") != null) {
 							textString.setBranch(attributes.getValue("branch"));
 						}
 					} catch (Exception e) {
@@ -477,8 +468,6 @@ public class XMLReader extends DefaultHandler {
 		default:
 			break;
 		}
-		
-		//System.out.println("element value is: " + elementValue);
 	}
 
 	// called by the parser when it encounters any end element tag
@@ -490,14 +479,13 @@ public class XMLReader extends DefaultHandler {
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		
-//		System.out.println("\tEnd of element: " + elementName);
 
 		/*
 		 * this part adds the relevant classes to the containing superclasses
 		 * when the parser completes a slide element or recipe element
 		 */
-		// finished adding stuff to current bold, italic or underline TextString, so add textString to text
+		
+		// If textString contains something then add it to the text class
 		if (elementName.equals("textstring")) {
 			if (!textString.getText().equals("")) {
 				text.addTextString(textString);
@@ -545,19 +533,11 @@ public class XMLReader extends DefaultHandler {
 			cookBook.addRecipe(recipe);
 		}
 		
-		// reset processing element identifier
-		//else {
-			currentElement = ProcessingElement.NONE;
-		//}
+		currentElement = ProcessingElement.NONE;
 	}
 
 	// called by the parser when it encounters the end of the XML file.
 	public void endDocument() throws SAXException {
 //		System.out.println("XML Parser: finished processing document: " + inputFile);
-	}
-
-	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		DefaultHandler handler = new XMLReader();
 	}
 }
