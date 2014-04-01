@@ -58,7 +58,7 @@ public class XMLReader extends DefaultHandler {
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
 	private ProcessingElement slideElement = ProcessingElement.NONE;
 	private ProcessingElement textElement = ProcessingElement.NONE;
-	private String inputFile = "../Resources/PWSExamplePlaylist.xml";
+	private String inputFile = "../Resources/PWSExamplePlaylist_2.xml";
 	private CookBook cookBook; 
 
 	public XMLReader() {
@@ -549,7 +549,7 @@ public class XMLReader extends DefaultHandler {
 		}
 		// finished adding stuff to current Slide, so add content to slide and slide to recipe
 		else if (elementName.equals("slide")) {
-			slide.content = content;
+			slide.setContent(content);
 			recipe.slides.add(slide);
 			recipeElement = ProcessingElement.NONE;
 		}

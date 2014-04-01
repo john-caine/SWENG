@@ -73,7 +73,7 @@
 	</slide>
 	<slide ID="3" duration="40" lastSlide="false">
 		<image>
-			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
+			<urlname>../resources/bike2.jpg</urlname>
 			<xstart>10</xstart>
 			<ystart>10</ystart>
 		</image>
@@ -106,7 +106,7 @@
 			<xstart>300</xstart>
 			<ystart>300</ystart>
       <width>400</width>
-      <heigth>400</height>
+      <height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
 		</video>		

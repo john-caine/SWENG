@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 import eCook.SlideShow;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,7 @@ public class ImageHandler {
 	private Integer startTime;
 	private Integer branchID;
 	private SlideShow parent;
+	
 	
 	public ImageHandler(String path, int xStart, int yStart){
 		/*Display the original Image in ImageView*/
@@ -35,6 +37,7 @@ public class ImageHandler {
 		this.branchID = branch;
 		this.parent = parent;
 		
+		
     	ImageView iv1 = new ImageView();
         iv1.setImage(retrieveImage(path));
         
@@ -47,6 +50,7 @@ public class ImageHandler {
         box.setVisible(false);
         box.getChildren().add(iv1);
         setImageLocation(box, xStart, yStart); 
+        
         
         if (startTime == null) {
         	this.startTime = 0;

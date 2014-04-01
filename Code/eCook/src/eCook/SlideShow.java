@@ -1,5 +1,7 @@
 package eCook;
 
+import java.util.List;
+
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +16,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
+import xmlparser.CookBook;
+import xmlparser.Image;
+import xmlparser.Recipe;
+import xmlparser.Slide;
 import xmlparser.TextString;
 import xmlparser.XMLReader;
 
@@ -25,6 +31,12 @@ public class SlideShow {
 	private Button exitSlide, previousSlide, nextSlide;
 	private TextString textString;
 	private TextString textString2;
+	private XMLReader reader;
+	private CookBook cookBook;
+	private Recipe recipe;
+	private Slide slide;
+	private List<Image> images;
+	
 	
 
 	
@@ -59,19 +71,42 @@ public class SlideShow {
     	//stage.show();
 		
 		// Call XML parser
-		new XMLReader();
+		 reader = new XMLReader();
+		
+		cookBook = reader.getCookBook();
+		
+		recipe = cookBook.getRecipe(0);
+		
+		
 		
 		// Call newSlide() to start displaying the side show from slide with ID 0.
-		newSlide(0, false);
+		//Change back to 0, 3 only for testing purposes.
+		newSlide(3, false);
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch) {
 		// Call out to the logic method to determine what should be on the slide
 		//TODO write slide logic method.
 		
+		slide = recipe.getSlide(slideID);
+		
+		images = slide.getContent().getImages();
+		int imageCount = images.size();
+		
+		for(int i = 0; i < imageCount; i++){
+			
+			
+			ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), images.get(i).getYStart(), images.get(i).getWidth(),
+													images.get(i).getHeight(), images.get(i).getStartTime(), images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+			
+		}
+		
+		
 		// Hide the current group of objects
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
+		
+		
 		
 		// If slideID is 0 exit to main menu
 		if (slideID == -1)
@@ -104,15 +139,15 @@ public class SlideShow {
         hbox.setLayoutX((screenBounds.getWidth()- exitSlide.getPrefWidth())/2);
         hbox.setLayoutY(screenBounds.getHeight());
         
-   
+        
         
         // Itterate over the objects for the slide calling relevant handlers
         // Temp - just add some objects 
-        ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, 3, null);
+        
 	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
 	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
 	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
-	    slideRoot.getChildren().add(image1.box);
+	    
 	    slideRoot.getChildren().add(image2.box);
 	    slideRoot.getChildren().add(text1.textBox);
 	    slideRoot.getChildren().add(text2.textBox);
