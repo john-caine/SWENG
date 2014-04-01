@@ -36,6 +36,7 @@ public class SlideShow {
 	private Recipe recipe;
 	private Slide slide;
 	private List<Image> images;
+	private List<ImageHandler> imageHandlers;
 	
 	
 
@@ -67,7 +68,7 @@ public class SlideShow {
     	
     	//stage.sizeToScene();
     	//stage.setFullScreen(false);
-    	//stage.setFullScreen(true);
+    	stage.setFullScreen(true);
     	//stage.show();
 		
 		// Call XML parser
@@ -88,23 +89,33 @@ public class SlideShow {
 		// Call out to the logic method to determine what should be on the slide
 		//TODO write slide logic method.
 		
+		slideRoot.setVisible(false);
+		slideRoot.getChildren().clear();
+		
 		slide = recipe.getSlide(slideID);
 		
 		images = slide.getContent().getImages();
 		int imageCount = images.size();
 		
-		for(int i = 0; i < imageCount; i++){
+		
+		
+		if (imageCount != 0){
+			for(int i = 0; i < imageCount; i++){
 			
 			
-			ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), images.get(i).getYStart(), images.get(i).getWidth(),
-													images.get(i).getHeight(), images.get(i).getStartTime(), images.get(i).getDuration(), images.get(i).getLayer(), null, null);
-			
+				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), images.get(i).getYStart(), images.get(i).getWidth(),
+														images.get(i).getHeight(), images.get(i).getStartTime(), images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+				
+	
+				slideRoot.getChildren().add(image1.box);
+				System.out.println("Image Handler created!");
+			}
 		}
 		
 		
+		
 		// Hide the current group of objects
-		slideRoot.setVisible(false);
-		slideRoot.getChildren().clear();
+		
 		
 		
 		
@@ -148,9 +159,9 @@ public class SlideShow {
 	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
 	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
 	    
-	    slideRoot.getChildren().add(image2.box);
-	    slideRoot.getChildren().add(text1.textBox);
-	    slideRoot.getChildren().add(text2.textBox);
+	   // slideRoot.getChildren().add(image2.box);
+	   // slideRoot.getChildren().add(text1.textBox);
+	   // slideRoot.getChildren().add(text2.textBox);
 	    
 	     // Add the buttons to the slide
         slideRoot.getChildren().add(hbox);
