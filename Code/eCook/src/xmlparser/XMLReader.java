@@ -522,7 +522,7 @@ public class XMLReader extends DefaultHandler {
 		}
 		// finished adding stuff to current Slide, so add content to slide and slide to recipe
 		else if (elementName.equals("slide")) {
-			slide.content = content;
+			slide.setContent(content);
 			recipe.slides.add(slide);
 			recipeElement = ProcessingElement.NONE;
 		}
