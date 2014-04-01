@@ -105,8 +105,8 @@
 			<urlname>http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4</urlname>
 			<xstart>300</xstart>
 			<ystart>300</ystart>
-      <width>400</width>
-      <heigth>400</height>
+      			<width>400</width>
+      			<height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
 		</video>		

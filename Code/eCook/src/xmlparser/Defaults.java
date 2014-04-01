@@ -7,11 +7,15 @@ package xmlparser;
  * 
  * Description: A class to contain display defaults associated with a recipe.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
+ * 
+ * Version History: v1.01 (27/03/14) - Changed type of fontSize from String to int. Removed lineColor.
+ * 									 - Updated setters and getters accordingly.
  *  
  */
 
 public class Defaults {
-	String backgroundColor, font, fontSize, fontColor, lineColor, fillColor;
+	String backgroundColor, font, fontColor, fillColor;
+	int fontSize;
 		
 	public Defaults() {
 	}
@@ -25,16 +29,12 @@ public class Defaults {
 		return font;
 	}
 
-	public String getFontSize() {
+	public int getFontSize() {
 		return fontSize;
 	}
 	
 	public String getFontColor() {
 		return fontColor;
-	}
-	
-	public String getLineColor() {
-		return lineColor;
 	}
 	
 	public String getFillColor() {
@@ -51,15 +51,11 @@ public class Defaults {
 	}
 
 	public void setFontSize(Object fontSize) {
-		this.fontSize = (String) fontSize;		
+		this.fontSize = Integer.valueOf((String) fontSize);		
 	}
 	
 	public void setFontColor(Object fontColor) {
 		this.fontColor = (String) fontColor;
-	}
-	
-	public void setLineColor(Object lineColor) {
-		this.lineColor = (String) lineColor;
 	}
 	
 	public void setFillColor(Object fillColor) {

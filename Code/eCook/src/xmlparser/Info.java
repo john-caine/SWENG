@@ -7,11 +7,13 @@ package xmlparser;
  * 
  * Description: A class to contain all information associated with a recipe.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
+ * 
+ * Version History: v1.01 (27/03/14) - Added field 'title' along with setters and getters.
  *  
  */
 
 public class Info {
-	String author, version, comment;
+	String author, version, title, comment;
 	int width, height;
 		
 	public Info() {
@@ -24,6 +26,10 @@ public class Info {
 
 	public String getVersion() {
 		return version;
+	}
+	
+	public String getTitle() {
+		return title;
 	}
 
 	public String getComment() {
@@ -45,6 +51,10 @@ public class Info {
 	
 	public void setVersion(Object version) {
 		this.version = (String) version;		
+	}
+	
+	public void setTitle(Object title) {
+		this.title = (String) title;
 	}
 
 	public void setComment(Object comment) {

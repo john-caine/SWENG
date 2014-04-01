@@ -29,9 +29,7 @@ public class VideoPlayerMain extends Application {
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
-        primaryStage.show();
-        
-       
+        primaryStage.show();       
     }
  
 }

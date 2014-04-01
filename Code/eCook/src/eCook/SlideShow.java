@@ -25,12 +25,9 @@ public class SlideShow {
 	private Button exitSlide, previousSlide, nextSlide;
 	private TextString textString;
 	private TextString textString2;
-	
 
 	
 	public SlideShow(Stage stage) {
-		
-		
 		
 		//Create 2 temporary text String objects to populate textHandlers 
 		//REMOVE ME WHEN XML Parser Implementation is complete!
@@ -49,14 +46,10 @@ public class SlideShow {
 		
     	// Set window properties
     	stage.setScene(slideScene);
-    	
-    	//This code doesn't appear to be necessary, have commented it out for now incase there is 
-    	// is something I have missed.
-    	
-    	//stage.sizeToScene();
-    	//stage.setFullScreen(false);
-    	//stage.setFullScreen(true);
-    	//stage.show();
+    	stage.sizeToScene();
+    	stage.setFullScreen(false);
+    	stage.setFullScreen(true);
+    	stage.show();
 		
 		// Call XML parser
 		new XMLReader();
@@ -127,7 +120,7 @@ public class SlideShow {
 
 	public void SlideButton() {
         
-        exitSlide = new Button("Exit SlideShow");
+        exitSlide = new Button("Exit Slide");
         exitSlide.setPrefWidth(80);
         exitSlide.setPrefHeight(40);
         
