@@ -31,6 +31,7 @@ public class SlideShow {
 	private Button exitSlide, previousSlide, nextSlide;
 	private TextString textString;
 	private TextString textString2;
+<<<<<<< HEAD
 	private XMLReader reader;
 	private CookBook cookBook;
 	private Recipe recipe;
@@ -39,11 +40,11 @@ public class SlideShow {
 	private List<ImageHandler> imageHandlers;
 	
 	
+=======
+>>>>>>> f4a965d8cf962899ce25800c3e7f520dfeb4f10f
 
 	
 	public SlideShow(Stage stage) {
-		
-		
 		
 		//Create 2 temporary text String objects to populate textHandlers 
 		//REMOVE ME WHEN XML Parser Implementation is complete!
@@ -62,6 +63,7 @@ public class SlideShow {
 		
     	// Set window properties
     	stage.setScene(slideScene);
+<<<<<<< HEAD
     	
     	//This code doesn't appear to be necessary, have commented it out for now incase there is 
     	// is something I have missed.
@@ -70,6 +72,12 @@ public class SlideShow {
     	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	//stage.show();
+=======
+    	stage.sizeToScene();
+    	stage.setFullScreen(false);
+    	stage.setFullScreen(true);
+    	stage.show();
+>>>>>>> f4a965d8cf962899ce25800c3e7f520dfeb4f10f
 		
 		// Call XML parser
 		 reader = new XMLReader();
@@ -173,7 +181,7 @@ public class SlideShow {
 
 	public void SlideButton() {
         
-        exitSlide = new Button("Exit SlideShow");
+        exitSlide = new Button("Exit Slide");
         exitSlide.setPrefWidth(80);
         exitSlide.setPrefHeight(40);
         

@@ -7,7 +7,10 @@ package xmlparser;
  * 
  * Description: A class to contain all information associated with slide text.
  * 				Extends common methods and variables from Content class.
- * 				Methods are provided for 'setting' and 'getting' unique fields for this class. 
+ * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
+ * 
+ * Version History: v1.01 (?) - Changed name of class from Text to TextBody to avoid JavaFX protected keyword confusion.
+ * 
  */
 
 import java.util.ArrayList;

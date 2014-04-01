@@ -7,12 +7,13 @@ package xmlparser;
  * 
  * Description: A class to contain all information associated with a slide.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
+ * 
+ * Version History: v1.01 (27/03/14) - Changed type of ID from String to int. Updated setter and getter.
  *  
  */
 
 public class Slide {
-	String ID;
-	int duration;
+	int ID, duration;
 	Boolean lastSlide;
 	private Content content;
 		
@@ -20,7 +21,7 @@ public class Slide {
 	}
 
 	// getters
-	public String getID() {
+	public int getID() {
 		return ID;
 	}
 
@@ -34,7 +35,7 @@ public class Slide {
 	
 	// setters
 	public void setID(Object ID) {
-		this.ID = (String) ID;
+		this.ID = Integer.valueOf((String) ID);
 	}
 	
 	public void setDuration(Object duration) {
