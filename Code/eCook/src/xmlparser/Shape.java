@@ -12,21 +12,22 @@ import java.util.List;
  * 				Extends common methods and variables from Content class.
  * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
  *
- *  
+ * Version History: v1.1 (01/04/14) - Changed int fields to Integers (including list of <Integer>).
+ * 									- Added validation to getting and setting lists.
  */
 
 public class Shape extends Content {
-	private int totalPoints;
-	private List<int[]> points;
+	private Integer totalPoints;
+	private List<Integer[]> points;
 	private String fillColor, lineColor;
 	
 	public Shape() {
 		super();
-		points = new ArrayList<int[]>();
+		points = new ArrayList<Integer[]>();
 	}
 
 	// getters
-	public int getTotalPoints() {
+	public Integer getTotalPoints() {
 		return totalPoints;
 	}
 
@@ -52,22 +53,33 @@ public class Shape extends Content {
 	}
 	
 	// list operations
-	public List<int[]> getPoints() {
+	public List<Integer[]> getPoints() {
 		return points;
 	}
 
-	public int[] getPoint(int pointNumber) {
-		return points.get(pointNumber);
+	public Integer[] getPoint(int pointNumber) {
+		if (pointNumber >= 0 && pointNumber < this.getNumberOfPoints()) {
+			return points.get(pointNumber);
+		}
+		else {
+			reportError("Error getting point: index out of range");
+			return null;
+		}
 	}
 
-	public void addPoint(int[] point) {
+	public void addPoint(Integer[] point) {
 		// point has this format:
 		/*
 		 * num = point[0]
 		 * x = point[1]
 		 * y = point[2]
 		 */
-		points.add(point);
+		if (point != null) {
+			points.add(point);
+		}
+		else {
+			reportError("Error adding point: object received from parser is null");
+		}
 	}
 
 	public int getNumberOfPoints() {

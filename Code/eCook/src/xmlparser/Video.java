@@ -8,23 +8,15 @@ package xmlparser;
  * Description: A class to contain all information associated with slide video.
  * 				Extends common methods and variables from Content class.
  * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
+ * 
+ * Version History: v1.01 (27/03/14) - Removed playTime field and setter and getter methods.
+ * 									 - This has left an empty class ready for extension, like Audio and Image.
  *  
  */
 
 public class Video extends Content {
-	private int playTime;
 	
 	public Video() {
 		super();
-	}
-	
-	// getter
-	public int getPlayTime() {
-		return playTime;
-	}
-	
-	// setter
-	public void setPlayTime(Object playTime) {
-		this.playTime = Integer.valueOf((String) playTime);
 	}
 }

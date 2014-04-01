@@ -9,11 +9,12 @@ package xmlparser;
  * 				the String should be displayed in bold and/or in italics and/or underlined
  * 
  * Version History: v1.01 (27/03/14) - Added branch field and setter and getter methods.
+ * 					v1.1  (01/04/14) - Changed type of branch from int to Integer.
  */
 
 public class TextString {
 	private Boolean bold, italic, underline;
-	private int branch;
+	private Integer branch;
 	private String text;
 	
 	public TextString() {
@@ -32,7 +33,7 @@ public class TextString {
 		return underline;
 	}
 	
-	public int getBranch() {
+	public Integer getBranch() {
 		return branch;
 	}
 	

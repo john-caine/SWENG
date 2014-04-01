@@ -9,12 +9,13 @@ package xmlparser;
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
  * 
  * Version History: v1.01 (27/03/14) - Added field 'title' along with setters and getters.
+ * 					v1.1  (01/04/14) - Changed type of width and height from int to Integer.
  *  
  */
 
 public class Info {
 	String author, version, title, comment;
-	int width, height;
+	Integer width, height;
 		
 	public Info() {
 	}
@@ -36,11 +37,11 @@ public class Info {
 		return comment;
 	}
 	
-	public int getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 	
-	public int getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 	

@@ -15,6 +15,8 @@
  * 									 - New recipe, slide and text processing element flags are included to track current scanning position
  * 					v2.1  (27/03/14) - Class modified to meet PWS version 0.9 standards.
  * 									 - See PWS version documentation for details of changes made.
+ * 					v2.2  (01/04/14) - Alterations to remove the CookBook creation when reading in recipes
+ * 									 - Changed Class constructor to accept a String of the XML filename
  */
 
 package xmlparser;
@@ -60,21 +62,18 @@ public class XMLReader extends DefaultHandler {
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
 	private ProcessingElement slideElement = ProcessingElement.NONE;
 	private ProcessingElement textElement = ProcessingElement.NONE;
-	private String inputFile = "../Resources/PWSExamplePlaylist_2.xml";
-	private CookBook cookBook; 
 
-	public XMLReader() {
+	public XMLReader(String inputFile) {
 		readXMLFile(inputFile);
 	}
 	
-	public CookBook getCookBook(){
-		return this.cookBook;
+	public Recipe getRecipe() {
+		return this.recipe;
 	}
 
 	public void readXMLFile(String inputFile) {
 		try {
 			// use the default parser
-			cookBook = new CookBook(inputFile);
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// parse the input
@@ -292,7 +291,7 @@ public class XMLReader extends DefaultHandler {
 					if (!(attributes.getValue("y") == null)) {
 						y = Integer.valueOf(attributes.getValue("y"));
 					}
-					int[] point = {num, x, y};
+					Integer[] point = {num, x, y};
 					shape.addPoint(point);
 				}
 			}
@@ -484,7 +483,6 @@ public class XMLReader extends DefaultHandler {
 		 * this part adds the relevant classes to the containing superclasses
 		 * when the parser completes a slide element or recipe element
 		 */
-		
 		// If textString contains something then add it to the text class
 		if (elementName.equals("textstring")) {
 			if (!textString.getText().equals("")) {
@@ -530,7 +528,6 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("slideshow")) {
 			recipe.info = info;
 			recipe.defaults = defaults;
-			cookBook.addRecipe(recipe);
 		}
 		
 		currentElement = ProcessingElement.NONE;

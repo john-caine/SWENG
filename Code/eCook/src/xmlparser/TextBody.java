@@ -10,14 +10,15 @@ package xmlparser;
  * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
  * 
  * Version History: v1.01 (?) - Changed name of class from Text to TextBody to avoid JavaFX protected keyword confusion.
- * 
+ * 					v1.1  (01/04/14) - Changed int fields to Integer.
+ * 									 - Added validation to getting and setting lists.
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
-	private int xEnd, yEnd;
+	private Integer xEnd, yEnd;
 	private String font, fontSize, fontColor;
 	private List<TextString> textBody;
 	
@@ -27,11 +28,11 @@ public class TextBody extends Content {
 	}
 
 	// getters
-	public int getXEnd() {
+	public Integer getXEnd() {
 		return xEnd;
 	}
 
-	public int getYEnd() {
+	public Integer getYEnd() {
 		return yEnd;
 	}
 	
@@ -74,11 +75,22 @@ public class TextBody extends Content {
 	}
 
 	public TextString getTextString(int textStringNumber) {
-		return textBody.get(textStringNumber);
+		if (textStringNumber >= 0 && textStringNumber < this.getNumberOfTextStrings()) {
+			return textBody.get(textStringNumber);
+		}
+		else {
+			reportError("Error getting text string: index out of range");
+			return null;
+		}
 	}
 
 	public void addTextString(TextString textString) {
-		textBody.add(textString);
+		if (textString != null) {
+			textBody.add(textString);
+		}
+		else {
+			reportError("Error adding text string: object received from parser is null");
+		}
 	}
 
 	public int getNumberOfTextStrings() {

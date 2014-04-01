@@ -14,7 +14,8 @@ package xmlparser;
  * 									 - Setters now take Object as input, and do type conversion as appropriate to the field
  * 					v1.1  (05/03/14) - Recipe class now complies with PWS standards from sample XML file
  * 									 - New fields of type Info and Defaults, with a list to hold slide instances
- * 					
+ * 									 - Added validation to getting and setting lists.
+ *  								 - Added method to report errors (Console print for now but will extend in future).
  */
 
 import java.util.ArrayList;
@@ -30,17 +31,33 @@ public class Recipe {
 		info = new Info();
 		defaults = new Defaults();
 	}
+	
+	// method to report errors when setting fields
+	public void reportError(String errorMessage) {
+		System.out.println(errorMessage);
+	}
 
 	public List<Slide> getSlides() {
 		return slides;
 	}
 
 	public Slide getSlide(int slideNumber) {
-		return slides.get(slideNumber);
+		if (slideNumber >= 0 && slideNumber < this.getNumberOfSlides()) {
+			return slides.get(slideNumber);
+		}
+		else {
+			reportError("Error getting slide: index out of range");
+			return null;
+		}
 	}
 
 	public void addSlide(Slide slide) {
-		slides.add(slide);
+		if (slide != null) {
+			slides.add(slide);
+		}
+		else {
+			reportError("Error adding slide: object received from parser is null");
+		}
 	}
 
 	public int getNumberOfSlides() {

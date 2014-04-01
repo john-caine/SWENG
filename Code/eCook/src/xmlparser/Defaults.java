@@ -10,14 +10,20 @@ package xmlparser;
  * 
  * Version History: v1.01 (27/03/14) - Changed type of fontSize from String to int. Removed lineColor.
  * 									 - Updated setters and getters accordingly.
- *  
+ *  				v1.1  (01/04/14) - Changed type of fontSize from int to Integer.
+ *  								 - Added validation to setters (throws error when null).
+ *  								 - Added method to report errors (Console print for now but will extend in future).
  */
-
 public class Defaults {
 	String backgroundColor, font, fontColor, fillColor;
-	int fontSize;
+	Integer fontSize;
 		
 	public Defaults() {
+	}
+	
+	// method to report errors when setting fields
+	public void reportError(String errorMessage) {
+		System.out.println(errorMessage);
 	}
 
 	// getters
@@ -29,7 +35,7 @@ public class Defaults {
 		return font;
 	}
 
-	public int getFontSize() {
+	public Integer getFontSize() {
 		return fontSize;
 	}
 	
@@ -43,22 +49,47 @@ public class Defaults {
 	
 	// setters
 	public void setBackgroundColor(Object backgroundColor) {
-		this.backgroundColor = (String) backgroundColor;
+		if (backgroundColor != null) {
+			this.backgroundColor = (String) backgroundColor;
+		}
+		else {
+			reportError("error setting background color: object received from parser is null");
+		}
 	}
 	
 	public void setFont(Object font) {
-		this.font = (String) font;		
+		if (font != null) {
+			this.font = (String) font;
+		}
+		else {
+			reportError("error setting font: object received from parser is null");
+		}		
 	}
 
 	public void setFontSize(Object fontSize) {
-		this.fontSize = Integer.valueOf((String) fontSize);		
+		if (fontSize != null) {
+			this.fontSize = Integer.valueOf((String) fontSize);
+		}
+		else {
+			reportError("error setting font size: object received from parser is null");
+		}		
 	}
 	
 	public void setFontColor(Object fontColor) {
-		this.fontColor = (String) fontColor;
+		if (fontColor != null) {
+			this.fontColor = (String) fontColor;
+		}
+		else {
+			reportError("error setting font colour: object received from parser is null");
+		}	
 	}
 	
 	public void setFillColor(Object fillColor) {
-		this.fillColor = (String) fillColor;
+		if (fillColor != null) {
+			this.fillColor = (String) fillColor;
+		}
+		else {
+			reportError("error setting fill colour: object received from parser is null");
+		}	
 	}
 }
