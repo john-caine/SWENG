@@ -64,7 +64,7 @@ public class MediaControl {
 	Label timeLabel1;
 	Button playButton, playButton1;
 	
-	public MediaControl(final MediaPlayer mp,  final int xStart, final int yStart){
+	public MediaControl(final MediaPlayer mp){
 		
 		this.mp = mp;
 		bounds = Screen.getPrimary().getVisualBounds();
@@ -291,9 +291,9 @@ public class MediaControl {
 	        		    public void handle(KeyEvent event){
 	        			    if(event.getCode() == KeyCode.ESCAPE){
 	        	            	stage1.close();
-	        	            	stage.getScene().setCursor(Cursor.DEFAULT);
 	        	            	mediaView.setVisible(true);
 	        	            	stage.setFullScreen(true);
+	        	            	stage.getScene().setCursor(Cursor.HAND);
 	        	            	stage.show();
 	        			    }	                                 
 	        		    }
@@ -404,6 +404,7 @@ public class MediaControl {
    	        hbox.getChildren().add(playTime1);
    	        hbox.setLayoutY(bounds.getHeight());
 	    	}
+	
 	    protected void updateValues() {
 	        if (playTime != null && timeSlider != null && volumeSlider != null)  {
 	            Platform.runLater(new Runnable() {
