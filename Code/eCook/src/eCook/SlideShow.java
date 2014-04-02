@@ -16,7 +16,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
-import xmlparser.CookBook;
 import xmlparser.Image;
 import xmlparser.Recipe;
 import xmlparser.Slide;
@@ -31,17 +30,11 @@ public class SlideShow {
 	private Button exitSlide, previousSlide, nextSlide;
 	private TextString textString;
 	private TextString textString2;
-<<<<<<< HEAD
 	private XMLReader reader;
-	private CookBook cookBook;
 	private Recipe recipe;
 	private Slide slide;
 	private List<Image> images;
 	private List<ImageHandler> imageHandlers;
-	
-	
-=======
->>>>>>> f4a965d8cf962899ce25800c3e7f520dfeb4f10f
 
 	
 	public SlideShow(Stage stage) {
@@ -63,7 +56,6 @@ public class SlideShow {
 		
     	// Set window properties
     	stage.setScene(slideScene);
-<<<<<<< HEAD
     	
     	//This code doesn't appear to be necessary, have commented it out for now incase there is 
     	// is something I have missed.
@@ -72,19 +64,16 @@ public class SlideShow {
     	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	//stage.show();
-=======
+
     	stage.sizeToScene();
     	stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	stage.show();
->>>>>>> f4a965d8cf962899ce25800c3e7f520dfeb4f10f
 		
 		// Call XML parser
-		 reader = new XMLReader();
+		 reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
 		
-		cookBook = reader.getCookBook();
-		
-		recipe = cookBook.getRecipe(0);
+		recipe = reader.getRecipe();
 		
 		
 		

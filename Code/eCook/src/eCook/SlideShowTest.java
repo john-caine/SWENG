@@ -19,9 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Before;
+
 import org.junit.Test;
 
 public class SlideShowTest {
