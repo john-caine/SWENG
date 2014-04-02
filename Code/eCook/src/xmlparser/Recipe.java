@@ -63,4 +63,8 @@ public class Recipe {
 	public int getNumberOfSlides() {
 		return slides.size();
 	}
+	
+	public Defaults getDefaults() {
+		 return defaults;
+	}
 }

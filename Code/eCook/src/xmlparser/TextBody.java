@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
-	private Integer xEnd, yEnd;
-	private String font, fontSize, fontColor;
+	private Integer xEnd, yEnd, fontSize;
+	private String font, fontColor;
 	private List<TextString> textBody;
 	
 	public TextBody() {
@@ -40,7 +40,7 @@ public class TextBody extends Content {
 		return font;
 	}
 	
-	public String getFontSize() {
+	public Integer getFontSize() {
 		return fontSize;
 	}
 	
@@ -62,7 +62,7 @@ public class TextBody extends Content {
 	}
 	
 	public void setFontSize(Object fontSize) {
-		this.fontSize = (String) fontSize;		
+		this.fontSize = Integer.valueOf((String) fontSize);		
 	}
 	
 	public void setFontColor(Object fontColor) {

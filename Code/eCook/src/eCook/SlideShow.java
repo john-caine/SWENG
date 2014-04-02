@@ -21,6 +21,7 @@ import xmlparser.Recipe;
 import xmlparser.Slide;
 import xmlparser.TextString;
 import xmlparser.XMLReader;
+import xmlparser.TextBody;
 
 public class SlideShow {
 
@@ -28,23 +29,21 @@ public class SlideShow {
 	private Group slideRoot;
 	public int currentSlideID = 0, nextSlideID = 1, prevSlideID = -1;
 	private Button exitSlide, previousSlide, nextSlide;
-	private TextString textString;
-	private TextString textString2;
+
+
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
 	private List<Image> images;
-	private List<ImageHandler> imageHandlers;
+	private List<TextBody> text;
+
 
 	
 	public SlideShow(Stage stage) {
 		
 		//Create 2 temporary text String objects to populate textHandlers 
 		//REMOVE ME WHEN XML Parser Implementation is complete!
-		textString = new TextString();
-		textString2 = new TextString();
-		textString.setText("I am some text");
-		textString2.setText("I am some other text");
+		
 		
 		
 		// Create a new group for objects
@@ -79,42 +78,24 @@ public class SlideShow {
 		
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
-		newSlide(3, false);
+		newSlide(0, false);
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch) {
+		int imageCount;
+		int textCount;
+		
+		String font;
+		int fontSize;
+		String fontColor;
+		
+		
+		
 		// Call out to the logic method to determine what should be on the slide
 		//TODO write slide logic method.
-		
+		System.out.println(slideID);
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
-		
-		slide = recipe.getSlide(slideID);
-		
-		images = slide.getContent().getImages();
-		int imageCount = images.size();
-		
-		
-		
-		if (imageCount != 0){
-			for(int i = 0; i < imageCount; i++){
-			
-			
-				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), images.get(i).getYStart(), images.get(i).getWidth(),
-														images.get(i).getHeight(), images.get(i).getStartTime(), images.get(i).getDuration(), images.get(i).getLayer(), null, null);
-				
-	
-				slideRoot.getChildren().add(image1.box);
-				System.out.println("Image Handler created!");
-			}
-		}
-		
-		
-		
-		// Hide the current group of objects
-		
-		
-		
 		
 		// If slideID is 0 exit to main menu
 		if (slideID == -1)
@@ -133,6 +114,76 @@ public class SlideShow {
 			nextSlideID = currentSlideID + 1;
 			prevSlideID = currentSlideID - 1;
 		}
+		
+		slide = recipe.getSlide(slideID);
+		
+		images = slide.getContent().getImages();
+		text = slide.getContent().getTexts();
+		imageCount = images.size();
+		textCount = text.size();
+		
+		
+		
+		
+		if (imageCount != 0){
+			for(int i = 0; i < imageCount; i++){
+			
+			
+				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), images.get(i).getYStart(), images.get(i).getWidth(),
+														images.get(i).getHeight(), images.get(i).getStartTime(), images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+				
+	
+				slideRoot.getChildren().add(image1.box);
+				System.out.println("Image Handler created!");
+			}
+		}
+		
+		
+		if (textCount != 0){
+			for(int i = 0; i < textCount; i++){
+
+				if (text.get(i).getFont() == null) 
+					font = recipe.getDefaults().getFont();
+				else 
+					font = text.get(i).getFont();
+				
+				if (text.get(i).getFontSize() == null)
+					fontSize = recipe.getDefaults().getFontSize();
+				else
+					fontSize = text.get(i).getFontSize();
+				
+				if (text.get(i).getFontColor() == null)
+					fontColor = recipe.getDefaults().getFontColor();
+				else 
+					fontColor = text.get(i).getFontColor();
+				
+				//			  text.get(i);
+//				System.out.println(text.get(i).getFont());
+//				System.out.println(text.get(i).getXStart());
+//				System.out.println(text.get(i).getYStart());
+//				System.out.println(text.get(i).getFontSize());
+//				System.out.println(text.get(i).getFontColor());
+//				System.out.println(text.get(i).getXEnd());
+//				System.out.println(text.get(i).getStartTime());
+//				System.out.println(text.get(i).getDuration());
+//				System.out.println(text.get(i).getLayer());
+				
+				TextHandler text1 = new TextHandler(this,  text.get(i) , font, text.get(i).getXStart(), text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), text.get(i).getLayer(), null, null);
+				
+	
+				slideRoot.getChildren().add(text1.textBox);
+				System.out.println("Text Handler created!");
+			}
+		}
+		
+		
+		
+		// Hide the current group of objects
+		
+		
+		
+		
+	
     	
     	// Create the buttons for the slide.
 	    HBox hbox = new HBox();
@@ -152,9 +203,7 @@ public class SlideShow {
         // Itterate over the objects for the slide calling relevant handlers
         // Temp - just add some objects 
         
-	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
-	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
-	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
+	   
 	    
 	   // slideRoot.getChildren().add(image2.box);
 	   // slideRoot.getChildren().add(text1.textBox);

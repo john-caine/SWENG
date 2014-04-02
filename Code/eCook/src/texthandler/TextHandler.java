@@ -8,25 +8,32 @@
  */
 package texthandler;
 
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import eCook.SlideShow;
+import xmlparser.TextBody;
 import xmlparser.TextString;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBuilder;
+
+import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 
 public class TextHandler {
 	
-	public HBox textBox;
+	public TextFlow textBox;
 	public Text text;
 	private Integer startTime;
 	private Integer duration;
@@ -34,10 +41,13 @@ public class TextHandler {
 	private FontPosture posture;
 	private SlideShow parent;
 	private Integer branchID;
-	
+	private TextArea textArea;
+	private List<TextString> stringList;
+	private TextString textString;
+	private TextFlow textflow;
 
-	public TextHandler(SlideShow parent, TextString textString, String font, Integer x_start, Integer y_start, Integer fontsize, 
-			String fontcolor, String linecolor, Integer x_end, Integer startTime, Integer duration, 
+	public TextHandler(SlideShow parent, TextBody textBody, String font, Integer x_start, Integer y_start, Integer fontsize, 
+			String fontcolor, Integer x_end, Integer y_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branchID, Integer orientation){
 		
 		 
@@ -46,9 +56,35 @@ public class TextHandler {
 		 this.branchID = branchID;
 		 this.parent = parent;
 		 
+		 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		 if (x_end == null){
+			 x_end = (int)screenBounds.getWidth();
+		 }
+		 
+		 if (y_end == null){
+			 y_end =(int)screenBounds.getHeight();
+		 }
+		
+		 
+		 
+		stringList = textBody.getTextBody();
+		
+		textArea = new TextArea();
+		 //Creates new Hbox textBox, sets to invisible and adds the text object.
+		 textBox = new TextFlow();
+		 textBox.setVisible(false);
+		 
+		 textBox.setMaxWidth(x_end - x_start);
+		 textBox.setMaxHeight(y_end - y_start);
+		 
 		
 		
+		for (int i = 0 ; i < stringList.size(); i++){
+			
+			textString = stringList.get(i);
+			
 			 //Set the text weight value to Bold if getBold is true
+			
 			 if((textString.getBold() == null) || (textString.getBold() == false) ){
 				 weight = FontWeight.NORMAL;
 			 }
@@ -65,39 +101,46 @@ public class TextHandler {
 			 else {
 				 posture = FontPosture.ITALIC;
 			 }
+			 
+			//Create the text object which contains a string
+			 text = new Text(textString.getText());
+			 
+			// Set the font, bold, italic and font size 
+			 text.setFont(Font.font(font,weight, posture, (double)fontsize));
+			 
+			//Underlines the text if true, no underline if false
+			 if(textString.getUnderline() != null){
+				 
+			 text.setUnderline(textString.getUnderline());
+			 
+			 }
+			 
+			 //Sets the colour of the text, set Fill sets the interior fill colour
+			 // Set stroke sets the outline of the text.
+			 text.setFill(Color.web(fontcolor));
+			 
+			 
+			//Sets the wrapping width of the text object, if  x end is null, the wrapping width is set to the edge 
+			 // of the screen.
+		 
+			 text.setWrappingWidth((x_end - x_start));
+		     
+			 textBox.getChildren().add(i, text);
+		
+			
+		}
+		
+			
+			
 		
 		 
 		 
-		//Create the text object which contains a string
-		 text = TextBuilder.create().text(textString.getText()).build();
+		
 		 
-		// Set the font, bold, italic and font size 
-		 text.setFont(Font.font(font,weight, posture, (double)fontsize));
 		 
-		//Underlines the text if true, no underline if false
-		 if(textString.getUnderline() != null){
-			 
-		 text.setUnderline(textString.getUnderline());
 		 
-		 }
-		 
-		 //Sets the colour of the text, set Fill sets the interior fill colour
-		 // Set stroke sets the outline of the text.
-		 text.setFill(Color.web(fontcolor));
-		 text.setStroke(Color.web(linecolor));
-		 
-		 //Sets the wrapping width of the text object, if  x end is null, the wrapping width is set to the edge 
-		 // of the screen.
-		 if (x_end == null){
-			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-			 x_end = (int)screenBounds.getWidth();
-		 }
-		 text.setWrappingWidth((x_end - x_start));
-		 
-		 //Creates new Hbox textBox, sets to invisible and adds the text object.
-		 textBox = new HBox();
-		 textBox.setVisible(false);
-		 textBox.getChildren().add(text);
+		
+		
 		 
 		 //Sets the XY position of textBox
 		 setStartXY(x_start, y_start, textBox);
@@ -105,10 +148,10 @@ public class TextHandler {
 		 //Begin the start Timer thread
 		 if (startTime == null) {
 			 this.startTime = 0;
-			 startTimerThread.start();
+			 new Thread(startTimerThread).start();
 		 }
 		 else
-			 startTimerThread.start();
+			new Thread(startTimerThread).start();
 		 
 		 
 	 
@@ -117,7 +160,7 @@ public class TextHandler {
 	
 	};
 	
-	public void setStartXY(int x_start, int y_start, HBox box){
+	public void setStartXY(int x_start, int y_start, TextFlow box){
 		
 		box.setLayoutX((double)x_start);
 		box.setLayoutY((double)y_start);
@@ -132,49 +175,66 @@ public class TextHandler {
 		 textBox.setVisible(false);
 	 }
 	// Thread waits until count = startTime then sets the visibility of the image to true.
-	 Thread startTimerThread = new Thread("startTimer") {
-		 public void run() {
-			 int count=0;
-			 while (count <= startTime && startTime != 0) {
-				try {
-				
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				count++;
-		 	}
+	 Task<Object> startTimerThread = new Task<Object>() {
+		 
+			
+			@Override
+			protected Object call() throws Exception {
+				 int count=0;
+				 while (count <= startTime && startTime != 0) {
+					try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					count++;
+			 	}
 			 
-		 
-		 showText();
-		 
-		 //Check if the textobject has an associated branch a
-		 if (branchID != null && branchID != 0)
-			 doBranch();
-		 
-		 if (duration != null && duration != 0)
-			 durationTimerThread.start();
-		 }
-	 };
+			Platform.runLater( new Runnable(){
+				public void run(){
+					showText();
+				}
+			});	 
+			 
+			 if (branchID != null && branchID != 0)
+				 doBranch();
+			 if (duration != null && duration != 0)
+				 new Thread(durationTimerThread).start();
+			 
+
+				return null;
+			}
+		 };
 	 
 	 // Thread waits until duration and then sets the image visibility to false once duration = count.
-	 Thread durationTimerThread = new Thread("durationTimer") {
-		 public void run() {
-			 int count=0;
-			 while (count <= duration) {
-				try {
+		 Task<Object> durationTimerThread = new Task<Object>() {
+			 
 				
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+			 
+
+				@Override
+				protected Object call() throws Exception {
+					
+					 int count=0;
+					 while (count <= duration) {
+						try {
+							TimeUnit.SECONDS.sleep(1);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						 count++;
+					 }
+					 Platform.runLater( new Runnable(){
+							public void run(){
+								 removeText();
+							}
+						});	 
+					return null;
 				}
-				 count++;
-			 }
-			 removeText();
-		 }
-	 };
+			 };
 	 // When textBox is clicked on, a new branch slide is created with an id of branchID
 	 private void doBranch() {
 		 textBox.setOnMouseClicked(new EventHandler<MouseEvent> ()

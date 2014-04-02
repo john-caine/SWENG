@@ -16,30 +16,30 @@
 		<fillcolor>#FF0000</fillcolor> 
 	</defaults>
 	<slide ID="0" duration="60" lastSlide="false">
-		<text xstart="10" ystart="10" xend="100" yend="25"> 
+		<text xstart="10" ystart="10" xend="1000" yend="100"> 
 			<textbody>
         <textstring>This is a test of required attributes</textstring>
       </textbody>
     </text>
-		<text xstart="10" ystart="200" xend="100" yend="50" font="Time-Roman" fontsize="16" fontcolor="#F7F4F1">
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="16" fontcolor="#00FFFF">
 			<textbody>
         <textstring>This is a test of optional font attributes</textstring>
       </textbody>
 		</text>
-		<text xstart="10" ystart="400" xend="100" yend="75" starttime="10" duration="40" layer="2">
+		<text xstart="10" ystart="200" xend="1000" yend="400" starttime="10" duration="40" layer="2">
       <textbody>
         <textstring>This is a test of timing attributes</textstring>
       </textbody>
 		</text>
-		<text xstart="10" ystart="600" xend="100" yend="25"> 
+		<text xstart="10" ystart="300" xend="500" yend="330"> 
 			<textbody bold="true">
-        <textstring>This text should be bold</textstring>
+        <textstring>This text should be bold. </textstring>
       </textbody>
       <textbody italic="true">
-        <textstring>This text should be italic</textstring>
+        <textstring>This text should be italic. </textstring>
       </textbody>
       <textbody underlined="true">
-        <textstring>This text should be underlined</textstring>
+        <textstring>This text should be underlined. </textstring>
       </textbody>
     </text>
 	</slide>
@@ -73,12 +73,12 @@
 	</slide>
 	<slide ID="3" duration="40" lastSlide="false">
 		<image>
-			<urlname>../resources/bike2.jpg</urlname>
+			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
 			<xstart>10</xstart>
 			<ystart>10</ystart>
 		</image>
 		<image>
-			<urlname>../resources/bike.jpg</urlname>
+			<urlname>http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg</urlname>
 			<xstart>50</xstart>
 			<ystart>50</ystart>
 			<width>200</width>
@@ -86,7 +86,7 @@
 			<layer>2</layer>
 		</image>
 		<image>
-			<urlname>../resources/bike2.jpg</urlname>
+			<urlname>http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg</urlname>
 			<xstart>100</xstart>
 			<ystart>100</ystart>
 			<duration>20</duration>
