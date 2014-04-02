@@ -98,7 +98,7 @@ public class TextHandler {
 			 }
 			 
 			//Create the text object which contains a string
-			 text = TextBuilder.create().text(textString.getText()).build();
+			 text = new Text();
 			 
 			// Set the font, bold, italic and font size 
 			 text.setFont(Font.font(font,weight, posture, (double)fontsize));
