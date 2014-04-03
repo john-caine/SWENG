@@ -281,7 +281,6 @@ public class MediaControl {
 	                hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
 	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
-	                		fadeTransition.stop();
 	                		hbox.setLayoutY(bounds.getHeight());
 	    	            }
 	    	        });
