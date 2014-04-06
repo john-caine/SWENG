@@ -11,7 +11,6 @@ package texthandler;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import eCook.SlideShow;
 import xmlparser.TextBody;
 import xmlparser.TextString;
@@ -21,13 +20,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
 import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 
@@ -50,7 +47,6 @@ public class TextHandler {
 			String fontcolor, Integer x_end, Integer y_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branchID, Integer orientation){
 		
-		 
 		 this.startTime = startTime;
 		 this.duration = duration;
 		 this.branchID = branchID;
@@ -64,8 +60,6 @@ public class TextHandler {
 		 if (y_end == null){
 			 y_end =(int)screenBounds.getHeight();
 		 }
-		
-		 
 		 
 		stringList = textBody.getTextBody();
 		
@@ -73,26 +67,21 @@ public class TextHandler {
 		 //Creates new Hbox textBox, sets to invisible and adds the text object.
 		 textBox = new TextFlow();
 		 textBox.setVisible(false);
-		 
 		 textBox.setMaxWidth(x_end - x_start);
 		 textBox.setMaxHeight(y_end - y_start);
-		 
-		
 		
 		for (int i = 0 ; i < stringList.size(); i++){
 			
 			textString = stringList.get(i);
 			
 			 //Set the text weight value to Bold if getBold is true
-			
 			 if((textString.getBold() == null) || (textString.getBold() == false) ){
 				 weight = FontWeight.NORMAL;
 			 }
 			 else  {
 				 weight = FontWeight.BOLD;
 			 }
-		 
-		 
+
 		
 			//Set the text posture value to Italic if getItalic is true 
 			 if ((textString.getItalic() == null) || (textString.getItalic() == false)){
@@ -110,54 +99,30 @@ public class TextHandler {
 			 
 			//Underlines the text if true, no underline if false
 			 if(textString.getUnderline() != null){
-				 
-			 text.setUnderline(textString.getUnderline());
-			 
+				 text.setUnderline(textString.getUnderline());
 			 }
 			 
 			 //Sets the colour of the text, set Fill sets the interior fill colour
 			 // Set stroke sets the outline of the text.
 			 text.setFill(Color.web(fontcolor));
 			 
-			 
 			//Sets the wrapping width of the text object, if  x end is null, the wrapping width is set to the edge 
 			 // of the screen.
-		 
 			 text.setWrappingWidth((x_end - x_start));
 		     
-			 textBox.getChildren().add(i, text);
-		
-			
-		}
-		
-			
-			
-		
+			 textBox.getChildren().add(i, text);		
+		}	
 		 
+		//Sets the XY position of textBox
+		setStartXY(x_start, y_start, textBox);
 		 
-		
-		 
-		 
-		 
-		
-		
-		 
-		 //Sets the XY position of textBox
-		 setStartXY(x_start, y_start, textBox);
-		 
-		 //Begin the start Timer thread
-		 if (startTime == null) {
-			 this.startTime = 0;
-			 new Thread(startTimerThread).start();
-		 }
-		 else
+		//Begin the start Timer thread
+		if (startTime == null) {
+			this.startTime = 0;
 			new Thread(startTimerThread).start();
-		 
-		 
-	 
-	
-	
-	
+		}
+		else
+		new Thread(startTimerThread).start();
 	};
 	
 	public void setStartXY(int x_start, int y_start, TextFlow box){

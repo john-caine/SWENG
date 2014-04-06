@@ -22,7 +22,7 @@ public class SlideShow {
 
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID = 0, nextSlideID = 1, prevSlideID = -1;
+	public int currentSlideID, nextSlideID, prevSlideID;
 	private Button exitSlide, previousSlide, nextSlide;
 	private Recipe recipe;
 	private Slide slide;
@@ -77,7 +77,7 @@ public class SlideShow {
 		slideRoot.getChildren().clear();
 		
 		// If slideID is 0 exit to main menu
-		if (slideID == -1)
+		//if (slideID == -1)
 			// TODO exit  to  main menu somehow???
 			// new MainMenu()
 		
@@ -91,8 +91,8 @@ public class SlideShow {
 		else 
 		{
 			currentSlideID = slideID;
-			nextSlideID = currentSlideID + 1;
-			prevSlideID = currentSlideID - 1;
+			nextSlideID = (slideID + 1);
+			prevSlideID = (slideID - 1);
 		}
 		
 		slide = recipe.getSlide(slideID);
@@ -247,6 +247,7 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {
             	newSlide(nextSlideID, false);
+            	event.consume();
             }
         });
         
@@ -254,6 +255,7 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {
             	newSlide(prevSlideID, false);
+            	event.consume();
             	
             }
         });    
