@@ -14,16 +14,18 @@ import java.util.List;
  *
  * Version History: v1.1 (01/04/14) - Changed int fields to Integers (including list of <Integer>).
  * 									- Added validation to getting and setting lists.
+ * 					v1.2 (06/04/14) - Changed points list to hold instances of new Point class.
+ * 									- Updated setters and getters accordingly.
  */
 
 public class Shape extends Content {
 	private Integer totalPoints;
-	private List<Integer[]> points;
+	private List<Point> points;
 	private String fillColor, lineColor;
 	
 	public Shape() {
 		super();
-		points = new ArrayList<Integer[]>();
+		points = new ArrayList<Point>();
 	}
 
 	// getters
@@ -53,11 +55,11 @@ public class Shape extends Content {
 	}
 	
 	// list operations
-	public List<Integer[]> getPoints() {
+	public List<Point> getPoints() {
 		return points;
 	}
 
-	public Integer[] getPoint(int pointNumber) {
+	public Point getPoint(int pointNumber) {
 		if (pointNumber >= 0 && pointNumber < this.getNumberOfPoints()) {
 			return points.get(pointNumber);
 		}
@@ -67,13 +69,7 @@ public class Shape extends Content {
 		}
 	}
 
-	public void addPoint(Integer[] point) {
-		// point has this format:
-		/*
-		 * num = point[0]
-		 * x = point[1]
-		 * y = point[2]
-		 */
+	public void addPoint(Point point) {
 		if (point != null) {
 			points.add(point);
 		}

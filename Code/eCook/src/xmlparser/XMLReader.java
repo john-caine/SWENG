@@ -17,6 +17,8 @@
  * 									 - See PWS version documentation for details of changes made.
  * 					v2.2  (01/04/14) - Alterations to remove the CookBook creation when reading in recipes
  * 									 - Changed Class constructor to accept a String of the XML filename
+ * 					v2.21 (06/04/14) - Re-added functionality to store lineColor in Defaults class
+ * 									 - Modified creation of Point objects and how these are added to Shape objects.
  */
 
 package xmlparser;
@@ -35,7 +37,7 @@ import org.xml.sax.helpers.DefaultHandler;
 enum ProcessingElement {
 	NONE,
 	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
-	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR,
+	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
 	SLIDE,
 	TEXT,
 	TEXTTEXTBODY, TEXTTEXTBODYTEXT,
@@ -154,6 +156,8 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.DEFAULTSFONTCOLOR;
 			} else if (elementName.equals("fillcolor")) {
 				currentElement = ProcessingElement.DEFAULTSFILLCOLOR;
+			} else if (elementName.equals("linecolor")) {
+				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			}
 		}
 		
@@ -281,17 +285,18 @@ public class XMLReader extends DefaultHandler {
 			else if (slideElement.equals(ProcessingElement.SHAPE)) {
 				if (elementName.equals("point")) {
 					currentElement = ProcessingElement.SHAPEPOINT;
-					int num = 0, x = 0, y = 0;
-					if (!(attributes.getValue("num") == null)) {
-						num = Integer.valueOf(attributes.getValue("num"));
+					
+					Point point = new Point();
+					
+					if (attributes.getValue("num") != null) {
+						point.setNum(attributes.getValue("num"));
 					}
-					if (!(attributes.getValue("x") == null)) {
-						x = Integer.valueOf(attributes.getValue("x"));
+					if (attributes.getValue("x") != null) {
+						point.setX(attributes.getValue("x"));
 					}
-					if (!(attributes.getValue("y") == null)) {
-						y = Integer.valueOf(attributes.getValue("y"));
+					if (attributes.getValue("y") != null) {
+						point.setY(attributes.getValue("y"));
 					}
-					Integer[] point = {num, x, y};
 					shape.addPoint(point);
 				}
 			}
@@ -390,6 +395,9 @@ public class XMLReader extends DefaultHandler {
 			break;
 		case DEFAULTSFILLCOLOR:
 			defaults.setFillColor(elementValue);			
+			break;
+		case DEFAULTSLINECOLOR:
+			defaults.setLineColor(elementValue);
 			break;
 			
 		// TextBody class

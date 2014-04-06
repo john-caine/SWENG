@@ -9,6 +9,7 @@ package xmlparser;
  * 
  * Version History: v1.1 (27/03/14) - Modified to test updated PWS standard documents (v0.9).
  * 					v1.2 (01/04/14) - Removed CookBook so all references are now directed at Recipe Instance
+ * 					v1.3 (06/04/14) - Updated test 'secondSlideReadCorrectly' to see Point class.
  */
 
 import static org.junit.Assert.*;
@@ -179,13 +180,10 @@ public class XMLReaderTest {
 			System.out.println("\tLayer: " + shape.getLayer());
 			
 			for (int j=0; j<recipe.slides.get(1).content.getShape(i).getTotalPoints(); j++) {
-				Integer[] point = shape.getPoint(j);
-				int num = point[0];
-				int x = point[1];
-				int y = point[2];
-				System.out.println("\tShape point " + (j+1) + " num: " + num);
-				System.out.println("\tShape point " + (j+1) + " x: " + x);
-				System.out.println("\tShape point " + (j+1) + " y: " + y);
+				Point point = shape.getPoint(j);
+				System.out.println("\tShape point " + (j+1) + " num: " + point.getNum());
+				System.out.println("\tShape point " + (j+1) + " x: " + point.getX());
+				System.out.println("\tShape point " + (j+1) + " y: " + point.getY());
 			}
 		}
 		
@@ -198,21 +196,21 @@ public class XMLReaderTest {
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getWidth().intValue());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getHeight().intValue());
 				// point 1
-				assertEquals(1, recipe.slides.get(1).content.shapes.get(0).getPoint(0)[0].intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0)[1].intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0)[2].intValue());
+				assertEquals(1, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getNum().intValue());
+				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getX().intValue());
+				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getY().intValue());
 				// point 2
-				assertEquals(2, recipe.slides.get(1).content.shapes.get(0).getPoint(1)[0].intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(1)[1].intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(1)[2].intValue());
+				assertEquals(2, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getNum().intValue());
+				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getX().intValue());
+				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getY().intValue());
 				// point 3
-				assertEquals(3, recipe.slides.get(1).content.shapes.get(0).getPoint(2)[0].intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2)[1].intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2)[2].intValue());
+				assertEquals(3, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getNum().intValue());
+				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getX().intValue());
+				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getY().intValue());
 				// point 4
-				assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getPoint(3)[0].intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(3)[1].intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(3)[2].intValue());
+				assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getNum().intValue());
+				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getX().intValue());
+				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getY().intValue());
 			// shape 2
 			assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints().intValue());
 			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getWidth().intValue());
@@ -220,9 +218,9 @@ public class XMLReaderTest {
 			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getFillColor());
 			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getLineColor());
 				// point 1
-				assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getPoint(0)[0].intValue());
-				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0)[1].intValue());
-				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0)[2].intValue());
+				assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getNum().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getX().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getY().intValue());
 			// shape 3
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints().intValue());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getWidth().intValue());
@@ -231,13 +229,13 @@ public class XMLReaderTest {
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(2).getDuration().intValue());
 			assertEquals(1, recipe.slides.get(1).content.shapes.get(2).getLayer().intValue());
 				// point 1
-				assertEquals(1, recipe.slides.get(1).content.shapes.get(2).getPoint(0)[0].intValue());
-				assertEquals(150, recipe.slides.get(1).content.shapes.get(2).getPoint(0)[1].intValue());
-				assertEquals(150, recipe.slides.get(1).content.shapes.get(2).getPoint(0)[2].intValue());
+				assertEquals(1, recipe.slides.get(1).content.shapes.get(2).getPoint(0).getNum().intValue());
+				assertEquals(150, recipe.slides.get(1).content.shapes.get(2).getPoint(0).getX().intValue());
+				assertEquals(150, recipe.slides.get(1).content.shapes.get(2).getPoint(0).getY().intValue());
 				// point 2
-				assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getPoint(1)[0].intValue());
-				assertEquals(250, recipe.slides.get(1).content.shapes.get(2).getPoint(1)[1].intValue());
-				assertEquals(250, recipe.slides.get(1).content.shapes.get(2).getPoint(1)[2].intValue());
+				assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getPoint(1).getNum().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(2).getPoint(1).getX().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(2).getPoint(1).getY().intValue());
 	}
 	
 	// confirm that all fields in the third slide of the recipe contain the correct data

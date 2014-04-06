@@ -13,9 +13,10 @@ package xmlparser;
  *  				v1.1  (01/04/14) - Changed type of fontSize from int to Integer.
  *  								 - Added validation to setters (throws error when null).
  *  								 - Added method to report errors (Console print for now but will extend in future).
+ *  				v1.11 (06/04/14) - Re-added field 'lineColor' and setter and getter methods.
  */
 public class Defaults {
-	String backgroundColor, font, fontColor, fillColor;
+	String backgroundColor, font, fontColor, fillColor, lineColor;
 	Integer fontSize;
 		
 	public Defaults() {
@@ -45,7 +46,11 @@ public class Defaults {
 	
 	public String getFillColor() {
 		return fillColor;
-	}	
+	}
+	
+	public String getLineColor() {
+		return lineColor;
+	}
 	
 	// setters
 	public void setBackgroundColor(Object backgroundColor) {
@@ -90,6 +95,15 @@ public class Defaults {
 		}
 		else {
 			reportError("error setting fill colour: object received from parser is null");
+		}	
+	}
+	
+	public void setLineColor(Object lineColor) {
+		if (lineColor != null) {
+			this.lineColor = (String) lineColor;
+		}
+		else {
+			reportError("error setting line colour: object received from parser is null");
 		}	
 	}
 }
