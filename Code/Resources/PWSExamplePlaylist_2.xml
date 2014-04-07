@@ -106,7 +106,7 @@
 			<xstart>300</xstart>
 			<ystart>300</ystart>
       <width>400</width>
-      <heigth>400</height>
+      <height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
 		</video>		
