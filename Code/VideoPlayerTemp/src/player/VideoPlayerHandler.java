@@ -12,7 +12,7 @@ public class VideoPlayerHandler {
 	public VideoPlayerHandler(String pathLocation ,  int xStart, int yStart){
 	 	File file = new File(pathLocation);
         path = file.toURI().toASCIIString(); 
-       // System.out.println("Path Name = " + path);
+        //System.out.println("Path Name = " + path);
         // create media player
         Media media = new Media(path);
         final MediaPlayer mediaPlayer = new MediaPlayer(media);

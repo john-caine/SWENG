@@ -1,12 +1,16 @@
 package player;
 
 import static org.junit.Assert.*;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Stage;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class VideoPlayerMainTest {
 	
+	private Stage stage;
+	private Rectangle2D screenBounds;
 	VideoPlayerHandler videoPlayerHandler;
 	
 	@Before

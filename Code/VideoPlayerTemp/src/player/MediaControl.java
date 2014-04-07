@@ -63,6 +63,7 @@ public class MediaControl {
 	HBox hbox;
 	Label timeLabel1;
 	Button playButton, playButton1;
+	FadeTransition fadeTransition;
 	
 	public MediaControl(final MediaPlayer mp){
 		
@@ -257,7 +258,7 @@ public class MediaControl {
 	                    }
 	                });
 	                
-	                final FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
+	                fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
 	                fadeTransition.setFromValue(1.0);
 	                fadeTransition.setToValue(0.0);
 	                
@@ -281,7 +282,7 @@ public class MediaControl {
 	                hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
 	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
-	                		hbox.setLayoutY(bounds.getHeight());
+	                		fadeTransition.stop();
 	    	            }
 	    	        });
 	                
@@ -389,7 +390,8 @@ public class MediaControl {
    	        timeSlider1.setOnMousePressed(new EventHandler<MouseEvent>() {
    	            @Override
    	            public void handle(MouseEvent mouseEvent) {
-   	                mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
+   	            	fadeTransition.stop();
+   	            	mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
    	            }
    	        });
    	        
@@ -401,7 +403,7 @@ public class MediaControl {
    	        hbox.getChildren().add(playButton1);
    	        hbox.getChildren().add(timeSlider1);
    	        hbox.getChildren().add(playTime1);
-   	        hbox.setLayoutY(bounds.getHeight());
+   	        hbox.setLayoutY(bounds.getHeight()-20);
 	    	}
 	
 	    protected void updateValues() {
