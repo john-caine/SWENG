@@ -1,5 +1,7 @@
 package eCook;
 
+import java.util.List;
+
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,28 +16,23 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
-import xmlparser.TextString;
-import xmlparser.XMLReader;
+import xmlparser.*;
 
 public class SlideShow {
 
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID = 0, nextSlideID = 1, prevSlideID = -1;
+	public int currentSlideID, nextSlideID, prevSlideID;
 	private Button exitSlide, previousSlide, nextSlide;
-	private TextString textString;
-	private TextString textString2;
+	private Recipe recipe;
+	private Slide slide;
+
+
 
 	
 	public SlideShow(Stage stage) {
 		
-		//Create 2 temporary text String objects to populate textHandlers 
-		//REMOVE ME WHEN XML Parser Implementation is complete!
-		textString = new TextString();
-		textString2 = new TextString();
-		textString.setText("I am some text");
-		textString2.setText("I am some other text");
-		
+		XMLReader reader;
 		
 		// Create a new group for objects
 		slideRoot = new Group();
@@ -46,29 +43,43 @@ public class SlideShow {
 		
     	// Set window properties
     	stage.setScene(slideScene);
+    	stage.setFullScreen(true);
+    	//stage.show();
+
     	stage.sizeToScene();
     	stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	stage.show();
 		
 		// Call XML parser
-		new XMLReader();
+		 reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		
+		recipe = reader.getRecipe();
 		
 		// Call newSlide() to start displaying the side show from slide with ID 0.
+		//Change back to 0, 3 only for testing purposes.
 		newSlide(0, false);
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch) {
-		// Call out to the logic method to determine what should be on the slide
-		//TODO write slide logic method.
+		List<Image> images;
+		List<TextBody> text;
+		//List<Audio> audio;
+		//List<Graphic> graphics;
+		//List<Video> videos;
 		
-		// Hide the current group of objects
+		int imageCount, textCount; //, audioCount, videoCount, graphicCount;
+		int fontSize;
+		String fontColor, font; //, lineColor, fillColor;
+		
+		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
 		
 		// If slideID is 0 exit to main menu
-		if (slideID == -1)
+		//if (slideID == -1)
 			// TODO exit  to  main menu somehow???
+			// new MainMenu()
 		
 		// If branched slide set relevant globals
 		if (isBranch == true)
@@ -80,9 +91,110 @@ public class SlideShow {
 		else 
 		{
 			currentSlideID = slideID;
-			nextSlideID = currentSlideID + 1;
-			prevSlideID = currentSlideID - 1;
+			nextSlideID = (slideID + 1);
+			prevSlideID = (slideID - 1);
 		}
+		
+		slide = recipe.getSlide(slideID);
+		
+		// Get arrays containing the required objects
+		images = slide.getContent().getImages();
+		text = slide.getContent().getTexts();
+		//audio = slide.getContent().getAudios();
+		//videos = slide.getContent.getVideos();
+		//graphics = slide.getContent.getGraphics();
+		
+		// Get how many objects of each type are required
+		imageCount = images.size();
+		textCount = text.size();
+		//audioCount = audio.size();
+		//videoCount = videos.size();
+		//graphicCount = graphics.size();
+		
+		// Call the ImageHandler for each image object
+		if (imageCount != 0){
+			for(int i = 0; i < imageCount; i++){
+				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
+												images.get(i).getYStart(), images.get(i).getWidth(),
+												images.get(i).getHeight(), images.get(i).getStartTime(), 
+												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+				slideRoot.getChildren().add(image1.box);
+			}
+		}
+		
+		// Call the TextHanlder for each text object
+		if (textCount != 0){
+			for(int i = 0; i < textCount; i++){
+
+				// Retrieve any defaults that have been set
+				if (text.get(i).getFont() == null) 
+					font = recipe.getDefaults().getFont();
+				else 
+					font = text.get(i).getFont();
+				
+				if (text.get(i).getFontSize() == null)
+					fontSize = recipe.getDefaults().getFontSize();
+				else
+					fontSize = text.get(i).getFontSize();
+				
+				if (text.get(i).getFontColor() == null)
+					fontColor = recipe.getDefaults().getFontColor();
+				else 
+					fontColor = text.get(i).getFontColor();
+				
+				TextHandler text1 = new TextHandler(this,  text.get(i), font, text.get(i).getXStart(), 
+											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
+											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
+											text.get(i).getLayer(), null, null);
+				slideRoot.getChildren().add(text1.textBox);
+			}
+		}
+		
+		// Call the AudioHanlder for each audio object
+//		if (audioCount != 0){
+//			for(int i = 0; i < audioCount; i++){
+//				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+//														audio.get(i).getDuration(), audio.get(i).loop());
+//				slideRoot.getChildren().add(audio1.box);
+//			}
+//		}
+		
+		// Call the VideoHandler for each video object
+//		if (videoCount != 0){
+//			for(int i = 0; i < videoCount; i++){
+//				VideoHandler video1 = new VideoHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+//												videos.get(i).getYStart(), videos.get(i).getWidth(),
+//												videos.get(i).getHeight(), videos.get(i).getStartTime(), 
+//												videos.get(i).getDuration(), videos.get(i).getLayer(), 
+//												videos.get(i).getLoop());
+//				slideRoot.getChildren().add(video1.box);
+//			}
+//		}
+		
+		// Call the GraphicHandler for each graphic object
+//		if (graphicCount != 0){
+//			for(int i = 0; i < graphicCount; i++){
+//				
+//				// Retrieve any defaults that have been set
+//				if (graphics.get(i).getLineColor() == null) 
+//					lineColor = recipe.getDefaults().getLineColor();
+//				else 
+//					lineColor = graphics.get(i).getLineColor();
+//				
+//				if (graphics.get(i).getFillColor() == null)
+//					fillColor = recipe.getDefaults().getFillColor();
+//				else
+//					fillColor = graphics.get(i).getFillColor();
+//			
+//			
+//				GraphicHandler graphic1 = new GraphicHandler(this, graphics.get(i).getTotalPoints(), 
+//												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
+//												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
+//												graphics.get(i).getLayer(), fillColor, lineColor,
+//												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+//				slideRoot.getChildren().add(graphic1.box);
+//			}
+//		}
     	
     	// Create the buttons for the slide.
 	    HBox hbox = new HBox();
@@ -96,34 +208,19 @@ public class SlideShow {
         hbox.setAlignment(Pos.CENTER);
         hbox.setLayoutX((screenBounds.getWidth()- exitSlide.getPrefWidth())/2);
         hbox.setLayoutY(screenBounds.getHeight());
-        
-   
-        
-        // Itterate over the objects for the slide calling relevant handlers
-        // Temp - just add some objects 
-        ImageHandler image1 = new ImageHandler(this, "../resources/bike.jpg", 300, 300, 500, 500, null, null, null, 3, null);
-	    ImageHandler image2 = new ImageHandler(this, "../resources/bike2.jpg", 50, 50, 100, 100, 5, 5, null, null, 90);
-	    TextHandler text1 = new TextHandler(this,textString, "Times New Roman", 100, 600, 20, "#00FF00", "#0000FF", 40, 5, 10, null, null, null);
-	    TextHandler text2 = new TextHandler(this, textString2, "Helvetica", 800, 500, 40, "#00F600", "#0050FF", 40, 8, 30, null, null, null);
-	    slideRoot.getChildren().add(image1.box);
-	    slideRoot.getChildren().add(image2.box);
-	    slideRoot.getChildren().add(text1.textBox);
-	    slideRoot.getChildren().add(text2.textBox);
 	    
-	     // Add the buttons to the slide
+	    // Add the buttons to the slide
         slideRoot.getChildren().add(hbox);
 	    
-	    slideRoot.setVisible(true);
-	    
-	    
+        // Show the new set of objects on the slide
+	    slideRoot.setVisible(true);  
 	}	
 
 	public void SlideButton() {
         
         exitSlide = new Button("Exit Slide");
         exitSlide.setPrefWidth(80);
-        exitSlide.setPrefHeight(40);
-        
+        exitSlide.setPrefHeight(40); 
         
         nextSlide = new Button("Next Slide");
         nextSlide.setPrefWidth(80);
@@ -150,6 +247,7 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {
             	newSlide(nextSlideID, false);
+            	event.consume();
             }
         });
         
@@ -157,6 +255,7 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {
             	newSlide(prevSlideID, false);
+            	event.consume();
             	
             }
         });    

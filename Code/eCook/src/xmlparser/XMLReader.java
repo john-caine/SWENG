@@ -13,6 +13,12 @@
  * Version History: v1.01 (27/02/14) - Class modified to include functionality to extract 'ImageFileName' fields
  * 					v2.0  (05/03/14) - Class modified to extract all information required as specified in the PWS standard XML file
  * 									 - New recipe, slide and text processing element flags are included to track current scanning position
+ * 					v2.1  (27/03/14) - Class modified to meet PWS version 0.9 standards.
+ * 									 - See PWS version documentation for details of changes made.
+ * 					v2.2  (01/04/14) - Alterations to remove the CookBook creation when reading in recipes
+ * 									 - Changed Class constructor to accept a String of the XML filename
+ * 					v2.21 (06/04/14) - Re-added functionality to store lineColor in Defaults class
+ * 									 - Modified creation of Point objects and how these are added to Shape objects.
  */
 
 package xmlparser;
@@ -30,15 +36,15 @@ import org.xml.sax.helpers.DefaultHandler;
 // enumerated type for keeping track of where we need to store content
 enum ProcessingElement {
 	NONE,
-	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
-	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSLINECOLOR, DEFAULTSFILLCOLOR,
+	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
+	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
 	SLIDE,
-	TEXT, TEXTXSTART, TEXTYSTART, TEXTXEND, TEXTYEND, TEXTFONT, TEXTFONTSIZE, TEXTFONTCOLOR, TEXTSTARTTIME, TEXTDURATION, TEXTLAYER,
-	TEXTTEXTBODY, TEXTTEXTBODYBOLD, TEXTTEXTBODYITALIC, TEXTTEXTBODYUNDERLINE, TEXTTEXTBODYTEXT,
+	TEXT,
+	TEXTTEXTBODY, TEXTTEXTBODYTEXT,
 	SHAPE, SHAPEPOINT,
-	AUDIO, AUDIOURLNAME, AUDIOSTARTTIME, AUDIOLOOP,
+	AUDIO, AUDIOURLNAME, AUDIOSTARTTIME, AUDIOLOOP, AUDIODURATION,
 	IMAGE, IMAGEURLNAME, IMAGEXSTART, IMAGEYSTART, IMAGEWIDTH, IMAGEHEIGHT, IMAGEDURATION, IMAGELAYER,
-	VIDEO, VIDEOURLNAME, VIDEOXSTART, VIDEOYSTART, VIDEODURATION, VIDEOLAYER, VIDEOPLAYTIME, VIDEOSTARTTIME, VIDEOLOOP
+	VIDEO, VIDEOURLNAME, VIDEOXSTART, VIDEOYSTART, VIDEODURATION, VIDEOLAYER, VIDEOSTARTTIME, VIDEOLOOP, VIDEOWIDTH, VIDEOHEIGHT
 };
 
 public class XMLReader extends DefaultHandler {
@@ -58,21 +64,18 @@ public class XMLReader extends DefaultHandler {
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
 	private ProcessingElement slideElement = ProcessingElement.NONE;
 	private ProcessingElement textElement = ProcessingElement.NONE;
-	private String inputFile = "../Resources/PWSExamplePlaylist.xml";
-	private CookBook cookBook; 
 
-	public XMLReader() {
+	public XMLReader(String inputFile) {
 		readXMLFile(inputFile);
 	}
 	
-	public CookBook getCookBook(){
-		return this.cookBook;
+	public Recipe getRecipe() {
+		return this.recipe;
 	}
 
 	public void readXMLFile(String inputFile) {
 		try {
 			// use the default parser
-			cookBook = new CookBook(inputFile);
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// parse the input
@@ -86,23 +89,14 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 
-	
-	// called by the parser when it encounters the start of the XML file
-	public void startDocument() throws SAXException {
-//		System.out.println("\nXML Parser: starting to process document: " + inputFile);
-	}
-
-
 	// called by the parser when it encounters any start element tag
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// sort out element name if (no) namespace in use
 		String elementName = localName;
-		if ("".equals(elementName)) {
+		if (elementName == null || elementName.isEmpty()) {
 			elementName = qName;
 		}
-		
-//		System.out.println("\tStart of element: " + elementName);
 		
 		/* create classes for each element as required
 		 * add attributes directly if present
@@ -139,6 +133,8 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.INFOAUTHOR;
 			} else if (elementName.equals("version")) {
 				currentElement = ProcessingElement.INFOVERSION;
+			} else if (elementName.equals("title")) {
+				currentElement = ProcessingElement.INFOTITLE;
 			} else if (elementName.equals("comment")) {
 				currentElement = ProcessingElement.INFOCOMMENT;
 			} else if (elementName.equals("width")) {
@@ -158,10 +154,10 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.DEFAULTSFONTSIZE;
 			} else if (elementName.equals("fontcolor")) {
 				currentElement = ProcessingElement.DEFAULTSFONTCOLOR;
-			} else if (elementName.equals("linecolor")) {
-				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			} else if (elementName.equals("fillcolor")) {
 				currentElement = ProcessingElement.DEFAULTSFILLCOLOR;
+			} else if (elementName.equals("linecolor")) {
+				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			}
 		}
 		
@@ -169,6 +165,35 @@ public class XMLReader extends DefaultHandler {
 		if (recipeElement.equals(ProcessingElement.SLIDE)) {
 			if (elementName.equals("text")) {
 				text = new TextBody();
+				// check that optional attributes actually have a value before setting
+				try {
+					text.setXStart(attributes.getValue("xstart"));
+					text.setYStart(attributes.getValue("ystart"));
+					text.setXEnd(attributes.getValue("xend"));
+					text.setYEnd((attributes).getValue("yend"));
+
+					if (!(attributes.getValue("font") == null)) {
+						text.setFont(attributes.getValue("font"));
+					}
+					if (!(attributes.getValue("fontsize") == null)) {
+						text.setFontSize(attributes.getValue("fontsize"));
+					}
+					if (!(attributes.getValue("fontcolor") == null)) {
+						text.setFontColor(attributes.getValue("fontcolor"));
+					}
+					if (!(attributes.getValue("starttime") == null)) {
+						text.setStartTime(attributes.getValue("starttime"));
+					}
+					if (!(attributes.getValue("duration") == null)) {
+						text.setDuration(attributes.getValue("duration"));
+					}
+					if (!(attributes.getValue("layer") == null)) {
+						text.setLayer(attributes.getValue("layer"));
+					}
+				} catch (Exception e) {
+					System.out.println("text attribute setting issue");
+					e.printStackTrace();
+				}
 				slideElement = ProcessingElement.TEXT;
 			}
 			else if (elementName.equals("shape")) {
@@ -216,61 +241,62 @@ public class XMLReader extends DefaultHandler {
 			 */
 			// text
 			if (slideElement.equals(ProcessingElement.TEXT)) {
-				if (elementName.equals("xstart")) {
-					currentElement = ProcessingElement.TEXTXSTART;
-				} else if (elementName.equals("ystart")) {
-					currentElement = ProcessingElement.TEXTYSTART;
-				} else if (elementName.equals("xend")) {
-					currentElement = ProcessingElement.TEXTXEND;
-				} else if (elementName.equals("yend")) {
-					currentElement = ProcessingElement.TEXTYEND;
-				} else if (elementName.equals("font")) {
-					currentElement = ProcessingElement.TEXTFONT;
-				} else if (elementName.equals("fontsize")) {
-					currentElement = ProcessingElement.TEXTFONTSIZE;
-				} else if (elementName.equals("fontcolor")) {
-					currentElement = ProcessingElement.TEXTFONTCOLOR;
-				} else if (elementName.equals("starttime")) {
-					currentElement = ProcessingElement.TEXTSTARTTIME;
-				} else if (elementName.equals("duration")) {
-					currentElement = ProcessingElement.TEXTDURATION;
-				} else if (elementName.equals("layer")) {
-					currentElement = ProcessingElement.TEXTLAYER;
-				} else if (elementName.equals("textbody")) {
+				if (elementName.equals("textbody")) {
+					textString = new TextString();
+					
+					// set bold/italic/underline attributes
+					try {
+						if (attributes.getValue("bold") != null) {
+							textString.setBold(attributes.getValue("bold"));
+						}
+						else {
+							textString.setBold("false");
+						}
+						if (attributes.getValue("italic") != null) {
+							textString.setItalic(attributes.getValue("italic"));
+						}
+						else {
+							textString.setItalic("false");
+						}
+						if (attributes.getValue("underlined") != null) {
+							textString.setUnderline(attributes.getValue("underlined"));
+						}
+						else {
+							textString.setUnderline("false");
+						}
+						if (attributes.getValue("branch") != null) {
+							textString.setBranch(attributes.getValue("branch"));
+						}
+					} catch (Exception e) {
+						System.out.println("textString (textBody in XML) attribute setting issue");
+						e.printStackTrace();
+					}
+					
 					textElement = ProcessingElement.TEXTTEXTBODY;
 				}
 				// textBody
 				if (textElement.equals(ProcessingElement.TEXTTEXTBODY)) {
-					if (elementName.equals("b")) {
-						currentElement = ProcessingElement.TEXTTEXTBODYBOLD;
-					}
-					else if (elementName.equals("i")) {
-						currentElement = ProcessingElement.TEXTTEXTBODYITALIC;
-					}
-					else if (elementName.equals("u")) {
-						currentElement = ProcessingElement.TEXTTEXTBODYUNDERLINE;
-					}
-					else {
+					if (elementName.equals("textstring")) {
 						currentElement = ProcessingElement.TEXTTEXTBODYTEXT;
 					}
-					textString = new TextString();
 				}
 			}
 			// shape
 			else if (slideElement.equals(ProcessingElement.SHAPE)) {
 				if (elementName.equals("point")) {
 					currentElement = ProcessingElement.SHAPEPOINT;
-					int num = 0, x = 0, y = 0;
-					if (!(attributes.getValue("num") == null)) {
-						num = Integer.valueOf(attributes.getValue("num"));
+					
+					Point point = new Point();
+					
+					if (attributes.getValue("num") != null) {
+						point.setNum(attributes.getValue("num"));
 					}
-					if (!(attributes.getValue("x") == null)) {
-						x = Integer.valueOf(attributes.getValue("x"));
+					if (attributes.getValue("x") != null) {
+						point.setX(attributes.getValue("x"));
 					}
-					if (!(attributes.getValue("y") == null)) {
-						y = Integer.valueOf(attributes.getValue("y"));
+					if (attributes.getValue("y") != null) {
+						point.setY(attributes.getValue("y"));
 					}
-					int[] point = {num, x, y};
 					shape.addPoint(point);
 				}
 			}
@@ -282,6 +308,8 @@ public class XMLReader extends DefaultHandler {
 					currentElement = ProcessingElement.AUDIOSTARTTIME;
 				} else if (elementName.equals("loop")) {
 					currentElement = ProcessingElement.AUDIOLOOP;
+				} else if (elementName.equals("duration")) {
+					currentElement = ProcessingElement.AUDIODURATION;
 				}
 			}
 			// image
@@ -314,8 +342,10 @@ public class XMLReader extends DefaultHandler {
 					currentElement = ProcessingElement.VIDEODURATION;
 				} else if (elementName.equals("layer")) {
 					currentElement = ProcessingElement.VIDEOLAYER;
-				} else if (elementName.equals("playtime")) {
-					currentElement = ProcessingElement.VIDEOPLAYTIME;
+				} else if (elementName.equals("width")) {
+					currentElement = ProcessingElement.VIDEOWIDTH;
+				} else if (elementName.equals("height")) {
+					currentElement = ProcessingElement.VIDEOHEIGHT;
 				} else if (elementName.equals("starttime")) {
 					currentElement = ProcessingElement.VIDEOSTARTTIME;
 				} else if (elementName.equals("loop")) {
@@ -336,6 +366,9 @@ public class XMLReader extends DefaultHandler {
 			break;
 		case INFOVERSION:
 			info.setVersion(elementValue);
+			break;
+		case INFOTITLE:
+			info.setTitle(elementValue);
 			break;
 		case INFOCOMMENT:
 			info.setComment(elementValue);		
@@ -360,68 +393,15 @@ public class XMLReader extends DefaultHandler {
 		case DEFAULTSFONTCOLOR:
 			defaults.setFontColor(elementValue);			
 			break;
-		case DEFAULTSLINECOLOR:
-			defaults.setLineColor(elementValue);			
-			break;
 		case DEFAULTSFILLCOLOR:
 			defaults.setFillColor(elementValue);			
 			break;
-		
-		// Text class
-		case TEXTXSTART:
-			text.setXStart(elementValue);
-			break;
-		case TEXTYSTART:
-			text.setYStart(elementValue);
-			break;
-		case TEXTXEND:
-			text.setXEnd(elementValue);		
-			break;
-		case TEXTYEND:
-			text.setYEnd(elementValue);		
-			break;
-		case TEXTFONT:
-			text.setFont(elementValue);		
-			break;
-		case TEXTFONTSIZE:
-			text.setFontSize(elementValue);			
-			break;
-		case TEXTFONTCOLOR:
-			text.setFontColor(elementValue);		
-			break;
-		case TEXTSTARTTIME:
-			text.setStartTime(elementValue);		
-			break;
-		case TEXTDURATION:
-			text.setDuration(elementValue);			
-			break;
-		case TEXTLAYER:
-			text.setLayer(elementValue);			
+		case DEFAULTSLINECOLOR:
+			defaults.setLineColor(elementValue);
 			break;
 			
 		// TextBody class
-		case TEXTTEXTBODYBOLD:
-			textString.setBold(true);
-			textString.setItalic(false);
-			textString.setUnderline(false);
-			textString.setText(elementValue);
-			break;
-		case TEXTTEXTBODYITALIC:
-			textString.setItalic(true);
-			textString.setBold(false);
-			textString.setUnderline(false);
-			textString.setText(elementValue);
-			break;
-		case TEXTTEXTBODYUNDERLINE:
-			textString.setUnderline(true);
-			textString.setBold(false);
-			textString.setItalic(false);
-			textString.setText(elementValue);
-			break;
 		case TEXTTEXTBODYTEXT:
-			textString.setBold(false);
-			textString.setItalic(false);
-			textString.setUnderline(false);
 			textString.setText(elementValue);
 			break;
 				
@@ -434,6 +414,9 @@ public class XMLReader extends DefaultHandler {
 			break;
 		case AUDIOLOOP:
 			audio.setLoop(elementValue);
+			break;
+		case AUDIODURATION:
+			audio.setDuration(elementValue);
 			break;
 			
 		// Image class
@@ -475,8 +458,11 @@ public class XMLReader extends DefaultHandler {
 		case VIDEOLAYER:
 			video.setLayer(elementValue);		
 			break;
-		case VIDEOPLAYTIME:
-			video.setPlayTime(elementValue);			
+		case VIDEOWIDTH:
+			video.setWidth(elementValue);			
+			break;
+		case VIDEOHEIGHT:
+			video.setHeight(elementValue);
 			break;
 		case VIDEOSTARTTIME:
 			video.setStartTime(elementValue);		
@@ -489,8 +475,6 @@ public class XMLReader extends DefaultHandler {
 		default:
 			break;
 		}
-		
-		//System.out.println("element value is: " + elementValue);
 	}
 
 	// called by the parser when it encounters any end element tag
@@ -502,24 +486,19 @@ public class XMLReader extends DefaultHandler {
 		if ("".equals(elementName)) {
 			elementName = qName;
 		}
-		
-//		System.out.println("\tEnd of element: " + elementName);
 
 		/*
 		 * this part adds the relevant classes to the containing superclasses
 		 * when the parser completes a slide element or recipe element
 		 */
-		// finished adding stuff to current bold, italic or underline TextString, so add textString to text
-		if (elementName.equals("b") || elementName.equals("i") || elementName.equals("u")) {
+		// If textString contains something then add it to the text class
+		if (elementName.equals("textstring")) {
 			if (!textString.getText().equals("")) {
 				text.addTextString(textString);
 			}
 		}
-		// finished adding stuff to current regular TextString, so add textString to text
+		// reset the text element when scanner reaches the end of the textbody element
 		else if (elementName.equals("textbody")) {
-			if (!textString.getBold() && !textString.getItalic() && !textString.getUnderline()) {
-				text.addTextString(textString);
-			}
 			textElement = ProcessingElement.NONE;
 		}
 		// finished adding stuff to current Text, so add text to content
@@ -549,7 +528,7 @@ public class XMLReader extends DefaultHandler {
 		}
 		// finished adding stuff to current Slide, so add content to slide and slide to recipe
 		else if (elementName.equals("slide")) {
-			slide.content = content;
+			slide.setContent(content);
 			recipe.slides.add(slide);
 			recipeElement = ProcessingElement.NONE;
 		}
@@ -557,22 +536,13 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("slideshow")) {
 			recipe.info = info;
 			recipe.defaults = defaults;
-			cookBook.addRecipe(recipe);
 		}
 		
-		// reset processing element identifier
-		//else {
-			currentElement = ProcessingElement.NONE;
-		//}
+		currentElement = ProcessingElement.NONE;
 	}
 
 	// called by the parser when it encounters the end of the XML file.
 	public void endDocument() throws SAXException {
 //		System.out.println("XML Parser: finished processing document: " + inputFile);
-	}
-
-	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		DefaultHandler handler = new XMLReader();
 	}
 }
