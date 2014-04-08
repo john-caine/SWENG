@@ -24,7 +24,7 @@ public class VideoPlayerMain extends Application {
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         scene.setFill(Color.BLACK);
             
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 400, 600);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 400, 600, 300, 500, false, 3, 3);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);

@@ -15,13 +15,13 @@ public class VideoPlayerMainTest {
 	
 	@Before
 	public void setup() {
-		videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 200 , 300);
+		videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 200 , 300, true);
 	}
 	
 	@Test
 	public void getPathName(){
-		System.out.println("Path Name = " + videoPlayerHandler.path);
-		assertEquals("file:/C:/Users/R%20T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", videoPlayerHandler.path);
+		System.out.println("Path Name = " + videoPlayerHandler.retrieveImage("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4"));
+		assertEquals("file:/C:/Users/R%20T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", videoPlayerHandler.retrieveImage("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4"));
 	}
 	
 	@Test

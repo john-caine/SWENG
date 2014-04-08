@@ -3,6 +3,9 @@ package player;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
+
+import javax.print.attribute.standard.Media;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -10,6 +13,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -50,24 +54,38 @@ public class MediaControl {
     private Duration duration;
     private Slider timeSlider, timeSlider1;
     private Label playTime, playTime1;
-    private CheckBox repeatBox;  
     private Slider volumeSlider;
-	VBox box;
-	InputStream inputStream;
-	Image image, image1, image2, image3;
-	Stage stage, stage1;
-	int w;
-	int h;
-	Rectangle2D bounds;
-	MediaView mediaView;
-	HBox hbox;
-	Label timeLabel1;
-	Button playButton, playButton1;
-	FadeTransition fadeTransition;
+	public VBox box;
+	private InputStream inputStream;
+	private Image image, image1, image2, image3;
+	private Stage stage, stage1;
+	private int mpWidth;
+	private int mpHeight;
+	private Rectangle2D bounds;
+	private MediaView mediaView;
+	private HBox hbox;
+	private Button playButton, playButton1;
+	private FadeTransition fadeTransition;
+	private Integer startTime;
+	private Integer playDuration;
 	
-	public MediaControl(final MediaPlayer mp){
+	public MediaControl(final MediaPlayer mp, int width, int height, Boolean loop, Integer startTime, Integer playDuration){
 		
 		this.mp = mp;
+		this.startTime = startTime;
+		this.playDuration = playDuration;
+		this.mpWidth = width;
+		this.mpHeight = height;
+		
+		setLoop(loop);
+		
+		if (startTime == null) {
+	        this.startTime = 0;
+	        new Thread(startTimerThread).start();
+	    }
+	    else 
+	        new Thread(startTimerThread).start();
+		 
 		bounds = Screen.getPrimary().getVisualBounds();
 		box = new VBox();
 		HBox viewBox = new HBox();
@@ -180,31 +198,32 @@ public class MediaControl {
 	            	playButton1.setGraphic(new ImageView(image));
 	            }
 	        });
-
+	        
+	        mp.setOnStopped(new Runnable() {
+	        	 public void run() {
+		            playButton.setGraphic(new ImageView(image));
+		            playButton1.setGraphic(new ImageView(image));
+		       }
+	        });
+	        
 	        mp.setOnReady(new Runnable() {
 	        	
 	            public void run() {
 	                duration = mp.getMedia().getDuration();
 	                updateValues();
-	                w = mp.getMedia().getWidth();
-	                h = mp.getMedia().getHeight();
-	                mediaView.setFitWidth(w/2);
-	                mediaView.setFitHeight(h/2);
-	                timeSlider.setMaxWidth(w/4);
+	                mediaView.setFitWidth(mpWidth);
+	                mediaView.setFitHeight(mpHeight);
+	                timeSlider.setMaxWidth(mpWidth/2);
 	            }
 	        });
-
+	        
 	        mp.setOnEndOfMedia(new Runnable() {
 
 	            public void run() {
-	               if (repeatBox.isSelected()) {
-	                    mp.seek(mp.getStartTime());
-	                } else {
-	                	playButton.setGraphic(new ImageView(image));
+	            		playButton.setGraphic(new ImageView(image));
 	                	playButton1.setGraphic(new ImageView(image));
 	                    stopRequested = true;
 	                    atEndOfMedia = true;         
-	                }
 	            }
 	        });
 
@@ -344,9 +363,9 @@ public class MediaControl {
 	        mediaBar.getChildren().add(volumeLabel);
 
 	        volumeSlider = new Slider();
-	        volumeSlider.setPrefWidth(70);
+	        volumeSlider.setPrefWidth(mpWidth/6);
 	        volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
-	        volumeSlider.setMinWidth(30);
+	        volumeSlider.setMinWidth(20);
 	        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
 	            @Override
@@ -358,16 +377,6 @@ public class MediaControl {
 	            }
 	        });
 	        mediaBar.getChildren().add(volumeSlider);
-	        
-	        Label repeatLabel = new Label("  Loop:");
-	        repeatLabel.setPrefWidth(50);
-	        repeatLabel.setMinWidth(25);
-	        repeatLabel.setTextFill(Color.WHITE);
-	        mediaBar.getChildren().add(repeatLabel);
-
-	        repeatBox = new CheckBox();
-	        repeatBox.setSelected(true);
-	        mediaBar.getChildren().add(repeatBox);
 	        
 	        box.getChildren().add(mediaBar);
 	        
@@ -404,7 +413,7 @@ public class MediaControl {
    	        hbox.getChildren().add(timeSlider1);
    	        hbox.getChildren().add(playTime1);
    	        hbox.setLayoutY(bounds.getHeight()-20);
-	    	}
+	    }
 	
 	    protected void updateValues() {
 	        if (playTime != null && timeSlider != null && volumeSlider != null)  {
@@ -466,4 +475,63 @@ public class MediaControl {
 	        }
 	    }
 	    
+	    Task<Object> startTimerThread = new Task<Object>() {
+ 	    	
+ 			@Override
+ 			protected Object call() throws Exception {
+ 				 int count=0;
+ 				 while (count <= startTime && startTime != 0) {
+ 					try {
+ 						TimeUnit.SECONDS.sleep(1);
+ 					} catch (InterruptedException e) {
+ 						// TODO Auto-generated catch block
+ 						e.printStackTrace();
+ 					}
+ 					count++;
+ 			 	}
+ 			 
+ 				Platform.runLater (new Runnable() {
+ 					public void run(){
+ 						mp.play();
+ 					}
+ 				});
+ 				if (playDuration != null && playDuration != 0)
+					new Thread(durationTimerThread).start();
+ 				return null;
+ 			}
+   	    };
+   	    
+   	 Task<Object> durationTimerThread = new Task<Object>() {
+ 		
+		 @Override
+		protected Object call() throws Exception {
+			int count=0;
+			while (count <= playDuration) {
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				count++;
+			}
+				 
+			Platform.runLater( new Runnable(){
+				public void run(){
+					mp.stop();
+				}
+			});	 
+			
+			return null;
+		}
+	};
+	
+	public void setLoop(boolean loop) {
+		if (loop){
+			System.out.println("true");
+			mp.setCycleCount(MediaPlayer.INDEFINITE);
+		}else
+			mp.setCycleCount(1);
+	}
+
 }

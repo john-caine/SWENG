@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jfxswt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/R T/Documents/GitHub/SWENG/Code/Resources/junit-4.11.jar"/>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/PM/Documents/GitHub/SWENG/Code/Resources/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

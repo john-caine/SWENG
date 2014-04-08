@@ -2,24 +2,31 @@ package player;
 
 import java.io.File;
 
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 public class VideoPlayerHandler {
 	
-	MediaControl mediaControl;
-	String path;
+	public MediaControl mediaControl;
 	
-	public VideoPlayerHandler(String pathLocation ,  int xStart, int yStart){
-	 	File file = new File(pathLocation);
-        path = file.toURI().toASCIIString(); 
-        //System.out.println("Path Name = " + path);
-        // create media player
-        Media media = new Media(path);
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
+	public VideoPlayerHandler(String pathLocation, int xStart, int yStart, int width, int height, Boolean loop, Integer startTime, Integer duration){
         
-        mediaControl = new MediaControl(mediaPlayer);
-        mediaControl.box.setLayoutX(xStart);
-        mediaControl.box.setLayoutY(yStart);
+        // create media player
+        Media media = new Media(retrieveImage(pathLocation));
+        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+        //mediaPlayer.setAutoPlay(true);
+        
+        mediaControl = new MediaControl(mediaPlayer,width, height, loop, startTime, duration);
+        setMediaPlayerLocation(mediaControl.box, xStart, yStart);
 	}
+	
+	public String retrieveImage(String videoLocationPath) {	
+		File file = new File(videoLocationPath);
+		String path  = file.toURI().toASCIIString();
+		return path;
+    }
+	private void setMediaPlayerLocation(VBox vbox, int xLocation, int yLocation){
+		vbox.setLayoutX(xLocation);
+		vbox.setLayoutY(yLocation);
+	 }
 }
