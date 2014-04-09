@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import javax.print.attribute.standard.Media;
-
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -23,7 +21,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -78,8 +75,6 @@ public class MediaControl {
 		this.mpWidth = width;
 		this.mpHeight = height;
 		this.loop = loop;
-		
-		
 		setLoop(loop);
 		
 		if (startTime == null) {
@@ -139,6 +134,7 @@ public class MediaControl {
 	                    playButton.setGraphic(new ImageView(image1));
 	                } else {
 	                    mp.pause();
+	                    playButton.setGraphic(new ImageView(image));
 	                }
 	            }
 	        });
@@ -171,6 +167,7 @@ public class MediaControl {
 	                    playButton1.setGraphic(new ImageView(image1));
 	                } else {
 	                    mp.pause();
+	                    playButton1.setGraphic(new ImageView(image));
 	                }
 	            }
 	        });
@@ -204,6 +201,7 @@ public class MediaControl {
 	        
 	        mp.setOnStopped(new Runnable() {
 	        	 public void run() {
+	        		atEndOfMedia = true; 
 		            playButton.setGraphic(new ImageView(image));
 		            playButton1.setGraphic(new ImageView(image));
 		       }
@@ -223,22 +221,20 @@ public class MediaControl {
 	        mp.setOnEndOfMedia(new Runnable() {
 
 	            public void run() {
-	            		playButton.setGraphic(new ImageView(image));
-	                	playButton1.setGraphic(new ImageView(image));
-	                    stopRequested = true;
-	                    atEndOfMedia = true;         
+	            	playButton.setGraphic(new ImageView(image));
+	                playButton1.setGraphic(new ImageView(image));
+	                stopRequested = true;
+	                atEndOfMedia = true;         
 	            }
 	        });
 	        
-//	        mp.setOnRepeat(new Runnable() {
-//	        	 public void run() {
-//	        		mp.play();
-//	        		playButton.setGraphic(new ImageView(image1));
-//	                playButton1.setGraphic(new ImageView(image1));         
-//	            }
-//	        });
-	        
-	        
+	        mp.setOnRepeat(new Runnable() {
+	        	 public void run() {
+	        		atEndOfMedia = false;
+	        		playButton.setGraphic(new ImageView(image1));
+	                playButton1.setGraphic(new ImageView(image1));         
+	            }
+	        });
 
 	        mediaBar.getChildren().add(playButton);
 	        
@@ -533,28 +529,20 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
-					if(mp.getStatus() == Status.STOPPED){
-						System.out.println("true");
-                    	mp.play();
-                    }
+					if(loop){
+						mp.play();
+					}
 				}
 			});	 
-			
 			return null;
 		}
 	};
 	
 	public void setLoop(boolean loop) {
-		if (loop == true){
-			System.out.println("true");
+		if (loop){
 			mp.setCycleCount(MediaPlayer.INDEFINITE);
-			mp.stop();
-			startTime = 0;
-			mp.play();
 		}else
 			mp.setCycleCount(1);
 	}
-	
-	
 
 }
