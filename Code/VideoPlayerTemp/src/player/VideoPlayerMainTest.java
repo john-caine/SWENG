@@ -1,4 +1,4 @@
-package player;
+package src.player;
 
 import static org.junit.Assert.*;
 import javafx.geometry.Rectangle2D;

@@ -1,5 +1,6 @@
 package player;
 
+import player.VideoPlayerHandler;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -24,11 +25,7 @@ public class VideoPlayerMain extends Application {
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         scene.setFill(Color.BLACK);
             
-<<<<<<< HEAD
         VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 400, 600, 300, 500, true, 3, 3);
-=======
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("../Resources/avengers-featurehp.mp4", 400, 600, 300, 500, true, 3, 3);
->>>>>>> f1e64c587e1abe762f0394e71310d5218174c627
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);

@@ -75,11 +75,7 @@ public class MediaControl {
 		this.mpWidth = width;
 		this.mpHeight = height;
 		this.loop = loop;
-<<<<<<< HEAD
 		setLoop(loop);
-=======
-		//setLoop(loop);
->>>>>>> f1e64c587e1abe762f0394e71310d5218174c627
 		
 		if (startTime == null) {
 	        this.startTime = 0;
@@ -541,16 +537,9 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
-<<<<<<< HEAD
 					if(loop){
 						mp.play();
 					}
-=======
-					if(mp.getStatus() == Status.STOPPED){
-						System.out.println("true");
-                    	mp.play();
-                    }
->>>>>>> f1e64c587e1abe762f0394e71310d5218174c627
 				}
 			});	 
 			return null;
