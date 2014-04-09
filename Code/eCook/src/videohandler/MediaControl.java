@@ -1,11 +1,10 @@
 package videohandler;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
-import javax.print.attribute.standard.Media;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -23,7 +22,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -68,6 +66,7 @@ public class MediaControl {
 	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private Integer playDuration;
+	private Boolean loop;
 	
 	public MediaControl(final MediaPlayer mp, int width, int height, Boolean loop, Integer startTime, Integer playDuration){
 		
@@ -76,7 +75,7 @@ public class MediaControl {
 		this.playDuration = playDuration;
 		this.mpWidth = width;
 		this.mpHeight = height;
-		
+		this.loop = loop;
 		setLoop(loop);
 		
 		if (startTime == null) {
@@ -96,13 +95,13 @@ public class MediaControl {
 		final HBox mediaBar = new HBox();
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
-				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/play.png");
+				inputStream = new FileInputStream("../Resources/play.png");
 				image = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/pause.png");
+				inputStream = new FileInputStream("../Resources/pause.png");
 				image1 = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/stop.png");
+				inputStream = new FileInputStream("../Resources/stop.png");
 				image2 = new Image(inputStream);
-				inputStream = new FileInputStream("C:/Users/R T/workspace/VideoPlayer/fullscreen.png");
+				inputStream = new FileInputStream("../Resources/fullscreen.png");
 				image3 = new Image(inputStream);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -136,6 +135,7 @@ public class MediaControl {
 	                    playButton.setGraphic(new ImageView(image1));
 	                } else {
 	                    mp.pause();
+	                    playButton.setGraphic(new ImageView(image));
 	                }
 	            }
 	        });
@@ -168,6 +168,7 @@ public class MediaControl {
 	                    playButton1.setGraphic(new ImageView(image1));
 	                } else {
 	                    mp.pause();
+	                    playButton1.setGraphic(new ImageView(image));
 	                }
 	            }
 	        });
@@ -201,6 +202,7 @@ public class MediaControl {
 	        
 	        mp.setOnStopped(new Runnable() {
 	        	 public void run() {
+	        		atEndOfMedia = true; 
 		            playButton.setGraphic(new ImageView(image));
 		            playButton1.setGraphic(new ImageView(image));
 		       }
@@ -220,10 +222,18 @@ public class MediaControl {
 	        mp.setOnEndOfMedia(new Runnable() {
 
 	            public void run() {
-	            		playButton.setGraphic(new ImageView(image));
-	                	playButton1.setGraphic(new ImageView(image));
-	                    stopRequested = true;
-	                    atEndOfMedia = true;         
+	            	playButton.setGraphic(new ImageView(image));
+	                playButton1.setGraphic(new ImageView(image));
+	                stopRequested = true;
+	                atEndOfMedia = true;         
+	            }
+	        });
+	        
+	        mp.setOnRepeat(new Runnable() {
+	        	 public void run() {
+	        		atEndOfMedia = false;
+	        		playButton.setGraphic(new ImageView(image1));
+	                playButton1.setGraphic(new ImageView(image1));         
 	            }
 	        });
 
@@ -235,6 +245,7 @@ public class MediaControl {
 
 	            public void handle(ActionEvent e) {
 	                mp.stop();
+	                atEndOfMedia = true;
 	                playButton.setGraphic(new ImageView(image));
 	                playButton1.setGraphic(new ImageView(image));
 	            }
@@ -519,16 +530,17 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
+					if(loop){
+						mp.play();
+					}
 				}
 			});	 
-			
 			return null;
 		}
 	};
 	
 	public void setLoop(boolean loop) {
 		if (loop){
-			System.out.println("true");
 			mp.setCycleCount(MediaPlayer.INDEFINITE);
 		}else
 			mp.setCycleCount(1);
