@@ -2,7 +2,6 @@ package eCook;
 
 import java.util.List;
 
-import audiohandler.AudioHandler;
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +22,7 @@ public class SlideShow {
 
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID, nextSlideID, prevSlideID;
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides;
 	private Button exitSlide, previousSlide, nextSlide;
 	private Recipe recipe;
 	private Slide slide;
@@ -57,6 +56,9 @@ public class SlideShow {
 		
 		recipe = reader.getRecipe();
 		
+		// Get the total number of slides without branch slides
+		numOfSlides = recipe.getNumberOfSlides();
+		
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
 		newSlide(0, false);
@@ -65,11 +67,11 @@ public class SlideShow {
 	public void newSlide(Integer slideID, Boolean isBranch) {
 		List<Image> images;
 		List<TextBody> text;
-		List<Audio> audio;
+		//List<Audio> audio;
 		//List<Graphic> graphics;
 		//List<Video> videos;
 		
-		int imageCount, textCount, audioCount; //, videoCount, graphicCount;
+		int imageCount, textCount; //, audioCount, videoCount, graphicCount;
 		int fontSize;
 		String fontColor, font; //, lineColor, fillColor;
 		
@@ -77,11 +79,11 @@ public class SlideShow {
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
 		
-		// If slideID is 0 exit to main menu
-		//if (slideID == -1)
+		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
+		//if (slideID == -1 || slideID >= numOfSlides)
 			// TODO exit  to  main menu somehow???
 			// new MainMenu()
-		
+
 		// If branched slide set relevant globals
 		if (isBranch == true)
 		{
@@ -101,14 +103,14 @@ public class SlideShow {
 		// Get arrays containing the required objects
 		images = slide.getContent().getImages();
 		text = slide.getContent().getTexts();
-		audio = slide.getContent().getAudios();
+		//audio = slide.getContent().getAudios();
 		//videos = slide.getContent.getVideos();
 		//graphics = slide.getContent.getGraphics();
 		
 		// Get how many objects of each type are required
 		imageCount = images.size();
 		textCount = text.size();
-		audioCount = audio.size();
+		//audioCount = audio.size();
 		//videoCount = videos.size();
 		//graphicCount = graphics.size();
 		
@@ -152,14 +154,13 @@ public class SlideShow {
 		}
 		
 		// Call the AudioHanlder for each audio object
-		if (audioCount != 0){
-			for(int i = 0; i < audioCount; i++){
-				@SuppressWarnings("unused")
-				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
-														audio.get(i).getLoop(), audio.get(i).getDuration());
-				//slideRoot.getChildren().add(audio1.box);
-			}
-		}
+//		if (audioCount != 0){
+//			for(int i = 0; i < audioCount; i++){
+//				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+//														audio.get(i).getDuration(), audio.get(i).loop());
+//				slideRoot.getChildren().add(audio1.box);
+//			}
+//		}
 		
 		// Call the VideoHandler for each video object
 //		if (videoCount != 0){
