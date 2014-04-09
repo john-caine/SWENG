@@ -78,7 +78,9 @@ public class MediaControl {
 		this.mpWidth = width;
 		this.mpHeight = height;
 		this.loop = loop;
-		//setLoop(loop);
+		
+		
+		setLoop(loop);
 		
 		if (startTime == null) {
 	        this.startTime = 0;
@@ -228,13 +230,15 @@ public class MediaControl {
 	            }
 	        });
 	        
-	        mp.setOnRepeat(new Runnable() {
-	        	 public void run() {
-	        		mp.play();
-	        		playButton.setGraphic(new ImageView(image1));
-	                playButton1.setGraphic(new ImageView(image1));         
-	            }
-	        });
+//	        mp.setOnRepeat(new Runnable() {
+//	        	 public void run() {
+//	        		mp.play();
+//	        		playButton.setGraphic(new ImageView(image1));
+//	                playButton1.setGraphic(new ImageView(image1));         
+//	            }
+//	        });
+	        
+	        
 
 	        mediaBar.getChildren().add(playButton);
 	        
@@ -541,11 +545,16 @@ public class MediaControl {
 	};
 	
 	public void setLoop(boolean loop) {
-		if (loop){
+		if (loop == true){
 			System.out.println("true");
 			mp.setCycleCount(MediaPlayer.INDEFINITE);
+			mp.stop();
+			startTime = 0;
+			mp.play();
 		}else
 			mp.setCycleCount(1);
 	}
+	
+	
 
 }
