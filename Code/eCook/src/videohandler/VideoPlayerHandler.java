@@ -2,15 +2,20 @@ package videohandler;
 
 import java.io.File;
 
+import eCook.SlideShow;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 public class VideoPlayerHandler {
 	
 	public MediaControl mediaControl;
+	private SlideShow parent;
 	
-	public VideoPlayerHandler(String pathLocation, int xStart, int yStart, int width, int height, Boolean loop, Integer startTime, Integer duration){
+	public VideoPlayerHandler(SlideShow parent, String pathLocation, int xStart, int yStart, int width, int height, Boolean loop, Integer startTime, Integer duration){
         
+		this.parent = parent;
+		
         // create media player
         Media media = new Media(retrieveImage(pathLocation));
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -25,6 +30,7 @@ public class VideoPlayerHandler {
 		String path  = file.toURI().toASCIIString();
 		return path;
     }
+	
 	private void setMediaPlayerLocation(VBox vbox, int xLocation, int yLocation){
 		vbox.setLayoutX(xLocation);
 		vbox.setLayoutY(yLocation);

@@ -2,6 +2,8 @@ package eCook;
 
 import java.util.List;
 
+import audiohandler.AudioHandler;
+
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
+import videohandler.VideoPlayerHandler;
 import xmlparser.*;
 
 public class SlideShow {
@@ -27,9 +30,6 @@ public class SlideShow {
 	private Recipe recipe;
 	private Slide slide;
 
-
-
-	
 	public SlideShow(Stage stage) {
 		
 		XMLReader reader;
@@ -67,11 +67,11 @@ public class SlideShow {
 	public void newSlide(Integer slideID, Boolean isBranch) {
 		List<Image> images;
 		List<TextBody> text;
-		//List<Audio> audio;
+		List<Audio> audio;
 		//List<Graphic> graphics;
-		//List<Video> videos;
+		List<Video> videos;
 		
-		int imageCount, textCount; //, audioCount, videoCount, graphicCount;
+		int imageCount, textCount, audioCount, videoCount; //, graphicCount;
 		int fontSize;
 		String fontColor, font; //, lineColor, fillColor;
 		
@@ -103,15 +103,15 @@ public class SlideShow {
 		// Get arrays containing the required objects
 		images = slide.getContent().getImages();
 		text = slide.getContent().getTexts();
-		//audio = slide.getContent().getAudios();
-		//videos = slide.getContent.getVideos();
+		audio = slide.getContent().getAudios();
+		videos = slide.getContent.getVideos();
 		//graphics = slide.getContent.getGraphics();
 		
 		// Get how many objects of each type are required
 		imageCount = images.size();
 		textCount = text.size();
-		//audioCount = audio.size();
-		//videoCount = videos.size();
+		audioCount = audio.size();
+		videoCount = videos.size();
 		//graphicCount = graphics.size();
 		
 		// Call the ImageHandler for each image object
@@ -154,25 +154,25 @@ public class SlideShow {
 		}
 		
 		// Call the AudioHanlder for each audio object
-//		if (audioCount != 0){
-//			for(int i = 0; i < audioCount; i++){
-//				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
-//														audio.get(i).getDuration(), audio.get(i).loop());
-//				slideRoot.getChildren().add(audio1.box);
-//			}
-//		}
+		if (audioCount != 0){
+			for(int i = 0; i < audioCount; i++){
+				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+														audio.get(i).getLoop(), audio.get(i).getDuration());
+				//slideRoot.getChildren().add(audio1.box);
+			}
+		}
 		
 		// Call the VideoHandler for each video object
-//		if (videoCount != 0){
-//			for(int i = 0; i < videoCount; i++){
-//				VideoHandler video1 = new VideoHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart(), 
-//												videos.get(i).getYStart(), videos.get(i).getWidth(),
-//												videos.get(i).getHeight(), videos.get(i).getStartTime(), 
-//												videos.get(i).getDuration(), videos.get(i).getLayer(), 
-//												videos.get(i).getLoop());
-//				slideRoot.getChildren().add(video1.box);
-//			}
-//		}
+		if (videoCount != 0){
+			for(int i = 0; i < videoCount; i++){
+				VideoPlayerHandler video1 = new VideoPlayerHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart().intValue(), 
+												videos.get(i).getYStart().intValue(), videos.get(i).getWidth().intValue(),
+												videos.get(i).getHeight().intValue(), videos.get(i).getLoop(),
+												videos.get(i).getStartTime(), videos.get(i).getDuration());
+												/*videos.get(i).getLayer()*/
+				slideRoot.getChildren().add(video1);
+			}
+		}
 		
 		// Call the GraphicHandler for each graphic object
 //		if (graphicCount != 0){
