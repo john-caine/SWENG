@@ -12,13 +12,15 @@ package xmlparser;
  * Version History: v1.01 (?) - Changed name of class from Text to TextBody to avoid JavaFX protected keyword confusion.
  * 					v1.1  (01/04/14) - Changed int fields to Integer.
  * 									 - Added validation to getting and setting lists.
+ * 					v1.2  (10/04/14) - Changed type of xEnd and yEnd from Integer to int as these are compulsory.
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
-	private Integer xEnd, yEnd, fontSize;
+	private int xEnd, yEnd;
+	private Integer fontSize;
 	private String font, fontColor;
 	private List<TextString> textBody;
 	
@@ -28,11 +30,11 @@ public class TextBody extends Content {
 	}
 
 	// getters
-	public Integer getXEnd() {
+	public int getXEnd() {
 		return xEnd;
 	}
 
-	public Integer getYEnd() {
+	public int getYEnd() {
 		return yEnd;
 	}
 	
@@ -50,11 +52,21 @@ public class TextBody extends Content {
 	
 	// setters
 	public void setXEnd(Object xEnd) {
-		this.xEnd = Integer.valueOf((String) xEnd);
+		if (xEnd != null) {
+			this.xEnd = Integer.valueOf((String) xEnd);
+		}
+		else {
+			reportError("xEnd must be specified for this text object");
+		}
 	}
 	
 	public void setYEnd(Object yEnd) {
-		this.yEnd = Integer.valueOf((String) yEnd);
+		if (yEnd != null) {
+			this.yEnd = Integer.valueOf((String) yEnd);
+		}
+		else {
+			reportError("yEnd must be specified for this text object");
+		}
 	}
 	
 	public void setFont(Object font) {

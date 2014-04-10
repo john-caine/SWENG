@@ -10,11 +10,13 @@ package xmlparser;
  * 
  * Version History: v1.01 (27/03/14) - Changed type of ID from String to int. Updated setter and getter.
  * 					v1.1  (01/04/14) - Changed int fields to Integer.
+ * 					v1.2  (10/04/14) - Changed field ID from type Integer to int, as it is compulsory.
  *  
  */
 
 public class Slide {
-	Integer ID, duration;
+	int ID;
+	Integer duration;
 	Boolean lastSlide;
 	Content content;
 		
@@ -22,7 +24,7 @@ public class Slide {
 	}
 
 	// getters
-	public Integer getID() {
+	public int getID() {
 		return ID;
 	}
 

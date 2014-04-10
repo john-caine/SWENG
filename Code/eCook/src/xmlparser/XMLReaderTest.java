@@ -10,6 +10,7 @@ package xmlparser;
  * Version History: v1.1 (27/03/14) - Modified to test updated PWS standard documents (v0.9).
  * 					v1.2 (01/04/14) - Removed CookBook so all references are now directed at Recipe Instance
  * 					v1.3 (06/04/14) - Updated test 'secondSlideReadCorrectly' to see Point class.
+ * 					v1.4 (10/04/14) - Updated testing to facilitate changes from Integer to int across subclasses.
  */
 
 import static org.junit.Assert.*;
@@ -101,23 +102,23 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 1
-		assertEquals(0, recipe.slides.get(0).ID.intValue());
+		assertEquals(0, recipe.slides.get(0).ID);
 		assertEquals(60, recipe.slides.get(0).duration.intValue());
 		assertFalse(recipe.slides.get(0).lastSlide);
 			// text 1
-			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getXStart().intValue());
-			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getYStart().intValue());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(0).getXEnd().intValue());
-			assertEquals(25, recipe.slides.get(0).content.texts.get(0).getYEnd().intValue());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getXStart());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getYStart());
+			assertEquals(100, recipe.slides.get(0).content.texts.get(0).getXEnd());
+			assertEquals(25, recipe.slides.get(0).content.texts.get(0).getYEnd());
 			assertEquals("This is a test of required attributes", recipe.slides.get(0).content.texts.get(0).getTextString(0).getText());
 			assertFalse(recipe.slides.get(0).content.texts.get(0).getTextString(0).getBold());
 			assertFalse(recipe.slides.get(0).content.texts.get(0).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(0).getTextString(0).getUnderline());
 			// text 2
-			assertEquals(10, recipe.slides.get(0).content.texts.get(1).getXStart().intValue());
-			assertEquals(200, recipe.slides.get(0).content.texts.get(1).getYStart().intValue());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(1).getXEnd().intValue());
-			assertEquals(50, recipe.slides.get(0).content.texts.get(1).getYEnd().intValue());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(1).getXStart());
+			assertEquals(200, recipe.slides.get(0).content.texts.get(1).getYStart());
+			assertEquals(100, recipe.slides.get(0).content.texts.get(1).getXEnd());
+			assertEquals(50, recipe.slides.get(0).content.texts.get(1).getYEnd());
 			assertEquals("Time-Roman", recipe.slides.get(0).content.texts.get(1).getFont());
 			assertEquals("16", recipe.slides.get(0).content.texts.get(1).getFontSize());
 			assertEquals("#F7F4F1", recipe.slides.get(0).content.texts.get(1).getFontColor());
@@ -126,10 +127,10 @@ public class XMLReaderTest {
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getUnderline());
 			// text 3
-			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getXStart().intValue());
-			assertEquals(400, recipe.slides.get(0).content.texts.get(2).getYStart().intValue());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(2).getXEnd().intValue());
-			assertEquals(75, recipe.slides.get(0).content.texts.get(2).getYEnd().intValue());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getXStart());
+			assertEquals(400, recipe.slides.get(0).content.texts.get(2).getYStart());
+			assertEquals(100, recipe.slides.get(0).content.texts.get(2).getXEnd());
+			assertEquals(75, recipe.slides.get(0).content.texts.get(2).getYEnd());
 			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getStartTime().intValue());
 			assertEquals(40, recipe.slides.get(0).content.texts.get(2).getDuration().intValue());
 			assertEquals(2, recipe.slides.get(0).content.texts.get(2).getLayer().intValue());
@@ -138,10 +139,10 @@ public class XMLReaderTest {
 			assertFalse(recipe.slides.get(0).content.texts.get(2).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(2).getTextString(0).getUnderline());
 			// text 4
-			assertEquals(10, recipe.slides.get(0).content.texts.get(3).getXStart().intValue());
-			assertEquals(600, recipe.slides.get(0).content.texts.get(3).getYStart().intValue());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(3).getXEnd().intValue());
-			assertEquals(25, recipe.slides.get(0).content.texts.get(3).getYEnd().intValue());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(3).getXStart());
+			assertEquals(600, recipe.slides.get(0).content.texts.get(3).getYStart());
+			assertEquals(100, recipe.slides.get(0).content.texts.get(3).getXEnd());
+			assertEquals(25, recipe.slides.get(0).content.texts.get(3).getYEnd());
 			// text 4 textStrings
 			assertEquals("This text should be bold", recipe.slides.get(0).content.texts.get(3).getTextString(0).getText());
 			assertTrue(recipe.slides.get(0).content.texts.get(3).getTextString(0).getBold());
@@ -188,11 +189,11 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 2
-		assertEquals(1, recipe.slides.get(1).ID.intValue());
+		assertEquals(1, recipe.slides.get(1).ID);
 		assertEquals(30, recipe.slides.get(1).duration.intValue());
 		assertFalse(recipe.slides.get(1).lastSlide);
 			// shape 1
-			assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getTotalPoints().intValue());
+			assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getTotalPoints());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getWidth().intValue());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getHeight().intValue());
 				// point 1
@@ -212,7 +213,7 @@ public class XMLReaderTest {
 				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getX().intValue());
 				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getY().intValue());
 			// shape 2
-			assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints().intValue());
+			assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints());
 			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getWidth().intValue());
 			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getHeight().intValue());
 			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getFillColor());
@@ -222,7 +223,7 @@ public class XMLReaderTest {
 				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getX().intValue());
 				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getY().intValue());
 			// shape 3
-			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints().intValue());
+			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getWidth().intValue());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getHeight().intValue());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(2).getStartTime().intValue());
@@ -257,7 +258,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 3
-		assertEquals(2, recipe.slides.get(2).ID.intValue());
+		assertEquals(2, recipe.slides.get(2).ID);
 		assertEquals(90, recipe.slides.get(2).duration.intValue());
 		assertFalse(recipe.slides.get(2).lastSlide);
 			// audio 1
@@ -295,24 +296,24 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 4
-		assertEquals(3, recipe.slides.get(3).ID.intValue());
+		assertEquals(3, recipe.slides.get(3).ID);
 		assertEquals(40, recipe.slides.get(3).duration.intValue());
 		assertFalse(recipe.slides.get(3).lastSlide);
 			// image 1
 			assertEquals("../resources/bike2.jpg", recipe.slides.get(3).content.images.get(0).getUrlName());
-			assertEquals(10, recipe.slides.get(3).content.images.get(0).getXStart().intValue());
-			assertEquals(10, recipe.slides.get(3).content.images.get(0).getYStart().intValue());
+			assertEquals(10, recipe.slides.get(3).content.images.get(0).getXStart());
+			assertEquals(10, recipe.slides.get(3).content.images.get(0).getYStart());
 			// image 2
 			assertEquals("../resources/bike.jpg", recipe.slides.get(3).content.images.get(1).getUrlName());
-			assertEquals(50, recipe.slides.get(3).content.images.get(1).getXStart().intValue());
-			assertEquals(50, recipe.slides.get(3).content.images.get(1).getYStart().intValue());
+			assertEquals(50, recipe.slides.get(3).content.images.get(1).getXStart());
+			assertEquals(50, recipe.slides.get(3).content.images.get(1).getYStart());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getWidth().intValue());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getHeight().intValue());
 			assertEquals(2, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 			// image 3
 			assertEquals("../resources/bike2.jpg", recipe.slides.get(3).content.images.get(2).getUrlName());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getXStart().intValue());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getYStart().intValue());
+			assertEquals(100, recipe.slides.get(3).content.images.get(2).getXStart());
+			assertEquals(100, recipe.slides.get(3).content.images.get(2).getYStart());
 			assertEquals(20, recipe.slides.get(3).content.images.get(2).getDuration().intValue());
 			assertEquals(3, recipe.slides.get(3).content.images.get(2).getLayer().intValue());
 	}
@@ -340,19 +341,19 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 4
-		assertEquals(4, recipe.slides.get(recipe.getNumberOfSlides()-1).ID.intValue());
+		assertEquals(4, recipe.slides.get(recipe.getNumberOfSlides()-1).ID);
 		assertEquals(200, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
 		assertFalse(recipe.slides.get(recipe.getNumberOfSlides()-1).lastSlide);
 			// video 1
 			assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
-			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart().intValue());
-			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart().intValue());
+			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
+			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
 			assertEquals(2, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getDuration().intValue());
 			// video 2
 			assertEquals("http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
-			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart().intValue());
-			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart().intValue());
+			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart());
+			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
 			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());
 			assertEquals(15, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getStartTime().intValue());
 	}

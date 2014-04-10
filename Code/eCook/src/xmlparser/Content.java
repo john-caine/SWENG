@@ -12,13 +12,17 @@ package xmlparser;
  * Version History: v1.1 (01/04/14) - Changed int fields to Integers.
  * 									- Added validation to getting and setting lists.
  *  								- Added method to report errors (Console print for now but will extend in future).
+ *  				v1.2 (10/04/14) - Changed type of xStart and yStart from Integer to int as these fields are compulsory.
+ *  								- Added validation to setXStart and setYStart to test for null objects.
+ *  								- Added validation to URLName to ensure that the object is not null/empty before setting.
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
-	Integer xStart, yStart, layer, startTime, duration, width, height;
+	int xStart, yStart;
+	Integer layer, startTime, duration, width, height;
 	String urlName;
 	Boolean loop;
 	List<TextBody> texts;
@@ -41,11 +45,11 @@ public class Content {
 	}
 
 	// getters
-	public Integer getXStart() {
+	public int getXStart() {
 		return xStart;
 	}
 
-	public Integer getYStart() {
+	public int getYStart() {
 		return yStart;
 	}
 
@@ -79,11 +83,21 @@ public class Content {
 	
 	// setters
 	public void setXStart(Object xStart) {
-		this.xStart = Integer.valueOf((String) xStart);
+		if (xStart != null) {
+			this.xStart = Integer.valueOf((String) xStart);
+		}
+		else {
+			reportError("xStart must be specified for this media");
+		}
 	}
 	
 	public void setYStart(Object yStart) {
-		this.yStart = Integer.valueOf((String) yStart);
+		if (yStart != null) {
+			this.yStart = Integer.valueOf((String) yStart);
+		}
+		else {
+			reportError("yStart must be specified for this media");
+		}
 	}
 
 	public void setLayer(Object layer) {
@@ -107,7 +121,12 @@ public class Content {
 	}
 	
 	public void setURLName(Object urlName) {
-		this.urlName = (String) urlName;
+		if (urlName != null && urlName != "") {
+			this.urlName = (String) urlName;
+		}
+		else {
+			reportError("URL name must be specified for this media (and must not be empty)");
+		}
 	}
 	
 	public void setLoop(Object loop) {

@@ -16,10 +16,12 @@ import java.util.List;
  * 									- Added validation to getting and setting lists.
  * 					v1.2 (06/04/14) - Changed points list to hold instances of new Point class.
  * 									- Updated setters and getters accordingly.
+ * 					v1.3 (10/04/14) - Changed type of totalPoints from Integer to int as this is compulsory.
+ * 									- Added overriding methods to set ints for width and height instead of Integer.
  */
 
 public class Shape extends Content {
-	private Integer totalPoints;
+	private int totalPoints;
 	private List<Point> points;
 	private String fillColor, lineColor;
 	
@@ -29,7 +31,7 @@ public class Shape extends Content {
 	}
 
 	// getters
-	public Integer getTotalPoints() {
+	public int getTotalPoints() {
 		return totalPoints;
 	}
 
@@ -41,9 +43,24 @@ public class Shape extends Content {
 		return lineColor;
 	}
 	
+	@Override
+	public Integer getWidth() {
+		return width.intValue();
+	}
+	
+	@Override
+	public Integer getHeight() {
+		return height.intValue();
+	}
+	
 	// setters
 	public void setTotalPoints(Object totalPoints) {
-		this.totalPoints = Integer.valueOf((String) totalPoints);
+		if (totalPoints != null) {
+			this.totalPoints = Integer.valueOf((String) totalPoints);
+		}
+		else {
+			reportError("TotalPoints must be specified for this shape object.");
+		}
 	}
 
 	public void setLineColor(Object lineColor) {
@@ -52,6 +69,26 @@ public class Shape extends Content {
 	
 	public void setFillColor(Object fillColor) {
 		this.fillColor = (String) fillColor;
+	}
+	
+	@Override
+	public void setWidth(Object width) {
+		if (width != null) {
+			this.width = Integer.valueOf((String) width).intValue();
+		}
+		else {
+			reportError("Width must be specified for this shape object.");
+		}
+	}
+	
+	@Override
+	public void setHeight(Object height) {
+		if (height != null) {
+			this.height = Integer.valueOf((String) height).intValue();
+		}
+		else {
+			reportError("Height must be specified for this shape object.");
+		}
 	}
 	
 	// list operations
