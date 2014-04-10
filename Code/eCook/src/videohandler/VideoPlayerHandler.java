@@ -1,9 +1,7 @@
 package videohandler;
 
 import java.io.File;
-
 import eCook.SlideShow;
-
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,9 +15,8 @@ public class VideoPlayerHandler {
 		this.parent = parent;
 		
         // create media player
-        Media media = new Media(retrieveImage(pathLocation));
+        Media media = new Media(pathLocation);
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        //mediaPlayer.setAutoPlay(true);
         
         mediaControl = new MediaControl(mediaPlayer,width, height, loop, startTime, duration);
         setMediaPlayerLocation(mediaControl.box, xStart, yStart);
