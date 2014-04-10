@@ -104,7 +104,7 @@ public class SlideShow {
 		images = slide.getContent().getImages();
 		text = slide.getContent().getTexts();
 		audio = slide.getContent().getAudios();
-		videos = slide.getContent.getVideos();
+		videos = slide.getContent().getVideos();
 		//graphics = slide.getContent.getGraphics();
 		
 		// Get how many objects of each type are required
@@ -165,12 +165,12 @@ public class SlideShow {
 		// Call the VideoHandler for each video object
 		if (videoCount != 0){
 			for(int i = 0; i < videoCount; i++){
-				VideoPlayerHandler video1 = new VideoPlayerHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart().intValue(), 
-												videos.get(i).getYStart().intValue(), videos.get(i).getWidth().intValue(),
-												videos.get(i).getHeight().intValue(), videos.get(i).getLoop(),
+				VideoPlayerHandler video1 = new VideoPlayerHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+												videos.get(i).getYStart(), videos.get(i).getWidth(),
+												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
 												/*videos.get(i).getLayer()*/
-				slideRoot.getChildren().add(video1);
+				slideRoot.getChildren().add(video1.mediaControl.box);
 			}
 		}
 		
