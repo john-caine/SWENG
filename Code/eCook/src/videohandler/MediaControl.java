@@ -68,15 +68,25 @@ public class MediaControl {
 	private Integer playDuration;
 	private Boolean loop;
 	
-	public MediaControl(final MediaPlayer mp, int width, int height, Boolean loop, Integer startTime, Integer playDuration){
+	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, Integer playDuration){
 		
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
-		this.mpWidth = width;
-		this.mpHeight = height;
 		this.loop = loop;
 		setLoop(loop);
+		
+		bounds = Screen.getPrimary().getVisualBounds();
+		
+		if(width == null)
+			this.mpWidth = (int) (bounds.getWidth()/2);
+		else
+			this.mpWidth = width;
+		
+		if(height == null)
+			this.mpHeight = (int) (bounds.getHeight()/4);
+		else
+			this.mpHeight = height;
 		
 		if (startTime == null) {
 	        this.startTime = 0;
@@ -85,7 +95,6 @@ public class MediaControl {
 	    else 
 	        new Thread(startTimerThread).start();
 		 
-		bounds = Screen.getPrimary().getVisualBounds();
 		box = new VBox();
 		HBox viewBox = new HBox();
 		mediaView = new MediaView(mp);

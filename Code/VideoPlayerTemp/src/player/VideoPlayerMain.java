@@ -24,7 +24,7 @@ public class VideoPlayerMain extends Application {
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         scene.setFill(Color.BLACK);
             
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 400, 600, 300, 500, true, 3, 3);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 400, 600, null, null, true, 3, 3);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
