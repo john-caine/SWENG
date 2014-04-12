@@ -164,7 +164,7 @@ public class MediaControl {
 
 	                if (status == Status.PAUSED
 	                        || status == Status.READY
-	                        || status == Status.STOPPED) {
+	                        || status == Status.STOPPED) {                	
 	                    // rewind the movie if we're sitting at the end
 	                    if (atEndOfMedia) {
 	                        mp.seek(mp.getStartTime());
@@ -211,6 +211,7 @@ public class MediaControl {
 	        mp.setOnStopped(new Runnable() {
 	        	 public void run() {
 	        		atEndOfMedia = true; 
+	        		System.out.println("Stopped");
 		            playButton.setGraphic(new ImageView(image));
 		            playButton1.setGraphic(new ImageView(image));
 		       }
@@ -239,7 +240,7 @@ public class MediaControl {
 	        
 	        mp.setOnRepeat(new Runnable() {
 	        	 public void run() {
-	        		atEndOfMedia = false;
+	        		atEndOfMedia = true;
 	        		playButton.setGraphic(new ImageView(image1));
 	                playButton1.setGraphic(new ImageView(image1));         
 	            }
@@ -538,9 +539,6 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
-					if(loop){
-						mp.play();
-					}
 				}
 			});
 			return null;
