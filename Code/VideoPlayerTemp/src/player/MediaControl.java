@@ -66,16 +66,22 @@ public class MediaControl {
 	private Integer startTime;
 	private Integer playDuration;
 	private Boolean loop1;
+	HBox mediaBar;
 	
 	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, Integer playDuration){
 		
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
-		this.loop1 = loop;
-		//setLoop(loop1);
 		
 		bounds = Screen.getPrimary().getVisualBounds();
+		
+		if (loop == null)
+			this.loop1 = false;
+		else
+			this.loop1 = loop;
+		
+		setLoop(loop1);
 		
 		if(width == null)
 			this.mpWidth = (int) (bounds.getWidth()/2);
@@ -92,7 +98,7 @@ public class MediaControl {
 	        new Thread(startTimerThread).start();
 	    }
 	    else 
-	       new Thread(startTimerThread).start();
+	        new Thread(startTimerThread).start();
 		 
 		box = new VBox();
 		HBox viewBox = new HBox();
@@ -100,7 +106,8 @@ public class MediaControl {
 		viewBox.getChildren().add(mediaView);
 		box.getChildren().add(viewBox);
 			
-		final HBox mediaBar = new HBox();
+		mediaBar = new HBox();
+		mediaBar.setMaxHeight(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
 				inputStream = new FileInputStream("../Resources/play.png");
@@ -120,6 +127,7 @@ public class MediaControl {
 	        playButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	            public void handle(ActionEvent e) {
+	                updateValues();
 	                Status status = mp.getStatus();
 
 	                if (status == Status.UNKNOWN
@@ -136,6 +144,7 @@ public class MediaControl {
 	                        mp.seek(mp.getStartTime());
 	                        atEndOfMedia = false;
 	                        playButton.setGraphic(new ImageView(image));
+	                        updateValues();
 	                    }
 	                    mp.play();
 	                    playButton.setGraphic(new ImageView(image1));
@@ -151,6 +160,7 @@ public class MediaControl {
 	        playButton1.setOnAction(new EventHandler<ActionEvent>() {
 
 	            public void handle(ActionEvent e) {
+	                updateValues();
 	                Status status = mp.getStatus();
 
 	                if (status == Status.UNKNOWN
@@ -167,6 +177,7 @@ public class MediaControl {
 	                        mp.seek(mp.getStartTime());
 	                        atEndOfMedia = false;
 	                        playButton1.setGraphic(new ImageView(image));
+	                        updateValues();
 	                    }
 	                    mp.play();
 	                    playButton1.setGraphic(new ImageView(image1));
@@ -206,8 +217,8 @@ public class MediaControl {
 	        
 	        mp.setOnStopped(new Runnable() {
 	        	 public void run() {
-	        		atEndOfMedia = true;
-	        		System.out.println("stopped");
+	        		mp.setStopTime(Duration.INDEFINITE);
+	        		atEndOfMedia = true; 
 		            playButton.setGraphic(new ImageView(image));
 		            playButton1.setGraphic(new ImageView(image));
 		       }
@@ -220,30 +231,26 @@ public class MediaControl {
 	                updateValues();
 	                mediaView.setFitWidth(mpWidth);
 	                mediaView.setFitHeight(mpHeight);
-	                timeSlider.setMaxWidth(mpWidth/2);
+	                timeSlider.setMaxWidth((2*mpWidth)/3);
 	            }
 	        });
 	        
-	        mp.setCycleCount(loop1 ? MediaPlayer.INDEFINITE : 1);
 	        mp.setOnEndOfMedia(new Runnable() {
 
 	            public void run() {
 	            	if (!loop1){ 
-	            	playButton.setGraphic(new ImageView(image));
-	                playButton1.setGraphic(new ImageView(image));
-	                stopRequested = true;
-	                atEndOfMedia = true;
-	                mp.stop();
-	            	}
-	            	else{
-	            	mp.seek(mp.getStartTime());
-	            	}
-	            }
+	                	playButton.setGraphic(new ImageView(image));
+	                    playButton1.setGraphic(new ImageView(image));
+	                    atEndOfMedia = true;
+	                    mp.stop();
+	                	}
+	                	mp.seek(mp.getStartTime());
+	                }
 	        });
 	        
 	        mp.setOnRepeat(new Runnable() {
 	        	 public void run() {
-	        		//atEndOfMedia = false;
+	        		atEndOfMedia = false;
 	        		playButton.setGraphic(new ImageView(image1));
 	                playButton1.setGraphic(new ImageView(image1));         
 	            }
@@ -520,7 +527,6 @@ public class MediaControl {
  				});
  				if (playDuration != null && playDuration != 0)
  					mp.setStopTime(Duration.seconds(playDuration));
-					//new Thread(durationTimerThread).start();
  				return null;
  			}
    	    };
@@ -543,6 +549,9 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
+					if(loop1){
+						mp.play();
+					}
 				}
 			});	 
 			return null;
@@ -557,3 +566,4 @@ public class MediaControl {
 	}
 
 }
+

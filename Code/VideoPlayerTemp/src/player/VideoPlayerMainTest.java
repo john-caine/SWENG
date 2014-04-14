@@ -3,6 +3,8 @@ package player;
 import static org.junit.Assert.*;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -12,8 +14,10 @@ import org.junit.Test;
 
 public class VideoPlayerMainTest {
 	
-	VideoPlayerHandler videoPlayerHandler;
+	Media media;
+	MediaPlayer mediaPlayer;
 	MediaControl mediaControl;
+	String pathLocation = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
 	
 	public static class AsNonApp extends Application {
 	    @Override
@@ -35,7 +39,9 @@ public class VideoPlayerMainTest {
 	
 	@Before
 	public void setup() {
-		videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 400, 600, null, null, true, 1, 4);
+		media = new Media(pathLocation);
+		mediaPlayer = new MediaPlayer(media);
+		mediaControl = new MediaControl(mediaPlayer, 400, 400, true, 0, 10);
 	}
 	
 	/*@Test
@@ -48,6 +54,6 @@ public class VideoPlayerMainTest {
 	
 	@Test
 	public void BlahBlah(){
-		System.out.println("Video Player's y Location = " + videoPlayerHandler.mediaPlayer.isAutoPlay());
+		System.out.println(mediaControl.box.isVisible());
 	}
 }
