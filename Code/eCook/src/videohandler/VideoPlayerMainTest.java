@@ -3,7 +3,6 @@ package videohandler;
 import static org.junit.Assert.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Stage;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,13 +14,13 @@ public class VideoPlayerMainTest {
 	
 	@Before
 	public void setup() {
-		videoPlayerHandler = new VideoPlayerHandler("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", 200 , 300, true);
+		videoPlayerHandler = new VideoPlayerHandler( "http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", 200 , 300, null, null, true, null, null);
 	}
 	
 	@Test
 	public void getPathName(){
-		System.out.println("Path Name = " + videoPlayerHandler.retrieveImage("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4"));
-		assertEquals("file:/C:/Users/R%20T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4", videoPlayerHandler.retrieveImage("C:/Users/R T/workspace/VideoPlayer/src/prometheus-featureukFhp.mp4"));
+		System.out.println("Path Name = " + videoPlayerHandler.retrieveImage("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4"));
+		assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", videoPlayerHandler.retrieveImage("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4"));
 	}
 	
 	@Test

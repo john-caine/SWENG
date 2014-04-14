@@ -73,10 +73,13 @@ public class MediaControl {
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
-		this.loop = loop;
-		setLoop(loop);
 		
 		bounds = Screen.getPrimary().getVisualBounds();
+		
+		if (loop == null)
+			this.loop = false;
+		else
+			this.loop = loop;
 		
 		if(width == null)
 			this.mpWidth = (int) (bounds.getWidth()/2);

@@ -165,7 +165,7 @@ public class SlideShow {
 		// Call the VideoHandler for each video object
 		if (videoCount != 0){
 			for(int i = 0; i < videoCount; i++){
-				VideoPlayerHandler video1 = new VideoPlayerHandler(this, videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+				VideoPlayerHandler video1 = new VideoPlayerHandler(videos.get(i).getUrlName(), videos.get(i).getXStart(), 
 												videos.get(i).getYStart(), videos.get(i).getWidth(),
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
