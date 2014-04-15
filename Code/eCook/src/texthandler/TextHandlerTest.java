@@ -10,13 +10,16 @@ package texthandler;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import eCook.SlideShow;
-import xmlparser.TextString;
-import javafx.scene.layout.HBox;
+import xmlparser.TextBody;
+import xmlparser.XMLReader;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 
 public class TextHandlerTest {
@@ -26,27 +29,21 @@ public class TextHandlerTest {
 	String font = "Times New Roman";
 	Integer x_start = 20;
 	Integer y_start = 20;
-	private Integer fontsize = 20;
-	private String fontcolor = "#00FF00";
-	private String linecolor = "#0000FF";
-	private Integer x_end = 40;
-	private Integer startTime = 5;
-	private Integer duration = 20;
-	private TextString textString;
 	private SlideShow parent;
-	private Integer layer;
-	private Integer branchID;
-	private Integer orientation;
+	private XMLReader reader;
+	private List<TextBody> textList;
+	
 	@Before 
 	public void SetUp() {
 		
-		textString = new TextString();
-		textString.setText(inputString);
-		textString.setBold(false);
-		textString.setItalic(true);
-		textString.setUnderline(true);
+		 reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		 textList = reader.getRecipe().getSlide(2).getContent().getTexts();
 	
-	text_object = new TextHandler(parent, textString, font, x_start, y_start, fontsize, fontcolor, linecolor, x_end,startTime, duration, layer, branchID, orientation);
+	text_object = new TextHandler(parent, textList.get(0), textList.get(0).getFont(), textList.get(0).getXStart(),
+			textList.get(0).getYStart(), textList.get(0).getFontSize(), 
+			textList.get(0).getFontColor(), textList.get(0).getXEnd(), textList.get(0).getYEnd(), textList.get(0).getStartTime(),
+			textList.get(0).getDuration(), 
+			textList.get(0).getLayer(),  null,null);
 	
 	
 
@@ -59,7 +56,7 @@ public class TextHandlerTest {
 		
 		
 		
-		assertTrue(text_object.textBox instanceof HBox);
+		assertTrue(text_object.textBox instanceof TextFlow);
 	};
 
 	
