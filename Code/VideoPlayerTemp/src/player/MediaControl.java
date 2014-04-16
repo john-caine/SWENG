@@ -107,7 +107,7 @@ public class MediaControl {
 		box.getChildren().add(viewBox);
 			
 		mediaBar = new HBox();
-		mediaBar.setMaxHeight(mpWidth);
+		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
 				inputStream = new FileInputStream("../Resources/play.png");
