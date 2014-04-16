@@ -68,7 +68,7 @@ public class MainMenuTest{
 		// The plus 40 accounts is to account for the task bar, getHeight for screen bounds doesn't seem to include it
 		// 
 		assertEquals(screenBounds.getWidth(), stage.getWidth(), 0.1);
-		assertEquals(screenBounds.getHeight() + 40 , stage.getHeight() , 0.1);
+		assertEquals(screenBounds.getHeight() , stage.getHeight() , 0.1);
 	}
 	
 	@Test

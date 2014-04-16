@@ -221,7 +221,7 @@ public class SlideShow {
 
 	public void SlideButton() {
         
-        exitSlide = new Button("Exit Slide");
+        exitSlide = new Button("Exit SlideShow");
         exitSlide.setPrefWidth(80);
         exitSlide.setPrefHeight(40); 
         

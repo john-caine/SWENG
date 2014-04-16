@@ -52,18 +52,21 @@ public class TextHandler {
 		 this.branchID = branchID;
 		 this.parent = parent;
 		 
-		 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		 if (x_end == null){
+			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
 			 x_end = (int)screenBounds.getWidth();
 		 }
 		 
 		 if (y_end == null){
+			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
 			 y_end =(int)screenBounds.getHeight();
 		 }
 		 
 		stringList = textBody.getTextBody();
 		
-		textArea = new TextArea();
+	
 		 //Creates new Hbox textBox, sets to invisible and adds the text object.
 		 textBox = new TextFlow();
 		 textBox.setVisible(false);

@@ -16,8 +16,8 @@
 		<fillcolor>#FF0000</fillcolor> 
 	</defaults>
 	<slide ID="0" duration="60" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100"> 
-			<textbody>
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40"> 
+			<textbody underlined="true" bold="true" italic="true">
         <textstring>This is a test of required attributes</textstring>
       </textbody>
     </text>

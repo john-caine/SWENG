@@ -81,6 +81,7 @@ public class SlideShowTest {
 		//Tests that the button HBox is in the centre at the bottom of the screen.
 	
 		
+		//Tests the next slide exit slide and previous slide buttons are created and are placed in the correct place.
 		previousSlide = (Button) buttonBox.getChildren().get(0);
 		exitSlide = (Button) buttonBox.getChildren().get(1);
 		nextSlide = (Button) buttonBox.getChildren().get(2);
