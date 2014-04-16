@@ -1,24 +1,20 @@
 package application;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Group;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class HomeScreen extends Application {
+public class Main extends Application {
 	
 GridPane borders = new GridPane();//Where all window components (buttons, labels etc.) are added
 HBox bigBox = new HBox();
@@ -37,7 +33,15 @@ public void start(Stage primaryStage) {
 			borders.setPadding(new Insets(10, 10, 10, 10)); 
 			
 			bigBox.getChildren().add(borders);
+			bigBox.setVisible(false);
 			
+			 FadeTransition fadeTransition 
+             = new FadeTransition(Duration.millis(3000), bigBox);
+			 fadeTransition.setFromValue(0.0);
+			 fadeTransition.setToValue(1.0);
+			 fadeTransition.play();
+			 
+			 bigBox.setVisible(true);
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -94,9 +98,10 @@ public void start(Stage primaryStage) {
 		//BUTTON ACTIONS
 		recipeBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Recipe Clicked");
+               // System.out.println("Recipe Clicked");
+             
                 bigBox.getChildren().remove(borders); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                new RecipeScreen();	
+                new RecipeScreen(bigBox);	
             }
         });
 		
