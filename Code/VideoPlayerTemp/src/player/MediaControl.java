@@ -31,7 +31,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
@@ -48,6 +47,7 @@ public class MediaControl {
 	private MediaPlayer mp;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
+    private boolean adjustedSize = false;
     private Duration duration;
     private Slider timeSlider, timeSlider1;
     private Label playTime, playTime1;
@@ -83,15 +83,16 @@ public class MediaControl {
 		
 		setLoop(loop1);
 		
-		if(width == null)
-			this.mpWidth = (int) (bounds.getWidth()/2);
-		else
+		if (width != null && height != null){
 			this.mpWidth = width;
-		
-		if(height == null)
-			this.mpHeight = (int) (bounds.getHeight()/4);
-		else
 			this.mpHeight = height;
+			adjustedSize = true;
+		}
+		else{
+			this.mpWidth = (int) (bounds.getWidth()/2);
+			this.mpHeight = (int) (bounds.getHeight()/4);
+			adjustedSize = false;
+		}
 		
 		if (startTime == null) {
 	        this.startTime = 0;
@@ -107,7 +108,7 @@ public class MediaControl {
 		box.getChildren().add(viewBox);
 			
 		mediaBar = new HBox();
-		mediaBar.setMaxHeight(mpWidth);
+		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
 				inputStream = new FileInputStream("../Resources/play.png");
@@ -229,8 +230,15 @@ public class MediaControl {
 	            public void run() {
 	                duration = mp.getMedia().getDuration();
 	                updateValues();
-	                mediaView.setFitWidth(mpWidth);
-	                mediaView.setFitHeight(mpHeight);
+	                if(adjustedSize){
+		                mediaView.setPreserveRatio(false);
+		                mediaView.setFitWidth(mpWidth);
+		                mediaView.setFitHeight(mpHeight);
+	                }
+	                else{
+	                	mediaView.setPreserveRatio(true);
+	 	                mediaView.setFitWidth(mpWidth);
+	                }
 	                timeSlider.setMaxWidth((2*mpWidth)/3);
 	            }
 	        });
@@ -393,8 +401,8 @@ public class MediaControl {
 	        mediaBar.getChildren().add(volumeLabel);
 
 	        volumeSlider = new Slider();
-	        volumeSlider.setPrefWidth(mpWidth/6);
-	        volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
+	        volumeSlider.setManaged(true);
+	        volumeSlider.setMaxWidth(mpWidth/6);
 	        volumeSlider.setMinWidth(20);
 	        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
@@ -566,4 +574,3 @@ public class MediaControl {
 	}
 
 }
-

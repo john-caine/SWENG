@@ -16,6 +16,8 @@ package xmlparser;
  * 									 - New fields of type Info and Defaults, with a list to hold slide instances
  * 									 - Added validation to getting and setting lists.
  *  								 - Added method to report errors (Console print for now but will extend in future).
+ *  				v1.2  (16/04/14) - Modified method getNumberOfSlides() to ignore branch slides.
+ *  								 - Added new method getNumberOfSlidesIncBranchSlides().
  */
 
 import java.util.ArrayList;
@@ -60,7 +62,18 @@ public class Recipe {
 		}
 	}
 
+	// get the number of slides excluding branch slides
 	public int getNumberOfSlides() {
+		for (int i=0; i<slides.size(); i++) {
+			if (slides.get(i).getLastSlide() == true) {
+				return i+1;
+			}
+		}
+		return slides.size();
+	}
+	
+	// get the number of slides including branch slides
+	public int getNumberOfSlidesIncBranchSlides() {
 		return slides.size();
 	}
 	
