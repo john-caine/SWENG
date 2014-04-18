@@ -6,7 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 public class VideoPlayerHandler {
 	
-	public MediaControl mediaControl;
+	public VideoMediaControl mediaControl;
 	
 	public VideoPlayerHandler( String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
 		
@@ -14,7 +14,7 @@ public class VideoPlayerHandler {
         Media media = new Media(pathLocation);
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
         
-        mediaControl = new MediaControl(mediaPlayer, width, height, loop, startTime, duration);
+        mediaControl = new VideoMediaControl(mediaPlayer, width, height, loop, startTime, duration);
         setMediaPlayerLocation(mediaControl.box, xStart, yStart);
 	}
 	

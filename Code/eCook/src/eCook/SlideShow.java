@@ -157,8 +157,8 @@ public class SlideShow {
 		if (audioCount != 0){
 			for(int i = 0; i < audioCount; i++){
 				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
-														audio.get(i).getLoop(), audio.get(i).getDuration());
-				//slideRoot.getChildren().add(audio1.box);
+														audio.get(i).getDuration(), audio.get(i).getLoop());
+				slideRoot.getChildren().add(audio1.mediaControl.box);
 			}
 		}
 		

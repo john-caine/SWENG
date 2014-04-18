@@ -15,7 +15,7 @@ public class ImageHandler {
 	public HBox box;
 	private Integer duration;
 	private Integer startTime;
-	private Integer branchID;
+	protected Integer branchID;
 	private SlideShow parent;
 	
 	
