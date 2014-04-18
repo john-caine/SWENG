@@ -1,38 +1,60 @@
 package timer;
 
 
+
+
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaException;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Timer extends Application {
 	
 
-	private Group group;
+	Group group;
 	private Scene scene;
-	private Button startTimer;
+	private Button startButton;
 	private Integer timerStartSeconds = 10;
 	private Integer timerValueSeconds= 0;
 	private Label labelSeconds;
 	private Timeline timeLineSeconds;
 	private Integer timerValueMinutes;
-	private Timeline timeLineMinutes;
 	private Label labelMinutes;
-	private HBox timerBox;
+	HBox timerBox;
 	private Integer timerStartMinutes = 0;
 	private Integer timerValueHours;
-	private Timeline timeLineHours;
 	private Integer timerStartHours =1 ;
 	private Label labelHours;
+	private ListView<Integer> numbersListSeconds;
+	private ListView<Integer> numbersListMinutes;
+	private ListView<Integer> numbersListHours;
+	private Boolean started = false;
+	private boolean paused = false;
+	
+	
+
+	private HBox listBox;
+	private VBox timerVBox;
+	private int i;
+	private Button resetTimer;
+	private HBox buttonBox;
+	private AudioClip audio;
 
 	
 
@@ -44,11 +66,27 @@ public class Timer extends Application {
 			group = new Group();
 			scene = new Scene(group);
 			timerBox = new HBox();
+			listBox = new HBox();
 			
 
-			startTimer = new Button("Start Timer");
-			startTimer.setLayoutX(400);
-			startTimer.setLayoutY(350);
+			startButton = new Button("Start");
+			startButton.setPrefWidth(50);
+			resetTimer = new Button("Reset");
+			buttonBox = new HBox();
+			buttonBox.setLayoutX(400);
+			buttonBox.setLayoutY(350);
+			buttonBox.getChildren().addAll(startButton,resetTimer);
+		
+			
+		
+			numberListSetup();
+			
+			
+			listBox.getChildren().add(numbersListHours);	
+			listBox.getChildren().add(numbersListMinutes);
+			listBox.getChildren().add(numbersListSeconds);
+			
+			
 			
 			if(timerStartSeconds > 9){
 				labelSeconds = new Label(timerStartSeconds.toString());
@@ -71,167 +109,316 @@ public class Timer extends Application {
 				labelHours = new Label("0" + timerStartHours.toString() + " : ");
 			}
 			
+			labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					numbersListSeconds.setVisible(true);
+					numbersListMinutes.setVisible(false);
+					numbersListHours.setVisible(false);
+					
+				}
+				
+			});
 			
-			timerBox.setLayoutX(400);
-			timerBox.setLayoutY(400);
+			labelMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					numbersListSeconds.setVisible(false);
+					numbersListMinutes.setVisible(true);
+					numbersListHours.setVisible(false);
+					
+				}
+				
+			});
+			
+			labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					numbersListSeconds.setVisible(false);
+					numbersListMinutes.setVisible(false);
+					numbersListHours.setVisible(true);
+					
+				}
+				
+			});
+			
 			
 			timerBox.getChildren().add(labelHours);
 			timerBox.getChildren().add(labelMinutes);
 			timerBox.getChildren().add(labelSeconds);
 			
-			group.getChildren().add(startTimer);
-			group.getChildren().add(timerBox);
+			timerVBox = new VBox();
+			timerVBox.setLayoutX(400);
+			timerVBox.setLayoutY(400);
+			
+			timerVBox.getChildren().addAll(timerBox, listBox);
+			
+			
+			group.getChildren().addAll(buttonBox, timerVBox);
+			
+			loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
+			
 			stage.setScene(scene);
+			
+			timeLineSeconds = new Timeline();
+			timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
+			createKeyFrame();
 			stage.show();
 			
 			
 			
-			startTimer.setOnAction(new EventHandler<ActionEvent>() {
+			startButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				
-
-				
-
-				
-
-			
 
 				@Override
 		        public void handle(ActionEvent event) {
-					timerValueSeconds = timerStartSeconds;
-					timerValueMinutes = timerStartMinutes;
-					timerValueHours = timerStartHours;
-					timeLineSeconds = new Timeline();
-				
 					
-					timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
-					timeLineSeconds.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
-
+					if(started == false && paused == false){
+					
+						timerValueSeconds = timerStartSeconds;
+						timerValueMinutes = timerStartMinutes;
+						timerValueHours = timerStartHours;
+						timeLineSeconds.play();
+						startButton.setText("Pause");
 						
-						@Override
-						public void handle(ActionEvent event) {
-							timerValueSeconds--;
-							
-							if(timerValueSeconds > 9){
-								labelSeconds.setText(timerValueSeconds.toString());
-							}
-							else {
-							
-								labelSeconds.setText("0" + timerValueSeconds.toString());
-							}
-							
-							if(timerValueHours <= 0 && timerValueMinutes <= 0 && timerValueSeconds <= 0){
-								timeLineSeconds.stop();
-							}
-							else if(timerValueMinutes <= 0 && timerValueSeconds <= 0){
-								timerValueHours--;
-								timerValueMinutes = 59;
-								timerValueSeconds = 59;
-								
-								if(timerValueHours > 9){
-									labelHours.setText(timerValueHours.toString() + " : ");
-								}
-								else {
-								
-									labelHours.setText("0" + timerValueHours.toString() + " : ");
-								}
-								
-								labelMinutes.setText(timerValueMinutes.toString() + " : ");
-								labelSeconds.setText(timerValueSeconds.toString());
-							}
-							else if(timerValueSeconds <= 0){
-								timerValueMinutes--;
-								timerValueSeconds = 60;
-								
-								if(timerValueMinutes > 9){
-									labelMinutes.setText(timerValueMinutes.toString() + " : ");
-								}
-								else{
-									labelMinutes.setText("0" + timerValueMinutes.toString() + " : ");
-								}
-							}
-							
-								
-							
-							
-							
-						}
+						started = true;
+					}
+					else if(started == true && paused == false){
+						timeLineSeconds.stop();
+						startButton.setText("Play");
+						paused = true;
+					}
 					
+					else if(started == true && paused == true){
 						
-					} ));
-					
-//				timeLineMinutes = new Timeline();
-//				
-//				timeLineMinutes.setCycleCount(Timeline.INDEFINITE);
-//				timeLineMinutes.getKeyFrames().add(new KeyFrame(Duration.minutes(1), new EventHandler<ActionEvent>(){
-//
-//					
-//
-//					@Override
-//					public void handle(ActionEvent arg0) {
-//						timerValueMinutes--;
-//						
-//						if(timerValueMinutes > 9){
-//							labelMinutes.setText(timerValueMinutes.toString() + " : ");
-//						}
-//						else{
-//							labelMinutes.setText("0" + timerValueMinutes.toString() + " : ");
-//						}
-//						
-//						if(timerValueMinutes == 0){
-//							timerValueMinutes = 60;
-//						}
-//						else if(timerValueMinutes <= 0 && timerValueHours <= 0){
-//							
-//							timeLineMinutes.stop();
-//						}
-//						
-//					}
-//					
-//				}));
-//				
-//				timeLineHours = new Timeline();
-//				
-//				timeLineHours.setCycleCount(Timeline.INDEFINITE);
-//				timeLineHours.getKeyFrames().add(new KeyFrame(Duration.hours(1), new EventHandler<ActionEvent>(){
-//
-//					
-//
-//					
-//
-//				
-//
-//					@Override
-//					public void handle(ActionEvent arg0) {
-//						timerValueHours--;
-//						
-//						if(timerValueHours > 9){
-//							labelHours.setText(timerValueHours.toString() + " : ");
-//						}
-//						else{
-//							labelHours.setText(timerValueHours.toString() + " : ");
-//						}
-//						
-//						
-//						if(timerValueHours <= 0){
-//							
-//							timeLineHours.stop();
-//						}
-//						
-//					}
-//					
-//				}));
-//				
-//				
-//				timeLineHours.playFrom(Duration.minutes(59));
-//				timeLineMinutes.playFrom(Duration.seconds(59));
-				timeLineSeconds.playFromStart();
+						timeLineSeconds.play();
+						startButton.setText("Pause");
+						paused = false;
+					}
 				
 				
 		        }
 		    });
+			
+			resetTimer.setOnAction(new EventHandler<ActionEvent>(){
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					timeLineSeconds.stop();
+					started = false;
+					paused = false;
+					
+					if (timerStartSeconds >9){
+						
+						labelSeconds.setText(timerStartSeconds.toString());
+						
+					}
+					else{
+						
+						labelSeconds.setText("0" + timerStartSeconds.toString());
+						
+					}
+					
+					if (timerStartMinutes > 9){
+						
+						labelMinutes.setText(timerStartMinutes.toString() + " : ");
+						
+					}
+					else{
+						
+						labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
+					}
+					
+					
+					if (timerStartHours > 9){
+						
+						labelHours.setText(timerStartHours.toString() + " : ");
+					}
+					else{
+						
+						labelHours.setText("0" + timerStartHours.toString() + " : ");
+					}
+						
+					startButton.setText("Start");
+				}
+				
+				
+			});
+			}
+	
+	/*Creates the keyframe that operates the timer. The keyframe counts for one second, decrementing the 
+	 * remaining seconds each time. Once the number of seconds reaches 0, the method evaluates if the 
+	 * minutes,hours need to be decremented.
+	 * 
+	 */
+	
+	public void createKeyFrame(){
+		
+		timeLineSeconds.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
+
+			
+			@Override
+			public void handle(ActionEvent event) {
+				timerValueSeconds--;
+				
+				if(timerValueSeconds > 9){
+					labelSeconds.setText(timerValueSeconds.toString());
+				}
+				else {
+				
+					labelSeconds.setText("0" + timerValueSeconds.toString());
+				}
+				
+				if(timerValueHours <= 0 && timerValueMinutes <= 0 && timerValueSeconds <= 0){
+					timeLineSeconds.stop();
+					audio.play();
+					labelHours.setText("Finished");
+					labelMinutes.setText("");
+					labelSeconds.setText("");
+					started = false;
+					paused = false;
+					startButton.setText("Start");
+				}
+				else if(timerValueMinutes <= 0 && timerValueSeconds <= 0){
+					timerValueHours--;
+					timerValueMinutes = 59;
+					timerValueSeconds = 59;
+					
+					if(timerValueHours > 9){
+						labelHours.setText(timerValueHours.toString() + " : ");
+					}
+					else {
+					
+						labelHours.setText("0" + timerValueHours.toString() + " : ");
+					}
+					
+					labelMinutes.setText(timerValueMinutes.toString() + " : ");
+					labelSeconds.setText(timerValueSeconds.toString());
+				}
+				else if(timerValueSeconds <= 0){
+					timerValueMinutes--;
+					timerValueSeconds = 60;
+					
+					if(timerValueMinutes > 9){
+						labelMinutes.setText(timerValueMinutes.toString() + " : ");
+					}
+					else{
+						labelMinutes.setText("0" + timerValueMinutes.toString() + " : ");
+					}
+				}
+				
+					
+				
+				
+				
 			}
 		
+			
+		} ));
+		
+		
+	}
+		/* The lists of numbers which can be selected by the user to set the timer are created in this method.
+		 * There is a list for seconds, minutes and hours, which when clicked sets the start value of the timer to 
+		 * the selected value then hides the list again.
+		 */
+	
+	public void numberListSetup() {
+		
+		 ObservableList<Integer> numbers = FXCollections.observableArrayList();
+		 
+		 for( i = 0; i < 60; i++){
+			 
+			 numbers.add(i);
+			 
+		 }
+		
+		 
+		//Create ListViews which are used to select the start values of the timer
+		numbersListSeconds = new ListView<Integer>();
+		numbersListMinutes = new ListView<Integer>();
+		numbersListHours = new ListView<Integer>();
+		
+		// Add the numbers to each of the list
+		numbersListSeconds.setItems(numbers);
+		numbersListMinutes.setItems(numbers);
+		numbersListHours.setItems(numbers);
+		
+		numbersListSeconds.setPrefWidth(30);
+		numbersListMinutes.setPrefWidth(30);
+		numbersListHours.setPrefWidth(30);
+		
+		//Hide all of the number lists
+		numbersListSeconds.setVisible(false);
+		numbersListMinutes.setVisible(false);
+		numbersListHours.setVisible(false);
+		
+		numbersListSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				timerStartSeconds = numbersListSeconds.getSelectionModel().getSelectedItem();
+				if(timerStartSeconds > 9){
+					labelSeconds.setText(timerStartSeconds.toString());
+				}
+				else{
+					labelSeconds.setText("0" + timerStartSeconds.toString());
+				}
+				numbersListSeconds.setVisible(false);
+				
+			}
+			
+		});
+		
+		numbersListMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				timerStartMinutes = numbersListMinutes.getSelectionModel().getSelectedItem();
+				if(timerStartMinutes > 9){
+					labelMinutes.setText(timerStartMinutes.toString() + " : ");
+				}
+				else{
+					labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
+				}
+				numbersListMinutes.setVisible(false);
+				
+			}
+			
+		});
+		
+		numbersListHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				timerStartHours = numbersListHours.getSelectionModel().getSelectedItem();
+				if(timerStartHours > 9){
+					labelHours.setText(timerStartHours.toString() + " : ");
+				}
+				else{
+					labelHours.setText("0" + timerStartHours.toString() + " : ");
+				}
+				numbersListHours.setVisible(false);
+				
+			}
+			
+		});
+		
+	}
+	
+	private void loadAudio(String urlname) {
+		try {
+			audio = new AudioClip(urlname);
+		} catch (IllegalArgumentException i) {
+			System.out.println("Audio File not found at " + urlname);
+		} catch (MediaException m) {
+			System.out.println("Audio File " + urlname + " was of an unexpected format");
+		}
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
