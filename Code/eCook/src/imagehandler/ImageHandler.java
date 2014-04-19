@@ -92,16 +92,7 @@ public class ImageHandler {
 	
 			@Override
 			protected Object call() throws Exception {
-				 int count=0;
-				 while (count <= startTime && startTime != 0) {
-					try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					count++;
-			 	}
+				TimeUnit.SECONDS.sleep(startTime);
 			 
 				Platform.runLater (new Runnable() {
 					public void run(){
@@ -123,16 +114,7 @@ public class ImageHandler {
 		
 		 @Override
 		protected Object call() throws Exception {
-			int count=0;
-			while (count <= duration) {
-				try {
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				count++;
-			}
+			 TimeUnit.SECONDS.sleep(duration);
 				 
 			Platform.runLater( new Runnable(){
 				public void run(){

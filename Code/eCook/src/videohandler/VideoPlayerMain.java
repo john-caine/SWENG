@@ -1,4 +1,4 @@
-package player;
+package videohandler;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -24,7 +24,7 @@ public class VideoPlayerMain extends Application {
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         scene.setFill(Color.BLACK);
             
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, 2, 5);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, null, 5);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);

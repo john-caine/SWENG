@@ -18,7 +18,7 @@ public class VideoPlayerHandler {
         setMediaPlayerLocation(mediaControl.box, xStart, yStart);
 	}
 	
-	public String retrieveImage(String videoLocationPath) {	
+	public String retrieveVideo(String videoLocationPath) {	
 		File file = new File(videoLocationPath);
 		String path  = file.toURI().toASCIIString();
 		return path;
