@@ -172,16 +172,6 @@ public class VideoMediaControl extends eCook.MediaControl{
             public void run() {
                 duration = mp.getMedia().getDuration();
                 updateValues();
-                if(adjustedSize){
-	                mediaView.setPreserveRatio(false);
-	                mediaView.setFitWidth(mpWidth);
-	                mediaView.setFitHeight(mpHeight);
-                }
-                else{
-                	mediaView.setPreserveRatio(true);
- 	                mediaView.setFitWidth(mpWidth);
-                }
-                timeSlider.setMaxWidth((2*mpWidth)/3);
             }
         });
         
@@ -309,6 +299,7 @@ public class VideoMediaControl extends eCook.MediaControl{
         
         
         timeSlider = new Slider();
+        timeSlider.setMaxWidth((2*mpWidth)/3);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         timeSlider.valueProperty().addListener(new InvalidationListener() {
 
@@ -385,8 +376,8 @@ public class VideoMediaControl extends eCook.MediaControl{
 	        });
 	        
 	        playTime1 = new Label();
-        playTime1.setMinWidth(50);
-        playTime1.setTextFill(Color.WHITE);
+	        playTime1.setMinWidth(50);
+	        playTime1.setTextFill(Color.WHITE);
         
 	        hbox = new HBox();  
 	        hbox.getChildren().add(playButton1);

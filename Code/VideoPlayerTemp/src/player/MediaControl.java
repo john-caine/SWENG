@@ -44,10 +44,9 @@ import javafx.util.Duration;
 
 public class MediaControl {
 	
-	private MediaPlayer mp;
-    private boolean stopRequested = false;
+	public MediaPlayer mp;
+    public boolean stopRequested = false;
     private boolean atEndOfMedia = false;
-    private boolean adjustedSize = false;
     private Duration duration;
     private Slider timeSlider, timeSlider1;
     private Label playTime, playTime1;
@@ -57,9 +56,9 @@ public class MediaControl {
 	private Image image, image1, image2, image3;
 	private Stage stage, stage1;
 	private int mpWidth;
-	private int mpHeight;
+	public int mpHeight;
 	private Rectangle2D bounds;
-	private MediaView mediaView;
+	public MediaView mediaView;
 	private HBox hbox;
 	private Button playButton, playButton1;
 	private FadeTransition fadeTransition;
@@ -73,6 +72,7 @@ public class MediaControl {
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
+		mediaView = new MediaView(mp);
 		
 		bounds = Screen.getPrimary().getVisualBounds();
 		
@@ -86,12 +86,15 @@ public class MediaControl {
 		if (width != null && height != null){
 			this.mpWidth = width;
 			this.mpHeight = height;
-			adjustedSize = true;
+			mediaView.setPreserveRatio(false);
+            mediaView.setFitWidth(mpWidth);
+            mediaView.setFitHeight(mpHeight-35);
 		}
 		else{
 			this.mpWidth = (int) (bounds.getWidth()/2);
 			this.mpHeight = (int) (bounds.getHeight()/4);
-			adjustedSize = false;
+			mediaView.setPreserveRatio(true);
+            mediaView.setFitWidth(mpWidth);		
 		}
 		
 		if (startTime == null) {
@@ -102,10 +105,10 @@ public class MediaControl {
 	        new Thread(startTimerThread).start();
 		 
 		box = new VBox();
-		HBox viewBox = new HBox();
-		mediaView = new MediaView(mp);
-		viewBox.getChildren().add(mediaView);
-		box.getChildren().add(viewBox);
+		//HBox viewBox = new HBox();
+		mediaView.setFitHeight(mpHeight-35);
+		//viewBox.getChildren().add(mediaView);
+		box.getChildren().add(mediaView);
 			
 		mediaBar = new HBox();
 		mediaBar.setMaxWidth(mpWidth);
@@ -230,16 +233,6 @@ public class MediaControl {
 	            public void run() {
 	                duration = mp.getMedia().getDuration();
 	                updateValues();
-	                if(adjustedSize){
-		                mediaView.setPreserveRatio(false);
-		                mediaView.setFitWidth(mpWidth);
-		                mediaView.setFitHeight(mpHeight);
-	                }
-	                else{
-	                	mediaView.setPreserveRatio(true);
-	 	                mediaView.setFitWidth(mpWidth);
-	                }
-	                timeSlider.setMaxWidth((2*mpWidth)/3);
 	            }
 	        });
 	        
@@ -367,6 +360,7 @@ public class MediaControl {
 	        
 	        
 	        timeSlider = new Slider();
+	        timeSlider.setMaxWidth((2*mpWidth)/3);
 	        HBox.setHgrow(timeSlider, Priority.ALWAYS);
 	        timeSlider.valueProperty().addListener(new InvalidationListener() {
 
@@ -517,16 +511,7 @@ public class MediaControl {
  	    	
  			@Override
  			protected Object call() throws Exception {
- 				 int count=0;
- 				 while (count <= startTime && startTime != 0) {
- 					try {
- 						TimeUnit.SECONDS.sleep(1);
- 					} catch (InterruptedException e) {
- 						// TODO Auto-generated catch block
- 						e.printStackTrace();
- 					}
- 					count++;
- 			 	}
+ 				TimeUnit.SECONDS.sleep(startTime);
  			 
  				Platform.runLater (new Runnable() {
  					public void run(){

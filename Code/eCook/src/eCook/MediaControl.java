@@ -17,21 +17,20 @@ import javafx.util.Duration;
 
 public abstract class MediaControl {
 	
-	protected MediaPlayer mp;
-	protected boolean adjustedSize = false;
+	public MediaPlayer mp;
     protected Duration duration;
     protected Slider timeSlider, timeSlider1;
     protected Label playTime, playTime1;
     protected Slider volumeSlider;
 	public VBox box;
 	protected int mpWidth;
-	protected int mpHeight;
+	public int mpHeight;
 	protected Rectangle2D bounds;
-	protected MediaView mediaView;
+	public MediaView mediaView;
 	protected Integer startTime;
 	protected Integer playDuration;
 	protected Boolean loop1;
-	protected HBox mediaBar;
+	public HBox mediaBar;
 	
 	protected abstract void additionalSetup();
 	
@@ -40,6 +39,7 @@ public abstract class MediaControl {
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
+		mediaView = new MediaView(mp);
 		
 		bounds = Screen.getPrimary().getVisualBounds();
 		
@@ -53,12 +53,15 @@ public abstract class MediaControl {
 		if (width != null && height != null){
 			this.mpWidth = width;
 			this.mpHeight = height;
-			adjustedSize = true;
+			mediaView.setPreserveRatio(false);
+            mediaView.setFitWidth(mpWidth);
+            mediaView.setFitHeight(mpHeight-35);
 		}
 		else{
 			this.mpWidth = (int) (bounds.getWidth()/2);
 			this.mpHeight = (int) (bounds.getHeight()/4);
-			adjustedSize = false;
+			mediaView.setPreserveRatio(true);
+            mediaView.setFitWidth(mpWidth);	
 		}
 		
 		if (startTime == null) {
@@ -70,7 +73,6 @@ public abstract class MediaControl {
 		 
 		box = new VBox();
 		HBox viewBox = new HBox();
-		mediaView = new MediaView(mp);
 		viewBox.getChildren().add(mediaView);
 		box.getChildren().add(viewBox);
 			
@@ -143,20 +145,11 @@ public abstract class MediaControl {
 	        }
 	    }
 	    
-	    Task<Object> startTimerThread = new Task<Object>() {
+	   public Task<Object> startTimerThread = new Task<Object>() {
  	    	
  			@Override
  			protected Object call() throws Exception {
- 				 int count=0;
- 				 while (count <= startTime && startTime != 0) {
- 					try {
- 						TimeUnit.SECONDS.sleep(1);
- 					} catch (InterruptedException e) {
- 						// TODO Auto-generated catch block
- 						e.printStackTrace();
- 					}
- 					count++;
- 			 	}
+ 				TimeUnit.SECONDS.sleep(startTime);
  			 
  				Platform.runLater (new Runnable() {
  					public void run(){
