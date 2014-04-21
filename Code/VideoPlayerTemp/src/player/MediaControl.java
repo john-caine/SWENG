@@ -518,8 +518,9 @@ public class MediaControl {
  						mp.play();
  					}
  				});
- 				if (playDuration != null && playDuration != 0)
+ 				if (playDuration != null && playDuration != 0){
  					mp.setStopTime(Duration.seconds(playDuration));
+ 				}
  				return null;
  			}
    	    };

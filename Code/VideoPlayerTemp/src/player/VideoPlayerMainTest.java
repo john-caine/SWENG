@@ -25,10 +25,7 @@ public class VideoPlayerMainTest {
 	private Rectangle2D screenBounds;
 	Group root;
 	Scene scene;
-	
-	Media media;
-	MediaPlayer mediaPlayer;
-	MediaControl mediaControl;
+
 	VideoPlayerHandler videoPlayerHandler;
 	String pathLocation = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -69,8 +66,12 @@ public class VideoPlayerMainTest {
 		TimeUnit.SECONDS.sleep(2);
 		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
 		
+		videoPlayerHandler.mediaControl.mp.stop();
+		System.out.println(videoPlayerHandler.mediaControl.mp.getCurrentTime());
+		
 		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
 		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());		
+		
 	}
 	
 }
