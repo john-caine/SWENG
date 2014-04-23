@@ -1,9 +1,9 @@
 package eCook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import audiohandler.AudioHandler;
-
 import imagehandler.ImageHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,8 +12,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -26,12 +28,16 @@ public class SlideShow {
 	private Scene slideScene;
 	private Group slideRoot;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides;
-	private Button exitSlide, previousSlide, nextSlide;
+	private Button  previousSlide, nextSlide, exitSlide1;
 	private Recipe recipe;
 	private Slide slide;
+	private int maxLayer;
+	private Stage stage;
+	
 
 	public SlideShow(Stage stage) {
 		
+		this.stage = stage;
 		XMLReader reader;
 		
 		// Create a new group for objects
@@ -71,6 +77,9 @@ public class SlideShow {
 		//List<Graphic> graphics;
 		List<Video> videos;
 		
+		Pane layer;
+		ArrayList<Pane> layers;
+		
 		int imageCount, textCount, audioCount, videoCount; //, graphicCount;
 		int fontSize;
 		String fontColor, font; //, lineColor, fillColor;
@@ -78,6 +87,8 @@ public class SlideShow {
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
+		
+		layers = new ArrayList<Pane>();
 		
 		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
 		//if (slideID == -1 || slideID >= numOfSlides)
@@ -114,6 +125,21 @@ public class SlideShow {
 		videoCount = videos.size();
 		//graphicCount = graphics.size();
 		
+	
+		//Get number of layers to be used on slide
+		maxLayer = getMaxLayer(images, text, audio,videos);
+		
+		
+		//Create a pane for each layer and add to the group
+		for(int currentLayer = 0; currentLayer < maxLayer; currentLayer++){
+			
+			layer = new Pane();
+			layers.add(currentLayer, layer);
+			
+			
+		}
+		
+		
 		// Call the ImageHandler for each image object
 		if (imageCount != 0){
 			for(int i = 0; i < imageCount; i++){
@@ -121,7 +147,7 @@ public class SlideShow {
 												images.get(i).getYStart(), images.get(i).getWidth(),
 												images.get(i).getHeight(), images.get(i).getStartTime(), 
 												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
-				slideRoot.getChildren().add(image1.box);
+				layers.get(images.get(i).getLayer()).getChildren().add(image1.box);
 			}
 		}
 		
@@ -149,7 +175,7 @@ public class SlideShow {
 											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
 											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
 											text.get(i).getLayer(), null, null);
-				slideRoot.getChildren().add(text1.textBox);
+				layers.get(text.get(i).getLayer()).getChildren().add(text1.textBox);
 			}
 		}
 		
@@ -158,7 +184,7 @@ public class SlideShow {
 			for(int i = 0; i < audioCount; i++){
 				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
 														audio.get(i).getDuration(), audio.get(i).getLoop());
-				slideRoot.getChildren().add(audio1.mediaControl.box);
+				layers.get(0).getChildren().add(audio1.mediaControl.box);
 			}
 		}
 		
@@ -170,7 +196,7 @@ public class SlideShow {
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
 												/*videos.get(i).getLayer()*/
-				slideRoot.getChildren().add(video1.mediaControl.box);
+				layers.get(0).getChildren().add(video1.mediaControl.box);
 			}
 		}
 		
@@ -203,15 +229,15 @@ public class SlideShow {
 	    HBox hbox = new HBox();
 	    SlideButton();
 	    hbox.getChildren().add(previousSlide);
-        hbox.getChildren().add(exitSlide);
+        hbox.getChildren().add(exitSlide1);
         hbox.getChildren().add(nextSlide);
        
         // Put the buttons in the bottom centre of the slide
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         hbox.setAlignment(Pos.CENTER);
-        hbox.setLayoutX((screenBounds.getWidth()- exitSlide.getPrefWidth())/2);
+        hbox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
         hbox.setLayoutY(screenBounds.getHeight());
-	    
+	    slideRoot.getChildren().addAll(layers);
 	    // Add the buttons to the slide
         slideRoot.getChildren().add(hbox);
 	    
@@ -219,11 +245,66 @@ public class SlideShow {
 	    slideRoot.setVisible(true);  
 	}	
 
+	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
+			List<Audio> audio, List<Video> videos) {
+		
+		Integer totalLayers = 0;
+	
+		for(int currentImage = 0; currentImage < images.size(); currentImage++ ){
+			
+			
+			if(images.get(currentImage).getLayer() > totalLayers){
+				totalLayers = images.get(currentImage).getLayer();
+			}
+			
+		}
+			
+		for(int currentText = 0; currentText < text.size(); currentText++ ){
+				
+				
+			if(text.get(currentText).getLayer() > totalLayers){
+					totalLayers = text.get(currentText).getLayer();
+			}
+						
+		}
+		
+		for(int currentAudio = 0; currentAudio < audio.size(); currentAudio++ ){
+			
+			
+			if(audio.get(currentAudio).getLayer() > totalLayers){
+					totalLayers = audio.get(currentAudio).getLayer();
+			}
+						
+		}
+		
+		for(int currentVideo = 0; currentVideo < text.size(); currentVideo++ ){
+			
+			
+			if(videos.get(currentVideo).getLayer() > totalLayers){
+					totalLayers = videos.get(currentVideo).getLayer();
+			}
+						
+		}
+		
+	/*	for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
+			
+			
+			if(graphics.get(currentGraphics).getLayer() > totalLayers){
+					totalLayers = graphics.get(currentGraphics).getLayer();
+			}
+						
+		}*/
+		
+		return totalLayers;
+		
+		
+	}
+
 	public void SlideButton() {
         
-        exitSlide = new Button("Exit SlideShow");
-        exitSlide.setPrefWidth(80);
-        exitSlide.setPrefHeight(40); 
+        exitSlide1 = new Button("Exit SlideShow");
+        exitSlide1.setPrefWidth(80);
+        exitSlide1.setPrefHeight(40); 
         
         nextSlide = new Button("Next Slide");
         nextSlide.setPrefWidth(80);
@@ -236,15 +317,15 @@ public class SlideShow {
         previousSlide.setTextAlignment(TextAlignment.CENTER);
 		    
         /*Exit Slide when exit slide button is pressed*/
-        exitSlide.setOnAction(new EventHandler<ActionEvent>() {
+       
+        exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	Node  source = (Node)  event.getSource();
-            	Stage stage  = (Stage) source.getScene().getWindow();
-        	    stage.close();
+            	newSlide(nextSlideID, false);
             	event.consume();
             }
         });
+   
         
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override

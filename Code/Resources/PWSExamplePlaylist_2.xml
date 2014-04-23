@@ -76,19 +76,22 @@
 			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
 			<xstart>10</xstart>
 			<ystart>10</ystart>
+			<layer>0</layer>
 		</image>
 		<image>
 			<urlname>http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg</urlname>
-			<xstart>50</xstart>
-			<ystart>50</ystart>
+			<xstart>400</xstart>
+			<ystart>400</ystart>
 			<width>200</width>
 			<height>200</height>
 			<layer>2</layer>
 		</image>
 		<image>
 			<urlname>http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg</urlname>
-			<xstart>100</xstart>
-			<ystart>100</ystart>
+			<xstart>430</xstart>
+			<ystart>430</ystart>
+			<width>100</width>
+			<height>100</height>
 			<duration>20</duration>
 			<layer>3</layer>
 		</image>
@@ -98,7 +101,7 @@
 			<urlname>http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4</urlname>
 			<xstart>10</xstart>
 			<ystart>10</ystart>
-			<layer>2</layer>
+			<layer>0</layer>
 			<duration>10</duration>
 		</video>
 		<video>

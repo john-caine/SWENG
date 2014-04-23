@@ -17,11 +17,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import org.junit.Rule;
 import org.junit.Before;
-
 import org.junit.Test;
 
 public class SlideShowTest {
@@ -60,10 +61,10 @@ public class SlideShowTest {
 	}
 
 	@Test
-	public void createSlide() {
+	public void createSlide() throws RuntimeException  {
 		
 		
-		slideShow.newSlide(0, false);
+		slideShow.newSlide(2, false);
 		
 		childList = stage.getScene().getRoot().getChildrenUnmodifiable();
 		
@@ -95,7 +96,23 @@ public class SlideShowTest {
 		
 		
 		
-		//assertTrue (stage.getScene().getRoot().getChildrenUnmodifiable())
+		assertTrue (childList.get(0) instanceof Pane);
+		Pane layer0 = (Pane) childList.get(0);
+		//Test layer 0 contains 2 objects
+		assertEquals(2, layer0.getChildren().size());
+		
+		//Get layer 2 pane
+		Pane layer2 = (Pane) childList.get(2);
+		
+		//Get the image Hbox on layer 2
+		HBox layer2imageBox = (HBox)layer2.getChildren().get(0);
+		
+		//Test the XY position of the image on layer 2 matches the XML playlist 
+		assertEquals(400, layer2imageBox.getLayoutX(), 0.1);
+		assertEquals(400, layer2imageBox.getLayoutY(), 0.1);
+		
+		
+		
 		
 	}
 		
