@@ -321,6 +321,13 @@ public class SlideShow {
         exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	/*
+            	Node  source = (Node)  event.getSource();
+            	Stage stage  = (Stage) source.getScene().getWindow();
+            	Group root = (Group) stage.getScene().getRoot();
+            	root.getChildren().clear();
+            	new MainMenu(stage);
+            	*/
             	newSlide(nextSlideID, false);
             	event.consume();
             }
