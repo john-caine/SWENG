@@ -1,0 +1,124 @@
+#b1 {
+-fx-font-size: 15px;
+	-fx-text-fill: black;
+  
+	-fx-font-family: "Swis721 lt BT";
+  
+	-fx-font-weight: lighter;
+
+	-fx-background-color: white;
+	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
+	-fx-background-image: url('recipeImg.jpeg');
+	
+	
+}
+
+
+
+
+#b2 {
+-fx-font-size: 20px;
+	-fx-text-fill: black;
+  
+	-fx-font-family: "Swis721 lt BT";
+  
+	-fx-font-weight: lighter;
+
+	-fx-background-color: white;
+	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
+	-fx-background-image: url('KitchenBasicsImg.jpg');
+	
+	
+}
+
+
+
+#b3 {
+-fx-font-size: 20px;
+	-fx-text-fill: black;
+  
+	-fx-font-family: "Swis721 lt BT";
+  
+	-fx-font-weight: lighter;
+
+	-fx-background-color: white;
+	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
+	-fx-background-image: url('ThreeImg.png');
+	
+	
+}
+
+
+
+#b4 {
+-fx-font-size: 20px;
+	-fx-text-fill: black;
+  
+	-fx-font-family: "Swis721 lt BT";
+  
+	-fx-font-weight: lighter;
+
+	-fx-background-color: white;
+	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
+	-fx-background-image: url('OnlineStoreImg.jpg');
+	
+	
+}
+
+
+
+#b5 {
+-fx-font-size: 20px;
+	-fx-text-fill: black;
+  
+	-fx-font-family: "Swis721 lt BT";
+  
+	-fx-font-weight: lighter;
+
+	-fx-background-color: white;
+	
+	-fx-background-image: url('OnlineStoreImg.jpg');
+	
+	
+}
+
+
+#b1:hover {
+
+	-fx-font-size: 20px;
+	-fx-font-weight: bolder;
+
+	-fx-opacity: 0.5;
+	-fx-transition: opacity .25s ease-in-out;
+
+	}
+
+#b2:hover {
+
+	-fx-font-size: 20px;
+	-fx-font-weight: bolder;
+
+	-fx-opacity: 0.5;
+	-fx-transition: opacity .25s ease-in-out;
+
+	}
+
+#b3:hover {
+
+	-fx-font-size: 20px;
+	-fx-font-weight: bolder;
+
+	-fx-opacity: 0.5;
+	-fx-transition: opacity .25s ease-in-out;
+
+	}
+
+#b4:hover {
+
+	-fx-font-size: 20px;
+	-fx-font-weight: bolder;
+
+	-fx-opacity: 0.5;
+	-fx-transition: opacity .25s ease-in-out;
+
+	}

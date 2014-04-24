@@ -1,0 +1,13 @@
+For looking for parts of code
+
+Tag||  Funtion
+
+RS1:   TOP (Logos at the top)
+RS2:   MID LEFT(Buttons for filtering recipes)
+RS2.1: BUTTON CREATION LAYOUT
+RS3:   MID RIGHT(SCROLL PANE containing list of recipes)
+RS3.1: TEST LABEL WITH MOUSE EVENT
+RS3.2: MULTIPLE LABEL CREATION 
+RS4:   MID (Box containing MID LEFT and MID RIGHT)
+RS5:   FADE EFFECT
+RS6:   GRIDPADE ROW PROPERTIES
