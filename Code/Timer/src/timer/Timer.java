@@ -6,29 +6,26 @@ package timer;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Timer extends Application {
+public class Timer {
 	
 
-	Group group;
-	private Scene scene;
+
+	
 	private Button startButton;
 	private Integer timerStartSeconds = 10;
 	private Integer timerValueSeconds= 0;
@@ -55,16 +52,16 @@ public class Timer extends Application {
 	private Button resetTimer;
 	private HBox buttonBox;
 	private AudioClip audio;
+	private Pane pane;
 
 	
 
-	@Override
-	public void start(Stage stage) throws Exception {
+ 
+	public Timer() {
 		
 		
 			
-			group = new Group();
-			scene = new Scene(group);
+			
 			timerBox = new HBox();
 			listBox = new HBox();
 			
@@ -156,99 +153,109 @@ public class Timer extends Application {
 			
 			timerVBox.getChildren().addAll(timerBox, listBox);
 			
+			pane = new Pane();
 			
-			group.getChildren().addAll(buttonBox, timerVBox);
+			pane.getChildren().addAll(timerVBox, buttonBox);
+			
+			
 			
 			loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
 			
-			stage.setScene(scene);
+			
 			
 			timeLineSeconds = new Timeline();
 			timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
 			createKeyFrame();
-			stage.show();
+			setButtonEventListeners();
 			
 			
 			
-			startButton.setOnAction(new EventHandler<ActionEvent>() {
+			}
+	
+	
+	public void setButtonEventListeners(){
+		
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
 
-				
-
-				@Override
-		        public void handle(ActionEvent event) {
-					
-					if(started == false && paused == false){
-					
-						timerValueSeconds = timerStartSeconds;
-						timerValueMinutes = timerStartMinutes;
-						timerValueHours = timerStartHours;
-						timeLineSeconds.play();
-						startButton.setText("Pause");
-						
-						started = true;
-					}
-					else if(started == true && paused == false){
-						timeLineSeconds.stop();
-						startButton.setText("Play");
-						paused = true;
-					}
-					
-					else if(started == true && paused == true){
-						
-						timeLineSeconds.play();
-						startButton.setText("Pause");
-						paused = false;
-					}
-				
-				
-		        }
-		    });
 			
-			resetTimer.setOnAction(new EventHandler<ActionEvent>(){
 
-				@Override
-				public void handle(ActionEvent arg0) {
+			@Override
+	        public void handle(ActionEvent event) {
+				
+				if(started == false && paused == false){
+				
+					timerValueSeconds = timerStartSeconds;
+					timerValueMinutes = timerStartMinutes;
+					timerValueHours = timerStartHours;
+					timeLineSeconds.play();
+					startButton.setText("Pause");
+					
+					started = true;
+				}
+				else if(started == true && paused == false){
 					timeLineSeconds.stop();
-					started = false;
+					startButton.setText("Play");
+					paused = true;
+				}
+				
+				else if(started == true && paused == true){
+					
+					timeLineSeconds.play();
+					startButton.setText("Pause");
 					paused = false;
+				}
+			
+			
+	        }
+	    });
+		
+		resetTimer.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				timeLineSeconds.stop();
+				started = false;
+				paused = false;
+				
+				if (timerStartSeconds >9){
 					
-					if (timerStartSeconds >9){
-						
-						labelSeconds.setText(timerStartSeconds.toString());
-						
-					}
-					else{
-						
-						labelSeconds.setText("0" + timerStartSeconds.toString());
-						
-					}
+					labelSeconds.setText(timerStartSeconds.toString());
 					
-					if (timerStartMinutes > 9){
-						
-						labelMinutes.setText(timerStartMinutes.toString() + " : ");
-						
-					}
-					else{
-						
-						labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
-					}
+				}
+				else{
 					
+					labelSeconds.setText("0" + timerStartSeconds.toString());
 					
-					if (timerStartHours > 9){
-						
-						labelHours.setText(timerStartHours.toString() + " : ");
-					}
-					else{
-						
-						labelHours.setText("0" + timerStartHours.toString() + " : ");
-					}
-						
-					startButton.setText("Start");
+				}
+				
+				if (timerStartMinutes > 9){
+					
+					labelMinutes.setText(timerStartMinutes.toString() + " : ");
+					
+				}
+				else{
+					
+					labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
 				}
 				
 				
-			});
+				if (timerStartHours > 9){
+					
+					labelHours.setText(timerStartHours.toString() + " : ");
+				}
+				else{
+					
+					labelHours.setText("0" + timerStartHours.toString() + " : ");
+				}
+					
+				startButton.setText("Start");
 			}
+			
+			
+		});
+		
+		
+	}
 	
 	/*Creates the keyframe that operates the timer. The keyframe counts for one second, decrementing the 
 	 * remaining seconds each time. Once the number of seconds reaches 0, the method evaluates if the 
@@ -256,7 +263,7 @@ public class Timer extends Application {
 	 * 
 	 */
 	
-	public void createKeyFrame(){
+	private void createKeyFrame(){
 		
 		timeLineSeconds.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
 
@@ -327,7 +334,7 @@ public class Timer extends Application {
 		 * the selected value then hides the list again.
 		 */
 	
-	public void numberListSetup() {
+	private void numberListSetup() {
 		
 		 ObservableList<Integer> numbers = FXCollections.observableArrayList();
 		 
@@ -420,9 +427,12 @@ public class Timer extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-			Application.launch(args);
+	public Pane getPane(){
+		
+		return pane;
+		
+		
 	}
+	
 
 }

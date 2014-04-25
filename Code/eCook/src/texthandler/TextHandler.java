@@ -18,7 +18,6 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -38,11 +37,8 @@ public class TextHandler {
 	private FontPosture posture;
 	private SlideShow parent;
 	private Integer branchID;
-	private TextArea textArea;
 	private List<TextString> stringList;
 	private TextString textString;
-	private TextFlow textflow;
-
 	public TextHandler(SlideShow parent, TextBody textBody, String font, Integer x_start, Integer y_start, Integer fontsize, 
 			String fontcolor, Integer x_end, Integer y_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branchID, Integer orientation){
@@ -52,12 +48,14 @@ public class TextHandler {
 		 this.branchID = branchID;
 		 this.parent = parent;
 		 
+		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (x_end == null){
 			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
 			 x_end = (int)screenBounds.getWidth();
 		 }
 		 
+		 //Gets the screen height to wrap text to if the XML has not specified an Y end value.
 		 if (y_end == null){
 			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -128,17 +126,20 @@ public class TextHandler {
 		new Thread(startTimerThread).start();
 	};
 	
+	// Set the XY Layout of the TextFlow box
 	public void setStartXY(int x_start, int y_start, TextFlow box){
 		
 		box.setLayoutX((double)x_start);
 		box.setLayoutY((double)y_start);
 	}
 	
+	// Set the visibility of textBox to true
 	public void showText() {
 	     textBox.setVisible(true);
 	     
 	 }
-	 
+	
+	//Set the visibility of textBox to false
 	 public void removeText() {
 		 textBox.setVisible(false);
 	 }
@@ -169,10 +170,6 @@ public class TextHandler {
 	 // Thread waits until duration and then sets the image visibility to false once duration = count.
 		 Task<Object> durationTimerThread = new Task<Object>() {
 			 
-				
-				
-			 
-
 				@Override
 				protected Object call() throws Exception {
 					

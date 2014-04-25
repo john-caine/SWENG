@@ -95,6 +95,11 @@
 			<duration>20</duration>
 			<layer>3</layer>
 		</image>
+		<text xstart="400" ystart="450" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40" layer="4"> 
+			<textbody underlined="true" bold="true" italic="true">
+        			<textstring>This is a test of required attributes</textstring>
+    	  		</textbody>
+   	 	</text>
 	</slide>
 	<slide ID="4" duration="200" lastSlide="false">
 		<video>
