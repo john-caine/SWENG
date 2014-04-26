@@ -34,7 +34,7 @@ public void start(Stage primaryStage) {
 			
 			borders.setPrefHeight(400);
 			borderContent() ;
-			borders.setHgap(0); //horizontal gap in pixels => that's what you are asking for
+			borders.setHgap(0); //horizontal gap in pixels
 			borders.setVgap(30); //vertical gap in pixels
 			borders.setPadding(new Insets(10, 10, 10, 10)); 
 			
