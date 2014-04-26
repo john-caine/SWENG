@@ -30,4 +30,5 @@
 <fullyQualifiedTypeName name="javafx.scene.layout.Pane"/>
 <fullyQualifiedTypeName name="javafx.scene.control.Label"/>
 <fullyQualifiedTypeName name="javafx.scene.control.Button"/>
+<fullyQualifiedTypeName name="javafx.concurrent.WorkerStateEvent"/>
 </qualifiedTypeNameHistroy>

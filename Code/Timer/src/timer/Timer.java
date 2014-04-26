@@ -4,10 +4,13 @@ package timer;
 
 
 
+import java.util.concurrent.TimeUnit;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -21,7 +24,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
 import javafx.util.Duration;
 
-public class Timer {
+public class Timer extends Task<Object>{
 	
 
 
@@ -41,8 +44,9 @@ public class Timer {
 	private ListView<Integer> numbersListSeconds;
 	private ListView<Integer> numbersListMinutes;
 	private ListView<Integer> numbersListHours;
-	private Boolean started = false;
+	private boolean started = false;
 	private boolean paused = false;
+	private boolean timerSetupFinished = false;
 	
 	
 
@@ -55,122 +59,123 @@ public class Timer {
 	private Pane pane;
 
 	
+	@Override
+	protected Object call() throws Exception {
+		System.out.println("Timer Thread running");
+		timerBox = new HBox();
+		listBox = new HBox();
+		
 
+		startButton = new Button("Start");
+		startButton.setPrefWidth(50);
+		resetTimer = new Button("Reset");
+		buttonBox = new HBox();
+		buttonBox.setLayoutX(400);
+		buttonBox.setLayoutY(350);
+		buttonBox.getChildren().addAll(startButton,resetTimer);
+	
+		
+	
+		numberListSetup();
+		
+		
+		listBox.getChildren().add(numbersListHours);	
+		listBox.getChildren().add(numbersListMinutes);
+		listBox.getChildren().add(numbersListSeconds);
+		
+		
+		
+		if(timerStartSeconds > 9){
+			labelSeconds = new Label(timerStartSeconds.toString());
+		}
+		else{
+			labelSeconds = new Label("0" + timerStartSeconds.toString());
+		}
+		
+		if(timerStartMinutes > 9){
+			labelMinutes = new Label(timerStartMinutes.toString() + " : ");
+		}
+		else{
+			labelMinutes = new Label("0" + timerStartMinutes.toString() + " : ");
+		}
+		
+		if(timerStartHours > 9){
+			labelHours = new Label(timerStartHours.toString() + " : ");
+		}
+		else{
+			labelHours = new Label("0" + timerStartHours.toString() + " : ");
+		}
+		
+		labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(true);
+				numbersListMinutes.setVisible(false);
+				numbersListHours.setVisible(false);
+				
+			}
+			
+		});
+		
+		labelMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(false);
+				numbersListMinutes.setVisible(true);
+				numbersListHours.setVisible(false);
+				
+			}
+			
+		});
+		
+		labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(false);
+				numbersListMinutes.setVisible(false);
+				numbersListHours.setVisible(true);
+				
+			}
+			
+		});
+		
+		
+		timerBox.getChildren().add(labelHours);
+		timerBox.getChildren().add(labelMinutes);
+		timerBox.getChildren().add(labelSeconds);
+		
+		timerVBox = new VBox();
+		timerVBox.setLayoutX(400);
+		timerVBox.setLayoutY(400);
+		
+		timerVBox.getChildren().addAll(timerBox, listBox);
+		
+		pane = new Pane();
+		System.out.println("Pane Created");
+		
+		pane.getChildren().addAll(timerVBox, buttonBox);
+		
+		
+		
+		loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
+		
+		
+		
+		timeLineSeconds = new Timeline();
+		timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
+		createKeyFrame();
+		setButtonEventListeners();
+		
+		timerSetupFinished = true;
+		return null;
+	}
  
-	public Timer() {
-		
-		
-			
-			
-			timerBox = new HBox();
-			listBox = new HBox();
-			
-
-			startButton = new Button("Start");
-			startButton.setPrefWidth(50);
-			resetTimer = new Button("Reset");
-			buttonBox = new HBox();
-			buttonBox.setLayoutX(400);
-			buttonBox.setLayoutY(350);
-			buttonBox.getChildren().addAll(startButton,resetTimer);
-		
-			
-		
-			numberListSetup();
-			
-			
-			listBox.getChildren().add(numbersListHours);	
-			listBox.getChildren().add(numbersListMinutes);
-			listBox.getChildren().add(numbersListSeconds);
-			
-			
-			
-			if(timerStartSeconds > 9){
-				labelSeconds = new Label(timerStartSeconds.toString());
-			}
-			else{
-				labelSeconds = new Label("0" + timerStartSeconds.toString());
-			}
-			
-			if(timerStartMinutes > 9){
-				labelMinutes = new Label(timerStartMinutes.toString() + " : ");
-			}
-			else{
-				labelMinutes = new Label("0" + timerStartMinutes.toString() + " : ");
-			}
-			
-			if(timerStartHours > 9){
-				labelHours = new Label(timerStartHours.toString() + " : ");
-			}
-			else{
-				labelHours = new Label("0" + timerStartHours.toString() + " : ");
-			}
-			
-			labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					numbersListSeconds.setVisible(true);
-					numbersListMinutes.setVisible(false);
-					numbersListHours.setVisible(false);
-					
-				}
-				
-			});
-			
-			labelMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					numbersListSeconds.setVisible(false);
-					numbersListMinutes.setVisible(true);
-					numbersListHours.setVisible(false);
-					
-				}
-				
-			});
-			
-			labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-				@Override
-				public void handle(MouseEvent arg0) {
-					numbersListSeconds.setVisible(false);
-					numbersListMinutes.setVisible(false);
-					numbersListHours.setVisible(true);
-					
-				}
-				
-			});
-			
-			
-			timerBox.getChildren().add(labelHours);
-			timerBox.getChildren().add(labelMinutes);
-			timerBox.getChildren().add(labelSeconds);
-			
-			timerVBox = new VBox();
-			timerVBox.setLayoutX(400);
-			timerVBox.setLayoutY(400);
-			
-			timerVBox.getChildren().addAll(timerBox, listBox);
-			
-			pane = new Pane();
-			
-			pane.getChildren().addAll(timerVBox, buttonBox);
-			
-			
-			
-			loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
-			
-			
-			
-			timeLineSeconds = new Timeline();
-			timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
-			createKeyFrame();
-			setButtonEventListeners();
-			
-			
-			
-			}
+	
+	
+	
 	
 	
 	public void setButtonEventListeners(){
@@ -290,7 +295,7 @@ public class Timer {
 					paused = false;
 					startButton.setText("Start");
 				}
-				else if(timerValueMinutes <= 0 && timerValueSeconds <= 0){
+				else if(timerValueMinutes <= 0 && timerValueSeconds < 0){
 					timerValueHours--;
 					timerValueMinutes = 59;
 					timerValueSeconds = 59;
@@ -306,9 +311,10 @@ public class Timer {
 					labelMinutes.setText(timerValueMinutes.toString() + " : ");
 					labelSeconds.setText(timerValueSeconds.toString());
 				}
-				else if(timerValueSeconds <= 0){
+				else if(timerValueSeconds < 0){
 					timerValueMinutes--;
-					timerValueSeconds = 60;
+					
+					timerValueSeconds = 59;
 					
 					if(timerValueMinutes > 9){
 						labelMinutes.setText(timerValueMinutes.toString() + " : ");
@@ -316,6 +322,8 @@ public class Timer {
 					else{
 						labelMinutes.setText("0" + timerValueMinutes.toString() + " : ");
 					}
+					
+					labelSeconds.setText(timerValueSeconds.toString());
 				}
 				
 					
@@ -433,6 +441,16 @@ public class Timer {
 		
 		
 	}
+	
+	public boolean getTimerSetupStatus(){
+		
+		
+		return timerSetupFinished;
+		
+		
+	}
+
+	
 	
 
 }
