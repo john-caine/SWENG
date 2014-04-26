@@ -31,8 +31,9 @@ public class SlideShow {
 	private Button  previousSlide, nextSlide, exitSlide1;
 	private Recipe recipe;
 	private Slide slide;
-	private int maxLayer;
+	private Integer maxLayer;
 	private Stage stage;
+	
 	
 
 	public SlideShow(Stage stage) {
@@ -131,7 +132,7 @@ public class SlideShow {
 		
 		
 		//Create a pane for each layer and add to the group
-		for(int currentLayer = 0; currentLayer < maxLayer; currentLayer++){
+		for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
 			
 			layer = new Pane();
 			layers.add(currentLayer, layer);
@@ -147,14 +148,20 @@ public class SlideShow {
 												images.get(i).getYStart(), images.get(i).getWidth(),
 												images.get(i).getHeight(), images.get(i).getStartTime(), 
 												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
-				layers.get(images.get(i).getLayer()).getChildren().add(image1.box);
+				
+				Integer imageLayer = images.get(i).getLayer();
+				if (imageLayer == null){
+					imageLayer = 0;
+				}
+				layers.get(imageLayer).getChildren().add(image1.box);
 			}
 		}
 		
 		// Call the TextHanlder for each text object
 		if (textCount != 0){
 			for(int i = 0; i < textCount; i++){
-
+				
+				
 				// Retrieve any defaults that have been set
 				if (text.get(i).getFont() == null) 
 					font = recipe.getDefaults().getFont();
@@ -175,7 +182,13 @@ public class SlideShow {
 											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
 											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
 											text.get(i).getLayer(), null, null);
-				layers.get(text.get(i).getLayer()).getChildren().add(text1.textBox);
+				
+				Integer textLayer = text.get(i).getLayer();
+				if (textLayer == null){
+					textLayer = 0;
+				}
+				
+				layers.get(textLayer).getChildren().add(text1.textBox);
 			}
 		}
 		
@@ -249,48 +262,69 @@ public class SlideShow {
 			List<Audio> audio, List<Video> videos) {
 		
 		Integer totalLayers = 0;
+		Integer layer;
 	
 		for(int currentImage = 0; currentImage < images.size(); currentImage++ ){
+			layer = images.get(currentImage).getLayer();
 			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
+			}
 			
-			if(images.get(currentImage).getLayer() > totalLayers){
-				totalLayers = images.get(currentImage).getLayer();
+			if(layer > totalLayers){
+				totalLayers = layer;
 			}
 			
 		}
 			
-		for(int currentText = 0; currentText < text.size(); currentText++ ){
-				
-				
-			if(text.get(currentText).getLayer() > totalLayers){
-					totalLayers = text.get(currentText).getLayer();
+		for(Integer currentText = 0; currentText < text.size(); currentText++ ){
+			
+			layer = text.get(currentText).getLayer();
+			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
 			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}
+			
 						
 		}
 		
 		for(int currentAudio = 0; currentAudio < audio.size(); currentAudio++ ){
-			
-			
-			if(audio.get(currentAudio).getLayer() > totalLayers){
-					totalLayers = audio.get(currentAudio).getLayer();
+			layer = audio.get(currentAudio).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
 			}
 						
 		}
 		
-		for(int currentVideo = 0; currentVideo < text.size(); currentVideo++ ){
+		for(int currentVideo = 0; currentVideo < videos.size(); currentVideo++ ){
 			
-			
-			if(videos.get(currentVideo).getLayer() > totalLayers){
-					totalLayers = videos.get(currentVideo).getLayer();
+			layer = videos.get(currentVideo).getLayer();
+			if(layer == null){
+				layer = 0;
 			}
+			if(layer > totalLayers){
+						totalLayers = layer;
+			}
+			
 						
 		}
 		
 	/*	for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
 			
-			
-			if(graphics.get(currentGraphics).getLayer() > totalLayers){
-					totalLayers = graphics.get(currentGraphics).getLayer();
+			layer = graphics.get(currentGraphics).getLayer()
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
 			}
 						
 		}*/
