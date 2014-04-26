@@ -127,7 +127,7 @@ public class SlideShow {
 		
 	
 		//Get number of layers to be used on slide
-		maxLayer = getMaxLayer(images, text, audio,videos);
+		maxLayer = getMaxLayer(images, text, audio, videos);
 		
 		
 		//Create a pane for each layer and add to the group
