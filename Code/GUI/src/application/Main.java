@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,11 @@ public class Main extends Application {
 	
 GridPane borders = new GridPane();//Where all window components (buttons, labels etc.) are added
 HBox bigBox = new HBox();
+
+public static void main(String[] args) {
+    launch(args);
+}
+ 
 
 public void start(Stage primaryStage) {
 		
@@ -56,7 +62,9 @@ public void start(Stage primaryStage) {
 		//TOP: Logo Pane and calendar thing using HBOX
 		HBox topBox = new HBox(100);
 		ImageView logoHolder1 = new ImageView("SpoonSmall.png");
+		//logoHolder1.setImage(new Image("../Resources/SpoonSmall.png"));
 		ImageView logoHolder2 = new ImageView("eCookLogo.png");
+		//logoHolder2.setImage(new Image("../Resources/eCookLogo.png"));
 		topBox.getChildren().add(logoHolder1);
 		topBox.getChildren().add(logoHolder2);
 		
