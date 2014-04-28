@@ -62,9 +62,7 @@ public void start(Stage primaryStage) {
 		//TOP: Logo Pane and calendar thing using HBOX
 		HBox topBox = new HBox(100);
 		ImageView logoHolder1 = new ImageView("SpoonSmall.png");
-		//logoHolder1.setImage(new Image("../Resources/SpoonSmall.png"));
 		ImageView logoHolder2 = new ImageView("eCookLogo.png");
-		//logoHolder2.setImage(new Image("../Resources/eCookLogo.png"));
 		topBox.getChildren().add(logoHolder1);
 		topBox.getChildren().add(logoHolder2);
 		
