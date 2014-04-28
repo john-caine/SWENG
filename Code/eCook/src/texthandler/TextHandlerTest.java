@@ -3,9 +3,9 @@ package texthandler;
 /*
  * Programmer: Steve Thorpe, Sam Beedal
  * Date Created: 1/03/2014
- * Description: The JFX text module test class
- * Version History: 1.0 - Created.
- * 					1.1 - Modified to PWS standard. StartTime and Duration tests are conducted in the DTP.
+ * Description: The JFX text module test class. StartTime and Duration tests are conducted in the DTP.
+ * Tests all PWS inputs with the exception of Branching which is to be added.
+ 
  * 
  */
 

@@ -1,3 +1,10 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine
+ * Date Created: 14/03/2014
+ * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
+ * 
+ */
+
 package eCook;
 
 import java.util.ArrayList;
@@ -10,9 +17,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,18 +32,23 @@ public class SlideShow {
 
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides;
-	private Button  previousSlide, nextSlide, exitSlide1;
+	public int currentSlideID; 
+	public int nextSlideID; 
+	public int prevSlideID; 
+	public int numOfSlides;
+	private Button  previousSlide;
+	private Button nextSlide;
+	private Button exitSlide1;
 	private Recipe recipe;
 	private Slide slide;
 	private Integer maxLayer;
-	private Stage stage;
+
 	
 	
 
 	public SlideShow(Stage stage) {
 		
-		this.stage = stage;
+		
 		XMLReader reader;
 		
 		// Create a new group for objects
@@ -54,7 +64,7 @@ public class SlideShow {
     	//stage.show();
 
     	stage.sizeToScene();
-    	stage.setFullScreen(false);
+    	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	stage.show();
 		
@@ -89,7 +99,7 @@ public class SlideShow {
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
 		
-		layers = new ArrayList<Pane>();
+		
 		
 		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
 		//if (slideID == -1 || slideID >= numOfSlides)
@@ -130,6 +140,8 @@ public class SlideShow {
 		//Get number of layers to be used on slide
 		maxLayer = getMaxLayer(images, text, audio, videos);
 		
+		//Array list to store layers created for slide content
+		layers = new ArrayList<Pane>();
 		
 		//Create a pane for each layer and add to the group
 		for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
@@ -251,6 +263,7 @@ public class SlideShow {
         hbox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
         hbox.setLayoutY(screenBounds.getHeight());
 	    slideRoot.getChildren().addAll(layers);
+	    
 	    // Add the buttons to the slide
         slideRoot.getChildren().add(hbox);
 	    
@@ -258,6 +271,9 @@ public class SlideShow {
 	    slideRoot.setVisible(true);  
 	}	
 
+	/*
+	 * Gets the highest layer assigned to content on the slide
+	 */
 	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
 			List<Audio> audio, List<Video> videos) {
 		
@@ -333,7 +349,9 @@ public class SlideShow {
 		
 		
 	}
-
+/*Creates the control buttons at the bottom of the slide and creates the event handlers for each button
+ * 
+ */
 	public void SlideButton() {
         
         exitSlide1 = new Button("Exit SlideShow");
