@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -12,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -48,8 +51,9 @@ public void start(Stage primaryStage) {
 			 fadeTransition.play();
 			 
 			 bigBox.setVisible(true);
-			primaryStage.setResizable(false);
+			//primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -58,6 +62,13 @@ public void start(Stage primaryStage) {
 	
 	public void borderContent (){
 		
+		Rectangle2D screenBounds;
+		double width;
+		double height;
+		
+		screenBounds = Screen.getPrimary().getVisualBounds();
+		width =  screenBounds.getWidth();
+		height = screenBounds.getHeight();
 		
 		//TOP: Logo Pane and calendar thing using HBOX
 		HBox topBox = new HBox(100);
@@ -68,8 +79,13 @@ public void start(Stage primaryStage) {
 		
 		borders.addRow(0, topBox);
 		
-		//MID: Button Panel using VBOX
-		HBox midBox = new HBox(0);
+		//MID: Button Panel using HBOX
+		HBox midBox = new HBox(50);
+		midBox.setMaxWidth(width);
+		midBox.setPrefHeight(height/2);
+		midBox.setAlignment(Pos.CENTER);
+		midBox.setAlignment(Pos.BOTTOM_CENTER);
+		
 		Button recipeBtn = new Button("Recipes");
 		Button kitchenBasicsBtn = new Button("Kitchen Basics");
 		Button threeIngredientMealsBtn = new Button("3 Ingredient Meals");
@@ -81,10 +97,10 @@ public void start(Stage primaryStage) {
 		threeIngredientMealsBtn.setId("b3");
 		onlineStoreBtn .setId("b4");
 		
-		recipeBtn.setMinSize(150, 150);
-		kitchenBasicsBtn.setMinSize(150, 150);
-		threeIngredientMealsBtn.setMinSize(150, 150);
-		onlineStoreBtn .setMinSize(150, 150);
+		recipeBtn.setMinSize(width/5, width/5);
+		kitchenBasicsBtn.setMinSize(width/5, width/5);
+		threeIngredientMealsBtn.setMinSize(width/5, width/5);
+		onlineStoreBtn .setMinSize(width/5, width/5);
 		
 		recipeBtn.getStylesheets().add("css.css");
 		kitchenBasicsBtn.getStylesheets().add("css.css");

@@ -36,6 +36,18 @@ public class IngredientsGUI extends Application {
 	Button savePDFButton;
 	Text statusBar;
 	
+	public IngredientsGUI(Stage primaryStage) {
+		// create the example ingredients list
+		getIngredientsList();
+		// start the ingredients display GUI
+		try {
+			start(primaryStage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	// populate an example list of ingredients
 	// ingredients list must not exceed 48 items (at present).
 	public static void getIngredientsList() {
@@ -263,12 +275,5 @@ public class IngredientsGUI extends Application {
     	else {
     		savePDFButton.setDisable(true);
     	}
-    }
-
-	public static void main(String[] args) {
-		// create the example ingredients list
-		getIngredientsList();
-		// start the ingredients display GUI
-		launch(args);
-	}	 
+    }	 
 }
