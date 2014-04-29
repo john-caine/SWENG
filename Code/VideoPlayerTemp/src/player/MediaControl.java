@@ -54,7 +54,7 @@ public class MediaControl {
 	public VBox box;
 	private InputStream inputStream;
 	private Image image, image1, image2, image3;
-	private Stage stage, stage1;
+	 Stage stage, stage1;
 	private int mpWidth;
 	public int mpHeight;
 	private Rectangle2D bounds;
