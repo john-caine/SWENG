@@ -16,12 +16,8 @@
 		<fillcolor>#FF0000</fillcolor> 
 	</defaults>
 	<ingredients>
-		<ingredient number=”700” units=“grams (thinly sliced)”>onion(s)</ingredient>
-		<ingredient number=”2” units=“tablespoons”>olive oil</ingredient>
-		<ingredient number=”2” units=“oz”>butter</ingredient>
-		<ingredient number=”2” units=“cloves (crushed)”>garlic</ingredient>
-		<ingredient number=”0.5” units=“teaspoon”>granulated sugar</ingredient>
-		<ingredient number=”2” units=“pints”>beef stock</ingredient>
+
+		<font>Times New Roman</font>
 	</ingredients>
 	<slide ID="0" duration="60" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40"> 

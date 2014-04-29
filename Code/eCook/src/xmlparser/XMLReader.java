@@ -59,6 +59,9 @@ public class XMLReader extends DefaultHandler {
 	private Audio audio;
 	private Image image;
 	private Video video;
+	private Ingredient ingredient;
+	private Ingredients ingredients;
+	private int noOfIngredients;
 	
 	private ProcessingElement currentElement = ProcessingElement.NONE;
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
@@ -123,6 +126,20 @@ public class XMLReader extends DefaultHandler {
 			defaults = new Defaults();
 			recipeElement = ProcessingElement.DEFAULTS;
 		}
+		else if (elementName.equals("ingredients")) {
+			ingredient = new Ingredient();
+			ingredients = new Ingredients();
+			noOfIngredients = 0;
+		}
+		else if (elementName.equals("ingredient")) {
+			// Every time an ingredient is reached write the ingredient to ingredients
+			ingredient.setName(attributes.getValue("name"));
+			ingredient.setAmount(Integer.parseInt(attributes.getValue("amount")));
+			ingredient.setUnits(attributes.getValue("units"));
+			noOfIngredients ++;
+			ingredients.setElements(noOfIngredients);
+			ingredients.setIngredient(ingredient);
+		}
 		
 		/* 
 		 * set sub element flags for each recipe element
@@ -159,6 +176,12 @@ public class XMLReader extends DefaultHandler {
 			} else if (elementName.equals("linecolor")) {
 				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			}
+		}
+		
+		// incredients
+		if (recipeElement.equals(ProcessingElement.INGREDIENTS)) {
+			
+			
 		}
 		
 		// slide
