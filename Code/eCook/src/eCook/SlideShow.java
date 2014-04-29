@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -41,44 +42,36 @@ public class SlideShow {
 	private Button exitSlide1;
 	private Recipe recipe;
 	private Slide slide;
+	private Defaults defaults;
 	private Integer maxLayer;
-
 	
-	
-
-	public SlideShow(Stage stage) {
-		
-		
+	public SlideShow(Stage stage, String filepath) {
 		XMLReader reader;
-		
 		// Create a new group for objects
 		slideRoot = new Group();
-		
 		// Create a new scene for the slide show
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
-		
-    	// Set window properties
-    	stage.setScene(slideScene);
-    	stage.setFullScreen(true);
-    	//stage.show();
-
-    	stage.sizeToScene();
-    	//stage.setFullScreen(false);
-    	stage.setFullScreen(true);
-    	stage.show();
-		
 		// Call XML parser
-		 reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
-		
+		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
-		
+		// Get the defaults from the recipe
+		defaults = recipe.getDefaults();
 		// Get the total number of slides without branch slides
 		numOfSlides = recipe.getNumberOfSlides();
-		
+
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
 		newSlide(0, false);
+
+		// Set the colour of the slide
+		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+		
+		// These properties update the stage
+		stage.hide();
+		stage.setScene(slideScene);
+		stage.setFullScreen(true);
+		stage.show();
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch) {
@@ -261,7 +254,7 @@ public class SlideShow {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         hbox.setAlignment(Pos.CENTER);
         hbox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
-        hbox.setLayoutY(screenBounds.getHeight());
+        hbox.setLayoutY(screenBounds.getHeight()-200);
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Add the buttons to the slide
