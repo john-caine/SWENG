@@ -161,7 +161,7 @@ public class AudioMediaControl extends eCook.MediaControl{
             public void run() {
                 duration = mp.getMedia().getDuration();
                 updateValues();
-                if(adjustedSize){
+                if(atEndOfMedia){
 	                mediaView.setPreserveRatio(false);
 	                mediaView.setFitWidth(mpWidth);
 	                mediaView.setFitHeight(mpHeight);
