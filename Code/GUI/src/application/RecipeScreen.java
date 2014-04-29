@@ -18,7 +18,7 @@ import javafx.util.Duration;
 public class RecipeScreen {
 	GridPane recipeGrid = new GridPane(); 
 	
-	public RecipeScreen(final HBox bigBox){
+	public RecipeScreen(final VBox bigBox){
 		
 		/////////////////////////////////////////////////////////////////
 		//RS1: TOP
@@ -145,6 +145,7 @@ public class RecipeScreen {
 	    row2.setFillHeight(true);
 	    recipeGrid.getRowConstraints().addAll(row1,row2);
 	    recipeGrid.setVgap(10);
+	    
 	}
 	 
 }
