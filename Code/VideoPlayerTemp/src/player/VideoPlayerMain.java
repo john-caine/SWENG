@@ -36,15 +36,15 @@ public class VideoPlayerMain extends Application {
         button.setLayoutX(600);
         button.setLayoutY(200);
         
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, 0, 5);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 600, 400, true, 0, 5);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
-//        root.getChildren().add(button);
+        root.getChildren().add(button);
         
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.show(); 
         
-       /* button.setOnAction(new EventHandler<ActionEvent>() {
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -54,10 +54,11 @@ public class VideoPlayerMain extends Application {
                 
                 Node  source = (Node)  event.getSource();
             	Group root1  = (Group) source.getScene().getRoot();
-            	root1.getChildren().getClass();       	
+            	root1.getChildren().clear();
+            	Platform.exit();
             	
             }
-        });*/
+        });
     }
     
     
