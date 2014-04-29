@@ -1,10 +1,9 @@
 /*
  * Programmer: Steve Thorpe, Sam Beedal
  * Date Created: 01/03/2014
- * Description: The text module class, creates a Hbox with the text object added to it.
- * Version History: 1.0 - Created.
- * 					1.1 - Start Time and Duration threads added with show image methods
- * 					1.2 Branching, bold italic and underlined text methods added
+ * Description: The text module class, creates a TextFlow object with the Text object added to it.
+ * Text object is defined by the arguments to the TextHandler constructor which conform to PWS.
+ * 
  */
 package texthandler;
 
@@ -39,6 +38,12 @@ public class TextHandler {
 	private Integer branchID;
 	private List<TextString> stringList;
 	private TextString textString;
+	
+	/*
+	 * Text Handler Constructor. Creates a TextFlow object using all PWS required and optional attributes
+	 */
+	
+	
 	public TextHandler(SlideShow parent, TextBody textBody, String font, Integer x_start, Integer y_start, Integer fontsize, 
 			String fontcolor, Integer x_end, Integer y_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branchID, Integer orientation){
@@ -65,9 +70,14 @@ public class TextHandler {
 		stringList = textBody.getTextBody();
 		
 	
-		 //Creates new Hbox textBox, sets to invisible and adds the text object.
+		 //Creates new TextFlow textBox, sets to invisible
 		 textBox = new TextFlow();
 		 textBox.setVisible(false);
+		 
+		 /* Sets TextFlow to size of a box defined by x_start, x_end, y_start and y_end
+		  * If the Text object added to textBox is greater than this size the TextFlow
+		  * will over run and display the full string.
+		  */
 		 textBox.setMaxWidth(x_end - x_start);
 		 textBox.setMaxHeight(y_end - y_start);
 		
@@ -123,6 +133,7 @@ public class TextHandler {
 			new Thread(startTimerThread).start();
 		}
 		else
+			
 		new Thread(startTimerThread).start();
 	};
 	
@@ -146,9 +157,9 @@ public class TextHandler {
 	// Thread waits until count = startTime then sets the visibility of the image to true.
 	 Task<Object> startTimerThread = new Task<Object>() {
 		 
-			
 			@Override
 			protected Object call() throws Exception {
+				//Task waits for number of seconds equal to startTime
 				TimeUnit.SECONDS.sleep(startTime);
 			 
 			Platform.runLater( new Runnable(){
@@ -173,7 +184,10 @@ public class TextHandler {
 				@Override
 				protected Object call() throws Exception {
 					
+					//Task waits for number of seconds equal to Duration
 					TimeUnit.SECONDS.sleep(duration);
+					
+					//Allows removeText() to be run on the JavaFX thread, all GUI changes must happen on JavaFX thread
 					 Platform.runLater( new Runnable(){
 							public void run(){
 								 removeText();
