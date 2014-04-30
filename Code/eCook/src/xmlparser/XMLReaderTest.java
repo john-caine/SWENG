@@ -1,7 +1,7 @@
 package xmlparser;
 /* Title: XMLReaderTest
  * 
- * Programmers: Ankita, Max
+ * Programmers: Ankita, Max, James, Sam
  * 
  * Date Created: 05/03/14
  * 
@@ -12,6 +12,7 @@ package xmlparser;
  * 					v1.3 (06/04/14) - Updated test 'secondSlideReadCorrectly' to see Point class.
  * 					v1.4 (10/04/14) - Updated testing to facilitate changes from Integer to int across subclasses.
  * 					v1.5 (28/04/14) - Updated tests after eCook integration to read from 'PWSExamplePlaylist_2.xml'
+ * 					v1.6 (30/04/14) - Updated tests to account for new ingredients field within .xml
  */
 
 import static org.junit.Assert.*;
@@ -369,7 +370,7 @@ public class XMLReaderTest {
 	@Test
 	public void ingredientsTest() {
 		ingredients = reader.getIngredients();
-		ingredientsList = ingredients.getIngredients();
+		ingredientsList = ingredients.getIngredientsArrayList();
 		// 6 ingredients in total
 		// Ingredient
 		assertEquals("onion", ingredientsList.get(0).getName());

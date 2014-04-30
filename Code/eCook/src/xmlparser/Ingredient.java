@@ -1,5 +1,14 @@
 package xmlparser;
-
+/*
+ * Programmers: James Sam
+ * 
+ * Description:
+ * A class to hold data relating to a single ingredient
+ * Includes getters and setters for name, units and amount
+ * 
+ * Created 29/04/2014
+ * 
+ */
 public class Ingredient {
 	private String name;
 	private String units;

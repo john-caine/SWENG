@@ -1,6 +1,6 @@
 /* Title: XMLReader
  * 
- * Programmers: Ankita, Max
+ * Programmers: Ankita, Max, James, Sam
  * 
  * Date Created: 14/02/14
  * 
@@ -19,6 +19,8 @@
  * 									 - Changed Class constructor to accept a String of the XML filename
  * 					v2.21 (06/04/14) - Re-added functionality to store lineColor in Defaults class
  * 									 - Modified creation of Point objects and how these are added to Shape objects.
+ * 					v2.3  (30/04/14) - Added ingredients reading section
+ * 
  */
 
 package xmlparser;
@@ -77,7 +79,6 @@ public class XMLReader extends DefaultHandler {
 	}
 
 	public Ingredients getIngredients() {
-		
 		return this.ingredients;
 	}
 	
@@ -112,7 +113,6 @@ public class XMLReader extends DefaultHandler {
 		 */
 		if (elementName.equals("slideshow")) {
 			recipe = new Recipe();
-			ingredients = new Ingredients();
 		}
 			
 		// set recipe element flags
@@ -139,9 +139,8 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("ingredients")) {
 			// If there are ingredients contained within the .xml
 			//ingredient = new Ingredient();
-			
+			ingredients = new Ingredients();
 			recipeElement = ProcessingElement.INGREDIENTS;
-		
 			//noOfIngredients = 0;
 		}
 		
@@ -190,7 +189,6 @@ public class XMLReader extends DefaultHandler {
 				ingredient.setAmount(attributes.getValue("amount"));
 				ingredient.setUnits(attributes.getValue("units"));
 				ingredients.addIngredient(ingredient);
-				System.out.println("I have added an ingredient");
 			}
 		}
 		// slide
