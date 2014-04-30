@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.FileHandlerButton;
+import eCook.MainMenu;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,7 +25,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MainMenu {
+public class MainMenuContent {
 	
 	Rectangle2D screenBounds;
 	double width;
@@ -33,11 +36,10 @@ public class MainMenu {
 	ImageView logoHolder1;
 	ImageView logoHolder2;
 	Image image1, image2;	
-	VBox bigBox;
-	
+	public VBox bigBox;
 	Label blank;
 	
-	public MainMenu() {
+	public MainMenuContent() {
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
@@ -123,7 +125,7 @@ public class MainMenu {
                // System.out.println("Recipe Clicked");
              
                 bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                new RecipeScreen(bigBox);	
+                new RecipeScreen(bigBox, height, width);	
             }
         });
 		
@@ -153,7 +155,9 @@ public class MainMenu {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
+         	root.getChildren().add(new MainMenuContent().bigBox);
+         	FileHandlerButton fileHandlerButton = new FileHandlerButton(stage);	
+         	root.getChildren().add(fileHandlerButton.fileHandlerButtonHbox);
          	stage.show();
             }
         });

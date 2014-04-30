@@ -8,6 +8,7 @@
 package eCook;
 
 
+import gui.MainMenuContent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,9 +17,10 @@ import javafx.stage.Stage;
 
 public class MainMenu {
 
-	private Group menuGroup;
+	public Group menuGroup;
 	private Scene scene;
-	private FileHandlerButton fileHandlerButton;
+	public FileHandlerButton fileHandlerButton;
+	private MainMenuContent mainMenuContent;
 	
 	public MainMenu(Stage stage) {
 		//Get the visual bounds of the screen
@@ -26,14 +28,18 @@ public class MainMenu {
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		
 		// Create a new group for the main menu so that the stage doesn't require changing
-        menuGroup = new Group();     
+        menuGroup = new Group();
+        // Create a new MainMenuContent object
+        mainMenuContent =  new MainMenuContent();    
         // Create a new fileHandlerButton object
         fileHandlerButton = new FileHandlerButton(stage);
+        // Add Main Menu Content to main menu group
+        menuGroup.getChildren().add(mainMenuContent.bigBox);
         // Add a Hbox containing the fileHandlerButton to the main menu group
         menuGroup.getChildren().add(fileHandlerButton.fileHandlerButtonHbox);
         // Create a scene from the main menu group and update stage to the scene
-        scene =  new Scene(menuGroup, screenBounds.getWidth()-200, screenBounds.getHeight()-200);
+        scene =  new Scene(menuGroup, screenBounds.getWidth(), screenBounds.getHeight());
         stage.setScene(scene);
-        stage.sizeToScene();    
+        stage.setFullScreen(true);
 	}
 }

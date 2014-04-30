@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -29,10 +30,11 @@ public class FileHandlerButton {
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		// Create an hbox in the middle of the screen and add the button
 		openFileBrowser = new Button("Open Slideshow");
+		openFileBrowser.setMaxWidth(120);
 		fileHandlerButtonHbox = new HBox();
 		fileHandlerButtonHbox.setAlignment(Pos.CENTER);
-		fileHandlerButtonHbox.setLayoutX((screenBounds.getWidth()- openFileBrowser.getPrefWidth())/2);
-		fileHandlerButtonHbox.setLayoutY((screenBounds.getHeight())/2);
+		fileHandlerButtonHbox.setLayoutX((screenBounds.getWidth()- openFileBrowser.getMaxWidth())/2);
+		fileHandlerButtonHbox.setLayoutY((screenBounds.getHeight())/4);
 		fileHandlerButtonHbox.getChildren().add(openFileBrowser);	
 		// Creates a new slide show when the button is pressed		
 		openFileBrowser.setOnAction(new EventHandler<ActionEvent>() {
