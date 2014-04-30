@@ -19,6 +19,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -44,6 +46,8 @@ public class SlideShow {
 	private Slide slide;
 	private Defaults defaults;
 	private Integer maxLayer;
+	private Ingredients ingredients;
+	private ArrayList<Ingredient> ingredientsList;
 	
 	public SlideShow(Stage stage, String filepath) {
 		XMLReader reader;
@@ -55,6 +59,12 @@ public class SlideShow {
 		// Call XML parser
 		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
+		
+		ingredients = reader.getIngredients();
+		ingredientsList = ingredients.getIngredients();
+		
+		System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
+		
 		// Get the defaults from the recipe
 		defaults = recipe.getDefaults();
 		// Get the total number of slides without branch slides
@@ -66,7 +76,6 @@ public class SlideShow {
 
 		// Set the colour of the slide
 		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
-		
 		// These properties update the stage
 		stage.hide();
 		stage.setScene(slideScene);
@@ -376,9 +385,7 @@ public class SlideShow {
             	newSlide(nextSlideID, false);
             	event.consume();
             }
-        });
-   
-        
+        });      
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -394,6 +401,23 @@ public class SlideShow {
             	event.consume();
             	
             }
-        });    
+        });
+        // Right and left buttons not working exactly as expected, something to do with the methods called
+        // Same issues exist with buttons 
+		slideScene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {  
+		    @Override
+		    public void handle(KeyEvent event) {
+		    	if(event.getCode() == KeyCode.RIGHT) {
+		    		System.out.println("Next slide");
+	            	newSlide(nextSlideID, false);
+	            	event.consume();
+		    	}
+		    	else if (event.getCode() == KeyCode.LEFT) {
+		    		System.out.println("Previous slide");
+	            	newSlide(prevSlideID, false);
+	            	event.consume();
+		    	}
+		    }
+		});
 	}
 }

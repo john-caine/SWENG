@@ -3,7 +3,7 @@ package xmlparser;
 public class Ingredient {
 	private String name;
 	private String units;
-	private int amount;
+	private Float amount;
 	
 	public Ingredient() {
 	}
@@ -17,20 +17,20 @@ public class Ingredient {
 		return units;
 	}
 
-	public int getAmount() {
+	public float getAmount() {
 		return amount;
 	}
 	
 	// setters
-	public void setName(String value) {
-		name = value;
+	public void setName(Object value) {
+		name = (String) value;
 	}
 
-	public void setUnits(String value) {
-		ingredient = value;
+	public void setUnits(Object value) {
+		units = (String) value;
 	}
 
-	public void setAmount(int value) {
-		amount = value;
+	public void setAmount(Object value) {
+		amount =  Float.valueOf((String) value);
 	}
 }

@@ -38,6 +38,7 @@ enum ProcessingElement {
 	NONE,
 	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
 	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
+	INGREDIENTS,
 	SLIDE,
 	TEXT,
 	TEXTTEXTBODY, TEXTTEXTBODYTEXT,
@@ -61,7 +62,6 @@ public class XMLReader extends DefaultHandler {
 	private Video video;
 	private Ingredient ingredient;
 	private Ingredients ingredients;
-	private int noOfIngredients;
 	
 	private ProcessingElement currentElement = ProcessingElement.NONE;
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
@@ -76,6 +76,10 @@ public class XMLReader extends DefaultHandler {
 		return this.recipe;
 	}
 
+	public Ingredients getIngredients() {
+		return this.ingredients;
+	}
+	
 	public void readXMLFile(String inputFile) {
 		try {
 			// use the default parser
@@ -127,18 +131,11 @@ public class XMLReader extends DefaultHandler {
 			recipeElement = ProcessingElement.DEFAULTS;
 		}
 		else if (elementName.equals("ingredients")) {
-			ingredient = new Ingredient();
+			// If there are ingredients contained within the .xml
+			//ingredient = new Ingredient();
 			ingredients = new Ingredients();
-			noOfIngredients = 0;
-		}
-		else if (elementName.equals("ingredient")) {
-			// Every time an ingredient is reached write the ingredient to ingredients
-			ingredient.setName(attributes.getValue("name"));
-			ingredient.setAmount(Integer.parseInt(attributes.getValue("amount")));
-			ingredient.setUnits(attributes.getValue("units"));
-			noOfIngredients ++;
-			ingredients.setElements(noOfIngredients);
-			ingredients.setIngredient(ingredient);
+			recipeElement = ProcessingElement.INGREDIENTS;
+			//noOfIngredients = 0;
 		}
 		
 		/* 
@@ -177,13 +174,17 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			}
 		}
-		
-		// incredients
+		// ingredients
 		if (recipeElement.equals(ProcessingElement.INGREDIENTS)) {
-			
-			
+			if (elementName.equals("ingredient")) {
+				// Every time an ingredient is reached write the ingredient to ingredients
+				ingredient = new Ingredient();
+				ingredient.setName(attributes.getValue("name"));
+				ingredient.setAmount(attributes.getValue("amount"));
+				ingredient.setUnits(attributes.getValue("units"));
+				ingredients.addIngredient(ingredient);
+			}
 		}
-		
 		// slide
 		if (recipeElement.equals(ProcessingElement.SLIDE)) {
 			if (elementName.equals("text")) {

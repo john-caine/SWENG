@@ -15,17 +15,9 @@ public class Ingredients {
 		return ingredients;
 	}
 	
-	public int getElements() {
-		return noOfElements;
-	}
-	
 	// setters
-	public void setIngredient(Ingredient thisIngredient) {
+	public void addIngredient(Ingredient thisIngredient) {
 		ingredients.add(thisIngredient);
-	}
-	
-	public void setElements(int amount) {
-		noOfElements = amount;
 	}
 	
 }

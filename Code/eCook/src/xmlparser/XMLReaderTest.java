@@ -16,20 +16,24 @@ package xmlparser;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class XMLReaderTest {
 	private XMLReader reader;
 	private Recipe recipe;
+	private Ingredients ingredients;
+	private ArrayList<Ingredient> ingredientsList;
 
 	// create instances of the XML reader and recipe
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		reader = new XMLReader("../Resources/Recipe_Example.xml");
 		recipe = reader.getRecipe();
 	}
-
+	
 	// test that a recipe has been created
 	@Test
 	public void createRecipe() {
@@ -360,5 +364,39 @@ public class XMLReaderTest {
 			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
 			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());
 			assertEquals(15, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getStartTime().intValue());
+	}
+	/*
+	 * A test to check that the ingredients are read in correctly from the .xml file
+	 * James and Sam
+	 */
+	@Test
+	public void ingredientsTest() {
+		ingredients = reader.getIngredients();
+		ingredientsList = ingredients.getIngredients();
+		// 6 ingredients in total
+		// Ingredient
+		assertEquals("onion", ingredientsList.get(0).getName());
+		assertEquals(700, ingredientsList.get(0).getAmount(), 0.01);
+		assertEquals("grams", ingredientsList.get(0).getUnits());
+		// Ingredient
+		assertEquals("olive oil", ingredientsList.get(1).getName());
+		assertEquals(2, ingredientsList.get(1).getAmount(), 0.01);
+		assertEquals("tablespoons", ingredientsList.get(1).getUnits());
+		// Ingredient
+		assertEquals("butter", ingredientsList.get(2).getName());
+		assertEquals(2, ingredientsList.get(2).getAmount(), 0.01);
+		assertEquals("oz", ingredientsList.get(2).getUnits());
+		// Ingredient
+		assertEquals("garlic", ingredientsList.get(3).getName());
+		assertEquals(2, ingredientsList.get(3).getAmount(), 0.01);
+		assertEquals("cloves", ingredientsList.get(3).getUnits());
+		// Ingredient
+		assertEquals("granulated sugar", ingredientsList.get(4).getName());
+		assertEquals(0.5, ingredientsList.get(4).getAmount(), 0.01);
+		assertEquals("teaspoon", ingredientsList.get(4).getUnits());
+		// Ingredient
+		assertEquals("beef stock", ingredientsList.get(5).getName());
+		assertEquals(2, ingredientsList.get(5).getAmount(), 0.01);
+		assertEquals("pints", ingredientsList.get(5).getUnits());
 	}
 }
