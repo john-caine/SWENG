@@ -17,14 +17,16 @@ public class AudioHandler {
 	
 	public AudioMediaControl mediaControl;
 	private SlideShow parent;
+	private Media media;
+	private MediaPlayer mediaPlayer;
 	
 	public AudioHandler(SlideShow parent, String pathLocation, Integer startTime, Integer duration, Boolean loop){
 		
 		this.parent = parent;
 		
         // create media player
-        Media media = new Media(pathLocation);
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+        media = new Media(pathLocation);
+         mediaPlayer = new MediaPlayer(media);
         
         mediaControl = new AudioMediaControl(mediaPlayer, null /*height*/, null /*width*/, loop, startTime, duration);
         setMediaPlayerLocation(mediaControl.box, 100, 100);
@@ -45,7 +47,20 @@ public class AudioHandler {
 		vbox.setLayoutX(xLocation);
 		vbox.setLayoutY(yLocation);
 	 }
+	
+	/**
+	 * Stops any audio that is playing
+	 */
+	public void stopAudio() {
+		mediaPlayer.stop();
+	}
+	// Play audio
+	public void playAudio() {
+		mediaPlayer.play();
+	}
 }
+	
+
 
 //	public AudioClip audio;
 //	private Integer duration;
@@ -150,16 +165,9 @@ public class AudioHandler {
 //			}
 //		};
 //
-//	/**
-//	 * Stops any audio that is playing
-//	 */
-//	public void stopAudio() {
-//		audio.stop();
-//	}
+	
 //	
-//	public void playAudio() {
-//		audio.play();
-//	}
+	
 //
 //	/**
 //	 * When set the audio will play continuously until the Duration is over or

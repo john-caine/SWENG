@@ -1,4 +1,4 @@
-package application;
+package gui;
 
 public class KitchenBasicsScreen {
 

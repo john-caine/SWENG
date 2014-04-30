@@ -1,11 +1,12 @@
-package player;
+package audiohandler;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import javafx.animation.FadeTransition;
+//import javafx.animation.FadeTransition;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -31,7 +32,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
@@ -42,10 +45,10 @@ import javafx.util.Duration;
 
 
 
-public class MediaControl {
+public class AudioControl {
 	
-	public MediaPlayer mp;
-    public boolean stopRequested = false;
+	private MediaPlayer mp;
+    private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
     private Duration duration;
     private Slider timeSlider, timeSlider1;
@@ -53,49 +56,25 @@ public class MediaControl {
     private Slider volumeSlider;
 	public VBox box;
 	private InputStream inputStream;
-	private Image image, image1, image2, image3;
-	 Stage stage, stage1;
-	private int mpWidth;
-	public int mpHeight;
+	private AudioClip audioClip, audioClip1, audioClip2;
+	private Stage stage, stage1;
+	//private int mpWidth;
+	//private int mpHeight;
 	private Rectangle2D bounds;
-	public MediaView mediaView;
+	private MediaView mediaView;
 	private HBox hbox;
 	private Button playButton, playButton1;
-	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private Integer playDuration;
-	private Boolean loop1;
-	HBox mediaBar;
+	private Boolean loop;
 	
-	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, Integer playDuration){
+	public AudioControl(final MediaPlayer mp, final Boolean loop, Integer startTime, Integer playDuration){
 		
 		this.mp = mp;
 		this.startTime = startTime;
 		this.playDuration = playDuration;
-		mediaView = new MediaView(mp);
-		
-		bounds = Screen.getPrimary().getVisualBounds();
-		
-		if (loop == null)
-			this.loop1 = false;
-		else
-			this.loop1 = loop;
-		
-		setLoop(loop1);
-		
-		if (width != null && height != null){
-			this.mpWidth = width;
-			this.mpHeight = height;
-			mediaView.setPreserveRatio(false);
-            mediaView.setFitWidth(mpWidth);
-            mediaView.setFitHeight(mpHeight-35);
-		}
-		else{
-			this.mpWidth = (int) (bounds.getWidth()/2);
-			this.mpHeight = (int) (bounds.getHeight()/4);
-			mediaView.setPreserveRatio(true);
-            mediaView.setFitWidth(mpWidth);		
-		}
+		this.loop = loop;
+		setLoop(loop);
 		
 		if (startTime == null) {
 	        this.startTime = 0;
@@ -104,28 +83,30 @@ public class MediaControl {
 	    else 
 	        new Thread(startTimerThread).start();
 		 
+		//bounds = Screen.getPrimary().getVisualBounds();
 		box = new VBox();
-		mediaView.setFitHeight(mpHeight-35);
-		box.getChildren().add(mediaView);
+		HBox viewBox = new HBox();
+		mediaView = new MediaView(mp);
+		viewBox.getChildren().add(mediaView);
+		box.getChildren().add(viewBox);
 			
-		mediaBar = new HBox();
-		mediaBar.setMaxWidth(mpWidth);
+		final HBox mediaBar = new HBox();
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
 				inputStream = new FileInputStream("../Resources/play.png");
-				image = new Image(inputStream);
+				audioClip = new AudioClip("../Resources/file.wav");
 				inputStream = new FileInputStream("../Resources/pause.png");
-				image1 = new Image(inputStream);
+				audioClip1 = new AudioClip("../Resources/file2.wav");
 				inputStream = new FileInputStream("../Resources/stop.png");
-				image2 = new Image(inputStream);
+				audioClip2 = new AudioClip("../Resources/file3.wav");
 				inputStream = new FileInputStream("../Resources/fullscreen.png");
-				image3 = new Image(inputStream);
+				new AudioClip("../Resources/file4.wav");
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	        playButton = new Button();
-	        playButton.setGraphic(new ImageView(image));
+	        playButton.setGraphic(new ImageView());
 	        playButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	            public void handle(ActionEvent e) {
@@ -145,20 +126,19 @@ public class MediaControl {
 	                    if (atEndOfMedia) {
 	                        mp.seek(mp.getStartTime());
 	                        atEndOfMedia = false;
-	                        playButton.setGraphic(new ImageView(image));
-	                        updateValues();
+
 	                    }
 	                    mp.play();
-	                    playButton.setGraphic(new ImageView(image1));
+
 	                } else {
 	                    mp.pause();
-	                    playButton.setGraphic(new ImageView(image));
+
 	                }
 	            }
 	        });
 	        
 	        playButton1 = new Button();
-	        playButton1.setGraphic(new ImageView(image));
+	        playButton1.setGraphic(new ImageView());
 	        playButton1.setOnAction(new EventHandler<ActionEvent>() {
 
 	            public void handle(ActionEvent e) {
@@ -178,14 +158,13 @@ public class MediaControl {
 	                    if (atEndOfMedia) {
 	                        mp.seek(mp.getStartTime());
 	                        atEndOfMedia = false;
-	                        playButton1.setGraphic(new ImageView(image));
-	                        updateValues();
+
 	                    }
 	                    mp.play();
-	                    playButton1.setGraphic(new ImageView(image1));
+
 	                } else {
 	                    mp.pause();
-	                    playButton1.setGraphic(new ImageView(image));
+
 	                }
 	            }
 	        });
@@ -203,8 +182,8 @@ public class MediaControl {
 	                    mp.pause();
 	                    stopRequested = false;
 	                } else {
-	                	playButton.setGraphic(new ImageView(image1));
-	                	playButton1.setGraphic(new ImageView(image1));
+	                	playButton.setText(" || ");
+
 	                }
 	            }
 	        });
@@ -212,17 +191,17 @@ public class MediaControl {
 	        mp.setOnPaused(new Runnable() {
 
 	            public void run() {
-	            	playButton.setGraphic(new ImageView(image));
-	            	playButton1.setGraphic(new ImageView(image));
+	            	playButton.setText(">");
+
 	            }
 	        });
 	        
 	        mp.setOnStopped(new Runnable() {
 	        	 public void run() {
-	        		mp.setStopTime(Duration.INDEFINITE);
 	        		atEndOfMedia = true; 
-		            playButton.setGraphic(new ImageView(image));
-		            playButton1.setGraphic(new ImageView(image));
+		            playButton.setText(">");
+
+
 		       }
 	        });
 	        
@@ -231,47 +210,48 @@ public class MediaControl {
 	            public void run() {
 	                duration = mp.getMedia().getDuration();
 	                updateValues();
+	               // mediaView.setFitWidth(mpWidth);
+	               // mediaView.setFitHeight(mpHeight);
+	              //  timeSlider.setMaxWidth(mpWidth/2);
 	            }
 	        });
 	        
 	        mp.setOnEndOfMedia(new Runnable() {
 
 	            public void run() {
-	            	if (!loop1){ 
-	                	playButton.setGraphic(new ImageView(image));
-	                    playButton1.setGraphic(new ImageView(image));
-	                    atEndOfMedia = true;
-	                    mp.stop();
-	                	}
-	                	mp.seek(mp.getStartTime());
-	                }
+	            	if (!loop) {
+	            	playButton.setText(">");
+	                stopRequested = true;
+	                atEndOfMedia = true;
+	            	}
+	            }
 	        });
 	        
 	        mp.setOnRepeat(new Runnable() {
 	        	 public void run() {
 	        		atEndOfMedia = false;
-	        		playButton.setGraphic(new ImageView(image1));
-	                playButton1.setGraphic(new ImageView(image1));         
+	        		playButton.setGraphic(new ImageView());
+	                playButton1.setGraphic(new ImageView());         
 	            }
 	        });
 
 	        mediaBar.getChildren().add(playButton);
 	        
 	        Button stopButton = new Button();
-	        stopButton.setGraphic(new ImageView(image2));
+	        stopButton.setGraphic(new ImageView());
 	        stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	            public void handle(ActionEvent e) {
 	                mp.stop();
 	                atEndOfMedia = true;
-	                playButton.setGraphic(new ImageView(image));
-	                playButton1.setGraphic(new ImageView(image));
+	                playButton.setGraphic(new ImageView());
+	                playButton1.setGraphic(new ImageView());
 	            }
 	        });
 	        mediaBar.getChildren().add(stopButton);
 	        
 	        Button fullscreenButton = new Button();
-	        fullscreenButton.setGraphic(new ImageView(image3));
+	        fullscreenButton.setGraphic(new ImageView());
 	        stage1 = new Stage();
 	        fullscreenButton.setOnAction(new EventHandler<ActionEvent>() {
 	        
@@ -300,37 +280,40 @@ public class MediaControl {
 	                        if(mp.getStatus() == Status.PLAYING){
 	                    	mp.pause();
 	                        }
-	                        else{
+	                        else {
 	                        mp.play();
 	                        }
-	                    }
+	                         
+	                       
+	                        }
+	                    
 	                });
 	                
-	                fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
-	                fadeTransition.setFromValue(1.0);
-	                fadeTransition.setToValue(0.0);
+	               // fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
+	               // fadeTransition.setFromValue(1.0);
+	                //fadeTransition.setToValue(0.0);
 	                
 	                scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
 	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
 	                		hbox.setDisable(false);
 	                		scene.setCursor(Cursor.DEFAULT);
-	                		fadeTransition.play();
+	                		//fadeTransition.play();
 	    	            }
 	    	        });
 	                
-	                fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
-	                    @Override
-	                    public void handle(ActionEvent event) {
-	                    	hbox.setDisable(true);
-	                        scene.setCursor(Cursor.NONE);
+	                //fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+	                 //   @Override
+	                  //  public void handle(ActionEvent event) {
+	                    //	hbox.setDisable(true);
+	                      //  scene.setCursor(Cursor.NONE);
 	                    }
 	                }); 
 	                
 	                hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
 	                	@Override
 	    	            public void handle(MouseEvent mouseEvent){
-	                		fadeTransition.stop();
+	                	//	fadeTransition.stop();
 	    	            }
 	    	        });
 	                
@@ -347,8 +330,8 @@ public class MediaControl {
 	        		    }
 	                });                
 	                
-	            }
-	        });
+	            
+	        
 	     	        
 	        mediaBar.getChildren().add(fullscreenButton);
 	        Label timeLabel = new Label("   Time: ");
@@ -358,7 +341,6 @@ public class MediaControl {
 	        
 	        
 	        timeSlider = new Slider();
-	        timeSlider.setMaxWidth((2*mpWidth)/3);
 	        HBox.setHgrow(timeSlider, Priority.ALWAYS);
 	        timeSlider.valueProperty().addListener(new InvalidationListener() {
 
@@ -393,8 +375,8 @@ public class MediaControl {
 	        mediaBar.getChildren().add(volumeLabel);
 
 	        volumeSlider = new Slider();
-	        volumeSlider.setManaged(true);
-	        volumeSlider.setMaxWidth(mpWidth/6);
+	        volumeSlider.setPrefWidth(60);
+	        volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
 	        volumeSlider.setMinWidth(20);
 	        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
@@ -429,7 +411,7 @@ public class MediaControl {
    	        timeSlider1.setOnMousePressed(new EventHandler<MouseEvent>() {
    	            @Override
    	            public void handle(MouseEvent mouseEvent) {
-   	            	fadeTransition.stop();
+   	            	//fadeTransition.stop();
    	            	mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
    	            }
    	        });
@@ -509,16 +491,24 @@ public class MediaControl {
  	    	
  			@Override
  			protected Object call() throws Exception {
- 				TimeUnit.SECONDS.sleep(startTime);
+ 				 int count=0;
+ 				 while (count <= startTime && startTime != 0) {
+ 					try {
+ 						TimeUnit.SECONDS.sleep(1);
+ 					} catch (InterruptedException e) {
+ 						// TODO Auto-generated catch block
+ 						e.printStackTrace();
+ 					}
+ 					count++;
+ 			 	}
  			 
  				Platform.runLater (new Runnable() {
  					public void run(){
  						mp.play();
  					}
  				});
- 				if (playDuration != null && playDuration != 0){
- 					mp.setStopTime(Duration.seconds(playDuration));
- 				}
+ 				if (playDuration != null && playDuration != 0)
+					new Thread(durationTimerThread).start();
  				return null;
  			}
    	    };
@@ -541,7 +531,7 @@ public class MediaControl {
 			Platform.runLater( new Runnable(){
 				public void run(){
 					mp.stop();
-					if(loop1){
+					if(loop){
 						mp.play();
 					}
 				}
@@ -556,5 +546,8 @@ public class MediaControl {
 		}else
 			mp.setCycleCount(1);
 	}
-
 }
+
+
+
+	

@@ -1,4 +1,4 @@
-package application;
+package gui;
 
 
 
@@ -11,7 +11,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
 
 	Rectangle2D screenBounds;
 	

@@ -1,35 +1,62 @@
-package application;
+package gui;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 
 public class RecipeScreen {
-	GridPane recipeGrid = new GridPane(); 
+	InputStream inputStream;
+	ImageView logoHolder1;
+	ImageView logoHolder2;
+	Image image1, image2;	
 	
-	public RecipeScreen(final VBox bigBox){
+	
+	
+	public RecipeScreen(final VBox bigBox, double height, double width){
 		
 		/////////////////////////////////////////////////////////////////
 		//RS1: TOP
 		HBox topBox = new HBox(100);
-		ImageView logoHolder1 = new ImageView("SpoonSmall.png");
-		ImageView logoHolder2 = new ImageView("eCookLogo.png");
-		topBox.getChildren().add(logoHolder1);
-		topBox.getChildren().add(logoHolder2);
-		recipeGrid.addRow(0, topBox);
+		logoHolder1 = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/SpoonSmall.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		image1 = new Image(inputStream);
+		logoHolder1.setImage(image1);
 		
+		logoHolder2 = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/eCookLogo.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		image2 = new Image(inputStream);
+		logoHolder2.setImage(image2);
+//		topBox.getChildren().add(logoHolder1);
+//		topBox.getChildren().add(logoHolder2);
 		
+		logoHolder1.setLayoutX(0);
+		logoHolder1.setLayoutY(0);
+		
+		logoHolder1.setLayoutX(width/2);
+		logoHolder1.setLayoutY(height/2);
 		/////////////////////////////////////////////////////////////////
 		//RS2: MID LEFT: CHOICES (i.e. NEWEST, $5 MEALS, UNDER 5 MINUTES ETC)
 		VBox midBoxLeft = new VBox(10);
@@ -89,7 +116,7 @@ public class RecipeScreen {
 
 			public void handle(MouseEvent event) {
 				System.out.println("Label CLicked");
-				bigBox.getChildren().remove(recipeGrid);
+				bigBox.getChildren().clear();
 			}
 			
 		});
@@ -117,12 +144,7 @@ public class RecipeScreen {
 		HBox midBoxRight = new HBox();
 		midBoxRight.getChildren().add(recipeList);
 		
-		
-		/////////////////////////////////////////////////////////////////
-		//RS4: MID BOX = MID BOX LEFT + MID BOX RIGHT
-		HBox midBox = new HBox(20);
-		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
-		recipeGrid.addRow(1, midBox);
+		midBoxRight.setLayoutY(300);
 		
 		
 		/////////////////////////////////////////////////////////////////
@@ -132,20 +154,13 @@ public class RecipeScreen {
 		 fadeTransition.setFromValue(0.0);
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
-		bigBox.getChildren().add(recipeGrid);
 		bigBox.setVisible(true);
 		
-		
-		/////////////////////////////////////////////////////////////////
-		//RS6: GRID PANE ROW PROPERTIES
-		RowConstraints row1 = new RowConstraints();
-		RowConstraints row2 = new RowConstraints();
-		row2.setMinHeight(recipeList.getHeight());
-		row2.setVgrow(Priority.ALWAYS);
-	    row2.setFillHeight(true);
-	    recipeGrid.getRowConstraints().addAll(row1,row2);
-	    recipeGrid.setVgap(10);
-	    
+		bigBox.getChildren().addAll(logoHolder1,logoHolder2);
+		bigBox.getChildren().add(topBox);
+		bigBox.getChildren().add(midBoxRight);
+
+              
 	}
 	 
 }

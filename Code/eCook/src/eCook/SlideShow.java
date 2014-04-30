@@ -46,8 +46,13 @@ public class SlideShow {
 	private Slide slide;
 	private Defaults defaults;
 	private Integer maxLayer;
+<<<<<<< HEAD
 	private Ingredients ingredients;
 	private ArrayList<Ingredient> ingredientsList;
+=======
+	private Stage stage;
+	private ArrayList<AudioHandler> audioHandlerList;
+>>>>>>> 2f95ee9f0656e0e052f5c72b1b1d5a808dc850f6
 	
 	public SlideShow(Stage stage, String filepath) {
 		XMLReader reader;
@@ -92,6 +97,7 @@ public class SlideShow {
 		
 		Pane layer;
 		ArrayList<Pane> layers;
+		
 		
 		int imageCount, textCount, audioCount, videoCount; //, graphicCount;
 		int fontSize;
@@ -205,12 +211,13 @@ public class SlideShow {
 				layers.get(textLayer).getChildren().add(text1.textBox);
 			}
 		}
-		
+		audioHandlerList = new ArrayList<AudioHandler>();
 		// Call the AudioHanlder for each audio object
 		if (audioCount != 0){
 			for(int i = 0; i < audioCount; i++){
 				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
 														audio.get(i).getDuration(), audio.get(i).getLoop());
+				audioHandlerList.add(audio1);
 				layers.get(0).getChildren().add(audio1.mediaControl.box);
 			}
 		}
@@ -389,6 +396,10 @@ public class SlideShow {
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	for(int h = 0; h < audioHandlerList.size(); h++){
+            		
+            		audioHandlerList.get(h).stopAudio();
+            	}
             	newSlide(nextSlideID, false);
             	event.consume();
             }
