@@ -69,17 +69,23 @@ public class SlideShow {
     	stage.setFullScreen(true);
     	stage.show();
 		
-		// Call XML parser MAX CHANGED THIS TO VERSION 3 ON 30TH APRIL
-		 reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		
+		 
 		
 		// Call XML parser
 		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
 		
+		ingredientsList = new ArrayList<Ingredient>();
 		ingredients = reader.getIngredients();
-		ingredientsList = ingredients.getIngredients();
 		
+		//Test that ingredients were present within the XML file
+		if(ingredients.getIngredients().isEmpty() == false){
+		ingredientsList = ingredients.getIngredients();
 		System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
+		}
+		
+	
 		
 		// Get the defaults from the recipe
 		defaults = recipe.getDefaults();
