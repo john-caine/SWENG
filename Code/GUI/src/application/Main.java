@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-
 	Rectangle2D screenBounds;
 	
 public static void main(String[] args) {
