@@ -34,6 +34,7 @@ public class MainMenu {
 	ImageView logoHolder2;
 	Image image1, image2;	
 	VBox bigBox;
+	
 	Label blank;
 	
 	public MainMenu() {
