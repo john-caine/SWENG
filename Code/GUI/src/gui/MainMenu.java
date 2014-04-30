@@ -122,7 +122,7 @@ public class MainMenu {
                // System.out.println("Recipe Clicked");
              
                 bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                new RecipeScreen(bigBox);	
+                new RecipeScreen(bigBox, height, width);	
             }
         });
 		

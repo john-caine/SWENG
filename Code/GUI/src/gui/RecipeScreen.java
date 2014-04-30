@@ -13,8 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -27,7 +25,7 @@ public class RecipeScreen {
 	
 	
 	
-	public RecipeScreen(final VBox bigBox, final double height, final double width){
+	public RecipeScreen(final VBox bigBox, double height, double width){
 		
 		/////////////////////////////////////////////////////////////////
 		//RS1: TOP
@@ -58,7 +56,7 @@ public class RecipeScreen {
 		logoHolder1.setLayoutY(0);
 		
 		logoHolder1.setLayoutX(width/2);
-		logoHolder1.setLayoutY(0);
+		logoHolder1.setLayoutY(height/2);
 		/////////////////////////////////////////////////////////////////
 		//RS2: MID LEFT: CHOICES (i.e. NEWEST, $5 MEALS, UNDER 5 MINUTES ETC)
 		VBox midBoxLeft = new VBox(10);
