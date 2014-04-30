@@ -38,12 +38,13 @@ enum ProcessingElement {
 	NONE,
 	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
 	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
+	INGREDIENTS,
 	SLIDE,
 	TEXT,
 	TEXTTEXTBODY, TEXTTEXTBODYTEXT,
 	SHAPE, SHAPEPOINT,
 	AUDIO, AUDIOURLNAME, AUDIOSTARTTIME, AUDIOLOOP, AUDIODURATION,
-	IMAGE, IMAGEURLNAME, IMAGEXSTART, IMAGEYSTART, IMAGEWIDTH, IMAGEHEIGHT, IMAGEDURATION, IMAGELAYER,
+	IMAGE, IMAGEURLNAME, IMAGEXSTART, IMAGEYSTART, IMAGEWIDTH, IMAGEHEIGHT, IMAGEDURATION, IMAGELAYER, IMAGEBRANCH, IMAGEORIENTATION,
 	VIDEO, VIDEOURLNAME, VIDEOXSTART, VIDEOYSTART, VIDEODURATION, VIDEOLAYER, VIDEOSTARTTIME, VIDEOLOOP, VIDEOWIDTH, VIDEOHEIGHT
 };
 
@@ -59,6 +60,8 @@ public class XMLReader extends DefaultHandler {
 	private Audio audio;
 	private Image image;
 	private Video video;
+	private Ingredient ingredient;
+	private Ingredients ingredients;
 	
 	private ProcessingElement currentElement = ProcessingElement.NONE;
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
@@ -73,6 +76,10 @@ public class XMLReader extends DefaultHandler {
 		return this.recipe;
 	}
 
+	public Ingredients getIngredients() {
+		return this.ingredients;
+	}
+	
 	public void readXMLFile(String inputFile) {
 		try {
 			// use the default parser
@@ -110,8 +117,12 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("slide")) {
 			slide = new Slide();
 			slide.setID(attributes.getValue("ID"));
-			slide.setDuration(attributes.getValue("duration"));
-			slide.setLastSlide(attributes.getValue("lastSlide"));
+			if (attributes.getValue("duration") != null) {
+				slide.setDuration(attributes.getValue("duration"));	
+			}
+			if (attributes.getValue("lastSlide") != null) {
+				slide.setLastSlide(attributes.getValue("lastSlide"));	
+			}
 			content = new Content();
 			recipeElement = ProcessingElement.SLIDE;
 		}
@@ -122,6 +133,13 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("defaults")) {
 			defaults = new Defaults();
 			recipeElement = ProcessingElement.DEFAULTS;
+		}
+		else if (elementName.equals("ingredients")) {
+			// If there are ingredients contained within the .xml
+			//ingredient = new Ingredient();
+			ingredients = new Ingredients();
+			recipeElement = ProcessingElement.INGREDIENTS;
+			//noOfIngredients = 0;
 		}
 		
 		/* 
@@ -160,7 +178,17 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.DEFAULTSLINECOLOR;
 			}
 		}
-		
+		// ingredients
+		if (recipeElement.equals(ProcessingElement.INGREDIENTS)) {
+			if (elementName.equals("ingredient")) {
+				// Every time an ingredient is reached write the ingredient to ingredients
+				ingredient = new Ingredient();
+				ingredient.setName(attributes.getValue("name"));
+				ingredient.setAmount(attributes.getValue("amount"));
+				ingredient.setUnits(attributes.getValue("units"));
+				ingredients.addIngredient(ingredient);
+			}
+		}
 		// slide
 		if (recipeElement.equals(ProcessingElement.SLIDE)) {
 			if (elementName.equals("text")) {
@@ -190,6 +218,9 @@ public class XMLReader extends DefaultHandler {
 					if (!(attributes.getValue("layer") == null)) {
 						text.setLayer(attributes.getValue("layer"));
 					}
+					if (!(attributes.getValue("orientation") == null)) {
+						text.setOrientation(attributes.getValue("orientation"));
+					}
 				} catch (Exception e) {
 					System.out.println("text attribute setting issue");
 					e.printStackTrace();
@@ -203,6 +234,12 @@ public class XMLReader extends DefaultHandler {
 					shape.setTotalPoints(attributes.getValue("totalpoints"));
 					shape.setWidth(attributes.getValue("width"));
 					shape.setHeight(attributes.getValue("height"));
+					if (!(attributes.getValue("orientation") == null)) {
+						shape.setOrientation(attributes.getValue("orientation"));	
+					}
+					if (!(attributes.getValue("branch") == null)) {
+						shape.setBranch(attributes.getValue("branch"));
+					}
 					if (!(attributes.getValue("fillcolor") == null)) {
 						shape.setFillColor(attributes.getValue("fillcolor"));
 					}
@@ -244,8 +281,8 @@ public class XMLReader extends DefaultHandler {
 				if (elementName.equals("textbody")) {
 					textString = new TextString();
 					
-					// set bold/italic/underline attributes
-					try {
+					// set bold/italic/underline and branch attributes
+					try {						
 						if (attributes.getValue("bold") != null) {
 							textString.setBold(attributes.getValue("bold"));
 						}
@@ -328,7 +365,12 @@ public class XMLReader extends DefaultHandler {
 					currentElement = ProcessingElement.IMAGEDURATION;
 				} else if (elementName.equals("layer")) {
 					currentElement = ProcessingElement.IMAGELAYER;
+				} else if (elementName.equals("branch")) {
+					currentElement = ProcessingElement.IMAGEBRANCH;
+				} else if (elementName.equals("orientation")) {
+					currentElement = ProcessingElement.IMAGEORIENTATION;
 				}
+				
 			}
 			// video
 			if (slideElement.equals(ProcessingElement.VIDEO)) {
@@ -440,6 +482,12 @@ public class XMLReader extends DefaultHandler {
 			break;
 		case IMAGELAYER:
 			image.setLayer(elementValue);		
+			break;
+		case IMAGEBRANCH:
+			image.setBranch(elementValue);		
+			break;
+		case IMAGEORIENTATION:
+			image.setOrientation(elementValue);		
 			break;
 			
 		// Video class

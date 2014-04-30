@@ -7,14 +7,15 @@ public class VideoPlayerHandler {
 	
 	MediaControl mediaControl;
 	MediaPlayer mediaPlayer;
+	Media media;
 	
 	public VideoPlayerHandler(String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
         
         // create media player
-        Media media = new Media(pathLocation);
+        media = new Media(pathLocation);
         mediaPlayer = new MediaPlayer(media);
         
-        mediaControl = new MediaControl(mediaPlayer,width, height, loop, startTime, duration);
+        mediaControl = new MediaControl(mediaPlayer, width, height, loop, startTime, duration);
         setMediaPlayerLocation(mediaControl.box, xStart, yStart);
 	}
 	

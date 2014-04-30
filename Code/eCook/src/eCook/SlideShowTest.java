@@ -43,7 +43,7 @@ public class SlideShowTest {
 	public void setUp() throws Exception {
 		
 		stage = new Stage();
-		slideShow = new SlideShow(stage);
+		slideShow = new SlideShow(stage, "../Resources/Recipe_Example.xml");
 		
 	}
 	

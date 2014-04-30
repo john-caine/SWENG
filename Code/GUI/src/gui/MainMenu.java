@@ -1,90 +1,81 @@
-package application;
+package gui;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import javafx.animation.FadeTransition;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Main extends Application {
+public class MainMenu {
 	
-GridPane borders = new GridPane();//Where all window components (buttons, labels etc.) are added
-HBox bigBox = new HBox();
-
-public static void main(String[] args) {
-    launch(args);
-}
- 
-
-public void start(Stage primaryStage) {
-		
-		try {
-			Scene scene = new Scene(bigBox,640,480);
-			scene.setFill(Color.WHITE);
-			primaryStage.setScene(scene);
-			
-			borders.setPrefHeight(400);
-			borderContent() ;
-			borders.setHgap(0); //horizontal gap in pixels
-			borders.setVgap(30); //vertical gap in pixels
-			borders.setPadding(new Insets(10, 10, 10, 10)); 
-			
-			bigBox.getChildren().add(borders);
-			bigBox.setVisible(false);
-			
-			 FadeTransition fadeTransition 
-             = new FadeTransition(Duration.millis(3000), bigBox);
-			 fadeTransition.setFromValue(0.0);
-			 fadeTransition.setToValue(1.0);
-			 fadeTransition.play();
-			 
-			 bigBox.setVisible(true);
-			//primaryStage.setResizable(false);
-			primaryStage.setScene(scene);
-			primaryStage.setFullScreen(true);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+	Rectangle2D screenBounds;
+	double width;
+	double height;
+	HBox topBox;
+	HBox midBox;
+	InputStream inputStream;
+	ImageView logoHolder1;
+	ImageView logoHolder2;
+	Image image1, image2;	
+	VBox bigBox;
+	Label blank;
 	
-	public void borderContent (){
-		
-		Rectangle2D screenBounds;
-		double width;
-		double height;
-		
+	public MainMenu() {
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
-		//TOP: Logo Pane and calendar thing using HBOX
-		HBox topBox = new HBox(100);
-		ImageView logoHolder1 = new ImageView("SpoonSmall.png");
-		ImageView logoHolder2 = new ImageView("eCookLogo.png");
+		logoHolder1 = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/SpoonSmall.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		image1 = new Image(inputStream);
+		logoHolder1.setImage(image1);
+		
+		logoHolder2 = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/eCookLogo.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		image2 = new Image(inputStream);
+		logoHolder2.setImage(image2);
+
+		bigBox = new VBox(height/2 - width/6);
+		topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
+		midBox = new HBox(width/32);
+		
+		
+		
+		//TOP: Logo Pane and calendar thing using HBOX	
 		topBox.getChildren().add(logoHolder1);
 		topBox.getChildren().add(logoHolder2);
 		
-		borders.addRow(0, topBox);
 		
 		//MID: Button Panel using HBOX
-		HBox midBox = new HBox(50);
 		midBox.setMaxWidth(width);
 		midBox.setPrefHeight(height/2);
 		midBox.setAlignment(Pos.CENTER);
-		midBox.setAlignment(Pos.BOTTOM_CENTER);
 		
 		Button recipeBtn = new Button("Recipes");
 		Button kitchenBasicsBtn = new Button("Kitchen Basics");
@@ -106,31 +97,39 @@ public void start(Stage primaryStage) {
 		kitchenBasicsBtn.getStylesheets().add("css.css");
 		threeIngredientMealsBtn.getStylesheets().add("css.css");
 		onlineStoreBtn .getStylesheets().add("css.css");
-
 		
-	
+		blank = new Label("");
+		blank.setMinWidth(width/64);
+		midBox.getChildren().add(blank);
 		midBox.getChildren().add(recipeBtn);
 		midBox.getChildren().add(kitchenBasicsBtn);
 		midBox.getChildren().add(threeIngredientMealsBtn);
 		midBox.getChildren().add(onlineStoreBtn);
 		
-		borders.addRow(1, midBox);
-	
 		
+		bigBox.getChildren().add(topBox);
+		bigBox.getChildren().add(midBox);
+		
+		FadeTransition fadeTransition 
+         = new FadeTransition(Duration.millis(3000), bigBox);
+		 fadeTransition.setFromValue(0.0);
+		 fadeTransition.setToValue(1.0);
+		 fadeTransition.play();
+		 
 		//BUTTON ACTIONS
 		recipeBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                // System.out.println("Recipe Clicked");
              
-                bigBox.getChildren().remove(borders); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                new RecipeScreen(bigBox);	
+                bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
+                new RecipeScreen(bigBox, height, width);	
             }
         });
 		
 		kitchenBasicsBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 System.out.println("Kitchen Basics Clicked");
-                bigBox.getChildren().remove(borders); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
+                bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
                 new KitchenBasicsScreen();	
             }
         });
@@ -146,8 +145,16 @@ public void start(Stage primaryStage) {
                 System.out.println("Online Store Clicked");
             }
         });
-	
+		
+	    logoHolder1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            Node  source = (Node)  mouseEvent.getSource();
+         	Stage stage  = (Stage) source.getScene().getWindow();
+         	Group root = (Group) source.getScene().getRoot();
+         	root.getChildren().clear();
+         	root.getChildren().add(new MainMenu().bigBox);
+         	stage.show();
+            }
+        });
 	}
-
 }
-

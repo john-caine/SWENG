@@ -68,8 +68,8 @@ public class SlideShow {
     	stage.setFullScreen(true);
     	stage.show();
 		
-		// Call XML parser
-		 reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		// Call XML parser MAX CHANGED THIS TO VERSION 3 ON 30TH APRIL
+		 reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
 		
 		recipe = reader.getRecipe();
 		

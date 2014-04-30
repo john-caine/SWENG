@@ -16,20 +16,25 @@ package xmlparser;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class XMLReaderTest {
 	private XMLReader reader;
 	private Recipe recipe;
+	private Ingredients ingredients;
+	private ArrayList<Ingredient> ingredientsList;
 
 	// create instances of the XML reader and recipe
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/Recipe_Example.xml");
 		recipe = reader.getRecipe();
 	}
-
+	
 	// test that a recipe has been created
 	@Test
 	public void createRecipe() {
@@ -49,7 +54,7 @@ public class XMLReaderTest {
 	public void correctInfoDefaultDataReadIntoRecipe() {
 		// check info
 		assertEquals("John Caine", recipe.info.author);
-		assertEquals("1.1", recipe.info.version);
+		assertEquals("1.2", recipe.info.version);
 		assertEquals("Test Playlist", recipe.info.title);
 		assertEquals("Test playlist for eCook product", recipe.info.comment);
 		assertEquals(1000, recipe.info.width.intValue());
@@ -304,21 +309,18 @@ public class XMLReaderTest {
 			assertEquals("http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg", recipe.slides.get(3).content.images.get(0).getUrlName());
 			assertEquals(10, recipe.slides.get(3).content.images.get(0).getXStart());
 			assertEquals(10, recipe.slides.get(3).content.images.get(0).getYStart());
-			assertEquals(0, recipe.slides.get(3).content.images.get(0).getLayer().intValue());
 			// image 2
 			assertEquals("http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg", recipe.slides.get(3).content.images.get(1).getUrlName());
-			assertEquals(400, recipe.slides.get(3).content.images.get(1).getXStart());
-			assertEquals(400, recipe.slides.get(3).content.images.get(1).getYStart());
+			assertEquals(50, recipe.slides.get(3).content.images.get(1).getXStart());
+			assertEquals(50, recipe.slides.get(3).content.images.get(1).getYStart());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getWidth().intValue());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getHeight().intValue());
 			assertEquals(2, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 			// image 3
 			assertEquals("http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg", recipe.slides.get(3).content.images.get(2).getUrlName());
-			assertEquals(430, recipe.slides.get(3).content.images.get(2).getXStart());
-			assertEquals(430, recipe.slides.get(3).content.images.get(2).getYStart());
+			assertEquals(100, recipe.slides.get(3).content.images.get(2).getXStart());
+			assertEquals(100, recipe.slides.get(3).content.images.get(2).getYStart());
 			assertEquals(20, recipe.slides.get(3).content.images.get(2).getDuration().intValue());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getWidth().intValue());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getHeight().intValue());
 			assertEquals(3, recipe.slides.get(3).content.images.get(2).getLayer().intValue());
 	}
 	
@@ -344,15 +346,14 @@ public class XMLReaderTest {
 			System.out.println("\tDuration: " + video.getDuration());
 		}
 		
-		// check slide 4
+		// check slide 5
 		assertEquals(4, recipe.slides.get(recipe.getNumberOfSlides()-1).ID);
 		assertEquals(200, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
-		assertFalse(recipe.slides.get(recipe.getNumberOfSlides()-1).lastSlide);
 			// video 1
 			assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
-			assertEquals(0, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
+			assertEquals(2, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getDuration().intValue());
 			// video 2
 			assertEquals("http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
@@ -360,5 +361,39 @@ public class XMLReaderTest {
 			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
 			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());
 			assertEquals(15, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getStartTime().intValue());
+	}
+	/*
+	 * A test to check that the ingredients are read in correctly from the .xml file
+	 * James and Sam
+	 */
+	@Test
+	public void ingredientsTest() {
+		ingredients = reader.getIngredients();
+		ingredientsList = ingredients.getIngredients();
+		// 6 ingredients in total
+		// Ingredient
+		assertEquals("onion", ingredientsList.get(0).getName());
+		assertEquals(700, ingredientsList.get(0).getAmount(), 0.01);
+		assertEquals("grams", ingredientsList.get(0).getUnits());
+		// Ingredient
+		assertEquals("olive oil", ingredientsList.get(1).getName());
+		assertEquals(2, ingredientsList.get(1).getAmount(), 0.01);
+		assertEquals("tablespoons", ingredientsList.get(1).getUnits());
+		// Ingredient
+		assertEquals("butter", ingredientsList.get(2).getName());
+		assertEquals(2, ingredientsList.get(2).getAmount(), 0.01);
+		assertEquals("oz", ingredientsList.get(2).getUnits());
+		// Ingredient
+		assertEquals("garlic", ingredientsList.get(3).getName());
+		assertEquals(2, ingredientsList.get(3).getAmount(), 0.01);
+		assertEquals("cloves", ingredientsList.get(3).getUnits());
+		// Ingredient
+		assertEquals("granulated sugar", ingredientsList.get(4).getName());
+		assertEquals(0.5, ingredientsList.get(4).getAmount(), 0.01);
+		assertEquals("teaspoon", ingredientsList.get(4).getUnits());
+		// Ingredient
+		assertEquals("beef stock", ingredientsList.get(5).getName());
+		assertEquals(2, ingredientsList.get(5).getAmount(), 0.01);
+		assertEquals("pints", ingredientsList.get(5).getUnits());
 	}
 }

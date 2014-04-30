@@ -2,6 +2,9 @@ package player;
 
 import static org.junit.Assert.*;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.util.concurrent.TimeUnit;
 
 import javafx.geometry.Rectangle2D;
@@ -31,13 +34,15 @@ public class VideoPlayerMainTest {
 	private Rectangle2D screenBounds;
 	Group root;
 	Scene scene;
+	Robot robot;
 
 	VideoPlayerHandler videoPlayerHandler;
 	String pathLocation = "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv";
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
-	public void setup() {
+	public void setup() throws AWTException {
+		robot =  new Robot();
 		stage = new Stage();
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		root = new Group();
@@ -51,18 +56,23 @@ public class VideoPlayerMainTest {
 	}
 	
 	@Test
-	public void getVideoPlayerLocation() throws InterruptedException{
-		/* VideoPlayer's X and Y Location */
+	public void VideoPlayerHandlerTests() throws InterruptedException{
+		
+		/* VideoPlayer's X and Y Location (setMediaPlayerLocation Method)*/
 		assertEquals(300, videoPlayerHandler.mediaControl.box.getLayoutX(), 0.01);
 		assertEquals(300, videoPlayerHandler.mediaControl.box.getLayoutY(), 0.01);
+		
+		/* set Media to be the provided Path */
+		assertEquals("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv",
+					 videoPlayerHandler.media.getSource());
 		
 		/* VideoPlayer's Width and Height */
 		assertEquals(400, videoPlayerHandler.mediaControl.box.getWidth(), 0.01);
 		assertEquals(400, videoPlayerHandler.mediaControl.box.getHeight(), 0.01);
 		
-		/* VideoPlayer's MediaView and Control Panel are visible */
-		assertTrue(videoPlayerHandler.mediaControl.mediaView.isVisible());
-		assertTrue(videoPlayerHandler.mediaControl.mediaBar.isVisible());	
+		/* Detect if VideoPlayer is set to be on repeat. 
+		 * Return -1 for Loop = true & 1 for Loop = false */
+		assertEquals(1, videoPlayerHandler.mediaControl.mp.getCycleCount(), 0.01);
 	}
 	
 	@Test
@@ -98,18 +108,25 @@ public class VideoPlayerMainTest {
 		assertTrue(videoPlayerHandler.mediaControl.box.getChildren().get(0) instanceof MediaView);
 		assertTrue(videoPlayerHandler.mediaControl.box.getChildren().get(1) instanceof HBox);
 		
-		/* Detect if VideoPlayer is set to be on repeat. 
-		 * Return -1 for Loop = true & 1 for Loop = false */
-		assertEquals(1, videoPlayerHandler.mediaControl.mp.getCycleCount(), 0.01);
+		/* VideoPlayer's MediaView and Control Panel are visible */
+		assertTrue(videoPlayerHandler.mediaControl.mediaView.isVisible());
+		assertTrue(videoPlayerHandler.mediaControl.mediaBar.isVisible());
 		
-		/* Detect if startTimerThread has finished counting for 2 seconds*/
-		TimeUnit.SECONDS.sleep(2);
-		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
-		
-		videoPlayerHandler.mediaControl.mp.stop();
-		System.out.println(videoPlayerHandler.mediaControl.mp.getCurrentTime());
-		
-		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
-		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());	
+		robot.delay(2000);
+		robot.mouseMove((int)(videoPlayerHandler.mediaControl.box.getLayoutX()+80),
+				(int)(videoPlayerHandler.mediaControl.box.getLayoutY()+ 400-20));
+		robot.mousePress(InputEvent.BUTTON1_MASK);
+        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        
+		assertTrue(videoPlayerHandler.mediaControl.stage1.isFullScreen());
+//		/* Detect if startTimerThread has finished counting for 2 seconds*/
+//		TimeUnit.SECONDS.sleep(2);
+//		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
+//		
+//		videoPlayerHandler.mediaControl.mp.stop();
+//		System.out.println(videoPlayerHandler.mediaControl.mp.getCurrentTime());
+//		
+//		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
+//		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());	
 	}
 }

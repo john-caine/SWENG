@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Content {
 	int xStart, yStart;
-	Integer layer, startTime, duration, width, height;
+	Integer layer, startTime, duration, width, height, branch, orientation;
 	String urlName;
 	Boolean loop;
 	List<TextBody> texts;
@@ -81,6 +81,14 @@ public class Content {
 		return loop;
 	}
 	
+	public Integer getBranch() {
+		return branch;
+	}
+	
+	public Integer getOrintation() {
+		return orientation;
+	}
+	
 	// setters
 	public void setXStart(Object xStart) {
 		if (xStart != null) {
@@ -131,6 +139,20 @@ public class Content {
 	
 	public void setLoop(Object loop) {
 		this.loop = Boolean.valueOf((String) loop);
+	}
+	
+	public void setBranch(Object branch) {
+		this.branch = Integer.valueOf((String) branch);
+	}
+	
+	public void setOrientation(Object orientation) {
+		int or = Integer.valueOf((String) orientation);
+		if (or >= 0 && or <= 360) {
+			this.orientation = or;
+		}
+		else {
+			System.out.println("Orientation must be between 0 and 360");
+		}
 	}
 	
 	/* LIST OPERATIONS
