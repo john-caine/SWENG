@@ -1,4 +1,4 @@
-package application;
+package gui;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -66,13 +66,10 @@ public class MainMenu {
 		midBox = new HBox(width/32);
 		
 		
-		HBox topInnerBox =  new HBox();
-		topInnerBox.setAlignment(Pos.CENTER);
 		
 		//TOP: Logo Pane and calendar thing using HBOX	
-		topInnerBox.getChildren().add(logoHolder2);
 		topBox.getChildren().add(logoHolder1);
-		topBox.getChildren().add(topInnerBox);
+		topBox.getChildren().add(logoHolder2);
 		
 		
 		//MID: Button Panel using HBOX
