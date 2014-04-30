@@ -19,8 +19,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -41,19 +44,17 @@ public class SlideShow {
 	private Button exitSlide1;
 	private Recipe recipe;
 	private Slide slide;
+	private Defaults defaults;
 	private Integer maxLayer;
-
+	private Ingredients ingredients;
+	private ArrayList<Ingredient> ingredientsList;
+	private Stage stage;
+	private ArrayList<AudioHandler> audioHandlerList;
 	
-	
-
-	public SlideShow(Stage stage) {
-		
-		
+	public SlideShow(Stage stage, String filepath) {
 		XMLReader reader;
-		
 		// Create a new group for objects
 		slideRoot = new Group();
-		
 		// Create a new scene for the slide show
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
@@ -71,14 +72,31 @@ public class SlideShow {
 		// Call XML parser MAX CHANGED THIS TO VERSION 3 ON 30TH APRIL
 		 reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
 		
+		// Call XML parser
+		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
 		
+		ingredients = reader.getIngredients();
+		ingredientsList = ingredients.getIngredients();
+		
+		System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
+		
+		// Get the defaults from the recipe
+		defaults = recipe.getDefaults();
 		// Get the total number of slides without branch slides
 		numOfSlides = recipe.getNumberOfSlides();
-		
+
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
 		newSlide(0, false);
+
+		// Set the colour of the slide
+		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+		// These properties update the stage
+		stage.hide();
+		stage.setScene(slideScene);
+		stage.setFullScreen(true);
+		stage.show();
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch) {
@@ -90,6 +108,7 @@ public class SlideShow {
 		
 		Pane layer;
 		ArrayList<Pane> layers;
+		
 		
 		int imageCount, textCount, audioCount, videoCount; //, graphicCount;
 		int fontSize;
@@ -203,12 +222,13 @@ public class SlideShow {
 				layers.get(textLayer).getChildren().add(text1.textBox);
 			}
 		}
-		
+		audioHandlerList = new ArrayList<AudioHandler>();
 		// Call the AudioHanlder for each audio object
 		if (audioCount != 0){
 			for(int i = 0; i < audioCount; i++){
 				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
 														audio.get(i).getDuration(), audio.get(i).getLoop());
+				audioHandlerList.add(audio1);
 				layers.get(0).getChildren().add(audio1.mediaControl.box);
 			}
 		}
@@ -261,7 +281,7 @@ public class SlideShow {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         hbox.setAlignment(Pos.CENTER);
         hbox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
-        hbox.setLayoutY(screenBounds.getHeight());
+        hbox.setLayoutY(screenBounds.getHeight()-200);
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Add the buttons to the slide
@@ -383,12 +403,14 @@ public class SlideShow {
             	newSlide(nextSlideID, false);
             	event.consume();
             }
-        });
-   
-        
+        });      
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	for(int h = 0; h < audioHandlerList.size(); h++){
+            		
+            		audioHandlerList.get(h).stopAudio();
+            	}
             	newSlide(nextSlideID, false);
             	event.consume();
             }
@@ -401,6 +423,23 @@ public class SlideShow {
             	event.consume();
             	
             }
-        });    
+        });
+        // Right and left buttons not working exactly as expected, something to do with the methods called
+        // Same issues exist with buttons 
+		slideScene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {  
+		    @Override
+		    public void handle(KeyEvent event) {
+		    	if(event.getCode() == KeyCode.RIGHT) {
+		    		System.out.println("Next slide");
+	            	newSlide(nextSlideID, false);
+	            	event.consume();
+		    	}
+		    	else if (event.getCode() == KeyCode.LEFT) {
+		    		System.out.println("Previous slide");
+	            	newSlide(prevSlideID, false);
+	            	event.consume();
+		    	}
+		    }
+		});
 	}
 }
