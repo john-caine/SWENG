@@ -47,7 +47,7 @@ public class PDFCreator {
 			InputStream in;
 			try {
 				shoppingListDocument = new PDDocument();
-				in = new FileInputStream(new File("spoon.jpg"));
+				in = new FileInputStream(new File("../Resources/spoon.jpg"));
 				logo = new PDJpeg(shoppingListDocument, in);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

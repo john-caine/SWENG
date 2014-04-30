@@ -1,11 +1,11 @@
 /*
- * Programmer: Steve
- * Date Created: 27/03/2014
- * Description: JUnit test case for SlideShow class
- * Version 1.0
- * 
+ * Programmer: Steve Thorpe, Jonathan Caine
+ * Date Created: 14/03/2014
+ * Description: SlideShow test class. Tests the control panel for the slideshow and the layering of content on each slide
+ * Tests of content creation are performed in the handler test classes.
  * 
  */
+
 
 package eCook;
 
@@ -47,6 +47,9 @@ public class SlideShowTest {
 		
 	}
 	
+	/*
+	 * Test that a slide Show has been created
+	 */
 	@Test
 	public void createSlideShow(){
 		
@@ -60,9 +63,15 @@ public class SlideShowTest {
 	
 	}
 
+	/*
+	 * Test that a slide has been created, that the control buttons appear correctly on the slide and that content is being added to the correct layer.
+	 */
 	@Test
 	public void createSlide() throws RuntimeException  {
 		
+		Screen screen;
+		Pane layer2;
+		HBox layer2imageBox;
 		
 		slideShow.newSlide(2, false);
 		
@@ -73,7 +82,7 @@ public class SlideShowTest {
 		
 		buttonBox = (HBox) childList.get(4);
 	
-		Screen screen = Screen.getPrimary();
+		screen = Screen.getPrimary();
 		
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		
@@ -102,10 +111,10 @@ public class SlideShowTest {
 		assertEquals(2, layer0.getChildren().size());
 		
 		//Get layer 2 pane
-		Pane layer2 = (Pane) childList.get(2);
+		layer2 = (Pane) childList.get(2);
 		
 		//Get the image Hbox on layer 2
-		HBox layer2imageBox = (HBox)layer2.getChildren().get(0);
+		layer2imageBox = (HBox)layer2.getChildren().get(0);
 		
 		//Test the XY position of the image on layer 2 matches the XML playlist 
 		assertEquals(400, layer2imageBox.getLayoutX(), 0.1);

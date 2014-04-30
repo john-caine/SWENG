@@ -1,0 +1,105 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>John Caine</author>
+		<version>1.1</version>
+    <title>French Onion Soup</title>
+		<comment>Example recipe for eCook product</comment>
+		<width>1000</width>
+		<height>800</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#00FF00</backgroundcolor>
+		<font>Times New Roman</font>
+		<fontsize>24</fontsize>
+		<fontcolor>#0000FF</fontcolor>
+		<fillcolor>#FF0000</fillcolor> 
+	</defaults>
+	<ingredients>
+<<<<<<< HEAD
+
+		<font>Times New Roman</font>
+=======
+		<ingredient name=“onion(s)” amount=”700” units=“grams (thinly sliced)”>
+		<ingredient name=“olive oil” amount=”2” units=“tablespoons”>
+		<ingredient name=“butter” amount=”2” units=“oz”>
+		<ingredient name=“garlic” amount=”2” units=“cloves (crushed)”>
+		<ingredient name=“granulated sugar” amount=”0.5” units=“teaspoon”>
+		<ingredient name=“beef stock” amount=”2” units=“pints”>
+>>>>>>> 1b99acb3ed28d0be364938e60e81e2b1ab6a04b5
+	</ingredients>
+	<slide ID="0" duration="60" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40"> 
+			<textbody underlined="true" bold="true" italic="true">
+        <textstring>
+First make the croutons – begin by drizzling the olive oil on to a large, solid baking-sheet, add the crushed garlic and then, using your hands, spread the oil and garlic all over the baking sheet. Now place the bread slices on top of the oil, then turn over each one so that both sides have been lightly coated with the oil. 
+
+Bake them in the oven for 20-25 minutes till crispy and crunchy. 
+
+Next place the saucepan or casserole on a high heat and melt the oil and butter together. When this is very hot, add the onions, garlic and sugar, and keep turning them from time to time until the edges of the onions have turned dark – this will take about 6 minutes. 
+
+Then reduce the heat to its lowest setting and leave the onions to carry on cooking very slowly for about 30 minutes, by which time the base of the pan will be covered with a rich, nut brown, caramelised film. After that, pour in the stock and white wine, season, then stir with a wooden spoon, scraping the base of the pan well. 
+
+As soon as it all comes up to simmering point, turn down the heat to its lowest setting, then go away and leave it to cook very gently, without a lid, for about 1 hour. 
+
+All this can be done in advance but, when you're ready to serve the soup, bring it back up to simmering point, taste to check for seasoning – and if it's extra-cold outside, add a couple of tablespoons of Cognac! 
+
+Warm the tureen or soup bowls in a low oven and pre-heat the grill to its highest setting. Then ladle in the hot soup and top with the croutons, allowing them to float on the top of the soup. Now sprinkle the grated Gruyère thickly over the croutons and place the whole lot under the grill until the cheese is golden brown and bubbling. 
+
+Serve immediately – and don't forget to warn your guests that everything is very hot!</textstring>
+      </textbody>
+    </text>
+	</slide>
+	<slide ID="1" duration="30" lastSlide="false">
+		<shape totalpoints="4" width="15" height="15">
+			<point num="1" x="10" y="10"/>
+			<point num="2" x="25" y="10"/>
+			<point num="3" x="25" y="25"/>
+			<point num="4" x="10" y="25"/>
+		</shape>
+		<shape totalpoints="1" width="10" height="10" fillcolor="" linecolor="">
+			<point num="1" x="100" y="100"/>
+		</shape>
+		<shape totalpoints="2" width="2" height="2" starttime="15" duration="15" layer="1">
+			<point num="1" x="150" y="150"/>
+			<point num="2" x="250" y="250"/>
+		</shape>
+	</slide>
+	<slide ID="2" duration="90" lastSlide="false">
+		<audio>
+			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3</urlname>
+			<starttime>5</starttime>
+      <duration>20</duration>
+			<loop>false</loop>
+		</audio>
+		<audio>
+			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3</urlname>
+			<starttime>35</starttime>
+			<loop>false</loop>
+		</audio>
+	</slide>
+	<slide ID="3" duration="40" lastSlide="false">
+		<image>
+			<urlname>..\Resources\onion_example.jpg</urlname>
+			<xstart>10</xstart>
+			<ystart>10</ystart>
+			<layer>0</layer>
+		</image>
+		<text xstart="400" ystart="450" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40" layer="4"> 
+			<textbody underlined="true" bold="true" italic="true">
+        			<textstring>Example text describing additional attributes (video is a youtube link and may not work)</textstring>
+    	  		</textbody>
+   	 	</text>
+
+	</slide>
+	<slide ID="4" duration="200" lastSlide="false">
+		<video>
+			<urlname>https://www.youtube.com/watch?v=trSThlyl0hI</urlname>
+			<xstart>10</xstart>
+			<ystart>10</ystart>
+			<layer>0</layer>
+			<duration>10</duration>
+		</video>
+				
+	</slide>
+</slideshow>

@@ -105,9 +105,7 @@ public class MediaControl {
 	        new Thread(startTimerThread).start();
 		 
 		box = new VBox();
-		//HBox viewBox = new HBox();
 		mediaView.setFitHeight(mpHeight-35);
-		//viewBox.getChildren().add(mediaView);
 		box.getChildren().add(mediaView);
 			
 		mediaBar = new HBox();

@@ -8,6 +8,8 @@
  */
 package eCook;
 	
+import recipehttpaccess.RecipeBrowser;
+import shoppingList.IngredientsGUI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,8 +22,7 @@ import javafx.stage.Stage;
 
 public class MainMenuButton {
 	public HBox mainMenuButtonHbox;
-	private Button createSlideShow;
-	
+	private Button createSlideShow, showIngredientsList, showOnlineRecipeBrowser;
 
 
 	public MainMenuButton(final Stage stage) {
@@ -36,7 +37,6 @@ public class MainMenuButton {
 			mainMenuButtonHbox = new HBox();
 			
 			mainMenuButtonHbox.setAlignment(Pos.CENTER);
-		
 			
 			mainMenuButtonHbox.setLayoutX((screenBounds.getWidth()- createSlideShow.getPrefWidth())/2);
 			
@@ -44,6 +44,14 @@ public class MainMenuButton {
 			mainMenuButtonHbox.setLayoutY((screenBounds.getHeight())/2);
 	        
 			mainMenuButtonHbox.getChildren().add(createSlideShow);
+			
+			// Add a button to display the ingredients list for adding stuff to your shopping list
+			showIngredientsList = new Button("Display Ingredients List");
+			mainMenuButtonHbox.getChildren().add(showIngredientsList);
+			
+			// Add a button to display the ingredients list for adding stuff to your shopping list
+			showOnlineRecipeBrowser = new Button("Go to Online Recipe Browser");		
+			mainMenuButtonHbox.getChildren().add(showOnlineRecipeBrowser);
 	        
 			
 //Creates a new slide show when the button is pressed		
@@ -56,6 +64,27 @@ public class MainMenuButton {
 
 	            }
 	        });
+		
+//Show an example ingredients list when the button is pressed		
+		showIngredientsList.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				// Note that the sample ingredients list is populated within the IngredientsGUI Class
+				new IngredientsGUI(stage);
+			}
+		});
+		
+//Show the online recipe browser GUI when the button is pressed	
+		showOnlineRecipeBrowser.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				new RecipeBrowser(stage);
+			}
+		});
 	}
 	
 }

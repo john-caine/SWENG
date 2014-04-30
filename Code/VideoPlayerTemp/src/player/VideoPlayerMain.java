@@ -9,8 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -36,7 +34,7 @@ public class VideoPlayerMain extends Application {
         button.setLayoutX(600);
         button.setLayoutY(200);
         
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, 0, 5);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 600, 400, true, 0, 5);
         root.getChildren().add(videoPlayerHandler.mediaControl.box);
         root.getChildren().add(button);
         
@@ -54,9 +52,8 @@ public class VideoPlayerMain extends Application {
                 
                 Node  source = (Node)  event.getSource();
             	Group root1  = (Group) source.getScene().getRoot();
-            	root1.getChildren().getClass();
- 
-            	
+            	root1.getChildren().clear();
+            	Platform.exit();
             	
             }
         });
