@@ -77,6 +77,7 @@ public class XMLReader extends DefaultHandler {
 	}
 
 	public Ingredients getIngredients() {
+		
 		return this.ingredients;
 	}
 	
@@ -111,6 +112,7 @@ public class XMLReader extends DefaultHandler {
 		 */
 		if (elementName.equals("slideshow")) {
 			recipe = new Recipe();
+			ingredients = new Ingredients();
 		}
 			
 		// set recipe element flags
@@ -137,8 +139,9 @@ public class XMLReader extends DefaultHandler {
 		else if (elementName.equals("ingredients")) {
 			// If there are ingredients contained within the .xml
 			//ingredient = new Ingredient();
-			ingredients = new Ingredients();
+			
 			recipeElement = ProcessingElement.INGREDIENTS;
+		
 			//noOfIngredients = 0;
 		}
 		
@@ -187,6 +190,7 @@ public class XMLReader extends DefaultHandler {
 				ingredient.setAmount(attributes.getValue("amount"));
 				ingredient.setUnits(attributes.getValue("units"));
 				ingredients.addIngredient(ingredient);
+				System.out.println("I have added an ingredient");
 			}
 		}
 		// slide
