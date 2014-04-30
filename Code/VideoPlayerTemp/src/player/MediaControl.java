@@ -44,28 +44,28 @@ import javafx.util.Duration;
 
 public class MediaControl {
 	
-	public MediaPlayer mp;
-    public boolean stopRequested = false;
+	protected MediaPlayer mp;
+    private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
     private Duration duration;
-    private Slider timeSlider, timeSlider1;
-    private Label playTime, playTime1;
+    private Slider timeSlider, timeSliderFS;
+    private Label playTime, playTimeFS;
     private Slider volumeSlider;
-	public VBox box;
+    protected VBox overallBox;
 	private InputStream inputStream;
-	private Image image, image1, image2, image3;
-	 Stage stage, stage1;
-	private int mpWidth;
-	public int mpHeight;
+	private Image playImage, pauseImage, stopImage, fullscreenImage;
+	private Stage stage, stageFS;
+	protected int mpWidth;
+	protected int mpHeight;
 	private Rectangle2D bounds;
-	public MediaView mediaView;
-	private HBox hbox;
-	private Button playButton, playButton1;
+	protected MediaView mediaView;
+	private HBox fullscreenMediaBar;
+	private Button playButton, playButtonFS;
 	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private Integer playDuration;
-	private Boolean loop1;
-	HBox mediaBar;
+	private Boolean mpLoop;
+	protected HBox mediaBar;
 	
 	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, Integer playDuration){
 		
@@ -74,15 +74,18 @@ public class MediaControl {
 		this.playDuration = playDuration;
 		mediaView = new MediaView(mp);
 		
+		// Retrieve the size of the Screen
 		bounds = Screen.getPrimary().getVisualBounds();
 		
 		if (loop == null)
-			this.loop1 = false;
+			this.mpLoop = false;
 		else
-			this.loop1 = loop;
+			this.mpLoop = loop;
 		
-		setLoop(loop1);
+		// Set the MediaPlayer cycle count based on the value of loop
+		setLoop(mpLoop);
 		
+		// Set the height and width of the MediaPLayer based on the values
 		if (width != null && height != null){
 			this.mpWidth = width;
 			this.mpHeight = height;
@@ -90,6 +93,7 @@ public class MediaControl {
             mediaView.setFitWidth(mpWidth);
             mediaView.setFitHeight(mpHeight-35);
 		}
+		// Set a default size of the MediaPlayer when no height and width are being indicated
 		else{
 			this.mpWidth = (int) (bounds.getWidth()/2);
 			this.mpHeight = (int) (bounds.getHeight()/4);
@@ -97,434 +101,456 @@ public class MediaControl {
             mediaView.setFitWidth(mpWidth);		
 		}
 		
+		// Set start time to be 0 when no startTime is being indicated
 		if (startTime == null) {
 	        this.startTime = 0;
 	        new Thread(startTimerThread).start();
 	    }
+		// Start the startTimerThread based on the startTime indicated
 	    else 
 	        new Thread(startTimerThread).start();
-		 
-		box = new VBox();
+		
+		// A VBox that contains the MediaView and Control Panel of the MediaPlayer
+		overallBox = new VBox();
+		overallBox.setMaxSize(mpWidth, mpHeight);
 		mediaView.setFitHeight(mpHeight-35);
-		box.getChildren().add(mediaView);
-			
+		overallBox.getChildren().add(mediaView);
+		
+		// A HBox that contains all the Controls of the MediaPlayer
 		mediaBar = new HBox();
 		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			try {
 				inputStream = new FileInputStream("../Resources/play.png");
-				image = new Image(inputStream);
+				playImage = new Image(inputStream);
 				inputStream = new FileInputStream("../Resources/pause.png");
-				image1 = new Image(inputStream);
+				pauseImage = new Image(inputStream);
 				inputStream = new FileInputStream("../Resources/stop.png");
-				image2 = new Image(inputStream);
+				stopImage = new Image(inputStream);
 				inputStream = new FileInputStream("../Resources/fullscreen.png");
-				image3 = new Image(inputStream);
+				fullscreenImage = new Image(inputStream);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	        playButton = new Button();
-	        playButton.setGraphic(new ImageView(image));
-	        playButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+        playButton = new Button();
+        playButton.setGraphic(new ImageView(playImage));
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
 
-	            public void handle(ActionEvent e) {
-	                updateValues();
-	                Status status = mp.getStatus();
+            public void handle(ActionEvent e) {
+                updateValues();
+                Status status = mp.getStatus();
 
-	                if (status == Status.UNKNOWN
-	                        || status == Status.HALTED) {
-	                    System.out.println("Player is in a bad or unknown state, can't play.");
-	                    return;
-	                }
+                if (status == Status.UNKNOWN
+                        || status == Status.HALTED) {
+                    System.out.println("Player is in a bad or unknown state, can't play.");
+                    return;
+                }
 
-	                if (status == Status.PAUSED
-	                        || status == Status.READY
-	                        || status == Status.STOPPED) {
-	                    // rewind the movie if we're sitting at the end
-	                    if (atEndOfMedia) {
-	                        mp.seek(mp.getStartTime());
-	                        atEndOfMedia = false;
-	                        playButton.setGraphic(new ImageView(image));
-	                        updateValues();
-	                    }
-	                    mp.play();
-	                    playButton.setGraphic(new ImageView(image1));
-	                } else {
-	                    mp.pause();
-	                    playButton.setGraphic(new ImageView(image));
-	                }
-	            }
-	        });
-	        
-	        playButton1 = new Button();
-	        playButton1.setGraphic(new ImageView(image));
-	        playButton1.setOnAction(new EventHandler<ActionEvent>() {
-
-	            public void handle(ActionEvent e) {
-	                updateValues();
-	                Status status = mp.getStatus();
-
-	                if (status == Status.UNKNOWN
-	                        || status == Status.HALTED) {
-	                    System.out.println("Player is in a bad or unknown state, can't play.");
-	                    return;
-	                }
-
-	                if (status == Status.PAUSED
-	                        || status == Status.READY
-	                        || status == Status.STOPPED) {
-	                    // rewind the movie if we're sitting at the end
-	                    if (atEndOfMedia) {
-	                        mp.seek(mp.getStartTime());
-	                        atEndOfMedia = false;
-	                        playButton1.setGraphic(new ImageView(image));
-	                        updateValues();
-	                    }
-	                    mp.play();
-	                    playButton1.setGraphic(new ImageView(image1));
-	                } else {
-	                    mp.pause();
-	                    playButton1.setGraphic(new ImageView(image));
-	                }
-	            }
-	        });
-	        mp.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-	            @Override
-	            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
-	                updateValues();
-	            }
-	        });
-
-	        mp.setOnPlaying(new Runnable() {
-
-	            public void run() {
-	                if (stopRequested) {
-	                    mp.pause();
-	                    stopRequested = false;
-	                } else {
-	                	playButton.setGraphic(new ImageView(image1));
-	                	playButton1.setGraphic(new ImageView(image1));
-	                }
-	            }
-	        });
-
-	        mp.setOnPaused(new Runnable() {
-
-	            public void run() {
-	            	playButton.setGraphic(new ImageView(image));
-	            	playButton1.setGraphic(new ImageView(image));
-	            }
-	        });
-	        
-	        mp.setOnStopped(new Runnable() {
-	        	 public void run() {
-	        		mp.setStopTime(Duration.INDEFINITE);
-	        		atEndOfMedia = true; 
-		            playButton.setGraphic(new ImageView(image));
-		            playButton1.setGraphic(new ImageView(image));
-		       }
-	        });
-	        
-	        mp.setOnReady(new Runnable() {
-	        	
-	            public void run() {
-	                duration = mp.getMedia().getDuration();
-	                updateValues();
-	            }
-	        });
-	        
-	        mp.setOnEndOfMedia(new Runnable() {
-
-	            public void run() {
-	            	if (!loop1){ 
-	                	playButton.setGraphic(new ImageView(image));
-	                    playButton1.setGraphic(new ImageView(image));
-	                    atEndOfMedia = true;
-	                    mp.stop();
-	                	}
-	                	mp.seek(mp.getStartTime());
-	                }
-	        });
-	        
-	        mp.setOnRepeat(new Runnable() {
-	        	 public void run() {
-	        		atEndOfMedia = false;
-	        		playButton.setGraphic(new ImageView(image1));
-	                playButton1.setGraphic(new ImageView(image1));         
-	            }
-	        });
-
-	        mediaBar.getChildren().add(playButton);
-	        
-	        Button stopButton = new Button();
-	        stopButton.setGraphic(new ImageView(image2));
-	        stopButton.setOnAction(new EventHandler<ActionEvent>() {
-
-	            public void handle(ActionEvent e) {
-	                mp.stop();
-	                atEndOfMedia = true;
-	                playButton.setGraphic(new ImageView(image));
-	                playButton1.setGraphic(new ImageView(image));
-	            }
-	        });
-	        mediaBar.getChildren().add(stopButton);
-	        
-	        Button fullscreenButton = new Button();
-	        fullscreenButton.setGraphic(new ImageView(image3));
-	        stage1 = new Stage();
-	        fullscreenButton.setOnAction(new EventHandler<ActionEvent>() {
-	        
-	            public void handle(ActionEvent e) {
-	            	mediaView.setVisible(false);
-	            	Node  source = (Node)  e.getSource();
-	            	stage  = (Stage) source.getScene().getWindow();
-	            	final Group root = new Group();
-	            	MediaView mediaView1 = new MediaView(mp);
-	            	mediaView1.setFitWidth(bounds.getWidth());
-	            	mediaView1.setPreserveRatio(true);
-	            	mediaView1.setLayoutY((bounds.getHeight() - mediaView1.getFitHeight())/7);
-	            
-	            	root.getChildren().add(mediaView1);
-	            	root.getChildren().add(hbox);
-
-	            	
-	            	final Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
-	         
-	            	stage1.setScene(scene);
-	            	stage1.setFullScreen(true);
-	            	stage1.show();
-	                root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	                    @Override
-	                    public void handle(MouseEvent mouseEvent) {
-	                        if(mp.getStatus() == Status.PLAYING){
-	                    	mp.pause();
-	                        }
-	                        else{
-	                        mp.play();
-	                        }
-	                    }
-	                });
-	                
-	                fadeTransition = new FadeTransition(Duration.millis(3000), hbox);
-	                fadeTransition.setFromValue(1.0);
-	                fadeTransition.setToValue(0.0);
-	                
-	                scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
-	                	@Override
-	    	            public void handle(MouseEvent mouseEvent){
-	                		hbox.setDisable(false);
-	                		scene.setCursor(Cursor.DEFAULT);
-	                		fadeTransition.play();
-	    	            }
-	    	        });
-	                
-	                fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
-	                    @Override
-	                    public void handle(ActionEvent event) {
-	                    	hbox.setDisable(true);
-	                        scene.setCursor(Cursor.NONE);
-	                    }
-	                }); 
-	                
-	                hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
-	                	@Override
-	    	            public void handle(MouseEvent mouseEvent){
-	                		fadeTransition.stop();
-	    	            }
-	    	        });
-	                
-	                stage1.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
-	        		    @Override
-	        		    public void handle(KeyEvent event){
-	        			    if(event.getCode() == KeyCode.ESCAPE){
-	        	            	stage1.close();
-	        	            	mediaView.setVisible(true);
-	        	            	stage.setFullScreen(true);
-	        	            	stage.getScene().setCursor(Cursor.HAND);
-	        	            	stage.show();
-	        			    }	                                 
-	        		    }
-	                });                
-	                
-	            }
-	        });
-	     	        
-	        mediaBar.getChildren().add(fullscreenButton);
-	        Label timeLabel = new Label("   Time: ");
-	        timeLabel.setTextFill(Color.WHITE);
-	        timeLabel.setMinWidth(Control.USE_PREF_SIZE);
-	        mediaBar.getChildren().add(timeLabel);
-	        
-	        
-	        timeSlider = new Slider();
-	        timeSlider.setMaxWidth((2*mpWidth)/3);
-	        HBox.setHgrow(timeSlider, Priority.ALWAYS);
-	        timeSlider.valueProperty().addListener(new InvalidationListener() {
-
-	            @Override
-	            public void invalidated(Observable ov) {
-	                if (timeSlider.isValueChanging()) {
-	                    // multiply duration by percentage calculated by slider position
-	                    if (duration != null) {
-	                    	mp.seek(duration.multiply(timeSlider.getValue()/ 100.0));
-	                    }
-	                }
-	            }
-	        });
-	        
-	        timeSlider.setOnMousePressed(new EventHandler<MouseEvent>() {
-	            @Override
-	            public void handle(MouseEvent mouseEvent) {
-	                mp.seek(duration.multiply(timeSlider.getValue()/ 100.0));
-	            }
-	        });
-	        
-	        mediaBar.getChildren().add(timeSlider);
-	        
-	        playTime = new Label();
-	        playTime.setMinWidth(50);
-	        playTime.setTextFill(Color.WHITE);
-	        mediaBar.getChildren().add(playTime);
-
-	        Label volumeLabel = new Label(" Vol: ");
-	        volumeLabel.setTextFill(Color.WHITE);
-	        volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
-	        mediaBar.getChildren().add(volumeLabel);
-
-	        volumeSlider = new Slider();
-	        volumeSlider.setManaged(true);
-	        volumeSlider.setMaxWidth(mpWidth/6);
-	        volumeSlider.setMinWidth(20);
-	        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-
-	            @Override
-	            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-	                if (volumeSlider.isValueChanging()) {
-	                    mp.setVolume(volumeSlider.getValue() / 100.0);
-	                }
-	                updateValues();
-	            }
-	        });
-	        mediaBar.getChildren().add(volumeSlider);
-	        
-	        box.getChildren().add(mediaBar);
-	        
-        	timeSlider1 = new Slider();
-        	timeSlider1.setMinWidth(bounds.getWidth()-100);
-        	
-        	timeSlider1.valueProperty().addListener(new InvalidationListener() {
-
-   	            @Override
-   	            public void invalidated(Observable ov) {
-   	                if (timeSlider1.isValueChanging()) {
-   	                    // multiply duration by percentage calculated by slider position
-   	                    if (duration != null) {
-   	                    	mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
-   	                    }
-   	                }
-   	            }
-   	        });
-   	        
-   	        timeSlider1.setOnMousePressed(new EventHandler<MouseEvent>() {
-   	            @Override
-   	            public void handle(MouseEvent mouseEvent) {
-   	            	fadeTransition.stop();
-   	            	mp.seek(duration.multiply(timeSlider1.getValue()/ 100.0));
-   	            }
-   	        });
-   	        
-   	        playTime1 = new Label();
-	        playTime1.setMinWidth(50);
-	        playTime1.setTextFill(Color.WHITE);
-	        
-   	        hbox = new HBox();  
-   	        hbox.getChildren().add(playButton1);
-   	        hbox.getChildren().add(timeSlider1);
-   	        hbox.getChildren().add(playTime1);
-   	        hbox.setLayoutY(bounds.getHeight()-20);
-	    }
-	
-	    protected void updateValues() {
-	        if (playTime != null && timeSlider != null && volumeSlider != null)  {
-	            Platform.runLater(new Runnable() {
-
-	                public void run() {
-	                    Duration currentTime = mp.getCurrentTime();
-	                    playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
-	                    playTime1.setText(formatTime(currentTime, mp.getMedia().getDuration()));
-	                    if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
-	                        timeSlider.setValue(currentTime.divide(duration.toMillis()).toMillis()*100);
-	                    }
-	                    if (!timeSlider1.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider1.isValueChanging()) {
-	                        timeSlider1.setValue(currentTime.divide(duration.toMillis()).toMillis()*100);
-	                    }
-	                    if (!volumeSlider.isValueChanging()) {
-	                        volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
-	                    }
-	                }
-	            });
-	        }
-	    }
-
-	    private static String formatTime(Duration elapsed, Duration duration) {
-	        int intElapsed = (int) Math.floor(elapsed.toSeconds());
-	        int elapsedHours = intElapsed / (60 * 60);
-	        if (elapsedHours > 0) {
-	            intElapsed -= elapsedHours * 60 * 60;
-	        }
-	        int elapsedMinutes = intElapsed / 60;
-	        int elapsedSeconds = intElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
-
-	        if (duration.greaterThan(Duration.ZERO)) {
-	            int intDuration = (int) Math.floor(duration.toSeconds());
-	            int durationHours = intDuration / (60 * 60);
-	            if (durationHours > 0) {
-	                intDuration -= durationHours * 60 * 60;
-	            }
-	            int durationMinutes = intDuration / 60;
-	            int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
-
-	            if (durationHours > 0) {
-	                return String.format("%d:%02d:%02d/%d:%02d:%02d",
-	                        elapsedHours, elapsedMinutes, elapsedSeconds,
-	                        durationHours, durationMinutes, durationSeconds);
-	            } else {
-	                return String.format("%02d:%02d/%02d:%02d",
-	                        elapsedMinutes, elapsedSeconds,
-	                        durationMinutes, durationSeconds);
-	            }
-	        } else {
-	            if (elapsedHours > 0) {
-	                return String.format("%d:%02d:%02d",
-	                        elapsedHours, elapsedMinutes, elapsedSeconds);
-	            } else {
-	                return String.format("%02d:%02d",
-	                        elapsedMinutes, elapsedSeconds);
-	            }
-	        }
-	    }
+                if (status == Status.PAUSED
+                        || status == Status.READY
+                        || status == Status.STOPPED) {
+                    // Rewind the video if it's at the end
+                    if (atEndOfMedia) {
+                        mp.seek(mp.getStartTime());
+                        atEndOfMedia = false;
+                        playButton.setGraphic(new ImageView(playImage));
+                        updateValues();
+                    }
+                    mp.play();
+                    playButton.setGraphic(new ImageView(pauseImage));
+                } else {
+                    mp.pause();
+                    playButton.setGraphic(new ImageView(playImage));
+                }
+            }
+        });
 	    
-	    Task<Object> startTimerThread = new Task<Object>() {
- 	    	
- 			@Override
- 			protected Object call() throws Exception {
- 				TimeUnit.SECONDS.sleep(startTime);
- 			 
- 				Platform.runLater (new Runnable() {
- 					public void run(){
- 						mp.play();
- 					}
- 				});
- 				if (playDuration != null && playDuration != 0){
- 					mp.setStopTime(Duration.seconds(playDuration));
- 				}
- 				return null;
- 			}
-   	    };
-   	    
-   	 Task<Object> durationTimerThread = new Task<Object>() {
- 		
+        // Play / Pause Button in fullscreen mode
+        playButtonFS = new Button();
+        playButtonFS.setGraphic(new ImageView(playImage));
+        playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent e) {
+                updateValues();
+                Status status = mp.getStatus();
+
+                if (status == Status.UNKNOWN
+                        || status == Status.HALTED) {
+                    System.out.println("Player is in a bad or unknown state, can't play.");
+                    return;
+                }
+
+                if (status == Status.PAUSED
+                        || status == Status.READY
+                        || status == Status.STOPPED) {
+                    // rewind the movie if we're sitting at the end
+                    if (atEndOfMedia) {
+                        mp.seek(mp.getStartTime());
+                        atEndOfMedia = false;
+                        playButtonFS.setGraphic(new ImageView(playImage));
+                        updateValues();
+                    }
+                    mp.play();
+                    playButtonFS.setGraphic(new ImageView(pauseImage));
+                } else {
+                    mp.pause();
+                    playButtonFS.setGraphic(new ImageView(playImage));
+                }
+            }
+        });
+        
+        // Whenever there's a change in duration of the MediaPlayer, update the Time Label and Slider Position
+        mp.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
+                updateValues();
+            }
+        });
+        
+        // Display the appropriate Image the the PlayButton based on the MediaPlayer current status
+        mp.setOnPlaying(new Runnable() {
+
+            public void run() {
+                if (stopRequested) {
+                    mp.pause();
+                    stopRequested = false;
+                } else {
+                	playButton.setGraphic(new ImageView(pauseImage));
+                	playButtonFS.setGraphic(new ImageView(pauseImage));
+                }
+            }
+        });
+        
+        mp.setOnPaused(new Runnable() {
+
+            public void run() {
+            	playButton.setGraphic(new ImageView(playImage));
+            	playButtonFS.setGraphic(new ImageView(playImage));
+            }
+        });
+        
+        mp.setOnStopped(new Runnable() {
+        	 
+        	public void run() {
+        		mp.setStopTime(Duration.INDEFINITE);
+        		atEndOfMedia = true; 
+	            playButton.setGraphic(new ImageView(playImage));
+	            playButtonFS.setGraphic(new ImageView(playImage));
+	       }
+        });
+        
+        // Get the total duration of the Media and update the Time Label
+        mp.setOnReady(new Runnable() {
+        	
+            public void run() {
+                duration = mp.getMedia().getDuration();
+                updateValues();
+            }
+        });
+        
+        mp.setOnEndOfMedia(new Runnable() {
+
+            public void run() {
+            	if (!mpLoop){ 
+                	playButton.setGraphic(new ImageView(playImage));
+                    playButtonFS.setGraphic(new ImageView(playImage));
+                    atEndOfMedia = true;
+                    mp.stop();
+                	}
+                	mp.seek(mp.getStartTime());
+                }
+        });
+        
+        mp.setOnRepeat(new Runnable() {
+        	 
+        	public void run() {
+        		atEndOfMedia = false;
+        		playButton.setGraphic(new ImageView(pauseImage));
+                playButtonFS.setGraphic(new ImageView(pauseImage));         
+            }
+        });
+
+        mediaBar.getChildren().add(playButton);
+        
+        Button stopButton = new Button();
+        stopButton.setGraphic(new ImageView(stopImage));
+        stopButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent e) {
+                mp.stop();
+                atEndOfMedia = true;
+                playButton.setGraphic(new ImageView(playImage));
+                playButtonFS.setGraphic(new ImageView(playImage));
+            }
+        });
+        mediaBar.getChildren().add(stopButton);
+        
+        Button fullscreenButton = new Button();
+        fullscreenButton.setGraphic(new ImageView(fullscreenImage));
+        stageFS = new Stage();
+        fullscreenButton.setOnAction(new EventHandler<ActionEvent>() {
+        
+            public void handle(ActionEvent e) {
+            	mediaView.setVisible(false);
+            	Node  source = (Node)  e.getSource();
+            	stage  = (Stage) source.getScene().getWindow();
+            	final Group root = new Group();
+            	// Create a new MediaView based on the same Media
+            	MediaView mediaViewFS = new MediaView(mp);
+            	mediaViewFS.setFitWidth(bounds.getWidth());
+            	mediaViewFS.setPreserveRatio(true);
+            	mediaViewFS.setLayoutY((bounds.getHeight() - mediaViewFS.getFitHeight())/7);
+            
+            	root.getChildren().add(mediaViewFS);
+            	// Add the Play button for fullscreen and the Slider bar
+            	root.getChildren().add(fullscreenMediaBar);
+
+            	final Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
+       
+            	stageFS.setScene(scene);
+            	stageFS.setFullScreen(true);
+            	stageFS.show();
+            	// Toggle Play and Pause when the user click on the window
+                root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(mp.getStatus() == Status.PLAYING){
+                    	mp.pause();
+                        }
+                        else{
+                        mp.play();
+                        }
+                    }
+                });
+                
+                // Animation for the Control Panel in fullscreen mode
+                fadeTransition = new FadeTransition(Duration.millis(3000), fullscreenMediaBar);
+                fadeTransition.setFromValue(1.0);
+                fadeTransition.setToValue(0.0);
+                
+                scene.setOnMouseMoved(new EventHandler<MouseEvent>(){
+                	@Override
+    	            public void handle(MouseEvent mouseEvent){
+                		fullscreenMediaBar.setDisable(false);
+                		scene.setCursor(Cursor.DEFAULT);
+                		fadeTransition.play();
+    	            }
+    	        });
+                
+                fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                    	fullscreenMediaBar.setDisable(true);
+                        scene.setCursor(Cursor.NONE);
+                    }
+                }); 
+                
+                fullscreenMediaBar.setOnMouseEntered(new EventHandler<MouseEvent>(){
+                	@Override
+    	            public void handle(MouseEvent mouseEvent){
+                		fadeTransition.stop();
+    	            }
+    	        });
+                
+                // Exit Fullscreen mode and return to the main Window
+                stageFS.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
+        		    @Override
+        		    public void handle(KeyEvent event){
+        			    if(event.getCode() == KeyCode.ESCAPE){
+        	            	stageFS.close();
+        	            	mediaView.setVisible(true);
+        	            	stage.setFullScreen(true);
+        	            	stage.getScene().setCursor(Cursor.HAND);
+        	            	stage.show();
+        			    }	                                 
+        		    }
+                });                
+                
+            }
+        });
+     	        
+        mediaBar.getChildren().add(fullscreenButton);
+        Label timeLabel = new Label("   Time: ");
+        timeLabel.setTextFill(Color.WHITE);
+        timeLabel.setMinWidth(Control.USE_PREF_SIZE);
+        mediaBar.getChildren().add(timeLabel);
+             
+        timeSlider = new Slider();
+        timeSlider.setMaxWidth((2*mpWidth)/3);
+        HBox.setHgrow(timeSlider, Priority.ALWAYS);
+        
+        // Allow the user to drag and position the slider
+        timeSlider.valueProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(Observable ov) {
+                if (timeSlider.isValueChanging()) {
+                    if (duration != null) {
+                    	mp.seek(duration.multiply(timeSlider.getValue()/ 100.0));
+                    }
+                }
+            }
+        });
+        
+        // Allow the user to click on the slider to jump to the desired timing
+        timeSlider.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mp.seek(duration.multiply(timeSlider.getValue()/ 100.0));
+            }
+        });
+        
+        mediaBar.getChildren().add(timeSlider);
+        
+        // Label to show the current time position of the video
+        playTime = new Label();
+        playTime.setMinWidth(50);
+        playTime.setTextFill(Color.WHITE);
+        mediaBar.getChildren().add(playTime);
+
+        Label volumeLabel = new Label(" Vol: ");
+        volumeLabel.setTextFill(Color.WHITE);
+        volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
+        mediaBar.getChildren().add(volumeLabel);
+
+        volumeSlider = new Slider();
+        volumeSlider.setManaged(true);
+        volumeSlider.setMaxWidth(mpWidth/6);
+        volumeSlider.setMinWidth(20);
+        // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (volumeSlider.isValueChanging()) {
+                    mp.setVolume(volumeSlider.getValue() / 100.0);
+                }
+                updateValues();
+            }
+        });
+        mediaBar.getChildren().add(volumeSlider);
+        
+        overallBox.getChildren().add(mediaBar);
+        
+    	timeSliderFS = new Slider();
+    	timeSliderFS.setMinWidth(bounds.getWidth()-100); 	
+    	timeSliderFS.valueProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(Observable ov) {
+                if (timeSliderFS.isValueChanging()) {
+                    if (duration != null) {
+                    	mp.seek(duration.multiply(timeSliderFS.getValue()/ 100.0));
+                    }
+                }
+            }
+        });
+        
+        timeSliderFS.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+            	fadeTransition.stop();
+            	mp.seek(duration.multiply(timeSliderFS.getValue()/ 100.0));
+            }
+        });
+        
+        playTimeFS = new Label();
+        playTimeFS.setMinWidth(50);
+        playTimeFS.setTextFill(Color.WHITE);
+        
+        // Control Panel during fullscrenn mode
+        fullscreenMediaBar = new HBox();  
+        fullscreenMediaBar.getChildren().add(playButtonFS);
+        fullscreenMediaBar.getChildren().add(timeSliderFS);
+        fullscreenMediaBar.getChildren().add(playTimeFS);
+        fullscreenMediaBar.setLayoutY(bounds.getHeight()-20);
+    }
+	
+	// Function that sets the appropriate values for the Time label, position of the Time Slider and Volume 
+    protected void updateValues() {
+        if (playTime != null && timeSlider != null && volumeSlider != null)  {
+            Platform.runLater(new Runnable() {
+
+                public void run() {
+                    Duration currentTime = mp.getCurrentTime();
+                    playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                    playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                    if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
+                        timeSlider.setValue(currentTime.divide(duration.toMillis()).toMillis()*100);
+                    }
+                    if (!timeSliderFS.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSliderFS.isValueChanging()) {
+                        timeSliderFS.setValue(currentTime.divide(duration.toMillis()).toMillis()*100);
+                    }
+                    if (!volumeSlider.isValueChanging()) {
+                        volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
+                    }
+                }
+            });
+        }
+    }
+    
+    //Function to count and formulate the Timing of the MediaPlayer
+    private static String formatTime(Duration elapsed, Duration duration) {
+        int intElapsed = (int) Math.floor(elapsed.toSeconds());
+        int elapsedHours = intElapsed / (60 * 60);
+        if (elapsedHours > 0) {
+            intElapsed -= elapsedHours * 60 * 60;
+        }
+        int elapsedMinutes = intElapsed / 60;
+        int elapsedSeconds = intElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
+
+        if (duration.greaterThan(Duration.ZERO)) {
+            int intDuration = (int) Math.floor(duration.toSeconds());
+            int durationHours = intDuration / (60 * 60);
+            if (durationHours > 0) {
+                intDuration -= durationHours * 60 * 60;
+            }
+            int durationMinutes = intDuration / 60;
+            int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
+
+            if (durationHours > 0) {
+                return String.format("%d:%02d:%02d/%d:%02d:%02d",
+                        elapsedHours, elapsedMinutes, elapsedSeconds,
+                        durationHours, durationMinutes, durationSeconds);
+            } else {
+                return String.format("%02d:%02d/%02d:%02d",
+                        elapsedMinutes, elapsedSeconds,
+                        durationMinutes, durationSeconds);
+            }
+        } else {
+            if (elapsedHours > 0) {
+                return String.format("%d:%02d:%02d",
+                        elapsedHours, elapsedMinutes, elapsedSeconds);
+            } else {
+                return String.format("%02d:%02d",
+                        elapsedMinutes, elapsedSeconds);
+            }
+        }
+    }
+    
+    // Thread to sleep the MediaPlayer for starTime duration before MediaPlayer starts to play
+    Task<Object> startTimerThread = new Task<Object>() {
+    	
+		@Override
+		protected Object call() throws Exception {
+			TimeUnit.SECONDS.sleep(startTime);
+		 
+			Platform.runLater (new Runnable() {
+				public void run(){
+					mp.play();
+				}
+			});
+			if (playDuration != null && playDuration != 0){
+				mp.setStopTime(Duration.seconds(playDuration));
+			}
+			return null;
+		}
+    };
+    // Thread to play the MediaPlayer for duration amount of time before stopping the MediaPlayer (not in use at the moment)
+	 Task<Object> durationTimerThread = new Task<Object>() {
+		
 		 @Override
 		protected Object call() throws Exception {
 			int count=0;
@@ -533,23 +559,24 @@ public class MediaControl {
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				count++;
-			}
-				 
-			Platform.runLater( new Runnable(){
-				public void run(){
-					mp.stop();
-					if(loop1){
-						mp.play();
+						e.printStackTrace();
 					}
+					count++;
 				}
-			});	 
-			return null;
-		}
-	};
+					 
+				Platform.runLater( new Runnable(){
+					public void run(){
+						mp.stop();
+						if(mpLoop){
+							mp.play();
+						}
+					}
+				});	 
+				return null;
+			}
+		};
 	
+	// Function to set the cycle count of the MediaPlayer
 	public void setLoop(boolean loop) {
 		if (loop){
 			mp.setCycleCount(MediaPlayer.INDEFINITE);

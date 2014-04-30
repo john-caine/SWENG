@@ -4,24 +4,15 @@ import static org.junit.Assert.*;
 
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.awt.event.InputEvent;
 import java.util.concurrent.TimeUnit;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import org.junit.Before;
@@ -30,8 +21,6 @@ import org.junit.Test;
 
 public class VideoPlayerMainTest {
 	
-	private Stage stage;
-	private Rectangle2D screenBounds;
 	Group root;
 	Scene scene;
 	Robot robot;
@@ -43,32 +32,23 @@ public class VideoPlayerMainTest {
 	@Before
 	public void setup() throws AWTException {
 		robot =  new Robot();
-		stage = new Stage();
-		screenBounds = Screen.getPrimary().getVisualBounds();
-		root = new Group();
-		scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
-		scene.setFill(Color.BLACK);
-		videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, false, 2, 5);
-        root.getChildren().add(videoPlayerHandler.mediaControl.box);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();       
+		videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, false, 2, 5);    
 	}
 	
 	@Test
 	public void VideoPlayerHandlerTests() throws InterruptedException{
 		
 		/* VideoPlayer's X and Y Location (setMediaPlayerLocation Method)*/
-		assertEquals(300, videoPlayerHandler.mediaControl.box.getLayoutX(), 0.01);
-		assertEquals(300, videoPlayerHandler.mediaControl.box.getLayoutY(), 0.01);
+		assertEquals(300, videoPlayerHandler.mediaControl.overallBox.getLayoutX(), 0.01);
+		assertEquals(300, videoPlayerHandler.mediaControl.overallBox.getLayoutY(), 0.01);
 		
 		/* set Media to be the provided Path */
 		assertEquals("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv",
 					 videoPlayerHandler.media.getSource());
 		
 		/* VideoPlayer's Width and Height */
-		assertEquals(400, videoPlayerHandler.mediaControl.box.getWidth(), 0.01);
-		assertEquals(400, videoPlayerHandler.mediaControl.box.getHeight(), 0.01);
+		assertEquals(400, videoPlayerHandler.mediaControl.overallBox.getMaxWidth(), 0.01);
+		assertEquals(400, videoPlayerHandler.mediaControl.overallBox.getMaxHeight(), 0.01);
 		
 		/* Detect if VideoPlayer is set to be on repeat. 
 		 * Return -1 for Loop = true & 1 for Loop = false */
@@ -105,28 +85,29 @@ public class VideoPlayerMainTest {
 		assertTrue(videoPlayerHandler.mediaControl.mediaBar.getChildren().get(7) instanceof Slider);
 		
 		/* MediaControl Class Contains the mediaView and mediaBar */
-		assertTrue(videoPlayerHandler.mediaControl.box.getChildren().get(0) instanceof MediaView);
-		assertTrue(videoPlayerHandler.mediaControl.box.getChildren().get(1) instanceof HBox);
+		assertTrue(videoPlayerHandler.mediaControl.overallBox.getChildren().get(0) instanceof MediaView);
+		assertTrue(videoPlayerHandler.mediaControl.overallBox.getChildren().get(1) instanceof HBox);
 		
 		/* VideoPlayer's MediaView and Control Panel are visible */
 		assertTrue(videoPlayerHandler.mediaControl.mediaView.isVisible());
 		assertTrue(videoPlayerHandler.mediaControl.mediaBar.isVisible());
 		
-		robot.delay(2000);
-		robot.mouseMove((int)(videoPlayerHandler.mediaControl.box.getLayoutX()+80),
-				(int)(videoPlayerHandler.mediaControl.box.getLayoutY()+ 400-20));
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.mouseRelease(InputEvent.BUTTON1_MASK);
-        
-		assertTrue(videoPlayerHandler.mediaControl.stage1.isFullScreen());
-//		/* Detect if startTimerThread has finished counting for 2 seconds*/
-//		TimeUnit.SECONDS.sleep(2);
-//		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
-//		
-//		videoPlayerHandler.mediaControl.mp.stop();
-//		System.out.println(videoPlayerHandler.mediaControl.mp.getCurrentTime());
-//		
-//		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
-//		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());	
+//		robot.delay(2000);
+//		robot.mouseMove((int)(videoPlayerHandler.mediaControl.box.getLayoutX()+80),
+//				(int)(videoPlayerHandler.mediaControl.box.getLayoutY()+ 400-20));
+//		robot.mousePress(InputEvent.BUTTON1_MASK);
+//        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+//        
+//		assertTrue(videoPlayerHandler.mediaControl.stage1.isFullScreen());
+		
+		/* Detect if startTimerThread has finished counting for 2 seconds*/
+		TimeUnit.SECONDS.sleep(2);
+		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
+		
+		videoPlayerHandler.mediaControl.mp.stop();
+		System.out.println(videoPlayerHandler.mediaControl.mp.getCurrentTime());
+		
+		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
+		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());	
 	}
 }

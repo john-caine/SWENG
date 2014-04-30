@@ -11,14 +11,18 @@ public class VideoPlayerHandler {
 	
 	public VideoPlayerHandler(String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
         
-        // create media player
+        // Create a MediaPlayer which plays the URL provided
         media = new Media(pathLocation);
         mediaPlayer = new MediaPlayer(media);
         
+        // Pass the mediaPlayer into the MediaControl class to have it's interface setup with the appropriate conditions 
         mediaControl = new MediaControl(mediaPlayer, width, height, loop, startTime, duration);
-        setMediaPlayerLocation(mediaControl.box, xStart, yStart);
+        
+        // Set the Location of the MediaPlayer
+        setMediaPlayerLocation(mediaControl.overallBox, xStart, yStart);
 	}
 	
+	// Function that sets the Location of the MediaPlayer
 	private void setMediaPlayerLocation(VBox vbox, int xLocation, int yLocation){
 		vbox.setLayoutX(xLocation);
 		vbox.setLayoutY(yLocation);
