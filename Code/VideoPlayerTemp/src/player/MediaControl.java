@@ -71,7 +71,7 @@ public class MediaControl {
 	private Integer playDuration;
 	private Boolean mpLoop;
 	protected HBox mediaBar;
-	protected boolean continuePlaying;
+	protected boolean continuePlaying = true;
 	
 	/* 
 	 * Constructor for the MediaControl class. Accepts optional parameters from PWS.
@@ -672,14 +672,14 @@ public class MediaControl {
             int durationMinutes = intDuration / 60;
             int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
 
-            // Check if the duration contains hours then format appropiately
+            // Check if the duration contains hours then format appropriately
             if (durationHours > 0) {
                 return String.format("%d:%02d:%02d/%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds, durationHours, durationMinutes, durationSeconds);
             } else {
                 return String.format("%02d:%02d/%02d:%02d", elapsedMinutes, elapsedSeconds, durationMinutes, durationSeconds);
             }
         } else {
-        	// If the duration is 0, return the times formatted appropiately
+        	// If the duration is 0, return the times formatted appropriately
             if (elapsedHours > 0) {
                 return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
             } else {

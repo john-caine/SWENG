@@ -15,9 +15,9 @@ import javafx.scene.media.MediaPlayer;
 
 public class VideoPlayerHandler {
 	
-	private MediaControl mediaControl;
+	protected MediaControl mediaControl;
 	private MediaPlayer mediaPlayer;
-	private Media media;
+	protected Media media;
 	
 	/* 
 	 * Constructor for VideoHandler. Accepts both required and optional parameters from PWS.
