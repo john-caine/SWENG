@@ -3,7 +3,8 @@
  * 
  * Date Created: 01/03/2014
  * 
- * Description: 
+ * Description: Class that creates a control bar that is overlaid on the video. Functionality
+ * 				is play/pause, stop, scrubbing bar, volume slider, and fullscreen mode with same.
  */
 
 package player;
