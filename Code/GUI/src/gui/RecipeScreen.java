@@ -91,6 +91,8 @@ public class RecipeScreen {
 		Button fifteenMinMealBtn = new Button("15 Min Meals");
 		Button underFiveBtn = new Button("Under $5");
 		Button inSeasonBtn = new Button("In Season");
+		
+	
 				
 		myRecipesBtn.setId("b5");
 		newestBtn.setId("b6");
@@ -103,6 +105,8 @@ public class RecipeScreen {
 		fifteenMinMealBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
 		underFiveBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
 		inSeasonBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
+		
+		//System.out.println("button H: " + myRecipesBtn.getPrefHeight() + "buton W: " + myRecipesBtn.getPrefWidth());
 				
 		myRecipesBtn.getStylesheets().add("css.css");
 		newestBtn.getStylesheets().add("css.css");
