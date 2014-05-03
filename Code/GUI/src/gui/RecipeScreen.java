@@ -30,22 +30,22 @@ import javafx.util.Duration;
 
 public class RecipeScreen {
 	InputStream inputStream;
-	ImageView logoHolder1;
+	ImageView homeLogo;
 	ImageView logoHolder2;
 	Image image1, image2;	
 	
 	
 	
 	public RecipeScreen(final VBox bigBox, double height, double width){
-		logoHolder1 = new ImageView();
+		homeLogo = new ImageView();
 		try {
-			inputStream = new FileInputStream("../Resources/SpoonSmall.png");
+			inputStream = new FileInputStream("../Resources/home3.png");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
 		image1 = new Image(inputStream);
-		logoHolder1.setImage(image1);
+		homeLogo.setImage(image1);
 		
 		logoHolder2 = new ImageView();
 		try {
@@ -60,7 +60,7 @@ public class RecipeScreen {
 		HBox topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
 		topBox.setPrefHeight(height/10);
 		topBox.setPrefWidth(width);
-		topBox.getChildren().add(logoHolder1);
+		topBox.getChildren().add(homeLogo);
 		topBox.getChildren().add(logoHolder2);
          
 		
@@ -165,7 +165,7 @@ public class RecipeScreen {
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
 		 
-		logoHolder1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		homeLogo.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
          	Stage stage  = (Stage) source.getScene().getWindow();
