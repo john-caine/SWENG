@@ -1,3 +1,9 @@
+/*
+ * Programmer: Zayyad Tagwai
+ * Date Created: 19/03/2014
+ * Adds components of the recipe screen to the bigBox window 
+ */
+
 package gui;
 
 import java.io.FileInputStream;
@@ -8,6 +14,8 @@ import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -50,6 +59,7 @@ public class RecipeScreen {
 		
 		HBox topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
 		topBox.setPrefHeight(height/10);
+		topBox.setPrefWidth(width);
 		topBox.getChildren().add(logoHolder1);
 		topBox.getChildren().add(logoHolder2);
          
@@ -57,17 +67,21 @@ public class RecipeScreen {
 	
 		
 		VBox midBoxLeft = new VBox(20);
-		midBoxLeft.setPadding(new Insets(20, 20, 20, 20));
-		midBoxLeft.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() - 80);
+		midBoxLeft.setPadding(new Insets(0, 20, 0, 20));
+		midBoxLeft.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() );
 		
 		HBox midBoxRight = new HBox();
-		midBoxRight.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() - 80);
-		System.out.println("top height: " + topBox.getPrefHeight());
+		midBoxRight.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() );
+		
 		
 		HBox midBox = new HBox();
 		midBox.setPrefWidth(width);
 		midBox.setPrefHeight(height - topBox.getPrefHeight());
-		
+		bigBox.setPrefHeight(height);
+		bigBox.setPrefWidth(width);
+		System.out.println("bigBox height " + bigBox.getPrefHeight() + " bigBox width: " + bigBox.getPrefWidth());
+		System.out.println("top height: " + topBox.getPrefHeight());
+		System.out.println("topBox height: " + topBox.getPrefHeight() + " topBox width: " + topBox.getPrefWidth());
 		System.out.println("midBox height: " + midBox.getPrefHeight() + " midBox width: " + midBox.getPrefWidth());
 		System.out.println("midLeft height: " + midBoxLeft.getPrefHeight() + " midLeft width: " + midBoxLeft.getPrefWidth());
 		System.out.println("midRight height: " + midBoxRight.getPrefHeight() + " midRight width: " + midBoxRight.getPrefWidth());
@@ -109,6 +123,7 @@ public class RecipeScreen {
 		ScrollPane recipeList = new ScrollPane(); //recipeList is the scroll panel
 		recipeList.setStyle("-fx-background: lightgrey;");
 		recipeList.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() - 80);
+		System.out.println("scroll pane height: " + recipeList.getPrefHeight() + "scroll pane width: " + recipeList.getPrefWidth());
 		
 		VBox listContent = new VBox(10);  //content of the scroll panel
 		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
@@ -117,7 +132,7 @@ public class RecipeScreen {
 		
 		
 		Label testLabel = new Label("Test"); 
-		testLabel.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() - 80);
+		testLabel.setMinSize((width/2) - 30, midBox.getPrefHeight()/4.5 );
 	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
 		testLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -134,8 +149,7 @@ public class RecipeScreen {
 		{
 		    Label tempList = new Label("Label " + i); //tempList = temporary list; recipes that make up the content
 		    
-		    tempList.setPrefHeight(50);
-		    tempList.setPrefWidth(listContent.getMinWidth());
+		    tempList.setMinSize((width/2) - 30, midBox.getPrefHeight()/4.5);
 		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
 		    
 		    listContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
@@ -145,11 +159,26 @@ public class RecipeScreen {
 			
 		    
 		}
-		
+		FadeTransition fadeTransition 
+        = new FadeTransition(Duration.millis(1000), bigBox);
+		 fadeTransition.setFromValue(0.0);
+		 fadeTransition.setToValue(1.0);
+		 fadeTransition.play();
+		 
+		logoHolder1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            Node  source = (Node)  mouseEvent.getSource();
+         	Stage stage  = (Stage) source.getScene().getWindow();
+         	Group root = (Group) source.getScene().getRoot();
+         	root.getChildren().clear();
+         	root.getChildren().add(new MainMenu().bigBox);
+         	stage.show();
+            }
+        });
 		
 		midBoxRight.getChildren().add(recipeList);
 		
-		midBox.setAlignment(Pos.CENTER);
+		midBox.setAlignment(Pos.TOP_CENTER);
 		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
 		bigBox.getChildren().add(topBox);
 		bigBox.getChildren().add(midBox);
