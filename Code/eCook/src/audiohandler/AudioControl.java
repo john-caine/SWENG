@@ -1,3 +1,12 @@
+
+
+/*Programmer: P.Mathema, S.Beedell,
+ * Date Created: 14/03/2014
+ * Description: 
+
+*/
+
+
 package audiohandler;
 
 import java.io.FileInputStream;
