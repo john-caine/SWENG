@@ -1,8 +1,13 @@
+
+/*Programmer: P.Mathema, S.Beedell,
+ * Date Created: 14/03/2014
+ * Description: 
+
+*/
+
 package audiohandler;
 
 import static org.junit.Assert.*;
-
-import java.io.IOException;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,14 +17,15 @@ import eCook.SlideShow;
 
 
 public class AudioHandlerTest {
-	
+	MediaControl mediaControl;
 	AudioHandler audioHandler;
 	private SlideShow parent;
 	
 	@Before
 	public void setup(){
 		//play audio for 2 seconds after 1 second has passed
-		audioHandler = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
+		//audioHandler = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
+		mediaControl = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
 	}
 
 
@@ -34,8 +40,8 @@ public class AudioHandlerTest {
 		AudioHandler tester = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
 		//wait 0 seconds, audio should not have started yet
 		//assertFalse(tester.mediaControl.mp.getOnPlaying());
-		assertFalse(tester.mediaControl.mp.isAutoPlay());
-		//audioHandler.stopAudio();
+		assertEquals(tester.mediaControl.mp.isAutoPlay());
+		
 	}
 	
 	@Test

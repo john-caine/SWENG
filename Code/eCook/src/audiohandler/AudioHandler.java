@@ -1,3 +1,11 @@
+
+/*Programmer: P.Mathema, S.Beedell,
+ * Date Created: 14/03/2014
+ * Description: 
+
+*/
+
+
 package audiohandler;
 
 import java.io.File;
@@ -54,7 +62,7 @@ public class AudioHandler {
 	public void stopAudio() {
 		mediaPlayer.stop();
 	}
-	// Play audio
+	// Plays any audio selected
 	public void playAudio() {
 		mediaPlayer.play();
 	}
