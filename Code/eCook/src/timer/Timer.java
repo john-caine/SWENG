@@ -4,6 +4,8 @@ package timer;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
@@ -47,6 +49,7 @@ public class Timer extends Task<Object>{
 	private boolean started = false;
 	private boolean paused = false;
 	private boolean timerSetupFinished = false;
+	private ArrayList<Integer> timerValues;
 	
 	
 
@@ -57,8 +60,24 @@ public class Timer extends Task<Object>{
 	private HBox buttonBox;
 	private AudioClip audio;
 	private VBox pane;
+	private boolean resumeTimer = false;
 
 	
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds) {
+		
+		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
+		timerValueHours = currentHours;
+		timerValueMinutes = currentMinutes;
+		timerValueSeconds = currentSeconds;
+		resumeTimer  = true;
+		}
+	}
+
+
+
+
+
+
 	@Override
 	protected Object call() throws Exception {
 		System.out.println("Timer Thread running");
@@ -70,6 +89,8 @@ public class Timer extends Task<Object>{
 		startButton.setPrefWidth(50);
 		resetTimer = new Button("Reset");
 		buttonBox = new HBox();
+		buttonBox.setLayoutX(400);
+		buttonBox.setLayoutY(350);
 		buttonBox.getChildren().addAll(startButton,resetTimer);
 	
 		
@@ -153,7 +174,7 @@ public class Timer extends Task<Object>{
 		pane = new VBox();
 		System.out.println("Pane Created");
 		
-		pane.getChildren().addAll(timerVBox, buttonBox);
+		pane.getChildren().addAll(buttonBox, timerVBox);
 		
 		
 		
@@ -166,7 +187,15 @@ public class Timer extends Task<Object>{
 		createKeyFrame();
 		setButtonEventListeners();
 		
+		
 		timerSetupFinished = true;
+		
+		if(resumeTimer  == true){
+			timeLineSeconds.play();
+			startButton.setText("Pause");
+			started = true;
+			
+		}
 		return null;
 	}
  
@@ -444,6 +473,19 @@ public class Timer extends Task<Object>{
 		
 		return timerSetupFinished;
 		
+		
+	}
+	
+	public List<Integer> getTimerValues(){
+		
+		timerValues = new ArrayList<Integer>();
+		timerValues.add(timerValueHours);
+		timerValues.add(timerValueMinutes);
+		timerValues.add(timerValueSeconds);
+		
+		
+		
+		return timerValues ;
 		
 	}
 

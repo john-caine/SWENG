@@ -30,7 +30,7 @@ public class TimerMain extends Application{
 		timerHbox.setLayoutY(400);
 		
 		stage.setScene(scene);
-		new TimerManager(group);
+		
 		
 		Button button = new Button("I am the main button");
 		button.setLayoutX(600);

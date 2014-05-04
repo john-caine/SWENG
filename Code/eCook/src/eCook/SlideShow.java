@@ -12,6 +12,8 @@ import java.util.List;
 
 import audiohandler.AudioHandler;
 import imagehandler.ImageHandler;
+import javafx.application.Platform;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -28,6 +30,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
+import timer.Timer;
 import videohandler.VideoPlayerHandler;
 import xmlparser.*;
 
@@ -50,6 +53,13 @@ public class SlideShow {
 	private ArrayList<Ingredient> ingredientsList;
 	private Stage stage;
 	private ArrayList<AudioHandler> audioHandlerList;
+	private Button createTimer;
+	private Timer timer;
+	private HBox timerHbox;
+	private int numberOfTimers;
+	private ArrayList<Timer> timerList;
+	private ArrayList<List<Integer>> timerValues;
+
 	
 	public SlideShow(Stage stage, String filepath) {
 		XMLReader reader;
@@ -80,10 +90,10 @@ public class SlideShow {
 		ingredients = reader.getIngredients();
 		
 		//Test that ingredients were present within the XML file
-		if(ingredients.getIngredients().isEmpty() == false){
-		ingredientsList = ingredients.getIngredients();
-		System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
-		}
+		//if(ingredients.getIngredients().isEmpty() == false){
+		//ingredientsList = ingredients.getIngredients();
+		//System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
+		//}
 		
 	
 		
@@ -94,7 +104,7 @@ public class SlideShow {
 
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
-		newSlide(0, false);
+		newSlide(0, false, null);
 
 		// Set the colour of the slide
 		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
@@ -105,7 +115,7 @@ public class SlideShow {
 		stage.show();
 	}
 	
-	public void newSlide(Integer slideID, Boolean isBranch) {
+	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<List<Integer>> currentTimerValues) {
 		List<Image> images;
 		List<TextBody> text;
 		List<Audio> audio;
@@ -176,6 +186,8 @@ public class SlideShow {
 			
 			
 		}
+		
+		
 		
 		
 		// Call the ImageHandler for each image object
@@ -275,23 +287,60 @@ public class SlideShow {
 //				slideRoot.getChildren().add(graphic1.box);
 //			}
 //		}
+		
+		
     	
+		
+		
     	// Create the buttons for the slide.
-	    HBox hbox = new HBox();
+	    HBox buttonBox = new HBox();
 	    SlideButton();
-	    hbox.getChildren().add(previousSlide);
-        hbox.getChildren().add(exitSlide1);
-        hbox.getChildren().add(nextSlide);
+	    buttonBox.getChildren().add(previousSlide);
+        buttonBox.getChildren().add(exitSlide1);
+        buttonBox.getChildren().add(nextSlide);
+        buttonBox.getChildren().add(createTimer);
        
         // Put the buttons in the bottom centre of the slide
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
-        hbox.setLayoutY(screenBounds.getHeight()-200);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
+        buttonBox.setLayoutY(screenBounds.getHeight()-200);
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Add the buttons to the slide
-        slideRoot.getChildren().add(hbox);
+        slideRoot.getChildren().add(buttonBox);
+        
+        timerHbox = new HBox();
+        timerList = new ArrayList<Timer>();
+        
+        //If timers were present on previous slide create new timers and resume from saved position
+        if(currentTimerValues != null){
+        	for(int l = 0; l < currentTimerValues.size(); l++){
+        
+			timer = new Timer(currentTimerValues.get(l).get(0), currentTimerValues.get(l).get(1), currentTimerValues.get(l).get(1));
+        	timerList.add(timer);
+        	
+        	timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+				
+				@Override
+				public void handle(WorkerStateEvent event) {
+					
+					Platform.runLater( new Runnable(){
+						public void run(){
+							timerHbox.getChildren().add(timer.getPane());
+						}
+					});	 			
+					numberOfTimers++;
+				}
+			});
+			new Thread(timer).start();
+			System.out.println("Timer Thread started");
+        	}
+        	
+        	
+        }
+        
+        slideRoot.getChildren().add(timerHbox);
 	    
         // Show the new set of objects on the slide
 	    slideRoot.setVisible(true);  
@@ -393,6 +442,10 @@ public class SlideShow {
         previousSlide.setPrefWidth(80);
         previousSlide.setPrefHeight(40);
         previousSlide.setTextAlignment(TextAlignment.CENTER);
+        
+        createTimer = new Button("Add Timer");
+        createTimer.setPrefWidth(80);
+        createTimer.setPrefHeight(40);
 		    
         /*Exit Slide when exit slide button is pressed*/
        
@@ -406,18 +459,31 @@ public class SlideShow {
             	root.getChildren().clear();
             	new MainMenu(stage);
             	*/
-            	newSlide(nextSlideID, false);
+            	newSlide(nextSlideID, false, timerValues);
             	event.consume();
+            	
+            	
+            	
+            	
             }
         });      
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
+            
+
+			@Override
             public void handle(ActionEvent event) {
             	for(int h = 0; h < audioHandlerList.size(); h++){
             		
             		audioHandlerList.get(h).stopAudio();
             	}
-            	newSlide(nextSlideID, false);
+            	timerValues = new ArrayList<List<Integer>>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
+            	newSlide(nextSlideID, false, timerValues);
             	event.consume();
             }
         });
@@ -425,10 +491,38 @@ public class SlideShow {
         previousSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	newSlide(prevSlideID, false);
+            	newSlide(prevSlideID, false, timerValues);
             	event.consume();
             	
             }
+        });
+        
+        createTimer.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				timer = new Timer(null, null, null);
+				timerList.add(timer);
+				 
+				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					
+					@Override
+					public void handle(WorkerStateEvent event) {
+						
+						Platform.runLater( new Runnable(){
+							public void run(){
+								timerHbox.getChildren().add(timer.getPane());
+							}
+						});	 			
+						numberOfTimers++;
+					}
+				});
+				new Thread(timer).start();
+				System.out.println("Timer Thread started");
+			}
+        	
         });
         // Right and left buttons not working exactly as expected, something to do with the methods called
         // Same issues exist with buttons 
@@ -437,12 +531,12 @@ public class SlideShow {
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		System.out.println("Next slide");
-	            	newSlide(nextSlideID, false);
+	            	newSlide(nextSlideID, false, timerValues);
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.LEFT) {
 		    		System.out.println("Previous slide");
-	            	newSlide(prevSlideID, false);
+	            	newSlide(prevSlideID, false, timerValues);
 	            	event.consume();
 		    	}
 		    }
