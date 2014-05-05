@@ -26,7 +26,10 @@ package eCook;
 import static org.junit.Assert.*;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -43,6 +46,7 @@ public class MainMenuTest{
 	private Stage stage;
 	private Rectangle2D screenBounds;
 	private HBox box;
+	private VBox vBox;
 	private Button createSlideShowButton;
 	// Run tests on JavaFX thread ref. Andy Till
 		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
@@ -69,7 +73,7 @@ public class MainMenuTest{
 		// The plus 40 accounts is to account for the task bar, getHeight for screen bounds doesn't seem to include it
 		// 
 		assertEquals(screenBounds.getWidth(), stage.getWidth(), 0.1);
-		assertEquals(screenBounds.getHeight() , stage.getHeight() , 0.1);
+		assertEquals(screenBounds.getHeight()+ 40 , stage.getHeight() , 0.1);
 	}
 	
 	@Test
@@ -84,16 +88,41 @@ public class MainMenuTest{
 		
 		//Check that the scene group is not null
 		assertNotNull(stage.getScene().getRoot().getChildrenUnmodifiable());
+		
+		//Checks that the scene group contains an VBox which corresponds to the MainMenuContent Class
+		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
+		
+		//Checks that the VBox contains HBox (topBox)
+		vBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+		assertTrue(vBox.getChildren().get(0) instanceof HBox);
+		//Checks that topBox(HBox) contains two ImageViews (logoHolder1 & logoHolder2)
+		HBox topBox = new HBox();
+		topBox =  (HBox) vBox.getChildren().get(0);
+		assertTrue(topBox.getChildren().get(0) instanceof ImageView);
+		assertTrue(topBox.getChildren().get(1) instanceof ImageView);
+		
+		//Checks that the VBox contains HBox (midBox)
+		vBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+		assertTrue(vBox.getChildren().get(1) instanceof HBox);
+		//Checks that midBox(HBox) contains one blank Label & four Buttons
+		HBox midBox = new HBox();
+		midBox =  (HBox) vBox.getChildren().get(1);
+		assertTrue(midBox.getChildren().get(0) instanceof Label);
+		assertTrue(midBox.getChildren().get(1) instanceof Button);
+		assertTrue(midBox.getChildren().get(2) instanceof Button);
+		assertTrue(midBox.getChildren().get(3) instanceof Button);
+		assertTrue(midBox.getChildren().get(4) instanceof Button);
+				
 		//Checks that the scene group contains an HBox
-		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof HBox);
-		box = (HBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(1) instanceof HBox);
+		box = (HBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(1);
 		
 		//Check that the HBox contains a Button
 		assertTrue(box.getChildren().get(0) instanceof Button);
 		
-		//Test that the button has the correct text "Create SlideShow"
+		//Test that the button has the correct text "Open Slideshow"
 		createSlideShowButton = (Button) box.getChildren().get(0);
-		assertEquals("Create SlideShow", createSlideShowButton.getText());
+		assertEquals("Open Slideshow", createSlideShowButton.getText());
 	}
 
 	

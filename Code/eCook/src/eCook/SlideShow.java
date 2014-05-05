@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -452,14 +453,14 @@ public class SlideShow {
         exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	/*
+            	
             	Node  source = (Node)  event.getSource();
             	Stage stage  = (Stage) source.getScene().getWindow();
             	Group root = (Group) stage.getScene().getRoot();
             	root.getChildren().clear();
             	new MainMenu(stage);
-            	*/
-            	newSlide(nextSlideID, false, timerValues);
+            	
+            	//newSlide(nextSlideID, false, timerValues);
             	event.consume();
             	
             	
@@ -526,7 +527,22 @@ public class SlideShow {
         });
         // Right and left buttons not working exactly as expected, something to do with the methods called
         // Same issues exist with buttons 
-		slideScene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {  
+//		slideScene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {  
+//		    @Override
+//		    public void handle(KeyEvent event) {
+//		    	if(event.getCode() == KeyCode.RIGHT) {
+//		    		System.out.println("Next slide");
+//	            	newSlide(nextSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    	else if (event.getCode() == KeyCode.LEFT) {
+//		    		System.out.println("Previous slide");
+//	            	newSlide(prevSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    }
+//		});
+		slideScene.setOnKeyPressed(new EventHandler<KeyEvent>() {  
 		    @Override
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {

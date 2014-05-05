@@ -1,3 +1,8 @@
+/*
+ * Programmer: Zayyad Tagwai & Roger Tan
+ * Date Created: 19/03/2014
+ * Adds components of the main menu screen
+ */
 package gui;
 
 import java.io.FileInputStream;
