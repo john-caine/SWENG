@@ -9,7 +9,8 @@ public class eCook extends Application {
 	Group root;
 	Stage stage;
 	SlideShow slideShow;
-
+	
+	@Override
 	public void start(Stage stage) {				
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();

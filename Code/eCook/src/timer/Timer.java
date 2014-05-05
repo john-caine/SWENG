@@ -1,13 +1,8 @@
 package timer;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -28,9 +23,6 @@ import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
 	
-
-
-	
 	private Button startButton;
 	private Integer timerStartSeconds = 10;
 	private Integer timerValueSeconds= 0;
@@ -50,9 +42,6 @@ public class Timer extends Task<Object>{
 	private boolean paused = false;
 	private boolean timerSetupFinished = false;
 	private ArrayList<Integer> timerValues;
-	
-	
-
 	private HBox listBox;
 	private VBox timerVBox;
 	private int i;
@@ -62,9 +51,7 @@ public class Timer extends Task<Object>{
 	private VBox pane;
 	private boolean resumeTimer = false;
 
-	
 	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds) {
-		
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
 		timerValueMinutes = currentMinutes;
@@ -72,11 +59,6 @@ public class Timer extends Task<Object>{
 		resumeTimer  = true;
 		}
 	}
-
-
-
-
-
 
 	@Override
 	protected Object call() throws Exception {

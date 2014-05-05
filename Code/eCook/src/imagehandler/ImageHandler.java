@@ -130,7 +130,7 @@ public class ImageHandler {
 		 box.setOnMouseClicked(new EventHandler<MouseEvent> ()
 		{
 			public void handle(MouseEvent e) {
-				parent.newSlide(branchID, true);
+				parent.newSlide(branchID, true, null);
 			}
 		});
 	 }
