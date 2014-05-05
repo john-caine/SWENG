@@ -115,8 +115,10 @@ public class IngredientsScreen {
 		} 
 		image1 = new Image(inputStream);
 		recipeImage.setImage(image1);
-		recipeImage.maxHeight(midBoxRightTop.getPrefWidth());
-		recipeImage.maxWidth(midBoxRightBottom.getPrefWidth());
+		recipeImage.setPreserveRatio(false);
+		recipeImage.setFitHeight(midBoxRightBottom.getPrefHeight()-10);
+		recipeImage.setFitWidth(midBoxRightBottom.getPrefWidth());
+		
 		
 		
 		bigBox.setPrefHeight(height);
@@ -129,7 +131,7 @@ public class IngredientsScreen {
 		System.out.println("midRight height: " + midBoxRight.getPrefHeight() + " midRight width: " + midBoxRight.getPrefWidth());
 		System.out.println("midRightTop height: " + midBoxRightTop.getPrefHeight() + " midRightTop: " + midBoxRightTop.getPrefWidth());
 		System.out.println("midRightBottom height: " + midBoxRightBottom.getPrefHeight() + " midRightBottom width: " + midBoxRightBottom.getPrefWidth());
-		
+		System.out.println("imageView height: " + recipeImage.getFitHeight() + "imageView width: " + recipeImage.getFitWidth());
 		
 		midBoxLeft.getChildren().add(IngredientsList);
 		midBoxRightTop.getChildren().addAll(shoppingListBtn,playSlideBtn);
