@@ -36,7 +36,7 @@ public class RecipeScreen {
 	
 	
 	
-	public RecipeScreen(final VBox bigBox, double height, double width){
+	public RecipeScreen(final VBox bigBox, final double height, final double width){
 		homeLogo = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/home3.png");
@@ -79,12 +79,12 @@ public class RecipeScreen {
 		midBox.setPrefHeight(height - topBox.getPrefHeight());
 		bigBox.setPrefHeight(height);
 		bigBox.setPrefWidth(width);
-		System.out.println("bigBox height " + bigBox.getPrefHeight() + " bigBox width: " + bigBox.getPrefWidth());
-		System.out.println("top height: " + topBox.getPrefHeight());
-		System.out.println("topBox height: " + topBox.getPrefHeight() + " topBox width: " + topBox.getPrefWidth());
-		System.out.println("midBox height: " + midBox.getPrefHeight() + " midBox width: " + midBox.getPrefWidth());
-		System.out.println("midLeft height: " + midBoxLeft.getPrefHeight() + " midLeft width: " + midBoxLeft.getPrefWidth());
-		System.out.println("midRight height: " + midBoxRight.getPrefHeight() + " midRight width: " + midBoxRight.getPrefWidth());
+//		System.out.println("bigBox height " + bigBox.getPrefHeight() + " bigBox width: " + bigBox.getPrefWidth());
+//		System.out.println("top height: " + topBox.getPrefHeight());
+//		System.out.println("topBox height: " + topBox.getPrefHeight() + " topBox width: " + topBox.getPrefWidth());
+//		System.out.println("midBox height: " + midBox.getPrefHeight() + " midBox width: " + midBox.getPrefWidth());
+//		System.out.println("midLeft height: " + midBoxLeft.getPrefHeight() + " midLeft width: " + midBoxLeft.getPrefWidth());
+//		System.out.println("midRight height: " + midBoxRight.getPrefHeight() + " midRight width: " + midBoxRight.getPrefWidth());
 		
 		Button myRecipesBtn = new Button("My Recipes");
 		Button newestBtn = new Button("Newest Meals");
@@ -143,6 +143,7 @@ public class RecipeScreen {
 			public void handle(MouseEvent event) {
 				System.out.println("Label CLicked");
 				bigBox.getChildren().clear();
+				new IngredientsScreen(bigBox, height, width);
 			}
 			
 		});
