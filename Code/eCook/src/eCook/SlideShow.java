@@ -50,8 +50,6 @@ public class SlideShow {
 	private Slide slide;
 	private Defaults defaults;
 	private Integer maxLayer;
-	private Ingredients ingredients;
-	private ArrayList<Ingredient> ingredientsList;
 	private Stage stage;
 	private ArrayList<AudioHandler> audioHandlerList;
 	private Button createTimer;
@@ -86,17 +84,6 @@ public class SlideShow {
 		// Call XML parser
 		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
-		
-		ingredientsList = new ArrayList<Ingredient>();
-		ingredients = reader.getIngredients();
-		
-		//Test that ingredients were present within the XML file
-		//if(ingredients.getIngredients().isEmpty() == false){
-		//ingredientsList = ingredients.getIngredients();
-		//System.out.println(ingredientsList.get(1).getName()+ingredientsList.get(1).getAmount()+ingredientsList.get(1).getUnits());
-		//}
-		
-	
 		
 		// Get the defaults from the recipe
 		defaults = recipe.getDefaults();

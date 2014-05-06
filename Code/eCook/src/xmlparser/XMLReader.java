@@ -63,7 +63,6 @@ public class XMLReader extends DefaultHandler {
 	private Image image;
 	private Video video;
 	private Ingredient ingredient;
-	private Ingredients ingredients;
 	
 	private ProcessingElement currentElement = ProcessingElement.NONE;
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
@@ -76,10 +75,6 @@ public class XMLReader extends DefaultHandler {
 	
 	public Recipe getRecipe() {
 		return this.recipe;
-	}
-
-	public Ingredients getIngredients() {
-		return this.ingredients;
 	}
 	
 	public void readXMLFile(String inputFile) {
@@ -138,10 +133,7 @@ public class XMLReader extends DefaultHandler {
 		}
 		else if (elementName.equals("ingredients")) {
 			// If there are ingredients contained within the .xml
-			//ingredient = new Ingredient();
-			ingredients = new Ingredients();
 			recipeElement = ProcessingElement.INGREDIENTS;
-			//noOfIngredients = 0;
 		}
 		
 		/* 
@@ -188,7 +180,7 @@ public class XMLReader extends DefaultHandler {
 				ingredient.setName(attributes.getValue("name"));
 				ingredient.setAmount(attributes.getValue("amount"));
 				ingredient.setUnits(attributes.getValue("units"));
-				ingredients.addIngredient(ingredient);
+				recipe.addIngredient(ingredient);
 			}
 		}
 		// slide
