@@ -15,6 +15,14 @@
 		<fontcolor>#0000FF</fontcolor>
 		<fillcolor>#FF0000</fillcolor> 
 	</defaults>
+	<ingredients>
+		<ingredient name="onion" amount="700" units="grams" />
+		<ingredient name="olive oil" amount="2" units="tablespoons" />
+		<ingredient name="butter" amount="2" units="oz" />
+		<ingredient name="garlic" amount="2" units="cloves" />
+		<ingredient name="granulated sugar" amount="0.5" units="teaspoon" />
+		<ingredient name="beef stock" amount="2" units="pints" />
+	</ingredients>
 	<slide ID="0" duration="60" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40"> 
 			<textbody underlined="true" bold="true" italic="true">

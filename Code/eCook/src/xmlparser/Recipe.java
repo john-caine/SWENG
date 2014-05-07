@@ -26,12 +26,14 @@ import java.util.List;
 public class Recipe {
 	Info info;
 	Defaults defaults;
+	List<Ingredient> ingredients;
 	List<Slide> slides;
 		
 	public Recipe() {
 		slides = new ArrayList<Slide>();
 		info = new Info();
 		defaults = new Defaults();
+		ingredients = new ArrayList<Ingredient>();
 	}
 	
 	// method to report errors when setting fields
@@ -41,6 +43,19 @@ public class Recipe {
 
 	public List<Slide> getSlides() {
 		return slides;
+	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	
+	// method to return a single string with a list of every ingredient stored within the array list
+	public String getStringOfIngredients(Integer guests) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Integer i = 0; i < this.getNumberOfIngredients(); i++) {
+			 stringBuilder.append(ingredients.get(i).getAmount()*guests+" "+ingredients.get(i).getUnits() + " of "+ingredients.get(i).getName()+"\n");
+		}
+		return stringBuilder.toString();
 	}
 
 	public Slide getSlide(int slideNumber) {
@@ -52,6 +67,16 @@ public class Recipe {
 			return null;
 		}
 	}
+	
+	public Ingredient getIngredient(int ingredientNumber) {
+		if (ingredientNumber >= 0 && ingredientNumber < this.getNumberOfIngredients()) {
+			return ingredients.get(ingredientNumber);
+		}
+		else {
+			reportError("Error getting ingredient: index out of range");
+			return null;
+		}
+	}
 
 	public void addSlide(Slide slide) {
 		if (slide != null) {
@@ -59,6 +84,15 @@ public class Recipe {
 		}
 		else {
 			reportError("Error adding slide: object received from parser is null");
+		}
+	}
+	
+	public void addIngredient(Ingredient ingredient) {
+		if (ingredient != null) {
+			ingredients.add(ingredient);
+		}
+		else {
+			reportError("Error adding ingredient: object received from parser is null");
 		}
 	}
 
@@ -75,6 +109,11 @@ public class Recipe {
 	// get the number of slides including branch slides
 	public int getNumberOfSlidesIncBranchSlides() {
 		return slides.size();
+	}
+	
+	// get the number of ingredients
+	public int getNumberOfIngredients() {
+		return ingredients.size();
 	}
 	
 	public Defaults getDefaults() {

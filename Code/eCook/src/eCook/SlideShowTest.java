@@ -73,7 +73,7 @@ public class SlideShowTest {
 		Pane layer2;
 		HBox layer2imageBox;
 		
-		slideShow.newSlide(2, false);
+		slideShow.newSlide(2, false, null);
 		
 		childList = stage.getScene().getRoot().getChildrenUnmodifiable();
 		
