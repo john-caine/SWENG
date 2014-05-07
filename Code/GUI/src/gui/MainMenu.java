@@ -7,10 +7,11 @@ import java.io.InputStream;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class MainMenu {
@@ -29,9 +31,10 @@ public class MainMenu {
 	double height;
 	HBox topBox;
 	HBox midBox;
+	HBox bottomBox;
 	InputStream inputStream;
-	ImageView logoHolder1;
-	ImageView logoHolder2;
+	ImageView logoholder;
+	ImageView closeBtnHolder;
 	Image image1, image2;	
 	VBox bigBox;
 	Label blank;
@@ -41,75 +44,77 @@ public class MainMenu {
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
-		logoHolder1 = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/SpoonSmall.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		image1 = new Image(inputStream);
-		logoHolder1.setImage(image1);
-		
-		logoHolder2 = new ImageView();
+		logoholder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/eCookLogo.png");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
+		image1 = new Image(inputStream);
+		logoholder.setImage(image1);
+		
+		closeBtnHolder = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/redx.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
 		image2 = new Image(inputStream);
-		logoHolder2.setImage(image2);
-
-		bigBox = new VBox(height/2 - width/6);
-		topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
+		closeBtnHolder.setImage(image2);
+		
+		bigBox = new VBox();
+		topBox = new HBox(width - image2.getWidth());
 		midBox = new HBox(width/32);
+		bottomBox = new HBox(40);
+		bottomBox.setPadding(new Insets(0, 45, 0, 40));
 		
 		
-		
+		bigBox.setPrefSize(width, height);
+		bigBox.setMaxSize(width, height);
+		topBox.setPrefSize(width, height*0.1);
+		midBox.setPrefSize(width, height * 0.6);
+		bottomBox.setPrefSize(width, height * 0.3);
 		//TOP: Logo Pane and calendar thing using HBOX	
-		topBox.getChildren().add(logoHolder1);
-		topBox.getChildren().add(logoHolder2);
+		topBox.getChildren().add(closeBtnHolder);
+		
 		
 		
 		//MID: Button Panel using HBOX
-		midBox.setMaxWidth(width);
-		midBox.setPrefHeight(height/2);
-		midBox.setAlignment(Pos.CENTER);
 		
-		Button recipeBtn = new Button("Recipes");
-		Button kitchenBasicsBtn = new Button("Kitchen Basics");
-		Button threeIngredientMealsBtn = new Button("3 Ingredient Meals");
-		Button onlineStoreBtn = new Button("Online Store");
+		midBox.setAlignment(Pos.CENTER);
+		midBox.getChildren().add(logoholder);
+		final Button loadExtBtn = new Button("Load External Recipe");
+		Button generateListBtn = new Button("Generate Shopping List");
+		Button ingredientsPickBtn = new Button("Ingredient Picker");
+		Button recipesBtn= new Button("Recipes");
 		
 		//BUTTON LAYOUT
-		recipeBtn.setId("b1");
-		kitchenBasicsBtn.setId("b2");
-		threeIngredientMealsBtn.setId("b3");
-		onlineStoreBtn .setId("b4");
+		loadExtBtn.setId("b1");
+		generateListBtn.setId("b2");
+		ingredientsPickBtn.setId("b3");
+		recipesBtn.setId("b4");
 		
-		recipeBtn.setMinSize(width/5, width/5);
-		kitchenBasicsBtn.setMinSize(width/5, width/5);
-		threeIngredientMealsBtn.setMinSize(width/5, width/5);
-		onlineStoreBtn .setMinSize(width/5, width/5);
+		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight());
+		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight());
+		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight());
+		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		
-		recipeBtn.getStylesheets().add("css.css");
-		kitchenBasicsBtn.getStylesheets().add("css.css");
-		threeIngredientMealsBtn.getStylesheets().add("css.css");
-		onlineStoreBtn .getStylesheets().add("css.css");
+		loadExtBtn.getStylesheets().add("css.css");
+		generateListBtn.getStylesheets().add("css.css");
+		ingredientsPickBtn.getStylesheets().add("css.css");
+		recipesBtn.getStylesheets().add("css.css");
 		
-		blank = new Label("");
-		blank.setMinWidth(width/64);
-		midBox.getChildren().add(blank);
-		midBox.getChildren().add(recipeBtn);
-		midBox.getChildren().add(kitchenBasicsBtn);
-		midBox.getChildren().add(threeIngredientMealsBtn);
-		midBox.getChildren().add(onlineStoreBtn);
+		bottomBox.getChildren().add(loadExtBtn);
+		bottomBox.getChildren().add(generateListBtn);
+		bottomBox.getChildren().add(ingredientsPickBtn);
+		bottomBox.getChildren().add(recipesBtn);
 		
 		
 		bigBox.getChildren().add(topBox);
 		bigBox.getChildren().add(midBox);
-		
+		bigBox.getChildren().add(bottomBox);
 		FadeTransition fadeTransition 
          = new FadeTransition(Duration.millis(3000), bigBox);
 		 fadeTransition.setFromValue(0.0);
@@ -117,44 +122,76 @@ public class MainMenu {
 		 fadeTransition.play();
 		 
 		//BUTTON ACTIONS
-		recipeBtn.setOnAction(new EventHandler<ActionEvent>() {
+		loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                // System.out.println("Recipe Clicked");
              
-                bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                new RecipeScreen(bigBox, height, width);	
+                //bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
+            	
+                 
+            	VBox optionBox = new VBox(10);
+            	Button httpBtn = new Button();
+            	Button fileBrowserBtn = new Button();
+            		
+            	httpBtn.setPrefSize(150, 150);
+            	fileBrowserBtn.setPrefSize(150, 150);
+            		
+            	optionBox.getChildren().addAll(httpBtn,fileBrowserBtn);
+                  
+                 Scene loadExtWindow = new Scene(optionBox, 400, 400);
+  
+                 Stage secondStage = new Stage();
+                 secondStage.setTitle("Second Stage");
+                 secondStage.setScene(loadExtWindow);
+                 secondStage.initStyle(StageStyle.UNDECORATED);
+                 
+                 secondStage.setX(loadExtBtn.getLayoutX() );
+                 secondStage.setY(loadExtBtn.getLayoutY() );
+   
+                 secondStage.show();	
             }
         });
 		
-		kitchenBasicsBtn.setOnAction(new EventHandler<ActionEvent>() {
+		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Kitchen Basics Clicked");
+                System.out.println("Generate Shopping List Clicked");
                 bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
                 new KitchenBasicsScreen();	
             }
         });
 		
-		threeIngredientMealsBtn.setOnAction(new EventHandler<ActionEvent>() {
+		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("3 Ingredient Meals Clicked");
+                System.out.println("Ingredient Pick Clicked");
             }
         });
 		
-		onlineStoreBtn .setOnAction(new EventHandler<ActionEvent>() {
+		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Online Store Clicked");
+                System.out.println("Recipes Clicked");
             }
         });
 		
-	    logoHolder1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		System.out.println("topSize: H" + topBox.getPrefHeight() + " W: " + topBox.getPrefWidth() );
+		System.out.println("midSize: H" + midBox.getPrefHeight() + " W: " + midBox.getPrefWidth() );
+		System.out.println("bottomSize: H" + bottomBox.getPrefHeight() + " W: " + bottomBox.getPrefWidth() );
+		
+		//CLOSE
+	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
          	Stage stage  = (Stage) source.getScene().getWindow();
-         	Group root = (Group) source.getScene().getRoot();
-         	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
-         	stage.show();
+         	stage.close();
             }
         });
+		
+		//MINIMISE
+//		closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//		    public void handle(MouseEvent mouseEvent) {
+//		    	Node  source = (Node)  mouseEvent.getSource();
+//		    	Stage stage  = (Stage) source.getScene().getWindow(); 
+//		    	stage.setIconified(true);
+//		    }
+//		});
 	}
 }

@@ -37,96 +37,46 @@ public class RecipeScreen {
 	
 	
 	public RecipeScreen(final VBox bigBox, final double height, final double width){
-		homeLogo = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home3.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		image1 = new Image(inputStream);
-		homeLogo.setImage(image1);
-		
-		logoHolder2 = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/eCookLogo.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		image2 = new Image(inputStream);
-		logoHolder2.setImage(image2);
-		
-		HBox topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
-		topBox.setPrefHeight(height/10);
-		topBox.setPrefWidth(width);
-		topBox.getChildren().add(homeLogo);
-		topBox.getChildren().add(logoHolder2);
+//		homeLogo = new ImageView();
+//		try {
+//			inputStream = new FileInputStream("../Resources/home3.png");
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} 
+//		image1 = new Image(inputStream);
+//		homeLogo.setImage(image1);
+//		
+//		logoHolder2 = new ImageView();
+//		try {
+//			inputStream = new FileInputStream("../Resources/eCookLogo.png");
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} 
+//		image2 = new Image(inputStream);
+//		logoHolder2.setImage(image2);
+//		
+//		HBox topBox = new HBox(width/2 - image1.getWidth() - (image2.getWidth()/2));
+//		topBox.setPrefHeight(height/10);
+//		topBox.setPrefWidth(width);
+//		topBox.getChildren().add(homeLogo);
+//		topBox.getChildren().add(logoHolder2);
          
+		VBox leftBox = new VBox();
+		VBox midBox = new VBox();
+		VBox rightBox = new VBox();
 		
-	
+		leftBox.setPrefSize(width*0.15, height);
+		midBox.setPrefSize(width*0.7, height);
+		midBox.setPadding(new Insets(10,0,10,0));
+		rightBox.setPrefSize(width*0.15, height);
 		
-		VBox midBoxLeft = new VBox(20);
-		midBoxLeft.setPadding(new Insets(0, 20, 0, 20));
-		midBoxLeft.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() );
-		
-		HBox midBoxRight = new HBox();
-		midBoxRight.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() );
-		
-		
-		HBox midBox = new HBox();
-		midBox.setPrefWidth(width);
-		midBox.setPrefHeight(height - topBox.getPrefHeight());
-		bigBox.setPrefHeight(height);
-		bigBox.setPrefWidth(width);
-//		System.out.println("bigBox height " + bigBox.getPrefHeight() + " bigBox width: " + bigBox.getPrefWidth());
-//		System.out.println("top height: " + topBox.getPrefHeight());
-//		System.out.println("topBox height: " + topBox.getPrefHeight() + " topBox width: " + topBox.getPrefWidth());
-//		System.out.println("midBox height: " + midBox.getPrefHeight() + " midBox width: " + midBox.getPrefWidth());
-//		System.out.println("midLeft height: " + midBoxLeft.getPrefHeight() + " midLeft width: " + midBoxLeft.getPrefWidth());
-//		System.out.println("midRight height: " + midBoxRight.getPrefHeight() + " midRight width: " + midBoxRight.getPrefWidth());
-		
-		Button myRecipesBtn = new Button("My Recipes");
-		Button newestBtn = new Button("Newest Meals");
-		Button fifteenMinMealBtn = new Button("15 Min Meals");
-		Button underFiveBtn = new Button("Under $5");
-		Button inSeasonBtn = new Button("In Season");
-		
-	
-				
-		myRecipesBtn.setId("b5");
-		newestBtn.setId("b6");
-		fifteenMinMealBtn.setId("b7");
-		underFiveBtn.setId("b8");
-		inSeasonBtn.setId("b9");
-				
-		myRecipesBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
-		newestBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
-		fifteenMinMealBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
-		underFiveBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
-		inSeasonBtn.setPrefSize(width/2 - 5, midBox.getPrefHeight()/6 - 30);
-		
-		//System.out.println("button H: " + myRecipesBtn.getPrefHeight() + "buton W: " + myRecipesBtn.getPrefWidth());
-				
-		myRecipesBtn.getStylesheets().add("css.css");
-		newestBtn.getStylesheets().add("css.css");
-		fifteenMinMealBtn.getStylesheets().add("css.css");
-		underFiveBtn.getStylesheets().add("css.css");
-		inSeasonBtn.getStylesheets().add("css.css");
 
-		
-		
-		midBoxLeft.getChildren().add(myRecipesBtn);
-		midBoxLeft.getChildren().add(newestBtn);
-		midBoxLeft.getChildren().add(fifteenMinMealBtn);
-		midBoxLeft.getChildren().add(underFiveBtn);
-		midBoxLeft.getChildren().add(inSeasonBtn);
-		
-		
 		
 		ScrollPane recipeList = new ScrollPane(); //recipeList is the scroll panel
 		recipeList.setStyle("-fx-background: lightgrey;");
-		recipeList.setPrefSize((width/2) - 10, height- topBox.getPrefHeight() - 80);
+		recipeList.setPrefSize((width*0.7) , height- topBox.getPrefHeight() - 80);
 		System.out.println("scroll pane height: " + recipeList.getPrefHeight() + "scroll pane width: " + recipeList.getPrefWidth());
 		
 		VBox listContent = new VBox(10);  //content of the scroll panel

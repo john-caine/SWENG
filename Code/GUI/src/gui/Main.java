@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -28,6 +29,7 @@ public void start(Stage primaryStage) {
 			root.getChildren().add(new MainMenu().bigBox);
 			scene.setFill(Color.WHITE);
 			primaryStage.setScene(scene);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setFullScreen(true);
 			primaryStage.show();	
 		} catch(Exception e) {
