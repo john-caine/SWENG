@@ -3,6 +3,7 @@ package timer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -44,18 +46,23 @@ public class Timer extends Task<Object>{
 	private boolean started = false;
 	private boolean paused = false;
 	private boolean timerSetupFinished = false;
-	private ArrayList<Integer> timerValues;
+	private TimerData timerValues;
 	private HBox listBox;
 	private VBox timerVBox;
 	private int i;
-	private Button resetTimer;
+	protected Button resetTimer;
 	private HBox buttonBox;
 	private AudioClip audio;
 	private VBox pane;
 	private boolean resumeTimer = false;
-	private int timerId;
+	private String timerLabel;
+	private TextField textField;
 
-	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, int timerId) {
+
+	
+	
+
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, String timerLabel) {
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
 		timerValueMinutes = currentMinutes;
@@ -63,7 +70,7 @@ public class Timer extends Task<Object>{
 		
 		resumeTimer  = true;
 		}
-		this.timerId = timerId;
+		this.timerLabel = timerLabel;
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class Timer extends Task<Object>{
 		timerBox = new HBox();
 		listBox = new HBox();
 		
-
+		textField = new TextField(timerLabel);
 		startButton = new Button("Start");
 		startButton.setPrefWidth(50);
 		resetTimer = new Button("Reset");
@@ -107,7 +114,7 @@ public class Timer extends Task<Object>{
 		pane = new VBox();
 		
 		
-		pane.getChildren().addAll(buttonBox, timerVBox);
+		pane.getChildren().addAll(textField, buttonBox, timerVBox);
 		
 		
 		
@@ -411,12 +418,13 @@ public class Timer extends Task<Object>{
 		
 	}
 	
-	public List<Integer> getTimerValues(){
+	public TimerData getTimerValues(){
 		
-		timerValues = new ArrayList<Integer>();
-		timerValues.add(timerValueHours);
-		timerValues.add(timerValueMinutes);
-		timerValues.add(timerValueSeconds);
+		timerValues = new TimerData();
+		timerValues.setSeconds(timerValueSeconds);
+		timerValues.setMinutes(timerValueMinutes);
+		timerValues.setHours(timerValueHours);
+		timerValues.setLabel(textField.getText());
 		
 		
 		
@@ -508,9 +516,7 @@ public class Timer extends Task<Object>{
 		
 	}
 	
-	public int getTimerId(){
-		return timerId;
-	}
+	
 	
 	
 
