@@ -77,6 +77,10 @@ public class XMLReader extends DefaultHandler {
 		return this.recipe;
 	}
 	
+	public Info getInfo() {
+		return this.info;
+	}
+	
 	public void readXMLFile(String inputFile) {
 		try {
 			// use the default parser
