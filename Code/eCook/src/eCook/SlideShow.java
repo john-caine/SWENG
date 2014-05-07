@@ -247,6 +247,7 @@ public class SlideShow {
 			for(int i = 0; i < audioCount; i++){
 				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
 														audio.get(i).getDuration(), audio.get(i).getLoop());
+				
 				audioHandlerList.add(audio1);
 				layers.get(0).getChildren().add(audio1.mediaControl.box);
 			}
