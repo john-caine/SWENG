@@ -33,6 +33,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import texthandler.TextHandler;
 import timer.Timer;
+import timer.TimerData;
 import videohandler.VideoPlayerHandler;
 import xmlparser.*;
 
@@ -56,10 +57,10 @@ public class SlideShow {
 	private Button createTimer;
 	private Timer timer;
 	private HBox timerHbox;
-	private int numberOfTimers;
+	
 	private ArrayList<Timer> timerList;
-	private ArrayList<List<Integer>> timerValues;
-	private ArrayList<Pane> timerPaneList;
+	private ArrayList<TimerData> timerValues;
+	
 
 	
 	public SlideShow(Stage stage, String filepath) {
@@ -105,7 +106,7 @@ public class SlideShow {
 		stage.show();
 	}
 	
-	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<List<Integer>> currentTimerValues) {
+	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {
 		List<Image> images;
 		List<TextBody> text;
 		List<Audio> audio;
@@ -304,14 +305,14 @@ public class SlideShow {
         timerHbox = new HBox();
         slideRoot.getChildren().add(timerHbox);
         timerList = new ArrayList<Timer>();
-        timerPaneList = new ArrayList<Pane>();
-        numberOfTimers = 0;
+     
         
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
         	for(int l = 0; l < currentTimerValues.size(); l++){
         		
-        		final Timer continueTimer = new Timer(currentTimerValues.get(l).get(0), currentTimerValues.get(l).get(1), currentTimerValues.get(l).get(2), numberOfTimers);
+        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
+        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getLabel());
 				timerList.add(continueTimer);
 				 
 				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -325,8 +326,7 @@ public class SlideShow {
 				});
 				new Thread(continueTimer).start();
 				
-				numberOfTimers++;
-        
+				
 					
 					
 				}
@@ -468,7 +468,7 @@ public class SlideShow {
             		
             		audioHandlerList.get(h).stopAudio();
             	}
-            	timerValues = new ArrayList<List<Integer>>();
+            	timerValues = new ArrayList<TimerData>();
             	for(int g = 0; g<timerList.size(); g++){
             		
             		timerList.get(g).cancel();
@@ -484,6 +484,14 @@ public class SlideShow {
         previousSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
             	newSlide(prevSlideID, false, timerValues);
             	event.consume();
             	
@@ -496,7 +504,7 @@ public class SlideShow {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				 timer = new Timer(null, null, null, numberOfTimers);
+				 timer = new Timer(null, null, null, null);
 				timerList.add(timer);
 				 
 				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -515,7 +523,7 @@ public class SlideShow {
 				});
 				new Thread(timer).start();
 				
-				numberOfTimers++;
+				
 			}
         	
         });
