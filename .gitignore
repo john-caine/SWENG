@@ -12,9 +12,10 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.classpath
+Code/eCook/.classpath
 .settings/
 .loadpath
+*.class
 
 # External tool builders
 .externalToolBuilders/
