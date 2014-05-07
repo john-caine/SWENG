@@ -24,16 +24,19 @@ import javafx.util.Duration;
 public class Timer extends Task<Object>{
 	
 	private Button startButton;
-	private Integer timerStartSeconds = 10;
-	private Integer timerValueSeconds= 0;
+
+	
 	private Label labelSeconds;
 	private Timeline timeLineSeconds;
-	private Integer timerValueMinutes;
+	
 	private Label labelMinutes;
-	HBox timerBox;
+	public HBox timerBox;
+	private Integer timerValueSeconds = null;
+	private Integer timerValueMinutes = null;
+	private Integer timerValueHours = null;
+	private Integer timerStartSeconds = 0;
 	private Integer timerStartMinutes = 0;
-	private Integer timerValueHours;
-	private Integer timerStartHours =1 ;
+	private Integer timerStartHours = 0;
 	private Label labelHours;
 	private ListView<Integer> numbersListSeconds;
 	private ListView<Integer> numbersListMinutes;
@@ -50,19 +53,22 @@ public class Timer extends Task<Object>{
 	private AudioClip audio;
 	private VBox pane;
 	private boolean resumeTimer = false;
+	private int timerId;
 
-	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds) {
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, int timerId) {
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
 		timerValueMinutes = currentMinutes;
 		timerValueSeconds = currentSeconds;
+		
 		resumeTimer  = true;
 		}
+		this.timerId = timerId;
 	}
 
 	@Override
 	protected Object call() throws Exception {
-		System.out.println("Timer Thread running");
+	
 		timerBox = new HBox();
 		listBox = new HBox();
 		
@@ -85,63 +91,8 @@ public class Timer extends Task<Object>{
 		listBox.getChildren().add(numbersListSeconds);
 		
 		
-		
-		if(timerStartSeconds > 9){
-			labelSeconds = new Label(timerStartSeconds.toString());
-		}
-		else{
-			labelSeconds = new Label("0" + timerStartSeconds.toString());
-		}
-		
-		if(timerStartMinutes > 9){
-			labelMinutes = new Label(timerStartMinutes.toString() + " : ");
-		}
-		else{
-			labelMinutes = new Label("0" + timerStartMinutes.toString() + " : ");
-		}
-		
-		if(timerStartHours > 9){
-			labelHours = new Label(timerStartHours.toString() + " : ");
-		}
-		else{
-			labelHours = new Label("0" + timerStartHours.toString() + " : ");
-		}
-		
-		labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				numbersListSeconds.setVisible(true);
-				numbersListMinutes.setVisible(false);
-				numbersListHours.setVisible(false);
-				
-			}
-			
-		});
-		
-		labelMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				numbersListSeconds.setVisible(false);
-				numbersListMinutes.setVisible(true);
-				numbersListHours.setVisible(false);
-				
-			}
-			
-		});
-		
-		labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent arg0) {
-				numbersListSeconds.setVisible(false);
-				numbersListMinutes.setVisible(false);
-				numbersListHours.setVisible(true);
-				
-			}
-			
-		});
+		setTimerLabels();
+	
 		
 		
 		timerBox.getChildren().add(labelHours);
@@ -154,7 +105,7 @@ public class Timer extends Task<Object>{
 		timerVBox.getChildren().addAll(timerBox, listBox);
 		
 		pane = new VBox();
-		System.out.println("Pane Created");
+		
 		
 		pane.getChildren().addAll(buttonBox, timerVBox);
 		
@@ -197,9 +148,11 @@ public class Timer extends Task<Object>{
 				
 				if(started == false && paused == false){
 				
-					timerValueSeconds = timerStartSeconds;
-					timerValueMinutes = timerStartMinutes;
-					timerValueHours = timerStartHours;
+					if((timerValueHours == null) && (timerValueMinutes == null) && (timerValueSeconds == null)){
+						timerValueSeconds = timerStartSeconds;
+						timerValueMinutes = timerStartMinutes;
+						timerValueHours = timerStartHours;
+					}
 					timeLineSeconds.play();
 					startButton.setText("Pause");
 					
@@ -471,6 +424,93 @@ public class Timer extends Task<Object>{
 		
 	}
 
+	public void setTimerLabels(){
+		if ((timerValueHours == null) && (timerValueMinutes == null) && (timerValueSeconds == null)){
+			if(timerStartSeconds > 9){
+				labelSeconds = new Label(timerStartSeconds.toString());
+			}
+			else{
+				labelSeconds = new Label("0" + timerStartSeconds.toString());
+			}
+			
+			if(timerStartMinutes > 9){
+				labelMinutes = new Label(timerStartMinutes.toString() + " : ");
+			}
+			else{
+				labelMinutes = new Label("0" + timerStartMinutes.toString() + " : ");
+			}
+			
+			if(timerStartHours > 9){
+				labelHours = new Label(timerStartHours.toString() + " : ");
+			}
+			else{
+				labelHours = new Label("0" + timerStartHours.toString() + " : ");
+			}
+		} else {
+			if(timerValueSeconds > 9){
+				labelSeconds = new Label(timerValueSeconds.toString());
+			}
+			else{
+				labelSeconds = new Label("0" + timerValueSeconds.toString());
+			}
+			
+			if(timerValueMinutes > 9){
+				labelMinutes = new Label(timerValueMinutes.toString() + " : ");
+			}
+			else{
+				labelMinutes = new Label("0" + timerValueMinutes.toString() + " : ");
+			}
+			
+			if(timerValueHours > 9){
+				labelHours = new Label(timerValueHours.toString() + " : ");
+			}
+			else{
+				labelHours = new Label("0" + timerValueHours.toString() + " : ");
+			}
+		}
+		
+		
+		labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(true);
+				numbersListMinutes.setVisible(false);
+				numbersListHours.setVisible(false);
+				
+			}
+			
+		});
+		
+		labelMinutes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(false);
+				numbersListMinutes.setVisible(true);
+				numbersListHours.setVisible(false);
+				
+			}
+			
+		});
+		
+		labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				numbersListSeconds.setVisible(false);
+				numbersListMinutes.setVisible(false);
+				numbersListHours.setVisible(true);
+				
+			}
+			
+		});
+		
+	}
+	
+	public int getTimerId(){
+		return timerId;
+	}
 	
 	
 

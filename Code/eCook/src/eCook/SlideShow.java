@@ -26,6 +26,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
@@ -58,6 +59,7 @@ public class SlideShow {
 	private int numberOfTimers;
 	private ArrayList<Timer> timerList;
 	private ArrayList<List<Integer>> timerValues;
+	private ArrayList<Pane> timerPaneList;
 
 	
 	public SlideShow(Stage stage, String filepath) {
@@ -299,36 +301,37 @@ public class SlideShow {
         slideRoot.getChildren().add(buttonBox);
         
         timerHbox = new HBox();
+        slideRoot.getChildren().add(timerHbox);
         timerList = new ArrayList<Timer>();
+        timerPaneList = new ArrayList<Pane>();
+        numberOfTimers = 0;
         
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
         	for(int l = 0; l < currentTimerValues.size(); l++){
-        
-			timer = new Timer(currentTimerValues.get(l).get(0), currentTimerValues.get(l).get(1), currentTimerValues.get(l).get(1));
-        	timerList.add(timer);
-        	
-        	timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-				
-				@Override
-				public void handle(WorkerStateEvent event) {
+        		
+        		final Timer continueTimer = new Timer(currentTimerValues.get(l).get(0), currentTimerValues.get(l).get(1), currentTimerValues.get(l).get(2), numberOfTimers);
+				timerList.add(continueTimer);
+				 
+				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 					
-					Platform.runLater( new Runnable(){
-						public void run(){
-							timerHbox.getChildren().add(timer.getPane());
-						}
-					});	 			
-					numberOfTimers++;
+					@Override
+					public void handle(WorkerStateEvent event) {
+								
+								timerHbox.getChildren().add(continueTimer.getPane());
+		
+					}
+				});
+				new Thread(continueTimer).start();
+				
+				numberOfTimers++;
+        
+					
+					
 				}
-			});
-			new Thread(timer).start();
-			System.out.println("Timer Thread started");
-        	}
-        	
-        	
         }
         
-        slideRoot.getChildren().add(timerHbox);
+        
 	    
         // Show the new set of objects on the slide
 	    slideRoot.setVisible(true);  
@@ -471,6 +474,7 @@ public class SlideShow {
             		 timerValues.add(timerList.get(g).getTimerValues()); 
             		 
             	}
+            	
             	newSlide(nextSlideID, false, timerValues);
             	event.consume();
             }
@@ -491,7 +495,7 @@ public class SlideShow {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				timer = new Timer(null, null, null);
+				 timer = new Timer(null, null, null, numberOfTimers);
 				timerList.add(timer);
 				 
 				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -502,13 +506,15 @@ public class SlideShow {
 						Platform.runLater( new Runnable(){
 							public void run(){
 								timerHbox.getChildren().add(timer.getPane());
+								
 							}
 						});	 			
-						numberOfTimers++;
+						
 					}
 				});
 				new Thread(timer).start();
-				System.out.println("Timer Thread started");
+				
+				numberOfTimers++;
 			}
         	
         });
