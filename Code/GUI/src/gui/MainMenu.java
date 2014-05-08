@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,9 +34,8 @@ public class MainMenu {
 	HBox midBox;
 	HBox bottomBox;
 	InputStream inputStream;
-	ImageView logoholder;
-	ImageView closeBtnHolder;
-	Image image1, image2;	
+	ImageView logoholder, closeBtnHolder, minimiseBtnHolder;
+	Image logoIcon, closeIcon, minimiseIcon;	
 	VBox bigBox;
 	Label blank;
 	
@@ -51,8 +51,8 @@ public class MainMenu {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-		image1 = new Image(inputStream);
-		logoholder.setImage(image1);
+		logoIcon = new Image(inputStream);
+		
 		
 		closeBtnHolder = new ImageView();
 		try {
@@ -61,12 +61,24 @@ public class MainMenu {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-		image2 = new Image(inputStream);
-		closeBtnHolder.setImage(image2);
+		closeIcon = new Image(inputStream);
+		
+		
+		minimiseBtnHolder = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/minimise.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		
+		logoholder.setImage(logoIcon);
+		minimiseBtnHolder.setImage(minimiseIcon);
+		closeBtnHolder.setImage(closeIcon);
 		
 		bigBox = new VBox();
-		topBox = new HBox(width - image2.getWidth());
-		midBox = new HBox(width/32);
+		topBox = new HBox();
+		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
 		
@@ -74,10 +86,12 @@ public class MainMenu {
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
 		topBox.setPrefSize(width, height*0.1);
+		topBox.setAlignment(Pos.TOP_RIGHT);
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height * 0.3);
-		//TOP: Logo Pane and calendar thing using HBOX	
-		topBox.getChildren().add(closeBtnHolder);
+		//TOP: Logo Pane and calendar thing using HBOX
+		topBox.getChildren().addAll(closeBtnHolder,minimiseBtnHolder);
+		
 		
 		
 		
@@ -112,9 +126,8 @@ public class MainMenu {
 		bottomBox.getChildren().add(recipesBtn);
 		
 		
-		bigBox.getChildren().add(topBox);
-		bigBox.getChildren().add(midBox);
-		bigBox.getChildren().add(bottomBox);
+		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
+
 		FadeTransition fadeTransition 
          = new FadeTransition(Duration.millis(3000), bigBox);
 		 fadeTransition.setFromValue(0.0);
@@ -124,10 +137,7 @@ public class MainMenu {
 		//BUTTON ACTIONS
 		loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-               // System.out.println("Recipe Clicked");
-             
-                //bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-            	
+               // System.out.println("Recipe Clicked");            	
                  
             	VBox optionBox = new VBox(10);
             	Button httpBtn = new Button();
@@ -139,6 +149,7 @@ public class MainMenu {
             	optionBox.getChildren().addAll(httpBtn,fileBrowserBtn);
                   
                  Scene loadExtWindow = new Scene(optionBox, 400, 400);
+                 loadExtWindow.setFill(Color.PINK);
   
                  Stage secondStage = new Stage();
                  secondStage.setTitle("Second Stage");
@@ -169,6 +180,8 @@ public class MainMenu {
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 System.out.println("Recipes Clicked");
+                bigBox.getChildren().clear();
+                new RecipeScreen(bigBox, height, width);
             }
         });
 		
@@ -185,13 +198,13 @@ public class MainMenu {
             }
         });
 		
-		//MINIMISE
-//		closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//		    public void handle(MouseEvent mouseEvent) {
-//		    	Node  source = (Node)  mouseEvent.getSource();
-//		    	Stage stage  = (Stage) source.getScene().getWindow(); 
-//		    	stage.setIconified(true);
-//		    }
-//		});
+//		MINIMISE
+		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent mouseEvent) {
+		    	Node  source = (Node)  mouseEvent.getSource();
+		    	Stage stage  = (Stage) source.getScene().getWindow(); 
+		    	stage.setIconified(true);
+		    }
+		});
 	}
 }
