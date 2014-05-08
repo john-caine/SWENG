@@ -35,14 +35,22 @@ public class RecipeScreen {
 	ImageView logoHolder2;
 	Image image1, image2;	
 	String recipeInfo;
-	ImageView logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image logoIcon, closeIcon, minimiseIcon;	
+	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
+	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
 	
 	
 	
 	public RecipeScreen(final VBox bigBox, final double height, final double width){
 		
-
+		homeHolder = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/home1.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		homeIcon = new Image(inputStream);
+		
 		closeBtnHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/redx.png");
@@ -60,7 +68,7 @@ public class RecipeScreen {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-		
+		homeHolder.setImage(homeIcon);
 		minimiseBtnHolder.setImage(minimiseIcon);
 		closeBtnHolder.setImage(closeIcon);
          
@@ -135,11 +143,11 @@ public class RecipeScreen {
 		midBox.getChildren().addAll(recipeList,recipeInfoLabel, playSlideBtn);
 		
 		
-		FadeTransition fadeTransition 
-        = new FadeTransition(Duration.millis(1000), bigBox);
-		 fadeTransition.setFromValue(0.0);
-		 fadeTransition.setToValue(1.0);
-		 fadeTransition.play();
+//		FadeTransition fadeTransition 
+//        = new FadeTransition(Duration.millis(1000), bigBox);
+//		 fadeTransition.setFromValue(0.0);
+//		 fadeTransition.setToValue(1.0);
+//		 fadeTransition.play();
 		 
 		 	ImageView closeBtnHolder = new ImageView();
 			try {
@@ -177,6 +185,18 @@ public class RecipeScreen {
 			    }
 			});
 			
+			homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	            public void handle(MouseEvent mouseEvent) {
+	            Node  source = (Node)  mouseEvent.getSource();
+	         	Stage stage  = (Stage) source.getScene().getWindow();
+	         	Group root = (Group) source.getScene().getRoot();
+	         	root.getChildren().clear();
+	         	root.getChildren().add(new MainMenu().bigBox);
+	         	stage.show();
+	            }
+	        });
+		
+		leftBox.getChildren().add(homeHolder);
 		rightBox.getChildren().addAll(closeBtnHolder,minimiseBtnHolder);	
 		rightBox.setAlignment(Pos.TOP_RIGHT);
 		rightBox.getChildren().add(buttonBox);
