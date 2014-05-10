@@ -18,18 +18,18 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class MainMenu {
@@ -123,7 +123,7 @@ public class MainMenu {
 		minimiseBtnHolder.setImage(minimiseIcon);
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
-		
+	
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -140,6 +140,7 @@ public class MainMenu {
 		
 		
 		bigBox = new VBox();
+		final StackPane overlay = new StackPane();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
@@ -150,21 +151,24 @@ public class MainMenu {
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height * 0.3);
 		
-		
-		//TOP: Logo Pane and calendar thing using HBOX
 
-		
-		
 		
 		
 		//MID: Button Panel using HBOX
 		
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().add(logoholder);
-		final Button loadExtBtn = new Button("Load External Recipe");
+		MenuButton loadExtBtn = new MenuButton("Load External Recipe");
+		
+		MenuItem fileBrowserBtn;
+		MenuItem urlBtn;
+		loadExtBtn.getItems().addAll(urlBtn = new MenuItem("HTTP://"),fileBrowserBtn = new MenuItem("File Browser"));
+		
 		Button generateListBtn = new Button("Generate Shopping List");
 		Button ingredientsPickBtn = new Button("Ingredient Picker");
 		Button recipesBtn= new Button("Recipes");
+		
+		
 		
 		//BUTTON LAYOUT
 		loadExtBtn.setId("b1");
@@ -173,6 +177,7 @@ public class MainMenu {
 		recipesBtn.setId("b4");
 		
 		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight());
+		
 		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight());
@@ -187,8 +192,9 @@ public class MainMenu {
 		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(recipesBtn);
 		
-		
-		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
+		overlay.getChildren().addAll(bottomBox);
+		overlay.setPrefSize(width, height * 0.3);
+		bigBox.getChildren().addAll(topBox,midBox,overlay);
 
 		FadeTransition fadeTransition 
          = new FadeTransition(Duration.millis(500), bigBox);
@@ -196,32 +202,24 @@ public class MainMenu {
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
 		 
+		 
+		
 		//BUTTON ACTIONS
-		loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
+		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-               // System.out.println("Recipe Clicked");            	
-                 
-            	VBox optionBox = new VBox(10);
-            	Button httpBtn = new Button();
-            	Button fileBrowserBtn = new Button();
-            		
-            	httpBtn.setPrefSize(150, 150);
-            	fileBrowserBtn.setPrefSize(150, 150);
-            		
-            	optionBox.getChildren().addAll(httpBtn,fileBrowserBtn);
-                  
-                 Scene loadExtWindow = new Scene(optionBox, 400, 400);
-                 loadExtWindow.setFill(Color.PINK);
-  
-                 Stage secondStage = new Stage();
-                 secondStage.setTitle("Second Stage");
-                 secondStage.setScene(loadExtWindow);
-                 secondStage.initStyle(StageStyle.UNDECORATED);
-                 
-                 secondStage.setX(loadExtBtn.getLayoutX() );
-                 secondStage.setY(loadExtBtn.getLayoutY() );
-   
-                 secondStage.show();	
+            	System.out.println("URL BUTTON CLICKED");
+            	
+            	
+            
+            }
+        });
+		
+		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+            	System.out.println("FILE BROWSER BUTTON CLICKED");
+            	
+            	
+            
             }
         });
 		
@@ -248,7 +246,6 @@ public class MainMenu {
             }
         });
 
-		
 		
 	}
 }
