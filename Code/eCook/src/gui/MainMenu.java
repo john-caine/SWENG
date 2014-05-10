@@ -1,3 +1,9 @@
+/*
+ * Programmer: Zayyad Tagwai & Roger Tan
+ * Date Created: 19/03/2014
+ * Makes Box conatining components of main menu upon opening the program 
+ */
+
 package gui;
 
 import java.io.FileInputStream;
@@ -45,15 +51,6 @@ public class MainMenu {
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
-		homeHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home1.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		homeIcon = new Image(inputStream);
-		
 		logoholder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/eCookLogo.png");
@@ -63,6 +60,14 @@ public class MainMenu {
 		} 
 		logoIcon = new Image(inputStream);
 		
+		homeHolder = new ImageView();
+		try {
+			inputStream = new FileInputStream("../Resources/home1.png");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		homeIcon = new Image(inputStream);
 		
 		closeBtnHolder = new ImageView();
 		try {
@@ -80,33 +85,74 @@ public class MainMenu {
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
-		homeHolder.setImage(homeIcon);
+		}
+		minimiseIcon = new Image(inputStream);
+		
+		
+		
+		//CLOSE
+	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            Node  source = (Node)  mouseEvent.getSource();
+         	Stage stage  = (Stage) source.getScene().getWindow();
+         	stage.close();
+            }
+        });
+		
+		//MINIMISE
+		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    public void handle(MouseEvent mouseEvent) {
+		    	Node  source = (Node)  mouseEvent.getSource();
+		    	Stage stage  = (Stage) source.getScene().getWindow(); 
+		    	stage.setIconified(true);
+		    }
+		});
+		
+		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            Node  source = (Node)  mouseEvent.getSource();
+         	Stage stage  = (Stage) source.getScene().getWindow();
+         	Group root = (Group) source.getScene().getRoot();
+         	root.getChildren().clear();
+         	root.getChildren().add(new MainMenu().bigBox);
+         	stage.show();
+            }
+        });
+         
 		logoholder.setImage(logoIcon);
 		minimiseBtnHolder.setImage(minimiseIcon);
 		closeBtnHolder.setImage(closeIcon);
+		homeHolder.setImage(homeIcon);
 		
-		bigBox = new VBox();
-		topBox = new HBox();
-		topBoxRight = new HBox();
-		topBoxLeft = new HBox();
-		midBox = new HBox();
-		bottomBox = new HBox(40);
-		bottomBox.setPadding(new Insets(0, 45, 0, 40));
+        topBox = new HBox();
+        topBoxLeft = new HBox();
+        topBoxRight = new HBox();
 		
-		
-		bigBox.setPrefSize(width, height);
-		bigBox.setMaxSize(width, height);
 		topBoxRight.setPrefSize(width/2, height*0.1);
 		topBoxRight.setAlignment(Pos.TOP_RIGHT);
 		topBoxLeft.setPrefSize(width/2, height*0.1);
 		topBoxLeft.setAlignment(Pos.TOP_LEFT);
+		
+		topBoxLeft.getChildren().add(homeHolder);
+		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
+		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
+		
+		
+		
+		bigBox = new VBox();
+		midBox = new HBox();
+		bottomBox = new HBox(40);
+		bottomBox.setPadding(new Insets(0, 45, 0, 40));
+		
+		bigBox.setPrefSize(width, height);
+		bigBox.setMaxSize(width, height);
+
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height * 0.3);
+		
+		
 		//TOP: Logo Pane and calendar thing using HBOX
-		topBoxRight.getChildren().addAll(closeBtnHolder,minimiseBtnHolder);
-		topBoxLeft.getChildren().add(homeHolder);
-		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
+
 		
 		
 		
@@ -145,7 +191,7 @@ public class MainMenu {
 		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
 
 		FadeTransition fadeTransition 
-         = new FadeTransition(Duration.millis(3000), bigBox);
+         = new FadeTransition(Duration.millis(500), bigBox);
 		 fadeTransition.setFromValue(0.0);
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
@@ -181,15 +227,14 @@ public class MainMenu {
 		
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Generate Shopping List Clicked");
+                
                 bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
-                	
+                new generateShoppingListScreen(bigBox, height, width);
             }
         });
 		
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Ingredient Pick Clicked");
                 bigBox.getChildren().clear();
 //                new IngredientPickerScreen(bigBox, height, width);
                 new IngredientsScreen(bigBox, height, width);
@@ -198,43 +243,12 @@ public class MainMenu {
 		
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Recipes Clicked");
                 bigBox.getChildren().clear();
                 new RecipeScreen(bigBox, height, width);
             }
         });
+
 		
-		System.out.println("topSize: H" + topBox.getPrefHeight() + " W: " + topBox.getPrefWidth() );
-		System.out.println("midSize: H" + midBox.getPrefHeight() + " W: " + midBox.getPrefWidth() );
-		System.out.println("bottomSize: H" + bottomBox.getPrefHeight() + " W: " + bottomBox.getPrefWidth() );
 		
-		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	Group root = (Group) source.getScene().getRoot();
-         	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
-         	stage.show();
-            }
-        });
-		
-		//CLOSE
-	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	stage.close();
-            }
-        });
-		
-//		MINIMISE
-		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent mouseEvent) {
-		    	Node  source = (Node)  mouseEvent.getSource();
-		    	Stage stage  = (Stage) source.getScene().getWindow(); 
-		    	stage.setIconified(true);
-		    }
-		});
 	}
 }

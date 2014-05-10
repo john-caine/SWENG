@@ -1,6 +1,6 @@
 /*
  * Programmer: Zayyad Tagwai
- * Date Created: 05/05/2014
+ * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
 
@@ -17,8 +17,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,17 +24,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
-public class RecipeScreen {
+public class generateShoppingListScreen {
 	InputStream inputStream;
-	String recipeInfo;
-	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
-	HBox topBox, topBoxLeft, topBoxRight;
+	ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
+	Image homeIcon, closeIcon, minimiseIcon;	
+	String shoppingListPreviewText;
+	HBox topBox, topBoxRight, topBoxLeft;
 	
-	
-	public RecipeScreen(final VBox bigBox, final double height, final double width){
-		
+	public generateShoppingListScreen(VBox bigBox, double height, double width) {
 		homeHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/home1.png");
@@ -114,83 +109,42 @@ public class RecipeScreen {
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
 		
 		
-		
+         
 		VBox leftBox = new VBox();
-		VBox midBox = new VBox(20);
+		VBox midBox = new VBox(40);
+		HBox midBoxBottom = new HBox(20);
 		VBox rightBox = new VBox();
-
 		
-		leftBox.setPrefSize(width*0.2, height - topBox.getPrefHeight());
-		midBox.setPrefSize(width*0.6,  height - topBox.getPrefHeight());
+		
+		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
+		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight());
 		midBox.setPadding(new Insets(40,0,10,0));
-		rightBox.setPrefSize(width*0.2,  height - topBox.getPrefHeight());
-		
+		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
 	
-
+		Label shoppingListPreviewLabel = new Label();
+		shoppingListPreviewLabel.setWrapText(true);
+		shoppingListPreviewLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
+		shoppingListPreviewText = "Shopping list preview goes here shopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes here";
+		shoppingListPreviewLabel.setText(shoppingListPreviewText);
 		
-		ScrollPane recipeList = new ScrollPane(); //recipeList is the scroll panel
-		recipeList.setStyle("-fx-background: lightgrey;");
-		recipeList.setMinSize(midBox.getPrefWidth() , midBox.getPrefHeight()*0.5);
-		recipeList.setHbarPolicy(ScrollBarPolicy.NEVER);
-		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		
-		VBox listContent = new VBox(10);  //content of the scroll panel
-		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
-		recipeList.setContent(listContent);
+		shoppingListPreviewLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
 		
 		
-		
-		Label testLabel = new Label("Test"); 
-		testLabel.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
-	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
-		testLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			public void handle(MouseEvent event) {
-				System.out.println("Label CLicked");
-				bigBox.getChildren().clear();
-				new IngredientsScreen(bigBox, height, width);
-			}
-			
-		});
-		listContent.getChildren().add(testLabel);
-		
-		
-		for (int i = 0; i < 50; i++)
-		{
-		    Label tempList = new Label("Label " + i); //tempList = temporary list; recipes that make up the content
-		    
-		    tempList.setMinSize(midBox.getPrefWidth(), midBox.getPrefHeight()/4.5);
-		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
-		    
-		    listContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
-		    recipeList.setPrefHeight(100);
-		    listContent.getChildren().add(tempList);
-	
-		    
-		}
-		
-		Label recipeInfoLabel = new Label();
-		recipeInfoLabel.setWrapText(true);
-		recipeInfoLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
-		recipeInfo ="Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here";
-		recipeInfoLabel.setText(recipeInfo);
-		
-		recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3);
-		
-		
-		Button playSlideBtn = new Button("How to Prepare");
-		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		Button saveBtn = new Button("Save");
+		Button printBtn = new Button("Print");
+		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		midBox.setAlignment(Pos.CENTER);
-		midBox.getChildren().addAll(recipeList,recipeInfoLabel, playSlideBtn);
-		
+		midBoxBottom.setAlignment(Pos.CENTER);
+		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
+		midBox.getChildren().addAll(shoppingListPreviewLabel, midBoxBottom);
 		
 		
 		
 		HBox horizontalBox = new HBox();
 		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
 		bigBox.getChildren().addAll(topBox,horizontalBox);
-
+	
 	}
-	 
+
 }
