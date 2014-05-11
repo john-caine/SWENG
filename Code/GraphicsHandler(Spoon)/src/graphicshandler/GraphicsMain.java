@@ -17,9 +17,9 @@ public class GraphicsMain extends Application {
 //        Canvas canvas = new Canvas(300,250);
 //        GraphicsContext gc = canvas.getGraphicsContext2D();
 //        drawShapes(gc);
-        GraphicsHandler graphicsHandler =  new GraphicsHandler(6, 90, 90, "#F0F8FF", 2, 5, null, "#FFFF00", null);
+        GraphicsHandler graphicsHandler =  new GraphicsHandler(12, 150, 150, null, 2, null, null, "#7FFFD4", null);
         root.getChildren().add(graphicsHandler.graphicsBox);
-        stage.setScene(new Scene(root));
+        stage.setScene(new Scene(root, Color.BLACK));
         stage.show();
 }
 

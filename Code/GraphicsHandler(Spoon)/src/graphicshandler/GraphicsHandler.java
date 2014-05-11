@@ -1,5 +1,7 @@
 package graphicshandler;
 
+import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
@@ -10,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 
 public class GraphicsHandler {
 	
@@ -19,6 +22,8 @@ public class GraphicsHandler {
 	private Integer duration;
 	private Integer startTime;
 	protected Integer branchID;
+	double[] xCoordinates;
+	double[] yCoordinates;
 
 	public GraphicsHandler(int totalPoints, int width, int height, String fillColour, Integer startTime, Integer duration,
 						   Integer layer, String lineColour, Integer branch){
@@ -29,7 +34,7 @@ public class GraphicsHandler {
 		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);
-		canvas = new Canvas(300, 250);
+		canvas = new Canvas(width, height);
 		graphicsContext = canvas.getGraphicsContext2D();
 		
 		if (startTime == null) {
@@ -67,35 +72,10 @@ public class GraphicsHandler {
 			graphicsContext.setLineWidth(5);
 			graphicsContext.strokeLine(50, 50, 100, 100);
 		}
-		//Triangle
-		else if(totalPoints == 3){
-			graphicsContext.strokePolygon(new double[]{50, 75, 25},
-	                   new double[]{20, 60, 60}, 3);
-			graphicsContext.fillPolygon(new double[]{50, 75, 25},
-	                   new double[]{20, 60, 60}, 3);
-		}
-		//Rectangle
-		else if(totalPoints == 4){
-			graphicsContext.strokePolygon(new double[]{50, 50 + width, 50 + width, 50},
-	                   new double[]{50, 50, 50 + height, 50 + height }, 4);
-			graphicsContext.fillPolygon(new double[]{50, 50 + width, 50 + width, 50},
-	                   new double[]{50, 50, 50 + height, 50 + height }, 4);
-		}
-		//Pentagon
-		else if(totalPoints == 5){
-			graphicsContext.strokePolygon(new double[]{50, 50 + width/2, 50 + width/4, 50 - width/4, 50 - width/2},
-	                   new double[]{50, 50 + height/2, 50 + height, 50 + height, 50 + height/2}, 5);
-			graphicsContext.fillPolygon(new double[]{50, 50 + width/2, 50 + width/4, 50 - width/4, 50 - width/2},
-	                   new double[]{50, 50 + height/2, 50 + height, 50 + height, 50 + height/2}, 5);
-			
-		}
-		//Hexagon
-		else if(totalPoints == 6){
-			graphicsContext.strokePolygon(new double[]{50, 50 + width/2, 50 + 3* width/4, 50 + width/2, 50, 50 - width/4 },
-	                   new double[]{50, 50, 50 + height/2, 50 + height, 50 + height, 50 + height/2}, 6);
-			graphicsContext.fillPolygon(new double[]{50, 50 + width/2, 50 + 3* width/4, 50 + width/2, 50, 50 - width/4 },
-	                   new double[]{50, 50, 50 + height/2, 50 + height, 50 + height, 50 + height/2}, 6);
-			
+		//Shapes with 3 or more sided
+		else if(totalPoints >= 3){
+//			graphicsContext.strokePolyline(new double[]{50,100,50,50}, new double[]{50,100,100,50}, 4);
+			drawShapes(totalPoints, graphicsContext, width, height);
 		}
 		graphicsBox.getChildren().add(canvas);
 	}
@@ -148,4 +128,15 @@ public class GraphicsHandler {
 //			}
 //		});
 //	 }
+	private void drawShapes(int totalPoints, GraphicsContext graphicsContext, int width, int height){
+		
+		xCoordinates = new double[totalPoints];
+		yCoordinates = new double[totalPoints];
+		for (int i = 0; i < totalPoints; i++){
+			xCoordinates [i] = (int)(width/2 + width/2 * Math.cos(i * 2 * Math.PI / totalPoints));
+			yCoordinates [i] = (int)(height/2 + height/2 * Math.sin(i * 2 * Math.PI / totalPoints));
+		}
+		graphicsContext.strokePolygon(xCoordinates, yCoordinates, totalPoints);
+		graphicsContext.fillPolygon(xCoordinates,yCoordinates, totalPoints);
+	}
 }
