@@ -13,12 +13,12 @@ import org.junit.Test;
 
 public class MainMenuTest {
 	
-	MainMenu mainMenu;
+	MainMenuContent mainMenu;
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
 	public void setUp() throws Exception {
-		mainMenu = new MainMenu();
+		mainMenu = new MainMenuContent();
 	}
 
 	@Test

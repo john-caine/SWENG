@@ -86,7 +86,7 @@ public class generateShoppingListScreen {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
+         	root.getChildren().add(new MainMenuContent().bigBox);
          	stage.show();
             }
         });

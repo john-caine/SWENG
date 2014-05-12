@@ -3,6 +3,7 @@ package graphicshandler;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import eCook.SlideShow;
 import xmlparser.Point;
 import xmlparser.Shape;
 import xmlparser.TextString;
@@ -23,6 +24,7 @@ public class GraphicsHandler {
 	private GraphicsContext graphicsContext;
 	private Integer duration;
 	private Integer startTime;
+	private SlideShow parent;
 	protected Integer branchID;
 	double[] xCoordinates;
 	double[] yCoordinates;
@@ -30,12 +32,13 @@ public class GraphicsHandler {
 	private Point point;
 
 
-	public GraphicsHandler(int totalPoints, int width, int height, String fillColour, Integer startTime, Integer duration,
-						   Integer layer, String lineColour, Integer branch, List<Point> points){
+	public GraphicsHandler(SlideShow parent, int totalPoints, int width, int height, Integer startTime, Integer duration,
+						   Integer layer,  String fillColour, String lineColour, Integer branch, List<Point> points){
 		
 		this.duration = duration; 
 		this.startTime = startTime;
 		this.branchID = branch;
+		this.parent = parent;
 		this.pointsList = points;
 		
 		graphicsBox = new HBox();
@@ -105,8 +108,8 @@ public class GraphicsHandler {
 						}
 					});	 
 				 
-//					if (branchID != null && branchID != 0)
-//						doBranch();
+					if (branchID != null && branchID != 0)
+						doBranch();
 					if (duration != null && duration != 0)
 						new Thread(durationTimerThread).start();
 				 
@@ -132,14 +135,15 @@ public class GraphicsHandler {
 		};
 		 
 
-//	 private void doBranch() {
-//		 graphicsBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
-//		{
-//			public void handle(MouseEvent e) {
-//				parent.newSlide(branchID, true, null);
-//			}
-//		});
-//	 }
+	 private void doBranch() {
+		 graphicsBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
+		{
+			public void handle(MouseEvent e) {
+				parent.newSlide(branchID, true, null);
+			}
+		});
+	 }
+	 
 	private void drawShapes(int totalPoints, GraphicsContext graphicsContext, int width, int height){
 		
 		xCoordinates = new double[totalPoints];

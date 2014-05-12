@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import audiohandler.AudioHandler;
+import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
@@ -110,16 +111,16 @@ public class SlideShow {
 		List<Image> images;
 		List<TextBody> text;
 		List<Audio> audio;
-		//List<Graphic> graphics;
+		List<Shape> graphics;
 		List<Video> videos;
 		
 		Pane layer;
 		ArrayList<Pane> layers;
 		
 		
-		int imageCount, textCount, audioCount, videoCount; //, graphicCount;
+		int imageCount, textCount, audioCount, videoCount, graphicCount;
 		int fontSize;
-		String fontColor, font; //, lineColor, fillColor;
+		String fontColor, font, lineColor, fillColor;
 		
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
@@ -153,14 +154,14 @@ public class SlideShow {
 		text = slide.getContent().getTexts();
 		audio = slide.getContent().getAudios();
 		videos = slide.getContent().getVideos();
-		//graphics = slide.getContent.getGraphics();
+		graphics = slide.getContent().getShapes();
 		
 		// Get how many objects of each type are required
 		imageCount = images.size();
 		textCount = text.size();
 		audioCount = audio.size();
 		videoCount = videos.size();
-		//graphicCount = graphics.size();
+		graphicCount = graphics.size();
 		
 	
 		//Get number of layers to be used on slide
@@ -256,29 +257,29 @@ public class SlideShow {
 		}
 		
 		// Call the GraphicHandler for each graphic object
-//		if (graphicCount != 0){
-//			for(int i = 0; i < graphicCount; i++){
-//				
-//				// Retrieve any defaults that have been set
-//				if (graphics.get(i).getLineColor() == null) 
-//					lineColor = recipe.getDefaults().getLineColor();
-//				else 
-//					lineColor = graphics.get(i).getLineColor();
-//				
-//				if (graphics.get(i).getFillColor() == null)
-//					fillColor = recipe.getDefaults().getFillColor();
-//				else
-//					fillColor = graphics.get(i).getFillColor();
-//			
-//			
-//				GraphicHandler graphic1 = new GraphicHandler(this, graphics.get(i).getTotalPoints(), 
-//												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
-//												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
-//												graphics.get(i).getLayer(), fillColor, lineColor,
-//												graphics.get(i).getBranch(), graphics.get(i).getPoints());
-//				slideRoot.getChildren().add(graphic1.box);
-//			}
-//		}
+		if (graphicCount != 0){
+			for(int i = 0; i < graphicCount; i++){
+				
+				// Retrieve any defaults that have been set
+				if (graphics.get(i).getLineColor() == null) 
+					lineColor = recipe.getDefaults().getLineColor();
+				else 
+					lineColor = graphics.get(i).getLineColor();
+				
+				if (graphics.get(i).getFillColor() == null)
+					fillColor = recipe.getDefaults().getFillColor();
+				else
+					fillColor = graphics.get(i).getFillColor();
+			
+			
+				GraphicsHandler graphic1 = new GraphicsHandler(this, graphics.get(i).getTotalPoints(), 
+												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
+												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
+												graphics.get(i).getLayer(), fillColor, lineColor,
+												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+				slideRoot.getChildren().add(graphic1.graphicsBox);
+			}
+		}
 		
 		
     	

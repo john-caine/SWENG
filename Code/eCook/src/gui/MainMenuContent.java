@@ -32,7 +32,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MainMenu {
+public class MainMenuContent {
 	
 	Rectangle2D screenBounds;
 	double width;
@@ -43,10 +43,10 @@ public class MainMenu {
 	InputStream inputStream;
 	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
 	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
-	VBox bigBox;
+	public VBox bigBox;
 	Label blank;
 	
-	public MainMenu() {
+	public MainMenuContent() {
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
@@ -114,7 +114,7 @@ public class MainMenu {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
+         	root.getChildren().add(new MainMenuContent().bigBox);
          	stage.show();
             }
         });
