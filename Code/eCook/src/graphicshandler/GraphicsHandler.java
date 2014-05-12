@@ -1,7 +1,11 @@
 package graphicshandler;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import xmlparser.Point;
+import xmlparser.Shape;
+import xmlparser.TextString;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -22,13 +26,17 @@ public class GraphicsHandler {
 	protected Integer branchID;
 	double[] xCoordinates;
 	double[] yCoordinates;
+	private List<Point> pointsList;
+	private Point point;
+
 
 	public GraphicsHandler(int totalPoints, int width, int height, String fillColour, Integer startTime, Integer duration,
-						   Integer layer, String lineColour, Integer branch){
+						   Integer layer, String lineColour, Integer branch, List<Point> points){
 		
 		this.duration = duration; 
 		this.startTime = startTime;
 		this.branchID = branch;
+		this.pointsList = points;
 		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);
@@ -59,24 +67,30 @@ public class GraphicsHandler {
 			graphicsContext.setStroke(Color.web(lineColour));
 		}
 		
-		//Draw the appropriate shapes
-		//Circle
-		if(totalPoints == 1){
-			graphicsContext.fillOval(50, 50, width, height);
-			graphicsContext.strokeOval(50, 50, width, height);
+		
+		for (int i = 0 ; i < pointsList.size(); i++){
+			point = pointsList.get(i);
+			graphicsContext.strokePolyline(new double[]{point.getX()}, new double[]{point.getY()}, 1);
 		}
-		//Line
-		else if(totalPoints == 2){
-			graphicsContext.setLineWidth(5);
-			graphicsContext.strokeLine(50, 50, 100, 100);
-		}
-		//Shapes with 3 or more sided
-		else if(totalPoints >= 3){
-//			graphicsContext.strokePolyline(new double[]{50,100,50,50}, new double[]{50,100,100,50}, 4);
-			drawShapes(totalPoints, graphicsContext, width, height);
-		}
-		graphicsBox.getChildren().add(canvas);
 	}
+//		//Draw the appropriate shapes
+//		//Circle
+//		if(totalPoints == 1){
+//			graphicsContext.fillOval(50, 50, width, height);
+//			graphicsContext.strokeOval(50, 50, width, height);
+//		}
+//		//Line
+//		else if(totalPoints == 2){
+//			graphicsContext.setLineWidth(5);
+//			graphicsContext.strokeLine(50, 50, 100, 100);
+//		}
+//		//Shapes with 3 or more sided
+//		else if(totalPoints >= 3){
+////			graphicsContext.strokePolyline(new double[]{50,100,50,50}, new double[]{50,100,100,50}, 4);
+//			drawShapes(totalPoints, graphicsContext, width, height);
+//		}
+//		graphicsBox.getChildren().add(canvas);
+//	}
 	
 	// Thread waits until count = startTime then sets the visibility of the image to true.
 		 Task<Object> startTimerThread = new Task<Object>() {
