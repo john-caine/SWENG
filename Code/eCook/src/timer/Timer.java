@@ -1,5 +1,6 @@
 package timer;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -59,6 +62,9 @@ public class Timer extends Task<Object>{
 	private TextField textField;
 
 
+	private FileInputStream inputStream;
+
+
 	
 	
 
@@ -80,7 +86,10 @@ public class Timer extends Task<Object>{
 		listBox = new HBox();
 		
 		textField = new TextField(timerLabel);
-		startButton = new Button("Start");
+		inputStream = new FileInputStream("../Resources/play.png");
+		Image playImage = new Image(inputStream);
+		System.out.println("Got Image");
+		startButton = new Button("Start", new ImageView(playImage));
 		startButton.setPrefWidth(50);
 		resetTimer = new Button("Reset");
 		buttonBox = new HBox();

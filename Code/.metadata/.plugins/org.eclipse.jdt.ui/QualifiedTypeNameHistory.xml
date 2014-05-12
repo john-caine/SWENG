@@ -15,9 +15,6 @@
 <fullyQualifiedTypeName name="javafx.stage.Screen"/>
 <fullyQualifiedTypeName name="javafx.geometry.Rectangle2D"/>
 <fullyQualifiedTypeName name="javafx.scene.Scene"/>
-<fullyQualifiedTypeName name="javafx.scene.layout.HBox"/>
-<fullyQualifiedTypeName name="org.junit.Before"/>
-<fullyQualifiedTypeName name="javafx.scene.input.MouseEvent"/>
 <fullyQualifiedTypeName name="javafx.scene.control.ScrollPane"/>
 <fullyQualifiedTypeName name="javafx.scene.control.ScrollBar"/>
 <fullyQualifiedTypeName name="javax.swing.text.html.ListView"/>
@@ -31,4 +28,11 @@
 <fullyQualifiedTypeName name="javafx.scene.control.Button"/>
 <fullyQualifiedTypeName name="javafx.concurrent.WorkerStateEvent"/>
 <fullyQualifiedTypeName name="javafx.scene.layout.VBox"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.HBox"/>
+<fullyQualifiedTypeName name="javafx.scene.control.TextField"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="timer.TimerData"/>
+<fullyQualifiedTypeName name="javafx.scene.input.MouseEvent"/>
+<fullyQualifiedTypeName name="javafx.scene.image.Image"/>
+<fullyQualifiedTypeName name="javafx.scene.image.ImageView"/>
 </qualifiedTypeNameHistroy>
