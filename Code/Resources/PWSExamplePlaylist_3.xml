@@ -12,8 +12,9 @@
 		<backgroundcolor>#00FF00</backgroundcolor>
 		<font>Times New Roman</font>
 		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
 		<fontcolor>#0000FF</fontcolor>
-		<fillcolor>#FF0000</fillcolor> 
+		<fillcolor>#FF0000</fillcolor>
 	</defaults>
 	<ingredients>
 		<ingredient name="onion" amount="700" units="grams" />
@@ -58,7 +59,7 @@
 			<point num="3" x="25" y="25"/>
 			<point num="4" x="10" y="25"/>
 		</shape>
-		<shape totalpoints="1" width="10" height="10" fillcolor="" linecolor="">
+		<shape totalpoints="1" width="10" height="10" fillcolor="#9400D3" linecolor="#000000">
 			<point num="1" x="100" y="100"/>
 		</shape>
 		<shape totalpoints="2" width="2" height="2" starttime="15" duration="15" layer="1">

@@ -43,9 +43,51 @@ public class GraphicsHandler {
 		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);
-		canvas = new Canvas(500, 250);
+		canvas = new Canvas(400, 400);
 		graphicsContext = canvas.getGraphicsContext2D();
 		
+		//Set the fill colour
+		graphicsContext.setFill(Color.web(fillColour));
+		
+		//Set the line colour
+		graphicsContext.setStroke(Color.web(lineColour));
+		
+		//Circle
+		if(totalPoints == 1){
+			point = pointsList.get(0);
+			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
+			graphicsContext.strokeOval(point.getX(), point.getY(), width, height);
+		}
+		//Line
+		else if(totalPoints == 2){
+			xCoordinates = new double[pointsList.size()];
+			yCoordinates = new double[pointsList.size()];
+			
+			for(int i = 0 ;  i < pointsList.size(); i++){
+				point = pointsList.get(i);
+				xCoordinates [i] = point.getX();
+				yCoordinates [i] = point.getY();
+			}
+			
+			graphicsContext.setLineWidth(2);
+			graphicsContext.strokeLine(xCoordinates [0], xCoordinates [0], yCoordinates [1], yCoordinates [1]);
+		}
+		//Anything else
+		else{
+			xCoordinates = new double[pointsList.size()];
+			yCoordinates = new double[pointsList.size()];
+		
+			for (int i = 0 ; i < pointsList.size(); i++){
+				point = pointsList.get(i);
+				xCoordinates [i] = point.getX();
+				//System.out.println(xCoordinates[i]);
+				yCoordinates [i] = point.getY();
+				//System.out.println(yCoordinates[i]);
+			}
+			graphicsContext.strokePolygon(xCoordinates, yCoordinates, pointsList.size());
+			graphicsContext.fillPolygon(xCoordinates, yCoordinates, pointsList.size());
+		}
+		graphicsBox.getChildren().add(canvas);
 		if (startTime == null) {
         	this.startTime = 0;
         	new Thread(startTimerThread).start();
@@ -53,79 +95,7 @@ public class GraphicsHandler {
 	    else{ 
 	        new Thread(startTimerThread).start();
 		}
-		
-		//Set the fill colour
-		if(fillColour == null){
-			graphicsContext.setFill(Color.WHITE);
-		}
-		else{
-			graphicsContext.setFill(Color.WHITE);
-			//graphicsContext.setFill(Color.web(fillColour));
-		}
-		
-		//Set the line colour
-		if(lineColour == null){
-			graphicsContext.setStroke(Color.BLACK);
-		}
-		else{
-			graphicsContext.setStroke(Color.BLACK);
-			//graphicsContext.setStroke(Color.web(lineColour));
-		}
-		
-		//Circle
-		if(totalPoints == 1){
-			point = pointsList.get(0);
-			graphicsContext.fillOval(50, 50, 100, 100);
-			graphicsContext.strokeOval(50, 50, 100, 100);
-			System.out.println("X value" + point.getX());
-			System.out.println("Y value" + point.getY());
-		}
-//		else if(totalPoints == 2){
-//			xCoordinates = new double[pointsList.size()];
-//			yCoordinates = new double[pointsList.size()];
-//			
-//			for(int i = 0 ;  i < pointsList.size(); i++){
-//				point = pointsList.get(i);
-//				xCoordinates [i] = point.getX();
-//				yCoordinates [i] = point.getY();
-//			}
-//			
-//			graphicsContext.setLineWidth(5);
-//			graphicsContext.strokeLine(xCoordinates [0], xCoordinates [0], yCoordinates [1], yCoordinates [1]);
-//		}
-//		else{
-//		xCoordinates = new double[pointsList.size()];
-//		yCoordinates = new double[pointsList.size()];
-//		
-//			for (int i = 0 ; i < pointsList.size(); i++){
-//				point = pointsList.get(i);
-//				xCoordinates [i] = point.getX();
-//				//System.out.println(xCoordinates[i]);
-//				yCoordinates [i] = point.getY();
-//				//System.out.println(yCoordinates[i]);
-//			}
-//		graphicsContext.strokePolygon(xCoordinates, yCoordinates, pointsList.size());
-//		}
-		graphicsBox.getChildren().add(canvas);
 	}
-		//Draw the appropriate shapes
-//		//Circle
-//		if(totalPoints == 1){
-//			graphicsContext.fillOval(50, 50, width, height);
-//			graphicsContext.strokeOval(50, 50, width, height);
-//		}
-//		//Line
-//		else if(totalPoints == 2){
-//			graphicsContext.setLineWidth(5);
-//			graphicsContext.strokeLine(50, 50, 100, 100);
-//		}
-//		//Shapes with 3 or more sided
-//		else if(totalPoints >= 3){
-////			graphicsContext.strokePolyline(new double[]{50,100,50,50}, new double[]{50,100,100,50}, 4);
-//			drawShapes(totalPoints, graphicsContext, width, height);
-//		}
-//		graphicsBox.getChildren().add(canvas);
-//	}
 	
 	// Thread waits until count = startTime then sets the visibility of the image to true.
 		 Task<Object> startTimerThread = new Task<Object>() {

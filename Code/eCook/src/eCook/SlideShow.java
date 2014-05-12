@@ -292,7 +292,12 @@ public class SlideShow {
 												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
 												graphics.get(i).getLayer(), fillColor, lineColor,
 												graphics.get(i).getBranch(), graphics.get(i).getPoints());
-				slideRoot.getChildren().add(graphic1.graphicsBox);
+				
+				Integer graphicsLayer = graphics.get(i).getLayer();
+				if (graphicsLayer == null){
+					graphicsLayer = 0;
+				}
+				layers.get(graphicsLayer).getChildren().add(graphic1.graphicsBox);
 			}
 		}
 		
