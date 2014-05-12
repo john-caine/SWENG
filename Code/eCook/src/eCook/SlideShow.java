@@ -9,11 +9,14 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -54,13 +58,21 @@ public class SlideShow {
 	private Defaults defaults;
 	private Integer maxLayer;
 	private Stage stage;
-	private ArrayList<AudioHandler> audioHandlerList;
+
 	private Button createTimer;
 	private Timer timer;
 	private HBox timerHbox;
+	private HBox buttonBox;
 	
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
+	private SlideMenuBarService slideMenuService;
+	private Button pauseSlide;
+	private ArrayList<TextHandler> textHandlerList;
+	private ArrayList<ImageHandler> imageHandlerList;
+	private ArrayList<AudioHandler> audioHandlerList;
+	private ArrayList<VideoPlayerHandler> videoHandlerList;
+	//private ArrayList<GraphicsHandler> graphicsHandlerList;
 	
 
 	
@@ -128,6 +140,7 @@ public class SlideShow {
 		
 		
 		
+		
 		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
 		//if (slideID == -1 || slideID >= numOfSlides)
 			// TODO exit  to  main menu somehow???
@@ -189,7 +202,7 @@ public class SlideShow {
 												images.get(i).getYStart(), images.get(i).getWidth(),
 												images.get(i).getHeight(), images.get(i).getStartTime(), 
 												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
-				
+				imageHandlerList.add(image1);
 				Integer imageLayer = images.get(i).getLayer();
 				if (imageLayer == null){
 					imageLayer = 0;
@@ -198,6 +211,7 @@ public class SlideShow {
 			}
 		}
 		
+		textHandlerList = new ArrayList<TextHandler>();
 		// Call the TextHanlder for each text object
 		if (textCount != 0){
 			for(int i = 0; i < textCount; i++){
@@ -223,6 +237,8 @@ public class SlideShow {
 											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
 											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
 											text.get(i).getLayer(), null, null);
+				
+				textHandlerList.add(text1);
 				
 				Integer textLayer = text.get(i).getLayer();
 				if (textLayer == null){
@@ -251,7 +267,7 @@ public class SlideShow {
 												videos.get(i).getYStart(), videos.get(i).getWidth(),
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
-												/*videos.get(i).getLayer()*/
+				videoHandlerList.add(video1);								
 				layers.get(0).getChildren().add(video1.mediaControl.box);
 			}
 		}
@@ -285,22 +301,74 @@ public class SlideShow {
 		
 		
     	// Create the buttons for the slide.
-	    HBox buttonBox = new HBox();
+	    buttonBox = new HBox();
 	    SlideButton();
-	    buttonBox.getChildren().add(previousSlide);
-        buttonBox.getChildren().add(exitSlide1);
-        buttonBox.getChildren().add(nextSlide);
-        buttonBox.getChildren().add(createTimer);
+        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
        
         // Put the buttons in the bottom centre of the slide
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
         buttonBox.setLayoutY(screenBounds.getHeight()-200);
+        buttonBox.setOpacity(0);
 	    slideRoot.getChildren().addAll(layers);
+	    
+	
 	    
 	    // Add the buttons to the slide
         slideRoot.getChildren().add(buttonBox);
+        
+        //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
+        slideMenuService = new SlideMenuBarService();
+        
+        slideMenuService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+
+			@Override
+			public void handle(WorkerStateEvent arg0) {
+				//Hide the slide Menu Bar
+				buttonBox.setOpacity(0);
+				slideMenuService.reset();
+			}
+        	
+        });
+        
+        slideScene.setOnMouseMoved( new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(slideMenuService.isRunning() == false){
+					//Make the slide menu bar visible
+					buttonBox.setOpacity(1);
+					slideMenuService.start();
+				}
+			}
+			
+		});
+        
+        //When the mouse enters the buttonBox stop slideMenuService from setting the opacity to 0
+	    buttonBox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				slideMenuService.cancel();
+				slideMenuService.reset();
+				
+			}
+	    	
+	    });
+	    
+	    //When mouse exits the buttonBox restart slideMenuService to set the opacity 0 after 3 seconds
+	    buttonBox.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				slideMenuService.cancel();
+				slideMenuService.restart();
+				
+			}
+	    	
+	    });
         
         timerHbox = new HBox();
         slideRoot.getChildren().add(timerHbox);
@@ -434,6 +502,11 @@ public class SlideShow {
         previousSlide.setPrefHeight(40);
         previousSlide.setTextAlignment(TextAlignment.CENTER);
         
+        pauseSlide = new Button("Pause Slide");
+        pauseSlide.setPrefWidth(80);
+        pauseSlide.setPrefHeight(40);
+        pauseSlide.setTextAlignment(TextAlignment.CENTER);
+        
         createTimer = new Button("Add Timer");
         createTimer.setPrefWidth(80);
         createTimer.setPrefHeight(40);
@@ -524,8 +597,33 @@ public class SlideShow {
 				
 				
 			}
-        	
+		
         });
+        
+        pauseSlide.setOnAction( new EventHandler<ActionEvent>(){
+
+			private boolean paused;
+
+			@Override
+			public void handle(ActionEvent event) {
+				if(paused == false){
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).pause();
+					}
+					pauseSlide.setText("Resume");
+					paused = true;
+				}
+				else{
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).resume();
+					}
+					pauseSlide.setText("Pause");
+					paused = false;
+				}
+				
+			}
+			
+		});
         // Right and left buttons not working exactly as expected, something to do with the methods called
         // Same issues exist with buttons 
 //		slideScene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {  
@@ -559,4 +657,7 @@ public class SlideShow {
 		    }
 		});
 	}
+	
+	
+		 
 }

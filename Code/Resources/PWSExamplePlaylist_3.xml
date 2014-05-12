@@ -24,7 +24,7 @@
 		<ingredient name="beef stock" amount="2" units="pints" />
 	</ingredients>
 	<slide ID="0" duration="60" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10" duration="40"> 
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="true" bold="true" italic="true">
         <textstring>This is a test of required attributes</textstring>
       </textbody>
@@ -34,7 +34,7 @@
         <textstring>This is a test of optional font attributes</textstring>
       </textbody>
 		</text>
-		<text xstart="10" ystart="200" xend="1000" yend="400" starttime="10" duration="40" layer="2">
+		<text xstart="10" ystart="200" xend="1000" yend="400" starttime="10" duration="10" layer="2">
       <textbody>
         <textstring>This is a test of timing attributes</textstring>
       </textbody>

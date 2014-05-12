@@ -10,11 +10,16 @@ package texthandler;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import eCook.SlideShow;
 import xmlparser.TextBody;
 import xmlparser.TextString;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +30,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 
 public class TextHandler {
 	
@@ -38,6 +44,9 @@ public class TextHandler {
 	private Integer branchID;
 	private List<TextString> stringList;
 	private TextString textString;
+	private Timeline timeLineStart;
+	private Timeline timeLineDuration;
+	private final Integer runDuration;
 	
 	/*
 	 * Text Handler Constructor. Creates a TextFlow object using all PWS required and optional attributes
@@ -52,6 +61,7 @@ public class TextHandler {
 		 this.duration = duration;
 		 this.branchID = branchID;
 		 this.parent = parent;
+		 this.runDuration = duration;
 		 
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (x_end == null){
@@ -127,14 +137,65 @@ public class TextHandler {
 		//Sets the XY position of textBox
 		setStartXY(x_start, y_start, textBox);
 		 
-		//Begin the start Timer thread
-		if (startTime == null) {
-			this.startTime = 0;
-			new Thread(startTimerThread).start();
+		
+		timeLineStart = new Timeline();
+		
+		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				showText();	
+				
+				if(runDuration != null)
+				timeLineDuration.playFromStart();
+			}	
+		});
+		
+		timeLineDuration = new Timeline();
+		
+		timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				System.out.println("Removing text");
+				removeText();
+			}
+		});
+		
+		
+		createKeyFrame();
+		
+		if(startTime != null){
+			System.out.println("Starttime timeline running");
+			timeLineStart.setCycleCount(this.startTime);
+			if(this.duration == null){
+				this.duration = 0;
+			}
+			timeLineDuration.setCycleCount(this.duration);
+			timeLineStart.playFromStart();
 		}
-		else
+		else if(duration != null){
+		 showText();
+		 System.out.println("Duration timeline running");
+		 timeLineDuration.setCycleCount(this.duration);
+		 timeLineDuration.playFromStart();
+		}
+		else{
+		showText();
+		}
+		
+		
+		
+	
+		
+		//Begin the start Timer thread
+		//if (startTime == null) {
+			//this.startTime = 0;
+			//new Thread(startTimerThread).start();
+		//}
+		//else
 			
-		new Thread(startTimerThread).start();
+		//new Thread(startTimerThread).start();
 	};
 	
 	// Set the XY Layout of the TextFlow box
@@ -146,13 +207,25 @@ public class TextHandler {
 	
 	// Set the visibility of textBox to true
 	public void showText() {
-	     textBox.setVisible(true);
+		
+		Platform.runLater( new Runnable(){
+			public void run(){
+				 textBox.setVisible(true);
+			}
+		});
+	    
 	     
 	 }
 	
 	//Set the visibility of textBox to false
 	 public void removeText() {
-		 textBox.setVisible(false);
+		 
+		 Platform.runLater( new Runnable(){
+				public void run(){
+					textBox.setVisible(false);
+				}
+			});
+		 
 	 }
 	// Thread waits until count = startTime then sets the visibility of the image to true.
 	 Task<Object> startTimerThread = new Task<Object>() {
@@ -162,11 +235,7 @@ public class TextHandler {
 				//Task waits for number of seconds equal to startTime
 				TimeUnit.SECONDS.sleep(startTime);
 			 
-			Platform.runLater( new Runnable(){
-				public void run(){
-					showText();
-				}
-			});	 
+			
 			 
 			 if (branchID != null && branchID != 0)
 				 doBranch();
@@ -196,6 +265,7 @@ public class TextHandler {
 					return null;
 				}
 			 };
+	
 	 // When textBox is clicked on, a new branch slide is created with an id of branchID
 	 private void doBranch() {
 		 textBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
@@ -205,6 +275,37 @@ public class TextHandler {
 			}
 		});
 	 }
+	 
+	 private void createKeyFrame(){
+			
+			timeLineStart.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
+				@Override
+				public void handle(ActionEvent event) {
+					startTime--;	
+				}
+			} ));
+			
+			timeLineDuration.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){	
+				@Override
+				public void handle(ActionEvent event) {
+					duration--;
+					
+				}
+			} ));	
+	}
+	 
+	 public void pause(){
+		 timeLineStart.pause();
+		 timeLineDuration.pause();
+	 }
+	 
+	 public void resume(){
+		 if(textBox.isVisible() == true){
+			 timeLineDuration.play();
+		 }else{
+			 timeLineStart.play();
+		 System.out.println(timeLineDuration.getCycleCount());
+		 }
+	 }
 	
-
 }
