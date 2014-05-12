@@ -271,7 +271,6 @@ public class SlideShow {
 				else
 					fillColor = graphics.get(i).getFillColor();
 			
-			
 				GraphicsHandler graphic1 = new GraphicsHandler(this, graphics.get(i).getTotalPoints(), 
 												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
 												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 

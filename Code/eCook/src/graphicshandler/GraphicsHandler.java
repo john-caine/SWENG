@@ -59,7 +59,8 @@ public class GraphicsHandler {
 			graphicsContext.setFill(Color.WHITE);
 		}
 		else{
-			graphicsContext.setFill(Color.web(fillColour));
+			graphicsContext.setFill(Color.WHITE);
+			//graphicsContext.setFill(Color.web(fillColour));
 		}
 		
 		//Set the line colour
@@ -67,16 +68,47 @@ public class GraphicsHandler {
 			graphicsContext.setStroke(Color.BLACK);
 		}
 		else{
-			graphicsContext.setStroke(Color.web(lineColour));
+			graphicsContext.setStroke(Color.BLACK);
+			//graphicsContext.setStroke(Color.web(lineColour));
 		}
 		
-		
-		for (int i = 0 ; i < pointsList.size(); i++){
-			point = pointsList.get(i);
-			graphicsContext.strokePolyline(new double[]{point.getX()}, new double[]{point.getY()}, 1);
+		//Circle
+		if(totalPoints == 1){
+			point = pointsList.get(0);
+			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
+			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
+			System.out.println("X value" + point.getX());
+			System.out.println("Y value" + point.getY());
 		}
+//		else if(totalPoints == 2){
+//			xCoordinates = new double[pointsList.size()];
+//			yCoordinates = new double[pointsList.size()];
+//			
+//			for(int i = 0 ;  i < pointsList.size(); i++){
+//				point = pointsList.get(i);
+//				xCoordinates [i] = point.getX();
+//				yCoordinates [i] = point.getY();
+//			}
+//			
+//			graphicsContext.setLineWidth(5);
+//			graphicsContext.strokeLine(xCoordinates [0], xCoordinates [0], yCoordinates [1], yCoordinates [1]);
+//		}
+//		else{
+//		xCoordinates = new double[pointsList.size()];
+//		yCoordinates = new double[pointsList.size()];
+//		
+//			for (int i = 0 ; i < pointsList.size(); i++){
+//				point = pointsList.get(i);
+//				xCoordinates [i] = point.getX();
+//				//System.out.println(xCoordinates[i]);
+//				yCoordinates [i] = point.getY();
+//				//System.out.println(yCoordinates[i]);
+//			}
+//		graphicsContext.strokePolygon(xCoordinates, yCoordinates, pointsList.size());
+//		}
+		graphicsBox.getChildren().add(canvas);
 	}
-//		//Draw the appropriate shapes
+		//Draw the appropriate shapes
 //		//Circle
 //		if(totalPoints == 1){
 //			graphicsContext.fillOval(50, 50, width, height);
