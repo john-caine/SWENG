@@ -9,29 +9,47 @@ import xmlparser.Info;
  * 
  * Description: Class to validate contents of .xml file according to requirements
  * 
- * Version History: v1.1 (07/05/14) - Added class to determine if the version is correct 
+ * Version History: v0.1 (07/05/14) - Added class to determine if the version is correct 
+ * 					v0.2 (
  */
+import xmlparser.XMLReader;
 
 public class xmlValidator {
 	private Double versionRequired;
+	private XMLReader reader;
 	
 	/*
-	 * Constructor sets the desired xml version
+	 * Constructor sets the desired xml version and reads in inputFile
 	 */
-	public xmlValidator() {
+	public xmlValidator(String inputFile) {
 		versionRequired = 1.1;
+		reader = new XMLReader(inputFile);
 	}
+	
 	/*
-	 * Function to determine if the xml version held within Info object is correct
+	 * Function to determine if the xml version held within xml file
 	 */
-	public boolean isXMLVersionCorrect(Info xmlInformation) {
-		System.out.println(xmlInformation.getVersion());
+	public boolean isXMLVersionCorrect() {
 		// If the difference between the xml version and the required version is less than 0.05 it's (hopefully!) the correct version
-		if(Math.abs(Double.parseDouble(xmlInformation.getVersion()) - versionRequired) < 0.05) {
+		if(Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionRequired) < 0.05) {
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
+	
+	/*
+	 * Function to determine if xml file is broken
+	 */
+	public boolean isXMLBroken() {
+		return reader.isBroken();
+	}
+	
+	/*
+	 * Function to return String containing error message
+	 */
+	public String getErrorMsg() {
+		return reader.getErrorMsg();
 	}
 }

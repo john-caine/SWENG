@@ -1,6 +1,6 @@
 /* Title: XMLReader
  * 
- * Programmers: Ankita, Max, James, Sam
+ * Programmers: Ankita, Max, James, Sam, Prakruti
  * 
  * Date Created: 14/02/14
  * 
@@ -20,6 +20,7 @@
  * 					v2.21 (06/04/14) - Re-added functionality to store lineColor in Defaults class
  * 									 - Modified creation of Point objects and how these are added to Shape objects.
  * 					v2.3  (30/04/14) - Added ingredients reading section
+ * 					v2.4  (12/05/14) - Added advanced error reporting functionality (see isBroken() and getErrorMsg())
  * 
  */
 
@@ -68,6 +69,10 @@ public class XMLReader extends DefaultHandler {
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
 	private ProcessingElement slideElement = ProcessingElement.NONE;
 	private ProcessingElement textElement = ProcessingElement.NONE;
+	
+	// Error handling variables
+	private Boolean xmlIsBroken = false;
+	private String xmlReadError = null;
 
 	public XMLReader(String inputFile) {
 		readXMLFile(inputFile);
@@ -88,13 +93,36 @@ public class XMLReader extends DefaultHandler {
 			SAXParser saxParser = factory.newSAXParser();
 			// parse the input
 			saxParser.parse(inputFile, this);
+			xmlIsBroken = false;
 		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
+			// pce.printStackTrace();
+			xmlReadError = "Error: Critical error reading slideshow file.";
+			xmlIsBroken = true;
 		} catch (SAXException saxe) {
-			saxe.printStackTrace();
+			// saxe.printStackTrace();
+			xmlReadError = "Error: File could not be read; errors exist in XML.";
+			xmlIsBroken = true;
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			// ioe.printStackTrace();
+			xmlReadError = "Error: File could not be read; it could be corrupt or damaged.";
+			xmlIsBroken = true;
 		}
+	}
+	
+	/*
+	 * James and Prakruti
+	 * Returns a boolean saying whether the xml file contains errors
+	 */
+	public boolean isBroken() {
+		return xmlIsBroken;
+	}
+	/*
+	 * James and Prakruti
+	 * Returns a String explaining error with the xml file
+	 * 
+	 */
+	public String getErrorMsg() {
+		return xmlReadError;
 	}
 
 	// called by the parser when it encounters any start element tag

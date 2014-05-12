@@ -18,11 +18,9 @@ import xmlparser.XMLReader;
 
 public class xmlValidatorTest {
 	private xmlValidator xmlValidationInfo;
-	private XMLReader reader;
 	
 	@Before
 	public void setUp() throws Exception {
-		xmlValidationInfo = new xmlValidator();
 	}
 	
 	/*
@@ -30,9 +28,25 @@ public class xmlValidatorTest {
 	 */
 	@Test
 	public void isXMLVersionCorrect() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
-		assertEquals(true, xmlValidationInfo.isXMLVersionCorrect(reader.getInfo()));
-		reader = new XMLReader("../Resources/InvalidVersionPlaylist.xml");
-		assertEquals(false, xmlValidationInfo.isXMLVersionCorrect(reader.getInfo()));
+		xmlValidationInfo = new xmlValidator("../Resources/PWSExamplePlaylist_3.xml");
+		assertEquals(true, xmlValidationInfo.isXMLVersionCorrect());
+		xmlValidationInfo = new xmlValidator("../Resources/InvalidVersionPlaylist.xml");
+		assertEquals(false, xmlValidationInfo.isXMLVersionCorrect());
+	}
+	
+	/*
+	 * Test to check that an invalid syntax XML file (broken) reports a meaningful error message
+	 */
+	@Test
+	public void isXMLFileBroken() throws Exception {
+		xmlValidationInfo = new xmlValidator("../Resources/TEST_BrokenInvalidVersionPlaylist.xml");
+		assertEquals(true, xmlValidationInfo.isXMLBroken());
+		if (xmlValidationInfo.isXMLBroken()) {
+			// Write the actual error string to the console, not actually important
+			// Important part is that it has picked up the only error we can test for currently
+			// (syntax errors)
+			// Other possible errors are within SAX parser and corrupt files
+			System.out.println(xmlValidationInfo.getErrorMsg());
+		}
 	}
 }
