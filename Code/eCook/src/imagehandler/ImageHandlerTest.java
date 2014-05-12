@@ -2,6 +2,8 @@ package imagehandler;
 
 import static org.junit.Assert.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.junit.Before;
 import org.junit.Test;
 import eCook.SlideShow;
@@ -10,9 +12,10 @@ import xmlparser.XMLReader;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
+import java.awt.Event;
 import java.awt.AWTException;
 import java.awt.Button;
 import java.awt.Robot;
@@ -25,6 +28,7 @@ public class ImageHandlerTest {
 	private SlideShow parent;
 	private XMLReader reader;
 	private List<Image> images;
+	private Robot bot;
 		
 		@Before 
 		public void SetUp() {
@@ -43,7 +47,7 @@ public class ImageHandlerTest {
 		 	GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
 		 	try {
 		 		//TODO get Robot() class working without throwing AWTException
-		 		Robot bot = new Robot();
+		 		bot = new Robot();
 		 	}
 		 	catch (AWTException e) {
 		 		e.printStackTrace();
@@ -78,8 +82,15 @@ public class ImageHandlerTest {
 		@Test
 		public void imageCanBranch() {
 			if(image_object.branchID != null) {
-				double xValue = image_object.box.getLayoutX();
-				double yValue = image_object.box.getLayoutY();
+				int xValue = (int) image_object.box.getLayoutX();
+				int yValue = (int) image_object.box.getLayoutY();
+				
+				bot.mouseMove(xValue, yValue);
+				bot.mousePress(1);
+				bot.mouseRelease(1);
+				
+				AtomicBoolean hasCalled = new AtomicBoolean();
+				hasCalled.get();
 				
 				//TODO find way to simulate clicking mouse on image
 			}
