@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai
+ * Programmer: Zayyad Tagwai  & Roger Tan
  * Date Created: 05/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
