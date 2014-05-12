@@ -144,6 +144,7 @@ public class MainMenuContent {
 		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
+		bottomBox.setAlignment(Pos.CENTER);
 		
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
