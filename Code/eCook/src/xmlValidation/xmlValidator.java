@@ -1,4 +1,6 @@
-package xmlValidator;
+package xmlValidation;
+
+import xmlparser.Info;
 /* Title: XMLValidation
  * 
  * Programmers: James, Prakruti
@@ -9,15 +11,14 @@ package xmlValidator;
  * 
  * Version History: v1.1 (07/05/14) - Added class to determine if the version is correct 
  */
-import xmlparser.Info;
 
-public class XMLValidator {
+public class xmlValidator {
 	private Double versionRequired;
 	
 	/*
 	 * Constructor sets the desired xml version
 	 */
-	public XMLValidator() {
+	public xmlValidator() {
 		versionRequired = 1.1;
 	}
 	/*

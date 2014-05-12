@@ -1,4 +1,4 @@
-package xmlValidator;
+package xmlValidation;
 /* Title: XMLValidation
  * 
  * Programmers: James, Prakruti
@@ -13,15 +13,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import xmlparser.XMLReader;
 
-public class XMLValidatorTest {
-	private XMLValidator xmlValidationInfo;
+public class xmlValidatorTest {
+	private xmlValidator xmlValidationInfo;
 	private XMLReader reader;
 	
 	@Before
 	public void setUp() throws Exception {
-		xmlValidationInfo = new XMLValidator();
+		xmlValidationInfo = new xmlValidator();
 	}
 	
 	/*
