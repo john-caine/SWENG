@@ -43,7 +43,7 @@ public class GraphicsHandler {
 		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);
-		canvas = new Canvas(width, height);
+		canvas = new Canvas(500, 250);
 		graphicsContext = canvas.getGraphicsContext2D();
 		
 		if (startTime == null) {
@@ -75,8 +75,8 @@ public class GraphicsHandler {
 		//Circle
 		if(totalPoints == 1){
 			point = pointsList.get(0);
-			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
-			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
+			graphicsContext.fillOval(50, 50, 100, 100);
+			graphicsContext.strokeOval(50, 50, 100, 100);
 			System.out.println("X value" + point.getX());
 			System.out.println("Y value" + point.getY());
 		}

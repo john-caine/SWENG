@@ -165,7 +165,7 @@ public class SlideShow {
 		
 	
 		//Get number of layers to be used on slide
-		maxLayer = getMaxLayer(images, text, audio, videos);
+		maxLayer = getMaxLayer(images, text, audio, videos, graphics);
 		
 		//Array list to store layers created for slide content
 		layers = new ArrayList<Pane>();
@@ -342,7 +342,7 @@ public class SlideShow {
 	 * Gets the highest layer assigned to content on the slide
 	 */
 	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
-			List<Audio> audio, List<Video> videos) {
+			List<Audio> audio, List<Video> videos, List<Shape> graphics) {
 		
 		Integer totalLayers = 0;
 		Integer layer;
@@ -400,9 +400,9 @@ public class SlideShow {
 						
 		}
 		
-	/*	for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
+		for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
 			
-			layer = graphics.get(currentGraphics).getLayer()
+			layer = graphics.get(currentGraphics).getLayer();
 			if(layer == null){
 				layer = 0;
 			}
@@ -410,8 +410,7 @@ public class SlideShow {
 					totalLayers = layer;
 			}
 						
-		}*/
-		
+		}
 		return totalLayers;
 		
 		

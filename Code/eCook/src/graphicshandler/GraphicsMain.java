@@ -18,7 +18,7 @@ public class GraphicsMain extends Application {
 	public void start(Stage stage) throws Exception {
 		SlideShow parent;
 		List<Point> points;
-		
+
 		stage.setTitle("Drawing Operations Test");
         Group root = new Group();
         GraphicsHandler graphicsHandler =  new GraphicsHandler(1, 10, 10, 0, 2, 0, null, null, null,);

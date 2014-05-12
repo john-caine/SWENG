@@ -9,7 +9,7 @@
 		<height>800</height>
 	</documentinfo>
 	<defaults>
-		<backgroundcolor>#00FF00</backgroundcolor>
+		<backgroundcolor>#FFFFFF</backgroundcolor>
 		<font>Times New Roman</font>
 		<fontsize>24</fontsize>
 		<fontcolor>#0000FF</fontcolor>
