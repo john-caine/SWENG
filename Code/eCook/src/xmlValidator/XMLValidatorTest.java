@@ -1,4 +1,4 @@
-package xmlValidation;
+package xmlValidator;
 /* Title: XMLValidation
  * 
  * Programmers: James, Prakruti
