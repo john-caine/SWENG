@@ -179,7 +179,7 @@ public class RecipeScreen {
 		recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3);
 		
 		
-		Button playSlideBtn = new Button("How to Prepare");
+		Button playSlideBtn = new Button("Play");
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().addAll(recipeList,recipeInfoLabel, playSlideBtn);
