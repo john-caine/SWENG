@@ -226,7 +226,6 @@ public class MainMenuContent {
 		
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                
                 bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
                 new generateShoppingListScreen(bigBox, height, width);
             }
