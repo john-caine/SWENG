@@ -9,6 +9,8 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
@@ -367,6 +369,9 @@ public class SlideShow {
 			}
 	    	
 	    });
+	    
+	    // Create a new notes panel each time new Slide is called.
+	    NotesGUI notesPanel = new NotesGUI(currentSlideID, slideRoot);
         
         timerHbox = new HBox();
         slideRoot.getChildren().add(timerHbox);
@@ -384,17 +389,11 @@ public class SlideShow {
 				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 					
 					@Override
-					public void handle(WorkerStateEvent event) {
-								
-								timerHbox.getChildren().add(continueTimer.getPane());
-		
+					public void handle(WorkerStateEvent event) {		
+						timerHbox.getChildren().add(continueTimer.getPane());
 					}
 				});
 				new Thread(continueTimer).start();
-				
-				
-					
-					
 				}
         }
         
