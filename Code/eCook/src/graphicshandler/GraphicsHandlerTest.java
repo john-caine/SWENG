@@ -1,3 +1,8 @@
+/*
+ * Programmer: Zayyad Tagwai & Roger Tan
+ * Date Created: 09/05/2014
+ * Junit Test for Graphics Handler 
+ */
 package graphicshandler;
 
 import static org.junit.Assert.*;
@@ -35,7 +40,7 @@ public class GraphicsHandlerTest {
 	//Read XML playlist and create a new graphics object based on the first graphics found
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
 		shapeList = reader.getRecipe().getSlide(1).getContent().getShapes();
 		graphicsHandler = new GraphicsHandler(parent, shapeList.get(0).getTotalPoints(), shapeList.get(0).getWidth(),
 											  shapeList.get(0).getHeight(), shapeList.get(0).getStartTime(), 
@@ -52,13 +57,22 @@ public class GraphicsHandlerTest {
 	@Test
 	public void hboxInstanceOfCanvas() {
 		assertTrue(graphicsHandler.graphicsBox.getChildren().get(0) instanceof Canvas);
+		
+		/* Add the Canvas to GrapicsContext2D */
 		Canvas canvas  = (Canvas) graphicsHandler.graphicsBox.getChildren().get(0);
 		graphicsContext = canvas.getGraphicsContext2D();
+		
+		/* Test that the HBox containing the Canvas is visible */
+		assertTrue(canvas.isVisible());
+		
 		/* Test Fill Colour */
 		assertEquals("0xffffffff", graphicsContext.getFill().toString());
 		/* Test line Colour */
 		assertEquals("0x000000ff", graphicsContext.getStroke().toString());
-		//assertTrue(graphicsContext. instanceof Polygon);
+		
+		/* Visual Inspection of the Shapes have to be done as there is no method to retrieve the location
+		 * of the GraphicsContext. 
+		 */
 		
 	}
 }

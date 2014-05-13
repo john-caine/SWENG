@@ -54,7 +54,7 @@
 		<shape totalpoints="1" width="10" height="10" fillcolor="#9400D3" linecolor="#000000">
 			<point num="1" x="100" y="100"/>
 		</shape>
-		<shape totalpoints="2" width="2" height="2" starttime="15" duration="15" layer="1">
+		<shape totalpoints="2" width="2" height="2" starttime="5" duration="5" layer="1" fillcolor="#9400D3" linecolor="#000000">
 			<point num="1" x="150" y="150"/>
 			<point num="2" x="250" y="250"/>
 		</shape>
