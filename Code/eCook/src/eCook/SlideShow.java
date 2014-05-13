@@ -29,6 +29,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
@@ -68,6 +69,8 @@ public class SlideShow {
 	private ArrayList<AudioHandler> audioHandlerList;
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	//private ArrayList<GraphicsHandler> graphicsHandlerList;
+	
+	private VBox notesPanel;
 	
 
 	
@@ -370,9 +373,14 @@ public class SlideShow {
 	    	
 	    });
 	    
-	    // Create a new notes panel each time new Slide is called.
-	    NotesGUI notesPanel = new NotesGUI(currentSlideID, slideRoot);
+	    // Create a notes panel each time new Slide is called.
+	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
+	    notesPanel = notesGUI.getNotesPanel();
+	    slideRoot.getChildren().add(notesPanel);
+	    notesPanel.setLayoutX(-Screen.getPrimary().getVisualBounds().getWidth()/5);
+		notesPanel.setLayoutY(0);		
         
+		// Add timers
         timerHbox = new HBox();
         slideRoot.getChildren().add(timerHbox);
         timerList = new ArrayList<Timer>();

@@ -25,7 +25,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.util.Duration;
@@ -41,7 +40,6 @@ public class NotesGUI {
 	// constructor
 	public NotesGUI(Integer slideID, Group root) {
 		setupNotesPanel(slideID, root);
-		System.out.println("new notes panel created");
 	}
 	
 	// method to return the notesPanel VBox object
@@ -139,26 +137,22 @@ public class NotesGUI {
             	Point mousePosition = MouseInfo.getPointerInfo().getLocation();           	
             	// if the mouse is on the far LHS of the screen, show the notes panel
             	if (mousePosition.getX() <= 10) {
-            		if (!root.getChildren().contains(getNotesPanel())) {
-            			root.getChildren().add(notesPanel);
-            			notesPanel.setLayoutX(-primaryScreenBounds.getWidth()/5);
-            			notesPanel.setLayoutY(0);
-                        //StackPane.setMargin(notesPanel, new Insets(0, primaryScreenBounds.getWidth(), 0, -primaryScreenBounds.getWidth()/5));
-                        notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
-                        
-                        // search for pre-made notes
-                        String existingNotes = handler.readTextFile(slideID + "_notes.txt");
-                        // if notes have been made for this slide, stop loading and display them in the textarea
-                        if (existingNotes != null) {
-                        	notesBox.setText(existingNotes);
-                        	notesPanel.getChildren().removeAll(searching, pinwheel, timersLabel);
-                        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
-                        }
-                        else {
-                        	notesPanel.getChildren().removeAll(searching, pinwheel, timersLabel);
-                        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
-                        }
-            		}
+            		// add the mouselistener
+                    notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
+                    
+                    // search for pre-made notes
+                    String existingNotes = handler.readTextFile(slideID.toString() + "_notes.txt");
+                    // if notes have been made for this slide, stop loading and display them in the textarea
+                    if (existingNotes != null) {
+                    	notesBox.setText(existingNotes);
+                    	notesPanel.getChildren().clear();
+                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
+                    }
+                    // else show the empty notes panel
+                    else {
+                    	notesPanel.getChildren().clear();
+                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
+                    }
             		if (!notesPanelVisible) {
             			// show panel
             			final Timeline timeline = new Timeline();
