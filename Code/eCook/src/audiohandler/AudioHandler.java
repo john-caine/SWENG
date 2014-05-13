@@ -37,7 +37,7 @@ public class AudioHandler {
          mediaPlayer = new MediaPlayer(media);
         
         mediaControl = new AudioMediaControl(mediaPlayer, null /*height*/, null /*width*/, loop, startTime, duration);
-        setMediaPlayerLocation(mediaControl.box, 100, 100);
+        setMediaPlayerLocation(mediaControl.overallBox, 100, 100);
         
 //        if(parent.newSlide(parent.nextSlideID, false)) {
 //        	

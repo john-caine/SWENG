@@ -15,7 +15,7 @@ public class VideoPlayerHandler {
         final MediaPlayer mediaPlayer = new MediaPlayer(media);
         
         mediaControl = new VideoMediaControl(mediaPlayer, width, height, loop, startTime, duration);
-        setMediaPlayerLocation(mediaControl.box, xStart, yStart);
+        setMediaPlayerLocation(mediaControl.overallBox, xStart, yStart);
 	}
 	
 	public String retrieveVideo(String videoLocationPath) {	

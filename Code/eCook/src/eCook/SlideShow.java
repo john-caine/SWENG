@@ -9,14 +9,10 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,7 +27,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
@@ -58,12 +53,10 @@ public class SlideShow {
 	private Defaults defaults;
 	private Integer maxLayer;
 	private Stage stage;
-
 	private Button createTimer;
 	private Timer timer;
 	private HBox timerHbox;
 	private HBox buttonBox;
-	
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private SlideMenuBarService slideMenuService;
@@ -256,7 +249,7 @@ public class SlideShow {
 														audio.get(i).getDuration(), audio.get(i).getLoop());
 				
 				audioHandlerList.add(audio1);
-				layers.get(0).getChildren().add(audio1.mediaControl.box);
+				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
 			}
 		}
 		
@@ -268,7 +261,7 @@ public class SlideShow {
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
 				videoHandlerList.add(video1);								
-				layers.get(0).getChildren().add(video1.mediaControl.box);
+				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
 			}
 		}
 		
