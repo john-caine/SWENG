@@ -1,3 +1,8 @@
+/*
+ * Programmer: Zayyad Tagwai & Roger Tan
+ * Date Created: 09/05/2014
+ * Graphics Handler that draw shapes based on the XML playlist
+ */
 package graphicshandler;
 
 import java.util.List;
@@ -10,12 +15,14 @@ import xmlparser.TextString;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Screen;
 
 public class GraphicsHandler {
 	
@@ -41,9 +48,14 @@ public class GraphicsHandler {
 		this.parent = parent;
 		this.pointsList = points;
 		
+		//Get the size of the screen
+		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);
-		canvas = new Canvas(400, 400);
+		
+		//Set the size of the canvas to be the size of the screen
+		canvas = new Canvas(bounds.getWidth(), bounds.getHeight());
 		graphicsContext = canvas.getGraphicsContext2D();
 		
 		//Set the fill colour
@@ -58,36 +70,27 @@ public class GraphicsHandler {
 			graphicsContext.fillOval(point.getX(), point.getY(), width, height);
 			graphicsContext.strokeOval(point.getX(), point.getY(), width, height);
 		}
-		//Line
-		else if(totalPoints == 2){
-			xCoordinates = new double[pointsList.size()];
-			yCoordinates = new double[pointsList.size()];
-			
-			for(int i = 0 ;  i < pointsList.size(); i++){
-				point = pointsList.get(i);
-				xCoordinates [i] = point.getX();
-				yCoordinates [i] = point.getY();
-			}
-			
-			graphicsContext.setLineWidth(2);
-			graphicsContext.strokeLine(xCoordinates [0], xCoordinates [0], yCoordinates [1], yCoordinates [1]);
-		}
-		//Anything else
+		// 2 or more points shapes
 		else{
+			// Declare the size of X and Y coordinates Arrays based on the totalPoints
 			xCoordinates = new double[pointsList.size()];
 			yCoordinates = new double[pointsList.size()];
 		
 			for (int i = 0 ; i < pointsList.size(); i++){
+				//Retrieve the points in sequence
 				point = pointsList.get(i);
+				//Populate the appropriate array
 				xCoordinates [i] = point.getX();
-				//System.out.println(xCoordinates[i]);
 				yCoordinates [i] = point.getY();
-				//System.out.println(yCoordinates[i]);
 			}
+			//Draw the Shape based on the coordinates given
 			graphicsContext.strokePolygon(xCoordinates, yCoordinates, pointsList.size());
 			graphicsContext.fillPolygon(xCoordinates, yCoordinates, pointsList.size());
 		}
+		//Add the canvas into a HBox
 		graphicsBox.getChildren().add(canvas);
+		
+		//Start the startTimerThread
 		if (startTime == null) {
         	this.startTime = 0;
         	new Thread(startTimerThread).start();
@@ -146,15 +149,4 @@ public class GraphicsHandler {
 		});
 	 }
 	 
-	private void drawShapes(int totalPoints, GraphicsContext graphicsContext, int width, int height){
-		
-		xCoordinates = new double[totalPoints];
-		yCoordinates = new double[totalPoints];
-		for (int i = 0; i < totalPoints; i++){
-			xCoordinates [i] = (int)(width/2 + width/2 * Math.cos(i * 2 * Math.PI / totalPoints));
-			yCoordinates [i] = (int)(height/2 + height/2 * Math.sin(i * 2 * Math.PI / totalPoints));
-		}
-		graphicsContext.strokePolygon(xCoordinates, yCoordinates, totalPoints);
-		graphicsContext.fillPolygon(xCoordinates,yCoordinates, totalPoints);
-	}
 }
