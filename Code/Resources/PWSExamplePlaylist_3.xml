@@ -24,7 +24,7 @@
 		<ingredient name="granulated sugar" amount="0.5" units="teaspoon" />
 		<ingredient name="beef stock" amount="2" units="pints" />
 	</ingredients>
-	<slide ID="0" duration="60" lastSlide="false">
+	<slide ID="0" duration="10" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="true" bold="true" italic="true">
         <textstring>This is a test of required attributes</textstring>
@@ -52,7 +52,7 @@
       </textbody>
     </text>
 	</slide>
-	<slide ID="1" duration="30" lastSlide="false">
+	<slide ID="1" lastSlide="false">
 		<shape totalpoints="4" width="15" height="15">
 			<point num="1" x="10" y="10"/>
 			<point num="2" x="25" y="10"/>

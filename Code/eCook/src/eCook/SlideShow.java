@@ -9,10 +9,13 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -33,6 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import texthandler.TextHandler;
 import timer.Timer;
 import timer.TimerData;
@@ -49,18 +53,18 @@ public class SlideShow {
 	private Recipe recipe;
 	private Slide slide;
 	private Defaults defaults;
-	private Integer maxLayer;
+	private Integer maxLayer, duration;
 	private Timer timer;
 	private HBox timerHbox, buttonBox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
-	private SlideMenuBarService slideMenuService;
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<AudioHandler> audioHandlerList;
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	private ArrayList<GraphicsHandler> graphicsHandlerList;
 	private VBox notesPanel;
+	private Timeline timeLineDuration;
 	
 	
 
@@ -150,6 +154,7 @@ public class SlideShow {
 		}
 		
 		slide = recipe.getSlide(slideID);
+		duration = slide.getDuration();
 		
 		// Get arrays containing the required objects
 		images = slide.getContent().getImages();
@@ -344,6 +349,33 @@ public class SlideShow {
 				new Thread(continueTimer).start();
 				}
         }
+        
+      //Create duration timeline
+      	timeLineDuration = new Timeline();
+      		
+      		//When duration timeline has finished remove the text. 
+      	timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event) {
+				for(int h = 0; h < audioHandlerList.size(); h++){		
+            		audioHandlerList.get(h).stopAudio();
+            	}
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){          		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 	 
+            	}
+            	newSlide(nextSlideID, false, timerValues);
+            	event.consume();
+			}
+      	});
+      	
+      	createKeyFrame();
+      	
+      	if(duration != null){
+      		timeLineDuration.setCycleCount(this.duration);
+      		timeLineDuration.playFromStart();
+      	}
        
         // Show the new set of objects on the slide
 	    slideRoot.setVisible(true);  
@@ -467,11 +499,6 @@ public class SlideShow {
             	new MainMenu(stage);
             	
             	//newSlide(nextSlideID, false, timerValues);
-            	event.consume();
-            	
-            	
-            	
-            	
             }
         });      
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
@@ -479,6 +506,7 @@ public class SlideShow {
 
 			@Override
             public void handle(ActionEvent event) {
+				
             	for(int h = 0; h < audioHandlerList.size(); h++){
             		
             		audioHandlerList.get(h).stopAudio();
@@ -487,10 +515,8 @@ public class SlideShow {
             	for(int g = 0; g<timerList.size(); g++){
             		
             		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues()); 
-            		 
-            	}
-            	
+            		 timerValues.add(timerList.get(g).getTimerValues());            		 
+            	}            	
             	newSlide(nextSlideID, false, timerValues);
             	event.consume();
             }
@@ -501,22 +527,16 @@ public class SlideShow {
             public void handle(ActionEvent event) {
             	
             	timerValues = new ArrayList<TimerData>();
-            	for(int g = 0; g<timerList.size(); g++){
-            		
+            	for(int g = 0; g<timerList.size(); g++){            		
             		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues()); 
-            		 
+            		 timerValues.add(timerList.get(g).getTimerValues());             		 
             	}
             	newSlide(prevSlideID, false, timerValues);
-            	event.consume();
-            	
+            	event.consume();          	
             }
         });
         
         createTimer.setOnAction(new EventHandler<ActionEvent>() {
-
-			
-
 			@Override
 			public void handle(ActionEvent arg0) {
 				 timer = new Timer(null, null, null, null);
@@ -529,27 +549,22 @@ public class SlideShow {
 						
 						Platform.runLater( new Runnable(){
 							public void run(){
-								timerHbox.getChildren().add(timer.getPane());
-								
+								timerHbox.getChildren().add(timer.getPane());								
 							}
-						});	 			
-						
+						});	 									
 					}
 				});
-				new Thread(timer).start();
-				
-				
-			}
-		
+				new Thread(timer).start();				
+			}		
         });
         
         pauseSlide.setOnAction( new EventHandler<ActionEvent>(){
-
 			private boolean paused;
-
 			@Override
+			//Pause all content on the slide
 			public void handle(ActionEvent event) {
 				if(paused == false){
+					timeLineDuration.pause();
 					for(int r = 0; r < textHandlerList.size(); r++){
 						textHandlerList.get(r).pause();
 					}
@@ -568,7 +583,9 @@ public class SlideShow {
 					pauseSlide.setText("Resume");
 					paused = true;
 				}
+				//Resume all content on the slide
 				else{
+					timeLineDuration.play();
 					for(int r = 0; r < textHandlerList.size(); r++){
 						textHandlerList.get(r).resume();
 					}
@@ -586,10 +603,8 @@ public class SlideShow {
 					}
 					pauseSlide.setText("Pause");
 					paused = false;
-				}
-				
-			}
-			
+				}				
+			}			
 		});
         // Right and left buttons not working exactly as expected, something to do with the methods called
         // Same issues exist with buttons 
@@ -625,6 +640,12 @@ public class SlideShow {
 		});
 	}
 	
-	
-		 
+	 private void createKeyFrame(){
+			timeLineDuration.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){	
+				@Override
+				public void handle(ActionEvent event) {
+					duration--;	
+				}
+			} ));	
+	}	 
 }
