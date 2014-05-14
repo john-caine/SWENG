@@ -18,18 +18,25 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class MainMenuContent {
@@ -46,11 +53,13 @@ public class MainMenuContent {
 	public VBox bigBox;
 	Label blank;
 	
-	public MainMenuContent() {
+	public MainMenuContent(final Stage stage) {
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
+		
+		//Imports eCook logo, home, close and minimise button icons
 		logoholder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/eCookLogo.png");
@@ -90,7 +99,8 @@ public class MainMenuContent {
 		
 		
 		
-		//CLOSE
+		//Sets the event to happen when the close icon is clicked
+		//Gets the node before closing the stage
 	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -99,7 +109,8 @@ public class MainMenuContent {
             }
         });
 		
-		//MINIMISE
+	    //Sets the event to happen when the minimise icon is clicked
+	    //Gets the node before closing the stage
 		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
 		    	Node  source = (Node)  mouseEvent.getSource();
@@ -108,13 +119,15 @@ public class MainMenuContent {
 		    }
 		});
 		
+		//Sets the event to happen when the home icon is clicked
+		//Gets the node before closing the stage
 		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent().bigBox);
+         	root.getChildren().add(new MainMenuContent(stage).bigBox);
          	stage.show();
             }
         });
@@ -124,6 +137,7 @@ public class MainMenuContent {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
 	
+		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -140,7 +154,7 @@ public class MainMenuContent {
 		
 		
 		bigBox = new VBox();
-		final StackPane overlay = new StackPane();
+		//final StackPane overlay = new StackPane();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
@@ -152,23 +166,15 @@ public class MainMenuContent {
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height * 0.3);
 		
-
-		
 		
 		//MID: Button Panel using HBOX
 		
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().add(logoholder);
-		MenuButton loadExtBtn = new MenuButton("Load External Recipe");
-		
-		MenuItem fileBrowserBtn;
-		MenuItem urlBtn;
-		loadExtBtn.getItems().addAll(urlBtn = new MenuItem("HTTP://"),fileBrowserBtn = new MenuItem("File Browser"));
-		
+		Button loadExtBtn = new Button("Load External Recipe");
 		Button generateListBtn = new Button("Generate Shopping List");
 		Button ingredientsPickBtn = new Button("Ingredient Picker");
 		Button recipesBtn= new Button("Recipes");
-		
 		
 		
 		//BUTTON LAYOUT
@@ -193,9 +199,9 @@ public class MainMenuContent {
 		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(recipesBtn);
 		
-		overlay.getChildren().addAll(bottomBox);
-		overlay.setPrefSize(width, height * 0.3);
-		bigBox.getChildren().addAll(topBox,midBox,overlay);
+//		overlay.getChildren().addAll(bottomBox);
+//		overlay.setPrefSize(width, height * 0.3);
+		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
 
 		FadeTransition fadeTransition 
          = new FadeTransition(Duration.millis(500), bigBox);
@@ -205,28 +211,86 @@ public class MainMenuContent {
 		 
 		 
 		
-		//BUTTON ACTIONS
-		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-            	System.out.println("URL BUTTON CLICKED");
-            	
-            	
-            
-            }
-        });
+		 //BUTTON ACTIONS
+		 //Making the Load External Recipe button make a new window that takes the focus off the main stage
+		 //When any of the options are chosen, the new window closes
+		 //New window allows for closing using the ESC button
+		 loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
+	            public void handle(ActionEvent event) {
+	            	final Stage dialog = new Stage();
+	                dialog.initModality(Modality.APPLICATION_MODAL);
+	                dialog.initStyle(StageStyle.UNDECORATED);
+	                dialog.initOwner(stage);
+	                
+	                
+	                Button urlBtn = new Button("HTTP://");
+	                Button fileBrowserBtn = new Button("Browse...");
+	                urlBtn.setPrefSize(230,250);
+	                fileBrowserBtn.setPrefSize(230,250);
+	                VBox loadExtBox = new VBox(20);
+	                HBox topBox = new HBox();
+	                HBox midBox = new HBox(10); 
+	                topBox.setAlignment(Pos.TOP_RIGHT);
+	                
+	        		ImageView loadExtWinCloseBtnHolder = new ImageView();
+	        		try {
+	        			inputStream = new FileInputStream("../Resources/redx.png");
+	        		} catch (FileNotFoundException e1) {
+	        			// TODO Auto-generated catch block
+	        			e1.printStackTrace();
+	        		} 
+	        		Image closeIcon = new Image(inputStream);
+	        		loadExtWinCloseBtnHolder.setImage(closeIcon);
+	                topBox.getChildren().add(loadExtWinCloseBtnHolder);
+	                midBox.getChildren().addAll(urlBtn,fileBrowserBtn);
+	                midBox.setAlignment(Pos.CENTER);
+	                loadExtBox.getChildren().addAll(topBox,midBox);
+	                loadExtBox.setStyle("-fx-background-color: lightgrey");
+	                Scene dialogScene = new Scene(loadExtBox, 500, 300);
+	                dialogScene.fillProperty().set(Color.BLUE);
+	                dialog.setScene(dialogScene);
+	                dialog.show();
+	                
+	                
+	        		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
+	        			public void handle(ActionEvent event) {
+	            	
+	        				System.out.println("URL BUTTON CLICKED");
+	        				dialog.close();
+	        			}
+	        		});
+	  		
+	        		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
+	        			public void handle(ActionEvent event) {
+	        				
+	        				System.out.println("FILE BROWSER BUTTON CLICKED");
+	        				dialog.close();
+	        			}
+	        		});
+	        		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	                    public void handle(MouseEvent mouseEvent) {
+	                    Node  source = (Node)  mouseEvent.getSource();
+	                 	Stage dialog= (Stage) source.getScene().getWindow();
+	                 	dialog.close();
+	                    }
+	                });
+	        		
+	        		dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+	        		        public void handle(KeyEvent t) {
+	        		          if(t.getCode()==KeyCode.ESCAPE)
+	        		          {
+	        		        	  dialog.close();
+	        		          }
+	        		        }
+	        		    });
+	        		
+	            }
+	        });
 		
-		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-            	System.out.println("FILE BROWSER BUTTON CLICKED");
-            	
-            	
-            
-            }
-        });
-		
+		 //Clears the bigBox and runs generateListBtn
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                bigBox.getChildren().clear(); //for 'changing' windows by removing the boxes where stuff is contained and replacing with other boxes 
+                bigBox.getChildren().clear();  
                 new generateShoppingListScreen(bigBox, height, width);
             }
         });
@@ -234,7 +298,6 @@ public class MainMenuContent {
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
-//                new IngredientPickerScreen(bigBox, height, width);
                 new IngredientsScreen(bigBox, height, width);
             }
         });

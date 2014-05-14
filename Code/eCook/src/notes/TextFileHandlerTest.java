@@ -19,14 +19,14 @@ import org.junit.Test;
 
 public class TextFileHandlerTest {
 	
-	// delete any previous "notes.txt" file before running each test
+	// delete any previous "notes.txt" files before running each test
 	@BeforeClass
 	public static void setup() throws FileNotFoundException {
-		File file1 = new File("Slide07_notes.txt");
+		File file1 = new File("7_notes.txt");
 		if (file1.exists()) {
 			file1.delete();
 		}
-		File file2 = new File("Slide501_notes.txt");
+		File file2 = new File("501_notes.txt");
 		if (file2.exists()) {
 			file2.delete();
 		}
@@ -36,8 +36,8 @@ public class TextFileHandlerTest {
 	@Test
 	public void nullNotesTextFileNotCreated() {
 		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile(null, "Slide1005");
-		File file = new File("Slide1005_notes.txt");
+		handler.writeTextFile(null, 1005);
+		File file = new File("1005_notes.txt");
 		assertFalse(file.exists());
 	}
 	
@@ -54,8 +54,8 @@ public class TextFileHandlerTest {
 	@Test
 	public void validArgumentsTextFileCreated() {
 		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile("here are some example notes.", "Slide07");
-		File file = new File("Slide07_notes.txt");
+		handler.writeTextFile("here are some example notes.", 7);
+		File file = new File("7_notes.txt");
 		assertTrue(file.exists());
 	}
 	
@@ -64,7 +64,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void textFileContainsCorrectString() {
 		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", "Slide501");
-		assertEquals("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", handler.readTextFile("Slide501_notes.txt"));
+		handler.writeTextFile("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", 501);
+		assertEquals("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", handler.readTextFile("501_notes.txt"));
 	}
 }
