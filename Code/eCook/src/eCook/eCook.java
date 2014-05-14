@@ -1,8 +1,13 @@
 package eCook;
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import errorhandler.ErrorHandler;
 
 public class eCook extends Application {
 	
@@ -21,9 +26,16 @@ public class eCook extends Application {
 		MainMenu mainMenu = new MainMenu(stage);
 		// Show the stage when ready
 	    stage.show();
+	    
+	
 	}
 	
 	public static void main(String[] args) {
+//		Logger logger = Logger.getLogger(eCook.class.getName());
+//		FileHandler handler = new FileHandler("eCook-log.%u.%g.txt", 1024*1024, 20, false);
+//		logger.addHandler(handler);
+//		logger.setLevel(Level.INFO);
+		
 		// TODO Auto-generated method stub
 			Application.launch(args);
 	}

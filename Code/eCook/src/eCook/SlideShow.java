@@ -9,7 +9,6 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;

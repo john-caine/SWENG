@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import eCook.JavaFXThreadingRule;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.text.Text;
 
 public class ErrorHandlerTest {
@@ -19,7 +20,7 @@ public class ErrorHandlerTest {
 	
 	@Before 
 	public void SetUp() {
-		JFXPanel fxPanel = new JFXPanel();
+		//JFXPanel fxPanel = new JFXPanel();
 		
 		textMessage = "A simple test message";
 		testError = new ErrorHandler(textMessage);

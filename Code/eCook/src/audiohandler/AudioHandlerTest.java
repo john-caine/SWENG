@@ -25,7 +25,7 @@ public class AudioHandlerTest {
 	public void setup(){
 		//play audio for 2 seconds after 1 second has passed
 		//audioHandler = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
-		audio = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
+		audio = new AudioHandler(parent, "../Resources/prometheus-featureukFhp.mp4", 1,3, false);
 	}
 
 
