@@ -32,6 +32,8 @@ public class generateShoppingListScreen {
 	HBox topBox, topBoxRight, topBoxLeft;
 	
 	public generateShoppingListScreen(VBox bigBox, double height, double width) {
+		
+		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/home1.png");
@@ -61,8 +63,8 @@ public class generateShoppingListScreen {
 		minimiseIcon = new Image(inputStream);
 		
 		
-		
-		//CLOSE
+		//Sets the event to happen when the close icon is clicked
+		//Gets the node before closing the stage
 	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -71,7 +73,8 @@ public class generateShoppingListScreen {
             }
         });
 		
-		//MINIMISE
+	    //Sets the event to happen when the minimise icon is clicked
+	    //Gets the node before closing the stage
 		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
 		    	Node  source = (Node)  mouseEvent.getSource();
@@ -80,6 +83,8 @@ public class generateShoppingListScreen {
 		    }
 		});
 		
+		//Sets the event to happen when the home icon is clicked
+		//Gets the node before closing the stage and returning to the main menu
 		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -95,6 +100,8 @@ public class generateShoppingListScreen {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
 		
+		//Creates a box containing the menu bar
+		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -115,12 +122,13 @@ public class generateShoppingListScreen {
 		HBox midBoxBottom = new HBox(20);
 		VBox rightBox = new VBox();
 		
-		
+		//Sets  parameters for the leftBox, midBox and rightBox
 		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
 		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight());
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
-	
+		
+		//Creates label to contain preview of the shopping list
 		Label shoppingListPreviewLabel = new Label();
 		shoppingListPreviewLabel.setWrapText(true);
 		shoppingListPreviewLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
@@ -129,18 +137,32 @@ public class generateShoppingListScreen {
 		
 		shoppingListPreviewLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
 		
-		
+		//Buttons for saving and printing the shopping list
 		Button saveBtn = new Button("Save");
 		Button printBtn = new Button("Print");
 		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		
+		//Sets actions to be performed when saveBtn is clicked
+		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            System.out.println("Save Button Clicked");
+            }
+        });
+		
+		//Sets actions to be performed when printBtn is clicked
+		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            System.out.println("Print Button Clicked");
+            }
+        });
 		midBox.setAlignment(Pos.CENTER);
 		midBoxBottom.setAlignment(Pos.CENTER);
 		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
 		midBox.getChildren().addAll(shoppingListPreviewLabel, midBoxBottom);
 		
-		
-		
+		//Horizontal aligns content horizontally 
+		//bigBox collecting all content of generateShoppingListScreen
 		HBox horizontalBox = new HBox();
 		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
 		bigBox.getChildren().addAll(topBox,horizontalBox);

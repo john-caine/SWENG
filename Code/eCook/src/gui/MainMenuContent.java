@@ -54,6 +54,7 @@ public class MainMenuContent {
 	Label blank;
 	
 	public MainMenuContent(final Stage stage) {
+		//Gets the visial bounds of the screen
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
@@ -120,7 +121,7 @@ public class MainMenuContent {
 		});
 		
 		//Sets the event to happen when the home icon is clicked
-		//Gets the node before closing the stage
+		//Gets the node before closing the stage and returning to the main menu
 		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -137,6 +138,7 @@ public class MainMenuContent {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
 	
+		//Creates a box containing the menu bar
 		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
@@ -152,9 +154,7 @@ public class MainMenuContent {
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
 		
 		
-		
 		bigBox = new VBox();
-		//final StackPane overlay = new StackPane();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
@@ -162,33 +162,33 @@ public class MainMenuContent {
 		
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
-
+		
+		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height * 0.3);
-		
-		
-		//MID: Button Panel using HBOX
-		
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().add(logoholder);
+		
+		//Creates the main menu options
 		Button loadExtBtn = new Button("Load External Recipe");
 		Button generateListBtn = new Button("Generate Shopping List");
 		Button ingredientsPickBtn = new Button("Ingredient Picker");
 		Button recipesBtn= new Button("Recipes");
 		
 		
-		//BUTTON LAYOUT
+		//Defining the CSS Identifiers
 		loadExtBtn.setId("b1");
 		generateListBtn.setId("b2");
 		ingredientsPickBtn.setId("b3");
 		recipesBtn.setId("b4");
 		
+		//Setting the sizes of the buttons relative to the size of the screen
 		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight());
-		
 		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		
+		//adding the stylesheet to each of the buttons 
 		loadExtBtn.getStylesheets().add("css.css");
 		generateListBtn.getStylesheets().add("css.css");
 		ingredientsPickBtn.getStylesheets().add("css.css");
@@ -199,8 +199,6 @@ public class MainMenuContent {
 		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(recipesBtn);
 		
-//		overlay.getChildren().addAll(bottomBox);
-//		overlay.setPrefSize(width, height * 0.3);
 		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
 
 		FadeTransition fadeTransition 
@@ -215,7 +213,10 @@ public class MainMenuContent {
 		 //Making the Load External Recipe button make a new window that takes the focus off the main stage
 		 //When any of the options are chosen, the new window closes
 		 //New window allows for closing using the ESC button
+		
 		 loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
+			 //Creates a new stage bound to the previous that lets the user
+			 //pick between the two options
 	            public void handle(ActionEvent event) {
 	            	final Stage dialog = new Stage();
 	                dialog.initModality(Modality.APPLICATION_MODAL);
@@ -232,6 +233,9 @@ public class MainMenuContent {
 	                HBox midBox = new HBox(10); 
 	                topBox.setAlignment(Pos.TOP_RIGHT);
 	                
+	                //New imageView required as using the old one moves its content as well
+	                //Adds image onto the box containing the load Ext window made according to the 
+	                //GUI spec
 	        		ImageView loadExtWinCloseBtnHolder = new ImageView();
 	        		try {
 	        			inputStream = new FileInputStream("../Resources/redx.png");
@@ -251,7 +255,8 @@ public class MainMenuContent {
 	                dialog.setScene(dialogScene);
 	                dialog.show();
 	                
-	                
+	                //Adds action to the buttons and makes it close upon 
+	                //selection of option
 	        		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
 	        			public void handle(ActionEvent event) {
 	            	
@@ -287,21 +292,24 @@ public class MainMenuContent {
 	            }
 	        });
 		
-		 //Clears the bigBox and runs generateListBtn
+		 //Clears the bigBox and runs generateShoppingListScreen passing
+		 //the bigBox, height and width to the class
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();  
                 new generateShoppingListScreen(bigBox, height, width);
             }
         });
-		
+		//Clears the bigBox and runs IngredientsScreen passing
+		//the bigBox, height and width to the class
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
                 new IngredientsScreen(bigBox, height, width);
             }
         });
-		
+		//Clears the bigBox and runs RecipeSceen passing 
+		//the bigBox, height and width to the class
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
