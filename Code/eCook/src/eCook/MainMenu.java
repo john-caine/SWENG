@@ -23,7 +23,7 @@ public class MainMenu {
 	private MainMenuContent mainMenuContent;
 	
 	public MainMenu(Stage stage) {
-		//Get the visual bounds of the screen
+		//Gets the visual bounds of the screen
 		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		

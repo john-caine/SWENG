@@ -37,6 +37,7 @@ public class RecipeScreen {
 	
 	public RecipeScreen(final VBox bigBox, final double height, final double width){
 		
+		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/home1.png");
@@ -66,8 +67,8 @@ public class RecipeScreen {
 		minimiseIcon = new Image(inputStream);
 		
 		
-		
-		//CLOSE
+		//Sets the event to happen when the close icon is clicked
+		//Gets the node before closing the stage
 	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -76,7 +77,8 @@ public class RecipeScreen {
             }
         });
 		
-		//MINIMISE
+	    //Sets the event to happen when the minimise icon is clicked
+	    //Gets the node before closing the stage
 		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
 		    	Node  source = (Node)  mouseEvent.getSource();
@@ -85,6 +87,8 @@ public class RecipeScreen {
 		    }
 		});
 		
+		//Sets the event to happen when the home icon is clicked
+		//Gets the node before closing the stage and returning to the main menu
 		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -100,6 +104,8 @@ public class RecipeScreen {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
 		
+		//Creates a box containing the menu bar
+		//Sets size and location parameters for eCook's menu bar containing home, minimise and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -113,34 +119,33 @@ public class RecipeScreen {
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
 		
-		
-		
 		VBox leftBox = new VBox();
 		VBox midBox = new VBox(20);
 		VBox rightBox = new VBox();
-
-		
+			
+		//Sets parameters for leftBox, midBox and rightBox
 		leftBox.setPrefSize(width*0.2, height - topBox.getPrefHeight());
 		midBox.setPrefSize(width*0.6,  height - topBox.getPrefHeight());
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2,  height - topBox.getPrefHeight());
-		
-	
 
-		
-		ScrollPane recipeList = new ScrollPane(); //recipeList is the scroll panel
+		//Creates scroll pane containing the recipe choices
+		//Turns off the possibility for the scroll bar to be horizontal
+		//and allows for the vertical scrolling to be on.
+		//Scroll pane is the container with the scroll bar
+
+		ScrollPane recipeList = new ScrollPane(); 
 		recipeList.setStyle("-fx-background: lightgrey;");
 		recipeList.setMinSize(midBox.getPrefWidth() , midBox.getPrefHeight()*0.5);
 		recipeList.setHbarPolicy(ScrollBarPolicy.NEVER);
 		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
-		
-		VBox listContent = new VBox(10);  //content of the scroll panel
+		//Creates box to contain content for the scroll pane (i.e. recipes)
+		VBox listContent = new VBox(10); 
 		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
 		recipeList.setContent(listContent);
 		
-		
-		
+		//Creates a test label with a function 
 		Label testLabel = new Label("Test"); 
 		testLabel.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
 	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
@@ -155,10 +160,10 @@ public class RecipeScreen {
 		});
 		listContent.getChildren().add(testLabel);
 		
-		
+		//Creates 50 labels to populate the scroll pane
 		for (int i = 0; i < 50; i++)
 		{
-		    Label tempList = new Label("Label " + i); //tempList = temporary list; recipes that make up the content
+		    Label tempList = new Label("Label " + i); 
 		    
 		    tempList.setMinSize(midBox.getPrefWidth(), midBox.getPrefHeight()/4.5);
 		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
@@ -175,18 +180,15 @@ public class RecipeScreen {
 		recipeInfoLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
 		recipeInfo ="Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here";
 		recipeInfoLabel.setText(recipeInfo);
-		
 		recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3);
 		
 		
 		Button playSlideBtn = new Button("Play");
-		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);		
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().addAll(recipeList,recipeInfoLabel, playSlideBtn);
 		
-		
-		
-		
+		//Box where all content of the RecipeScreen class are collated 
 		HBox horizontalBox = new HBox();
 		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
 		bigBox.getChildren().addAll(topBox,horizontalBox);

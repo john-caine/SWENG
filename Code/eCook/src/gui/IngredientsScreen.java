@@ -39,6 +39,8 @@ public class IngredientsScreen {
 	
 	
 	public IngredientsScreen(final VBox bigBox, final double height, final double width){
+		
+		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/home1.png");
@@ -69,7 +71,8 @@ public class IngredientsScreen {
 		
 		
 		
-		//CLOSE
+		//Sets the event to happen when the close icon is clicked
+		//Gets the node before closing the stage
 	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -77,8 +80,9 @@ public class IngredientsScreen {
          	stage.close();
             }
         });
-		
-		//MINIMISE
+	    
+	    //Sets the event to happen when the minimise icon is clicked
+	    //Gets the node before closing the stage
 		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		    public void handle(MouseEvent mouseEvent) {
 		    	Node  source = (Node)  mouseEvent.getSource();
@@ -87,6 +91,8 @@ public class IngredientsScreen {
 		    }
 		});
 		
+		//Sets the event to happen when the home icon is clicked
+		//Gets the node before closing the stage and returning to the main menu
 		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
             Node  source = (Node)  mouseEvent.getSource();
@@ -102,6 +108,8 @@ public class IngredientsScreen {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder.setImage(homeIcon);
 		
+		//Creates a box containing the menu bar
+		//Sets size and location parameters for eCook's menu bar containing home, minimise and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -119,23 +127,26 @@ public class IngredientsScreen {
 		midBoxLeft= new VBox();
 		midBoxRight = new VBox(20);
 		
-
-		
 		midBox.setPadding(new Insets(10,20,10,20));
 		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight());
 		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight());
 		
-		ScrollPane recipeList = new ScrollPane(); //recipeList is the scroll panel
+		//Creates scroll pane containing the recipe choices
+		//Turns off the possibility for the scroll bar to be horizontal
+		//and allows for the vertical scrolling to be on.
+		//Scroll pane is the container with the scroll bar
+		ScrollPane recipeList = new ScrollPane(); 
 		recipeList.setStyle("-fx-background: lightgrey;");
 		recipeList.setHbarPolicy(ScrollBarPolicy.NEVER);
 		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		recipeList.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 
-		
+		//Creates box to contain content for the scroll pane (i.e. recipes)
 		VBox recipeListContent = new VBox(10);  //content of the scroll panel
 		recipeListContent.setPrefWidth(recipeList.getPrefWidth() - 20);
 		recipeList.setContent(recipeListContent);
 		
+		//Creates a test label with a function
 		Label testLabel = new Label("Test"); 
 		testLabel.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
 	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
@@ -149,21 +160,18 @@ public class IngredientsScreen {
 		});
 		recipeListContent.getChildren().add(testLabel);
 		
-		
+		//Creates 50 labels to populate the scroll pane
 		for (int i = 0; i < 50; i++)
 		{
-		    Label tempList = new Label("Label " + i); //tempList = temporary list; recipes that make up the content
-		    
+		    Label tempList = new Label("Label " + i); 
 		    tempList.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
 		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
-		    
 		    recipeListContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
-		    //recipeList.setPrefHeight(100);
 		    recipeListContent.getChildren().add(tempList);
-	
-		    
+	    
 		}
-			
+		
+		//Creates label to contain info of selected recipe
 		String recipeInfo;
 		Label recipeInfoLabel = new Label();
 		recipeInfoLabel.setWrapText(true);
@@ -172,8 +180,11 @@ public class IngredientsScreen {
 		recipeInfoLabel.setText(recipeInfo);
 		recipeInfoLabel.setMinSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
 		
-		
-		ScrollPane ingredientsList = new ScrollPane(); //recipeList is the scroll panel
+		//Creates scroll pane containing the ingredients selected
+		//Turns off the possibility for the scroll bar to be horizontal
+		//and allows for the vertical scrolling to be on.
+		//Scroll pane is the container with the scroll bar
+		ScrollPane ingredientsList = new ScrollPane(); 
 		ingredientsList.setStyle("-fx-background: lightgrey;");
 		ingredientsList.setHbarPolicy(ScrollBarPolicy.NEVER);
 		ingredientsList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -181,14 +192,21 @@ public class IngredientsScreen {
 		
 		Button addToShoppingListBtn = new Button("Add To Shopping List");
 		addToShoppingListBtn.setPrefSize(midBoxRight.getPrefWidth()/4, midBoxRight.getPrefHeight()-(recipeInfoLabel.getMinHeight()+ingredientsList.getPrefHeight()));
+		
+		addToShoppingListBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			public void handle(MouseEvent event) {
+				System.out.println("Add to Shopping List CLicked");
+			}
+			
+		});
+		
 		midBoxRight.setAlignment(Pos.TOP_CENTER);
-		
-		
-		
 		midBoxLeft.getChildren().add(recipeList);
 		midBoxRight.getChildren().addAll(recipeInfoLabel,ingredientsList,addToShoppingListBtn);
 		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
 		
+		//Box where all content of the IngredientsScreen class are collated 
 		bigBox.getChildren().addAll(topBox,midBox);
 	}
 }
