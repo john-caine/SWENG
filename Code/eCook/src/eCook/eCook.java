@@ -3,6 +3,7 @@ package eCook;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class eCook extends Application {
 	
@@ -20,6 +21,7 @@ public class eCook extends Application {
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage);
 		// Show the stage when ready
+		//stage.initStyle(StageStyle.UNDECORATED);
 	    stage.show();
 	}
 	

@@ -93,12 +93,12 @@
 			<width>200</width>
 			<height>200</height>
 			<layer>2</layer>
-      <orientation>180</orientation>
-      <branch>6</branch>
+      			<orientation>180</orientation>
+      			<branch>5</branch>
 		</image>
 		<image>
 			<urlname>http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg</urlname>
-			<xstart>100</xstart>
+			<xstart>600</xstart>
 			<ystart>100</ystart>
 			<duration>20</duration>
 			<layer>3</layer>
@@ -116,8 +116,8 @@
 			<urlname>http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4</urlname>
 			<xstart>300</xstart>
 			<ystart>300</ystart>
-      <width>400</width>
-      <height>400</height>
+      			<width>400</width>
+     			<height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
 		</video>		

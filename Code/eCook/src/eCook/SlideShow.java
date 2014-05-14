@@ -181,6 +181,7 @@ public class SlideShow {
 			
 			
 		}
+		imageHandlerList = new ArrayList<ImageHandler>();
 		// Call the ImageHandler for each image object
 		if (imageCount != 0){
 			for(int i = 0; i < imageCount; i++){
@@ -193,7 +194,7 @@ public class SlideShow {
 				if (imageLayer == null){
 					imageLayer = 0;
 				}
-				layers.get(imageLayer).getChildren().add(image1.box);
+				layers.get(imageLayer).getChildren().add(image1.imageBox);
 			}
 		}
 		
@@ -245,7 +246,7 @@ public class SlideShow {
 				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
 			}
 		}
-		
+		videoHandlerList = new ArrayList<VideoPlayerHandler>();
 		// Call the VideoHandler for each video object
 		if (videoCount != 0){
 			for(int i = 0; i < videoCount; i++){
@@ -257,7 +258,7 @@ public class SlideShow {
 				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
 			}
 		}
-		
+		graphicsHandlerList = new ArrayList<GraphicsHandler>();
 		// Call the GraphicHandler for each graphic object
 		if (graphicCount != 0){
 			for(int i = 0; i < graphicCount; i++){
@@ -302,7 +303,6 @@ public class SlideShow {
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
         buttonBox.setLayoutY(screenBounds.getHeight()-200);
-        buttonBox.setOpacity(0);
 	    slideRoot.getChildren().addAll(layers);
 	    
 	
@@ -311,56 +311,8 @@ public class SlideShow {
         slideRoot.getChildren().add(buttonBox);
         
         //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
-        slideMenuService = new SlideMenuBarService();
-        
-        slideMenuService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-
-			@Override
-			public void handle(WorkerStateEvent arg0) {
-				//Hide the slide Menu Bar
-				buttonBox.setOpacity(0);
-				slideMenuService.reset();
-			}
-        	
-        });
-        
-        slideScene.setOnMouseMoved( new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				if(slideMenuService.isRunning() == false){
-					//Make the slide menu bar visible
-					buttonBox.setOpacity(1);
-					slideMenuService.start();
-				}
-			}
-			
-		});
-        
-        //When the mouse enters the buttonBox stop slideMenuService from setting the opacity to 0
-	    buttonBox.setOnMouseEntered(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				
-				slideMenuService.cancel();
-				slideMenuService.reset();
-				
-			}
-	    	
-	    });
-	    
-	    //When mouse exits the buttonBox restart slideMenuService to set the opacity 0 after 3 seconds
-	    buttonBox.setOnMouseExited(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				slideMenuService.cancel();
-				slideMenuService.restart();
-				
-			}
-	    	
-	    });
+     
+       
 	    
 	    // Create a notes panel each time new Slide is called.
 	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
@@ -602,12 +554,36 @@ public class SlideShow {
 					for(int r = 0; r < textHandlerList.size(); r++){
 						textHandlerList.get(r).pause();
 					}
+					for(int r = 0; r < imageHandlerList.size(); r++){
+						imageHandlerList.get(r).pause();
+					}
+					for(int r= 0; r < graphicsHandlerList.size(); r++){
+						graphicsHandlerList.get(r).pause();
+					}
+					for(int r = 0; r< audioHandlerList.size(); r++){
+						audioHandlerList.get(r).mediaControl.pauseStartTime();
+					}
+					for(int r= 0; r< videoHandlerList.size(); r++){
+						videoHandlerList.get(r).mediaControl.pauseStartTime();
+					}
 					pauseSlide.setText("Resume");
 					paused = true;
 				}
 				else{
 					for(int r = 0; r < textHandlerList.size(); r++){
 						textHandlerList.get(r).resume();
+					}
+					for(int r =0; r < imageHandlerList.size(); r++){
+						imageHandlerList.get(r).resume();
+					}
+					for(int r= 0; r < graphicsHandlerList.size(); r++){
+						graphicsHandlerList.get(r).resume();
+					}
+					for(int r = 0; r< audioHandlerList.size(); r++){
+						audioHandlerList.get(r).mediaControl.resumeStartTime();
+					}
+					for(int r= 0; r< videoHandlerList.size(); r++){
+						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
 					pauseSlide.setText("Pause");
 					paused = false;

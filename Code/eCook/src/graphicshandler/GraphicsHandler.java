@@ -12,8 +12,13 @@ import eCook.SlideShow;
 import xmlparser.Point;
 import xmlparser.Shape;
 import xmlparser.TextString;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Animation.Status;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
@@ -23,6 +28,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 
 public class GraphicsHandler {
 	
@@ -37,6 +43,9 @@ public class GraphicsHandler {
 	double[] yCoordinates;
 	private List<Point> pointsList;
 	private Point point;
+	private Timeline timeLineStart, timeLineDuration;
+	private final Integer runDuration; 
+	
 
 
 	public GraphicsHandler(SlideShow parent, int totalPoints, int width, int height, Integer startTime, Integer duration,
@@ -47,6 +56,7 @@ public class GraphicsHandler {
 		this.branchID = branch;
 		this.parent = parent;
 		this.pointsList = points;
+		this.runDuration = duration;
 		
 		//Get the size of the screen
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -90,14 +100,56 @@ public class GraphicsHandler {
 		//Add the canvas into a HBox
 		graphicsBox.getChildren().add(canvas);
 		
-		//Start the startTimerThread
-		if (startTime == null) {
-        	this.startTime = 0;
-        	new Thread(startTimerThread).start();
-	    }
-	    else{ 
-	        new Thread(startTimerThread).start();
-		}
+		   //Create the startTime timeline
+  		timeLineStart = new Timeline();
+  		
+  		//When startTime timeline has finished show the graphics and if there is a duration begin the duration timeline
+  		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
+
+  			
+
+			@Override
+  			public void handle(ActionEvent arg0) {
+  				showGraphics();	
+  				
+  				if(runDuration != null)
+  				timeLineDuration.playFromStart();
+  			}	
+  		});
+  		
+  		//Create duration timeline
+  		timeLineDuration = new Timeline();
+  		
+  		//When duration timeline has finished remove the graphics. 
+  		timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
+
+  			@Override
+  			public void handle(ActionEvent arg0) {
+  				removeGraphics();
+  			}
+  		});
+
+  		createKeyFrame();
+  		//Begin start time timeline if the graphics has a start time.
+  		if(startTime != null){
+  			System.out.println("Starttime timeline running");
+  			timeLineStart.setCycleCount(this.startTime);
+  			if(this.duration == null){
+  				this.duration = 0;
+  			}
+  			timeLineDuration.setCycleCount(this.duration);
+  			timeLineStart.playFromStart();
+  		}
+  		//Show graphics and begin duration timeline 
+  		else if(duration != null){
+  		 showGraphics();
+  		 System.out.println("Duration timeline running");
+  		 timeLineDuration.setCycleCount(this.duration);
+  		 timeLineDuration.playFromStart();
+  		}
+  		else{
+  		showGraphics();
+  		}  
 	}
 	
 	// Thread waits until count = startTime then sets the visibility of the image to true.
@@ -138,7 +190,23 @@ public class GraphicsHandler {
 				return null;
 			}
 		};
-		 
+
+	private void showGraphics(){
+		Platform.runLater( new Runnable(){
+			public void run(){
+				graphicsBox.setVisible(true);
+			}
+		});	 
+	}
+	
+	private void removeGraphics(){
+		Platform.runLater( new Runnable(){
+			public void run(){
+				graphicsBox.setVisible(true);
+			}
+		});	
+		
+	}
 
 	 private void doBranch() {
 		 graphicsBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
@@ -147,6 +215,46 @@ public class GraphicsHandler {
 				parent.newSlide(branchID, true, null);
 			}
 		});
+	 }
+	 
+	 /*
+	  * Adds 1 second keyframes to timeLineStart and timeLineDuration
+	  */
+	 private void createKeyFrame(){
+			
+			timeLineStart.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
+				@Override
+				public void handle(ActionEvent event) {
+					startTime--;	
+				}
+			} ));
+			timeLineDuration.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){	
+				@Override
+				public void handle(ActionEvent event) {
+					duration--;	
+				}
+			} ));	
+	}
+	 
+	 /*
+	  * Pauses the timeLineStart and timeLineDuration timelines
+	  */
+	 public void pause(){
+		 timeLineStart.pause();
+		 timeLineDuration.pause();
+		
+	 }
+	 
+	 /*
+	  * Resumes the appropriate TimeLine to either remove or show the graphics if the TimeLines are not stopped
+	  */
+	 public void resume(){
+		 if(graphicsBox.isVisible() == true && timeLineDuration.getStatus() != Status.STOPPED){
+			 timeLineDuration.play();
+		 }else if (graphicsBox.isVisible() == false && timeLineStart.getStatus() != Status.STOPPED){
+			 timeLineStart.play();
+		 System.out.println(timeLineDuration.getCycleCount());
+		 }
 	 }
 	 
 }

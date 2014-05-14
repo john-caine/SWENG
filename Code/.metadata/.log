@@ -4286,3 +4286,1514 @@ checking commit editor...
 checking username...
 no username found, using 'Phainax@Awesomeness.HG532.com' instead
 no problems detected
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-05-14 12:47:34.644
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine
+ * Date Created: 14/03/2014
+ * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
+ * 
+ */
+
+package eCook;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import notes.NotesGUI;
+import audiohandler.AudioHandler;
+import graphicshandler.GraphicsHandler;
+import imagehandler.ImageHandler;
+import javafx.application.Platform;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import texthandler.TextHandler;
+import timer.Timer;
+import timer.TimerData;
+import videohandler.VideoPlayerHandler;
+import xmlparser.*;
+
+public class SlideShow {
+
+	private Scene slideScene;
+	private Group slideRoot;
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
+	private Button  previousSlide, nextSlide, exitSlide1, pauseSlide, createTimer;
+	private XMLReader reader;
+	private Recipe recipe;
+	private Slide slide;
+	private Defaults defaults;
+	private Integer maxLayer;
+	private Timer timer;
+	private HBox timerHbox, buttonBox;
+	private ArrayList<Timer> timerList;
+	private ArrayList<TimerData> timerValues;
+	private SlideMenuBarService slideMenuService;
+	private ArrayList<TextHandler> textHandlerList;
+	private ArrayList<ImageHandler> imageHandlerList;
+	private ArrayList<AudioHandler> audioHandlerList;
+	private ArrayList<VideoPlayerHandler> videoHandlerList;
+	private ArrayList<GraphicsHandler> graphicsHandlerList;
+	private VBox notesPanel;
+	
+	
+
+	
+	public SlideShow(Stage stage, String filepath) {
+		
+		// Create a new group for objects
+		slideRoot = new Group();
+		// Create a new scene for the slide show
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
+		
+    	// Set window properties
+    	stage.setScene(slideScene);
+    	stage.setFullScreen(true);
+    	//stage.show();
+
+    	stage.sizeToScene();
+    	//stage.setFullScreen(false);
+    	stage.setFullScreen(true);
+    	stage.show();
+		
+		
+		 
+		
+		// Call XML parser
+		reader = new XMLReader(filepath);
+		recipe = reader.getRecipe();
+		
+		// Get the defaults from the recipe
+		defaults = recipe.getDefaults();
+		// Get the total number of slides without branch slides
+		numOfSlides = recipe.getNumberOfSlides();
+
+		// Call newSlide() to start displaying the side show from slide with ID 0.
+		//Change back to 0, 3 only for testing purposes.
+		newSlide(0, false, null);
+
+		// Set the colour of the slide
+		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+		// These properties update the stage
+		stage.hide();
+		stage.setScene(slideScene);
+		stage.setFullScreen(true);
+		stage.show();
+	}
+	
+	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {
+		List<Image> images;
+		List<TextBody> text;
+		List<Audio> audio;
+		List<Shape> graphics;
+		List<Video> videos;
+		
+		Pane layer;
+		ArrayList<Pane> layers;
+		
+		
+		int imageCount, textCount, audioCount, videoCount, graphicCount;
+		int fontSize;
+		String fontColor, font, lineColor, fillColor;
+		
+		// Clear the current objects on the slide
+		slideRoot.setVisible(false);
+		slideRoot.getChildren().clear();
+		
+		
+		
+		
+		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
+		//if (slideID == -1 || slideID >= numOfSlides)
+			// TODO exit  to  main menu somehow???
+			// new MainMenu()
+
+		// If branched slide set relevant globals
+		if (isBranch == true)
+		{
+			nextSlideID = currentSlideID;
+			prevSlideID = currentSlideID;
+			currentSlideID = slideID;
+		} 
+		else 
+		{
+			currentSlideID = slideID;
+			nextSlideID = (slideID + 1);
+			prevSlideID = (slideID - 1);
+		}
+		
+		slide = recipe.getSlide(slideID);
+		
+		// Get arrays containing the required objects
+		images = slide.getContent().getImages();
+		text = slide.getContent().getTexts();
+		audio = slide.getContent().getAudios();
+		videos = slide.getContent().getVideos();
+		graphics = slide.getContent().getShapes();
+		
+		// Get how many objects of each type are required
+		imageCount = images.size();
+		textCount = text.size();
+		audioCount = audio.size();
+		videoCount = videos.size();
+		graphicCount = graphics.size();
+		
+	
+		//Get number of layers to be used on slide
+		maxLayer = getMaxLayer(images, text, audio, videos, graphics);
+		
+		//Array list to store layers created for slide content
+		layers = new ArrayList<Pane>();
+		
+		//Create a pane for each layer and add to the group
+		for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
+			
+			layer = new Pane();
+			layers.add(currentLayer, layer);
+			
+			
+		}
+		// Call the ImageHandler for each image object
+		if (imageCount != 0){
+			for(int i = 0; i < imageCount; i++){
+				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
+												images.get(i).getYStart(), images.get(i).getWidth(),
+												images.get(i).getHeight(), images.get(i).getStartTime(), 
+												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+				imageHandlerList.add(image1);
+				Integer imageLayer = images.get(i).getLayer();
+				if (imageLayer == null){
+					imageLayer = 0;
+				}
+				layers.get(imageLayer).getChildren().add(image1.imageBox);
+			}
+		}
+		
+		textHandlerList = new ArrayList<TextHandler>();
+		// Call the TextHanlder for each text object
+		if (textCount != 0){
+			for(int i = 0; i < textCount; i++){
+				
+				
+				// Retrieve any defaults that have been set
+				if (text.get(i).getFont() == null) 
+					font = recipe.getDefaults().getFont();
+				else 
+					font = text.get(i).getFont();
+				
+				if (text.get(i).getFontSize() == null)
+					fontSize = recipe.getDefaults().getFontSize();
+				else
+					fontSize = text.get(i).getFontSize();
+				
+				if (text.get(i).getFontColor() == null)
+					fontColor = recipe.getDefaults().getFontColor();
+				else 
+					fontColor = text.get(i).getFontColor();
+				
+				TextHandler text1 = new TextHandler(this,  text.get(i), font, text.get(i).getXStart(), 
+											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
+											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
+											text.get(i).getLayer(), null, null);
+				
+				textHandlerList.add(text1);
+				
+				Integer textLayer = text.get(i).getLayer();
+				if (textLayer == null){
+					textLayer = 0;
+				}
+				
+				layers.get(textLayer).getChildren().add(text1.textBox);
+			}
+		}
+		audioHandlerList = new ArrayList<AudioHandler>();
+		// Call the AudioHanlder for each audio object
+		if (audioCount != 0){
+			for(int i = 0; i < audioCount; i++){
+				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+														audio.get(i).getDuration(), audio.get(i).getLoop());
+				
+				audioHandlerList.add(audio1);
+				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
+			}
+		}
+		
+		// Call the VideoHandler for each video object
+		if (videoCount != 0){
+			for(int i = 0; i < videoCount; i++){
+				VideoPlayerHandler video1 = new VideoPlayerHandler(videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+												videos.get(i).getYStart(), videos.get(i).getWidth(),
+												videos.get(i).getHeight(), videos.get(i).getLoop(),
+												videos.get(i).getStartTime(), videos.get(i).getDuration());
+				videoHandlerList.add(video1);								
+				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
+			}
+		}
+		
+		// Call the GraphicHandler for each graphic object
+		if (graphicCount != 0){
+			for(int i = 0; i < graphicCount; i++){
+				
+				// Retrieve any defaults that have been set
+				if (graphics.get(i).getLineColor() == null) 
+					lineColor = recipe.getDefaults().getLineColor();
+				else 
+					lineColor = graphics.get(i).getLineColor();
+				
+				if (graphics.get(i).getFillColor() == null)
+					fillColor = recipe.getDefaults().getFillColor();
+				else
+					fillColor = graphics.get(i).getFillColor();
+			
+				GraphicsHandler graphic1 = new GraphicsHandler(this, graphics.get(i).getTotalPoints(), 
+												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
+												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
+												graphics.get(i).getLayer(), fillColor, lineColor,
+												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+				graphicsHandlerList.add(graphic1);
+				
+				Integer graphicsLayer = graphics.get(i).getLayer();
+				if (graphicsLayer == null){
+					graphicsLayer = 0;
+				}
+				layers.get(graphicsLayer).getChildren().add(graphic1.graphicsBox);
+			}
+		}
+		
+		
+    	
+		
+		
+    	// Create the buttons for the slide.
+	    buttonBox = new HBox();
+	    SlideButton();
+        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
+       
+        // Put the buttons in the bottom centre of the slide
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
+        buttonBox.setLayoutY(screenBounds.getHeight()-200);
+        buttonBox.setOpacity(0);
+	    slideRoot.getChildren().addAll(layers);
+	    
+	
+	    
+	    // Add the buttons to the slide
+        slideRoot.getChildren().add(buttonBox);
+        
+        //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
+        slideMenuService = new SlideMenuBarService();
+        
+        slideMenuService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+
+			@Override
+			public void handle(WorkerStateEvent arg0) {
+				//Hide the slide Menu Bar
+				buttonBox.setOpacity(0);
+				slideMenuService.reset();
+			}
+        	
+        });
+        
+        slideScene.setOnMouseMoved( new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(slideMenuService.isRunning() == false){
+					//Make the slide menu bar visible
+					buttonBox.setOpacity(1);
+					slideMenuService.start();
+				}
+			}
+			
+		});
+        
+        //When the mouse enters the buttonBox stop slideMenuService from setting the opacity to 0
+	    buttonBox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				slideMenuService.cancel();
+				slideMenuService.reset();
+				
+			}
+	    	
+	    });
+	    
+	    //When mouse exits the buttonBox restart slideMenuService to set the opacity 0 after 3 seconds
+	    buttonBox.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				slideMenuService.cancel();
+				slideMenuService.restart();
+				
+			}
+	    	
+	    });
+	    
+	    // Create a notes panel each time new Slide is called.
+	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
+	    notesPanel = notesGUI.getNotesPanel();
+	    slideRoot.getChildren().add(notesPanel);
+	    notesPanel.setLayoutX(-Screen.getPrimary().getVisualBounds().getWidth()/5);
+		notesPanel.setLayoutY(0);		
+        
+		// Add timers
+        timerHbox = new HBox();
+        slideRoot.getChildren().add(timerHbox);
+        timerList = new ArrayList<Timer>();
+     
+        
+        //If timers were present on previous slide create new timers and resume from saved position
+        if(currentTimerValues != null){
+        	for(int l = 0; l < currentTimerValues.size(); l++){
+        		
+        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
+        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getLabel());
+				timerList.add(continueTimer);
+				 
+				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					
+					@Override
+					public void handle(WorkerStateEvent event) {		
+						timerHbox.getChildren().add(continueTimer.getPane());
+					}
+				});
+				new Thread(continueTimer).start();
+				}
+        }
+       
+        // Show the new set of objects on the slide
+	    slideRoot.setVisible(true);  
+	}	
+
+	
+	/*
+	 * Gets the highest layer assigned to content on the slide
+	 * 
+	 * @Param images: list of image objects on slide
+	 * @Param text: list of text objects on slide
+	 * @Param audio: list of audio objects on slide
+	 * @Param videos: list of video objects on slide
+	 * @Param graphics: list of graphics objects on slide
+	 */
+	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
+			List<Audio> audio, List<Video> videos, List<Shape> graphics) {
+		
+		Integer totalLayers = 0;
+		Integer layer;
+	
+		for(int currentImage = 0; currentImage < images.size(); currentImage++ ){
+			layer = images.get(currentImage).getLayer();
+			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
+			}
+			
+			if(layer > totalLayers){
+				totalLayers = layer;
+			}
+		}
+			
+		for(Integer currentText = 0; currentText < text.size(); currentText++ ){
+			
+			layer = text.get(currentText).getLayer();
+			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}				
+		}
+		
+		for(int currentAudio = 0; currentAudio < audio.size(); currentAudio++ ){
+			layer = audio.get(currentAudio).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}				
+		}
+		
+		for(int currentVideo = 0; currentVideo < videos.size(); currentVideo++ ){
+			
+			layer = videos.get(currentVideo).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+						totalLayers = layer;
+			}				
+		}
+		
+		for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
+			
+			layer = graphics.get(currentGraphics).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}			
+		}
+		return totalLayers;
+		
+		
+	}
+/*Creates the control buttons at the bottom of the slide and creates the event handlers for each button
+ * 
+ */
+	public void SlideButton() {
+        
+        exitSlide1 = new Button("Exit SlideShow");
+        exitSlide1.setPrefWidth(80);
+        exitSlide1.setPrefHeight(40); 
+        
+        nextSlide = new Button("Next Slide");
+        nextSlide.setPrefWidth(80);
+        nextSlide.setPrefHeight(40);
+        
+        previousSlide = new Button("Previous Slide");
+        previousSlide.setWrapText(true);
+        previousSlide.setPrefWidth(80);
+        previousSlide.setPrefHeight(40);
+        previousSlide.setTextAlignment(TextAlignment.CENTER);
+        
+        pauseSlide = new Button("Pause Slide");
+        pauseSlide.setPrefWidth(80);
+        pauseSlide.setPrefHeight(40);
+        pauseSlide.setTextAlignment(TextAlignment.CENTER);
+        
+        createTimer = new Button("Add Timer");
+        createTimer.setPrefWidth(80);
+        createTimer.setPrefHeight(40);
+		    
+        /*Exit Slide when exit slide button is pressed*/
+       
+        exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	
+            	Node  source = (Node)  event.getSource();
+            	Stage stage  = (Stage) source.getScene().getWindow();
+            	Group root = (Group) stage.getScene().getRoot();
+            	root.getChildren().clear();
+            	new MainMenu(stage);
+            	
+            	//newSlide(nextSlideID, false, timerValues);
+            	event.consume();
+            	
+            	
+            	
+            	
+            }
+        });      
+        nextSlide.setOnAction(new EventHandler<ActionEvent>() {
+            
+
+			@Override
+            public void handle(ActionEvent event) {
+            	for(int h = 0; h < audioHandlerList.size(); h++){
+            		
+            		audioHandlerList.get(h).stopAudio();
+            	}
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
+            	
+            	newSlide(nextSlideID, false, timerValues);
+            	event.consume();
+            }
+        });
+        
+        previousSlide.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
+            	newSlide(prevSlideID, false, timerValues);
+            	event.consume();
+            	
+            }
+        });
+        
+        createTimer.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				 timer = new Timer(null, null, null, null);
+				timerList.add(timer);
+				 
+				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					
+					@Override
+					public void handle(WorkerStateEvent event) {
+						
+						Platform.runLater( new Runnable(){
+							public void run(){
+								timerHbox.getChildren().add(timer.getPane());
+								
+							}
+						});	 			
+						
+					}
+				});
+				new Thread(timer).start();
+				
+				
+			}
+		
+        });
+        
+        pauseSlide.setOnAction( new EventHandler<ActionEvent>(){
+
+			private boolean paused;
+
+			@Override
+			public void handle(ActionEvent event) {
+				if(paused == false){
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).pause();
+					}
+					for(int r = 0; r < imageHandlerList.size(); r++){
+						imageHandlerList.get(r).pause();
+					}
+					pauseSlide.setText("Resume");
+					paused = true;
+				}
+				else{
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).resume();
+					}
+					for(int r =0; r < imageHandlerList.size(); r++){
+						imageHandlerList.
+					}
+					pauseSlide.setText("Pause");
+					paused = false;
+				}
+				
+			}
+			
+		});
+        // Right and left buttons not working exactly as expected, something to do with the methods called
+        // Same issues exist with buttons 
+//		slideScene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {  
+//		    @Override
+//		    public void handle(KeyEvent event) {
+//		    	if(event.getCode() == KeyCode.RIGHT) {
+//		    		System.out.println("Next slide");
+//	            	newSlide(nextSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    	else if (event.getCode() == KeyCode.LEFT) {
+//		    		System.out.println("Previous slide");
+//	            	newSlide(prevSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    }
+//		});
+		slideScene.setOnKeyPressed(new EventHandler<KeyEvent>() {  
+		    @Override
+		    public void handle(KeyEvent event) {
+		    	if(event.getCode() == KeyCode.RIGHT) {
+		    		System.out.println("Next slide");
+	            	newSlide(nextSlideID, false, timerValues);
+	            	event.consume();
+		    	}
+		    	else if (event.getCode() == KeyCode.LEFT) {
+		    		System.out.println("Previous slide");
+	            	newSlide(prevSlideID, false, timerValues);
+	            	event.consume();
+		    	}
+		    }
+		});
+	}
+	
+	
+		 
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:274)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:204)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:259)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:522)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1083)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:171)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:90)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:729)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1248)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2014-05-14 12:47:34.649
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:274)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:204)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:259)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:522)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1083)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:171)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:90)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:729)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1248)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2014-05-14 12:47:34.650
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:274)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:204)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:259)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:522)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1083)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:171)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:90)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:729)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:789)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1248)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:126)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:108)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:151)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:86)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:77)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:206)
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-05-14 12:47:34.723
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine
+ * Date Created: 14/03/2014
+ * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
+ * 
+ */
+
+package eCook;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import notes.NotesGUI;
+import audiohandler.AudioHandler;
+import graphicshandler.GraphicsHandler;
+import imagehandler.ImageHandler;
+import javafx.application.Platform;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import texthandler.TextHandler;
+import timer.Timer;
+import timer.TimerData;
+import videohandler.VideoPlayerHandler;
+import xmlparser.*;
+
+public class SlideShow {
+
+	private Scene slideScene;
+	private Group slideRoot;
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
+	private Button  previousSlide, nextSlide, exitSlide1, pauseSlide, createTimer;
+	private XMLReader reader;
+	private Recipe recipe;
+	private Slide slide;
+	private Defaults defaults;
+	private Integer maxLayer;
+	private Timer timer;
+	private HBox timerHbox, buttonBox;
+	private ArrayList<Timer> timerList;
+	private ArrayList<TimerData> timerValues;
+	private SlideMenuBarService slideMenuService;
+	private ArrayList<TextHandler> textHandlerList;
+	private ArrayList<ImageHandler> imageHandlerList;
+	private ArrayList<AudioHandler> audioHandlerList;
+	private ArrayList<VideoPlayerHandler> videoHandlerList;
+	private ArrayList<GraphicsHandler> graphicsHandlerList;
+	private VBox notesPanel;
+	
+	
+
+	
+	public SlideShow(Stage stage, String filepath) {
+		
+		// Create a new group for objects
+		slideRoot = new Group();
+		// Create a new scene for the slide show
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
+		
+    	// Set window properties
+    	stage.setScene(slideScene);
+    	stage.setFullScreen(true);
+    	//stage.show();
+
+    	stage.sizeToScene();
+    	//stage.setFullScreen(false);
+    	stage.setFullScreen(true);
+    	stage.show();
+		
+		
+		 
+		
+		// Call XML parser
+		reader = new XMLReader(filepath);
+		recipe = reader.getRecipe();
+		
+		// Get the defaults from the recipe
+		defaults = recipe.getDefaults();
+		// Get the total number of slides without branch slides
+		numOfSlides = recipe.getNumberOfSlides();
+
+		// Call newSlide() to start displaying the side show from slide with ID 0.
+		//Change back to 0, 3 only for testing purposes.
+		newSlide(0, false, null);
+
+		// Set the colour of the slide
+		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+		// These properties update the stage
+		stage.hide();
+		stage.setScene(slideScene);
+		stage.setFullScreen(true);
+		stage.show();
+	}
+	
+	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {
+		List<Image> images;
+		List<TextBody> text;
+		List<Audio> audio;
+		List<Shape> graphics;
+		List<Video> videos;
+		
+		Pane layer;
+		ArrayList<Pane> layers;
+		
+		
+		int imageCount, textCount, audioCount, videoCount, graphicCount;
+		int fontSize;
+		String fontColor, font, lineColor, fillColor;
+		
+		// Clear the current objects on the slide
+		slideRoot.setVisible(false);
+		slideRoot.getChildren().clear();
+		
+		
+		
+		
+		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
+		//if (slideID == -1 || slideID >= numOfSlides)
+			// TODO exit  to  main menu somehow???
+			// new MainMenu()
+
+		// If branched slide set relevant globals
+		if (isBranch == true)
+		{
+			nextSlideID = currentSlideID;
+			prevSlideID = currentSlideID;
+			currentSlideID = slideID;
+		} 
+		else 
+		{
+			currentSlideID = slideID;
+			nextSlideID = (slideID + 1);
+			prevSlideID = (slideID - 1);
+		}
+		
+		slide = recipe.getSlide(slideID);
+		
+		// Get arrays containing the required objects
+		images = slide.getContent().getImages();
+		text = slide.getContent().getTexts();
+		audio = slide.getContent().getAudios();
+		videos = slide.getContent().getVideos();
+		graphics = slide.getContent().getShapes();
+		
+		// Get how many objects of each type are required
+		imageCount = images.size();
+		textCount = text.size();
+		audioCount = audio.size();
+		videoCount = videos.size();
+		graphicCount = graphics.size();
+		
+	
+		//Get number of layers to be used on slide
+		maxLayer = getMaxLayer(images, text, audio, videos, graphics);
+		
+		//Array list to store layers created for slide content
+		layers = new ArrayList<Pane>();
+		
+		//Create a pane for each layer and add to the group
+		for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
+			
+			layer = new Pane();
+			layers.add(currentLayer, layer);
+			
+			
+		}
+		// Call the ImageHandler for each image object
+		if (imageCount != 0){
+			for(int i = 0; i < imageCount; i++){
+				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
+												images.get(i).getYStart(), images.get(i).getWidth(),
+												images.get(i).getHeight(), images.get(i).getStartTime(), 
+												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+				imageHandlerList.add(image1);
+				Integer imageLayer = images.get(i).getLayer();
+				if (imageLayer == null){
+					imageLayer = 0;
+				}
+				layers.get(imageLayer).getChildren().add(image1.imageBox);
+			}
+		}
+		
+		textHandlerList = new ArrayList<TextHandler>();
+		// Call the TextHanlder for each text object
+		if (textCount != 0){
+			for(int i = 0; i < textCount; i++){
+				
+				
+				// Retrieve any defaults that have been set
+				if (text.get(i).getFont() == null) 
+					font = recipe.getDefaults().getFont();
+				else 
+					font = text.get(i).getFont();
+				
+				if (text.get(i).getFontSize() == null)
+					fontSize = recipe.getDefaults().getFontSize();
+				else
+					fontSize = text.get(i).getFontSize();
+				
+				if (text.get(i).getFontColor() == null)
+					fontColor = recipe.getDefaults().getFontColor();
+				else 
+					fontColor = text.get(i).getFontColor();
+				
+				TextHandler text1 = new TextHandler(this,  text.get(i), font, text.get(i).getXStart(), 
+											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
+											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
+											text.get(i).getLayer(), null, null);
+				
+				textHandlerList.add(text1);
+				
+				Integer textLayer = text.get(i).getLayer();
+				if (textLayer == null){
+					textLayer = 0;
+				}
+				
+				layers.get(textLayer).getChildren().add(text1.textBox);
+			}
+		}
+		audioHandlerList = new ArrayList<AudioHandler>();
+		// Call the AudioHanlder for each audio object
+		if (audioCount != 0){
+			for(int i = 0; i < audioCount; i++){
+				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+														audio.get(i).getDuration(), audio.get(i).getLoop());
+				
+				audioHandlerList.add(audio1);
+				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
+			}
+		}
+		
+		// Call the VideoHandler for each video object
+		if (videoCount != 0){
+			for(int i = 0; i < videoCount; i++){
+				VideoPlayerHandler video1 = new VideoPlayerHandler(videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+												videos.get(i).getYStart(), videos.get(i).getWidth(),
+												videos.get(i).getHeight(), videos.get(i).getLoop(),
+												videos.get(i).getStartTime(), videos.get(i).getDuration());
+				videoHandlerList.add(video1);								
+				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
+			}
+		}
+		
+		// Call the GraphicHandler for each graphic object
+		if (graphicCount != 0){
+			for(int i = 0; i < graphicCount; i++){
+				
+				// Retrieve any defaults that have been set
+				if (graphics.get(i).getLineColor() == null) 
+					lineColor = recipe.getDefaults().getLineColor();
+				else 
+					lineColor = graphics.get(i).getLineColor();
+				
+				if (graphics.get(i).getFillColor() == null)
+					fillColor = recipe.getDefaults().getFillColor();
+				else
+					fillColor = graphics.get(i).getFillColor();
+			
+				GraphicsHandler graphic1 = new GraphicsHandler(this, graphics.get(i).getTotalPoints(), 
+												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
+												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
+												graphics.get(i).getLayer(), fillColor, lineColor,
+												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+				graphicsHandlerList.add(graphic1);
+				
+				Integer graphicsLayer = graphics.get(i).getLayer();
+				if (graphicsLayer == null){
+					graphicsLayer = 0;
+				}
+				layers.get(graphicsLayer).getChildren().add(graphic1.graphicsBox);
+			}
+		}
+		
+		
+    	
+		
+		
+    	// Create the buttons for the slide.
+	    buttonBox = new HBox();
+	    SlideButton();
+        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
+       
+        // Put the buttons in the bottom centre of the slide
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
+        buttonBox.setLayoutY(screenBounds.getHeight()-200);
+        buttonBox.setOpacity(0);
+	    slideRoot.getChildren().addAll(layers);
+	    
+	
+	    
+	    // Add the buttons to the slide
+        slideRoot.getChildren().add(buttonBox);
+        
+        //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
+        slideMenuService = new SlideMenuBarService();
+        
+        slideMenuService.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+
+			@Override
+			public void handle(WorkerStateEvent arg0) {
+				//Hide the slide Menu Bar
+				buttonBox.setOpacity(0);
+				slideMenuService.reset();
+			}
+        	
+        });
+        
+        slideScene.setOnMouseMoved( new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(slideMenuService.isRunning() == false){
+					//Make the slide menu bar visible
+					buttonBox.setOpacity(1);
+					slideMenuService.start();
+				}
+			}
+			
+		});
+        
+        //When the mouse enters the buttonBox stop slideMenuService from setting the opacity to 0
+	    buttonBox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				
+				slideMenuService.cancel();
+				slideMenuService.reset();
+				
+			}
+	    	
+	    });
+	    
+	    //When mouse exits the buttonBox restart slideMenuService to set the opacity 0 after 3 seconds
+	    buttonBox.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				slideMenuService.cancel();
+				slideMenuService.restart();
+				
+			}
+	    	
+	    });
+	    
+	    // Create a notes panel each time new Slide is called.
+	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
+	    notesPanel = notesGUI.getNotesPanel();
+	    slideRoot.getChildren().add(notesPanel);
+	    notesPanel.setLayoutX(-Screen.getPrimary().getVisualBounds().getWidth()/5);
+		notesPanel.setLayoutY(0);		
+        
+		// Add timers
+        timerHbox = new HBox();
+        slideRoot.getChildren().add(timerHbox);
+        timerList = new ArrayList<Timer>();
+     
+        
+        //If timers were present on previous slide create new timers and resume from saved position
+        if(currentTimerValues != null){
+        	for(int l = 0; l < currentTimerValues.size(); l++){
+        		
+        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
+        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getLabel());
+				timerList.add(continueTimer);
+				 
+				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					
+					@Override
+					public void handle(WorkerStateEvent event) {		
+						timerHbox.getChildren().add(continueTimer.getPane());
+					}
+				});
+				new Thread(continueTimer).start();
+				}
+        }
+       
+        // Show the new set of objects on the slide
+	    slideRoot.setVisible(true);  
+	}	
+
+	
+	/*
+	 * Gets the highest layer assigned to content on the slide
+	 * 
+	 * @Param images: list of image objects on slide
+	 * @Param text: list of text objects on slide
+	 * @Param audio: list of audio objects on slide
+	 * @Param videos: list of video objects on slide
+	 * @Param graphics: list of graphics objects on slide
+	 */
+	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
+			List<Audio> audio, List<Video> videos, List<Shape> graphics) {
+		
+		Integer totalLayers = 0;
+		Integer layer;
+	
+		for(int currentImage = 0; currentImage < images.size(); currentImage++ ){
+			layer = images.get(currentImage).getLayer();
+			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
+			}
+			
+			if(layer > totalLayers){
+				totalLayers = layer;
+			}
+		}
+			
+		for(Integer currentText = 0; currentText < text.size(); currentText++ ){
+			
+			layer = text.get(currentText).getLayer();
+			
+			//If layer not defined in XML, set to 0
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}				
+		}
+		
+		for(int currentAudio = 0; currentAudio < audio.size(); currentAudio++ ){
+			layer = audio.get(currentAudio).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}				
+		}
+		
+		for(int currentVideo = 0; currentVideo < videos.size(); currentVideo++ ){
+			
+			layer = videos.get(currentVideo).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+						totalLayers = layer;
+			}				
+		}
+		
+		for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
+			
+			layer = graphics.get(currentGraphics).getLayer();
+			if(layer == null){
+				layer = 0;
+			}
+			if(layer > totalLayers){
+					totalLayers = layer;
+			}			
+		}
+		return totalLayers;
+		
+		
+	}
+/*Creates the control buttons at the bottom of the slide and creates the event handlers for each button
+ * 
+ */
+	public void SlideButton() {
+        
+        exitSlide1 = new Button("Exit SlideShow");
+        exitSlide1.setPrefWidth(80);
+        exitSlide1.setPrefHeight(40); 
+        
+        nextSlide = new Button("Next Slide");
+        nextSlide.setPrefWidth(80);
+        nextSlide.setPrefHeight(40);
+        
+        previousSlide = new Button("Previous Slide");
+        previousSlide.setWrapText(true);
+        previousSlide.setPrefWidth(80);
+        previousSlide.setPrefHeight(40);
+        previousSlide.setTextAlignment(TextAlignment.CENTER);
+        
+        pauseSlide = new Button("Pause Slide");
+        pauseSlide.setPrefWidth(80);
+        pauseSlide.setPrefHeight(40);
+        pauseSlide.setTextAlignment(TextAlignment.CENTER);
+        
+        createTimer = new Button("Add Timer");
+        createTimer.setPrefWidth(80);
+        createTimer.setPrefHeight(40);
+		    
+        /*Exit Slide when exit slide button is pressed*/
+       
+        exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	
+            	Node  source = (Node)  event.getSource();
+            	Stage stage  = (Stage) source.getScene().getWindow();
+            	Group root = (Group) stage.getScene().getRoot();
+            	root.getChildren().clear();
+            	new MainMenu(stage);
+            	
+            	//newSlide(nextSlideID, false, timerValues);
+            	event.consume();
+            	
+            	
+            	
+            	
+            }
+        });      
+        nextSlide.setOnAction(new EventHandler<ActionEvent>() {
+            
+
+			@Override
+            public void handle(ActionEvent event) {
+            	for(int h = 0; h < audioHandlerList.size(); h++){
+            		
+            		audioHandlerList.get(h).stopAudio();
+            	}
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
+            	
+            	newSlide(nextSlideID, false, timerValues);
+            	event.consume();
+            }
+        });
+        
+        previousSlide.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){
+            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues()); 
+            		 
+            	}
+            	newSlide(prevSlideID, false, timerValues);
+            	event.consume();
+            	
+            }
+        });
+        
+        createTimer.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				 timer = new Timer(null, null, null, null);
+				timerList.add(timer);
+				 
+				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					
+					@Override
+					public void handle(WorkerStateEvent event) {
+						
+						Platform.runLater( new Runnable(){
+							public void run(){
+								timerHbox.getChildren().add(timer.getPane());
+								
+							}
+						});	 			
+						
+					}
+				});
+				new Thread(timer).start();
+				
+				
+			}
+		
+        });
+        
+        pauseSlide.setOnAction( new EventHandler<ActionEvent>(){
+
+			private boolean paused;
+
+			@Override
+			public void handle(ActionEvent event) {
+				if(paused == false){
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).pause();
+					}
+					for(int r = 0; r < imageHandlerList.size(); r++){
+						imageHandlerList.get(r).pause();
+					}
+					pauseSlide.setText("Resume");
+					paused = true;
+				}
+				else{
+					for(int r = 0; r < textHandlerList.size(); r++){
+						textHandlerList.get(r).resume();
+					}
+					for(int r =0; r < imageHandlerList.size(); r++){
+						imageHandlerList.
+					}
+					pauseSlide.setText("Pause");
+					paused = false;
+				}
+				
+			}
+			
+		});
+        // Right and left buttons not working exactly as expected, something to do with the methods called
+        // Same issues exist with buttons 
+//		slideScene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {  
+//		    @Override
+//		    public void handle(KeyEvent event) {
+//		    	if(event.getCode() == KeyCode.RIGHT) {
+//		    		System.out.println("Next slide");
+//	            	newSlide(nextSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    	else if (event.getCode() == KeyCode.LEFT) {
+//		    		System.out.println("Previous slide");
+//	            	newSlide(prevSlideID, false, timerValues);
+//	            	event.consume();
+//		    	}
+//		    }
+//		});
+		slideScene.setOnKeyPressed(new EventHandler<KeyEvent>() {  
+		    @Override
+		    public void handle(KeyEvent event) {
+		    	if(event.getCode() == KeyCode.RIGHT) {
+		    		System.out.println("Next slide");
+	            	newSlide(nextSlideID, false, timerValues);
+	            	event.consume();
+		    	}
+		    	else if (event.getCode() == KeyCode.LEFT) {
+		    		System.out.println("Previous slide");
+	            	newSlide(prevSlideID, false, timerValues);
+	            	event.consume();
+		    	}
+		    }
+		});
+	}
+	
+	
+		 
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:296)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1213)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:813)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:548)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:541)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:484)
+	at org.eclipse.jdt.ui.SharedASTProvider.getAST(SharedASTProvider.java:132)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:170)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:155)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2014-05-14 12:47:34.727
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:296)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1213)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:813)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:548)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:541)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:484)
+	at org.eclipse.jdt.ui.SharedASTProvider.getAST(SharedASTProvider.java:132)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:170)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:155)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2014-05-14 12:47:34.730
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.ASTNode.setSourceRange(ASTNode.java:2849)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:606)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:338)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2510)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1695)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2750)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:637)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:199)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2957)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1373)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:296)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1213)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:813)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:548)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:541)
+	at org.eclipse.jdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:484)
+	at org.eclipse.jdt.ui.SharedASTProvider.getAST(SharedASTProvider.java:132)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:170)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:155)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
