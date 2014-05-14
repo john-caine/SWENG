@@ -26,7 +26,7 @@ public class MainMenu {
 		//Get the visual bounds of the screen
 		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
-		stage.initStyle(StageStyle.UNDECORATED);
+		
 		
 		// Create a new group for the main menu so that the stage doesn't require changing
         menuGroup = new Group();

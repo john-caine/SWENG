@@ -17,6 +17,7 @@ public class eCook extends Application {
 		root = new Group();
 	    // Set the title of the window
 	    stage.setTitle("eCook");
+	    stage.initStyle(StageStyle.UNDECORATED);
 	    // Add main menu to the stage
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage);
