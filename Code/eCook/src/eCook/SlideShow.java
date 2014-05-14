@@ -64,12 +64,14 @@ public class SlideShow {
 	private ArrayList<GraphicsHandler> graphicsHandlerList;
 	private VBox notesPanel;
 	private Timeline timeLineDuration;
+	private Stage stage;
 	
 	
 
 	
 	public SlideShow(Stage stage, String filepath) {
 		
+		this.stage = stage;
 		// Create a new group for objects
 		slideRoot = new Group();
 		// Create a new scene for the slide show
@@ -637,6 +639,9 @@ public class SlideShow {
 		    		System.out.println("Previous slide");
 	            	newSlide(prevSlideID, false, timerValues);
 	            	event.consume();
+		    	}
+		    	else if (event.getCode() == KeyCode.ESCAPE) {	
+	            	new MainMenu(stage);
 		    	}
 		    }
 		});
