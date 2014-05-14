@@ -1,9 +1,8 @@
 /*
- Programmers : Roger & Prakruti
+ Programmers : Roger & Zayyad
  Date created: 27/2/2014
  Description: Create a Main Menu
- Version : 1.0 27/2/2014
- 			1.1 29/2/2014 James and Prakruti added file handler
+
  */
 package eCook;
 
@@ -14,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainMenu {
 
@@ -26,11 +26,12 @@ public class MainMenu {
 		//Get the visual bounds of the screen
 		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
+		stage.initStyle(StageStyle.UNDECORATED);
 		
 		// Create a new group for the main menu so that the stage doesn't require changing
         menuGroup = new Group();
         // Create a new MainMenuContent object
-        mainMenuContent =  new MainMenuContent();    
+        mainMenuContent =  new MainMenuContent(stage);    
         // Create a new fileHandlerButton object
         fileHandlerButton = new FileHandlerButton(stage);
         // Add Main Menu Content to main menu group
