@@ -7,7 +7,11 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import errorhandler.ErrorHandler;
+=======
+import javafx.stage.StageStyle;
+>>>>>>> b699096362091da01052b4a7c6c60a44e4237e59
 
 public class eCook extends Application {
 	
@@ -21,10 +25,12 @@ public class eCook extends Application {
 		root = new Group();
 	    // Set the title of the window
 	    stage.setTitle("eCook");
+	    stage.initStyle(StageStyle.UNDECORATED);
 	    // Add main menu to the stage
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage);
 		// Show the stage when ready
+		//stage.initStyle(StageStyle.UNDECORATED);
 	    stage.show();
 	    
 	

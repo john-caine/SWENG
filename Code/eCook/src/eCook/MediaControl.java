@@ -14,7 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -70,10 +73,12 @@ public abstract class MediaControl {
 	private Button playButton, playButtonFS;
 	private FadeTransition fadeTransition;
 	private Integer startTime;
-	private Integer playDuration;
+	private final Integer playDuration;
 	private Boolean mpLoop;
 	protected HBox mediaBar;
 	protected boolean continuePlaying = true;
+	private Timeline timeLineStart;
+	private Animation.Status stopped = Animation.Status.STOPPED;
 	
 	/* 
 	 * Constructor for the MediaControl class. Accepts optional parameters from PWS.
@@ -88,7 +93,7 @@ public abstract class MediaControl {
 	 * @param startTime The PWS optional startTime to delay the video starting to play
 	 * @param playDuration The PWS optional duration to play the video for
 	 */
-	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, Integer playDuration){
+	public MediaControl(final MediaPlayer mp, Integer width, Integer height, Boolean loop, Integer startTime, final Integer playDuration){
 		
 		this.mp = mp;
 		this.startTime = startTime;
@@ -123,14 +128,10 @@ public abstract class MediaControl {
             mediaView.setFitWidth(mpWidth);		
 		}
 		
-		if (startTime == null) {
-			// Set start time to be 0 when no startTime is being indicated
-	        this.startTime = 0;
-	        new Thread(startTimerThread).start();
-	    } else {
-	    	// Start the startTimerThread based on the startTime indicated
-	        new Thread(startTimerThread).start();
-	    }
+		
+		
+		
+	
 		
 		// A VBox that contains the MediaView and Control Panel of the MediaPlayer
 		overallBox = new VBox();
@@ -205,6 +206,46 @@ public abstract class MediaControl {
         
         // Add the mediaBar "box" to the overall MediaControl "bar"
         overallBox.getChildren().add(mediaBar);
+        
+      //Create the startTime timeline
+  		timeLineStart = new Timeline();
+  		
+  		//When startTime timeline has finished show the image and if there is a duration begin the duration timeline
+  		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
+
+  			@Override
+  			public void handle(ActionEvent arg0) {
+  					
+  				
+  				if (continuePlaying == true){
+  					Platform.runLater (new Runnable() {
+  						public void run(){
+  							mp.play();
+  						}
+  					});
+  					
+  					// If the duration to play is not invalid set a stop time
+  					if (playDuration != null && playDuration != 0){
+  						mp.setStopTime(Duration.seconds(playDuration));
+  					}
+  			}	
+  		}});
+  		createKeyFrame();
+  		
+  		//If a start time has been set, start the startTime timeline, if not play the media
+  		if(startTime != null){
+  			System.out.println("Starttime media timeline running");
+  			timeLineStart.setCycleCount(this.startTime);
+  			timeLineStart.playFromStart();
+  		}
+  		else{
+  			Platform.runLater (new Runnable() {
+				public void run(){
+					System.out.println("Media time line finished");
+					mp.play();
+				}
+			});
+  		}
     }
 	
 	/* 
@@ -640,7 +681,7 @@ public abstract class MediaControl {
     }
     
     /*
-     * Function to count and formulate the Timing of the MediaPlayer
+     * Method to count and formulate the Timing of the MediaPlayer
      * 
      * @param elapsed The time elapsed so far
      * @param duration The total duration of the video
@@ -690,36 +731,6 @@ public abstract class MediaControl {
         }
     }
     
-    /* 
-     * Thread to sleep the MediaPlayer for starTime duration before MediaPlayer starts to play
-     * 
-     * @return null
-     */
-    protected Task<Object> startTimerThread = new Task<Object>() {
-    	
-		@Override
-		protected Object call() throws Exception {
-			// Sleep until the start time has elapsed
-			TimeUnit.SECONDS.sleep(startTime);
-		 
-			// If  we still wish to continue playing at this stage do so by spawning a new thread
-			if (continuePlaying == true){
-				Platform.runLater (new Runnable() {
-					public void run(){
-						mp.play();
-					}
-				});
-				
-				// If the duration to play is not invalid set a stop time
-				if (playDuration != null && playDuration != 0){
-					mp.setStopTime(Duration.seconds(playDuration));
-				}
-			}
-			
-			// Return null to keep Java happy.
-			return null;
-		}
-    };
     
     /*
      * Thread to play the MediaPlayer for duration amount of time before stopping the 
@@ -784,5 +795,30 @@ public abstract class MediaControl {
 	public void setContinuePlaying(boolean newState) {
 		continuePlaying = newState;
 	}
-
+	
+	/*
+	  * Adds 1 second keyframes to timeLineStart 
+	  */
+	 private void createKeyFrame(){
+			
+			timeLineStart.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
+				@Override
+				public void handle(ActionEvent event) {
+					startTime--;	
+				}
+			} ));
+				
+	}
+	 
+	 //Pauses the start time timeline (does not pause audio already playing)
+	 public void pauseStartTime(){
+		 timeLineStart.pause();
+		
+	 }
+	 // Resumes the start time timeline (does not pause audio already playing)
+	 public void resumeStartTime(){
+		 if(timeLineStart.getStatus() != stopped){
+			 timeLineStart.play();
+		 }
+	 }
 }

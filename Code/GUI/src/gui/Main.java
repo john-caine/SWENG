@@ -26,7 +26,7 @@ public void start(Stage primaryStage) {
 			screenBounds = Screen.getPrimary().getVisualBounds();
 			Group root = new Group();
 			Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
-			root.getChildren().add(new MainMenu().bigBox);
+			root.getChildren().add(new MainMenu(primaryStage).bigBox);
 			scene.setFill(Color.WHITE);
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UNDECORATED);

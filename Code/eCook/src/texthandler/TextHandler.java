@@ -9,8 +9,6 @@ package texthandler;
 
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import eCook.SlideShow;
 import xmlparser.TextBody;
 import xmlparser.TextString;
@@ -18,8 +16,6 @@ import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -37,16 +33,13 @@ public class TextHandler {
 	
 	public TextFlow textBox;
 	public Text text;
-	private Integer startTime;
-	private Integer duration;
+	private Integer startTime, duration, branchID;
 	private FontWeight weight;
 	private FontPosture posture;
 	private SlideShow parent;
-	private Integer branchID;
 	private List<TextString> stringList;
 	private TextString textString;
-	private Timeline timeLineStart;
-	private Timeline timeLineDuration;
+	private Timeline timeLineStart, timeLineDuration;
 	private final Integer runDuration;
 	
 	/*
@@ -137,10 +130,14 @@ public class TextHandler {
 		 
 		//Sets the XY position of textBox
 		setStartXY(x_start, y_start, textBox);
-		 
 		
+		if (branchID != null && branchID != 0){
+		doBranch();
+		}
+		//Create the startTime timeline
 		timeLineStart = new Timeline();
 		
+		//When startTime timeline has finished show the text and if there is a duration begin the duration timeline
 		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -152,8 +149,10 @@ public class TextHandler {
 			}	
 		});
 		
+		//Create duration timeline
 		timeLineDuration = new Timeline();
 		
+		//When duration timeline has finished remove the text. 
 		timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -164,7 +163,7 @@ public class TextHandler {
 		});
 
 		createKeyFrame();
-		
+		//Begin start time timeline if the text has a start time.
 		if(startTime != null){
 			System.out.println("Starttime timeline running");
 			timeLineStart.setCycleCount(this.startTime);
@@ -174,6 +173,7 @@ public class TextHandler {
 			timeLineDuration.setCycleCount(this.duration);
 			timeLineStart.playFromStart();
 		}
+		//Show text and begin duration timeline 
 		else if(duration != null){
 		 showText();
 		 System.out.println("Duration timeline running");
@@ -184,14 +184,7 @@ public class TextHandler {
 		showText();
 		}
 		
-		//Begin the start Timer thread
-		//if (startTime == null) {
-			//this.startTime = 0;
-			//new Thread(startTimerThread).start();
-		//}
-		//else
-			
-		//new Thread(startTimerThread).start();
+		
 	};
 	
 	// Set the XY Layout of the TextFlow box
@@ -201,7 +194,7 @@ public class TextHandler {
 		box.setLayoutY((double)y_start);
 	}
 	
-	// Set the visibility of textBox to true
+	// Makes the text visible on the screen
 	public void showText() {
 		
 		Platform.runLater( new Runnable(){
@@ -212,7 +205,7 @@ public class TextHandler {
 
 	 }
 	
-	//Set the visibility of textBox to false
+	//Makes the text invisible
 	 public void removeText() {
 		 
 		 Platform.runLater( new Runnable(){
@@ -222,45 +215,7 @@ public class TextHandler {
 			});
 		 
 	 }
-	// Thread waits until count = startTime then sets the visibility of the image to true.
-	 Task<Object> startTimerThread = new Task<Object>() {
-		 
-			@Override
-			protected Object call() throws Exception {
-				//Task waits for number of seconds equal to startTime
-				TimeUnit.SECONDS.sleep(startTime);
-			 
-			
-			 
-			 if (branchID != null && branchID != 0)
-				 doBranch();
-			 if (duration != null && duration != 0)
-				 new Thread(durationTimerThread).start();
-			 
 
-				return null;
-			}
-		 };
-	 
-	 // Thread waits until duration and then sets the image visibility to false once duration = count.
-		 Task<Object> durationTimerThread = new Task<Object>() {
-			 
-				@Override
-				protected Object call() throws Exception {
-					
-					//Task waits for number of seconds equal to Duration
-					TimeUnit.SECONDS.sleep(duration);
-					
-					//Allows removeText() to be run on the JavaFX thread, all GUI changes must happen on JavaFX thread
-					 Platform.runLater( new Runnable(){
-							public void run(){
-								 removeText();
-							}
-						});	 
-					return null;
-				}
-			 };
-	
 	 // When textBox is clicked on, a new branch slide is created with an id of branchID
 	 private void doBranch() {
 		 textBox.setOnMouseClicked(new EventHandler<MouseEvent> ()
@@ -271,6 +226,9 @@ public class TextHandler {
 		});
 	 }
 	 
+	 /*
+	  * Adds 1 second keyframes to timeLineStart and timeLineDuration
+	  */
 	 private void createKeyFrame(){
 			
 			timeLineStart.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
@@ -279,23 +237,26 @@ public class TextHandler {
 					startTime--;	
 				}
 			} ));
-			
 			timeLineDuration.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){	
 				@Override
 				public void handle(ActionEvent event) {
-					duration--;
-					
+					duration--;	
 				}
 			} ));	
 	}
 	 
+	 /*
+	  * Pauses the timeLineStart and timeLineDuration timelines
+	  */
 	 public void pause(){
 		 timeLineStart.pause();
 		 timeLineDuration.pause();
 		
 	 }
 	 
-	 
+	 /*
+	  * Resumes the appropriate TimeLine to either remove or show the text if the TimeLines are not stopped
+	  */
 	 public void resume(){
 		 if(textBox.isVisible() == true && timeLineDuration.getStatus() != Status.STOPPED){
 			 timeLineDuration.play();

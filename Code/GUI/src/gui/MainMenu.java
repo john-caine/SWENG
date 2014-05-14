@@ -17,10 +17,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,7 +44,7 @@ public class MainMenu {
 	VBox bigBox;
 	Label blank;
 	
-	public MainMenu() {
+	public MainMenu(final Stage primaryStage) {
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
@@ -153,29 +157,73 @@ public class MainMenu {
 		//BUTTON ACTIONS
 		loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-               // System.out.println("Recipe Clicked");            	
-                 
-            	VBox optionBox = new VBox(10);
-            	Button httpBtn = new Button();
-            	Button fileBrowserBtn = new Button();
-            		
-            	httpBtn.setPrefSize(150, 150);
-            	fileBrowserBtn.setPrefSize(150, 150);
-            		
-            	optionBox.getChildren().addAll(httpBtn,fileBrowserBtn);
-                  
-                 Scene loadExtWindow = new Scene(optionBox, 400, 400);
-                 loadExtWindow.setFill(Color.PINK);
-  
-                 Stage secondStage = new Stage();
-                 secondStage.setTitle("Second Stage");
-                 secondStage.setScene(loadExtWindow);
-                 secondStage.initStyle(StageStyle.UNDECORATED);
-                 
-                 secondStage.setX(loadExtBtn.getLayoutX() );
-                 secondStage.setY(loadExtBtn.getLayoutY() );
-   
-                 secondStage.show();	
+            	final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initOwner(primaryStage);
+                
+                
+                Button urlBtn = new Button("HTTP://");
+                Button fileBrowserBtn = new Button("Browse...");
+                urlBtn.setPrefSize(230,250);
+                fileBrowserBtn.setPrefSize(230,250);
+                VBox loadExtBox = new VBox(20);
+                HBox topBox = new HBox();
+                HBox midBox = new HBox(10); 
+                topBox.setAlignment(Pos.TOP_RIGHT);
+                
+        		ImageView loadExtWinCloseBtnHolder = new ImageView();
+        		try {
+        			inputStream = new FileInputStream("../Resources/redx.png");
+        		} catch (FileNotFoundException e1) {
+        			// TODO Auto-generated catch block
+        			e1.printStackTrace();
+        		} 
+        		Image closeIcon = new Image(inputStream);
+        		loadExtWinCloseBtnHolder.setImage(closeIcon);
+                topBox.getChildren().add(loadExtWinCloseBtnHolder);
+                midBox.getChildren().addAll(urlBtn,fileBrowserBtn);
+                loadExtBox.getChildren().addAll(topBox,midBox);
+                Scene dialogScene = new Scene(loadExtBox, 500, 200);
+                dialogScene.setFill(Color.RED);
+                dialog.setScene(dialogScene);
+                dialog.show();
+                
+                
+        		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
+        			public void handle(ActionEvent event) {
+            	
+        				System.out.println("URL BUTTON CLICKED");
+        				dialog.close();
+        			}
+        		});
+  		
+        		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
+        			public void handle(ActionEvent event) {
+        				
+        				System.out.println("FILE BROWSER BUTTON CLICKED");
+        				dialog.close();
+        			}
+        		});
+        		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent mouseEvent) {
+                    Node  source = (Node)  mouseEvent.getSource();
+                 	Stage dialog= (Stage) source.getScene().getWindow();
+                 	dialog.close();
+                    }
+                });
+        		
+        		dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+        		        public void handle(KeyEvent t) {
+        		          if(t.getCode()==KeyCode.ESCAPE)
+        		          {
+        		        	  dialog.close();
+        		          }
+        		        }
+        		    });
+        		
+        		
+               
             }
         });
 		
@@ -214,7 +262,7 @@ public class MainMenu {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenu().bigBox);
+         	root.getChildren().add(new MainMenu(primaryStage).bigBox);
          	stage.show();
             }
         });
