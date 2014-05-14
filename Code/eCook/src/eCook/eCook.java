@@ -7,11 +7,8 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 import errorhandler.ErrorHandler;
-=======
 import javafx.stage.StageStyle;
->>>>>>> b699096362091da01052b4a7c6c60a44e4237e59
 
 public class eCook extends Application {
 	
