@@ -44,38 +44,30 @@ public class SlideShow {
 
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID; 
-	public int nextSlideID; 
-	public int prevSlideID; 
-	public int numOfSlides;
-	private Button  previousSlide;
-	private Button nextSlide;
-	private Button exitSlide1;
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
+	private Button  previousSlide, nextSlide, exitSlide1, pauseSlide, createTimer;
+	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
 	private Defaults defaults;
 	private Integer maxLayer;
-	private Stage stage;
-	private Button createTimer;
 	private Timer timer;
-	private HBox timerHbox;
-	private HBox buttonBox;
+	private HBox timerHbox, buttonBox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private SlideMenuBarService slideMenuService;
-	private Button pauseSlide;
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<AudioHandler> audioHandlerList;
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
-	//private ArrayList<GraphicsHandler> graphicsHandlerList;
-	
+	private ArrayList<GraphicsHandler> graphicsHandlerList;
 	private VBox notesPanel;
+	
 	
 
 	
 	public SlideShow(Stage stage, String filepath) {
-		XMLReader reader;
+		
 		// Create a new group for objects
 		slideRoot = new Group();
 		// Create a new scene for the slide show
@@ -189,10 +181,6 @@ public class SlideShow {
 			
 			
 		}
-		
-		
-		
-		
 		// Call the ImageHandler for each image object
 		if (imageCount != 0){
 			for(int i = 0; i < imageCount; i++){
@@ -290,6 +278,7 @@ public class SlideShow {
 												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
 												graphics.get(i).getLayer(), fillColor, lineColor,
 												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+				graphicsHandlerList.add(graphic1);
 				
 				Integer graphicsLayer = graphics.get(i).getLayer();
 				if (graphicsLayer == null){
@@ -404,15 +393,20 @@ public class SlideShow {
 				new Thread(continueTimer).start();
 				}
         }
-        
-        
-	    
+       
         // Show the new set of objects on the slide
 	    slideRoot.setVisible(true);  
 	}	
 
+	
 	/*
 	 * Gets the highest layer assigned to content on the slide
+	 * 
+	 * @Param images: list of image objects on slide
+	 * @Param text: list of text objects on slide
+	 * @Param audio: list of audio objects on slide
+	 * @Param videos: list of video objects on slide
+	 * @Param graphics: list of graphics objects on slide
 	 */
 	private Integer getMaxLayer(List<Image> images, List<TextBody> text,
 			List<Audio> audio, List<Video> videos, List<Shape> graphics) {
@@ -431,7 +425,6 @@ public class SlideShow {
 			if(layer > totalLayers){
 				totalLayers = layer;
 			}
-			
 		}
 			
 		for(Integer currentText = 0; currentText < text.size(); currentText++ ){
@@ -444,9 +437,7 @@ public class SlideShow {
 			}
 			if(layer > totalLayers){
 					totalLayers = layer;
-			}
-			
-						
+			}				
 		}
 		
 		for(int currentAudio = 0; currentAudio < audio.size(); currentAudio++ ){
@@ -456,8 +447,7 @@ public class SlideShow {
 			}
 			if(layer > totalLayers){
 					totalLayers = layer;
-			}
-						
+			}				
 		}
 		
 		for(int currentVideo = 0; currentVideo < videos.size(); currentVideo++ ){
@@ -468,9 +458,7 @@ public class SlideShow {
 			}
 			if(layer > totalLayers){
 						totalLayers = layer;
-			}
-			
-						
+			}				
 		}
 		
 		for(int currentGraphics = 0; currentGraphics < graphics.size(); currentGraphics++ ){
@@ -481,8 +469,7 @@ public class SlideShow {
 			}
 			if(layer > totalLayers){
 					totalLayers = layer;
-			}
-						
+			}			
 		}
 		return totalLayers;
 		

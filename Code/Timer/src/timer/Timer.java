@@ -1,10 +1,11 @@
+/*
+ * Programmer: Steve Thorpe and Paul Mathema
+ * Date Created: 01/03/2014
+ * Description: Creates a Cooking Timer with drop down combo boxes to select the time, start and reset buttons and a TextField the user can set
+ * 				to provide a description of what the timer is for.
+ */
+
 package timer;
-
-
-
-
-
-import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,10 +26,7 @@ import javafx.scene.media.MediaException;
 import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
-	
 
-
-	
 	private Button startButton;
 	private Integer timerStartSeconds = 10;
 	private Integer timerValueSeconds= 0;
@@ -47,9 +45,6 @@ public class Timer extends Task<Object>{
 	private boolean started = false;
 	private boolean paused = false;
 	private boolean timerSetupFinished = false;
-	
-	
-
 	private HBox listBox;
 	private VBox timerVBox;
 	private int i;

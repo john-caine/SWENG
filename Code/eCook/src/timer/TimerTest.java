@@ -1,6 +1,10 @@
 package timer;
 
 import static org.junit.Assert.*;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -25,7 +29,7 @@ public class TimerTest {
 	@Before 
 	public void SetUp(){
 		
-		timer = new Timer(null, null, null);
+		timer = new Timer(null, null, null, null);
 		timerHbox = new HBox();
 		timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 			
@@ -39,32 +43,39 @@ public class TimerTest {
 			}
 		});
 		
-		
-
-		
-		
-		
-		
 	}
 
 	@Test
-	public void timerThreadCreated() {
+	public void timerThreadCreated() throws InterruptedException {
+		final CountDownLatch latch = new CountDownLatch(1);
+		final Timer timer = new Timer(null, null, null, null);
+		Runnable run  = new Runnable(){
+
+			@Override
+			public void run() {
+				timer.run();
+				latch.countDown();
+				
+			}
+			
+		};
 		
-		assertTrue(thread.isAlive());
-	
-		
+		Thread thread = new Thread(run);
+		thread.start();
+		assertTrue(latch.await(1000, TimeUnit.SECONDS));
+		assertNotNull(timer.numbersListSeconds.getChildrenUnmodifiable());
 	}
 	
 	@Test 
 	public void timerHBoxPopulated(){
 		
-		assertNotNull(timerHbox.getChildren());
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		
+		
+	}
+	
+	@Test
+	public void timerListPopulated(){
 		
 	}
 

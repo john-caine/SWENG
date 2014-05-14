@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import eCook.SlideShow;
 import xmlparser.TextBody;
 import xmlparser.TextString;
+import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -161,8 +162,7 @@ public class TextHandler {
 				removeText();
 			}
 		});
-		
-		
+
 		createKeyFrame();
 		
 		if(startTime != null){
@@ -183,10 +183,6 @@ public class TextHandler {
 		else{
 		showText();
 		}
-		
-		
-		
-	
 		
 		//Begin the start Timer thread
 		//if (startTime == null) {
@@ -213,8 +209,7 @@ public class TextHandler {
 				 textBox.setVisible(true);
 			}
 		});
-	    
-	     
+
 	 }
 	
 	//Set the visibility of textBox to false
@@ -297,12 +292,14 @@ public class TextHandler {
 	 public void pause(){
 		 timeLineStart.pause();
 		 timeLineDuration.pause();
+		
 	 }
 	 
+	 
 	 public void resume(){
-		 if(textBox.isVisible() == true){
+		 if(textBox.isVisible() == true && timeLineDuration.getStatus() != Status.STOPPED){
 			 timeLineDuration.play();
-		 }else{
+		 }else if (textBox.isVisible() == false && timeLineStart.getStatus() != Status.STOPPED){
 			 timeLineStart.play();
 		 System.out.println(timeLineDuration.getCycleCount());
 		 }
