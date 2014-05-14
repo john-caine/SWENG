@@ -52,7 +52,7 @@
       </textbody>
     </text>
 	</slide>
-	<slide ID="1" lastSlide="false">
+	<slide ID="1" duration="30" lastSlide="false">
 		<shape totalpoints="4" width="15" height="15">
 			<point num="1" x="10" y="10"/>
 			<point num="2" x="25" y="10"/>
@@ -104,7 +104,7 @@
 			<layer>3</layer>
 		</image>
 	</slide>
-	<slide ID="4" duration="200" lastSlide="true">
+	<slide ID="4" lastSlide="true">
 		<video>
 			<urlname>http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4</urlname>
 			<xstart>10</xstart>

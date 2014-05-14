@@ -28,7 +28,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -507,6 +506,7 @@ public class SlideShow {
 			@Override
             public void handle(ActionEvent event) {
 				
+				timeLineDuration.stop();
             	for(int h = 0; h < audioHandlerList.size(); h++){
             		
             		audioHandlerList.get(h).stopAudio();
@@ -525,7 +525,7 @@ public class SlideShow {
         previousSlide.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	
+            	timeLineDuration.stop();
             	timerValues = new ArrayList<TimerData>();
             	for(int g = 0; g<timerList.size(); g++){            		
             		timerList.get(g).cancel();
@@ -627,11 +627,13 @@ public class SlideShow {
 		    @Override
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {
+		    		timeLineDuration.stop();
 		    		System.out.println("Next slide");
 	            	newSlide(nextSlideID, false, timerValues);
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.LEFT) {
+		    		timeLineDuration.stop();
 		    		System.out.println("Previous slide");
 	            	newSlide(prevSlideID, false, timerValues);
 	            	event.consume();
@@ -644,7 +646,7 @@ public class SlideShow {
 			timeLineDuration.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){	
 				@Override
 				public void handle(ActionEvent event) {
-					duration--;	
+						
 				}
 			} ));	
 	}	 
