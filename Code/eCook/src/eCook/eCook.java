@@ -1,3 +1,12 @@
+/*
+ * Programmer: Jonathan Caine, Stephen Thorpe
+ * Date Created: 26/03/2014
+ * Description: Main entry class for the application. Main method calls launch on the JFx
+ * 				application thread, and sets up a new logger with an associated FileHandler
+ * 				to log results to. Start method defines the window properties, and calls out
+ * 				to create a new MainMenu.
+ */
+
 package eCook;
 
 import java.io.IOException;
@@ -21,21 +30,19 @@ public class eCook extends Application {
 	
 	@Override
 	public void start(Stage stage) {
-		logger.entering(eCook.class.getName(), "start");
 	
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();
-	    // Set the title of the window
+	    
+		// Set the title of the window
 	    stage.setTitle("eCook");
 	    stage.initStyle(StageStyle.UNDECORATED);
-	    // Add main menu to the stage
+	    
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage);
+		
 		// Show the stage when ready
-		//stage.initStyle(StageStyle.UNDECORATED);
-	    stage.show();
-	    
-	    logger.exiting(eCook.class.getName(), "start");
+	    stage.show();  
 	}
 	
 	public static void main(String[] args) {

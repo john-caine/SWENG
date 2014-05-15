@@ -1,6 +1,13 @@
+/* Programmer: Jonathan Caine, Roger Tan
+ * Date Created: 03/03/2014
+ * Description: ImageHandler that retrieves both HTTP and local images, resizes them, 
+ * 				orientates them, delays showing them until the startTime has elapsed,
+ * 				and then displays them until the durationTime has elapsed. Also includes
+ * 				branching capabilities.
+ */
+
+
 package imagehandler;
-
-
 
 import eCook.SlideShow;
 import javafx.animation.KeyFrame;
@@ -23,17 +30,6 @@ public class ImageHandler {
 	private Timeline timeLineDuration, timeLineStart;
 	private final Integer runDuration;
 	
-	
-	//public ImageHandler(String path, int xStart, int yStart){
-		///*Display the original Image in ImageView*/
-    	//ImageView iv1 = new ImageView();
-        //iv1.setImage(retrieveImage(path));
-        //imageBox = new HBox();
-        //imageBox.getChildren().add(iv1);
-        //setImageLocation(imageBox, xStart, yStart);
-       // showImage();
-	//}
-	
 	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branch, Integer orientation) {
 		this.duration = duration;
 		this.startTime = startTime;
@@ -41,72 +37,80 @@ public class ImageHandler {
 		this.parent = parent;
 		this.runDuration = duration;
 		
-		
+		// Create an imageView and retrieve the image.
     	ImageView iv1 = new ImageView();
         iv1.setImage(retrieveImage(path));
         
+        // Resize the image maintaining the aspect ratio if height and width were set
         if (width != null && height != null) 
         	resizeImage(iv1, width, height);
+        
+        // Set the orientation of the image if one was set
         if (orientation != null)
         	rotateImage(iv1, orientation);
        
+        // Add the image to a HBox ready to be dispalyed on the screen
         imageBox = new HBox();
         imageBox.setVisible(false);
         imageBox.getChildren().add(iv1);
+        
+        // Set the location of the HBox on the screen from X and Y coordinates given
         setImageLocation(imageBox, xStart, yStart); 
         
+        // Branch if a branchID was set
         if (branchID != null && branchID != 0){
-        doBranch();
+        	doBranch();
         }
         
-      //Create the startTime timeline
-      		timeLineStart = new Timeline();
+      	//Create the startTime timeline
+        timeLineStart = new Timeline();
       		
-      		//When startTime timeline has finished show the image and if there is a duration begin the duration timeline
-      		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
-
-      			@Override
-      			public void handle(ActionEvent arg0) {
-      				showImage();	
-      				
-      				if(runDuration != null)
-      				timeLineDuration.playFromStart();
-      			}	
-      		});
+        //When startTime timeline has finished show the image and if there is a duration begin the duration timeline
+        timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
+	
+        	@Override
+        	public void handle(ActionEvent arg0) {
+        		showImage();	
+				
+        		if(runDuration != null)
+        			timeLineDuration.playFromStart();
+        	}	
+        });
+		
+        //Create duration timeline
+        timeLineDuration = new Timeline();
       		
-      		//Create duration timeline
-      		timeLineDuration = new Timeline();
-      		
-      		//When duration timeline has finished remove the image. 
-      		timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
+        //When duration timeline has finished remove the image. 
+        timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
 
-      			@Override
-      			public void handle(ActionEvent arg0) {
-      				removeImage();
-      			}
-      		});
+        	@Override
+        	public void handle(ActionEvent arg0) {
+        		removeImage();
+        	}
+        });
 
-      		createKeyFrame();
-      		//Begin start time timeline if the image has a start time.
-      		if(startTime != null){
-      			System.out.println("Starttime timeline running");
-      			timeLineStart.setCycleCount(this.startTime);
-      			if(this.duration == null){
-      				this.duration = 0;
-      			}
-      			timeLineDuration.setCycleCount(this.duration);
-      			timeLineStart.playFromStart();
-      		}
-      		//Show image and begin duration timeline 
-      		else if(duration != null){
-      		 showImage();
-      		 System.out.println("Duration timeline running");
-      		 timeLineDuration.setCycleCount(this.duration);
-      		 timeLineDuration.playFromStart();
-      		}
-      		else{
-      		showImage();
-      		}  
+  		createKeyFrame();
+  		
+  		//Begin start time timeline if the image has a start time.
+  		if(startTime != null) {
+  			System.out.println("Starttime timeline running");
+  			timeLineStart.setCycleCount(this.startTime);
+  			if(this.duration == null){
+  				this.duration = 0;
+  			}
+  			timeLineDuration.setCycleCount(this.duration);
+  			timeLineStart.playFromStart();
+  		}
+  		//Show image and begin duration timeline 
+  		else if(duration != null) {
+  			showImage();
+  			System.out.println("Duration timeline running");
+  			timeLineDuration.setCycleCount(this.duration);
+  			timeLineDuration.playFromStart();
+  		}
+  		else {
+  			showImage();
+  		}  
       
 	}
 	
