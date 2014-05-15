@@ -63,8 +63,10 @@ public class SlideShow {
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	private ArrayList<GraphicsHandler> graphicsHandlerList;
 	private VBox notesPanel;
+	HBox controlPanel;
 	private Timeline timeLineDuration;
 	private Stage stage;
+	private Controls controls;
 	
 	
 
@@ -356,7 +358,6 @@ public class SlideShow {
       		
       		//When duration timeline has finished remove the text. 
       	timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
-			@Override
 			public void handle(ActionEvent event) {
 				for(int h = 0; h < audioHandlerList.size(); h++){		
             		audioHandlerList.get(h).stopAudio();
@@ -464,6 +465,14 @@ public class SlideShow {
  */
 	public void SlideButton() {
         
+		controls = new Controls(currentSlideID, slideRoot);
+		controlPanel = controls.getControlPanel();
+		
+		
+		slideRoot.getChildren().add(controlPanel);
+		
+		
+		
         exitSlide1 = new Button("Exit SlideShow");
         exitSlide1.setPrefWidth(80);
         exitSlide1.setPrefHeight(40); 
