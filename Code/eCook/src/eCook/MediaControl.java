@@ -186,7 +186,7 @@ public abstract class MediaControl {
         // Label to show the current volume of the media
         Label volumeLabel = new Label(" Vol: ");
         volumeLabel.setTextFill(Color.WHITE);
-        volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
+        volumeLabel.setMaxWidth(50);
         mediaBar.getChildren().add(volumeLabel);
 
         // Handle the volume slider
@@ -255,10 +255,7 @@ public abstract class MediaControl {
 	void setVolumeSlider() {
 		// Create a new volume slider
 		volumeSlider = new Slider();
-	    volumeSlider.setManaged(true);
-	    volumeSlider.setMaxWidth(mpWidth/6);
-	    volumeSlider.setMinWidth(20);
-	    
+	    volumeSlider.setMaxWidth(mpWidth/9);
 	    // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
 	    volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 	        
