@@ -57,6 +57,7 @@ public abstract class MediaControl {
 	protected MediaPlayer mp;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
+    private boolean checkPlayDuration = true;
     private Duration duration;
     private Slider timeSlider, timeSliderFS;
     protected Label playTime, playTimeFS;
@@ -123,9 +124,10 @@ public abstract class MediaControl {
 		} else {
 			// Set a default size of the MediaPlayer when no height and width are being indicated
 			this.mpWidth = (int) (bounds.getWidth()/2);
-			this.mpHeight = (int) (bounds.getHeight()/4);
-			mediaView.setPreserveRatio(true);
-            mediaView.setFitWidth(mpWidth);		
+			this.mpHeight = (int) (bounds.getHeight()/3);
+			mediaView.setPreserveRatio(false);
+            mediaView.setFitWidth(mpWidth);
+            mediaView.setFitHeight(mpHeight-35);
 		}
 		
 		
@@ -136,7 +138,6 @@ public abstract class MediaControl {
 		// A VBox that contains the MediaView and Control Panel of the MediaPlayer
 		overallBox = new VBox();
 		overallBox.setMaxSize(mpWidth, mpHeight);
-		mediaView.setFitHeight(mpHeight-35);
 		overallBox.getChildren().add(mediaView);
 		
 		// A HBox that contains all the Controls of the MediaPlayer
@@ -287,7 +288,7 @@ public abstract class MediaControl {
 	void setTimeSlider() {
 		// Create a new time slide
         timeSlider = new Slider();
-        timeSlider.setMaxWidth((2*mpWidth)/3);
+        timeSlider.setMaxWidth((3*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
         // Allow the user to drag and position the slider
@@ -471,6 +472,7 @@ public abstract class MediaControl {
             	// Media is stopped so set the play image for the "stop" button
                 mp.stop();
                 atEndOfMedia = true;
+                checkPlayDuration =  false;
                 playButton.setGraphic(new ImageView(playImage));
                 playButtonFS.setGraphic(new ImageView(playImage));
             }
@@ -622,6 +624,7 @@ public abstract class MediaControl {
                 	playButton.setGraphic(new ImageView(playImage));
                     playButtonFS.setGraphic(new ImageView(playImage));
                     atEndOfMedia = true;
+                    checkPlayDuration =  false;
                     mp.stop();
                 }
             	
@@ -658,9 +661,21 @@ public abstract class MediaControl {
                 	// set the current play time
                     Duration currentTime = mp.getCurrentTime();
                     
+                    if(playDuration != null && playDuration != 0){
+                    	if(checkPlayDuration){
+                    	 playTime.setText(formatTime(currentTime, Duration.seconds(playDuration)));
+   	                     playTimeFS.setText(formatTime(currentTime, Duration.seconds(playDuration)));
+                    	}
+                    	else{
+                		 playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                         playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                    	}
+                    }
+                    else{
                     // Set the text for the time sliders
                     playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
                     playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                    }
                     
                     if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
                         // Set the time slider value if we're in normal view mode

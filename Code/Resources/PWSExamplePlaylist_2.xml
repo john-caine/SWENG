@@ -112,9 +112,9 @@
 		</video>
 		<video>
 			<urlname>http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv</urlname>
-			<xstart>300</xstart>
+			<xstart>250</xstart>
 			<ystart>300</ystart>
-      <width>400</width>
+      <width>500</width>
       <height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
