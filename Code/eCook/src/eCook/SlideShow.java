@@ -155,9 +155,7 @@ public class SlideShow {
 		}
 		
 		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
-		
-		new ErrorHandler("test message - do i close now or when i click OK?");
-		
+				
 		slide = recipe.getSlide(slideID);
 		duration = slide.getDuration();
 		

@@ -188,11 +188,11 @@ public class MainMenuContent {
 		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight());
 		
-		//adding the stylesheet to each of the buttons 
-		loadExtBtn.getStylesheets().add("css.css");
-		generateListBtn.getStylesheets().add("css.css");
-		ingredientsPickBtn.getStylesheets().add("css.css");
-		recipesBtn.getStylesheets().add("css.css");
+		//adding the stylesheet to each of the buttons
+		loadExtBtn.getStylesheets().add("file:../Resources/css.css");
+		generateListBtn.getStylesheets().add("file:../Resources/css.css");
+		ingredientsPickBtn.getStylesheets().add("file:../Resources/css.css");
+		recipesBtn.getStylesheets().add("file:../Resources/css.css");
 		
 		bottomBox.getChildren().add(loadExtBtn);
 		bottomBox.getChildren().add(generateListBtn);
