@@ -9,23 +9,28 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -41,6 +46,7 @@ import timer.Timer;
 import timer.TimerData;
 import videohandler.VideoPlayerHandler;
 import xmlparser.*;
+import errorhandler.ErrorHandler;
 
 public class SlideShow {
 
@@ -67,11 +73,12 @@ public class SlideShow {
 	private Timeline timeLineDuration;
 	private Stage stage;
 	private Controls controls;
-	
-	
-
+	static Logger logger;
 	
 	public SlideShow(Stage stage, String filepath) {
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 		
 		this.stage = stage;
 		// Create a new group for objects
@@ -88,12 +95,10 @@ public class SlideShow {
     	stage.sizeToScene();
     	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
-    	stage.show();
-		
-		
-		 
+    	stage.show();	 
 		
 		// Call XML parser
+    	logger.log(Level.INFO, "Calling XML parser");
 		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
 		
@@ -104,6 +109,7 @@ public class SlideShow {
 
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
+		logger.log(Level.INFO, "Starting slideshow with slide index 0");
 		newSlide(0, false, null);
 
 		// Set the colour of the slide
@@ -133,14 +139,6 @@ public class SlideShow {
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
-		
-		
-		
-		
-		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
-		//if (slideID == -1 || slideID >= numOfSlides)
-			// TODO exit  to  main menu somehow???
-			// new MainMenu()
 
 		// If branched slide set relevant globals
 		if (isBranch == true)
@@ -155,6 +153,10 @@ public class SlideShow {
 			nextSlideID = (slideID + 1);
 			prevSlideID = (slideID - 1);
 		}
+		
+		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
+		
+		new ErrorHandler("test message - do i close now or when i click OK?");
 		
 		slide = recipe.getSlide(slideID);
 		duration = slide.getDuration();
@@ -497,38 +499,34 @@ public class SlideShow {
         createTimer.setPrefHeight(40);
 		    
         /*Exit Slide when exit slide button is pressed*/
-       
         exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	
-            	Node  source = (Node)  event.getSource();
-            	Stage stage  = (Stage) source.getScene().getWindow();
-            	Group root = (Group) stage.getScene().getRoot();
-            	root.getChildren().clear();
-            	new MainMenu(stage);
-            	
-            	//newSlide(nextSlideID, false, timerValues);
+            	exitToMainMenu(event);
             }
-        });      
+        });
+        
         nextSlide.setOnAction(new EventHandler<ActionEvent>() {
-            
-
 			@Override
             public void handle(ActionEvent event) {
-				
 				timeLineDuration.stop();
-            	for(int h = 0; h < audioHandlerList.size(); h++){
-            		
+            	for (int h = 0; h < audioHandlerList.size(); h++){
             		audioHandlerList.get(h).stopAudio();
             	}
             	timerValues = new ArrayList<TimerData>();
-            	for(int g = 0; g<timerList.size(); g++){
-            		
+            	for (int g = 0; g<timerList.size(); g++){
             		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues());            		 
-            	}            	
-            	newSlide(nextSlideID, false, timerValues);
+            		timerValues.add(timerList.get(g).getTimerValues());            		 
+            	}
+            	
+            	// return to the main menu if there are no more slides
+            	if (nextSlideID >= numOfSlides) {
+            		showEndOfSlideshowPage();
+            	}
+            	// if not, play the next slide
+            	else {
+            		newSlide(nextSlideID, false, timerValues);
+            	}
             	event.consume();
             }
         });
@@ -542,7 +540,15 @@ public class SlideShow {
             		timerList.get(g).cancel();
             		 timerValues.add(timerList.get(g).getTimerValues());             		 
             	}
-            	newSlide(prevSlideID, false, timerValues);
+            	
+            	// return to the main menu if the previous slide is nothing (beginning of the slideshow)
+            	if (prevSlideID <= -1) {
+            		exitToMainMenu(event);
+            	}
+            	// if not, play the previous slide
+            	else {
+            		newSlide(prevSlideID, false, timerValues);
+            	}
             	event.consume();          	
             }
         });
@@ -617,36 +623,34 @@ public class SlideShow {
 				}				
 			}			
 		});
-        // Right and left buttons not working exactly as expected, something to do with the methods called
-        // Same issues exist with buttons 
-//		slideScene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {  
-//		    @Override
-//		    public void handle(KeyEvent event) {
-//		    	if(event.getCode() == KeyCode.RIGHT) {
-//		    		System.out.println("Next slide");
-//	            	newSlide(nextSlideID, false, timerValues);
-//	            	event.consume();
-//		    	}
-//		    	else if (event.getCode() == KeyCode.LEFT) {
-//		    		System.out.println("Previous slide");
-//	            	newSlide(prevSlideID, false, timerValues);
-//	            	event.consume();
-//		    	}
-//		    }
-//		});
+        
 		slideScene.setOnKeyPressed(new EventHandler<KeyEvent>() {  
 		    @Override
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		timeLineDuration.stop();
 		    		System.out.println("Next slide");
-	            	newSlide(nextSlideID, false, timerValues);
+		    		// return to the main menu if there are no more slides
+	            	if (nextSlideID >= numOfSlides) {
+	            		showEndOfSlideshowPage();
+	            	}
+	            	// if not, play the next slide
+	            	else {
+	            		newSlide(nextSlideID, false, timerValues);
+	            	}
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.LEFT) {
 		    		timeLineDuration.stop();
 		    		System.out.println("Previous slide");
-	            	newSlide(prevSlideID, false, timerValues);
+		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
+	            	if (prevSlideID <= -1) {
+	            		new MainMenu(stage);
+	            	}
+	            	// if not, play the previous slide
+	            	else {
+	            		newSlide(prevSlideID, false, timerValues);
+	            	}
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.ESCAPE) {	
@@ -663,5 +667,23 @@ public class SlideShow {
 						
 				}
 			} ));	
-	}	 
+	}
+	 
+	 // show a message at the end of the slideshow.
+	 public void showEndOfSlideshowPage() {
+		slideRoot.getChildren().clear();
+		slideScene.setFill(Color.BLACK);
+		Label endOfShowLabel = new Label("End of slideshow. Press 'esc' to return to the main menu.");
+		endOfShowLabel.setTextFill(Color.WHITE);
+		slideRoot.getChildren().addAll(endOfShowLabel);
+	 }
+	 
+	 // exit slideshow to main menu
+	 public void exitToMainMenu(ActionEvent event) {
+		Node  source = (Node)  event.getSource();
+     	Stage stage  = (Stage) source.getScene().getWindow();
+     	Group root = (Group) stage.getScene().getRoot();
+     	root.getChildren().clear();
+     	new MainMenu(stage);
+     }
 }
