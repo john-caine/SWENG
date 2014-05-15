@@ -1,9 +1,13 @@
+/* Programmer: Jonathan Caine
+ * Date Created: 03/03/2014
+ * Description: Test class for the ImageHandler
+ */
+
 package imagehandler;
 
 import static org.junit.Assert.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.junit.Before;
 import org.junit.Test;
 import eCook.SlideShow;
