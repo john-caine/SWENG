@@ -1,9 +1,3 @@
-/*
- * Programmer: Jonathan Caine
- * Date Created: 26/04/2014
- * Description: Test class for ErrorHandler
- */
-
 package errorhandler;
 
 import static org.junit.Assert.assertEquals;
