@@ -9,7 +9,8 @@ package eCook;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
@@ -45,6 +46,7 @@ import timer.Timer;
 import timer.TimerData;
 import videohandler.VideoPlayerHandler;
 import xmlparser.*;
+import errorhandler.ErrorHandler;
 
 public class SlideShow {
 
@@ -69,11 +71,14 @@ public class SlideShow {
 	private VBox notesPanel;
 	private Timeline timeLineDuration;
 	private Stage stage;
-	
+	static Logger logger;
 	
 
 	
 	public SlideShow(Stage stage, String filepath) {
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 		
 		this.stage = stage;
 		// Create a new group for objects
@@ -96,6 +101,7 @@ public class SlideShow {
 		 
 		
 		// Call XML parser
+    	logger.log(Level.INFO, "Calling XML parser");
 		reader = new XMLReader(filepath);
 		recipe = reader.getRecipe();
 		
@@ -106,6 +112,7 @@ public class SlideShow {
 
 		// Call newSlide() to start displaying the side show from slide with ID 0.
 		//Change back to 0, 3 only for testing purposes.
+		logger.log(Level.INFO, "Starting slideshow with slide index 0");
 		newSlide(0, false, null);
 
 		// Set the colour of the slide
@@ -135,6 +142,14 @@ public class SlideShow {
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
+<<<<<<< HEAD
+=======
+		
+		// If slideID is 0 or has exceeded the number of slides to display, exit to main menu
+		//if (slideID == -1 || slideID >= numOfSlides)
+			// TODO exit  to  main menu somehow???
+			// new MainMenu()
+>>>>>>> FETCH_HEAD
 
 		// If branched slide set relevant globals
 		if (isBranch == true)
@@ -149,6 +164,10 @@ public class SlideShow {
 			nextSlideID = (slideID + 1);
 			prevSlideID = (slideID - 1);
 		}
+		
+		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
+		
+		new ErrorHandler("test message - do i close now or when i click OK?");
 		
 		slide = recipe.getSlide(slideID);
 		duration = slide.getDuration();
