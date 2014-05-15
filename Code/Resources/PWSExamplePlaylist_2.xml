@@ -111,13 +111,14 @@
 			<duration>10</duration>
 		</video>
 		<video>
-			<urlname>http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4</urlname>
+			<urlname>http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv</urlname>
 			<xstart>300</xstart>
 			<ystart>300</ystart>
       <width>400</width>
       <height>400</height>
 			<loop>true</loop>
 			<starttime>15</starttime>
+			<duration>5</duration>
 		</video>		
 	</slide>
 </slideshow>
