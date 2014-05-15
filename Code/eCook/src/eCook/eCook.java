@@ -45,7 +45,7 @@ public class eCook extends Application {
 		// Create a file handler for the logger and catch any exceptions
 		FileHandler handler = null;
 		try {
-			handler = new FileHandler("eCook-log.%u.%g.txt", 1024*1024, 20, false);
+			handler = new FileHandler("%t/eCook-log.%u.%g.txt", 1024*1024, 20, false);
 		} catch (SecurityException e) {
 			new ErrorHandler("Failed to initialise the logger.\nPlease restart eCook.");
 			Platform.exit();
