@@ -22,7 +22,7 @@ public class MainMenu {
 	public FileHandlerButton fileHandlerButton;
 	private MainMenuContent mainMenuContent;
 	
-	public MainMenu(Stage stage) {
+	public MainMenu(Stage stage, RecipeCollection recipeCollection) {
 		//Gets the visual bounds of the screen
 		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
@@ -31,7 +31,7 @@ public class MainMenu {
 		// Create a new group for the main menu so that the stage doesn't require changing
         menuGroup = new Group();
         // Create a new MainMenuContent object
-        mainMenuContent =  new MainMenuContent(stage);    
+        mainMenuContent =  new MainMenuContent(stage, recipeCollection);    
         // Create a new fileHandlerButton object
         fileHandlerButton = new FileHandlerButton(stage);
         // Add Main Menu Content to main menu group

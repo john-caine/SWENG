@@ -119,4 +119,8 @@ public class Recipe {
 	public Defaults getDefaults() {
 		 return defaults;
 	}
+	
+	public Info getInfo() {
+		return info;
+	}
 }

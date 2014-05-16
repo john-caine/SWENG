@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.RecipeCollection;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,7 +37,7 @@ public class RecipeScreen {
 	HBox topBox, topBoxLeft, topBoxRight;
 	
 	
-	public RecipeScreen(final VBox bigBox, final double height, final double width){
+	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
 		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -95,7 +97,7 @@ public class RecipeScreen {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage).bigBox);
+         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
          	stage.show();
             }
         });
@@ -154,7 +156,7 @@ public class RecipeScreen {
 			public void handle(MouseEvent event) {
 				System.out.println("Label CLicked");
 				bigBox.getChildren().clear();
-				new IngredientsScreen(bigBox, height, width);
+				new IngredientsScreen(bigBox, height, width, recipeCollection);
 			}
 			
 		});

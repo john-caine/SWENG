@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.RecipeCollection;
+
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,7 +55,7 @@ public class MainMenuContent {
 	public VBox bigBox;
 	Label blank;
 	
-	public MainMenuContent(final Stage stage) {
+	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
 		//Gets the visial bounds of the screen
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
@@ -128,7 +130,7 @@ public class MainMenuContent {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage).bigBox);
+         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
          	stage.show();
             }
         });
@@ -297,7 +299,7 @@ public class MainMenuContent {
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();  
-                new generateShoppingListScreen(bigBox, height, width);
+                new generateShoppingListScreen(bigBox, height, width, recipeCollection);
             }
         });
 		//Clears the bigBox and runs IngredientsScreen passing
@@ -305,7 +307,7 @@ public class MainMenuContent {
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
-                new IngredientsScreen(bigBox, height, width);
+                new IngredientsScreen(bigBox, height, width, recipeCollection);
             }
         });
 		//Clears the bigBox and runs RecipeSceen passing 
@@ -313,7 +315,7 @@ public class MainMenuContent {
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
-                new RecipeScreen(bigBox, height, width);
+                new RecipeScreen(bigBox, height, width, recipeCollection);
             }
         });
 
