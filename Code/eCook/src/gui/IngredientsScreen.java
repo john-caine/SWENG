@@ -9,17 +9,26 @@ package gui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+
+import xmlparser.Recipe;
 
 import eCook.RecipeCollection;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,10 +40,11 @@ import javafx.stage.Stage;
 public class IngredientsScreen {
 	HBox topBox, topBoxLeft, topBoxRight;
 	HBox midBox;
-	VBox midBoxLeft, midBoxRight;
+	VBox midBoxLeft, midBoxRight, recipeInfoBox;
 	InputStream inputStream;
 	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
+	Image homeIcon, logoIcon, closeIcon, minimiseIcon;
+	VBox ingredientsList;
 	
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
 		
@@ -128,66 +138,123 @@ public class IngredientsScreen {
 		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight());
 		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight());
 		
-		//Creates scroll pane containing the recipe choices
-		//Turns off the possibility for the scroll bar to be horizontal
-		//and allows for the vertical scrolling to be on.
-		//Scroll pane is the container with the scroll bar
-		ScrollPane recipeList = new ScrollPane(); 
-		recipeList.setStyle("-fx-background: lightgrey;");
-		recipeList.setHbarPolicy(ScrollBarPolicy.NEVER);
-		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		recipeList.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
-
-		//Creates box to contain content for the scroll pane (i.e. recipes)
-		VBox recipeListContent = new VBox(recipeCollection.getNumberOfRecipes());  //content of the scroll panel
-		recipeListContent.setPrefWidth(recipeList.getPrefWidth() - 20);
-		recipeList.setContent(recipeListContent);
-		
-		//Creates labels for the titles of the recipes
+		// Create an ArrayList of Recipe Titles
+		ArrayList<String> recipeTitles = new ArrayList<String>();
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
-			Label recipeTitle = new Label(recipeCollection.getRecipe(i).getInfo().getTitle()); 
-		    recipeTitle.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
-		    recipeTitle.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
-		    recipeListContent.setPrefHeight(recipeList.getPrefHeight() + recipeTitle.getPrefHeight());
-		    recipeListContent.getChildren().add(recipeTitle);
+			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 		}
 		
-		//Creates label to contain info of selected recipe
-		String recipeInfo;
-		Label recipeInfoLabel = new Label();
-		recipeInfoLabel.setWrapText(true);
-		recipeInfoLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
-		recipeInfo ="Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here";
-		recipeInfoLabel.setText(recipeInfo);
-		recipeInfoLabel.setMinSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		// Create a list view and populate it with the recipe titles
+		final ListView<String> listOfRecipes = new ListView<String>();
+		listOfRecipes.setStyle("-fx-background: lightgrey;");
+		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
+		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
+		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
-		//Creates scroll pane containing the ingredients selected
-		//Turns off the possibility for the scroll bar to be horizontal
-		//and allows for the vertical scrolling to be on.
-		//Scroll pane is the container with the scroll bar
-		ScrollPane ingredientsList = new ScrollPane(); 
-		ingredientsList.setStyle("-fx-background: lightgrey;");
-		ingredientsList.setHbarPolicy(ScrollBarPolicy.NEVER);
-		ingredientsList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		ingredientsList.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		// make a scroll pane containing a VBox of the recipe ingredients
+		ScrollPane ingredientsListPane = new ScrollPane(); 
+		ingredientsListPane.setStyle("-fx-background: lightgrey;");
+		ingredientsListPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		ingredientsListPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		ingredientsListPane.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		ingredientsList = new VBox();
+		ingredientsListPane.setContent(ingredientsList);
 		
+		// when recipe selection changes, update the info and ingredients fields
+		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> ov, 
+					String old_val, String new_val) {
+				// get the selected recipe
+				int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
+				// call the update info labels method
+				updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
+				updateIngredientsList(recipeCollection.getRecipe(selectedIndex));
+			}
+	    });
+		
+		// Create a new VBox to hold the recipe information
+		recipeInfoBox = new VBox();
+		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		recipeInfoBox.setStyle("-fx-border-color:black");
+		
+		// set the first recipe in the list to be selected on loading
+		if (listOfRecipes.getItems().size() != 0) {
+			listOfRecipes.getSelectionModel().select(0);
+		}
+		if (recipeCollection.getRecipe(0) != null) {
+			updateInfoLabels(recipeCollection.getRecipe(0));
+			updateIngredientsList(recipeCollection.getRecipe(0));
+		}
+		else {
+			updateInfoLabels(null);
+		}	
+		
+		// provide an 'add to shopping list button'
 		Button addToShoppingListBtn = new Button("Add To Shopping List");
-		addToShoppingListBtn.setPrefSize(midBoxRight.getPrefWidth()/4, midBoxRight.getPrefHeight()-(recipeInfoLabel.getMinHeight()+ingredientsList.getPrefHeight()));
-		
+		// method to handle when the add to shopping list button is pressed
 		addToShoppingListBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
 			public void handle(MouseEvent event) {
 				System.out.println("Add to Shopping List CLicked");
 			}
-			
 		});
 		
-		midBoxRight.setAlignment(Pos.TOP_CENTER);
-		midBoxLeft.getChildren().add(recipeList);
-		midBoxRight.getChildren().addAll(recipeInfoLabel,ingredientsList,addToShoppingListBtn);
+		//midBoxRight.setAlignment(Pos.TOP_CENTER);
+		midBoxLeft.getChildren().addAll(new Label("Recipes:"), listOfRecipes);
+		midBoxRight.getChildren().addAll(new Label("Recipe Information:"), recipeInfoBox, new Label("Ingredients:"), ingredientsList, addToShoppingListBtn);
 		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
 		
 		//Box where all content of the IngredientsScreen class are collated 
 		bigBox.getChildren().addAll(topBox,midBox);
+	}
+	
+	// method to update labels in the recipe info box
+	public void updateInfoLabels(Recipe recipe) {
+		String author = "", version = "", comment = "";
+		
+		if (recipe != null) {
+			// update the info Strings
+			author = recipe.getInfo().getAuthor();
+			version = recipe.getInfo().getVersion();
+			comment = recipe.getInfo().getComment();
+		}
+		
+		// add labels for author, version and comment
+		Label authorLabel = new Label("Author: " + author);
+		Label versionLabel = new Label("Version: " + version);
+		Label commentLabel = new Label("Comment: " + comment);
+		
+		// remove old labels
+		recipeInfoBox.getChildren().clear();
+		// add the labels to the info box
+		recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
+	}
+	
+	// method to update list of ingredients from recipe
+	public void updateIngredientsList(Recipe recipe) {
+		// clear any previous ingredients
+		ingredientsList.getChildren().clear();
+		
+		if (recipe != null) {
+			// populate the list of ingredients and create a checkbox list
+			ArrayList<String> listOfIngredients = new ArrayList<String>();
+			// loop through ingredients, adding to arrays
+			for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
+				listOfIngredients.add(recipe.getIngredient(i).getName());
+			}
+			CheckBox[] checkboxes = new CheckBox[listOfIngredients.size()];
+			for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
+				CheckBox box = checkboxes[i] = new CheckBox(listOfIngredients.get(i));
+				// set the event handler for each checkbox
+				box.selectedProperty().addListener(new ChangeListener<Boolean>() {
+					public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
+						//updateShoppingList();
+					}
+				});
+				ingredientsList.getChildren().add(checkboxes[i]);
+			}
+		}
+		else {
+			System.out.println("Cannot update ingredients: recipe is null");
+		}
 	}
 }

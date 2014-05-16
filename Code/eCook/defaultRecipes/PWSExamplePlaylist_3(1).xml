@@ -3,8 +3,8 @@
 	<documentinfo>
 		<author>John Caine</author>
 		<version>1.1</version>
-    <title>Test Playlist 2</title>
-		<comment>Test playlist for eCook product</comment>
+    <title>Recipe Example #1</title>
+		<comment>This is recipe example 1 from the defaultRecipe folder</comment>
 		<width>1000</width>
 		<height>800</height>
 	</documentinfo>
