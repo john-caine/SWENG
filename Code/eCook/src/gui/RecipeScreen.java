@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.RecipeCollection;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,7 +36,7 @@ public class RecipeScreen {
 	HBox topBox, topBoxLeft, topBoxRight;
 	
 	
-	public RecipeScreen(final VBox bigBox, final double height, final double width){
+	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
 		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -95,7 +96,7 @@ public class RecipeScreen {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage).bigBox);
+         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
          	stage.show();
             }
         });
@@ -141,29 +142,13 @@ public class RecipeScreen {
 		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 		//Creates box to contain content for the scroll pane (i.e. recipes)
-		VBox listContent = new VBox(10); 
+		VBox listContent = new VBox(recipeCollection.getNumberOfRecipes()); 
 		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
 		recipeList.setContent(listContent);
 		
-		//Creates a test label with a function 
-		Label testLabel = new Label("Test"); 
-		testLabel.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
-	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
-		testLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			public void handle(MouseEvent event) {
-				System.out.println("Label CLicked");
-				bigBox.getChildren().clear();
-				new IngredientsScreen(bigBox, height, width);
-			}
-			
-		});
-		listContent.getChildren().add(testLabel);
-		
-		//Creates 50 labels to populate the scroll pane
-		for (int i = 0; i < 50; i++)
-		{
-		    Label tempList = new Label("Label " + i); 
+		//Creates a test labels of recipes
+		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++){
+		    Label tempList = new Label(recipeCollection.getRecipe(i).getInfo().getTitle()); 
 		    
 		    tempList.setMinSize(midBox.getPrefWidth(), midBox.getPrefHeight()/4.5);
 		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
@@ -171,8 +156,6 @@ public class RecipeScreen {
 		    listContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
 		    recipeList.setPrefHeight(100);
 		    listContent.getChildren().add(tempList);
-	
-		    
 		}
 		
 		Label recipeInfoLabel = new Label();
