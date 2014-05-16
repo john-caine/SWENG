@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.RecipeCollection;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,7 +33,7 @@ public class generateShoppingListScreen {
 	String shoppingListPreviewText;
 	HBox topBox, topBoxRight, topBoxLeft;
 	
-	public generateShoppingListScreen(VBox bigBox, double height, double width) {
+	public generateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -91,7 +93,7 @@ public class generateShoppingListScreen {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage).bigBox);
+         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
          	stage.show();
             }
         });

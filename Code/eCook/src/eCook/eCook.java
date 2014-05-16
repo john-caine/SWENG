@@ -30,7 +30,6 @@ public class eCook extends Application {
 		/* This is where the parser is called to populate the 	 *
 		 * list of recipes available in the defaultRecipe folder */
 		recipeCollection = new RecipeCollection();
-		
 		// get number of files in the defaultRecipe folder
 		File directory = new File("defaultRecipes");
 		if (directory.exists()) {
@@ -41,6 +40,10 @@ public class eCook extends Application {
 				recipeCollection.addRecipe(reader.getRecipe());
 			}
 		}
+		// log if no default recipes folder is found
+		else {
+			logger.log(Level.WARNING, "No Defualt Recipes folder found");
+		}
 
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();
@@ -49,7 +52,7 @@ public class eCook extends Application {
 	    stage.initStyle(StageStyle.UNDECORATED);
 	    // Add main menu to the stage
 		@SuppressWarnings("unused")
-		MainMenu mainMenu = new MainMenu(stage);
+		MainMenu mainMenu = new MainMenu(stage, recipeCollection);
 		// Show the stage when ready
 		//stage.initStyle(StageStyle.UNDECORATED);
 	    stage.show();

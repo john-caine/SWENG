@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.RecipeCollection;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,9 +29,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IngredientsScreen {
-	
-	
-
 	HBox topBox, topBoxLeft, topBoxRight;
 	HBox midBox;
 	VBox midBoxLeft, midBoxRight;
@@ -37,8 +36,7 @@ public class IngredientsScreen {
 	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
 	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
 	
-	
-	public IngredientsScreen(final VBox bigBox, final double height, final double width){
+	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
 		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -70,7 +68,6 @@ public class IngredientsScreen {
 		minimiseIcon = new Image(inputStream);
 		
 		
-		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
 	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -99,7 +96,7 @@ public class IngredientsScreen {
          	Stage stage  = (Stage) source.getScene().getWindow();
          	Group root = (Group) source.getScene().getRoot();
          	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage).bigBox);
+         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
          	stage.show();
             }
         });
@@ -142,33 +139,17 @@ public class IngredientsScreen {
 		recipeList.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 
 		//Creates box to contain content for the scroll pane (i.e. recipes)
-		VBox recipeListContent = new VBox(10);  //content of the scroll panel
+		VBox recipeListContent = new VBox(recipeCollection.getNumberOfRecipes());  //content of the scroll panel
 		recipeListContent.setPrefWidth(recipeList.getPrefWidth() - 20);
 		recipeList.setContent(recipeListContent);
 		
-		//Creates a test label with a function
-		Label testLabel = new Label("Test"); 
-		testLabel.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
-	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
-		testLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			public void handle(MouseEvent event) {
-				System.out.println("Label CLicked");
-				new IngredientsScreen(bigBox, height, width);
-			}
-			
-		});
-		recipeListContent.getChildren().add(testLabel);
-		
-		//Creates 50 labels to populate the scroll pane
-		for (int i = 0; i < 50; i++)
-		{
-		    Label tempList = new Label("Label " + i); 
-		    tempList.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
-		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
-		    recipeListContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
-		    recipeListContent.getChildren().add(tempList);
-	    
+		//Creates labels for the titles of the recipes
+		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
+			Label recipeTitle = new Label(recipeCollection.getRecipe(i).getInfo().getTitle()); 
+		    recipeTitle.setMinSize(recipeListContent.getPrefWidth() -60, midBoxLeft.getPrefHeight()/10);
+		    recipeTitle.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
+		    recipeListContent.setPrefHeight(recipeList.getPrefHeight() + recipeTitle.getPrefHeight());
+		    recipeListContent.getChildren().add(recipeTitle);
 		}
 		
 		//Creates label to contain info of selected recipe
