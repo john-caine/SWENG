@@ -51,7 +51,8 @@ import errorhandler.ErrorHandler;
 public class SlideShow {
 
 	private Scene slideScene;
-	private Group slideRoot;
+	private SlideShow slideShow;
+	private Group slideRoot,slideGroup;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
 	private Button  previousSlide, nextSlide, exitSlide1, pauseSlide, createTimer;
 	private XMLReader reader;
@@ -464,12 +465,16 @@ public class SlideShow {
  * 
  */
 	public void SlideButton() {
+		
+		
+		//controls = new Controls(slideShow, textHandlerList,imageHandlerList,graphicsHandlerList,audioHandlerList, 
+				 //videoHandlerList,slideGroup);
         
-		controls = new Controls(currentSlideID, slideRoot);
+		controls = new Controls(currentSlideID, slideRoot); 
 		controlPanel = controls.getControlPanel();
 		
-		
 		slideRoot.getChildren().add(controlPanel);
+		//slideShow.getChildren().add(controlPanel);
 		
 		
 		
