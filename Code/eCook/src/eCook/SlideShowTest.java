@@ -43,7 +43,8 @@ public class SlideShowTest {
 	public void setUp() throws Exception {
 		
 		stage = new Stage();
-		slideShow = new SlideShow(stage, "../Resources/Recipe_Example.xml");
+		// don't need to send a recipe collection for this test (use null)
+		slideShow = new SlideShow(stage, "../Resources/Recipe_Example.xml", null);
 		
 	}
 	

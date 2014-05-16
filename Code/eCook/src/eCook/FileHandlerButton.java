@@ -23,7 +23,7 @@ public class FileHandlerButton {
 	private FileHandler fileHandler;
 	private String fileHandlerResult;
 
-	public FileHandlerButton(final Stage stage) {
+	public FileHandlerButton(final Stage stage, final RecipeCollection recipeCollection) {
 		fileHandler = new FileHandler();
 		Screen screen = Screen.getPrimary();
 		//Get the visual bounds of the screen
@@ -42,7 +42,7 @@ public class FileHandlerButton {
 	            public void handle(ActionEvent event) {
 					fileHandlerResult = fileHandler.openFile();
 					if (fileHandlerResult != null) {
-						new SlideShow(stage, fileHandlerResult);
+						new SlideShow(stage, fileHandlerResult, recipeCollection);
 					} else {
 						// Report an error with the file type
 					}

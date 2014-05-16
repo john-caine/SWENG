@@ -33,7 +33,7 @@ public class MainMenu {
         // Create a new MainMenuContent object
         mainMenuContent =  new MainMenuContent(stage, recipeCollection);    
         // Create a new fileHandlerButton object
-        fileHandlerButton = new FileHandlerButton(stage);
+        fileHandlerButton = new FileHandlerButton(stage, recipeCollection);
         // Add Main Menu Content to main menu group
         menuGroup.getChildren().add(mainMenuContent.bigBox);
         // Add a Hbox containing the fileHandlerButton to the main menu group

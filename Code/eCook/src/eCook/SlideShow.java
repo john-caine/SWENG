@@ -75,8 +75,12 @@ public class SlideShow {
 	private Stage stage;
 	private Controls controls;
 	static Logger logger;
+	private RecipeCollection recipeCollection;
 	
-	public SlideShow(Stage stage, String filepath) {
+	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
+		
+		// attach the recipe collection to this cass
+		this.recipeCollection = recipeCollection;
 		
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -470,7 +474,7 @@ public class SlideShow {
 		//controls = new Controls(slideShow, textHandlerList,imageHandlerList,graphicsHandlerList,audioHandlerList, 
 				 //videoHandlerList,slideGroup);
         
-		controls = new Controls(currentSlideID, slideRoot); 
+		controls = new Controls(currentSlideID, slideRoot, recipeCollection); 
 		controlPanel = controls.getControlPanel();
 		
 		slideRoot.getChildren().add(controlPanel);
@@ -648,7 +652,7 @@ public class SlideShow {
 		    		System.out.println("Previous slide");
 		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
 	            	if (prevSlideID <= -1) {
-	            		new MainMenu(stage);
+	            		new MainMenu(stage, recipeCollection);
 	            	}
 	            	// if not, play the previous slide
 	            	else {
@@ -657,7 +661,7 @@ public class SlideShow {
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.ESCAPE) {	
-	            	new MainMenu(stage);
+	            	new MainMenu(stage, recipeCollection);
 		    	}
 		    }
 		});
@@ -687,6 +691,6 @@ public class SlideShow {
      	Stage stage  = (Stage) source.getScene().getWindow();
      	Group root = (Group) stage.getScene().getRoot();
      	root.getChildren().clear();
-     	new MainMenu(stage);
+     	new MainMenu(stage, recipeCollection);
      }
 }

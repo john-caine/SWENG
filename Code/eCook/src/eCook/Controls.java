@@ -66,9 +66,13 @@ public class Controls {
 	private Button pauseButton;
 	private Button previousButton;
 	private Rectangle2D primaryScreenBounds;
+	private RecipeCollection recipeCollection;
 	
 	// constructor
-		public Controls(Integer slideID, Group root) {
+		public Controls(Integer slideID, Group root, RecipeCollection recipeCollection) {
+			// copy the recipeCollection for use throughout this class
+			this.recipeCollection = recipeCollection;
+			
 			setupcontrolPanel(slideID, root);
 			
 		}
@@ -233,7 +237,7 @@ public class Controls {
                 	Stage stage  = (Stage) source.getScene().getWindow();
                 	Group root = (Group) stage.getScene().getRoot();
                 	root.getChildren().clear();
-                	new MainMenu(stage);;
+                	new MainMenu(stage, recipeCollection);;
         		}
         });
     }
