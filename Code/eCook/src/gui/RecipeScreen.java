@@ -11,10 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import eCook.RecipeCollection;
-<<<<<<< HEAD
-=======
-
->>>>>>> be57c68a238622cb64f6d3b91fd2ac3ec9f59341
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -149,38 +145,12 @@ public class RecipeScreen {
 		VBox listContent = new VBox(recipeCollection.getNumberOfRecipes()); 
 		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
 		recipeList.setContent(listContent);
-		
-<<<<<<< HEAD
+
 		//Creates a test labels of recipes
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++){
 		    Label tempList = new Label(recipeCollection.getRecipe(i).getInfo().getTitle()); 
-=======
-		//Creates a test label with a function 
-		Label testLabel = new Label("Test"); 
-		testLabel.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
-	    testLabel.setStyle("-fx-border-color:black; -fx-background-color: white;");
-		testLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-			public void handle(MouseEvent event) {
-				System.out.println("Label CLicked");
-				bigBox.getChildren().clear();
-				new IngredientsScreen(bigBox, height, width, recipeCollection);
-			}
-			
-		});
-		listContent.getChildren().add(testLabel);
-		
-		//Creates 50 labels to populate the scroll pane
-		for (int i = 0; i < 50; i++)
-		{
-		    Label tempList = new Label("Label " + i); 
->>>>>>> be57c68a238622cb64f6d3b91fd2ac3ec9f59341
-		    
-		    tempList.setMinSize(midBox.getPrefWidth(), midBox.getPrefHeight()/4.5);
-		    tempList.setStyle("-fx-border-color:pink; -fx-background-color: lightblue;");
-		    
-		    listContent.setPrefHeight(recipeList.getPrefHeight() + tempList.getPrefHeight());
-		    recipeList.setPrefHeight(100);
+			tempList.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
+		    tempList.setStyle("-fx-border-color:black; -fx-background-color: white;");
 		    listContent.getChildren().add(tempList);
 		}
 		
