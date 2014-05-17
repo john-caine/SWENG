@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import shoppingList.IngredientsList;
+
 import xmlparser.Recipe;
 
 import eCook.RecipeCollection;
@@ -23,13 +25,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -151,14 +149,8 @@ public class IngredientsScreen {
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
-		// make a scroll pane containing a VBox of the recipe ingredients
-		ScrollPane ingredientsListPane = new ScrollPane(); 
-		ingredientsListPane.setStyle("-fx-background: lightgrey;");
-		ingredientsListPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		ingredientsListPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		ingredientsListPane.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		// initialise the ingredients list VBox
 		ingredientsList = new VBox();
-		ingredientsListPane.setContent(ingredientsList);
 		
 		// when recipe selection changes, update the info and ingredients fields
 		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -187,20 +179,10 @@ public class IngredientsScreen {
 		}
 		else {
 			updateInfoLabels(null);
-		}	
+		}
 		
-		// provide an 'add to shopping list button'
-		Button addToShoppingListBtn = new Button("Add To Shopping List");
-		// method to handle when the add to shopping list button is pressed
-		addToShoppingListBtn.setOnMouseClicked(new EventHandler<MouseEvent>(){
-			public void handle(MouseEvent event) {
-				System.out.println("Add to Shopping List CLicked");
-			}
-		});
-		
-		//midBoxRight.setAlignment(Pos.TOP_CENTER);
+		// add content to the main boxes
 		midBoxLeft.getChildren().addAll(new Label("Recipes:"), listOfRecipes);
-		midBoxRight.getChildren().addAll(new Label("Recipe Information:"), recipeInfoBox, new Label("Ingredients:"), ingredientsList, addToShoppingListBtn);
 		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
 		
 		//Box where all content of the IngredientsScreen class are collated 
@@ -230,31 +212,18 @@ public class IngredientsScreen {
 	}
 	
 	// method to update list of ingredients from recipe
-	public void updateIngredientsList(Recipe recipe) {
-		// clear any previous ingredients
-		ingredientsList.getChildren().clear();
-		
+	public void updateIngredientsList(Recipe recipe) {		
 		if (recipe != null) {
-			// populate the list of ingredients and create a checkbox list
-			ArrayList<String> listOfIngredients = new ArrayList<String>();
-			// loop through ingredients, adding to arrays
-			for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
-				listOfIngredients.add(recipe.getIngredient(i).getName());
-			}
-			CheckBox[] checkboxes = new CheckBox[listOfIngredients.size()];
-			for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
-				CheckBox box = checkboxes[i] = new CheckBox(listOfIngredients.get(i));
-				// set the event handler for each checkbox
-				box.selectedProperty().addListener(new ChangeListener<Boolean>() {
-					public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
-						//updateShoppingList();
-					}
-				});
-				ingredientsList.getChildren().add(checkboxes[i]);
-			}
+			// call the ingredients list generator
+			IngredientsList generator = new IngredientsList(recipe);
+			ingredientsList = generator.getIngredientsListGUI();
 		}
 		else {
-			System.out.println("Cannot update ingredients: recipe is null");
+			ingredientsList.getChildren().clear();
+			ingredientsList.getChildren().add(new Label("Sorry. Cannot find ingredients list."));
 		}
+		// refresh the entire box contents
+		midBoxRight.getChildren().clear();
+		midBoxRight.getChildren().addAll(new Label("Recipe Information:"), recipeInfoBox, new Label("Ingredients:"), ingredientsList);
 	}
 }
