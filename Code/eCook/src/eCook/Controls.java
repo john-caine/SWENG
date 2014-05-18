@@ -48,7 +48,7 @@ public class Controls {
 	
 	// declare variables
 	boolean controlPanelVisible = false;
-	private Timeline timeLineDuration;
+	
 	private ArrayList<AudioHandler> audioHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<TextHandler> textHandlerList;
@@ -69,17 +69,30 @@ public class Controls {
 	private RecipeCollection recipeCollection;
 	
 	// constructor
-		public Controls(Integer slideID, Group root, RecipeCollection recipeCollection) {
+		public Controls(SlideShow slideShow, Integer slideID, Integer nextSlideID, Group root, RecipeCollection recipeCollection, ArrayList<TextHandler> textHandlerList,
+						ArrayList<ImageHandler> imageHandlerList, ArrayList<GraphicsHandler> graphicsHandlerList, ArrayList<AudioHandler> audioHandlerList,
+						ArrayList<VideoPlayerHandler> videoHandlerList, Timeline slideTimeLine, ArrayList<Timer>timerList ) {
 			// copy the recipeCollection for use throughout this class
 			this.recipeCollection = recipeCollection;
+			this.textHandlerList = textHandlerList;
+			this.imageHandlerList = imageHandlerList;
+			this.graphicsHandlerList = graphicsHandlerList;
+			this.audioHandlerList = audioHandlerList;
+			this.videoHandlerList = videoHandlerList;
+			this.timerList = timerList;
+			this.nextSlideID = nextSlideID;
+			this.slideShow = slideShow;
 			
-			setupcontrolPanel(slideID, root);
+			
+			
+			
+			setupcontrolPanel(slideID, root, slideTimeLine);
 			
 		}
 		
-		/*public Controls (SlideShow slideShow, ArrayList<TextHandler> textHandlerList, ArrayList<ImageHandler> imageHandlerList, 
-				ArrayList<GraphicsHandler> graphicsHandlerList, ArrayList<AudioHandler> audioHandlerList, 
-				ArrayList<VideoPlayerHandler> videoHandlerList,
+		/*public Controls (SlideShow slideShow, , , 
+				ArrayList<GraphicsHandler> graphicsHandlerList, , 
+				,
 				Group slideGroup){
               
 	
@@ -114,7 +127,7 @@ public class Controls {
     }
 
   
-    public void pauseButton() {         
+    public void pauseButton(final Timeline slideTimeLine) {         
          // Add PauseButton to the Panel  	
             pauseButton = new Button();
             pauseButton.setText("'Pause'");
@@ -126,7 +139,7 @@ public class Controls {
 
 				public void handle(ActionEvent event) {
     				if(paused == false){
-    					timeLineDuration.pause();
+    					slideTimeLine.pause();
     					for(int r = 0; r < textHandlerList.size(); r++){
     						textHandlerList.get(r).pause();
     					}
@@ -147,7 +160,7 @@ public class Controls {
     				}
     				//Resume all content on the slide
     				else{
-    					timeLineDuration.play();
+    					slideTimeLine.play();
     					for(int r = 0; r < textHandlerList.size(); r++){
     						textHandlerList.get(r).resume();
     					}
@@ -173,7 +186,7 @@ public class Controls {
                
     
              
-    public void previousButton() {
+    public void previousButton(final Timeline slideTimeLine) {
          // Add previousButton to the Panel        
             previousButton = new Button();
             previousButton.setText("'Previous'");
@@ -182,7 +195,7 @@ public class Controls {
             previousButton.setOnAction(new EventHandler<ActionEvent>() {
            	 @Override
                public void handle(ActionEvent event) {
-               	timeLineDuration.stop();
+               	slideTimeLine.stop();
                	timerValues = new ArrayList<TimerData>();
                	for(int g = 0; g<timerList.size(); g++){            		
                		timerList.get(g).cancel();
@@ -196,7 +209,7 @@ public class Controls {
        
         
     
-    public void nextButton() {                  
+    public void nextButton(final Timeline slideTimeLine) {                  
         // Add nextButton to the Panel
            nextButton = new Button();
            nextButton.setText("'Next'");
@@ -205,7 +218,7 @@ public class Controls {
            nextButton.setOnAction(new EventHandler<ActionEvent>() {
         public void handle(ActionEvent event) {
      	   
-     	   timeLineDuration.stop();
+     	   slideTimeLine.stop();
         
 			for(int h = 0; h < audioHandlerList.size(); h++){
         		
@@ -244,26 +257,26 @@ public class Controls {
 
 
 	// set up the example slide and add the notes panel
-    public void setupcontrolPanel(final Integer slideID, final Group root) {   
+    public void setupcontrolPanel(final Integer slideID, final Group root, Timeline slideTimeLine) {   
         // get the size of the screen
         final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         
         // Set up the notes panel on the LHS of the screen
         controlPanel = new HBox();
-        controlPanel.setLayoutY(primaryScreenBounds.getHeight());
+        
         controlPanel.setPrefSize(primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight()/5);
+        controlPanel.setLayoutY(primaryScreenBounds.getHeight() + controlPanel.getHeight());
         controlPanel.setStyle("-fx-background-color: #336699;");
         
-        nextButton();
-        previousButton();
+        nextButton(slideTimeLine);
+        previousButton(slideTimeLine);
         exitButton();
-        pauseButton();
+        pauseButton(slideTimeLine);
         
         // clear the help text when the user begins typing
       
         
-        final Label timersLabel = new Label("The timers and other stuff could go here");
-        timersLabel.setPadding(new Insets(50,0,0,0));
+  
         
         controlPanel.setPadding(new Insets(30,10,10,30));
         controlPanel.setSpacing(20);
@@ -297,7 +310,7 @@ public class Controls {
             	// check the position of the mouse
             	Point mousePosition = MouseInfo.getPointerInfo().getLocation();           	
             	// if the mouse is on the far LHS of the screen, show the notes panel
-            	if (mousePosition.getX() <= (primaryScreenBounds.getHeight()+10 )) {
+            	if (mousePosition.getY() <= (primaryScreenBounds.getHeight() - 10 )) {
             
             		// add the mouselistener
                     controlPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);

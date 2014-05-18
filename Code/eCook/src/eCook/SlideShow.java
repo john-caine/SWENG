@@ -190,9 +190,10 @@ public class SlideShow {
 			
 			layer = new Pane();
 			layers.add(currentLayer, layer);
-			
-			
 		}
+		
+		
+		
 		imageHandlerList = new ArrayList<ImageHandler>();
 		// Call the ImageHandler for each image object
 		if (imageCount != 0){
@@ -305,22 +306,7 @@ public class SlideShow {
     	
 		
 		
-    	// Create the buttons for the slide.
-	    buttonBox = new HBox();
-	    SlideButton();
-        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
-       
-        // Put the buttons in the bottom centre of the slide
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
-        buttonBox.setLayoutY(screenBounds.getHeight()-200);
-	    slideRoot.getChildren().addAll(layers);
-	    
-	
-	    
-	    // Add the buttons to the slide
-        slideRoot.getChildren().add(buttonBox);
+    	
         
         //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
      
@@ -384,7 +370,28 @@ public class SlideShow {
       		timeLineDuration.playFromStart();
       	}
        
+      	
+     // Create the buttons for the slide.
+	    buttonBox = new HBox();
+	    SlideButton();
+        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
+       
+        // Put the buttons in the bottom centre of the slide
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
+        buttonBox.setLayoutY(screenBounds.getHeight()-200);
+	    slideRoot.getChildren().addAll(layers);
+	    
+	
+	    
+	    // Add the buttons to the slide
+        slideRoot.getChildren().add(buttonBox);
         // Show the new set of objects on the slide
+        
+        Label label = new Label("Here is the Y visual bounds");
+        label.setLayoutY(Screen.getPrimary().getVisualBounds().getHeight());
+        slideRoot.getChildren().add(label);
 	    slideRoot.setVisible(true);  
 	}	
 
@@ -474,10 +481,13 @@ public class SlideShow {
 		//controls = new Controls(slideShow, textHandlerList,imageHandlerList,graphicsHandlerList,audioHandlerList, 
 				 //videoHandlerList,slideGroup);
         
-		controls = new Controls(currentSlideID, slideRoot, recipeCollection); 
+		controls = new Controls(this, currentSlideID, nextSlideID, slideRoot, recipeCollection, textHandlerList, imageHandlerList, graphicsHandlerList, audioHandlerList,
+								videoHandlerList, timeLineDuration, timerList); 
 		controlPanel = controls.getControlPanel();
 		
 		slideRoot.getChildren().add(controlPanel);
+		controlPanel.setLayoutX(0);
+		controlPanel.setLayoutY(Screen.getPrimary().getVisualBounds().getHeight() );	
 		//slideShow.getChildren().add(controlPanel);
 		
 		
