@@ -1,66 +1,60 @@
-#b1 {
--fx-font-size: 15px;
-	-fx-text-fill: black;
-  
+#loadExtBtn {
+	-fx-font-size: 20px;
+	-fx-text-fill: white;
 	-fx-font-family: "Swis721 lt BT";
-  
 	-fx-font-weight: lighter;
-
 	-fx-background-color: white;
-	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
-	-fx-background-image: url('recipeImg.jpeg');
+	-fx-background-repeat: stretch;   
+    	-fx-background-size: 256 228;
+    	-fx-background-position: center center;
+	-fx-background-image: url('loadExt.png');
+}
+
+
+
+
+#generateListBtn {
+	-fx-font-size: 20px;
+	-fx-text-fill: white;
+	-fx-font-family: "Swis721 lt BT";
+	-fx-font-weight: lighter;
+	-fx-background-color: white;
+	-fx-background-repeat: stretch;   
+    	-fx-background-size: 256 228;
+    	-fx-background-position: center center;
+	-fx-background-image: url('generateList.png');
 	
 	
 }
 
 
 
-
-#b2 {
--fx-font-size: 20px;
-	-fx-text-fill: black;
-  
+#ingredientsPickBtn {
+	-fx-font-size: 20px;
+	-fx-text-fill: white;
 	-fx-font-family: "Swis721 lt BT";
-  
 	-fx-font-weight: lighter;
-
 	-fx-background-color: white;
-	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
-	-fx-background-image: url('KitchenBasicsImg.jpg');
+	-fx-background-repeat: stretch;   
+    	-fx-background-size: 256 228;
+    	-fx-background-position: center center;
+	-fx-background-image: url('ingredients.png');
 	
 	
 }
 
 
 
-#b3 {
--fx-font-size: 20px;
-	-fx-text-fill: black;
-  
+#recipesBtn {
+	-fx-font-size: 20px;
+	-fx-text-fill: white;
 	-fx-font-family: "Swis721 lt BT";
-  
 	-fx-font-weight: lighter;
-
 	-fx-background-color: white;
-	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
-	-fx-background-image: url('ThreeImg.png');
-	
-	
-}
-
-
-
-#b4 {
--fx-font-size: 20px;
-	-fx-text-fill: black;
-  
-	-fx-font-family: "Swis721 lt BT";
-  
-	-fx-font-weight: lighter;
-
-	-fx-background-color: white;
-	-fx-shape: "M 100 100 L 400 100 L 400 400 L 100 400 Z";
-	-fx-background-image: url('OnlineStoreImg.jpg');
+	-fx-background-repeat: stretch;   
+    	-fx-background-size: 256 228;
+    	-fx-background-position: center center;
+	-fx-background-image: url('recipes.png');
 	
 	
 }
@@ -83,42 +77,33 @@
 }
 
 
-#b1:hover {
+#loadExtBtn:hover {
 
-	-fx-font-size: 20px;
-	-fx-font-weight: bolder;
-
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
-	-fx-transition: opacity .25s ease-in-out;
 
 	}
 
-#b2:hover {
+#generateListBtn:hover {
 
-	-fx-font-size: 20px;
-	-fx-font-weight: bolder;
-
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
-	-fx-transition: opacity .25s ease-in-out;
+	}
+
+#ingredientsPickBtn:hover {
+
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-opacity: 0.5;
 
 	}
 
-#b3:hover {
+#recipesBtn:hover {
 
-	-fx-font-size: 20px;
+	-fx-font-size: 18px;
 	-fx-font-weight: bolder;
-
 	-fx-opacity: 0.5;
-	-fx-transition: opacity .25s ease-in-out;
-
-	}
-
-#b4:hover {
-
-	-fx-font-size: 20px;
-	-fx-font-weight: bolder;
-
-	-fx-opacity: 0.5;
-	-fx-transition: opacity .25s ease-in-out;
 
 	}

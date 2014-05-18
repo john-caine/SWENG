@@ -1,28 +1,30 @@
 /*
- * Programmer: Zayyad Tagwai  & Roger Tan
- * Date Created: 06/05/2014
+ * Programmer: Zayyad Tagwai
+ * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
 
 package gui;
 
+import java.awt.print.PrinterException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,16 +32,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class IngredientsScreen {
-	HBox topBox, topBoxLeft, topBoxRight;
-	HBox midBox;
-	VBox midBoxLeft, midBoxRight, recipeInfoBox;
+public class generateShoppingListScreen {
 	InputStream inputStream;
-	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;
-	VBox ingredientsList;
+	ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
+	Image homeIcon, closeIcon, minimiseIcon;	
+	String shoppingListPreviewText;
+	HBox topBox, topBoxRight, topBoxLeft;
+	Label statusBar;
+	Button saveBtn, printBtn;
 	
-	public IngredientsScreen(final VBox bigBox, final double height, final double width){
+	public generateShoppingListScreen(VBox bigBox, double height, double width) {
 		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -80,7 +82,7 @@ public class IngredientsScreen {
          	stage.close();
             }
         });
-	    
+		
 	    //Sets the event to happen when the minimise icon is clicked
 	    //Gets the node before closing the stage
 		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -109,7 +111,7 @@ public class IngredientsScreen {
 		homeHolder.setImage(homeIcon);
 		
 		//Creates a box containing the menu bar
-		//Sets size and location parameters for eCook's menu bar containing home, minimise and close buttons
+		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
         topBoxRight = new HBox();
@@ -122,41 +124,72 @@ public class IngredientsScreen {
 		topBoxLeft.getChildren().add(homeHolder);
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
-	
-		midBox = new HBox(20);
-		midBoxLeft= new VBox();
-		midBoxRight = new VBox(20);
 		
-		midBox.setPadding(new Insets(10,20,10,20));
-		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight());
-		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight());
 		
-		// Create an ArrayList of Recipe Titles
-	
+         
+		VBox leftBox = new VBox();
+		VBox midBox = new VBox(40);
+		HBox midBoxBottom = new HBox(20);
+		VBox rightBox = new VBox();
 		
+		//Sets  parameters for the leftBox, midBox and rightBox
+		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
+		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight());
+		midBox.setPadding(new Insets(40,0,10,0));
+		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
+		
+		// create a text area to show the shopping list
+		TextArea text = new TextArea();
+		text.setEditable(false);
+		text.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
 
-		// initialise the ingredients list VBox
-		ingredientsList = new VBox();
+		//Buttons for saving and printing the shopping list
+		saveBtn = new Button("Save");
+		printBtn = new Button("Print");
+		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		
-
+		// set up the status bar
+		statusBar = new Label("");
 		
-		// Create a new VBox to hold the recipe information
-		recipeInfoBox = new VBox();
-		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
-		recipeInfoBox.setStyle("-fx-border-color:black");
+		// populate the text area
 		
+		
+		//Sets actions to be performed when saveBtn is clicked
+		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            	
+            	statusBar.setText("Shopping list saved to PDF");
+            }
+        });
+		
+		//Sets actions to be performed when printBtn is clicked
+		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+            	File fileToRead = new File("Your Shopping List.pdf");
+        		if (fileToRead.exists()) {
+        			
+        		}
+        		// if no PDF exists, create one first
+        		else {
+        			
+        			
+        		}
+            }
+        });
+		midBox.setAlignment(Pos.CENTER);
+		midBoxBottom.setAlignment(Pos.CENTER);
+		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
+		midBox.getChildren().addAll(new Label("Shopping List"), text, statusBar, midBoxBottom);
+		
+		//Horizontal aligns content horizontally 
+		//bigBox collecting all content of generateShoppingListScreen
+		HBox horizontalBox = new HBox();
+		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
+		bigBox.getChildren().addAll(topBox,horizontalBox);
 	
-		// add content to the main boxes
-
-		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
-		
-		//Box where all content of the IngredientsScreen class are collated 
-		bigBox.getChildren().addAll(topBox,midBox);
 	}
 	
-	// method to update labels in the recipe info box
 
-	
-	// method to update list of ingredients from recipe
 	
 }
