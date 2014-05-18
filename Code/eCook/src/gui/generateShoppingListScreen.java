@@ -6,9 +6,18 @@
 
 package gui;
 
+import java.awt.print.PrinterException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+
+import shoppingList.PDFCreator;
+import shoppingList.ShoppingList;
 
 import eCook.RecipeCollection;
 
@@ -19,6 +28,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +42,8 @@ public class generateShoppingListScreen {
 	Image homeIcon, closeIcon, minimiseIcon;	
 	String shoppingListPreviewText;
 	HBox topBox, topBoxRight, topBoxLeft;
+	Label statusBar;
+	Button saveBtn, printBtn;
 	
 	public generateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		
@@ -130,38 +142,49 @@ public class generateShoppingListScreen {
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
 		
-		//Creates label to contain preview of the shopping list
-		Label shoppingListPreviewLabel = new Label();
-		shoppingListPreviewLabel.setWrapText(true);
-		shoppingListPreviewLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
-		shoppingListPreviewText = "Shopping list preview goes here shopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes hereshopping list preview goes here";
-		shoppingListPreviewLabel.setText(shoppingListPreviewText);
-		
-		shoppingListPreviewLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
-		
+		// create a text area to show the shopping list
+		TextArea text = new TextArea();
+		text.setEditable(false);
+		text.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
+
 		//Buttons for saving and printing the shopping list
-		Button saveBtn = new Button("Save");
-		Button printBtn = new Button("Print");
+		saveBtn = new Button("Save");
+		printBtn = new Button("Print");
 		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		
+		// set up the status bar
+		statusBar = new Label("");
+		
+		// populate the text area
+		getShoppingList(text);
 		
 		//Sets actions to be performed when saveBtn is clicked
 		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
-            System.out.println("Save Button Clicked");
+            	new PDFCreator(getShoppingList(null).readFromTextFile());
+            	statusBar.setText("Shopping list saved to PDF");
             }
         });
 		
 		//Sets actions to be performed when printBtn is clicked
 		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
-            System.out.println("Print Button Clicked");
+            	File fileToRead = new File("Your Shopping List.pdf");
+        		if (fileToRead.exists()) {
+        			printShoppingList();
+        		}
+        		// if no PDF exists, create one first
+        		else {
+        			new PDFCreator(getShoppingList(null).readFromTextFile());
+        			printShoppingList();
+        		}
             }
         });
 		midBox.setAlignment(Pos.CENTER);
 		midBoxBottom.setAlignment(Pos.CENTER);
 		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
-		midBox.getChildren().addAll(shoppingListPreviewLabel, midBoxBottom);
+		midBox.getChildren().addAll(new Label("Shopping List"), text, statusBar, midBoxBottom);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
@@ -170,5 +193,52 @@ public class generateShoppingListScreen {
 		bigBox.getChildren().addAll(topBox,horizontalBox);
 	
 	}
-
+	
+	// method to get the shopping list and create a Text Area
+	public ShoppingList getShoppingList(TextArea text) {
+		// read the shopping list file
+		ShoppingList list = new ShoppingList();
+		ArrayList<String> shoppingList = new ArrayList<String>();
+		shoppingList = list.readFromTextFile();
+		
+		// loop through list adding items to the text area
+		if (text != null) {
+			if (shoppingList != null && shoppingList.size() != 0) {
+				for (int i=0; i<shoppingList.size(); i++) {
+					text.appendText(shoppingList.get(i) + "\n");
+				}
+				statusBar.setText("You have " + shoppingList.size() + " items in your shopping list");
+			}
+			else {
+				text.setText("No items in shopping list");
+				saveBtn.setDisable(true);
+				printBtn.setDisable(true);
+			}
+		}
+		
+		return list;
+	}
+	
+	// method to print the shopping list PDF
+	public void printShoppingList() {
+		PDDocument pdf = null;
+		try {
+			pdf = PDDocument.load("Your Shopping List.pdf");
+			statusBar.setText("Printing shopping list...");
+			pdf.silentPrint();											// WARNING MAC USERS: This may write a big scary red error message
+																		// to the console. It will print the file anyway though!
+		} catch (IOException | PrinterException e) {
+			statusBar.setText("Sorry. Print error: cannot print file");
+			e.printStackTrace();
+		}
+		finally {
+			if (pdf != null) {
+				try {
+					pdf.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
