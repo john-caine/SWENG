@@ -73,27 +73,15 @@ public class XMLReader extends DefaultHandler {
 	// Error handling variables
 	private Boolean xmlIsBroken = false;
 	private String xmlReadError = null;
-
-	public XMLReader(String inputFile) {
-		readXMLFile(inputFile);
-	}
-	
-	public Recipe getRecipe() {
-		return this.recipe;
-	}
-	
-	public Info getInfo() {
-		return this.info;
-	}
 	
 	public void readXMLFile(String inputFile) {
 		try {
+			xmlIsBroken = false;
 			// use the default parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser saxParser = factory.newSAXParser();
 			// parse the input
 			saxParser.parse(inputFile, this);
-			xmlIsBroken = false;
 		} catch (ParserConfigurationException pce) {
 			// pce.printStackTrace();
 			xmlReadError = "Error: Critical error reading slideshow file.";
@@ -108,6 +96,10 @@ public class XMLReader extends DefaultHandler {
 			xmlIsBroken = true;
 		}
 	}
+		
+	public XMLReader(String inputFile) {
+		readXMLFile(inputFile);
+	}
 	
 	/*
 	 * James and Prakruti
@@ -116,13 +108,49 @@ public class XMLReader extends DefaultHandler {
 	public boolean isBroken() {
 		return xmlIsBroken;
 	}
+	
 	/*
 	 * James and Prakruti
 	 * Returns a String explaining error with the xml file
 	 * 
 	 */
 	public String getErrorMsg() {
-		return xmlReadError;
+		/*
+		 * xmlIsBroken takes precedence over xmlIsIncompleteError
+		 */
+		if (xmlIsBroken) {
+			return xmlReadError;
+		}
+		else {
+			return "No errors.";
+		}
+	}
+	
+	/*
+	 * James and Prakruti
+	 * Returns recipe
+	 * 
+	 */
+	public Recipe getRecipe() {
+		return this.recipe;
+	}
+	
+	/*
+	 * James and Prakruti
+	 * Returns documentinfo
+	 * 
+	 */
+	public Info getInfo() {
+		return this.info;
+	}
+	
+	/*
+	 * James and Prakruti
+	 * Returns defaults
+	 * 
+	 */
+	public Defaults getDefaults() {
+		return this.defaults;
 	}
 
 	// called by the parser when it encounters any start element tag

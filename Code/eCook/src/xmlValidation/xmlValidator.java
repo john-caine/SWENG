@@ -1,6 +1,5 @@
 package xmlValidation;
 
-import xmlparser.Info;
 /* Title: XMLValidation
  * 
  * Programmers: James, Prakruti
@@ -17,39 +16,94 @@ import xmlparser.XMLReader;
 public class xmlValidator {
 	private Double versionRequired;
 	private XMLReader reader;
-	
+	private Boolean broken;
+	private String errorMsg;
+
 	/*
 	 * Constructor sets the desired xml version and reads in inputFile
 	 */
 	public xmlValidator(String inputFile) {
 		versionRequired = 1.1;
+		broken = false;
 		reader = new XMLReader(inputFile);
-	}
-	
-	/*
-	 * Function to determine if the xml version held within xml file
-	 */
-	public boolean isXMLVersionCorrect() {
-		// If the difference between the xml version and the required version is less than 0.05 it's (hopefully!) the correct version
-		if(Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionRequired) < 0.05) {
-			return true;
+		// If there have been errors with the inputFile then set error message
+		// and Boolean accordingly
+		if (reader.isBroken()) {
+			broken = true;
+			errorMsg = reader.getErrorMsg();
+		} else if (!broken) {
+			if (!missingSlideshowElements()) {
+				if (!missingElementAttributes()) {
+					if (Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionRequired) > 0.05) {
+						broken = true;
+						errorMsg = "Error: Unsupported playlist version.";
+					}
+				}
+			}
 		}
-		else {
-			return false;
-		}
 	}
-	
+
+	private Boolean missingElementAttributes() {
+		// Section needs completing
+		return false;
+	}
+
+	private Boolean missingSlideshowElements() {
+		// See if info, defaults or slide have not been initialised
+		if ((reader.getInfo() == null) || (reader.getDefaults() == null)
+				|| (reader.getRecipe() == null)) {
+			StringBuilder tempString = new StringBuilder();
+			tempString.append("Error: Missing section(s) from");
+			if (reader.getInfo() == null) {
+				tempString.append(" documentinfo,");
+			}
+			if (reader.getDefaults() == null) {
+				tempString.append(" defaults,");
+			}
+			if (reader.getRecipe() == null) {
+				tempString.append(" slide,");
+			}
+			tempString.setLength(tempString.length() - 1);
+			tempString.append(".");
+			errorMsg = tempString.toString();
+			broken = true;
+		}
+		// If info, defaults or slides have been initialised check whether all
+		// data is there
+		else if (!reader.getInfo().infoComplete()
+				|| !reader.getDefaults().defaultsComplete()
+				|| !reader.getRecipe().lastSlideExists()) {
+			StringBuilder tempString = new StringBuilder();
+			tempString.append("Error: Missing parameters from");
+			if (!reader.getInfo().infoComplete()) {
+				tempString.append(" documentinfo,");
+			}
+			if (!reader.getDefaults().defaultsComplete()) {
+				tempString.append(" defaults,");
+			}
+			if (!reader.getRecipe().lastSlideExists()) {
+				tempString.append(" slide,");
+			}
+			tempString.setLength(tempString.length() - 1);
+			tempString.append(".");
+			errorMsg = tempString.toString();
+			broken = true;
+		}
+		return broken;
+
+	}
+
 	/*
-	 * Function to determine if xml file is broken
+	 * Function to determine if XML file is broken
 	 */
 	public boolean isXMLBroken() {
-		return reader.isBroken();
+		return broken;
 	}
-	
+
 	/*
 	 * Function to return String containing error message
 	 */
 	public String getErrorMsg() {
-		return reader.getErrorMsg();
+		return errorMsg;
 	}
 }

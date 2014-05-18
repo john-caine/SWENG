@@ -45,6 +45,19 @@ public class Recipe {
 		return slides;
 	}
 	
+	/*
+	 * James and Prakruti
+	 * 
+	 */
+	public Boolean lastSlideExists() {
+		for (int i = 0; i < slides.size(); i++) {
+			if (slides.get(i).lastSlide == true) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}

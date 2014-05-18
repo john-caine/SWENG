@@ -1,7 +1,7 @@
 package xmlparser;
 /* Title: Info
  * 
- * Programmers: Ankita, Max
+ * Programmers: Ankita, Max, James, Prakruti
  * 
  * Date Created: 05/03/14
  * 
@@ -10,6 +10,7 @@ package xmlparser;
  * 
  * Version History: v1.01 (27/03/14) - Added field 'title' along with setters and getters.
  * 					v1.1  (01/04/14) - Changed type of width and height from int to Integer.
+ *  				v1.2  (18/05/24) - Added function infoComplete() - James and Prakruti
  *  
  */
 
@@ -43,6 +44,19 @@ public class Info {
 	
 	public Integer getHeight() {
 		return height;
+	}
+	
+	/*
+	 * James and Prakruti
+	 * Decides whether default information has been set
+	 */
+	public boolean infoComplete() {
+		if ((author == null) || (version == null) || (title == null) || (comment == null) || (width == null) || (height == null)) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	// setters
