@@ -73,9 +73,11 @@ public class SlideShow {
 	HBox controlPanel;
 	private Timeline timeLineDuration;
 	private Stage stage;
-	private Controls controls;
+	private SlideControls controls;
 	static Logger logger;
 	private RecipeCollection recipeCollection;
+	private TimerControlBar timerControls;
+	private HBox timerControlPanel;
 	
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
 		
@@ -481,7 +483,7 @@ public class SlideShow {
 		//controls = new Controls(slideShow, textHandlerList,imageHandlerList,graphicsHandlerList,audioHandlerList, 
 				 //videoHandlerList,slideGroup);
         
-		controls = new Controls(this, currentSlideID, nextSlideID, slideRoot, recipeCollection, textHandlerList, imageHandlerList, graphicsHandlerList, audioHandlerList,
+		controls = new SlideControls(this, currentSlideID, nextSlideID, slideRoot, recipeCollection, textHandlerList, imageHandlerList, graphicsHandlerList, audioHandlerList,
 								videoHandlerList, timeLineDuration, timerList); 
 		controlPanel = controls.getControlPanel();
 		
@@ -490,7 +492,13 @@ public class SlideShow {
 		controlPanel.setLayoutY(Screen.getPrimary().getVisualBounds().getHeight() );	
 		//slideShow.getChildren().add(controlPanel);
 		
+		timerControls = new TimerControlBar(currentSlideID, slideRoot);
+		timerControlPanel = timerControls.getControlPanel();
 		
+		slideRoot.getChildren().add(timerControlPanel);
+		timerControlPanel.setLayoutX(0);
+		timerControlPanel.setLayoutY(-Screen.getPrimary().getVisualBounds().getHeight()/6);
+		System.out.println("timerControl panel y position" + timerControlPanel.getLayoutY());
 		
         exitSlide1 = new Button("Exit SlideShow");
         exitSlide1.setPrefWidth(80);
