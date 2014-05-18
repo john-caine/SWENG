@@ -44,7 +44,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controls {
+public class SlideControls {
 	
 	// declare variables
 	boolean controlPanelVisible = false;
@@ -69,7 +69,7 @@ public class Controls {
 	private RecipeCollection recipeCollection;
 	
 	// constructor
-		public Controls(SlideShow slideShow, Integer slideID, Integer nextSlideID, Group root, RecipeCollection recipeCollection, ArrayList<TextHandler> textHandlerList,
+		public SlideControls(SlideShow slideShow, Integer slideID, Integer nextSlideID, Group root, RecipeCollection recipeCollection, ArrayList<TextHandler> textHandlerList,
 						ArrayList<ImageHandler> imageHandlerList, ArrayList<GraphicsHandler> graphicsHandlerList, ArrayList<AudioHandler> audioHandlerList,
 						ArrayList<VideoPlayerHandler> videoHandlerList, Timeline slideTimeLine, ArrayList<Timer>timerList ) {
 			// copy the recipeCollection for use throughout this class
