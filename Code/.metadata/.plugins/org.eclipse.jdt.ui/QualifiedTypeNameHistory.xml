@@ -41,4 +41,7 @@
 <fullyQualifiedTypeName name="graphicshandler.GraphicsHandler"/>
 <fullyQualifiedTypeName name="videohandler.VideoPlayerHandler"/>
 <fullyQualifiedTypeName name="audiohandler.AudioHandler"/>
+<fullyQualifiedTypeName name="java.util.logging.Logger"/>
+<fullyQualifiedTypeName name="com.sun.media.jfxmedia.logging.Logger"/>
+<fullyQualifiedTypeName name="java.util.logging.Level"/>
 </qualifiedTypeNameHistroy>

@@ -256,5 +256,12 @@ public class GraphicsHandler {
 		 System.out.println(timeLineDuration.getCycleCount());
 		 }
 	 }
+
+	public void stop() {
+		timeLineStart.stop();
+		 timeLineDuration.stop();
+		
+		
+	}
 	 
 }

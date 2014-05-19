@@ -105,6 +105,7 @@ public class SlideShow {
     	stage.sizeToScene();
     	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
+    	stage.setFullScreenExitHint("Press ESC to return to the main menu.");
     	stage.show();	 
 
 		// Call XML parser
@@ -247,7 +248,7 @@ public class SlideShow {
 				else 
 					fontColor = text.get(i).getFontColor();
 				
-				TextHandler text1 = new TextHandler(this,  text.get(i), font, text.get(i).getXStart(), 
+				TextHandler text1 = new TextHandler(this, logger, i, currentSlideID, text.get(i), font, text.get(i).getXStart(), 
 											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
 											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
 											text.get(i).getLayer(), null, null);

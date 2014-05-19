@@ -224,4 +224,10 @@ public class ImageHandler {
 		 System.out.println(timeLineDuration.getCycleCount());
 		 }
 	 }
+
+	public void stop() {
+		timeLineStart.stop();
+		 timeLineDuration.stop();
+		
+	}
 }

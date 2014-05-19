@@ -837,4 +837,9 @@ public abstract class MediaControl {
 			 timeLineStart.play();
 		 }
 	 }
+	 
+	 public void stopStartTime() {
+		 timeLineStart.stop();
+			
+		}
 }

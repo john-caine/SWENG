@@ -82,11 +82,12 @@ public class TimerControlBar {
             	System.out.println(mousePosition);
             	// if the mouse is on the far LHS of the screen, show the notes panel
             	if (mousePosition.getY() <= (10 )) {
-                    System.out.println("Mouse less than 10 y pos");
+                    
             		// add the mouselistener
                     controlPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);
                   
             		if (!controlPanelVisible) {
+            			System.out.println("I am the timer event handler");
             			// show panel
             			final Timeline timeline = new Timeline();
             			final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), primaryScreenBounds.getHeight()/6);
@@ -102,7 +103,7 @@ public class TimerControlBar {
         };
         
      // check to see if the mouse is at the LHS of the screen every time it is moved
-        root.addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
+        controlPanel.addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
     }
 
 	public HBox getControlPanel() {

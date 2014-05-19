@@ -17,4 +17,6 @@ public class AudioMediaControl extends eCook.MediaControl{
 		super(mp, width, height, loop, startTime, playDuration);
 		// TODO Auto-generated constructor stub
 	}
+
+	
 }

@@ -229,7 +229,23 @@ public class SlideControls {
         		
         		timerList.get(g).cancel();
         		 timerValues.add(timerList.get(g).getTimerValues());            		 
-        	}            	
+        	}  
+        	
+        	for(int r = 0; r < textHandlerList.size(); r++){
+				textHandlerList.get(r).stop();
+			}
+			for(int r = 0; r < imageHandlerList.size(); r++){
+				imageHandlerList.get(r).stop();
+			}
+			for(int r= 0; r < graphicsHandlerList.size(); r++){
+				graphicsHandlerList.get(r).stop();
+			}
+			for(int r = 0; r< audioHandlerList.size(); r++){
+				audioHandlerList.get(r).mediaControl.stopStartTime();
+			}
+			for(int r= 0; r< videoHandlerList.size(); r++){
+				videoHandlerList.get(r).mediaControl.pauseStartTime();
+			}
         	slideShow.newSlide(nextSlideID, false, timerValues);
         	event.consume();
     }

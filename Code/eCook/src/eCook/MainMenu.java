@@ -42,5 +42,7 @@ public class MainMenu {
         scene =  new Scene(menuGroup, screenBounds.getWidth(), screenBounds.getHeight());
         stage.setScene(scene);
         stage.setFullScreen(true);
+        //Removes the exit hint from the main menu
+        stage.setFullScreenExitHint("");
 	}
 }

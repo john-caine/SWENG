@@ -9,6 +9,9 @@ package texthandler;
 
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import eCook.SlideShow;
 import xmlparser.TextBody;
 import xmlparser.TextString;
@@ -41,13 +44,15 @@ public class TextHandler {
 	private TextString textString;
 	private Timeline timeLineStart, timeLineDuration;
 	private final Integer runDuration;
+	private Logger logger;
+	private int textHandlerID, currentSlideID;
 	
 	/*
 	 * Text Handler Constructor. Creates a TextFlow object using all PWS required and optional attributes
 	 */
 	
 	
-	public TextHandler(SlideShow parent, TextBody textBody, String font, Integer x_start, Integer y_start, Integer fontsize, 
+	public TextHandler(SlideShow parent, Logger logger, int textHandlerID, int currentSlideID, TextBody textBody, String font, Integer x_start, Integer y_start, Integer fontsize, 
 			String fontcolor, Integer x_end, Integer y_end, Integer startTime, Integer duration, 
 			Integer layer, Integer branchID, Integer orientation){
 		
@@ -56,6 +61,9 @@ public class TextHandler {
 		 this.branchID = branchID;
 		 this.parent = parent;
 		 this.runDuration = duration;
+		 this.logger = logger;
+		 this.textHandlerID = textHandlerID;
+		 this.currentSlideID = currentSlideID;
 		 
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (x_end == null){
@@ -196,7 +204,7 @@ public class TextHandler {
 	
 	// Makes the text visible on the screen
 	public void showText() {
-		
+		logger.log(Level.INFO, "Displayed text object " + "Text Handler: " + textHandlerID + "Slide index: " + currentSlideID);
 		Platform.runLater( new Runnable(){
 			public void run(){
 				 textBox.setVisible(true);
@@ -207,7 +215,7 @@ public class TextHandler {
 	
 	//Makes the text invisible
 	 public void removeText() {
-		 
+		logger.log(Level.INFO, "Removed text object Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
 		 Platform.runLater( new Runnable(){
 				public void run(){
 					textBox.setVisible(false);
@@ -249,8 +257,11 @@ public class TextHandler {
 	  * Pauses the timeLineStart and timeLineDuration timelines
 	  */
 	 public void pause(){
+		
 		 timeLineStart.pause();
 		 timeLineDuration.pause();
+		 logger.log(Level.INFO, "Start Time Timeline " + timeLineStart.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
+		 logger.log(Level.INFO, "Duration Time Timeline " + timeLineDuration.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
 		
 	 }
 	 
@@ -260,10 +271,21 @@ public class TextHandler {
 	 public void resume(){
 		 if(textBox.isVisible() == true && timeLineDuration.getStatus() != Status.STOPPED){
 			 timeLineDuration.play();
+			 logger.log(Level.INFO, "Duration Time Timeline " + timeLineDuration.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
 		 }else if (textBox.isVisible() == false && timeLineStart.getStatus() != Status.STOPPED){
 			 timeLineStart.play();
-		 System.out.println(timeLineDuration.getCycleCount());
+			 logger.log(Level.INFO, "Start Time Timeline " + timeLineStart.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
+		
 		 }
 	 }
+
+	public void stop() {
+		timeLineStart.stop();
+		 timeLineDuration.stop();
+		 logger.log(Level.INFO, "Start Time Timeline " + timeLineStart.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
+		logger.log(Level.INFO, "Duration Time Timeline " + timeLineDuration.getStatus() + " Text Handler: " + textHandlerID + " Slide index: " + currentSlideID);
+		
+		
+	}
 	
 }
