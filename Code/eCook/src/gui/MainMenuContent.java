@@ -155,7 +155,7 @@ public class MainMenuContent {
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
 		
-		
+		//
 		bigBox = new VBox();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
