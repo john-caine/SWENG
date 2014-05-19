@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 public class Shape extends Content {
-	private int totalPoints;
+	private Integer totalPoints;
 	private List<Point> points;
 	private String fillColor, lineColor;
 	
@@ -31,7 +31,7 @@ public class Shape extends Content {
 	}
 
 	// getters
-	public int getTotalPoints() {
+	public Integer getTotalPoints() {
 		return totalPoints;
 	}
 
@@ -59,7 +59,7 @@ public class Shape extends Content {
 			this.totalPoints = Integer.valueOf((String) totalPoints);
 		}
 		else {
-			reportError("TotalPoints must be specified for this shape object.");
+			this.totalPoints = null;
 		}
 	}
 
@@ -77,7 +77,7 @@ public class Shape extends Content {
 			this.width = Integer.valueOf((String) width).intValue();
 		}
 		else {
-			reportError("Width must be specified for this shape object.");
+			this.width = null;
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class Shape extends Content {
 			this.height = Integer.valueOf((String) height).intValue();
 		}
 		else {
-			reportError("Height must be specified for this shape object.");
+			this.height = null;
 		}
 	}
 	

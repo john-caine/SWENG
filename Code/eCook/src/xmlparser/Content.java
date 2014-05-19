@@ -9,10 +9,10 @@ package xmlparser;
  * 				Methods are provided for 'setting' and 'getting' common fields.
  * 				Contains lists for holding Text, Shape, Audio, Image and Video objects.
  * 
- * Version History: v1.1 (01/04/14) - Changed int fields to Integers.
+ * Version History: v1.1 (01/04/14) - Changed Integer fields to Integers.
  * 									- Added validation to getting and setting lists.
- *  								- Added method to report errors (Console print for now but will extend in future).
- *  				v1.2 (10/04/14) - Changed type of xStart and yStart from Integer to int as these fields are compulsory.
+ *  								- Added method to report errors (Console prInteger for now but will extend in future).
+ *  				v1.2 (10/04/14) - Changed type of xStart and yStart from Integer to Integer as these fields are compulsory.
  *  								- Added validation to setXStart and setYStart to test for null objects.
  *  								- Added validation to URLName to ensure that the object is not null/empty before setting.
  */
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
-	int xStart, yStart;
+	Integer xStart, yStart;
 	Integer layer, startTime, duration, width, height, branch, orientation;
 	String urlName;
 	Boolean loop;
@@ -45,11 +45,11 @@ public class Content {
 	}
 
 	// getters
-	public int getXStart() {
+	public Integer getXStart() {
 		return xStart;
 	}
 
-	public int getYStart() {
+	public Integer getYStart() {
 		return yStart;
 	}
 
@@ -85,7 +85,7 @@ public class Content {
 		return branch;
 	}
 	
-	public Integer getOrintation() {
+	public Integer getOrIntegeration() {
 		return orientation;
 	}
 	
@@ -95,7 +95,7 @@ public class Content {
 			this.xStart = Integer.valueOf((String) xStart);
 		}
 		else {
-			reportError("xStart must be specified for this media");
+			this.xStart = null;
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class Content {
 			this.yStart = Integer.valueOf((String) yStart);
 		}
 		else {
-			reportError("yStart must be specified for this media");
+			this.yStart = null;
 		}
 	}
 
@@ -146,7 +146,7 @@ public class Content {
 	}
 	
 	public void setOrientation(Object orientation) {
-		int or = Integer.valueOf((String) orientation);
+		Integer or = Integer.valueOf((String) orientation);
 		if (or >= 0 && or <= 360) {
 			this.orientation = or;
 		}
@@ -164,7 +164,7 @@ public class Content {
 		return texts;
 	}
 
-	public TextBody getText(int textNumber) {
+	public TextBody getText(Integer textNumber) {
 		if (textNumber >= 0 && textNumber < this.getNumberOfTexts()) {
 			return texts.get(textNumber);
 		}
@@ -183,7 +183,7 @@ public class Content {
 		}
 	}
 
-	public int getNumberOfTexts() {
+	public Integer getNumberOfTexts() {
 		return texts.size();
 	}
 	
@@ -192,7 +192,7 @@ public class Content {
 		return shapes;
 	}
 
-	public Shape getShape(int shapeNumber) {
+	public Shape getShape(Integer shapeNumber) {
 		if (shapeNumber >= 0 && shapeNumber < this.getNumberOfShapes()) {
 			return shapes.get(shapeNumber);
 		}
@@ -211,7 +211,7 @@ public class Content {
 		}
 	}
 
-	public int getNumberOfShapes() {
+	public Integer getNumberOfShapes() {
 		return shapes.size();
 	}
 	
@@ -220,7 +220,7 @@ public class Content {
 		return audios;
 	}
 
-	public Audio getAudio(int audioNumber) {
+	public Audio getAudio(Integer audioNumber) {
 		if (audioNumber >= 0 && audioNumber < this.getNumberOfAudios()) {
 			return audios.get(audioNumber);
 		}
@@ -239,7 +239,7 @@ public class Content {
 		}
 	}
 
-	public int getNumberOfAudios() {
+	public Integer getNumberOfAudios() {
 		return audios.size();
 	}
 	
@@ -248,7 +248,7 @@ public class Content {
 		return images;
 	}
 
-	public Image getImage(int imageNumber) {
+	public Image getImage(Integer imageNumber) {
 		if (imageNumber >= 0 && imageNumber < this.getNumberOfImages()) {
 			return images.get(imageNumber);
 		}
@@ -267,7 +267,7 @@ public class Content {
 		}
 	}
 
-	public int getNumberOfImages() {
+	public Integer getNumberOfImages() {
 		return images.size();
 	}
 	
@@ -276,7 +276,7 @@ public class Content {
 		return videos;
 	}
 
-	public Video getVideo(int videoNumber) {
+	public Video getVideo(Integer videoNumber) {
 		if (videoNumber >= 0 && videoNumber < this.getNumberOfVideos()) {
 			return videos.get(videoNumber);
 		}
@@ -295,7 +295,7 @@ public class Content {
 		}
 	}
 
-	public int getNumberOfVideos() {
+	public Integer getNumberOfVideos() {
 		return videos.size();
 	}
 }

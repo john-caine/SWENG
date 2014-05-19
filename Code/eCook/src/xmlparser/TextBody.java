@@ -10,16 +10,16 @@ package xmlparser;
  * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
  * 
  * Version History: v1.01 (?) - Changed name of class from Text to TextBody to avoid JavaFX protected keyword confusion.
- * 					v1.1  (01/04/14) - Changed int fields to Integer.
+ * 					v1.1  (01/04/14) - Changed Integer fields to Integer.
  * 									 - Added validation to getting and setting lists.
- * 					v1.2  (10/04/14) - Changed type of xEnd and yEnd from Integer to int as these are compulsory.
+ * 					v1.2  (10/04/14) - Changed type of xEnd and yEnd from Integer to Integer as these are compulsory.
  */
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
-	private int xEnd, yEnd;
+	private Integer xEnd, yEnd;
 	private Integer fontSize;
 	private String font, fontColor;
 	private List<TextString> textBody;
@@ -30,11 +30,11 @@ public class TextBody extends Content {
 	}
 
 	// getters
-	public int getXEnd() {
+	public Integer getXEnd() {
 		return xEnd;
 	}
 
-	public int getYEnd() {
+	public Integer getYEnd() {
 		return yEnd;
 	}
 	
@@ -56,7 +56,7 @@ public class TextBody extends Content {
 			this.xEnd = Integer.valueOf((String) xEnd);
 		}
 		else {
-			reportError("xEnd must be specified for this text object");
+			this.xEnd = null;
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class TextBody extends Content {
 			this.yEnd = Integer.valueOf((String) yEnd);
 		}
 		else {
-			reportError("yEnd must be specified for this text object");
+			this.yEnd = null;
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class TextBody extends Content {
 		return textBody;
 	}
 
-	public TextString getTextString(int textStringNumber) {
+	public TextString getTextString(Integer textStringNumber) {
 		if (textStringNumber >= 0 && textStringNumber < this.getNumberOfTextStrings()) {
 			return textBody.get(textStringNumber);
 		}
@@ -105,7 +105,7 @@ public class TextBody extends Content {
 		}
 	}
 
-	public int getNumberOfTextStrings() {
+	public Integer getNumberOfTextStrings() {
 		return textBody.size();
 	}
 }

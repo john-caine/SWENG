@@ -115,15 +115,10 @@ public class XMLReader extends DefaultHandler {
 	 * 
 	 */
 	public String getErrorMsg() {
-		/*
-		 * xmlIsBroken takes precedence over xmlIsIncompleteError
-		 */
 		if (xmlIsBroken) {
 			return xmlReadError;
 		}
-		else {
-			return "No errors.";
-		}
+		return "No errors.";
 	}
 	
 	/*
@@ -153,6 +148,15 @@ public class XMLReader extends DefaultHandler {
 		return this.defaults;
 	}
 
+	/*
+	 * James and Prakruti
+	 * Returns content
+	 * 
+	 */
+	public Content getContent() {
+		return this.content;
+	}
+	
 	// called by the parser when it encounters any start element tag
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {

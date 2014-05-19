@@ -155,22 +155,22 @@ public class XMLReaderTest {
 		
 		// check slide 1
 		assertEquals(0, recipe.slides.get(0).ID);
-		assertEquals(60, recipe.slides.get(0).duration.intValue());
+		assertEquals(10, recipe.slides.get(0).duration.intValue());
 		assertFalse(recipe.slides.get(0).lastSlide);
 			// text 1
-			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getXStart());
-			assertEquals(10, recipe.slides.get(0).content.texts.get(0).getYStart());
-			assertEquals(1000, recipe.slides.get(0).content.texts.get(0).getXEnd());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(0).getYEnd());
+			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(0).getXStart());
+			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(0).getYStart());
+			assertEquals((Integer)1000, recipe.slides.get(0).content.texts.get(0).getXEnd());
+			assertEquals((Integer)100, recipe.slides.get(0).content.texts.get(0).getYEnd());
 			assertEquals("This is a test of required attributes", recipe.slides.get(0).content.texts.get(0).getTextString(0).getText());
 			assertTrue(recipe.slides.get(0).content.texts.get(0).getTextString(0).getBold());
 			assertTrue(recipe.slides.get(0).content.texts.get(0).getTextString(0).getItalic());
 			assertTrue(recipe.slides.get(0).content.texts.get(0).getTextString(0).getUnderline());
 			// text 2
-			assertEquals(10, recipe.slides.get(0).content.texts.get(1).getXStart());
-			assertEquals(100, recipe.slides.get(0).content.texts.get(1).getYStart());
-			assertEquals(1000, recipe.slides.get(0).content.texts.get(1).getXEnd());
-			assertEquals(300, recipe.slides.get(0).content.texts.get(1).getYEnd());
+			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(1).getXStart());
+			assertEquals((Integer)100, recipe.slides.get(0).content.texts.get(1).getYStart());
+			assertEquals((Integer)1000, recipe.slides.get(0).content.texts.get(1).getXEnd());
+			assertEquals((Integer)300, recipe.slides.get(0).content.texts.get(1).getYEnd());
 			assertEquals("Times New Roman", recipe.slides.get(0).content.texts.get(1).getFont());
 			assertEquals(16, recipe.slides.get(0).content.texts.get(1).getFontSize().intValue());
 			assertEquals("#00FFFF", recipe.slides.get(0).content.texts.get(1).getFontColor());
@@ -179,22 +179,22 @@ public class XMLReaderTest {
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getUnderline());
 			// text 3
-			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getXStart());
-			assertEquals(200, recipe.slides.get(0).content.texts.get(2).getYStart());
-			assertEquals(1000, recipe.slides.get(0).content.texts.get(2).getXEnd());
-			assertEquals(400, recipe.slides.get(0).content.texts.get(2).getYEnd());
+			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(2).getXStart());
+			assertEquals((Integer)200, recipe.slides.get(0).content.texts.get(2).getYStart());
+			assertEquals((Integer)1000, recipe.slides.get(0).content.texts.get(2).getXEnd());
+			assertEquals((Integer)400, recipe.slides.get(0).content.texts.get(2).getYEnd());
 			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getStartTime().intValue());
-			assertEquals(40, recipe.slides.get(0).content.texts.get(2).getDuration().intValue());
+			assertEquals(10, recipe.slides.get(0).content.texts.get(2).getDuration().intValue());
 			assertEquals(2, recipe.slides.get(0).content.texts.get(2).getLayer().intValue());
 			assertEquals("This is a test of timing attributes", recipe.slides.get(0).content.texts.get(2).getTextString(0).getText());
 			assertFalse(recipe.slides.get(0).content.texts.get(2).getTextString(0).getBold());
 			assertFalse(recipe.slides.get(0).content.texts.get(2).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(2).getTextString(0).getUnderline());
 			// text 4
-			assertEquals(10, recipe.slides.get(0).content.texts.get(3).getXStart());
-			assertEquals(300, recipe.slides.get(0).content.texts.get(3).getYStart());
-			assertEquals(500, recipe.slides.get(0).content.texts.get(3).getXEnd());
-			assertEquals(330, recipe.slides.get(0).content.texts.get(3).getYEnd());
+			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(3).getXStart());
+			assertEquals((Integer)300, recipe.slides.get(0).content.texts.get(3).getYStart());
+			assertEquals((Integer)500, recipe.slides.get(0).content.texts.get(3).getXEnd());
+			assertEquals((Integer)330, recipe.slides.get(0).content.texts.get(3).getYEnd());
 			// text 4 textStrings
 			assertEquals("This text should be bold. ", recipe.slides.get(0).content.texts.get(3).getTextString(0).getText());
 			assertTrue(recipe.slides.get(0).content.texts.get(3).getTextString(0).getBold());
@@ -245,7 +245,7 @@ public class XMLReaderTest {
 		assertEquals(30, recipe.slides.get(1).duration.intValue());
 		assertFalse(recipe.slides.get(1).lastSlide);
 			// shape 1
-			assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getTotalPoints());
+			assertEquals((Integer)4, recipe.slides.get(1).content.shapes.get(0).getTotalPoints());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getWidth().intValue());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getHeight().intValue());
 				// point 1
@@ -265,7 +265,7 @@ public class XMLReaderTest {
 				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getX().intValue());
 				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getY().intValue());
 			// shape 2
-			assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints());
+			assertEquals((Integer)1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints());
 			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getWidth().intValue());
 			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getHeight().intValue());
 			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getFillColor());
@@ -275,7 +275,7 @@ public class XMLReaderTest {
 				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getX().intValue());
 				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getY().intValue());
 			// shape 3
-			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints());
+			assertEquals((Integer)2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getWidth().intValue());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getHeight().intValue());
 			assertEquals(15, recipe.slides.get(1).content.shapes.get(2).getStartTime().intValue());
@@ -353,19 +353,19 @@ public class XMLReaderTest {
 		assertFalse(recipe.slides.get(3).lastSlide);
 			// image 1
 			assertEquals("http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg", recipe.slides.get(3).content.images.get(0).getUrlName());
-			assertEquals(10, recipe.slides.get(3).content.images.get(0).getXStart());
-			assertEquals(10, recipe.slides.get(3).content.images.get(0).getYStart());
+			assertEquals((Integer)10, recipe.slides.get(3).content.images.get(0).getXStart());
+			assertEquals((Integer)10, recipe.slides.get(3).content.images.get(0).getYStart());
 			// image 2
 			assertEquals("http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg", recipe.slides.get(3).content.images.get(1).getUrlName());
-			assertEquals(50, recipe.slides.get(3).content.images.get(1).getXStart());
-			assertEquals(50, recipe.slides.get(3).content.images.get(1).getYStart());
+			assertEquals((Integer)50, recipe.slides.get(3).content.images.get(1).getXStart());
+			assertEquals((Integer)50, recipe.slides.get(3).content.images.get(1).getYStart());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getWidth().intValue());
 			assertEquals(200, recipe.slides.get(3).content.images.get(1).getHeight().intValue());
 			assertEquals(2, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 			// image 3
 			assertEquals("http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg", recipe.slides.get(3).content.images.get(2).getUrlName());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getXStart());
-			assertEquals(100, recipe.slides.get(3).content.images.get(2).getYStart());
+			assertEquals((Integer)100, recipe.slides.get(3).content.images.get(2).getXStart());
+			assertEquals((Integer)100, recipe.slides.get(3).content.images.get(2).getYStart());
 			assertEquals(20, recipe.slides.get(3).content.images.get(2).getDuration().intValue());
 			assertEquals(3, recipe.slides.get(3).content.images.get(2).getLayer().intValue());
 	}
@@ -397,14 +397,14 @@ public class XMLReaderTest {
 		assertEquals(200, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
 			// video 1
 			assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
-			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
-			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
+			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
+			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
 			assertEquals(2, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getDuration().intValue());
 			// video 2
 			assertEquals("http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
-			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart());
-			assertEquals(300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
+			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart());
+			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
 			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());
 			assertEquals(15, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getStartTime().intValue());
 	}

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
@@ -45,6 +46,7 @@ import texthandler.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import videohandler.VideoPlayerHandler;
+import xmlValidation.XMLValidator;
 import xmlparser.*;
 import errorhandler.ErrorHandler;
 
@@ -78,6 +80,7 @@ public class SlideShow {
 	private RecipeCollection recipeCollection;
 	private TimerControlBar timerControls;
 	private HBox timerControlPanel;
+	private XMLValidator validator;
 	
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
 		
@@ -103,29 +106,38 @@ public class SlideShow {
     	//stage.setFullScreen(false);
     	stage.setFullScreen(true);
     	stage.show();	 
-		
+
 		// Call XML parser
     	logger.log(Level.INFO, "Calling XML parser");
-		reader = new XMLReader(filepath);
-		recipe = reader.getRecipe();
-		
-		// Get the defaults from the recipe
-		defaults = recipe.getDefaults();
-		// Get the total number of slides without branch slides
-		numOfSlides = recipe.getNumberOfSlides();
+    	
+    	// Check integrity of XML file, report error message if invalid
+    	validator = new XMLValidator(filepath);
+    	if (validator.isXMLBroken()) {
+    		stage.hide();
+    		ErrorHandler error = new ErrorHandler(validator.getErrorMsg());
+		} else {
+			// If there's no error with the recipe then grab it from the validator class
+			recipe = validator.getRecipe();
 
-		// Call newSlide() to start displaying the side show from slide with ID 0.
-		//Change back to 0, 3 only for testing purposes.
-		logger.log(Level.INFO, "Starting slideshow with slide index 0");
-		newSlide(0, false, null);
+			// Get the defaults from the recipe
+			defaults = recipe.getDefaults();
+			// Get the total number of slides without branch slides
+			numOfSlides = recipe.getNumberOfSlides();
 
-		// Set the colour of the slide
-		slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+			// Call newSlide() to start displaying the side show from slide with
+			// ID 0.
+			// Change back to 0, 3 only for testing purposes.
+			logger.log(Level.INFO, "Starting slideshow with slide index 0");
+			newSlide(0, false, null);
+
+			// Set the colour of the slide
+			slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
 		// These properties update the stage
 		stage.hide();
 		stage.setScene(slideScene);
 		stage.setFullScreen(true);
 		stage.show();
+		}
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {
