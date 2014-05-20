@@ -10,8 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eCook.MainMenu;
 import eCook.RecipeCollection;
-
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -54,6 +54,7 @@ public class MainMenuContent {
 	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
 	public VBox bigBox;
 	Label blank;
+	private FadeTransition loadExtBtnFade;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
 		//Gets the visual bounds of the screen
@@ -210,7 +211,6 @@ public class MainMenuContent {
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
 		 
-		 
 		
 		 //BUTTON ACTIONS
 		 //Making the Load External Recipe button make a new window that takes the focus off the main stage
@@ -224,13 +224,18 @@ public class MainMenuContent {
 	            	final Stage dialog = new Stage();
 	                dialog.initModality(Modality.APPLICATION_MODAL);
 	                dialog.initStyle(StageStyle.UNDECORATED);
-	                dialog.initOwner(stage);
-	                
+	                dialog.initOwner(stage);        
 	                
 	                Button urlBtn = new Button("HTTP://");
 	                Button fileBrowserBtn = new Button("Browse...");
-	                urlBtn.setPrefSize(230,250);
-	                fileBrowserBtn.setPrefSize(230,250);
+	                urlBtn.setPrefSize(256, 228);
+	                fileBrowserBtn.setPrefSize(256, 228);
+	                
+	                urlBtn.setId("urlBtn");
+	                fileBrowserBtn.setId("fileBrowserBtn");
+	        		urlBtn.getStylesheets().add("file:../Resources/css.css");
+	        		fileBrowserBtn.getStylesheets().add("file:../Resources/css.css");
+	        		
 	                VBox loadExtBox = new VBox(20);
 	                HBox topBox = new HBox();
 	                HBox midBox = new HBox(10); 
@@ -238,7 +243,7 @@ public class MainMenuContent {
 	                
 	                //New imageView required as using the old one moves its content as well
 	                //Adds image onto the box containing the load Ext window made according to the 
-	                //GUI spec
+	                //GUI specifications
 	        		ImageView loadExtWinCloseBtnHolder = new ImageView();
 	        		try {
 	        			inputStream = new FileInputStream("../Resources/redx.png");
@@ -254,7 +259,6 @@ public class MainMenuContent {
 	                loadExtBox.getChildren().addAll(topBox,midBox);
 	                loadExtBox.setStyle("-fx-background-color: lightgrey");
 	                Scene dialogScene = new Scene(loadExtBox, 500, 300);
-	                dialogScene.fillProperty().set(Color.BLUE);
 	                dialog.setScene(dialogScene);
 	                dialog.show();
 	                
@@ -262,7 +266,6 @@ public class MainMenuContent {
 	                //selection of option
 	        		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
 	        			public void handle(ActionEvent event) {
-	            	
 	        				System.out.println("URL BUTTON CLICKED");
 	        				dialog.close();
 	        			}
@@ -270,7 +273,6 @@ public class MainMenuContent {
 	  		
 	        		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
 	        			public void handle(ActionEvent event) {
-	        				
 	        				System.out.println("FILE BROWSER BUTTON CLICKED");
 	        				dialog.close();
 	        			}

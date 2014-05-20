@@ -27,7 +27,6 @@ public class MainMenu {
 		Screen screen = Screen.getPrimary();
 		Rectangle2D screenBounds = screen.getVisualBounds();
 		
-		
 		// Create a new group for the main menu so that the stage doesn't require changing
         menuGroup = new Group();
         // Create a new MainMenuContent object
@@ -40,6 +39,7 @@ public class MainMenu {
         menuGroup.getChildren().add(fileHandlerButton.fileHandlerButtonHbox);
         // Create a scene from the main menu group and update stage to the scene
         scene =  new Scene(menuGroup, screenBounds.getWidth(), screenBounds.getHeight());
+        
         stage.setScene(scene);
         stage.setFullScreen(true);
         //Removes the exit hint from the main menu

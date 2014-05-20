@@ -154,6 +154,9 @@ public class generateShoppingListScreen {
 		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		
+		saveBtn.setId("saveBtn");
+		saveBtn.getStylesheets().add("file:../Resources/css.css");
+		
 		// set up the status bar
 		statusBar = new Label("");
 		
