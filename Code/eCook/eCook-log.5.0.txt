@@ -1,4 +1,0 @@
-May 15, 2014 12:39:32 PM eCook.eCook start
-FINER: ENTRY
-May 15, 2014 12:39:33 PM eCook.eCook start
-FINER: RETURN
