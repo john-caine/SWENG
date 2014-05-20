@@ -117,7 +117,6 @@ public class MainMenu{
 		    public void handle(MouseEvent mouseEvent) {
 		    	Node  source = (Node)  mouseEvent.getSource();
 		    	Stage stage  = (Stage) source.getScene().getWindow(); 
-		    	stage.setIconified(true);
 		    }
 		});
 		
@@ -143,7 +142,7 @@ public class MainMenu{
 		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
-        topBoxRight = new HBox(5);
+        topBoxRight = new HBox(0);
 		
 		topBoxRight.setPrefSize(width/2, height*0.1);
 		topBoxRight.setAlignment(Pos.TOP_RIGHT);

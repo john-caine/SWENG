@@ -56,7 +56,7 @@ public class MainMenuContent {
 	Label blank;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
-		//Gets the visial bounds of the screen
+		//Gets the visual bounds of the screen
 		screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
@@ -151,6 +151,7 @@ public class MainMenuContent {
 		topBoxLeft.setPrefSize(width/2, height*0.1);
 		topBoxLeft.setAlignment(Pos.TOP_LEFT);
 		
+		topBox.setPadding(new Insets(10, 45, 0, 40));
 		topBoxLeft.getChildren().add(homeHolder);
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);

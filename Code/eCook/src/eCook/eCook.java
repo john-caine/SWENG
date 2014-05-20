@@ -54,7 +54,6 @@ public class eCook extends Application {
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage, recipeCollection);
 		// Show the stage when ready
-		//stage.initStyle(StageStyle.UNDECORATED);
 	    stage.show();
 	    
 	    logger.exiting(eCook.class.getName(), "start");

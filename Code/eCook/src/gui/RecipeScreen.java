@@ -109,13 +109,14 @@ public class RecipeScreen {
 		//Sets size and location parameters for eCook's menu bar containing home, minimise and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
-        topBoxRight = new HBox();
+        topBoxRight = new HBox(5);
 		
 		topBoxRight.setPrefSize(width/2, height*0.1);
 		topBoxRight.setAlignment(Pos.TOP_RIGHT);
 		topBoxLeft.setPrefSize(width/2, height*0.1);
 		topBoxLeft.setAlignment(Pos.TOP_LEFT);
 		
+		topBox.setPadding(new Insets(10, 45, 0, 40));
 		topBoxLeft.getChildren().add(homeHolder);
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);

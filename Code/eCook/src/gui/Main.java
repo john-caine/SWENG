@@ -2,6 +2,7 @@ package gui;
 
 
 
+import eCook.RecipeCollection;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -26,7 +27,8 @@ public void start(Stage primaryStage) {
 			screenBounds = Screen.getPrimary().getVisualBounds();
 			Group root = new Group();
 			Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight());
-			root.getChildren().add(new MainMenuContent(primaryStage).bigBox);
+			RecipeCollection recipeCollection = null;
+			root.getChildren().add(new MainMenuContent(primaryStage, recipeCollection).bigBox);
 			scene.setFill(Color.WHITE);
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
