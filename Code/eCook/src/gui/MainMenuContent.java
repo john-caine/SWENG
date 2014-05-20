@@ -144,7 +144,7 @@ public class MainMenuContent {
 		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
         topBox = new HBox();
         topBoxLeft = new HBox();
-        topBoxRight = new HBox();
+        topBoxRight = new HBox(5);
 		
 		topBoxRight.setPrefSize(width/2, height*0.1);
 		topBoxRight.setAlignment(Pos.TOP_RIGHT);
@@ -179,10 +179,10 @@ public class MainMenuContent {
 		
 		
 		//Defining the CSS Identifiers
-		loadExtBtn.setId("b1");
-		generateListBtn.setId("b2");
-		ingredientsPickBtn.setId("b3");
-		recipesBtn.setId("b4");
+		loadExtBtn.setId("loadExtBtn");
+		generateListBtn.setId("generateListBtn");
+		ingredientsPickBtn.setId("ingredientsPickBtn");
+		recipesBtn.setId("recipesBtn");
 		
 		//Setting the sizes of the buttons relative to the size of the screen
 		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight());
