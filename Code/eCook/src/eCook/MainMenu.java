@@ -11,6 +11,7 @@ import gui.MainMenuContent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,5 +45,7 @@ public class MainMenu {
         stage.setFullScreen(true);
         //Removes the exit hint from the main menu
         stage.setFullScreenExitHint("");
+        //Removes the key combination to exit fullscreen when in main menu
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 	}
 }
