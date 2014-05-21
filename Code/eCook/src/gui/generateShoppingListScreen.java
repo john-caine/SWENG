@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -27,10 +28,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -43,7 +49,12 @@ public class generateShoppingListScreen {
 	String shoppingListPreviewText;
 	HBox topBox, topBoxRight, topBoxLeft;
 	Label statusBar;
-	Button saveBtn, printBtn;
+	Button saveBtn, printBtn, editBtn, addBtn;
+	VBox shoppingListBox;
+	ScrollPane scrollPane;
+	CheckBox[] checkboxes;
+	TextField newItem;
+	boolean inEditMode = false;
 	
 	public generateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		
@@ -143,16 +154,51 @@ public class generateShoppingListScreen {
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
 		
-		// create a text area to show the shopping list
-		TextArea text = new TextArea();
-		text.setEditable(false);
-		text.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
+		// create a scroll box for the shopping list display
+		// create VBox for the list	
+		shoppingListBox = new VBox();
+		shoppingListBox.setSpacing(8);
+		// set up the scroll pane
+		scrollPane = new ScrollPane();
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
+		// add the box to the scroll pane
+		scrollPane.setContent(shoppingListBox);
+		
+		// set up the new item field
+		newItem = new TextField();
+		newItem.setPrefWidth(midBox.getPrefWidth()/3);
+		newItem.setPromptText("Click to add an item");
+		newItem.setVisible(false);
+		newItem.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					if (addBtn.getText().equals("Save")) {
+						if (!newItem.getText().equals("")) {
+							getShoppingList(inEditMode).addItem(newItem.getText());
+						}
+						newItem.setText("");
+						newItem.setPromptText("keep typing to add more items");
+						getShoppingList(inEditMode);
+					}
+				}
+				else {
+					statusBar.setText("Press enter to add multiple items");
+				}
+			}
+		});
 
 		//Buttons for saving and printing the shopping list
 		saveBtn = new Button("Save");
 		printBtn = new Button("Print");
+		editBtn = new Button("Edit List");
+		addBtn = new Button("Add Item");
 		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		editBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		addBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
 		
 		saveBtn.setId("saveBtn");
 		saveBtn.getStylesheets().add("file:../Resources/css.css");
@@ -160,16 +206,66 @@ public class generateShoppingListScreen {
 		// set up the status bar
 		statusBar = new Label("");
 		
-		// populate the text area
-		getShoppingList(text);
+		// populate the shopping list display
+		getShoppingList(inEditMode);
 		
 		//Sets actions to be performed when saveBtn is clicked
 		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
-            	new PDFCreator(getShoppingList(null).readFromTextFile());
+            	new PDFCreator(getShoppingList(inEditMode).readFromTextFile());
             	statusBar.setText("Shopping list saved to PDF");
             }
         });
+		
+		//Sets actions to be performed when addBtn is clicked
+		addBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent mouseEvent) {
+				if (addBtn.getText().equals("Add Item")) {
+					newItem.setVisible(true);
+					addBtn.setText("Save");
+				}
+				else if (addBtn.getText().equals("Save")) {
+					newItem.setPromptText("Click to add an item");
+					if (!newItem.getText().equals("")) {
+						getShoppingList(inEditMode).addItem(newItem.getText());
+						statusBar.setText("Added " + newItem.getText() + " to Shopping List");
+					}
+					newItem.setText("");
+					newItem.setVisible(false);
+					addBtn.setText("Add Item");
+				}
+				getShoppingList(inEditMode);
+			}
+		});
+		
+		//Sets actions to be performed when editBtn is clicked
+		editBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent mouseEvent) {
+				if (inEditMode) {
+					// update the shopping list by deleting unselected items
+					List<String> itemsToRemove = new ArrayList<String>();
+					for (int i=0; i<checkboxes.length; i++) {
+						if (!checkboxes[i].isSelected()) {
+							itemsToRemove.add(checkboxes[i].getText());
+						}
+					}
+					getShoppingList(inEditMode).removeItems(itemsToRemove);
+					
+					// reset the button
+					inEditMode = false;
+					editBtn.setText("Edit List");
+					saveBtn.setDisable(false);
+					printBtn.setDisable(false);
+				}
+				else {
+					inEditMode = true;
+					editBtn.setText("Remove Unselected Items");
+					saveBtn.setDisable(true);
+					printBtn.setDisable(true);
+				}
+				getShoppingList(inEditMode);
+			}
+		});
 		
 		//Sets actions to be performed when printBtn is clicked
 		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -180,7 +276,7 @@ public class generateShoppingListScreen {
         		}
         		// if no PDF exists, create one first
         		else {
-        			new PDFCreator(getShoppingList(null).readFromTextFile());
+        			new PDFCreator(getShoppingList(inEditMode).readFromTextFile());
         			printShoppingList();
         		}
             }
@@ -188,7 +284,10 @@ public class generateShoppingListScreen {
 		midBox.setAlignment(Pos.CENTER);
 		midBoxBottom.setAlignment(Pos.CENTER);
 		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
-		midBox.getChildren().addAll(new Label("Shopping List"), text, statusBar, midBoxBottom);
+		HBox buttonBar = new HBox();
+		buttonBar.setAlignment(Pos.CENTER_RIGHT);
+		buttonBar.getChildren().addAll(editBtn, addBtn);
+		midBox.getChildren().addAll(new Label("Shopping List"), buttonBar, scrollPane, statusBar, midBoxBottom);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
@@ -199,27 +298,54 @@ public class generateShoppingListScreen {
 	}
 	
 	// method to get the shopping list and create a Text Area
-	public ShoppingList getShoppingList(TextArea text) {
+	public ShoppingList getShoppingList(boolean editMode) {
 		// read the shopping list file
 		ShoppingList list = new ShoppingList();
 		ArrayList<String> shoppingList = new ArrayList<String>();
 		shoppingList = list.readFromTextFile();
 		
-		// loop through list adding items to the text area
-		if (text != null) {
+		if (shoppingListBox != null && scrollPane != null) {
+			// clear the list before adding items
+			shoppingListBox.getChildren().clear();
+			
+			if (inEditMode) {
+				// set up the checkboxes
+				checkboxes = new CheckBox[shoppingList.size()];
+			}
+			
+			// populate the list with checkboxes or labels
+			// assign each checkbox an event handler (if in edit mode)
 			if (shoppingList != null && shoppingList.size() != 0) {
+				editBtn.setDisable(false);
+				saveBtn.setDisable(false);
+				printBtn.setDisable(false);
 				for (int i=0; i<shoppingList.size(); i++) {
-					text.appendText(shoppingList.get(i) + "\n");
+					if (inEditMode) {
+						CheckBox box = checkboxes[i] = new CheckBox(shoppingList.get(i));
+						box.setSelected(true);
+						shoppingListBox.getChildren().add(checkboxes[i]);
+					}
+					else {
+						Label item = new Label(shoppingList.get(i));
+						shoppingListBox.getChildren().add(item);
+					}
 				}
 				statusBar.setText("You have " + shoppingList.size() + " items in your shopping list");
 			}
 			else {
-				text.setText("No items in shopping list");
+				statusBar.setText("No items in shopping list");
+				editBtn.setDisable(true);
 				saveBtn.setDisable(true);
 				printBtn.setDisable(true);
 			}
+			// add the new item field
+			shoppingListBox.getChildren().add(newItem);
+		}
+		else {
+			System.out.println("Shopping List display is broken.");
 		}
 		
+		// return the ShoppingList instance
 		return list;
 	}
 	

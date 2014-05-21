@@ -30,7 +30,9 @@ public class ShoppingList {
 	// method to add item to shopping list
 	public void addItem(String item) {
 		if (item != null | !item.equals("")) {
-			shoppingList.add(item);
+			if (!shoppingList.contains(item)) {
+				shoppingList.add(item);
+			}
 		}
 		else {
 			System.out.println("Cannot add to shopping list: invalid item");
@@ -50,6 +52,23 @@ public class ShoppingList {
 		}
 		saveToTextFile();
 	}
+	
+	// method to remove several items from the shopping list with one call
+		public void removeItems(List<String> itemNames) {
+			if (itemNames != null | !(itemNames.size() == 0)) {
+				for (int i=0; i<itemNames.size(); i++) {
+					if (itemNames.get(i) != null && itemNames.get(i) != "") {
+						if (shoppingList.contains(itemNames.get(i))) {
+							shoppingList.remove(itemNames.get(i));
+						}
+					}
+				}
+			}
+			else {
+				System.out.println("Cannot remove from shopping list: invalid list of items");
+			}
+			saveToTextFile();
+		}
 	
 	// method to save the shopping list as a text file
 	private void saveToTextFile() {
