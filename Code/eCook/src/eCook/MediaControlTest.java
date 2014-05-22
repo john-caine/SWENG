@@ -69,14 +69,6 @@ public class MediaControlTest {
 		/* Detect if VideoPlayer is set to be on repeat. 
 		 * Return -1 for Loop = true & 1 for Loop = false */
 		assertEquals(1, videoPlayerHandler.mediaControl.mp.getCycleCount(), 0.01);
-		
-		/* Detect if startTimerThread has finished counting for 2 seconds*/
-		TimeUnit.SECONDS.sleep(2);
-		assertTrue(videoPlayerHandler.mediaControl.startTimerThread.isDone());
-		
-		/* Detect if the VideoPlayer is set to play for 5 seconds duration */
-		assertEquals(Duration.millis(5000), videoPlayerHandler.mediaControl.mp.getStopTime());
-		
 	
 	}
 }
