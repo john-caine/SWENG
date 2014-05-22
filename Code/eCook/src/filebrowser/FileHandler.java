@@ -16,6 +16,7 @@ public class FileHandler {
 	private Stage stage;
 	private FileChooser fileChooser;
 	private String filepath;
+	private File slideshow;
 
 	/**
 	 * Constructor
@@ -26,6 +27,8 @@ public class FileHandler {
 	public FileHandler() {
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Slideshow File");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML Document (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
 	}
 
 	/**
@@ -37,9 +40,10 @@ public class FileHandler {
 	 * 
 	 */
 	public String openFile() {
-		File slideshow = fileChooser.showOpenDialog(stage);
+		slideshow = fileChooser.showOpenDialog(stage);
 		if (slideshow != null) {
 			filepath = slideshow.getAbsolutePath();
+			fileChooser.setInitialDirectory(slideshow.getParentFile());
 			if (filepath.endsWith(".xml")) {
 				return filepath;
 			}
