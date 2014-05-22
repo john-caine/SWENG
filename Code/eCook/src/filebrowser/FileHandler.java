@@ -22,6 +22,7 @@ public class FileHandler {
 	 * Constructor
 	 * Instantiate a FileChooser object with capabilities to show a file browser
 	 * Set the title of the FileChooser object
+	 * Display XML Document only
 	 * 
 	 */
 	public FileHandler() {
