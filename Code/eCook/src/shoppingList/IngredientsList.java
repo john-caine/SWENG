@@ -163,7 +163,7 @@ public class IngredientsList {
         savePDFButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
             	// when button pressed, send the shopping list to the PDF creator
-            	new PDFCreator(currentShoppingList.readFromTextFile());
+            	new PDFCreator(currentShoppingList.readFromTextFile(), true);
             	System.out.println("shopping list saved to PDF");
             }
         });

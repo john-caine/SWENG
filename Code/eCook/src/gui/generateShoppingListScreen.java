@@ -212,7 +212,7 @@ public class generateShoppingListScreen {
 		//Sets actions to be performed when saveBtn is clicked
 		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
-            	new PDFCreator(getShoppingList(inEditMode).readFromTextFile());
+            	new PDFCreator(getShoppingList(inEditMode).readFromTextFile(), true);
             	statusBar.setText("Shopping list saved to PDF");
             }
         });
@@ -270,14 +270,18 @@ public class generateShoppingListScreen {
 		//Sets actions to be performed when printBtn is clicked
 		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
-            	File fileToRead = new File("Your Shopping List.pdf");
+            	File fileToRead = new File("ShoppingListTemp.pdf");
         		if (fileToRead.exists()) {
         			printShoppingList();
         		}
-        		// if no PDF exists, create one first
+        		// if no PDF exists, create a temporary document to print from
         		else {
-        			new PDFCreator(getShoppingList(inEditMode).readFromTextFile());
+        			new PDFCreator(getShoppingList(inEditMode).readFromTextFile(), false);
         			printShoppingList();
+        			File tempFile = new File("ShoppingListTemp.pdf");
+        			if (tempFile.exists()) {
+            			fileToRead.deleteOnExit();
+        			}
         		}
             }
         });
@@ -353,7 +357,7 @@ public class generateShoppingListScreen {
 	public void printShoppingList() {
 		PDDocument pdf = null;
 		try {
-			pdf = PDDocument.load("Your Shopping List.pdf");
+			pdf = PDDocument.load("ShoppingListTemp.pdf");
 			statusBar.setText("Printing shopping list...");
 			pdf.silentPrint();											// WARNING MAC USERS: This may write a big scary red error message
 																		// to the console. It will print the file anyway though!

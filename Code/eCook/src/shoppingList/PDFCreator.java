@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -37,8 +40,9 @@ public class PDFCreator {
 	PDFont headerFont, bodyFont;
 	PDJpeg logo;
 	int numberOfLinesUsed;
+	boolean allowFilepathSelection;
 	
-	public PDFCreator(ArrayList<String> shoppingList) {
+	public PDFCreator(ArrayList<String> shoppingList, boolean allowFilepathSelection) {
 		// constructor takes a list of strings (shopping list items) and turns them into a single PDF
 		if (shoppingList != null && shoppingList.size() != 0) {
 			// make a document and set up fonts and logo
@@ -54,6 +58,9 @@ public class PDFCreator {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			// set the allow filepath selection flag
+			this.allowFilepathSelection = allowFilepathSelection;
 			
 			// run the PDF generator
 			createPDFFromList(shoppingList);
@@ -131,9 +138,20 @@ public class PDFCreator {
 	
 			// Make sure that the content stream is closed:
 			currentContentStream.close();
-	
-			// Save the results and ensure that the document is properly closed:
-			shoppingListDocument.save("Your Shopping List.pdf");
+			
+			// prompt the user to select where they would like to save the file
+			if (allowFilepathSelection) {
+				String filepath = getSaveLocation();
+				// Save the results and ensure that the document is properly closed:
+				if (filepath != null && !filepath.equals("")) {
+					shoppingListDocument.save(filepath);
+				}
+			}
+			else {
+				shoppingListDocument.save("ShoppingListTemp.pdf");
+			}
+
+			shoppingListDocument.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -142,5 +160,19 @@ public class PDFCreator {
 			e.printStackTrace();
 		}
 
+	}
+	
+	// method to get the filename from the file browser
+	public String getSaveLocation() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Shopping List");
+		File file = fileChooser.showSaveDialog(new Stage());
+		if (file != null) {
+			return file.getAbsolutePath() + ".pdf";
+		}
+		else {
+			System.out.println("Saving shopping list: abandoned");
+			return null;
+		}
 	}
 }
