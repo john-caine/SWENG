@@ -541,10 +541,10 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).stopAudio();
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).mediaControl.mp.stop();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	exitToMainMenu(event);
             }
@@ -560,10 +560,10 @@ public class SlideShow {
             		timerValues.add(timerList.get(g).getTimerValues());            		 
             	}
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).stopAudio();
+            		audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).mediaControl.mp.stop();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
 
             	// return to the main menu if there are no more slides
@@ -589,10 +589,10 @@ public class SlideShow {
             	}
             	
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).stopAudio();
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).mediaControl.mp.stop();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	// return to the main menu if the previous slide is nothing (beginning of the slideshow)
             	if (prevSlideID <= -1) {
@@ -683,10 +683,10 @@ public class SlideShow {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-	            		audioHandlerList.get(h).stopAudio();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).mediaControl.mp.stop();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 		    		System.out.println("Next slide");
 		    		// return to the main menu if there are no more slides
@@ -702,10 +702,10 @@ public class SlideShow {
 		    	else if (event.getCode() == KeyCode.LEFT) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-	            		audioHandlerList.get(h).stopAudio();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).mediaControl.mp.stop();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 		    		System.out.println("Previous slide");
 		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
@@ -720,10 +720,10 @@ public class SlideShow {
 		    	}
 		    	else if (event.getCode() == KeyCode.ESCAPE) {
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-	            		audioHandlerList.get(h).stopAudio();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).mediaControl.mp.stop();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 	            	new MainMenu(stage, recipeCollection);
 		    	}
