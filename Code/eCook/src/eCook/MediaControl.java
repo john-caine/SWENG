@@ -599,7 +599,7 @@ public abstract class MediaControl {
         	 
         	public void run() {
         		// Media has stopped so display the play image for the "play" button
-        		mp.setStopTime(Duration.INDEFINITE);
+        		//mp.setStopTime(Duration.INDEFINITE);
         		atEndOfMedia = true; 
 	            playButton.setGraphic(new ImageView(playImage));
 	            playButtonFS.setGraphic(new ImageView(playImage));
@@ -610,7 +610,12 @@ public abstract class MediaControl {
         mp.setOnReady(new Runnable() {
         	
             public void run() {
-                duration = mp.getMedia().getDuration();
+            	if(playDuration != null && playDuration != 0){
+            		duration = Duration.seconds(playDuration);
+            	}
+            	else{
+            		duration = mp.getMedia().getDuration();
+            	}
                 updateValues();
             }
         });
@@ -624,7 +629,6 @@ public abstract class MediaControl {
                 	playButton.setGraphic(new ImageView(playImage));
                     playButtonFS.setGraphic(new ImageView(playImage));
                     atEndOfMedia = true;
-                    checkPlayDuration =  false;
                     mp.stop();
                 }
             	
@@ -662,19 +666,13 @@ public abstract class MediaControl {
                     Duration currentTime = mp.getCurrentTime();
                     
                     if(playDuration != null && playDuration != 0){
-                    	if(checkPlayDuration){
                     	 playTime.setText(formatTime(currentTime, Duration.seconds(playDuration)));
-   	                     playTimeFS.setText(formatTime(currentTime, Duration.seconds(playDuration)));
-                    	}
-                    	else{
-                		 playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
-                         playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
-                    	}
+   	                     playTimeFS.setText(formatTime(currentTime, Duration.seconds(playDuration)));      	
                     }
                     else{
-                    // Set the text for the time sliders
-                    playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
-                    playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+                    	// Set the text for the time sliders
+	                    playTime.setText(formatTime(currentTime, mp.getMedia().getDuration()));
+	                    playTimeFS.setText(formatTime(currentTime, mp.getMedia().getDuration()));
                     }
                     
                     if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {

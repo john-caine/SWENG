@@ -28,6 +28,7 @@ public class Recipe {
 	Defaults defaults;
 	List<Ingredient> ingredients;
 	List<Slide> slides;
+	String fileName;
 		
 	public Recipe() {
 		slides = new ArrayList<Slide>();
@@ -39,6 +40,12 @@ public class Recipe {
 	// method to report errors when setting fields
 	public void reportError(String errorMessage) {
 		System.out.println(errorMessage);
+	}
+	
+	public void setFileName(String fileName) {
+		if (fileName != null && !fileName.equals("")){
+			this.fileName = fileName;
+		} 
 	}
 
 	public List<Slide> getSlides() {
@@ -135,5 +142,9 @@ public class Recipe {
 	
 	public Info getInfo() {
 		return info;
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 }

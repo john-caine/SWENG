@@ -318,7 +318,7 @@ public class MainMenuContent {
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();
-                new RecipeScreen(bigBox, height, width, recipeCollection);
+                new RecipeScreen(bigBox, height, width, recipeCollection, stage);
             }
         });
 

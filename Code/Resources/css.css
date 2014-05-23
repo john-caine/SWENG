@@ -85,6 +85,8 @@
 	-fx-font-weight: bolder;
 	-fx-opacity: 0.5;
 
+}
+
 #fileBrowserBtn {
 	-fx-font-size: 20px;
 	-fx-text-fill: white;
@@ -120,4 +122,4 @@
 
 
 
-	}
+	

@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -35,9 +36,14 @@ public class eCook extends Application {
 		if (directory.exists()) {
 			// parse all files in folder, adding recipes to collection
 			for (int i=0; i<directory.list().length; i++) {
-				logger.log(Level.INFO, "Calling XML parser");
-				XMLReader reader = new XMLReader("defaultRecipes/" + directory.list()[i]);
-				recipeCollection.addRecipe(reader.getRecipe());
+				// only read XML files if for some reason other files exist
+				if (directory.list()[i].endsWith(".xml")) {
+					logger.log(Level.INFO, "Calling XML parser");
+					XMLReader reader = new XMLReader("defaultRecipes/" + directory.list()[i]);
+					Recipe currentRecipe = reader.getRecipe();
+					currentRecipe.setFileName(directory.list()[i]);
+					recipeCollection.addRecipe(currentRecipe);
+				}
 			}
 		}
 		// log if no default recipes folder is found

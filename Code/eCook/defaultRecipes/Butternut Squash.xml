@@ -1,0 +1,191 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>Jim Dee</author>
+		<version>1.0</version>
+    <title>Butternut Squash Soup</title>
+		<comment>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage.</comment>
+		<width>1000</width>
+		<height>800</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#00FF00</backgroundcolor>
+		<font>Helvetica Neue Thin</font>
+		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
+		<fontcolor>#0000FF</fontcolor>
+		<fillcolor>#FF0000</fillcolor>
+	</defaults>
+	<ingredients>
+		<ingredient name="butternut squash" amount="1" units="whole" />
+		<ingredient name="butter" amount="25" units="grams" />
+	</ingredients>
+
+	<slide ID="0" duration="10" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="20" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Method</textstring>
+      			</textbody>
+		</text>
+		
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img001.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>1</layer>
+		</image>		
+	</slide>
+
+	<slide ID="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step One</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Begin by peeling the squash with a sharp knife, reserving the trimmings in a pan. Set the seeds aside as well.</textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img002.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>2</layer>
+		</image>		
+	</slide>
+
+	<slide ID="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Two</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Chop the flesh into 1cm dice and toss in a tablespoon of vegetable oil along with a few pinches of salt.</textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img003.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>3</layer>
+		</image>		
+	</slide>
+
+	<slide ID="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Three</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Roast in the oven at gas mark 6 for 20-30 minutes, until lightly coloured and cooked through. Meanwhile, add cold water to the trimmings and bring to the boil. Simmer for 15-20 minutes then strain into another pan. This creates a lightly flavoured squash stock. </textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img004.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>4</layer>
+		</image>		
+	</slide>
+
+	<slide ID="4" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Four</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Wash and dry the seeds, and lightly toast in a dry pan.</textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img005.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>5</layer>
+		</image>		
+	</slide>
+
+	<slide ID="5" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Five</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Add the roasted butternut squash to a pan, as well as enough stock to cover. Bring to the boil then blend with the butter using the best equipment available to you. </textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img006.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>6</layer>
+		</image>		
+	</slide>
+
+	<slide ID="6" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Six</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Pass through a fine sieve then check the seasoning, adding salt and pepper to taste.</textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img007.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>7</layer>
+		</image>		
+	</slide>
+
+	<slide ID="7" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Seven</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>To serve, reheat the soup and pour into a bowl.</textstring>
+      			</textbody>
+		</text>
+		<text xstart="10" ystart="150" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			<textbody branch="5">
+        		<textstring>Top with a teaspoon of the toasted seeds.</textstring>
+      			</textbody>
+		</text>
+		<image>
+			<urlname>//SWENG/Code/Product_Content/img008.jpg</urlname>
+			<xstart>600</xstart>
+			<ystart>100</ystart>
+			<duration>20</duration>
+			<layer>8</layer>
+		</image>		
+	</slide>
+
+		<audio>
+			<urlname>//SWENG/Code/Product_Content/Music/05 Terrapin.mp3</urlname>
+			<starttime>35</starttime>
+			<loop>false</loop>
+		</audio>
+
+</slideshow>

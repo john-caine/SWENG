@@ -9,8 +9,15 @@ package gui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
+import xmlparser.Recipe;
 import eCook.RecipeCollection;
+import eCook.SlideShow;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,8 +25,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,16 +34,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
 public class RecipeScreen {
 	InputStream inputStream;
 	String recipeInfo;
 	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
 	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
 	HBox topBox, topBoxLeft, topBoxRight;
+	VBox recipeInfoBox;
 	
 	
-	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
+	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection, final Stage stage){
 		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
@@ -130,31 +137,20 @@ public class RecipeScreen {
 		midBox.setPrefSize(width*0.6,  height - topBox.getPrefHeight());
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2,  height - topBox.getPrefHeight());
-
-		//Creates scroll pane containing the recipe choices
-		//Turns off the possibility for the scroll bar to be horizontal
-		//and allows for the vertical scrolling to be on.
-		//Scroll pane is the container with the scroll bar
-
-		ScrollPane recipeList = new ScrollPane(); 
-		recipeList.setStyle("-fx-background: lightgrey;");
-		recipeList.setMinSize(midBox.getPrefWidth() , midBox.getPrefHeight()*0.5);
-		recipeList.setHbarPolicy(ScrollBarPolicy.NEVER);
-		recipeList.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
-		//Creates box to contain content for the scroll pane (i.e. recipes)
-		VBox listContent = new VBox(recipeCollection.getNumberOfRecipes()); 
-		listContent.setPrefWidth(recipeList.getPrefWidth() - 20);
-		recipeList.setContent(listContent);
-
-		//Creates a test labels of recipes
-		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++){
-		    Label tempList = new Label(recipeCollection.getRecipe(i).getInfo().getTitle()); 
-			tempList.setMinSize(recipeList.getMinWidth(), midBox.getPrefHeight()/4.5 );
-		    tempList.setStyle("-fx-border-color:black; -fx-background-color: white;");
-		    listContent.getChildren().add(tempList);
+		
+		// Create an ArrayList of Recipe Titles
+		ArrayList<String> recipeTitles = new ArrayList<String>();
+		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
+			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 		}
 		
+		// Create a list view and populate it with the recipe titles
+		final ListView<String> listOfRecipes = new ListView<String>();
+		listOfRecipes.setStyle("-fx-background: lightgrey;");
+		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.5);
+		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
+		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
 		Label recipeInfoLabel = new Label();
 		recipeInfoLabel.setWrapText(true);
 		recipeInfoLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
@@ -162,17 +158,77 @@ public class RecipeScreen {
 		recipeInfoLabel.setText(recipeInfo);
 		recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3);
 		
+		// Create a new HBox to hold the recipe information
+		recipeInfoBox = new VBox();
+		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.4);
+		recipeInfoBox.setStyle("-fx-border-color:black");
 		
-		Button playSlideBtn = new Button("Play");
-		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);		
-		midBox.setAlignment(Pos.CENTER);
-		midBox.getChildren().addAll(recipeList,recipeInfoLabel, playSlideBtn);
 		
+		// when recipe selection changes, update the info and ingredients fields
+				listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+					public void changed(ObservableValue<? extends String> ov, 
+							String old_val, String new_val) {
+						// get the selected recipe
+						int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
+						// call the update info labels method
+						updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
+						
+					}
+			    });	
+				
+				// set the first recipe in the list to be selected on loading
+				if (listOfRecipes.getItems().size() != 0) {
+					listOfRecipes.getSelectionModel().select(0);
+				}
+				if (recipeCollection.getRecipe(0) != null) {
+					updateInfoLabels(recipeCollection.getRecipe(0));
+				}
+				else {
+					updateInfoLabels(null);
+				}
+				
 		//Box where all content of the RecipeScreen class are collated 
 		HBox horizontalBox = new HBox();
 		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
-		bigBox.getChildren().addAll(topBox,horizontalBox);
-
+		bigBox.getChildren().addAll(topBox,horizontalBox);	
+				
+		Button playSlideBtn = new Button("Play");
+		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		// define the start slideshow button method
+		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				//Get filename of currently selected recipe
+				String fileName = recipeCollection.getRecipe(listOfRecipes.getSelectionModel().getSelectedIndex()).getFileName();
+				new SlideShow(stage, "defaultRecipes/" + fileName, recipeCollection);
+			}
+			
+		});
+		midBox.setAlignment(Pos.CENTER);
+		midBox.getChildren().addAll(listOfRecipes, recipeInfoBox, playSlideBtn);
 	}
+	
+	// method to update labels in the recipe info box
+	public void updateInfoLabels(Recipe recipe) {
+		String author = "", version = "", comment = "";
+		
+		if (recipe != null) {
+			// update the info Strings
+			author = recipe.getInfo().getAuthor();
+			version = recipe.getInfo().getVersion();
+			comment = recipe.getInfo().getComment();
+		}
+		
+		// add labels for author, version and comment
+		Label authorLabel = new Label("Author: " + author);
+		Label versionLabel = new Label("Version: " + version);
+		Label commentLabel = new Label("Comment: " + comment);
+		
+		// remove old labels
+		recipeInfoBox.getChildren().clear();
+		// add the labels to the info box
+		recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
+	}
+
 	 
 }

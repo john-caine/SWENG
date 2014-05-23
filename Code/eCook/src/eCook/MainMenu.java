@@ -14,13 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MainMenu {
 
 	public Group menuGroup;
 	private Scene scene;
-	public FileHandlerButton fileHandlerButton;
 	private MainMenuContent mainMenuContent;
 	
 	public MainMenu(Stage stage, RecipeCollection recipeCollection) {
@@ -30,14 +28,14 @@ public class MainMenu {
 		
 		// Create a new group for the main menu so that the stage doesn't require changing
         menuGroup = new Group();
+        
         // Create a new MainMenuContent object
-        mainMenuContent =  new MainMenuContent(stage, recipeCollection);    
-        // Create a new fileHandlerButton object
-        fileHandlerButton = new FileHandlerButton(stage, recipeCollection);
+        mainMenuContent =  new MainMenuContent(stage, recipeCollection); 
+        
         // Add Main Menu Content to main menu group
         menuGroup.getChildren().add(mainMenuContent.bigBox);
-        // Add a Hbox containing the fileHandlerButton to the main menu group
-        menuGroup.getChildren().add(fileHandlerButton.fileHandlerButtonHbox);
+
+        
         // Create a scene from the main menu group and update stage to the scene
         scene =  new Scene(menuGroup, screenBounds.getWidth(), screenBounds.getHeight());
         
