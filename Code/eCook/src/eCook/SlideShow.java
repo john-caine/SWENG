@@ -108,9 +108,6 @@ public class SlideShow {
     	stage.setFullScreenExitHint("Press ESC to return to the main menu.");
     	stage.show();	 
 
-		// Call XML parser
-    	logger.log(Level.INFO, "Calling XML parser");
-    	
     	// Check integrity of XML file, report error message if invalid
     	validator = new XMLValidator(filepath);
     	if (validator.isXMLBroken()) {

@@ -22,7 +22,7 @@ public class XMLValidator {
 	private String errorMsg;
 	
 	/*
-	 * Constructor sets the desired XML version and reads in inputFile
+	 * Constructor reads in inputFile
 	 */
 	public XMLValidator(String inputFile) {
 		broken = false;
@@ -102,8 +102,7 @@ public class XMLValidator {
 	 */
 	private Boolean missingSlideshowElements() {
 		// See if info, defaults or slide have not been initialised
-		if ((reader.getInfo() == null) || (reader.getDefaults() == null)
-				|| (reader.getRecipe() == null)) {
+		if ((reader.getInfo() == null) || (reader.getDefaults() == null) || (reader.getRecipe() == null)) {
 			StringBuilder tempString = new StringBuilder();
 			tempString.append("Error: Missing section(s) from");
 			if (reader.getInfo() == null) {
@@ -122,9 +121,7 @@ public class XMLValidator {
 		}
 		// If info, defaults or slides have been initialised check whether all
 		// data is there
-		else if (!reader.getInfo().infoComplete()
-				|| !reader.getDefaults().defaultsComplete()
-				|| !reader.getRecipe().lastSlideExists()) {
+		else if (!reader.getInfo().infoComplete() || !reader.getDefaults().defaultsComplete() || !reader.getRecipe().lastSlideExists()) {
 			StringBuilder tempString = new StringBuilder();
 			tempString.append("Error: Missing parameters from");
 			if (!reader.getInfo().infoComplete()) {
@@ -142,7 +139,6 @@ public class XMLValidator {
 			broken = true;
 		}
 		return broken;
-
 	}
 
 	/*
