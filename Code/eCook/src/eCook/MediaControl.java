@@ -54,10 +54,9 @@ import javafx.util.Duration;
 
 public abstract class MediaControl {
 	
-	protected MediaPlayer mp;
+	public MediaPlayer mp;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
-    private boolean checkPlayDuration = true;
     private Duration duration;
     private Slider timeSlider, timeSliderFS;
     protected Label playTime, playTimeFS;
@@ -69,14 +68,14 @@ public abstract class MediaControl {
 	protected int mpWidth;
 	protected int mpHeight;
 	private Rectangle2D bounds;
-	protected MediaView mediaView;
+	public MediaView mediaView;
 	private HBox fullscreenMediaBar;
 	private Button playButton, playButtonFS;
 	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private final Integer playDuration;
 	private Boolean mpLoop;
-	protected HBox mediaBar;
+	public HBox mediaBar;
 	protected boolean continuePlaying = true;
 	private Timeline timeLineStart;
 	private Animation.Status stopped = Animation.Status.STOPPED;
@@ -170,7 +169,7 @@ public abstract class MediaControl {
         setFullScreenButton();
 
         // Label to show the length of the video
-        Label timeLabel = new Label("   Time: ");
+        Label timeLabel = new Label(" Time: ");
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(timeLabel);
@@ -180,14 +179,14 @@ public abstract class MediaControl {
         
         // Label to show the current time position of the video
         playTime = new Label();
-        playTime.setMinWidth(50);
         playTime.setTextFill(Color.WHITE);
+        playTime.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(playTime);
 
         // Label to show the current volume of the media
         Label volumeLabel = new Label(" Vol: ");
         volumeLabel.setTextFill(Color.WHITE);
-        volumeLabel.setMaxWidth(50);
+        volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(volumeLabel);
 
         // Handle the volume slider
@@ -195,7 +194,7 @@ public abstract class MediaControl {
         
         // Label for play time in full screen mode
         playTimeFS = new Label();
-        playTimeFS.setMinWidth(50);
+        playTimeFS.setMinWidth(Control.USE_PREF_SIZE);
         playTimeFS.setTextFill(Color.WHITE);
 
         // Add components to Control Panel during fullscreen mode
@@ -260,7 +259,7 @@ public abstract class MediaControl {
 	void setVolumeSlider() {
 		// Create a new volume slider
 		volumeSlider = new Slider();
-	    volumeSlider.setMaxWidth(mpWidth/9);
+	    volumeSlider.setMaxWidth(mpWidth/5);
 	    // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
 	    volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 	        
@@ -288,7 +287,7 @@ public abstract class MediaControl {
 	void setTimeSlider() {
 		// Create a new time slide
         timeSlider = new Slider();
-        timeSlider.setMaxWidth((3*mpWidth)/5);
+        timeSlider.setMinWidth((2*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
         // Allow the user to drag and position the slider
@@ -354,6 +353,7 @@ public abstract class MediaControl {
 		// Create a fullscreen button
 		Button fullscreenButton = new Button();
         fullscreenButton.setGraphic(new ImageView(fullscreenImage));
+        fullscreenButton.setMinWidth(mpWidth/25);
         
         // Create a new stage for the fullscreen mode
         stageFS = new Stage();
@@ -371,9 +371,10 @@ public abstract class MediaControl {
             	
             	// Create a new MediaView based on the same Media settings
             	MediaView mediaViewFS = new MediaView(mp);
+            	mediaViewFS.setPreserveRatio(false);
             	mediaViewFS.setFitWidth(bounds.getWidth());
-            	mediaViewFS.setPreserveRatio(true);
-            	mediaViewFS.setLayoutY((bounds.getHeight() - mediaViewFS.getFitHeight())/7);
+            	mediaViewFS.setFitHeight(bounds.getHeight()+35);
+            	//mediaViewFS.setLayoutY((bounds.getHeight() - mediaViewFS.getFitHeight())/7);
             
             	// Add the new MediaView to the new group
             	root.getChildren().add(mediaViewFS);
@@ -465,6 +466,7 @@ public abstract class MediaControl {
 		// Create a stop button
 		Button stopButton = new Button();
         stopButton.setGraphic(new ImageView(stopImage));
+        stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
         	// ActionHandler for play button.
@@ -472,7 +474,6 @@ public abstract class MediaControl {
             	// Media is stopped so set the play image for the "stop" button
                 mp.stop();
                 atEndOfMedia = true;
-                checkPlayDuration =  false;
                 playButton.setGraphic(new ImageView(playImage));
                 playButtonFS.setGraphic(new ImageView(playImage));
             }
@@ -491,6 +492,7 @@ public abstract class MediaControl {
 		// Create a play button.
         playButton = new Button();
         playButton.setGraphic(new ImageView(playImage));
+        playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	        // ActionHandler for play button.

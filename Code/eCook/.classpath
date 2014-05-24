@@ -6,7 +6,12 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre8/lib/jfxswt.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/GitHub/SWENG/Code/Resources/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="D:/GitHub/SWENG/Code/Resources/pdfbox-app-1.8.4.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/R T/Documents/GitHub/SWENG/Code/Resources/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/R T/Documents/GitHub/SWENG/Code/Resources/pdfbox-app-1.8.4.jar"/>
+>>>>>>> cc3d7786404e48fb500d5a46286bdbd3a6e7d88b
 	<classpathentry kind="output" path="bin"/>
 </classpath>
