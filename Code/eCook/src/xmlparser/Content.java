@@ -249,6 +249,7 @@ public class Content {
 	}
 
 	public Image getImage(Integer imageNumber) {
+		System.out.println(getNumberOfImages());
 		if (imageNumber >= 0 && imageNumber < this.getNumberOfImages()) {
 			return images.get(imageNumber);
 		}

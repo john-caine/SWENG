@@ -1,6 +1,5 @@
 package xmlValidation;
 
-import xmlparser.Recipe;
 /* Title: XMLValidation
  * 
  * Programmers: James, Prakruti
@@ -9,32 +8,36 @@ import xmlparser.Recipe;
  * 
  * Description: Class to validate contents of .xml file according to requirements
  * 
- * Version History: v0.1 (07/05/14) - Added class to determine if the version is correct 
- * 					v0.2 (
+ * Version History: v0.1 (07/05/14) - Added method to determine if the version is correct 
+ * 					v0.2 (08/05.14) - Added class to determine if missing slideshow content
+ * 					v0.4 (11/05/14) - Can now determine if any "required" PWS content is missing
+ * 					v1.0 (12/05/14)	- Refactoring of code, collects error messages from XML parser
+ * 									  covers all errors that cannot/should not be solved automatically
+ * 									  i.e. all fundamental slideshow/file issues
  */
 import xmlparser.XMLReader;
 
 public class XMLValidator {
 	private static final double versionID = 1.1;
-	
-	private XMLReader reader;
 	private Boolean broken;
 	private String errorMsg;
 	
 	/*
 	 * Constructor reads in inputFile
 	 */
-	public XMLValidator(String inputFile) {
+	public XMLValidator(XMLReader reader) {
 		broken = false;
-		reader = new XMLReader(inputFile);
-		// If there have been errors with the inputFile then set error message
-		// and Boolean accordingly
+		// Run through the error hierarchy
+		// Has there been an error parsing the file?
 		if (reader.isBroken()) {
 			broken = true;
 			errorMsg = reader.getErrorMsg();
 		} else if (!broken) {
-			if (!missingSlideshowElements()) {
-				if (!missingElementAttributes()) {
+			// Are there missing "required" elements?
+			if (!missingSlideshowElements(reader)) {
+				// Are there missing "required" element attributes?
+				if (!missingElementAttributes(reader)) {
+					// Is the version ID correct?
 					if (Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionID) > 0.05) {
 						broken = true;
 						errorMsg = "Error: Unsupported playlist version.";
@@ -47,7 +50,7 @@ public class XMLValidator {
 	/*
 	 * Searches content elements for missing PWS essential attributes
 	 */
-	private Boolean missingElementAttributes() {
+	private Boolean missingElementAttributes(XMLReader reader) {
 		// Loop through slides determining missing element attributes within them
 		for (int i = 0; (i < reader.getRecipe().getNumberOfSlides()) && !broken; i++) {
 			// Check slide i text attributes
@@ -100,7 +103,7 @@ public class XMLValidator {
 	/*
 	 * Searches for missing fundamental slideshow elements
 	 */
-	private Boolean missingSlideshowElements() {
+	private Boolean missingSlideshowElements(XMLReader reader) {
 		// See if info, defaults or slide have not been initialised
 		if ((reader.getInfo() == null) || (reader.getDefaults() == null) || (reader.getRecipe() == null)) {
 			StringBuilder tempString = new StringBuilder();
@@ -153,9 +156,5 @@ public class XMLValidator {
 	 */
 	public String getErrorMsg() {
 		return errorMsg;
-	}
-	
-	public Recipe getRecipe() {
-		return reader.getRecipe();
 	}
 }

@@ -46,6 +46,7 @@ import texthandler.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import videohandler.VideoPlayerHandler;
+import xmlRecipeScaler.RecipeScale;
 import xmlValidation.XMLValidator;
 import xmlparser.*;
 import errorhandler.ErrorHandler;
@@ -108,17 +109,21 @@ public class SlideShow {
     	stage.setFullScreenExitHint("Press ESC to return to the main menu.");
     	stage.show();	 
 
+    	reader = new XMLReader(filepath);
+    	
     	// Check integrity of XML file, report error message if invalid
-    	validator = new XMLValidator(filepath);
+    	validator = new XMLValidator(reader);
     	if (validator.isXMLBroken()) {
     		stage.hide();
     		ErrorHandler error = new ErrorHandler(validator.getErrorMsg());
 		} else {
-			// If there's no error with the recipe then grab it from the validator class
-			recipe = validator.getRecipe();
-
-			// Get the defaults from the recipe
-			defaults = recipe.getDefaults();
+			// If there's no error with the recipe then grab it from the parser
+			recipe = reader.getRecipe();
+			
+			// Scale the recipe for user resolution
+			RecipeScale recipeScale = new RecipeScale();
+			recipe = recipeScale.scaleRecipe(recipe);
+			
 			// Get the total number of slides without branch slides
 			numOfSlides = recipe.getNumberOfSlides();
 

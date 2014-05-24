@@ -11,10 +11,14 @@ package xmlValidation;
  * 					v1.0 (12/05/14)	- Complete test class with 12 tests written to diagnose a huge number of potential XML issues
  */
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import xmlparser.XMLReader;
+
 public class XMLValidatorTest {
+	private XMLReader reader;
 	private XMLValidator xmlValidationInfo;
 	
 	@Before
@@ -26,7 +30,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void areNoErrorsReported() {
-		xmlValidationInfo = new XMLValidator("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(false, xmlValidationInfo.isXMLBroken());
 	}
 	
@@ -35,7 +40,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isXMLVersionHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_InvalidVersionPlaylist.xml");
+		reader = new XMLReader("../Resources/TEST_InvalidVersionPlaylist.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			// Error message should be error with XML version
@@ -50,7 +56,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isXMLSyntaxHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_BrokenPlaylist.xml");
+		reader = new XMLReader("../Resources/TEST_BrokenPlaylist.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			// Write the actual error string to the console, not actually important
@@ -68,7 +75,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isCorruptXMLHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("AFilePathThatDoesNotExist");
+		reader = new XMLReader("AFilePathThatDoesNotExist");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isCorruptXMLHandled():");
@@ -82,7 +90,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingInfoHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingInfoPlaylist.xml");
+		reader = new XMLReader("../Resources/TEST_MissingInfoPlaylist.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingInfoHandled():");
@@ -96,7 +105,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingDefaultsHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingDefaultsPlaylist.xml");
+		reader = new XMLReader("../Resources/TEST_MissingDefaultsPlaylist.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingDefaultsHandled():");
@@ -110,7 +120,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingLastSlideHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingLastSlideshowPlaylist.xml");
+		reader = new XMLReader("../Resources/TEST_MissingLastSlideshowPlaylist.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingLastSlideHandled():");
@@ -124,7 +135,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingTextAttributeHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingTextAttributes.xml");
+		reader = new XMLReader("../Resources/TEST_MissingTextAttributes.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingTextAttributeHandled():");
@@ -138,7 +150,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingShapeAttributeHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingShapeAttributes.xml");
+		reader = new XMLReader("../Resources/TEST_MissingShapeAttributes.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingShapeAttributeHandled():");
@@ -152,7 +165,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingAudioAttributeHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingAudioAttributes.xml");
+		reader = new XMLReader("../Resources/TEST_MissingAudioAttributes.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingAudioAttributeHandled():");
@@ -166,7 +180,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingImageAttributeHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingImageAttributes.xml");
+		reader = new XMLReader("../Resources/TEST_MissingImageAttributes.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingImageAttributeHandled():");
@@ -180,7 +195,8 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void isMissingVideoAttributeHandled() throws Exception {
-		xmlValidationInfo = new XMLValidator("../Resources/TEST_MissingVideoAttributes.xml");
+		reader = new XMLReader("../Resources/TEST_MissingVideoAttributes.xml");
+		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(true, xmlValidationInfo.isXMLBroken());
 		if (xmlValidationInfo.isXMLBroken()) {
 			System.out.println("isMissingVideoAttributeHandled():");

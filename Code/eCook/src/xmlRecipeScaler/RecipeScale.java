@@ -1,11 +1,7 @@
 package xmlRecipeScaler;
 
 import java.awt.GraphicsEnvironment;
-
-import javafx.stage.Screen;
-import xmlparser.Info;
 import xmlparser.Recipe;
-import xmlparser.XMLReader;
 
 /* Title: RecipeScaler
  * 
@@ -18,61 +14,65 @@ import xmlparser.XMLReader;
  * Version History: v0.1 (22/05/14) - Created skeleton code for looping through Recipe attributes and
  * 									  obtaining correct attributes to be used in scaling content.
  * 					v0.2 (23/05/14) - Dummy code added for scaling elements from retrieved element attributes
+ * 					v0.3 (24/05/14)	- Rough code added for entire scaling of slideshow elements
+ * 					v1.0 (25/05/14)	- Major bug fixes and re-factoring of code
  */
 public class RecipeScale {
-
-	// Input information
-	private Recipe recipe;
 	// Holding variables
-	private Integer tempX;
-	private Integer tempY;
-	private Integer tempFontSize;
+	private double tempX;
+	private double tempY;
+	private double tempFontSize;
 	// Screen size variables
-	private Integer xmlWidth;
-	private Integer xmlHeight;
-	private Integer userWidth;
-	private Integer userHeight;
+	private int xmlWidth;
+	private int xmlHeight;
+	private int userWidth;
+	private int userHeight;
 	// Shift variables
-	private Integer xShift;
-	private Integer yShift;
+	private double xShift;
+	private double yShift;
 	// Scaling variables
 	private double scaleFactor;
-	
-	/*
-	 * Constructor method
-	 * Grab the input information
-	 * Determine scaling factors
-	 * Scale the information
-	 * - James and Prakruti
-	 */
-	public RecipeScale() {
+	// Fix resolution
+	private boolean test;
 
+	public RecipeScale() {
+		test = false;
 	}
 	
-	public Recipe scaleRecipe(Recipe recipe, Info info) {
-		// Grab the XML reader in preparation for scaling
-		this.recipe = recipe;
-		// Figure out screen size values
-		userWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-		userHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
-		xmlWidth = info.getWidth();
-		xmlHeight = info.getHeight();
+	public void setTest(Integer x, Integer y) {
+		test = true;
+		userWidth = x;
+		userHeight = y;
+	}
+
+	public Recipe scaleRecipe(Recipe recipe) {
+		if (!test) {
+			// Figure out user screen size values
+			userWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
+			userHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
+		}
+		xmlWidth = recipe.getInfo().getWidth();
+		xmlHeight = recipe.getInfo().getHeight();
 		// If scaling is required
 		if ((userWidth != xmlWidth) || (userHeight != xmlHeight)) {
-			// Center the content on the screen
-			xShift = (userWidth - xmlWidth)/2;
-			yShift = (userHeight - xmlHeight)/2;
 			// Figure out scaling values to scale content to screen bounds
 			// We need to figure out how to fit all of the content on the screen while retaining correct aspect ratios
-			if (userWidth/xmlWidth > userHeight/xmlHeight) {
-				scaleFactor = userWidth/xmlWidth;
+			if ((double)userWidth/(double)xmlWidth < (double)userHeight/(double)xmlHeight) {
+				// Scale the content to fit on by width
+				scaleFactor = (double)userWidth/(double)xmlWidth;
+				// Center the content by height
+				xShift = 1;
+				yShift = (userHeight-xmlHeight*scaleFactor)/2;
 			} else {
-				scaleFactor = userHeight/xmlHeight;
+				scaleFactor = (double)userHeight/(double)xmlHeight;
+				// Center the content by width
+				xShift = (userHeight-xmlHeight*scaleFactor)/2;
+				yShift = 1;
 			}
 			// Shift and scale Recipe elements
-			scaleRecipeElements();
+			scaleRecipeElements(recipe);
 		}
-		return this.recipe;
+		return recipe;
 	}
 
 	/*
@@ -80,7 +80,7 @@ public class RecipeScale {
 	 * Scales Recipe elements to user screen size
 	 * - James and Pakruti
 	 */
-	private void scaleRecipeElements() {
+	private void scaleRecipeElements(Recipe recipe) {
 		// Loop through each slide in turn
 		// For each slide get the number of object X elements and update their content
 		// to match users native resolution
@@ -91,18 +91,21 @@ public class RecipeScale {
 				tempX = recipe.getSlide(i).getContent().getTexts().get(j).getXStart();
 				tempY = recipe.getSlide(i).getContent().getTexts().get(j).getYStart();
 				// Scale start values
-				recipe.getSlide(i).getContent().getTexts().get(j).setXStart((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getTexts().get(j).setYStart((tempY+yShift)*scaleFactor);
+				recipe.getSlide(i).getContent().getTexts().get(j).setXStart(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+				recipe.getSlide(i).getContent().getTexts().get(j).setYStart(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
 				// Get text end values
 				tempX = recipe.getSlide(i).getContent().getTexts().get(j).getXEnd();
 				tempY = recipe.getSlide(i).getContent().getTexts().get(j).getYEnd();
 				//Scale end values
-				recipe.getSlide(i).getContent().getTexts().get(j).setXEnd((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getTexts().get(j).setYEnd((tempY+yShift)*scaleFactor);
-				// Get font size
-				tempFontSize = recipe.getSlide(i).getContent().getTexts().get(j).getFontSize();
-				// Scale font size
-				recipe.getSlide(i).getContent().getTexts().get(j).setFontSize(tempFontSize*scaleFactor);
+				recipe.getSlide(i).getContent().getTexts().get(j).setXEnd(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+				recipe.getSlide(i).getContent().getTexts().get(j).setYEnd(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
+				// Font size is "implied", may equal null
+				if (recipe.getSlide(i).getContent().getTexts().get(j).getFontSize() != null) {
+					// Get font size
+					tempFontSize = recipe.getSlide(i).getContent().getTexts().get(j).getFontSize();
+					// Scale font size
+					recipe.getSlide(i).getContent().getTexts().get(j).setFontSize(String.valueOf((int)(Math.floor(tempFontSize*scaleFactor))));
+				}
 			}
 			// Shape scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getShapes().size(); j++) {
@@ -110,44 +113,61 @@ public class RecipeScale {
 				tempX = recipe.getSlide(i).getContent().getShapes().get(j).getWidth();
 				tempY = recipe.getSlide(i).getContent().getShapes().get(j).getHeight();
 				// Scale width and height values
-				recipe.getSlide(i).getContent().getShapes().get(j).setWidth((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getShapes().get(j).setWidth((tempY+yShift)*scaleFactor);
-				// Get shape start values
-				tempX = recipe.getSlide(i).getContent().getShapes().get(j).getXStart();
-				tempY = recipe.getSlide(i).getContent().getShapes().get(j).getYStart();
-				// Scale start values
-				recipe.getSlide(i).getContent().getShapes().get(j).setXStart((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getShapes().get(j).setYStart((tempY+yShift)*scaleFactor);
+				recipe.getSlide(i).getContent().getShapes().get(j).setWidth(String.valueOf((int)(Math.floor(tempX*scaleFactor))));
+				recipe.getSlide(i).getContent().getShapes().get(j).setHeight(String.valueOf((int)(Math.floor(tempY*scaleFactor))));
+				// Find total number of points in shape j and loop through them
+				for (int k = 0; k < recipe.getSlide(i).getContent().getShapes().get(j).getPoints().size(); k++) {
+					// Get xy point values
+					tempX = recipe.getSlide(i).getContent().getShapes().get(j).getPoints().get(k).getX();
+					tempY = recipe.getSlide(i).getContent().getShapes().get(j).getPoints().get(k).getY();
+					// Scale xy point values
+					recipe.getSlide(i).getContent().getShapes().get(j).getPoints().get(k).setX(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+					recipe.getSlide(i).getContent().getShapes().get(j).getPoints().get(k).setY(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));	
+				}
 			}
 			// Image scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getImages().size(); j++) {
-				// Get image width and height
-				tempX = recipe.getSlide(j).getContent().getImages().get(j).getWidth();
-				tempY = recipe.getSlide(j).getContent().getImages().get(j).getHeight();
-				// Scale width and height values
-				recipe.getSlide(i).getContent().getImages().get(j).setWidth((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getImages().get(j).setWidth((tempY+yShift)*scaleFactor);
+				// Image width and height are "implied", may equal null
+				if (recipe.getSlide(i).getContent().getImages().get(j).getWidth() != null) {
+					// Get image width
+					tempX = recipe.getSlide(i).getContent().getImages().get(j).getWidth();
+					// Scale image width
+					recipe.getSlide(i).getContent().getImages().get(j).setWidth(String.valueOf((int)(Math.floor(tempX*scaleFactor))));
+				}
+				if (recipe.getSlide(i).getContent().getImages().get(j).getHeight() != null) {
+					// Get image height
+					tempY = recipe.getSlide(i).getContent().getImages().get(j).getHeight();
+					// Scale image height
+					recipe.getSlide(i).getContent().getImages().get(j).setHeight(String.valueOf((int)(Math.floor(tempY*scaleFactor))));
+				}
 				// Get image start values
 				tempX = recipe.getSlide(i).getContent().getImages().get(j).getXStart();
 				tempY = recipe.getSlide(i).getContent().getImages().get(j).getYStart();
 				// Scale start values
-				recipe.getSlide(i).getContent().getImages().get(j).setXStart((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getImages().get(j).setYStart((tempY+yShift)*scaleFactor);
+				recipe.getSlide(i).getContent().getImages().get(j).setXStart(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+				recipe.getSlide(i).getContent().getImages().get(j).setYStart(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
 			}
 			// Video scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getVideos().size(); j++) {
-				// Get video width and height
-				tempX = recipe.getSlide(j).getContent().getVideos().get(j).getWidth();
-				tempY = recipe.getSlide(j).getContent().getVideos().get(j).getHeight();
-				// Scale width and height values
-				recipe.getSlide(i).getContent().getVideos().get(j).setWidth((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getVideos().get(j).setWidth((tempY+yShift)*scaleFactor);
+				// Video width and height are "implied", may equal null
+				if (recipe.getSlide(i).getContent().getVideos().get(j).getWidth() != null) {
+					// Get image width
+					tempX = recipe.getSlide(i).getContent().getVideos().get(j).getWidth();
+					// Scale image width
+					recipe.getSlide(i).getContent().getVideos().get(j).setWidth(String.valueOf((int)(Math.floor(tempX*scaleFactor))));
+				}
+				if (recipe.getSlide(i).getContent().getVideos().get(j).getHeight() != null) {
+					// Get image height
+					tempY = recipe.getSlide(i).getContent().getVideos().get(j).getHeight();
+					// Scale image height
+					recipe.getSlide(i).getContent().getVideos().get(j).setHeight(String.valueOf((int)(Math.floor(tempY*scaleFactor))));
+				}
 				// Get video start values
 				tempX = recipe.getSlide(i).getContent().getVideos().get(j).getYStart();
 				tempY = recipe.getSlide(i).getContent().getVideos().get(j).getXStart();
 				// Scale start values
-				recipe.getSlide(i).getContent().getVideos().get(j).setXStart((tempX+xShift)*scaleFactor);
-				recipe.getSlide(i).getContent().getVideos().get(j).setYStart((tempY+yShift)*scaleFactor);
+				recipe.getSlide(i).getContent().getVideos().get(j).setXStart(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+				recipe.getSlide(i).getContent().getVideos().get(j).setYStart(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
 			}
 		}
 	}

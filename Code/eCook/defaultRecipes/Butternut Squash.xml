@@ -157,7 +157,7 @@
 		</image>		
 	</slide>
 
-	<slide ID="7" duration="30" lastSlide="false">
+	<slide ID="7" duration="30" lastSlide="true">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step Seven</textstring>
