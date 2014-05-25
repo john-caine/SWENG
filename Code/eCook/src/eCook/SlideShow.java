@@ -61,7 +61,6 @@ public class SlideShow {
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
-	private Defaults defaults;
 	private Integer maxLayer, duration;
 	private Timer timer;
 	private HBox timerHbox, buttonBox;
@@ -82,6 +81,7 @@ public class SlideShow {
 	private TimerControlBar timerControls;
 	private HBox timerControlPanel;
 	private XMLValidator validator;
+	String backGroundColor;
 	
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
 		
@@ -132,9 +132,10 @@ public class SlideShow {
 			// Change back to 0, 3 only for testing purposes.
 			logger.log(Level.INFO, "Starting slideshow with slide index 0");
 			newSlide(0, false, null);
-
+			
+			backGroundColor = recipe.getDefaults().getBackgroundColor();
 			// Set the colour of the slide
-			slideScene.setFill(Color.valueOf(defaults.getBackgroundColor()));
+			slideScene.setFill(Color.web(backGroundColor));
 		// These properties update the stage
 		stage.hide();
 		stage.setScene(slideScene);
@@ -542,6 +543,7 @@ public class SlideShow {
         exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	timeLineDuration.stop();
             	for (int h = 0; h < audioHandlerList.size(); h++){
 	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
@@ -721,6 +723,7 @@ public class SlideShow {
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.ESCAPE) {
+		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
 		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
