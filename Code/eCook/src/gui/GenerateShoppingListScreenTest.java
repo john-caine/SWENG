@@ -12,6 +12,8 @@ import java.io.File;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -129,5 +131,47 @@ public class GenerateShoppingListScreenTest {
 		/* addBtn's Text */
 		Button addBtn = (Button) buttonBar.getChildren().get(1);
 		assertEquals("Add Item", addBtn.getText());
+		
+		/* Test if midBox contains scrollPane */
+		assertTrue(midBox.getChildren().get(2) instanceof ScrollPane);
+		ScrollPane scrollPane = (ScrollPane) midBox.getChildren().get(2);
+		
+		/* Test if scrollPane is assigned to shoppingListBox */
+		assertTrue(scrollPane.getContent() instanceof VBox);
+		
+		/* Test if shoppingListBox contains ingredient(Label) */
+		VBox shoppingListBox = (VBox) scrollPane.getContent();
+		assertTrue(shoppingListBox.getChildren().get(0) instanceof Label);
+		
+		/* Test if when addBtn is pressed, the last node in shoppingListBox becomes a TextField */
+		addBtn.fire();
+		assertTrue(shoppingListBox.getChildren().get(shoppingListBox.getChildren().size()-1) instanceof TextField);
+		
+		/* Test if midBox contains statusBar */
+		assertTrue(midBox.getChildren().get(3) instanceof Label);
+		
+		/* Test for the correct message for the statusBar */ 
+		/* -1 is required to remove the invisible TextField */
+		Label statusBar = (Label) midBox.getChildren().get(3);
+		assertEquals("You have " + (shoppingListBox.getChildren().size()-1) + " items in your shopping list", statusBar.getText());
+		
+		/* Test if midBox contains midBoxBottom */
+		assertTrue(midBox.getChildren().get(4) instanceof HBox);
+		
+		/* Test if midBoxBottom contains save Button */
+		HBox midBoxBottom = (HBox) midBox.getChildren().get(4);
+		assertTrue(midBoxBottom.getChildren().get(0) instanceof Button);
+		
+		/* Get the Text and ID of the save Button */
+		Button saveBtn = (Button) midBoxBottom.getChildren().get(0);
+		assertEquals("Save", saveBtn.getText());
+		assertEquals("saveBtn", saveBtn.getId());
+		
+		/* Test if midBoxBottom contains print Button */
+		assertTrue(midBoxBottom.getChildren().get(1) instanceof Button);
+		
+		/* Get the Text of the save Button */
+		Button printBtn = (Button) midBoxBottom.getChildren().get(1);
+		assertEquals("Print", printBtn.getText());	
 	}
 }
