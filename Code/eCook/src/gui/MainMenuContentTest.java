@@ -9,12 +9,10 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.junit.Before;
