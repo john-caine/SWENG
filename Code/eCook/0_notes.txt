@@ -1,4 +1,3 @@
-hello. these are notes.
+These are notes for the first slide.
 
-
-hellooo. th
+The first slide contains text.

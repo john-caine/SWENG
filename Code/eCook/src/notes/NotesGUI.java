@@ -18,7 +18,6 @@ import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -26,7 +25,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class NotesGUI {
@@ -62,21 +60,18 @@ public class NotesGUI {
 		}
 	}
 
-	// set up the example slide and add the notes panel
+	// set up the panel, content and event handlers
     public void setupNotesPanel(final Integer slideID, final Group root) {   
-        // get the size of the screen
-        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
-        notesPanel.setPrefSize(primaryScreenBounds.getWidth()/5, primaryScreenBounds.getHeight());
+        notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
         notesPanel.setStyle("-fx-background-color: #336699;");
         final Label notesTitle = new Label("Notes");
         final Label searching = new Label("Searching for Notes...");
         final ProgressIndicator pinwheel = new ProgressIndicator();
         notesBox = new TextArea();
-        notesBox.setMaxWidth(4*primaryScreenBounds.getWidth()/25);
-        notesBox.setPrefSize(4*primaryScreenBounds.getWidth()/25, primaryScreenBounds.getHeight()/4);
+        notesBox.setMaxWidth(4*root.getScene().getWidth()/25);
+        notesBox.setPrefSize(4*root.getScene().getWidth()/25, root.getScene().getHeight()/4);
         notesBox.setText("Write your notes here");
         
         // clear the help text when the user begins typing
@@ -103,10 +98,10 @@ public class NotesGUI {
         // Define an event handler to trigger when the mouse leaves the notes panel
         final EventHandler<InputEvent> mouseoutNotesPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
-            	if (notesPanelVisible) {
+            	if (notesPanelVisible) {            		
             		// hide panel
             		final Timeline timeline = new Timeline();
-        			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -primaryScreenBounds.getWidth()/5);
+            		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
         			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
         			timeline.getKeyFrames().add(kf);
         			timeline.play();
@@ -156,7 +151,7 @@ public class NotesGUI {
             		if (!notesPanelVisible) {
             			// show panel
             			final Timeline timeline = new Timeline();
-            			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), primaryScreenBounds.getWidth()/5);
+            			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
             			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
             			timeline.getKeyFrames().add(kf);
             			timeline.play();
@@ -169,6 +164,6 @@ public class NotesGUI {
         };
 
         // check to see if the mouse is at the LHS of the screen every time it is moved
-        root.addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
+        root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
     }
 }

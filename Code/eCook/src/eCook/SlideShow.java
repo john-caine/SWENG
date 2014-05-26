@@ -17,15 +17,11 @@ import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -38,7 +34,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -53,17 +48,16 @@ import errorhandler.ErrorHandler;
 
 public class SlideShow {
 
+	// declare variables
 	private Scene slideScene;
-	private SlideShow slideShow;
-	private Group slideRoot,slideGroup;
+	private Group slideRoot;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
-	private Button  previousSlide, nextSlide, exitSlide1, pauseSlide, createTimer;
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
 	private Integer maxLayer, duration;
 	private Timer timer;
-	private HBox timerHbox, buttonBox;
+	private HBox timerHbox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private ArrayList<TextHandler> textHandlerList;
@@ -72,20 +66,19 @@ public class SlideShow {
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	private ArrayList<GraphicsHandler> graphicsHandlerList;
 	private VBox notesPanel;
-	HBox controlPanel;
+	private HBox controlPanel;
 	private Timeline timeLineDuration;
 	private Stage stage;
-	private SlideControls controls;
 	static Logger logger;
 	private RecipeCollection recipeCollection;
-	private TimerControlBar timerControls;
-	private HBox timerControlPanel;
 	private XMLValidator validator;
 	String backGroundColor;
+	boolean endPageReached = false;
 	
+	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
 		
-		// attach the recipe collection to this cass
+		// attach the recipe collection to this class
 		this.recipeCollection = recipeCollection;
 		
 		// Create a new logger instance with the package and class name
@@ -98,24 +91,16 @@ public class SlideShow {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
 		
-    	// Set window properties
+    	// Set the scene
     	stage.setScene(slideScene);
-    	stage.setFullScreen(true);
-    	//stage.show();
-
-    	stage.sizeToScene();
-    	//stage.setFullScreen(false);
-    	stage.setFullScreen(true);
-    	stage.setFullScreenExitHint("Press ESC to return to the main menu.");
-    	stage.show();	 
-
+    	
     	reader = new XMLReader(filepath);
     	
     	// Check integrity of XML file, report error message if invalid
     	validator = new XMLValidator(reader);
     	if (validator.isXMLBroken()) {
     		stage.hide();
-    		ErrorHandler error = new ErrorHandler(validator.getErrorMsg());
+    		new ErrorHandler(validator.getErrorMsg());
 		} else {
 			// If there's no error with the recipe then grab it from the parser
 			recipe = reader.getRecipe();
@@ -131,20 +116,22 @@ public class SlideShow {
 			// ID 0.
 			// Change back to 0, 3 only for testing purposes.
 			logger.log(Level.INFO, "Starting slideshow with slide index 0");
+			// set fullscreen here to ensure that the stage and scene bounds are the 
+			//	maximum possible when new slide is called
+			stage.setFullScreen(true);
+			stage.setFullScreenExitHint("Press ESC to return to the main menu.");
 			newSlide(0, false, null);
 			
 			backGroundColor = recipe.getDefaults().getBackgroundColor();
 			// Set the colour of the slide
 			slideScene.setFill(Color.web(backGroundColor));
-		// These properties update the stage
-		stage.hide();
-		stage.setScene(slideScene);
-		stage.setFullScreen(true);
-		stage.show();
+			
+			// get started
+	    	stage.show();
 		}
 	}
 	
-	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {
+	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {	
 		List<Image> images;
 		List<TextBody> text;
 		List<Audio> audio;
@@ -320,28 +307,41 @@ public class SlideShow {
 			}
 		}
 		
+		/*
+		 * 	WELCOME TO THE PANELS AND OVERLAYS SECTION.
+	 	 *
+		 * 	The home of the notes panel and the controls panel.
+		 */
 		
-    	
-		
-		
-    	
-        
-        //Create new SlideMenuBarService to wait for 3 seconds every time the mouse is moved.
-     
-       
+		// Add all of the layers BEFORE THE PANELS AND TIMERS - These must sit on top of the slide content
+	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Create a notes panel each time new Slide is called.
 	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
 	    notesPanel = notesGUI.getNotesPanel();
 	    slideRoot.getChildren().add(notesPanel);
-	    notesPanel.setLayoutX(-Screen.getPrimary().getVisualBounds().getWidth()/5);
-		notesPanel.setLayoutY(0);		
+	    notesPanel.setLayoutX(-slideScene.getWidth()/5);
+		notesPanel.setLayoutY(0);
+		
+		// create a controls panel each time new slide is called
+		SlideControls slideControls = new SlideControls(slideRoot);
+		controlPanel = slideControls.getControlPanel();
+		slideRoot.getChildren().add(controlPanel);
+	    controlPanel.setLayoutY(slideScene.getHeight());
+		controlPanel.setLayoutX(0);
+		// set up the control panel buttons
+		configureButtons(slideControls.getButtons());
+		
+		/*
+		 * 	THANKS FOR VISITING THE PANELS AND OVERLAYS SECTION
+		 * 
+		 *	We hope you had fun.
+		 */
         
 		// Add timers
         timerHbox = new HBox();
         slideRoot.getChildren().add(timerHbox);
         timerList = new ArrayList<Timer>();
-     
         
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
@@ -388,28 +388,6 @@ public class SlideShow {
       		timeLineDuration.playFromStart();
       	}
        
-      	
-     // Create the buttons for the slide.
-	    buttonBox = new HBox();
-	    SlideButton();
-        buttonBox.getChildren().addAll(previousSlide, exitSlide1, nextSlide, createTimer, pauseSlide);
-       
-        // Put the buttons in the bottom centre of the slide
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.setLayoutX((screenBounds.getWidth()- exitSlide1.getPrefWidth())/2);
-        buttonBox.setLayoutY(screenBounds.getHeight()-200);
-	    slideRoot.getChildren().addAll(layers);
-	    
-	
-	    
-	    // Add the buttons to the slide
-        slideRoot.getChildren().add(buttonBox);
-        // Show the new set of objects on the slide
-        
-        Label label = new Label("Here is the Y visual bounds");
-        label.setLayoutY(Screen.getPrimary().getVisualBounds().getHeight());
-        slideRoot.getChildren().add(label);
 	    slideRoot.setVisible(true);  
 	}	
 
@@ -490,57 +468,18 @@ public class SlideShow {
 		
 		
 	}
-/*Creates the control buttons at the bottom of the slide and creates the event handlers for each button
- * 
- */
-	public void SlideButton() {
+	
+	/* Assigns event handlers to the buttons
+	 * on the controls panel
+	 */
+	public void configureButtons(final List<Button> buttons) {
+		// for buttons numbering, see SlideControls Class:
+		/*
+		 *	buttons[] = {play,pause,prev,next,exit,timer} 
+		 */
 		
-		
-		//controls = new Controls(slideShow, textHandlerList,imageHandlerList,graphicsHandlerList,audioHandlerList, 
-				 //videoHandlerList,slideGroup);
-        
-		controls = new SlideControls(this, currentSlideID, nextSlideID, slideRoot, recipeCollection, textHandlerList, imageHandlerList, graphicsHandlerList, audioHandlerList,
-								videoHandlerList, timeLineDuration, timerList); 
-		controlPanel = controls.getControlPanel();
-		
-		slideRoot.getChildren().add(controlPanel);
-		controlPanel.setLayoutX(0);
-		controlPanel.setLayoutY(Screen.getPrimary().getVisualBounds().getHeight() );	
-		//slideShow.getChildren().add(controlPanel);
-		
-		timerControls = new TimerControlBar(currentSlideID, slideRoot);
-		timerControlPanel = timerControls.getControlPanel();
-		
-		slideRoot.getChildren().add(timerControlPanel);
-		timerControlPanel.setLayoutX(0);
-		timerControlPanel.setLayoutY(-Screen.getPrimary().getVisualBounds().getHeight()/6);
-		System.out.println("timerControl panel y position" + timerControlPanel.getLayoutY());
-		
-        exitSlide1 = new Button("Exit SlideShow");
-        exitSlide1.setPrefWidth(80);
-        exitSlide1.setPrefHeight(40); 
-        
-        nextSlide = new Button("Next Slide");
-        nextSlide.setPrefWidth(80);
-        nextSlide.setPrefHeight(40);
-        
-        previousSlide = new Button("Previous Slide");
-        previousSlide.setWrapText(true);
-        previousSlide.setPrefWidth(80);
-        previousSlide.setPrefHeight(40);
-        previousSlide.setTextAlignment(TextAlignment.CENTER);
-        
-        pauseSlide = new Button("Pause Slide");
-        pauseSlide.setPrefWidth(80);
-        pauseSlide.setPrefHeight(40);
-        pauseSlide.setTextAlignment(TextAlignment.CENTER);
-        
-        createTimer = new Button("Add Timer");
-        createTimer.setPrefWidth(80);
-        createTimer.setPrefHeight(40);
-		    
-        /*Exit Slide when exit slide button is pressed*/
-        exitSlide1.setOnAction(new EventHandler<ActionEvent>() {
+        // Exit Slide
+        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
@@ -554,7 +493,8 @@ public class SlideShow {
             }
         });
         
-        nextSlide.setOnAction(new EventHandler<ActionEvent>() {
+        // Next Slide
+        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
@@ -582,9 +522,10 @@ public class SlideShow {
             }
         });
         
-        previousSlide.setOnAction(new EventHandler<ActionEvent>() {
+        // Previous Slide
+        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event) {           	
             	timeLineDuration.stop();
             	timerValues = new ArrayList<TimerData>();
             	for(int g = 0; g<timerList.size(); g++){            		
@@ -610,7 +551,8 @@ public class SlideShow {
             }
         });
         
-        createTimer.setOnAction(new EventHandler<ActionEvent>() {
+        // Add Timer
+        buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				 timer = new Timer(null, null, null, null);
@@ -632,7 +574,8 @@ public class SlideShow {
 			}		
         });
         
-        pauseSlide.setOnAction( new EventHandler<ActionEvent>(){
+        // Pause
+        buttons.get(1).setOnAction( new EventHandler<ActionEvent>(){
 			private boolean paused;
 			@Override
 			//Pause all content on the slide
@@ -654,7 +597,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
-					pauseSlide.setText("Resume");
+					buttons.get(1).setText("Resume");
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -675,7 +618,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					pauseSlide.setText("Pause");
+					buttons.get(1).setText("Pause");
 					paused = false;
 				}				
 			}			
@@ -716,9 +659,16 @@ public class SlideShow {
 	            	if (prevSlideID <= -1) {
 	            		new MainMenu(stage, recipeCollection);
 	            	}
-	            	// if not, play the previous slide
+	            	// if not, play the previous slide (or the last slide if end page reached)
 	            	else {
-	            		newSlide(prevSlideID, false, timerValues);
+	            		if (endPageReached) {
+	            			// reset the background colour to default
+	            			slideScene.setFill(Color.web(backGroundColor));
+	            			newSlide(currentSlideID, false, timerValues);
+	            		}
+	            		else {
+	            			newSlide(prevSlideID, false, timerValues);
+	            		}
 	            	}
 	            	event.consume();
 		    	}
@@ -752,6 +702,7 @@ public class SlideShow {
 		Label endOfShowLabel = new Label("End of slideshow. Press 'esc' to return to the main menu.");
 		endOfShowLabel.setTextFill(Color.WHITE);
 		slideRoot.getChildren().addAll(endOfShowLabel);
+		endPageReached = true;
 	 }
 	 
 	 // exit slideshow to main menu

@@ -165,27 +165,26 @@ public class RecipeScreen {
 		
 		
 		// when recipe selection changes, update the info and ingredients fields
-				listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-					public void changed(ObservableValue<? extends String> ov, 
-							String old_val, String new_val) {
-						// get the selected recipe
-						int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
-						// call the update info labels method
-						updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
-						
-					}
-			    });	
-				
-				// set the first recipe in the list to be selected on loading
-				if (listOfRecipes.getItems().size() != 0) {
-					listOfRecipes.getSelectionModel().select(0);
-				}
-				if (recipeCollection.getRecipe(0) != null) {
-					updateInfoLabels(recipeCollection.getRecipe(0));
-				}
-				else {
-					updateInfoLabels(null);
-				}
+		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> ov, 
+					String old_val, String new_val) {
+				// get the selected recipe
+				int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
+				// call the update info labels method
+				updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
+			}
+		});	
+
+		// set the first recipe in the list to be selected on loading
+		if (listOfRecipes.getItems().size() != 0) {
+			listOfRecipes.getSelectionModel().select(0);
+		}
+		if (recipeCollection.getRecipe(0) != null) {
+			updateInfoLabels(recipeCollection.getRecipe(0));
+		}
+		else {
+			updateInfoLabels(null);
+		}
 				
 		//Box where all content of the RecipeScreen class are collated 
 		HBox horizontalBox = new HBox();
