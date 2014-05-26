@@ -42,7 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class generateShoppingListScreen {
+public class GenerateShoppingListScreen {
 	InputStream inputStream;
 	ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
 	Image homeIcon, closeIcon, minimiseIcon;	
@@ -55,8 +55,10 @@ public class generateShoppingListScreen {
 	CheckBox[] checkboxes;
 	TextField newItem;
 	boolean inEditMode = false;
+	protected VBox bigBox;
 	
-	public generateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
+	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
+		this.bigBox = bigBox;
 		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();

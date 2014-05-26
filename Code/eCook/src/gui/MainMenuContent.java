@@ -13,6 +13,7 @@ import java.io.InputStream;
 import eCook.MainMenu;
 import eCook.RecipeCollection;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -55,6 +56,7 @@ public class MainMenuContent {
 	public VBox bigBox;
 	Label blank;
 	private FadeTransition loadExtBtnFade;
+	protected Stage dialog;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
 		//Gets the visual bounds of the screen
@@ -221,7 +223,7 @@ public class MainMenuContent {
 			 //Creates a new stage bound to the previous that lets the user
 			 //pick between the two options
 	            public void handle(ActionEvent event) {
-	            	final Stage dialog = new Stage();
+	            	dialog = new Stage();
 	                dialog.initModality(Modality.APPLICATION_MODAL);
 	                dialog.initStyle(StageStyle.UNDECORATED);
 	                dialog.initOwner(stage);        
@@ -302,7 +304,7 @@ public class MainMenuContent {
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 bigBox.getChildren().clear();  
-                new generateShoppingListScreen(bigBox, height, width, recipeCollection);
+                new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
             }
         });
 		//Clears the bigBox and runs IngredientsScreen passing
