@@ -35,7 +35,11 @@ public class LoadExternalRecipe {
 		//Creates a new stage bound to the previous that lets the user
 		//pick between the two options
 		dialog = new Stage();
+		
+		//Sets at forefront of screen and sets focus on this stage
         dialog.initModality(Modality.APPLICATION_MODAL);
+        
+        //Removes windows' UI close and minimise buttons
         dialog.initStyle(StageStyle.UNDECORATED);
         dialog.initOwner(stage);        
         
@@ -44,6 +48,7 @@ public class LoadExternalRecipe {
         urlBtn.setPrefSize(256, 228);
         fileBrowserBtn.setPrefSize(256, 228);
         
+        //defining IDs in CSS
         urlBtn.setId("urlBtn");
         fileBrowserBtn.setId("fileBrowserBtn");
 		urlBtn.getStylesheets().add("file:../Resources/css.css");
@@ -65,8 +70,12 @@ public class LoadExternalRecipe {
 			e1.printStackTrace();
 		} 
 		Image closeIcon = new Image(inputStream);
+		
+		//Creates and adds close button to top Box
 		loadExtWinCloseBtnHolder.setImage(closeIcon);
         topBox.getChildren().add(loadExtWinCloseBtnHolder);
+        
+        //adds buttons to midBox and aligns to middle
         midBox.getChildren().addAll(urlBtn,fileBrowserBtn);
         midBox.setAlignment(Pos.CENTER);
         loadExtBox.getChildren().addAll(topBox,midBox);
@@ -98,6 +107,7 @@ public class LoadExternalRecipe {
             }
         });
 		
+		//Allows for using the ESC key to exit the stage
 		dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 		        public void handle(KeyEvent t) {
 		          if(t.getCode()==KeyCode.ESCAPE)
