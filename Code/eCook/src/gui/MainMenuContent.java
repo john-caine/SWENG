@@ -222,81 +222,9 @@ public class MainMenuContent {
 		 loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
 			 //Creates a new stage bound to the previous that lets the user
 			 //pick between the two options
-	            public void handle(ActionEvent event) {
-	            	dialog = new Stage();
-	                dialog.initModality(Modality.APPLICATION_MODAL);
-	                dialog.initStyle(StageStyle.UNDECORATED);
-	                dialog.initOwner(stage);        
-	                
-	                Button urlBtn = new Button("HTTP://");
-	                Button fileBrowserBtn = new Button("Browse...");
-	                urlBtn.setPrefSize(256, 228);
-	                fileBrowserBtn.setPrefSize(256, 228);
-	                
-	                urlBtn.setId("urlBtn");
-	                fileBrowserBtn.setId("fileBrowserBtn");
-	        		urlBtn.getStylesheets().add("file:../Resources/css.css");
-	        		fileBrowserBtn.getStylesheets().add("file:../Resources/css.css");
-	        		
-	                VBox loadExtBox = new VBox(20);
-	                HBox topBox = new HBox();
-	                HBox midBox = new HBox(10); 
-	                topBox.setAlignment(Pos.TOP_RIGHT);
-	                
-	                //New imageView required as using the old one moves its content as well
-	                //Adds image onto the box containing the load Ext window made according to the 
-	                //GUI specifications
-	        		ImageView loadExtWinCloseBtnHolder = new ImageView();
-	        		try {
-	        			inputStream = new FileInputStream("../Resources/redx.png");
-	        		} catch (FileNotFoundException e1) {
-	        			// TODO Auto-generated catch block
-	        			e1.printStackTrace();
-	        		} 
-	        		Image closeIcon = new Image(inputStream);
-	        		loadExtWinCloseBtnHolder.setImage(closeIcon);
-	                topBox.getChildren().add(loadExtWinCloseBtnHolder);
-	                midBox.getChildren().addAll(urlBtn,fileBrowserBtn);
-	                midBox.setAlignment(Pos.CENTER);
-	                loadExtBox.getChildren().addAll(topBox,midBox);
-	                loadExtBox.setStyle("-fx-background-color: lightgrey");
-	                Scene dialogScene = new Scene(loadExtBox, 500, 300);
-	                dialog.setScene(dialogScene);
-	                dialog.show();
-	                
-	                //Adds action to the buttons and makes it close upon 
-	                //selection of option
-	        		urlBtn.setOnAction(new EventHandler<ActionEvent>() {
-	        			public void handle(ActionEvent event) {
-	        				System.out.println("URL BUTTON CLICKED");
-	        				dialog.close();
-	        			}
-	        		});
-	  		
-	        		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
-	        			public void handle(ActionEvent event) {
-	        				System.out.println("FILE BROWSER BUTTON CLICKED");
-	        				dialog.close();
-	        			}
-	        		});
-	        		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	                    public void handle(MouseEvent mouseEvent) {
-	                    Node  source = (Node)  mouseEvent.getSource();
-	                 	Stage dialog= (Stage) source.getScene().getWindow();
-	                 	dialog.close();
-	                    }
-	                });
-	        		
-	        		dialog.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-	        		        public void handle(KeyEvent t) {
-	        		          if(t.getCode()==KeyCode.ESCAPE)
-	        		          {
-	        		        	  dialog.close();
-	        		          }
-	        		        }
-	        		    });
-	        		
-	            }
+			 public void handle(ActionEvent event) {
+	            new LoadExternalRecipe(stage);
+	         }
 	        });
 		
 		 //Clears the bigBox and runs generateShoppingListScreen passing
