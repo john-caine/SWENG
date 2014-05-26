@@ -26,6 +26,7 @@
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
 	-fx-background-color: white;
+    	-fx-background-size: cover;
 	-fx-background-repeat: stretch;   
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
@@ -107,7 +108,8 @@
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
 	-fx-background-color: white;
-	-fx-background-repeat: stretch;   
+	-fx-background-repeat: stretch; 
+	  
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
 	-fx-background-image: url('http.png');
@@ -115,6 +117,13 @@
 	
 }
 
+#bigBox {
+	-fx-background-color: pink;
+	//-fx-background-repeat: cover;   
+    	-fx-background-size: cover;
+    	-fx-background-position: center center;
+	-fx-background-image: url('IMG_4906.jpg');
+}
 
 
 
