@@ -56,7 +56,7 @@ public class LoadExternalRecipe {
 		
         VBox loadExtBox = new VBox(20);
         HBox topBox = new HBox();
-        HBox midBox = new HBox(10); 
+        HBox midBox = new HBox(); 
         topBox.setAlignment(Pos.TOP_RIGHT);
         
         //New imageView required as using the old one moves its content as well
@@ -80,7 +80,7 @@ public class LoadExternalRecipe {
         midBox.setAlignment(Pos.CENTER);
         loadExtBox.getChildren().addAll(topBox,midBox);
         loadExtBox.setStyle("-fx-background-color: lightgrey");
-        Scene dialogScene = new Scene(loadExtBox, 500, 300);
+        Scene dialogScene = new Scene(loadExtBox, 500, 295);
         dialog.setScene(dialogScene);
         dialog.show();
         
