@@ -166,8 +166,8 @@ public class MainMenuContent {
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
 		bottomBox.setAlignment(Pos.CENTER);
 		
-		bigBox.setPrefSize(width, height);
-		bigBox.setMaxSize(width, height);
+		bigBox.setPrefSize(width, height+100);
+		bigBox.setMaxSize(width, height+100);
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/IMG_4906.jpg');");
 		
 		//Sets size and location parameters for the midBox and bottomBox

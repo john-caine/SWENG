@@ -4,7 +4,7 @@
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
 	-fx-background-color: white;
-	-fx-background-repeat: stretch;   
+	-fx-background-size: cover;   
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
 	-fx-background-image: url('loadExt.png');
@@ -26,8 +26,7 @@
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
 	-fx-background-color: white;
-    	-fx-background-size: cover;
-	-fx-background-repeat: stretch;   
+    	-fx-background-size: cover;  
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
 	-fx-background-image: url('generateList.png');
@@ -49,8 +48,7 @@
 	-fx-text-fill: white;
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
-	-fx-background-color: white;
-	-fx-background-repeat: stretch;   
+	-fx-background-color: white;  
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
 	-fx-background-image: url('ingredients.png');
@@ -71,8 +69,7 @@
 	-fx-text-fill: white;
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: lighter;
-	-fx-background-color: white;
-	-fx-background-repeat: stretch;   
+	-fx-background-color: white;  
     	-fx-background-size: 256 228;
     	-fx-background-position: center center;
 	-fx-background-image: url('recipes.png');
@@ -121,6 +118,7 @@
 	-fx-background-color: pink;
 	//-fx-background-repeat: cover;   
     	-fx-background-size: cover;
+	-fx-background-repeat: stretch;
     	-fx-background-position: center center;
 	-fx-background-image: url('IMG_4906.jpg');
 }

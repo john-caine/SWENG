@@ -45,7 +45,6 @@ public class IngredientsScreen {
 	VBox ingredientsList;
 	
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
-		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
@@ -134,8 +133,8 @@ public class IngredientsScreen {
 		midBoxRight = new VBox(20);
 		
 		midBox.setPadding(new Insets(10,20,10,20));
-		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight());
-		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight());
+		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight()-100);
+		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight()-100);
 		
 		// Create an ArrayList of Recipe Titles
 		ArrayList<String> recipeTitles = new ArrayList<String>();
@@ -167,7 +166,7 @@ public class IngredientsScreen {
 		
 		// Create a new VBox to hold the recipe information
 		recipeInfoBox = new VBox();
-		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4);
+		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()*0.4-100);
 		recipeInfoBox.setStyle("-fx-border-color:black");
 		
 		// set the first recipe in the list to be selected on loading

@@ -44,7 +44,6 @@ public class RecipeScreen {
 	
 	
 	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection, final Stage stage){
-		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
@@ -133,10 +132,10 @@ public class RecipeScreen {
 		VBox rightBox = new VBox();
 			
 		//Sets parameters for leftBox, midBox and rightBox
-		leftBox.setPrefSize(width*0.2, height - topBox.getPrefHeight());
-		midBox.setPrefSize(width*0.6,  height - topBox.getPrefHeight());
+		leftBox.setPrefSize(width*0.2, height - topBox.getPrefHeight()-100);
+		midBox.setPrefSize(width*0.6,  height - topBox.getPrefHeight()-100);
 		midBox.setPadding(new Insets(40,0,10,0));
-		rightBox.setPrefSize(width*0.2,  height - topBox.getPrefHeight());
+		rightBox.setPrefSize(width*0.2,  height - topBox.getPrefHeight()-100);
 		
 		// Create an ArrayList of Recipe Titles
 		ArrayList<String> recipeTitles = new ArrayList<String>();
@@ -160,7 +159,7 @@ public class RecipeScreen {
 		
 		// Create a new HBox to hold the recipe information
 		recipeInfoBox = new VBox();
-		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.4);
+		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.4-100);
 		recipeInfoBox.setStyle("-fx-border-color:black");
 		
 		

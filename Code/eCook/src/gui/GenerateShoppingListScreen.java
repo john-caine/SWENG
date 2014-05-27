@@ -151,10 +151,10 @@ public class GenerateShoppingListScreen {
 		VBox rightBox = new VBox();
 		
 		//Sets  parameters for the leftBox, midBox and rightBox
-		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
-		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight());
+		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight()-100);
+		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight()-100);
 		midBox.setPadding(new Insets(40,0,10,0));
-		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight());
+		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight()-100);
 		
 		// create a scroll box for the shopping list display
 		// create VBox for the list	
