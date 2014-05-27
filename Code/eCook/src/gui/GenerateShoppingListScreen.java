@@ -177,7 +177,7 @@ public class GenerateShoppingListScreen {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ENTER)) {
-					if (addBtn.getText().equals("Save")) {
+					if (addBtn.getText().equals("Save Changes")) {
 						if (!newItem.getText().equals("")) {
 							getShoppingList(inEditMode).addItem(newItem.getText());
 						}
@@ -193,7 +193,7 @@ public class GenerateShoppingListScreen {
 		});
 
 		//Buttons for saving and printing the shopping list
-		saveBtn = new Button("Save");
+		saveBtn = new Button("Save as PDF");
 		printBtn = new Button("Print");
 		editBtn = new Button("Edit List");
 		addBtn = new Button("Add Item");
@@ -224,9 +224,9 @@ public class GenerateShoppingListScreen {
 			public void handle(MouseEvent mouseEvent) {
 				if (addBtn.getText().equals("Add Item")) {
 					newItem.setVisible(true);
-					addBtn.setText("Save");
+					addBtn.setText("Save Changes");
 				}
-				else if (addBtn.getText().equals("Save")) {
+				else if (addBtn.getText().equals("Save Changes")) {
 					newItem.setPromptText("Click to add an item");
 					if (!newItem.getText().equals("")) {
 						getShoppingList(inEditMode).addItem(newItem.getText());

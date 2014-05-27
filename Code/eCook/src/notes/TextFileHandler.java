@@ -23,11 +23,11 @@ public class TextFileHandler {
 	}
 
 	// method to write String to text file
-	public void writeTextFile(String notes, Integer slideID) {
-		if (notes != null && slideID != null) {
+	public void writeTextFile(String notes, Integer slideID, String recipeTitle) {
+		if (notes != null && slideID != null && recipeTitle != null) {
 			try {
 				// create file 
-				FileWriter notesStream = new FileWriter(slideID.toString() + "_notes.txt");
+				FileWriter notesStream = new FileWriter("notes/" + recipeTitle + "_" + slideID.toString() + ".txt");
 				BufferedWriter output = new BufferedWriter(notesStream);
 				output.write(notes);
 				System.out.println("Your file has been written");
@@ -40,19 +40,19 @@ public class TextFileHandler {
 			}
 		}
 		else {
-			System.out.println("Error: either there are no notes or the SlideID is invalid");
+			System.out.println("Error: either there are no notes or the SlideID/recipeTitle is invalid");
 		}	
 	}
 	
 	// method to read String from text file
 	public String readTextFile(String filename) {
-		File fileToRead = new File(filename);
+		File fileToRead = new File("notes/" + filename);
 		
 		if (filename != null && fileToRead.exists()) {
 			StringBuilder contents = new StringBuilder();
 			 
 		    try {
-		       	FileReader fileStream = new FileReader(filename);
+		       	FileReader fileStream = new FileReader("notes/" + filename);
 		        BufferedReader input =  new BufferedReader(fileStream);
 		        String line = input.readLine();
 		        

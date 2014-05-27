@@ -317,7 +317,7 @@ public class SlideShow {
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Create a notes panel each time new Slide is called.
-	    NotesGUI notesGUI = new NotesGUI(currentSlideID, slideRoot);
+	    NotesGUI notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot);
 	    notesPanel = notesGUI.getNotesPanel();
 	    slideRoot.getChildren().add(notesPanel);
 	    notesPanel.setLayoutX(-slideScene.getWidth()/5);

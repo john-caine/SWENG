@@ -224,7 +224,7 @@ public class MainMenuContent {
 			 //Creates a new stage bound to the previous that lets the user
 			 //pick between the two options
 			 public void handle(ActionEvent event) {
-	            new LoadExternalRecipe(stage);
+	            new LoadExternalRecipe(stage, recipeCollection);
 	         }
 	        });
 		
