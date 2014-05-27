@@ -68,7 +68,7 @@ public class MainMenuContent {
 		//Imports eCook logo, home, close and minimise button icons
 		logoholder = new ImageView();
 		try {
-			inputStream = new FileInputStream("../Resources/eCookLogo.png");
+			inputStream = new FileInputStream("../Resources/eCookLogo1.png");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
