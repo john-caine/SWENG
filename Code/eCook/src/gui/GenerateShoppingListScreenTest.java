@@ -39,6 +39,7 @@ public class GenerateShoppingListScreenTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		
 		//Gets the visual bounds of the screen
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
@@ -61,7 +62,7 @@ public class GenerateShoppingListScreenTest {
 				}
 			}
 		}
-		generateShoppingListScreen = new GenerateShoppingListScreen(bigBox, width, height, recipeCollection);
+		generateShoppingListScreen = new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
 	}
 
 	@Test

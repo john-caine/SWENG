@@ -36,8 +36,8 @@ public class NotesGUI {
 	VBox notesPanel;
 	
 	// constructor
-	public NotesGUI(Integer slideID, Group root) {
-		setupNotesPanel(slideID, root);
+	public NotesGUI(String recipeTitle, Integer slideID, Group root) {
+		setupNotesPanel(recipeTitle, slideID, root);
 	}
 	
 	// method to return the notesPanel VBox object
@@ -61,7 +61,7 @@ public class NotesGUI {
 	}
 
 	// set up the panel, content and event handlers
-    public void setupNotesPanel(final Integer slideID, final Group root) {   
+    public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root) {   
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
         notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
@@ -117,9 +117,9 @@ public class NotesGUI {
 				// if a user has written some notes
 				if (!(notesBox.getText().equals("") | (notesBox.getText().equals("Write your notes here")))) {
 					// if they have changed the notes since the last save
-					if (!notesBox.getText().equals(handler.readTextFile(slideID.toString() + "_notes.txt"))) {
+					if (!notesBox.getText().equals(handler.readTextFile(recipeTitle + "_" + slideID.toString() + ".txt"))) {
 						// call the create text file class
-						handler.writeTextFile(notesBox.getText(), slideID);
+						handler.writeTextFile(notesBox.getText(), slideID, recipeTitle);
 					}
 				}
 			}
@@ -136,7 +136,7 @@ public class NotesGUI {
                     notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
                     
                     // search for pre-made notes
-                    String existingNotes = handler.readTextFile(slideID.toString() + "_notes.txt");
+                    String existingNotes = handler.readTextFile(recipeTitle + "_" + slideID.toString() + ".txt");
                     // if notes have been made for this slide, stop loading and display them in the textarea
                     if (existingNotes != null) {
                     	notesBox.setText(existingNotes);

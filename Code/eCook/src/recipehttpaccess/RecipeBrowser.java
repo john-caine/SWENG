@@ -11,6 +11,18 @@ package recipehttpaccess;
  * 				Also, methods to allow a user to select a local directory to save the files
  * 				and finally a method to download selected files to the local directory.
  */
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,27 +38,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
+import xmlparser.Recipe;
+import xmlparser.XMLReader;
+import eCook.RecipeCollection;
 
 public class RecipeBrowser extends Application {
 	ArrayList<String> availableRecipeFiles;
 	ListView<String> listOfRecipeFiles;
-	File localRecipeDirectory;
+	File localRecipeDirectory = new File("defaultRecipes/");
 	Button downloadButton;
 	Scene scene;
+	RecipeCollection recipeCollection;
 	
-	public RecipeBrowser(Stage primaryStage) {
-		start(primaryStage);
+	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show) {
+		this.recipeCollection = recipeCollection;
+		// only launch the GUI if required
+		if (show) {
+			start(primaryStage);
+		}
 	}
 	
 	// method to get the names of the recipe files available for download
@@ -64,10 +74,8 @@ public class RecipeBrowser extends Application {
 	
     // method to test for download button enable
     public void testEnableDownloadButton() {
-    	/* only enable the download button when a local file directory has been chosen
-    	 * and some recipe files have been selected
-    	 */
-    	if (!(localRecipeDirectory == null) && !(listOfRecipeFiles.getSelectionModel().getSelectedItem() == null)) {
+    	// only enable the download button when some recipe files have been selected
+    	if (!(listOfRecipeFiles.getSelectionModel().getSelectedItem() == null)) {
     		downloadButton.setDisable(false);
     	}
     	else {
@@ -76,36 +84,44 @@ public class RecipeBrowser extends Application {
     }
 	
 	// method to retrieve file from URL and save locally
-	 public void downloadRecipeFile(String recipeURL, String localFileName) throws Exception {
-		 URL url = new URL(recipeURL);
-		 URLConnection connection = url.openConnection();
-		 InputStream inputStream = connection.getInputStream();
-		 FileOutputStream fileOutputStream = new FileOutputStream(localFileName);
-		 byte[] buffer = new byte[512];
-		 
-		 while (true) {
-		     int length = inputStream.read(buffer);
-		     if (length == -1) {
-		         break;
-		     }
-		     fileOutputStream.write(buffer, 0, length);
-		 }
-		 
-		 inputStream.close();
-		 fileOutputStream.flush();
-		 fileOutputStream.close();
+	 public void downloadRecipeFile(String recipeURL, String localFileName) {
+		 try {
+			URL url = new URL(recipeURL);
+			 URLConnection connection = url.openConnection();
+			 InputStream inputStream = connection.getInputStream();
+			 FileOutputStream fileOutputStream = new FileOutputStream(localFileName);
+			 byte[] buffer = new byte[512];
+			 
+			 while (true) {
+			     int length = inputStream.read(buffer);
+			     if (length == -1) {
+			         break;
+			     }
+			     fileOutputStream.write(buffer, 0, length);
+			 }
+			 
+			 inputStream.close();
+			 fileOutputStream.flush();
+			 fileOutputStream.close();
+			 
+		} catch (MalformedURLException e) {
+			System.out.println("URL doesn't exist. Cannot get recipe file.");
+		} catch (FileNotFoundException e) {
+			System.out.println("Cannot get recipe file from URL.");
+		} catch (IOException e) {
+			System.out.println("Error getting recipe file.");
+		}
 	}
 	
 	// method to display a basic GUI for recipe file downloads
     public void start(final Stage primaryStage) {
     	ProgressIndicator loading = new ProgressIndicator();
     	final Label header = new Label("Recipes available to download:");
-    	Button selectLocalFileDestination = new Button("Select Local Recipe File Destination");
         downloadButton = new Button("Download Selected Recipes");
         downloadButton.setDisable(true);
+        Button exitButton = new Button("Cancel");
         HBox buttons = new HBox();
-        buttons.getChildren().add(0, selectLocalFileDestination);
-        buttons.getChildren().add(1, downloadButton);
+        buttons.getChildren().addAll(downloadButton, exitButton);
         
         // do javaFX setup
         StackPane root = new StackPane();
@@ -117,22 +133,17 @@ public class RecipeBrowser extends Application {
         root.getChildren().add(border);
         border.setTop(loading);
         
-        // configure the select local file destination button
-        selectLocalFileDestination.setOnAction(new EventHandler<ActionEvent>() {
-        	
+        // configure the exit button
+        exitButton.setOnAction(new EventHandler<ActionEvent>() {
         	public void handle(ActionEvent event) {
-            	// prompt user to select local destination for recipe files
-            	DirectoryChooser directoryChooser = new DirectoryChooser();
-            	directoryChooser.setTitle("Select Folder to Save Recipe Files");
-            	localRecipeDirectory = directoryChooser.showDialog(primaryStage);
-            	
-            	testEnableDownloadButton();
+        		// close the window and return to the main menu
+            	primaryStage.getOwner().setOpacity(1.0);
+            	primaryStage.close();
         	}
         });
         
         // configure the download button
         downloadButton.setOnAction(new EventHandler<ActionEvent>() {
- 
             public void handle(ActionEvent event) {
             	// download and save all selected recipe files
             	System.out.println("Downloading Recipes...");
@@ -143,6 +154,21 @@ public class RecipeBrowser extends Application {
             			String fileURL = rootURL + selectedFilesList.get(i);
             			String uniqueLocalFileName = localRecipeDirectory.toString() + "/" + selectedFilesList.get(i);
             			downloadRecipeFile(fileURL, uniqueLocalFileName);
+
+            			// update the recipe collection with the new file (parse)
+            			XMLReader reader = new XMLReader("defaultRecipes/" + selectedFilesList.get(i));
+            			Recipe newRecipe = reader.getRecipe();
+            			newRecipe.setFileName(selectedFilesList.get(i));
+            			// only add the recipe file if it doesn't already exist in eCook
+            			boolean exists = false;
+            			for (int j=0; j<recipeCollection.getNumberOfRecipes(); j++) {
+            				if (recipeCollection.getRecipe(j).getFileName().equals(newRecipe.getFileName())) {
+            					exists = true;
+                			}
+            			}
+            			if (!exists) {
+            				recipeCollection.addRecipe(newRecipe);
+            			}
             		} 
             		catch (Exception e) {
             			System.out.println("Error when downloading and saving selected recipe files");
@@ -151,7 +177,18 @@ public class RecipeBrowser extends Application {
             	}
             	border.setTop(null);
             	border.setBottom(null);
-            	border.setCenter(new Label(selectedFilesList.size() + " Recipes saved to " + localRecipeDirectory));
+            	Label downloadLabel = new Label();
+            	if (selectedFilesList.size() == 1) {
+            		downloadLabel.setText("Recipe Downloaded");
+            	}
+            	else {
+            		downloadLabel.setText(selectedFilesList.size() + " Recipes Downloaded");
+            	}
+            	border.setCenter(downloadLabel);
+            	
+            	// close the window and return to the main menu
+            	primaryStage.getOwner().setOpacity(1.0);
+            	primaryStage.close();
             }
         });
 

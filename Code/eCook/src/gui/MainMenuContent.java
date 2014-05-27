@@ -10,10 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import eCook.MainMenu;
 import eCook.RecipeCollection;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,41 +19,28 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class MainMenuContent {
 	
-	Rectangle2D screenBounds;
+	private Rectangle2D screenBounds;
 	double width;
 	double height;
-	HBox topBox, topBoxRight, topBoxLeft;
-	HBox midBox;
-	HBox bottomBox;
-	InputStream inputStream;
-	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
+	private HBox topBox, topBoxRight, topBoxLeft;
+	private HBox midBox;
+	private HBox bottomBox;
+	private InputStream inputStream;
+	private ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
+	private Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
 	public VBox bigBox;
-	Label blank;
-	private FadeTransition loadExtBtnFade;
 	protected Stage dialog;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
@@ -224,7 +209,7 @@ public class MainMenuContent {
 			 //Creates a new stage bound to the previous that lets the user
 			 //pick between the two options
 			 public void handle(ActionEvent event) {
-	            new LoadExternalRecipe(stage);
+	            new LoadExternalRecipe(stage, recipeCollection);
 	         }
 	        });
 		

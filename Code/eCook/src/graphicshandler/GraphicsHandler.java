@@ -10,9 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import eCook.SlideShow;
 import xmlparser.Point;
-import xmlparser.Shape;
-import xmlparser.TextString;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Animation.Status;
 import javafx.animation.Timeline;
@@ -26,7 +23,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
