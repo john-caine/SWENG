@@ -123,7 +123,7 @@ public class MainMenuContentTest {
 		/* Test when Load External Recipe Button is Pressed */
 		loadExtBtn.fire();
 		loadExtBtn.getOnAction();
-		assertTrue(new LoadExternalRecipe(stage).dialog.isShowing());		
+		assertTrue(new LoadExternalRecipe(stage, recipeCollection).dialog.isShowing());		
 	}
 	
 	@Test

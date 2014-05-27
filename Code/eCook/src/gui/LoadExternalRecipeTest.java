@@ -6,6 +6,9 @@
 package gui;
 
 import static org.junit.Assert.*;
+
+import java.io.File;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -18,14 +21,36 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import xmlparser.Recipe;
+import xmlparser.XMLReader;
+import eCook.RecipeCollection;
+
 public class LoadExternalRecipeTest {
 	
+	private Stage stage;
+	private RecipeCollection recipeCollection;
 	private LoadExternalRecipe loadExternalRecipe;
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
 	public void setUp() throws Exception {
-		loadExternalRecipe = new LoadExternalRecipe(new Stage());
+		stage = new Stage();
+		recipeCollection = new RecipeCollection();
+		File directory = new File("defaultRecipes");
+		if (directory.exists()) {
+			// parse all files in folder, adding recipes to collection
+			for (int i=0; i<directory.list().length; i++) {
+				// only read XML files if for some reason other files exist
+				if (directory.list()[i].endsWith(".xml")) {
+					XMLReader reader = new XMLReader("defaultRecipes/" + directory.list()[i]);
+					Recipe currentRecipe = reader.getRecipe();
+					currentRecipe.setFileName(directory.list()[i]);
+					recipeCollection.addRecipe(currentRecipe);
+				}
+			}
+		}
+		// pass a stage and a set of recipe collection into LoadExternalRecipe class
+		loadExternalRecipe = new LoadExternalRecipe(stage, recipeCollection);
 	}
 
 	@Test
@@ -57,7 +82,7 @@ public class LoadExternalRecipeTest {
 		Button urlBtn = (Button) midBox.getChildren().get(0);
 		
 		/* Test for HTTP Button's Text */
-		assertEquals("HTTP://", urlBtn.getText());
+		assertEquals("Download Recipes from eCook Store", urlBtn.getText());
 		
 		/* Test for HTTP Button's ID */
 		assertEquals("urlBtn", urlBtn.getId());
@@ -71,7 +96,7 @@ public class LoadExternalRecipeTest {
 		Button fileBrowserBtn = (Button) midBox.getChildren().get(1);
 		
 		/* Test for HTTP Button's Text */
-		assertEquals("Browse...", fileBrowserBtn.getText());
+		assertEquals("Get Recipe from Local Directory", fileBrowserBtn.getText());
 		
 		/* Test for HTTP Button's ID */
 		assertEquals("fileBrowserBtn", fileBrowserBtn.getId());

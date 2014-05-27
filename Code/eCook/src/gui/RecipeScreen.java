@@ -35,15 +35,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class RecipeScreen {
-	InputStream inputStream;
-	String recipeInfo;
-	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
-	HBox topBox, topBoxLeft, topBoxRight;
-	VBox recipeInfoBox;
+	
+	private InputStream inputStream;
+	private String recipeInfo;
+	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
+	private Image homeIcon, closeIcon, minimiseIcon;	
+	private HBox topBox, topBoxLeft, topBoxRight;
+	private VBox recipeInfoBox;
+	protected VBox bigBox;
 	
 	
-	public RecipeScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection, final Stage stage){
+	public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
+		
+		this.bigBox = bigBox;
+		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {

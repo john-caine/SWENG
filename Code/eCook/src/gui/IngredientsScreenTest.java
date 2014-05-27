@@ -1,3 +1,8 @@
+/*
+ * Programmer: Zayyad Tagwai & Roger Tan
+ * Date Created: 27/05/2014
+ * Junit Test for IngredientScreen Class
+ */
 package gui;
 
 import static org.junit.Assert.*;
