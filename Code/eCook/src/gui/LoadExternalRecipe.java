@@ -43,6 +43,7 @@ public class LoadExternalRecipe {
 	
 	protected Stage dialog;
 	protected InputStream inputStream;
+	private FileHandler fileHandler;
 
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection){
 		//Creates a new stage bound to the previous that lets the user
@@ -157,12 +158,12 @@ public class LoadExternalRecipe {
 				dialog.close();
 			}
 		});
-	
+		
+		fileHandler = new FileHandler();
 		// call the file handler to get a local XML file
 		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				FileHandler fileHandler = new FileHandler();
-				String filepath = fileHandler.openFile();
+				String filepath = fileHandler.openFile(dialog);
 				// if the filepath points to a vaild XML file, copy to the defaults folder
 				if (filepath != null && filepath.endsWith(".xml")) {
 					Path source = Paths.get(filepath);
@@ -178,8 +179,8 @@ public class LoadExternalRecipe {
 						System.out.println("Error copying XML file from local directory to defaults folder");
 						e.printStackTrace();
 					}
+					dialog.close();
 				}
-				dialog.close();
 			}
 		});
 		

@@ -13,8 +13,7 @@ import javafx.stage.Stage;
  * 
  */
 public class FileHandler {
-	private Stage stage;
-	private FileChooser fileChooser;
+	final private FileChooser fileChooser;
 	private String filepath;
 	private File slideshow;
 
@@ -40,7 +39,7 @@ public class FileHandler {
 	 * If a file is not valid returns null
 	 * 
 	 */
-	public String openFile() {
+	public String openFile(Stage stage) {
 		slideshow = fileChooser.showOpenDialog(stage);
 		if (slideshow != null) {
 			filepath = slideshow.getAbsolutePath();

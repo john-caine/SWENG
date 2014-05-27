@@ -1,14 +1,17 @@
 package filebrowser;
 
 import static org.junit.Assert.*;
+import javafx.stage.Stage;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import eCook.JavaFXThreadingRule;
 
 public class FileHandlerTest {
 	// Declare variables
+	private Stage stage;
 	private FileHandler fileHandler;
 	private String fileHandlerResult;
 	// Run tests on JavaFX thread ref. Andy Till
@@ -21,6 +24,7 @@ public class FileHandlerTest {
 	 */
 	@Before
 	public void setup() {
+		stage = new Stage();
 		fileHandler = new FileHandler();
 	}
 
@@ -30,7 +34,7 @@ public class FileHandlerTest {
 	 */
 	@Test
 	public void fileHandler() {
-		fileHandlerResult = fileHandler.openFile();
+		fileHandlerResult = fileHandler.openFile(stage);
 		assertNotNull(fileHandlerResult);
 		if (fileHandlerResult != null) {
 			System.out.print("File path: " + fileHandlerResult + "\n");

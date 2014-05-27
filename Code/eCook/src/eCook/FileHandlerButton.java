@@ -40,7 +40,7 @@ public class FileHandlerButton {
 		openFileBrowser.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 	            public void handle(ActionEvent event) {
-					fileHandlerResult = fileHandler.openFile();
+					fileHandlerResult = fileHandler.openFile(stage);
 					if (fileHandlerResult != null) {
 						new SlideShow(stage, fileHandlerResult, recipeCollection);
 					} else {
