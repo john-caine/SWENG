@@ -36,15 +36,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class IngredientsScreen {
-	HBox topBox, topBoxLeft, topBoxRight;
-	HBox midBox;
-	VBox midBoxLeft, midBoxRight, recipeInfoBox;
-	InputStream inputStream;
-	ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, logoIcon, closeIcon, minimiseIcon;
-	VBox ingredientsList;
+	private HBox topBox, topBoxLeft, topBoxRight;
+	private HBox midBox;
+	private VBox midBoxLeft, midBoxRight, recipeInfoBox;
+	private InputStream inputStream;
+	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
+	private Image homeIcon, closeIcon, minimiseIcon;
+	private VBox ingredientsList;
+	protected VBox bigBox;
 	
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
+		this.bigBox = bigBox;
+		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {

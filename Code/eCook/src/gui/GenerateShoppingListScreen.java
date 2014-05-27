@@ -43,18 +43,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GenerateShoppingListScreen {
-	InputStream inputStream;
-	ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon, closeIcon, minimiseIcon;	
-	String shoppingListPreviewText;
-	HBox topBox, topBoxRight, topBoxLeft;
-	Label statusBar;
-	Button saveBtn, printBtn, editBtn, addBtn;
-	VBox shoppingListBox;
-	ScrollPane scrollPane;
-	CheckBox[] checkboxes;
-	TextField newItem;
-	boolean inEditMode = false;
+	private InputStream inputStream;
+	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
+	private Image homeIcon, closeIcon, minimiseIcon;	
+	private HBox topBox, topBoxRight, topBoxLeft;
+	private Label statusBar;
+	private Button saveBtn, printBtn, editBtn, addBtn;
+	private VBox shoppingListBox;
+	private ScrollPane scrollPane;
+	private CheckBox[] checkboxes;
+	private TextField newItem;
+	private boolean inEditMode = false;
 	protected VBox bigBox;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {

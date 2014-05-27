@@ -12,7 +12,6 @@ import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Polygon;
 import eCook.SlideShow;
 import gui.JavaFXThreadingRule;
 
@@ -20,9 +19,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import xmlparser.Point;
 import xmlparser.Shape;
-import xmlparser.TextBody;
 import xmlparser.XMLReader;
 
 public class GraphicsHandlerTest {
