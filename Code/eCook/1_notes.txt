@@ -2,4 +2,5 @@ hello graphics!
 
 Slide 2 contains...
 
-GRAPHICS
+GRAPHICS 
+ Looks good!
