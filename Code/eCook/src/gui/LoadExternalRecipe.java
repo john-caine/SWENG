@@ -13,13 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
+import errorhandler.ErrorHandler;
 import filebrowser.FileHandler;
-
+import xmlValidation.XMLValidator;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -165,16 +166,23 @@ public class LoadExternalRecipe {
 			public void handle(ActionEvent event) {
 				String filepath = fileHandler.openFile(dialog);
 				// if the filepath points to a vaild XML file, copy to the defaults folder
-				if (filepath != null && filepath.endsWith(".xml")) {
+				if (filepath != null) {
 					Path source = Paths.get(filepath);
 					Path defaultsFolder = Paths.get("defaultRecipes/");
 					try {
 						Files.copy(source, defaultsFolder.resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 						// update the recipe collection with the new file (parse)
 						XMLReader reader = new XMLReader("defaultRecipes/" + source.getFileName().toString());
-						Recipe newRecipe = reader.getRecipe();
-						newRecipe.setFileName(source.getFileName().toString());
-						recipeCollection.addRecipe(newRecipe);
+						// Check integrity of XML file, report error message if invalid
+				    	XMLValidator validator = new XMLValidator(reader);
+				    	if (validator.isXMLBroken()) {
+				    		stage.hide();
+				    		new ErrorHandler(validator.getErrorMsg());
+						} else {
+							Recipe newRecipe = reader.getRecipe();
+							newRecipe.setFileName(source.getFileName().toString());
+							recipeCollection.addRecipe(newRecipe);
+						}
 					} catch (IOException e) {
 						System.out.println("Error copying XML file from local directory to defaults folder");
 						e.printStackTrace();
