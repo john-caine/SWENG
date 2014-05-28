@@ -15,8 +15,8 @@ package xmlparser;
  */
 
 public class Info {
-	String author, version, title, comment;
-	Integer width, height;
+	String author, version, title, comment = null;
+	Integer width, height = null;
 		
 	public Info() {
 	}
@@ -61,26 +61,38 @@ public class Info {
 	
 	// setters
 	public void setAuthor(Object author) {
-		this.author = (String) author;
+		if (author != null) {
+			this.author = (String) author;
+		}
 	}
 	
 	public void setVersion(Object version) {
-		this.version = (String) version;		
+		if (version != null) {
+			this.version = (String) version;
+		}
 	}
 	
 	public void setTitle(Object title) {
-		this.title = (String) title;
+		if (title != null) {
+			this.title = (String) title;
+		}
 	}
 
 	public void setComment(Object comment) {
-		this.comment = (String) comment;		
+		if (comment != null) {
+			this.comment = (String) comment;
+		}
 	}
 	
 	public void setWidth(Object width) {
-		this.width = Integer.valueOf((String) width);
+		if (width != null) {
+			this.width = Integer.valueOf((String) width);
+		}
 	}
 	
 	public void setHeight(Object height) {
-		this.height = Integer.valueOf((String) height);
+		if (height != null) {
+			this.height = Integer.valueOf((String) height);
+		}
 	}
 }

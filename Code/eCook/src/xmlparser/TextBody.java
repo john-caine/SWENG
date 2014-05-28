@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
-	private Integer xEnd, yEnd;
-	private Integer fontSize;
-	private String font, fontColor;
+	private Integer xEnd, yEnd = null;
+	private Integer fontSize = null;
+	private String font, fontColor = null;
 	private List<TextString> textBody;
 	
 	public TextBody() {
@@ -55,30 +55,30 @@ public class TextBody extends Content {
 		if (xEnd != null) {
 			this.xEnd = Integer.valueOf((String) xEnd);
 		}
-		else {
-			this.xEnd = null;
-		}
 	}
 	
 	public void setYEnd(Object yEnd) {
 		if (yEnd != null) {
 			this.yEnd = Integer.valueOf((String) yEnd);
 		}
-		else {
-			this.yEnd = null;
-		}
 	}
 	
 	public void setFont(Object font) {
-		this.font = (String) font;	
+		if (font != null) {
+			this.font = (String) font;
+		}
 	}
 	
 	public void setFontSize(Object fontSize) {
-		this.fontSize = Integer.valueOf((String) fontSize);		
+		if (fontSize != null) {
+			this.fontSize = Integer.valueOf((String) fontSize);
+		}
 	}
 	
 	public void setFontColor(Object fontColor) {
-		this.fontColor = (String) fontColor;
+		if (fontColor != null) {
+			this.fontColor = (String) fontColor;
+		}
 	}
 	
 	// list operations

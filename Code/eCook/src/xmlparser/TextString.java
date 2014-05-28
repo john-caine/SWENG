@@ -13,9 +13,9 @@ package xmlparser;
  */
 
 public class TextString {
-	private Boolean bold, italic, underline;
-	private Integer branch;
-	private String text;
+	private Boolean bold, italic, underline = false;
+	private Integer branch = null;
+	private String text = "";
 	
 	public TextString() {
 	}
@@ -43,22 +43,32 @@ public class TextString {
 	
 	// setters
 	public void setBold(Object bold) {
-		this.bold = Boolean.valueOf((String) bold);
+		if (bold != null) {
+			this.bold = Boolean.valueOf((String) bold);
+		}
 	}
 	
 	public void setItalic(Object italic) {
-		this.italic = Boolean.valueOf((String) italic);
+		if (italic != null) {
+			this.italic = Boolean.valueOf((String) italic);
+		}
 	}
 	
 	public void setUnderline(Object underline) {
-		this.underline = Boolean.valueOf((String) underline);			
+		if (underline != null) {
+			this.underline = Boolean.valueOf((String) underline);
+		}
 	}
 	
 	public void setBranch(Object branch) {
-		this.branch = Integer.valueOf((String) branch);
+		if (branch != null) {
+			this.branch = Integer.valueOf((String) branch);
+		}
 	}
 	
 	public void setText(Object text) {
-		this.text = (String) text;	
+		if (text != null) {
+			this.text = (String) text;
+		}
 	}
 }

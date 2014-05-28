@@ -38,7 +38,7 @@ public class XMLValidator {
 				// Are there missing "required" element attributes?
 				if (!missingElementAttributes(reader)) {
 					// Is the version ID correct?
-					if (Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionID) > 0.05) {
+					if (Math.abs(Double.parseDouble(reader.getInfo().getVersion()) - versionID) > 0.04) {
 						broken = true;
 						errorMsg = "Error: Unsupported playlist version.";
 					}

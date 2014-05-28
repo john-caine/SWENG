@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
-	Integer xStart, yStart;
-	Integer layer, startTime, duration, width, height, branch, orientation;
-	String urlName;
-	Boolean loop;
+	Integer width, height, xStart, yStart = null;
+	Integer layer, startTime, duration, branch, orientation = 0;
+	String urlName = null;
+	Boolean loop = false;
 	List<TextBody> texts;
 	List<Shape> shapes;
 	List<Audio> audios;
@@ -94,64 +94,68 @@ public class Content {
 		if (xStart != null) {
 			this.xStart = Integer.valueOf((String) xStart);
 		}
-		else {
-			this.xStart = null;
-		}
 	}
 	
 	public void setYStart(Object yStart) {
 		if (yStart != null) {
 			this.yStart = Integer.valueOf((String) yStart);
 		}
-		else {
-			this.yStart = null;
-		}
 	}
 
 	public void setLayer(Object layer) {
-		this.layer = Integer.valueOf((String) layer);		
+		if (layer != null) {
+			this.layer = Integer.valueOf((String) layer);
+		}
 	}
 	
 	public void setStartTime(Object startTime) {
-		this.startTime = Integer.valueOf((String) startTime);	
+		if (startTime != null) {
+			this.startTime = Integer.valueOf((String) startTime);	
+		}
 	}
 	
 	public void setDuration(Object duration) {
-		this.duration = Integer.valueOf((String) duration);	
+		if (duration != null) {
+			this.duration = Integer.valueOf((String) duration);
+		}
 	}
 	
 	public void setWidth(Object width) {
-		this.width = Integer.valueOf((String) width);
+		if (width != null) {
+			this.width = Integer.valueOf((String) width);
+		}
 	}
 	
 	public void setHeight(Object height) {
-		this.height = Integer.valueOf((String) height);
+		if (height != null) {
+			this.height = Integer.valueOf((String) height);
+		}
 	}
 	
 	public void setURLName(Object urlName) {
 		if (urlName != null && urlName != "") {
 			this.urlName = (String) urlName;
 		}
-		else {
-			reportError("URL name must be specified for this media (and must not be empty)");
-		}
 	}
 	
 	public void setLoop(Object loop) {
-		this.loop = Boolean.valueOf((String) loop);
+		if (loop != null) {
+			this.loop = Boolean.valueOf((String) loop);
+		}
 	}
 	
 	public void setBranch(Object branch) {
-		this.branch = Integer.valueOf((String) branch);
+		if (branch != null) {
+			this.branch = Integer.valueOf((String) branch);
+		}
 	}
 	
 	public void setOrientation(Object orientation) {
-		Integer or = Integer.valueOf((String) orientation);
-		if (or >= 0 && or <= 360) {
-			this.orientation = or;
-		}
-		else {
-			System.out.println("Orientation must be between 0 and 360");
+		if (orientation != null) {
+			this.orientation = Integer.valueOf((String) orientation);
+			if (this.orientation < 0 || this.orientation > 360) {
+				this.orientation = 180;
+			}
 		}
 	}
 	
@@ -178,9 +182,6 @@ public class Content {
 		if (text != null) {
 			texts.add(text);
 		}
-		else {
-			reportError("Error adding text: object received from parser is null");
-		}
 	}
 
 	public Integer getNumberOfTexts() {
@@ -206,9 +207,6 @@ public class Content {
 		if (shape != null) {
 			shapes.add(shape);
 		}
-		else {
-			reportError("Error adding shape: object received from parser is null");
-		}
 	}
 
 	public Integer getNumberOfShapes() {
@@ -233,9 +231,6 @@ public class Content {
 	public void addAudio(Audio audio) {
 		if (audio != null) {
 			audios.add(audio);
-		}
-		else {
-			reportError("Error adding audio: object received from parser is null");
 		}
 	}
 
@@ -263,9 +258,6 @@ public class Content {
 		if (image != null) {
 			images.add(image);
 		}
-		else {
-			reportError("Error adding image: object received from parser is null");
-		}
 	}
 
 	public Integer getNumberOfImages() {
@@ -290,9 +282,6 @@ public class Content {
 	public void addVideo(Video video) {
 		if (video != null) {
 			videos.add(video);
-		}
-		else {
-			reportError("Error adding video: object received from parser is null");
 		}
 	}
 

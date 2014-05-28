@@ -28,7 +28,7 @@ public class Recipe {
 	Defaults defaults;
 	List<Ingredient> ingredients;
 	List<Slide> slides;
-	String fileName;
+	String fileName = null;
 		
 	public Recipe() {
 		slides = new ArrayList<Slide>();

@@ -16,8 +16,8 @@ package xmlparser;
 
 public class Slide {
 	int ID;
-	Integer duration;
-	Boolean lastSlide;
+	Integer duration = 0;
+	Boolean lastSlide = false;
 	Content content;
 		
 	public Slide() {
@@ -38,15 +38,21 @@ public class Slide {
 	
 	// setters
 	public void setID(Object ID) {
-		this.ID = Integer.valueOf((String) ID);
+		if (ID != null) {
+			this.ID = Integer.valueOf((String) ID);
+		}
 	}
 	
 	public void setDuration(Object duration) {
-		this.duration = Integer.valueOf((String) duration);		
+		if (duration != null) {
+			this.duration = Integer.valueOf((String) duration);
+		}
 	}
 
 	public void setLastSlide(Object lastSlide) {
-		this.lastSlide = Boolean.valueOf((String) lastSlide);		
+		if (lastSlide != null) {
+			this.lastSlide = Boolean.valueOf((String) lastSlide);
+		}
 	}
 
 	public Content getContent() {
@@ -54,6 +60,8 @@ public class Slide {
 	}
 
 	public void setContent(Content content) {
-		this.content = content;
+		if (content != null) {
+			this.content = content;
+		}
 	}
 }

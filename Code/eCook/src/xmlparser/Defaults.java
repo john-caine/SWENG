@@ -17,8 +17,8 @@ package xmlparser;
  *  				v1.2  (18/05/24) - Added function defaultsComplete() - James and Prakruti
  */
 public class Defaults {
-	String backgroundColor, font, fontColor, fillColor, lineColor;
-	Integer fontSize;
+	String backgroundColor, font, fontColor, fillColor, lineColor = null;
+	Integer fontSize = null;
 		
 	public Defaults() {
 	}
@@ -71,44 +71,29 @@ public class Defaults {
 		if (backgroundColor != null) {
 			this.backgroundColor = (String) backgroundColor;
 		}
-		else {
-			reportError("error setting background color: object received from parser is null");
-		}
 	}
 	
 	public void setFont(Object font) {
 		if (font != null) {
 			this.font = (String) font;
-		}
-		else {
-			reportError("error setting font: object received from parser is null");
-		}		
+		}	
 	}
 
 	public void setFontSize(Object fontSize) {
 		if (fontSize != null) {
 			this.fontSize = Integer.valueOf((String) fontSize);
-		}
-		else {
-			reportError("error setting font size: object received from parser is null");
-		}		
+		}	
 	}
 	
 	public void setFontColor(Object fontColor) {
 		if (fontColor != null) {
 			this.fontColor = (String) fontColor;
 		}
-		else {
-			reportError("error setting font colour: object received from parser is null");
-		}	
 	}
 	
 	public void setFillColor(Object fillColor) {
 		if (fillColor != null) {
 			this.fillColor = (String) fillColor;
-		}
-		else {
-			reportError("error setting fill colour: object received from parser is null");
 		}	
 	}
 	
@@ -116,8 +101,5 @@ public class Defaults {
 		if (lineColor != null) {
 			this.lineColor = (String) lineColor;
 		}
-		else {
-			reportError("error setting line colour: object received from parser is null");
-		}	
 	}
 }

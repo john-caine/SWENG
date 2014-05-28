@@ -12,7 +12,7 @@ package xmlparser;
  */
 
 public class Point {
-	private Integer num, x, y; 
+	private Integer num, x, y = 1; 
 	
 	public Point() {
 	}
@@ -32,14 +32,20 @@ public class Point {
 	
 	// setters
 	public void setNum(Object num) {
-		this.num = Integer.valueOf((String) num);
+		if (num != null) {
+			this.num = Integer.valueOf((String) num);
+		}
 	}
 
 	public void setX(Object x) {
-		this.x = Integer.valueOf((String) x);
+		if (x != null) {
+			this.x = Integer.valueOf((String) x);
+		}
 	}
 	
 	public void setY(Object y) {
-		this.y = Integer.valueOf((String) y);
+		if (y != null) {
+			this.y = Integer.valueOf((String) y);
+		}
 	}
 }

@@ -21,9 +21,9 @@ import java.util.List;
  */
 
 public class Shape extends Content {
-	private Integer totalPoints;
+	private Integer totalPoints = null;
 	private List<Point> points;
-	private String fillColor, lineColor;
+	private String fillColor, lineColor = "black";
 	
 	public Shape() {
 		super();
@@ -58,17 +58,18 @@ public class Shape extends Content {
 		if (totalPoints != null) {
 			this.totalPoints = Integer.valueOf((String) totalPoints);
 		}
-		else {
-			this.totalPoints = null;
-		}
 	}
 
 	public void setLineColor(Object lineColor) {
-		this.lineColor = (String) lineColor;
+		if (lineColor != null) {
+			this.lineColor = (String) lineColor;
+		}
 	}
 	
 	public void setFillColor(Object fillColor) {
-		this.fillColor = (String) fillColor;
+		if (fillColor != null) {
+			this.fillColor = (String) fillColor;
+		}
 	}
 	
 	@Override
@@ -76,18 +77,12 @@ public class Shape extends Content {
 		if (width != null) {
 			this.width = Integer.valueOf((String) width).intValue();
 		}
-		else {
-			this.width = null;
-		}
 	}
 	
 	@Override
 	public void setHeight(Object height) {
 		if (height != null) {
 			this.height = Integer.valueOf((String) height).intValue();
-		}
-		else {
-			this.height = null;
 		}
 	}
 	

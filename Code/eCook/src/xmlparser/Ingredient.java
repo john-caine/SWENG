@@ -10,9 +10,8 @@ package xmlparser;
  * 
  */
 public class Ingredient {
-	private String name;
-	private String units;
-	private Float amount;
+	private String name, units = "";
+	private double amount = 0;
 	
 	public Ingredient() {
 	}
@@ -26,20 +25,26 @@ public class Ingredient {
 		return units;
 	}
 
-	public float getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 	
 	// setters
 	public void setName(Object value) {
-		name = (String) value;
+		if (value != null) {
+			name = (String) value;
+		}
 	}
 
 	public void setUnits(Object value) {
-		units = (String) value;
+		if (value != null) {
+			units = (String) value;
+		}
 	}
 
 	public void setAmount(Object value) {
-		amount =  Float.valueOf((String) value);
+		if (value != null) {
+			amount =  Float.valueOf((String) value);
+		}
 	}
 }
