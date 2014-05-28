@@ -196,13 +196,21 @@ public class GenerateShoppingListScreen {
 		printBtn = new Button("Print");
 		editBtn = new Button("Edit List");
 		addBtn = new Button("Add Item");
-		saveBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
-		printBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
-		editBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
-		addBtn.setPrefSize(midBox.getPrefWidth()/4, 60);
+		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
+		printBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
+		editBtn.setPrefSize(midBox.getPrefWidth()/8, 100);
+		addBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
+		
+		//editBtn.setStyle("-fx-background-color: transparent;");
 		
 		saveBtn.setId("saveBtn");
+		printBtn.setId("printBtn");
+		editBtn.setId("editBtn");
+		addBtn.setId("addBtn");
 		saveBtn.getStylesheets().add("file:../Resources/css.css");
+		printBtn.getStylesheets().add("file:../Resources/css.css");
+		editBtn.getStylesheets().add("file:../Resources/css.css");
+		addBtn.getStylesheets().add("file:../Resources/css.css");
 		
 		// set up the status bar
 		statusBar = new Label("");

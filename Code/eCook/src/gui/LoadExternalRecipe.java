@@ -64,23 +64,26 @@ public class LoadExternalRecipe {
         fileBrowserBtn.setWrapText(true);
         Label httpLbl = new Label("http://");
         final TextField httpField = new TextField();
-        httpField.setPromptText("enter recipe file URL");
+        httpField.setPromptText("Enter Recipe File's URL");
         final Button getFromURLBtn = new Button("Get Recipe from URL");
         getFromURLBtn.setDisable(true);
         downloadBtn.setPrefSize(256, 228);
         fileBrowserBtn.setPrefSize(256, 228);
-        httpField.setPrefWidth(308);
+        getFromURLBtn.setPrefSize(127, 25);
+        httpField.setPrefSize(319, 25);
         
         //defining IDs in CSS
         downloadBtn.setId("urlBtn");
         fileBrowserBtn.setId("fileBrowserBtn");
+        getFromURLBtn.setId("directUrlBtn");
 		downloadBtn.getStylesheets().add("file:../Resources/css.css");
 		fileBrowserBtn.getStylesheets().add("file:../Resources/css.css");
+		getFromURLBtn.getStylesheets().add("file:../Resources/css.css");
 		
         VBox loadExtBox = new VBox(20);
         HBox topBox = new HBox();
         HBox midBox = new HBox();
-        HBox bottomBox = new HBox();
+        HBox bottomBox = new HBox(10);
         topBox.setAlignment(Pos.TOP_RIGHT);
         
         //New imageView required as using the old one moves its content as well
