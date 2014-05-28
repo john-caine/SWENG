@@ -19,9 +19,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
-
 import eCook.RecipeCollection;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -40,6 +38,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class GenerateShoppingListScreen {
@@ -198,9 +197,16 @@ public class GenerateShoppingListScreen {
 		addBtn = new Button("Add Item");
 		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
 		printBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
-		editBtn.setPrefSize(midBox.getPrefWidth()/8, 100);
+		editBtn.setPrefSize(midBox.getPrefWidth()/8, 120);
 		addBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
 		
+		saveBtn.setWrapText(true);
+		printBtn.setWrapText(true);
+		editBtn.setWrapText(true);
+		addBtn.setWrapText(true);
+		
+		editBtn.setAlignment(Pos.CENTER);
+		editBtn.setTextAlignment(TextAlignment.CENTER);
 		//editBtn.setStyle("-fx-background-color: transparent;");
 		
 		saveBtn.setId("saveBtn");

@@ -63,9 +63,6 @@ public class VideoMediaControlTest {
 		
 		/* Detect if VideoPlayer is set to be on repeat. 
 		 * Return -1 for Loop = true & 1 for Loop = false */
-		assertEquals(1, videoPlayerHandler.mediaControl.mp.getCycleCount(), 0.01);
-		
-		
-	
+		assertEquals(1, videoPlayerHandler.mediaControl.mp.getCycleCount(), 0.01);	
 	}
 }

@@ -98,7 +98,7 @@
 			<layer>3</layer>
 		</image>
 	</slide>
-	<slide ID="4" lastSlide="true">
+	<slide ID="4" duration="90" lastSlide="true">
 		<video>
 			<urlname>http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4</urlname>
 			<xstart>10</xstart>

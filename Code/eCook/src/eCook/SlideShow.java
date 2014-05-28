@@ -387,6 +387,9 @@ public class SlideShow {
       		timeLineDuration.setCycleCount(this.duration);
       		timeLineDuration.playFromStart();
       	}
+      	else{
+      		timeLineDuration.stop();
+      	}
        
 	    slideRoot.setVisible(true);  
 	}	
