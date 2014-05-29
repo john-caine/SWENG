@@ -407,21 +407,21 @@
 
 #authorLabel{
 	-fx-font-size: 16px;
-	-fx-text-fill:   #b22222;
+	-fx-text-fill:    #adff2f;
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: bold;
 }
 
 #versionLabel{
 	-fx-font-size: 16px;
-	-fx-text-fill:   #b22222;
+	-fx-text-fill:   #adff2f;
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: bold;
 }
 
 #commentLabel{
 	-fx-font-size: 16px;
-	-fx-text-fill:   #b22222;
+	-fx-text-fill:    #adff2f;
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: bold;
 }
@@ -438,22 +438,23 @@
     -fx-background-color: transparent;
 }
 
-.list-cell {
+.list-cell{
     -fx-background-color: transparent;
     -fx-text-fill:   #b22222;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     //-fx-border-color: black;
 }
 
 .list-cell:selected {
     -fx-background-color: transparent;
     -fx-text-fill:   white;
-    //-fx-border-color: black;
+  //-fx-border-color: black;
 }
 
 .list-cell:odd {
    -fx-background-color: transparent;
-   -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
+
 
 .list-cell > .scroll-bar{
  -fx-background-color: rgb(96,96,96);
@@ -507,6 +508,31 @@
 
 .list-view  .scroll-bar:vertical:focused {
  -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+
+#playSlideBtn {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+	
+	
+}
+
+#playSlideBtn:hover {
+    	-fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+	-fx-opacity: 0.5;
 }
 
 #bigBox {

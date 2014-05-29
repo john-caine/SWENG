@@ -158,7 +158,7 @@ public class RecipeScreen {
 		
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
-		listOfRecipes.setStyle("-fx-background: lightgrey;");
+		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
 		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.5);
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -204,9 +204,15 @@ public class RecipeScreen {
 		bigBox.getChildren().addAll(topBox,horizontalBox);	
 				
 		Button playSlideBtn = new Button("Play");
+<<<<<<< HEAD
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
 		//Set tool tip
 		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
+=======
+		playSlideBtn.setId("playSlideBtn");
+		playSlideBtn.getStylesheets().add("file:../Resources/css.css");
+		playSlideBtn.setPrefSize(120, 50);
+>>>>>>> 729908f12cd7d74cbcef42d3045022735e402f94
 		// define the start slideshow button method
 		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -217,8 +223,13 @@ public class RecipeScreen {
 			}
 			
 		});
+		
+		Label recipesLabel = new Label("Recipe Playlist:");
+		recipesLabel.setId("recipesLabel");
+		recipesLabel.getStylesheets().add("file:../Resources/css.css");
+		
 		midBox.setAlignment(Pos.CENTER);
-		midBox.getChildren().addAll(listOfRecipes, recipeInfoBox, playSlideBtn);
+		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox, playSlideBtn);
 	}
 	
 	// method to update labels in the recipe info box
@@ -236,6 +247,16 @@ public class RecipeScreen {
 		Label authorLabel = new Label("Author: " + author);
 		Label versionLabel = new Label("Version: " + version);
 		Label commentLabel = new Label("Comment: " + comment);
+		
+		authorLabel.setWrapText(true);
+		authorLabel.setId("authorLabel");
+		authorLabel.getStylesheets().add("file:../Resources/css.css");
+		versionLabel.setWrapText(true);
+		versionLabel.setId("versionLabel");
+		versionLabel.getStylesheets().add("file:../Resources/css.css");
+		commentLabel.setWrapText(true);
+		commentLabel.setId("commentLabel");
+		commentLabel.getStylesheets().add("file:../Resources/css.css");
 		
 		// remove old labels
 		recipeInfoBox.getChildren().clear();
