@@ -441,13 +441,13 @@
 .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill:   #b22222;
-    -fx-border-color: black;
+    //-fx-border-color: black;
 }
 
 .list-cell:selected {
     -fx-background-color: transparent;
     -fx-text-fill:   white;
-    -fx-border-color: black;
+    //-fx-border-color: black;
 }
 
 .list-cell:odd {
