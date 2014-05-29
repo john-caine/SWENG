@@ -18,6 +18,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 public class IngredientsList {
 	static ArrayList<String> ingredientsList;
@@ -35,9 +37,12 @@ public class IngredientsList {
 	Button savePDFButton, updateShoppingListButton;
 	Label statusBar;
 	ShoppingList currentShoppingList;
+	double height, width;
 	
 	// constructor
-	public IngredientsList(Recipe recipe) {
+	public IngredientsList(Recipe recipe, double height, double width) {
+		this.height = height;
+		this.width = width;
 		// populate the ingredientsList
 		ingredientsList = new ArrayList<String>();
 		for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
@@ -89,24 +94,31 @@ public class IngredientsList {
 		ingredientsListBox = new VBox();
 		scrollBox = new VBox();
 		scrollBox.setSpacing(8);
+		scrollBox.setPrefSize(width*2/3, height-100);
 		
 		// set up the scroll pane
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setPrefHeight(400);
+		scrollPane.setId("scrollPane");
+		scrollPane.getStylesheets().add("file:../Resources/css.css");
 		
 		// set up the checkboxes
 		checkboxes = new CheckBox[ingredientsList.size()];
 		
 		// setup the status bar
 		statusBar = new Label("");
+		statusBar.setId("statusBar");
+		statusBar.getStylesheets().add("file:../Resources/css.css");
 		statusBar.setPadding(new Insets(5,0,0,100));
 			
 		// populate the list with checkboxes
 		// assign each checkbox an event handler
 		for (int i=0; i<ingredientsList.size(); i++) {
 			CheckBox box = checkboxes[i] = new CheckBox(ingredientsList.get(i));
+			box.setId("box");
+			box.getStylesheets().add("file:../Resources/css.css");
 			box.setSelected(false);
 			box.selectedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
@@ -119,7 +131,11 @@ public class IngredientsList {
 		
 		// add a button to select all of the ingredients listed
 		final Button selectAllButton = new Button("Select All");
-		selectAllButton.setPrefWidth(95);
+		selectAllButton.setId("selectAllButton");
+		selectAllButton.getStylesheets().add("file:../Resources/css.css");
+		selectAllButton.setPrefSize(120,50);
+		selectAllButton.setAlignment(Pos.CENTER);
+		selectAllButton.setTextAlignment(TextAlignment.CENTER);
 		// configure the selectAll button
         selectAllButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {            	
@@ -151,6 +167,12 @@ public class IngredientsList {
 		savePDFButton = new Button("Save shopping list");
 		// add a button to add ingredients to the shopping list (eCook side)
 		updateShoppingListButton = new Button("Add Selected Ingredients to Shopping List");
+		updateShoppingListButton.setWrapText(true);
+		updateShoppingListButton.setId("updateShoppingListButton");
+		updateShoppingListButton.getStylesheets().add("file:../Resources/css.css");
+		updateShoppingListButton.setPrefSize(160,50);
+		updateShoppingListButton.setAlignment(Pos.CENTER);
+		updateShoppingListButton.setTextAlignment(TextAlignment.CENTER);
 		// configure the add to shopping list button
         updateShoppingListButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
