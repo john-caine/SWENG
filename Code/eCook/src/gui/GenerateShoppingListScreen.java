@@ -158,6 +158,7 @@ public class GenerateShoppingListScreen {
 		// create VBox for the list	
 		shoppingListBox = new VBox();
 		shoppingListBox.setSpacing(8);
+		shoppingListBox.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
 		// set up the scroll pane
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -165,6 +166,11 @@ public class GenerateShoppingListScreen {
 		scrollPane.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
 		// add the box to the scroll pane
 		scrollPane.setContent(shoppingListBox);
+		
+		//set the scrollpane's desgin
+		scrollPane.setId("scrollPane");
+		//shoppingListBox.setStyle("-fx-background-color: transparent;");
+		scrollPane.getStylesheets().add("file:../Resources/css.css");
 		
 		// set up the new item field
 		newItem = new TextField();
@@ -195,19 +201,24 @@ public class GenerateShoppingListScreen {
 		printBtn = new Button("Print");
 		editBtn = new Button("Edit List");
 		addBtn = new Button("Add Item");
-		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
-		printBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
-		editBtn.setPrefSize(midBox.getPrefWidth()/8, 120);
-		addBtn.setPrefSize(midBox.getPrefWidth()/8, 60);
+		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		printBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		editBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		addBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
 		
 		saveBtn.setWrapText(true);
 		printBtn.setWrapText(true);
 		editBtn.setWrapText(true);
 		addBtn.setWrapText(true);
 		
+		saveBtn.setAlignment(Pos.CENTER);
+		saveBtn.setTextAlignment(TextAlignment.CENTER);
+		printBtn.setAlignment(Pos.CENTER);
+		printBtn.setTextAlignment(TextAlignment.CENTER);
 		editBtn.setAlignment(Pos.CENTER);
 		editBtn.setTextAlignment(TextAlignment.CENTER);
-		//editBtn.setStyle("-fx-background-color: transparent;");
+		addBtn.setAlignment(Pos.CENTER);
+		addBtn.setTextAlignment(TextAlignment.CENTER);
 		
 		saveBtn.setId("saveBtn");
 		printBtn.setId("printBtn");
@@ -220,6 +231,8 @@ public class GenerateShoppingListScreen {
 		
 		// set up the status bar
 		statusBar = new Label("");
+		statusBar.setId("statusBar");
+		statusBar.getStylesheets().add("file:../Resources/css.css");
 		
 		// populate the shopping list display
 		getShoppingList(inEditMode);
@@ -300,13 +313,19 @@ public class GenerateShoppingListScreen {
         		}
             }
         });
+		
+		// Set the Css file for shoppingListLabel
+		Label shoppingListLabel = new Label("Shopping List");
+		shoppingListLabel.setId("shoppingListLabel");
+		shoppingListLabel.getStylesheets().add("file:../Resources/css.css");
+		
 		midBox.setAlignment(Pos.CENTER);
 		midBoxBottom.setAlignment(Pos.CENTER);
 		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
 		HBox buttonBar = new HBox();
 		buttonBar.setAlignment(Pos.CENTER_RIGHT);
 		buttonBar.getChildren().addAll(editBtn, addBtn);
-		midBox.getChildren().addAll(new Label("Shopping List"), buttonBar, scrollPane, statusBar, midBoxBottom);
+		midBox.getChildren().addAll(shoppingListLabel, buttonBar, scrollPane, statusBar, midBoxBottom);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
@@ -341,11 +360,15 @@ public class GenerateShoppingListScreen {
 				for (int i=0; i<shoppingList.size(); i++) {
 					if (inEditMode) {
 						CheckBox box = checkboxes[i] = new CheckBox(shoppingList.get(i));
+						box.setId("box");
+						box.getStylesheets().add("file:../Resources/css.css");
 						box.setSelected(true);
 						shoppingListBox.getChildren().add(checkboxes[i]);
 					}
 					else {
 						Label item = new Label(shoppingList.get(i));
+						item.setId("item");
+						item.getStylesheets().add("file:../Resources/css.css");
 						shoppingListBox.getChildren().add(item);
 					}
 				}
