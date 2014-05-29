@@ -120,11 +120,6 @@ public class IngredientsScreenTest {
 		/* Test if midBoxLeft contains List of Recipes */
 		assertTrue(midBoxLeft.getChildren().get(1) instanceof ListView);
 		
-		/* Test if the background of the listOfRecipes is Grey */
-		ListView<String> listOfRecipes = (ListView<String>) midBoxLeft.getChildren().get(1);
-		assertEquals("-fx-background: lightgrey;",listOfRecipes.getStyle());
-		
-		
 		/* Test if midBoxRight contains Recipe Information Label */
 		VBox midBoxRight = (VBox) midBox.getChildren().get(1);
 		assertTrue(midBoxRight.getChildren().get(0) instanceof Label);
@@ -149,7 +144,7 @@ public class IngredientsScreenTest {
 		
 		/* Test if the AuthorLabel is displaying the correct version */
 		Label versionLabel = (Label) recipeInfoBox.getChildren().get(1);
-		assertEquals("Version: 1.0",  versionLabel.getText());
+		assertEquals("Version: 1.1",  versionLabel.getText());
 		
 		/* Test if Recipe Information Box contains comment Label */
 		assertTrue(recipeInfoBox.getChildren().get(2) instanceof Label);

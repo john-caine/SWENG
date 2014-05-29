@@ -36,6 +36,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -62,15 +63,24 @@ public class LoadExternalRecipe {
         downloadBtn.setWrapText(true);
         Button fileBrowserBtn = new Button("Get Recipe from Local Directory");
         fileBrowserBtn.setWrapText(true);
+        
         Label httpLbl = new Label("http://");
+        httpLbl.setId("httpLbl");
+        httpLbl.getStylesheets().add("file:../Resources/css.css");
+        httpLbl.setAlignment(Pos.CENTER);
+        httpLbl.setTextAlignment(TextAlignment.CENTER);
+        
         final TextField httpField = new TextField();
         httpField.setPromptText("Enter Recipe File's URL");
+        httpField.setId("httpField");
+        httpField.getStylesheets().add("file:../Resources/css.css");
+        
         final Button getFromURLBtn = new Button("Get Recipe from URL");
         getFromURLBtn.setDisable(true);
         downloadBtn.setPrefSize(256, 228);
         fileBrowserBtn.setPrefSize(256, 228);
-        getFromURLBtn.setPrefSize(127, 25);
-        httpField.setPrefSize(319, 25);
+        getFromURLBtn.setPrefSize(150, 30);
+        httpField.setPrefSize(285, 30);
         
         //defining IDs in CSS
         downloadBtn.setId("urlBtn");
@@ -79,6 +89,16 @@ public class LoadExternalRecipe {
 		downloadBtn.getStylesheets().add("file:../Resources/css.css");
 		fileBrowserBtn.getStylesheets().add("file:../Resources/css.css");
 		getFromURLBtn.getStylesheets().add("file:../Resources/css.css");
+		
+		downloadBtn.setWrapText(true);
+		downloadBtn.setAlignment(Pos.CENTER);
+		downloadBtn.setTextAlignment(TextAlignment.CENTER);
+		fileBrowserBtn.setWrapText(true);
+		fileBrowserBtn.setAlignment(Pos.CENTER);
+		fileBrowserBtn.setTextAlignment(TextAlignment.CENTER);
+		getFromURLBtn.setWrapText(true);
+		getFromURLBtn.setAlignment(Pos.CENTER);
+		getFromURLBtn.setTextAlignment(TextAlignment.CENTER);
 		
         VBox loadExtBox = new VBox(20);
         HBox topBox = new HBox();
@@ -111,7 +131,7 @@ public class LoadExternalRecipe {
         
         // add everything to the dialog box
         loadExtBox.getChildren().addAll(topBox,midBox,bottomBox);
-        loadExtBox.setStyle("-fx-background-color: lightgrey");
+        loadExtBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/ingredients.jpg');");
         Scene dialogScene = new Scene(loadExtBox, 500, 300);
         dialog.setScene(dialogScene);
         dialog.show();

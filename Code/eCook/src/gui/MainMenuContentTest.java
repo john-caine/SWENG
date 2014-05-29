@@ -107,9 +107,9 @@ public class MainMenuContentTest {
 		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
 		
 		/* Test if bottomBox contains Load External Recipe Button */
-		assertTrue(bottomBox.getChildren().get(0) instanceof Button);
+		assertTrue(bottomBox.getChildren().get(3) instanceof Button);
 		
-		Button loadExtBtn = (Button) bottomBox.getChildren().get(0);
+		Button loadExtBtn = (Button) bottomBox.getChildren().get(3);
 		
 		/* Test for Load External Recipe Button's Text */
 		assertEquals(loadExtBtn.getText(), "Load External Recipe");
@@ -130,9 +130,9 @@ public class MainMenuContentTest {
 	public void bottomBoxGenearteShoppingListButtonTest(){
 		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Generate Shopping List Button */
-		assertTrue(bottomBox.getChildren().get(1) instanceof Button);
+		assertTrue(bottomBox.getChildren().get(2) instanceof Button);
 		
-		Button generateListBtn = (Button) bottomBox.getChildren().get(1);
+		Button generateListBtn = (Button) bottomBox.getChildren().get(2);
 		
 		/* Test for Load External Recipe Button's Text */
 		assertEquals("Generate Shopping List", generateListBtn.getText());
@@ -150,9 +150,9 @@ public class MainMenuContentTest {
 	public void bottomBoxIngredientPickerButtonTest(){
 		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Ingredient Picker Button */
-		assertTrue(bottomBox.getChildren().get(2) instanceof Button);
+		assertTrue(bottomBox.getChildren().get(1) instanceof Button);
 		
-		Button ingredientsPickBtn = (Button) bottomBox.getChildren().get(2);
+		Button ingredientsPickBtn = (Button) bottomBox.getChildren().get(1);
 		
 		/* Test for Load External Recipe Button's Text */
 		assertEquals("Ingredient Picker", ingredientsPickBtn.getText());
@@ -168,9 +168,9 @@ public class MainMenuContentTest {
 	public void bottomBoxRecipesButtonTest(){
 		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Recipe Button */
-		assertTrue(bottomBox.getChildren().get(3) instanceof Button);
+		assertTrue(bottomBox.getChildren().get(0) instanceof Button);
 		
-		Button recipesBtn = (Button) bottomBox.getChildren().get(3);
+		Button recipesBtn = (Button) bottomBox.getChildren().get(0);
 		
 		/* Test for Load External Recipe Button's Text */
 		assertEquals("Recipes", recipesBtn.getText());

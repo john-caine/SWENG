@@ -204,15 +204,12 @@ public class RecipeScreen {
 		bigBox.getChildren().addAll(topBox,horizontalBox);	
 				
 		Button playSlideBtn = new Button("Play");
-<<<<<<< HEAD
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
 		//Set tool tip
 		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
-=======
 		playSlideBtn.setId("playSlideBtn");
 		playSlideBtn.getStylesheets().add("file:../Resources/css.css");
 		playSlideBtn.setPrefSize(120, 50);
->>>>>>> 729908f12cd7d74cbcef42d3045022735e402f94
 		// define the start slideshow button method
 		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -224,7 +221,7 @@ public class RecipeScreen {
 			
 		});
 		
-		Label recipesLabel = new Label("Recipe Playlist:");
+		Label recipesLabel = new Label("Recipe Playlist");
 		recipesLabel.setId("recipesLabel");
 		recipesLabel.getStylesheets().add("file:../Resources/css.css");
 		
