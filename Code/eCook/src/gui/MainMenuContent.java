@@ -20,6 +20,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -39,7 +40,9 @@ public class MainMenuContent {
 	private HBox bottomBox;
 	private InputStream inputStream;
 	private ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	private Image homeIcon, logoIcon, closeIcon, minimiseIcon;	
+	Image homeIcon;
+	private Image logoIcon, closeIcon, minimiseIcon;	
+	private Tooltip h,c,m;
 	public VBox bigBox;
 	protected Stage dialog;
 	
@@ -50,7 +53,7 @@ public class MainMenuContent {
 		height = screenBounds.getHeight();
 		
 		
-		//Imports eCook logo, home, close and minimise button icons
+		//Imports eCook logo, home, close and minimise button icons and set tootips
 		logoholder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/eCookLogo1.png");
@@ -78,7 +81,6 @@ public class MainMenuContent {
 		} 
 		closeIcon = new Image(inputStream);
 		
-		
 		minimiseBtnHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/minimise.png");
@@ -88,6 +90,13 @@ public class MainMenuContent {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);
 		
 		
 		//Sets the event to happen when the close icon is clicked
@@ -167,7 +176,6 @@ public class MainMenuContent {
 		Button ingredientsPickBtn = new Button("Ingredient Picker");
 		Button recipesBtn= new Button("Recipes");
 		
-		
 		//Defining the CSS Identifiers
 		loadExtBtn.setId("loadExtBtn");
 		generateListBtn.setId("generateListBtn");
@@ -185,11 +193,17 @@ public class MainMenuContent {
 		generateListBtn.getStylesheets().add("file:../Resources/css.css");
 		ingredientsPickBtn.getStylesheets().add("file:../Resources/css.css");
 		recipesBtn.getStylesheets().add("file:../Resources/css.css");
+
+		//Set tool tip
+		loadExtBtn.setTooltip(new Tooltip("Click here to load external recipes form the internet or locally"));
+		generateListBtn.setTooltip(new Tooltip("Click here to make shopping list from ingredients chosen"));
+		ingredientsPickBtn.setTooltip(new Tooltip("Click here to choose ingredients from list of recipes"));
+		recipesBtn.setTooltip(new Tooltip("Click here to choose from a list of recipes"));
 		
-		bottomBox.getChildren().add(loadExtBtn);
-		bottomBox.getChildren().add(generateListBtn);
-		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(recipesBtn);
+		bottomBox.getChildren().add(ingredientsPickBtn);
+		bottomBox.getChildren().add(generateListBtn);
+		bottomBox.getChildren().add(loadExtBtn);		
 		
 		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
 
@@ -199,7 +213,7 @@ public class MainMenuContent {
 		 fadeTransition.setToValue(1.0);
 		 fadeTransition.play();
 		 
-		
+				 
 		 //BUTTON ACTIONS
 		 //Making the Load External Recipe button make a new window that takes the focus off the main stage
 		 //When any of the options are chosen, the new window closes

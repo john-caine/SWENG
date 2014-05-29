@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +43,7 @@ public class RecipeScreen {
 	private Image homeIcon, closeIcon, minimiseIcon;	
 	private HBox topBox, topBoxLeft, topBoxRight;
 	private VBox recipeInfoBox;
+	private Tooltip h,c,m;
 	protected VBox bigBox;
 	
 	
@@ -68,7 +70,6 @@ public class RecipeScreen {
 		} 
 		closeIcon = new Image(inputStream);
 		
-		
 		minimiseBtnHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/minimise.png");
@@ -78,6 +79,13 @@ public class RecipeScreen {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);
 		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
@@ -197,6 +205,8 @@ public class RecipeScreen {
 				
 		Button playSlideBtn = new Button("Play");
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		//Set tool tip
+		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 		// define the start slideshow button method
 		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
