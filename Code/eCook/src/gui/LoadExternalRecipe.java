@@ -16,7 +16,6 @@ import java.nio.file.StandardCopyOption;
 
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
-import errorhandler.ErrorHandler;
 import filebrowser.FileHandler;
 import xmlValidation.XMLValidator;
 import xmlparser.Recipe;
@@ -87,13 +86,10 @@ public class LoadExternalRecipe {
         fileBrowserBtn.setPrefSize(256, 228);
         getFromURLBtn.setPrefSize(150, 30);
         httpField.setPrefSize(285, 30);
-<<<<<<< HEAD
         
         // set up the status bar
         statusBar = new Label();
         statusBar.setPadding(new Insets(10,200,0,0));
-=======
->>>>>>> FETCH_HEAD
         
         //defining IDs in CSS
         downloadBtn.setId("urlBtn");

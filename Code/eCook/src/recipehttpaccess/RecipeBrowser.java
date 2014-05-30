@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -42,15 +41,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import xmlValidation.XMLValidator;
-=======
-import javafx.util.Duration;
->>>>>>> FETCH_HEAD
-=======
-import javafx.util.Duration;
->>>>>>> FETCH_HEAD
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import eCook.RecipeCollection;
@@ -62,15 +53,8 @@ public class RecipeBrowser extends Application {
 	Button downloadButton;
 	Scene scene;
 	RecipeCollection recipeCollection;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Label statusBar;
-=======
 	private Label downloadLabel;
->>>>>>> FETCH_HEAD
-=======
-	private Label downloadLabel;
->>>>>>> FETCH_HEAD
 	
 	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show, Label report) {
 		this.recipeCollection = recipeCollection;
@@ -232,36 +216,17 @@ public class RecipeBrowser extends Application {
             			e.printStackTrace();
             		}
             	}
-<<<<<<< HEAD
-<<<<<<< HEAD
             	border.setTop(null);
             	border.setBottom(null);
             	Label downloadLabel = new Label();
             	if (downloaded && selectedFilesList.size() == 1) {
-=======
-=======
->>>>>>> FETCH_HEAD
-//            	border.setTop(null);
-//            	border.setBottom(null);
-
-            	if (selectedFilesList.size() == 1) {
->>>>>>> FETCH_HEAD
             		downloadLabel.setText("Recipe Downloaded");
             	}
             	else if (downloaded) {
             		downloadLabel.setText(selectedFilesList.size() + " Recipes Downloaded");
             	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-            	
-=======
             	BorderPane.setAlignment(downloadLabel, Pos.BOTTOM_CENTER);
             	border.setBottom(downloadLabel);
->>>>>>> FETCH_HEAD
-=======
-            	BorderPane.setAlignment(downloadLabel, Pos.BOTTOM_CENTER);
-            	border.setBottom(downloadLabel);
->>>>>>> FETCH_HEAD
             	// close the window and return to the main menu
             	if (downloaded) {
             		border.setCenter(downloadLabel);
