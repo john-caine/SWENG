@@ -55,8 +55,8 @@ import javafx.util.Duration;
 public abstract class MediaControl {
 	
 	public MediaPlayer mp;
-    private boolean stopRequested = false;
-    private boolean atEndOfMedia = false;
+    public boolean stopRequested = false;
+    public boolean atEndOfMedia = false;
     private Duration duration;
     private Slider timeSlider, timeSliderFS;
     protected Label playTime, playTimeFS;
@@ -70,7 +70,7 @@ public abstract class MediaControl {
 	private Rectangle2D bounds;
 	public MediaView mediaView;
 	private HBox fullscreenMediaBar;
-	private Button playButton, playButtonFS;
+	public Button playButton, playButtonFS;
 	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private final Integer playDuration;
@@ -79,6 +79,8 @@ public abstract class MediaControl {
 	protected boolean continuePlaying = true;
 	private Timeline timeLineStart;
 	private Animation.Status stopped = Animation.Status.STOPPED;
+	private Status status;
+	public Button stopButton;
 	
 	/* 
 	 * Constructor for the MediaControl class. Accepts optional parameters from PWS.
@@ -464,7 +466,7 @@ public abstract class MediaControl {
 	 */
 	void setStopButton() {
 		// Create a stop button
-		Button stopButton = new Button();
+		stopButton = new Button();
         stopButton.setGraphic(new ImageView(stopImage));
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -498,7 +500,7 @@ public abstract class MediaControl {
 	        // ActionHandler for play button.
 	        public void handle(ActionEvent e) {
 	            updateValues();
-	            Status status = mp.getStatus();
+	            status = mp.getStatus();
 	
 	            // Check for bad status's.
 	            if (status == Status.UNKNOWN || status == Status.HALTED) {
@@ -534,7 +536,7 @@ public abstract class MediaControl {
         	// ActionHandler for play button in fullscreen mode.
             public void handle(ActionEvent e) {
                 updateValues();
-                Status status = mp.getStatus();
+                status = mp.getStatus();
                 
                 // Check for bad status's
                 if (status == Status.UNKNOWN || status == Status.HALTED) {
@@ -588,7 +590,7 @@ public abstract class MediaControl {
         
         // Media is paused so set appropiate playButton image
         mp.setOnPaused(new Runnable() {
-
+        	
             public void run() {
             	// Set the play image for the "play" button
             	playButton.setGraphic(new ImageView(playImage));

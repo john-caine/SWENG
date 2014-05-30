@@ -27,7 +27,7 @@ public class VideoPlayerMainTest {
 	}
 	
 	@Test
-	public void VideoPlayerHandlerTests() throws InterruptedException{
+	public void videoPlayerHandlerTest() throws InterruptedException{
 		
 		/* VideoPlayer's X and Y Location (setMediaPlayerLocation Method)*/
 		assertEquals(300, videoPlayerHandler.mediaControl.overallBox.getLayoutX(), 0.01);

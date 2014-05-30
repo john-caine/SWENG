@@ -1,7 +1,7 @@
 package recipehttpaccess;
 /* Title: RecipeBrowser
  * 
- * Programmers: Max, Ankita
+ * Programmers: Max, Ankita & Roger Tan
  * 
  * Date Created: 20/03/14
  * 
@@ -40,7 +40,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import xmlValidation.XMLValidator;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
@@ -156,6 +158,7 @@ public class RecipeBrowser extends Application {
         StackPane root = new StackPane();
         scene = new Scene(root, 600, 500);
         root.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/cup.jpg');");
+		
         primaryStage.setTitle("Recipe Browser");
         primaryStage.setScene(scene);
         primaryStage.show();

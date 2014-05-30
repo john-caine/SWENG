@@ -1,6 +1,6 @@
 /* Title: IngredientsList
  * 
- * Programmers: Max, Ankita
+ * Programmers: Max, Ankita & Roger Tan
  * 
  * Date Created: 15/04/14
  * 

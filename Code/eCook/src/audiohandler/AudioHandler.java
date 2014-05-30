@@ -8,7 +8,6 @@
 
 package audiohandler;
 
-import java.io.File;
 import eCook.SlideShow;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -17,7 +16,7 @@ import javafx.scene.media.MediaPlayer;
 public class AudioHandler {
 	
 	public AudioMediaControl mediaControl;
-	private Media media;
+	protected Media media;
 	protected MediaPlayer mediaPlayer;
 	
 	public AudioHandler(SlideShow parent, String pathLocation, Integer startTime, Integer duration, Boolean loop){
@@ -29,12 +28,6 @@ public class AudioHandler {
         mediaControl = new AudioMediaControl(mediaPlayer, null /*height*/, null /*width*/, loop, startTime, duration);
         setMediaPlayerLocation(mediaControl.overallBox, 100, 100);
 	}
-	
-	public String retrieveImage(String videoLocationPath) {	
-		File file = new File(videoLocationPath);
-		String path  = file.toURI().toASCIIString();
-		return path;
-    }
 	
 	private void setMediaPlayerLocation(VBox vbox, int xLocation, int yLocation){
 		vbox.setLayoutX(xLocation);

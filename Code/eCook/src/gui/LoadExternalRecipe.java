@@ -156,8 +156,14 @@ public class LoadExternalRecipe {
 			public void handle(ActionEvent event) {
 				stage.setOpacity(0.85);
 				Stage popup = new Stage();
-				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 				popup.centerOnScreen();
+				popup.initOwner(dialog); 
+				//Sets at forefront of screen and sets focus on this stage
+				popup.initModality(Modality.APPLICATION_MODAL);
+		        
+		        //Removes windows' UI close and minimise buttons
+				//popup.initStyle(StageStyle.UNDECORATED);
+				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 			}
 		});
 		

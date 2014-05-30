@@ -9,62 +9,69 @@ package audiohandler;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
+import javafx.geometry.Rectangle2D;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.stage.Screen;
+
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import xmlparser.Audio;
+import xmlparser.XMLReader;
 import eCook.SlideShow;
 
 
 public class AudioHandlerTest {
-	AudioMediaControl mediaControl;
-	AudioHandler audio;
+	private AudioHandler audioHandler;
+	private XMLReader reader;
 	private SlideShow parent;
+	private List<Audio> audioList;
+	private double width, height;
+	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
+	//Read XML playlist and create a new audioHandler object based on the first audio found
 	@Before
-	public void setup(){
-		//play audio for 2 seconds after 1 second has passed
-		//audioHandler = new AudioHandler(parent,"../Resources/prometheus-featureukFhp.mp4", 1,3, false);
-		audio = new AudioHandler(parent, "../Resources/prometheus-featureukFhp.mp4", 1,3, false);
+	public void setUp() throws Exception {
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		audioList = reader.getRecipe().getSlide(2).getContent().getAudios();
+		audioHandler = new AudioHandler(parent, audioList.get(0).getUrlName(), audioList.get(0).getStartTime(), 
+				audioList.get(0).getDuration(), audioList.get(0).getLoop());
+		/* Expected width and height of the AudioHandler when width and height of the handler is set to null */
+		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+		width = (int) (bounds.getWidth()/2);
+		height = (int) (bounds.getHeight()/3);
 	}
-
-
-	  @AfterClass
-	  public static void testCleanup() {
-	    // Teardown for data used by the unit tests
-	  }
-
-	 
+	
 	@Test
-	public void testStartTime() throws InterruptedException{
-		//wait 0 seconds, audio should not have started yet
-		assertTrue(audio.mediaPlayer.isAutoPlay());
+	public void audioHandlerTests() throws InterruptedException{
 		
-	}
-	
-	@Test
-	public void testAudioIsPlaying() throws InterruptedException{
-		//wait 1.2 seconds, audio should have started
-		assertFalse(audio.mediaPlayer.isAutoPlay());
-	}
-	
-	@Test
-	public void testDuration() throws InterruptedException{
-		//wait 3.2 seconds, audio should have finished. This also tests if loop is off.
-		assertFalse(audio.mediaPlayer.isAutoPlay());
+		/* VideoPlayer's X and Y Location (setMediaPlayerLocation Method)*/
+		assertEquals(100, audioHandler.mediaControl.overallBox.getLayoutX(), 0.01);
+		assertEquals(100, audioHandler.mediaControl.overallBox.getLayoutY(), 0.01);
 		
+		/* set Media to be the provided Path */
+		assertEquals("http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3",
+				audioHandler.media.getSource());
+		
+		/* VideoPlayer's Width and Height */
+		assertEquals(width, audioHandler.mediaControl.overallBox.getMaxWidth(), 0.01);
+		assertEquals(height, audioHandler.mediaControl.overallBox.getMaxHeight(), 0.01);
+		
+		/* VideoPlayer's MediaView and Control Panel are visible */
+		assertTrue(audioHandler.mediaControl.mediaView.isVisible());
+		assertTrue(audioHandler.mediaControl.mediaBar.isVisible());
 	}
 	
 	@Test
-	public void testUrlName() throws InterruptedException{
-		// audio is not playing at from 0 start time
-		assertFalse(audio.mediaPlayer.isAutoPlay());
+	public void audioHandlerStopTest() throws InterruptedException{
+		audioHandler.mediaControl.stopButton.fire();
+		assertTrue(audioHandler.mediaControl.atEndOfMedia);
 	}
-
-    @Test
-    public void testloop() throws InterruptedException {
-	    // turn the loop on and test if audio is playing after startTime+duration has ended
-	    equals(audio.mediaPlayer.cycleCountProperty());
 	
-}
+	
+	
 }
