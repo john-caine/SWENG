@@ -15,7 +15,7 @@
 		<linecolor>#00FF00</linecolor>
 		<fillcolor>#FF0000</fillcolor> 
 	</defaults>
-	<slide ID="sample1(text)" duration="60" lastSlide="false">
+	<slide id="sample1(text)" duration="60" lastSlide="false">
 		<text>
 			<xstart>10</xstart> 
 			<ystart>10</ystart> 
@@ -51,7 +51,7 @@
 			<textbody><b>This text should be bold</b>%n<i>This text should be italics</i>%n<u>This text should be underlined</u></textbody>
 		</text>
 	</slide>
-	<slide ID="sample2(shapes)" duration="30" lastSlide="false">
+	<slide id="sample2(shapes)" duration="30" lastSlide="false">
 		<shape totalpoints="4" width="15" height="15">
 			<point num="1" x="10" y="10"/>
 			<point num="2" x="25" y="10"/>
@@ -66,7 +66,7 @@
 			<point num="2" x="250" y="250"/>
 		</shape>
 	</slide>
-	<slide ID="sample3(audio)" duration="90" lastSlide="false">
+	<slide id="sample3(audio)" duration="90" lastSlide="false">
 		<audio>
 			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3</urlname>
 			<starttime>5</starttime>
@@ -78,7 +78,7 @@
 			<loop>false</loop>
 		</audio>
 	</slide>
-	<slide ID="sample4(image)" duration="40" lastSlide="false">
+	<slide id="sample4(image)" duration="40" lastSlide="false">
 		<image>
 			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
 			<xstart>10</xstart>
@@ -100,7 +100,7 @@
 			<layer>3</layer>
 		</image>
 	</slide>
-	<slide ID="sample5(video)" duration="200" lastSlide="false">
+	<slide id="sample5(video)" duration="200" lastSlide="false">
 		<video>
 			<urlname>http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4</urlname>
 			<xstart>10</xstart>

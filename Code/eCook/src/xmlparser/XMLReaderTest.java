@@ -119,7 +119,7 @@ public class XMLReaderTest {
 	@Test
 	public void firstSlideReadCorrectly() {
 		// print slide information
-		System.out.println("Slide 1 ID: " + recipe.slides.get(0).ID);
+		System.out.println("Slide 1 id: " + recipe.slides.get(0).id);
 		System.out.println("Slide 1 Duration: " + recipe.slides.get(0).duration);
 		System.out.println("Is Slide 1 the last slide? " + recipe.slides.get(0).lastSlide);
 		
@@ -154,7 +154,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 1
-		assertEquals(0, recipe.slides.get(0).ID);
+		assertEquals((Integer)0, recipe.slides.get(0).id);
 		assertEquals(10, recipe.slides.get(0).duration.intValue());
 		assertFalse(recipe.slides.get(0).lastSlide);
 			// text 1
@@ -215,7 +215,7 @@ public class XMLReaderTest {
 	@Test
 	public void secondSlideReadCorrectly() {		
 		// print slide information
-		System.out.println("Slide 2 ID: " + recipe.slides.get(1).ID);
+		System.out.println("Slide 2 id: " + recipe.slides.get(1).id);
 		System.out.println("Slide 2 Duration: " + recipe.slides.get(1).duration);
 		System.out.println("Is Slide 2 the last slide? " + recipe.slides.get(1).lastSlide);
 		
@@ -241,7 +241,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 2
-		assertEquals(1, recipe.slides.get(1).ID);
+		assertEquals((Integer)1, recipe.slides.get(1).id);
 		assertEquals(30, recipe.slides.get(1).duration.intValue());
 		assertFalse(recipe.slides.get(1).lastSlide);
 			// shape 1
@@ -296,7 +296,7 @@ public class XMLReaderTest {
 	@Test
 	public void thirdSlideReadCorrectly() {
 		// print slide information
-		System.out.println("Slide 3 ID: " + recipe.slides.get(2).ID);
+		System.out.println("Slide 3 id: " + recipe.slides.get(2).id);
 		System.out.println("Slide 3 Duration: " + recipe.slides.get(2).duration);
 		System.out.println("Is Slide 3 the last slide? " + recipe.slides.get(2).lastSlide);
 		
@@ -310,7 +310,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 3
-		assertEquals(2, recipe.slides.get(2).ID);
+		assertEquals((Integer)2, recipe.slides.get(2).id);
 		assertEquals(90, recipe.slides.get(2).duration.intValue());
 		assertFalse(recipe.slides.get(2).lastSlide);
 			// audio 1
@@ -330,7 +330,7 @@ public class XMLReaderTest {
 	@Test
 	public void fourthSlideReadCorrectly() {
 		// print slide information
-		System.out.println("Slide 4 ID: " + recipe.slides.get(3).ID);
+		System.out.println("Slide 4 id: " + recipe.slides.get(3).id);
 		System.out.println("Slide 4 Duration: " + recipe.slides.get(3).duration);
 		System.out.println("Is Slide 4 the last slide? " + recipe.slides.get(3).lastSlide);
 		
@@ -348,7 +348,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 4
-		assertEquals(3, recipe.slides.get(3).ID);
+		assertEquals((Integer)3, recipe.slides.get(3).id);
 		assertEquals(40, recipe.slides.get(3).duration.intValue());
 		assertFalse(recipe.slides.get(3).lastSlide);
 			// image 1
@@ -375,7 +375,7 @@ public class XMLReaderTest {
 	@Test
 	public void lastSlideReadCorrectly() {
 		// print slide information
-		System.out.println("Slide 5 ID: " + recipe.slides.get(recipe.getNumberOfSlides()-1).ID);
+		System.out.println("Slide 5 id: " + recipe.slides.get(recipe.getNumberOfSlides()-1).id);
 		System.out.println("Slide 5 Duration: " + recipe.slides.get(recipe.getNumberOfSlides()-1).duration);
 		System.out.println("Is Slide 5 the last slide? " + recipe.slides.get(recipe.getNumberOfSlides()-1).lastSlide);
 		
@@ -393,7 +393,7 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 5
-		assertEquals(4, recipe.slides.get(recipe.getNumberOfSlides()-1).ID);
+		assertEquals((Integer)4, recipe.slides.get(recipe.getNumberOfSlides()-1).id);
 		assertEquals(200, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
 			// video 1
 			assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());

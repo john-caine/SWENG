@@ -177,7 +177,7 @@ public class XMLReader extends DefaultHandler {
 		// set recipe element flags
 		else if (elementName.equals("slide")) {
 			slide = new Slide();
-			slide.setID(attributes.getValue("ID"));
+			slide.setID(attributes.getValue("id"));
 			if (attributes.getValue("duration") != null) {
 				slide.setDuration(attributes.getValue("duration"));	
 			}

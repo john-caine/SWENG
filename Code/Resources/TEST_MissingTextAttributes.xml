@@ -24,7 +24,7 @@
 		<ingredient name="granulated sugar" amount="0.5" units="teaspoon" />
 		<ingredient name="beef stock" amount="2" units="pints" />
 	</ingredients>
-	<slide ID="0" duration="10" lastSlide="false">
+	<slide id="0" duration="10" lastSlide="false">
 		<text xstart="10" ystart="10" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="true" bold="true" italic="true">
         <textstring>This is a test of required attributes</textstring>
@@ -52,7 +52,7 @@
       </textbody>
     </text>
 	</slide>
-	<slide ID="1" duration="30" lastSlide="false">
+	<slide id="1" duration="30" lastSlide="false">
 		<shape totalpoints="4" width="15" height="15">
 			<point num="1" x="10" y="10"/>
 			<point num="2" x="25" y="10"/>
@@ -67,7 +67,7 @@
 			<point num="2" x="250" y="250"/>
 		</shape>
 	</slide>
-	<slide ID="2" duration="90" lastSlide="false">
+	<slide id="2" duration="90" lastSlide="false">
 		<audio>
 			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3</urlname>
 			<starttime>5</starttime>
@@ -80,7 +80,7 @@
 			<loop>false</loop>
 		</audio>
 	</slide>
-	<slide ID="3" duration="40" lastSlide="false">
+	<slide id="3" duration="40" lastSlide="false">
 		<image>
 			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
 			<xstart>10</xstart>
@@ -104,7 +104,7 @@
 			<layer>3</layer>
 		</image>
 	</slide>
-	<slide ID="4" lastSlide="true">
+	<slide id="4" lastSlide="true">
 		<video>
 			<urlname>http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4</urlname>
 			<xstart>10</xstart>
@@ -122,14 +122,14 @@
 			<starttime>15</starttime>
 		</video>		
 	</slide>
-<slide ID="5" lastSlide="false">
+<slide id="5" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100"> 
 			<textbody>
         <textstring>This is the branch slide for the text object</textstring>
       </textbody>
     </text>
 	</slide>
-  <slide ID="6" lastSlide="false">
+  <slide id="6" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100"> 
 			<textbody>
         <textstring>This is the branch slide for the image object</textstring>

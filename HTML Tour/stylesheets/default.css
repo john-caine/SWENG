@@ -114,9 +114,9 @@ h6 {
 p {
 	color: #000;
 	font-family: Courier, serif;
-	font-size: 1em;
-	line-height: 1.5em;
+	font-size: 1.2em;
 	text-align: left;
+    margin: 0.2em;
 }
 ul {
 	list-style: disc;
@@ -334,6 +334,10 @@ nav ul li a.selected:hover {
 	padding-top: 40px;
 	background: url(../images/body_bg.png) repeat;
 }
+.colMiddle {
+    width: 900px;
+    padding-left: 30px;
+ }
 .colLeft {
 	float: left;
 	width: 450px;

@@ -15,7 +15,7 @@ package xmlparser;
  */
 
 public class Slide {
-	int ID;
+	Integer id;
 	Integer duration = 0;
 	Boolean lastSlide = false;
 	Content content;
@@ -24,8 +24,8 @@ public class Slide {
 	}
 
 	// getters
-	public int getID() {
-		return ID;
+	public Integer getID() {
+		return id;
 	}
 
 	public Integer getDuration() {
@@ -37,9 +37,9 @@ public class Slide {
 	}
 	
 	// setters
-	public void setID(Object ID) {
-		if (ID != null) {
-			this.ID = Integer.valueOf((String) ID);
+	public void setID(Object id) {
+		if (id != null) {
+			this.id = Integer.valueOf((String) id);
 		}
 	}
 	

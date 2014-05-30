@@ -53,43 +53,51 @@ public class XMLValidator {
 	private Boolean missingElementAttributes(XMLReader reader) {
 		// Loop through slides determining missing element attributes within them
 		for (int i = 0; (i < reader.getRecipe().getNumberOfSlides()) && !broken; i++) {
-			// Check slide i text attributes
-			for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getTexts().size()) && !broken; j++) {
-				if (reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getXStart() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getYStart() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getXEnd() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getYEnd() == null) {
-					broken = true;
-					errorMsg = "Error: Missing text attributes from slide " + i + ".";
-				}
+			// Check that all slide IDs have been set
+			if (reader.getRecipe().getSlide(i).getID() == null) {
+				broken = true;
+				errorMsg = "Error: Missing ID for slide " + i + ".";
 			}
+			// Check slide i text attributes
 			if (!broken) {
-				// Check slide i shape attributes
-				for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getShapes().size()) && !broken; j++) {
-					if (reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getTotalPoints() == null || reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getWidth() == null || reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getHeight() == null) {
+				// Check slide i text attributes
+				for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getTexts().size()) && !broken; j++) {
+					if (reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getXStart() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getYStart() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getXEnd() == null || reader.getRecipe().getSlide(i).getContent().getTexts().get(j).getYEnd() == null) {
 						broken = true;
-						errorMsg = "Error: Missing shape attributes from slide " + i + ".";
+						errorMsg = "Error: Missing text attributes from slide " + i + ".";
 					}
 				}
 				if (!broken) {
-					// Check slide i audio attributes
-					for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getAudios().size()) && !broken; j++) {
-						if (reader.getRecipe().getSlide(i).getContent().getAudios().get(j).getUrlName() == null) {
+					// Check slide i shape attributes
+					for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getShapes().size()) && !broken; j++) {
+						if (reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getTotalPoints() == null || reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getWidth() == null || reader.getRecipe().getSlide(i).getContent().getShapes().get(j).getHeight() == null) {
 							broken = true;
-							errorMsg = "Error: Missing audio attributes from slide " + i + ".";
+							errorMsg = "Error: Missing shape attributes from slide " + i + ".";
 						}
 					}
 					if (!broken) {
-						// Check slide i image attributes
-						for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getImages().size()) && !broken; j++) {
-							if (reader.getRecipe().getSlide(i).getContent().getImages().get(j).getUrlName() == null || reader.getRecipe().getSlide(i).getContent().getImages().get(j).getXStart() == null || reader.getRecipe().getSlide(i).getContent().getImages().get(j).getYStart() == null) {
+						// Check slide i audio attributes
+						for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getAudios().size()) && !broken; j++) {
+							if (reader.getRecipe().getSlide(i).getContent().getAudios().get(j).getUrlName() == null) {
 								broken = true;
-								errorMsg = "Error: Missing image attributes from slide " + i + ".";
+								errorMsg = "Error: Missing audio attributes from slide " + i + ".";
 							}
 						}
 						if (!broken) {
-							// Check slide i video attributes
-							for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getVideos().size()) && !broken; j++) {
-								if (reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getUrlName() == null || reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getYStart() == null || reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getXStart() == null) {
+							// Check slide i image attributes
+							for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getImages().size()) && !broken; j++) {
+								if (reader.getRecipe().getSlide(i).getContent().getImages().get(j).getUrlName() == null || reader.getRecipe().getSlide(i).getContent().getImages().get(j).getXStart() == null || reader.getRecipe().getSlide(i).getContent().getImages().get(j).getYStart() == null) {
 									broken = true;
-									errorMsg = "Error: Missing video attributes from slide " + i + ".";
+									errorMsg = "Error: Missing image attributes from slide " + i + ".";
+								}
+							}
+							if (!broken) {
+								// Check slide i video attributes
+								for (int j = 0; (j < reader.getRecipe().getSlide(i).getContent().getVideos().size()) && !broken; j++) {
+									if (reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getUrlName() == null || reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getYStart() == null || reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getXStart() == null) {
+										broken = true;
+										errorMsg = "Error: Missing video attributes from slide " + i + ".";
+									}
 								}
 							}
 						}
