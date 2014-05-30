@@ -29,7 +29,7 @@ public class XMLReaderTest {
 	// create instances of the XML reader and recipe
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		recipe = reader.getRecipe();
 	}
 	
