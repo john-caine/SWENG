@@ -184,11 +184,12 @@ public class IngredientsScreen {
 		// set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
 			listOfRecipes.getSelectionModel().select(0);
+			if (recipeCollection.getRecipe(0) != null) {
+				updateInfoLabels(recipeCollection.getRecipe(0));
+				updateIngredientsList(recipeCollection.getRecipe(0));
+			}
 		}
-		if (recipeCollection.getRecipe(0) != null) {
-			updateInfoLabels(recipeCollection.getRecipe(0));
-			updateIngredientsList(recipeCollection.getRecipe(0));
-		}
+		
 		else {
 			updateInfoLabels(null);
 		}

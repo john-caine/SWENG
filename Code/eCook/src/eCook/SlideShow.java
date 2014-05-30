@@ -74,6 +74,8 @@ public class SlideShow {
 	private XMLValidator validator;
 	String backGroundColor;
 	boolean endPageReached = false;
+	boolean controlPanelShowing = false;
+	boolean notesPanelShowing = false;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
