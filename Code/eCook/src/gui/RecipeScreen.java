@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai  & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan & Ankita Gangotra
  * Date Created: 05/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +43,7 @@ public class RecipeScreen {
 	private Image homeIcon, closeIcon, minimiseIcon;	
 	private HBox topBox, topBoxLeft, topBoxRight;
 	private VBox recipeInfoBox;
+	private Tooltip h,c,m;
 	protected VBox bigBox;
 	
 	
@@ -68,7 +70,6 @@ public class RecipeScreen {
 		} 
 		closeIcon = new Image(inputStream);
 		
-		
 		minimiseBtnHolder = new ImageView();
 		try {
 			inputStream = new FileInputStream("../Resources/minimise.png");
@@ -78,6 +79,13 @@ public class RecipeScreen {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);
 		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
@@ -150,7 +158,7 @@ public class RecipeScreen {
 		
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
-		listOfRecipes.setStyle("-fx-background: lightgrey;");
+		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
 		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.5);
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -197,6 +205,14 @@ public class RecipeScreen {
 				
 		Button playSlideBtn = new Button("Play");
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		
+		//Set tool tip
+		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
+		
+		playSlideBtn.setId("playSlideBtn");
+		playSlideBtn.getStylesheets().add("file:../Resources/css.css");
+		playSlideBtn.setPrefSize(120, 50);
+		
 		// define the start slideshow button method
 		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -207,8 +223,13 @@ public class RecipeScreen {
 			}
 			
 		});
+		
+		Label recipesLabel = new Label("Recipe Playlist");
+		recipesLabel.setId("recipesLabel");
+		recipesLabel.getStylesheets().add("file:../Resources/css.css");
+		
 		midBox.setAlignment(Pos.CENTER);
-		midBox.getChildren().addAll(listOfRecipes, recipeInfoBox, playSlideBtn);
+		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox, playSlideBtn);
 	}
 	
 	// method to update labels in the recipe info box
@@ -226,6 +247,16 @@ public class RecipeScreen {
 		Label authorLabel = new Label("Author: " + author);
 		Label versionLabel = new Label("Version: " + version);
 		Label commentLabel = new Label("Comment: " + comment);
+		
+		authorLabel.setWrapText(true);
+		authorLabel.setId("authorLabel");
+		authorLabel.getStylesheets().add("file:../Resources/css.css");
+		versionLabel.setWrapText(true);
+		versionLabel.setId("versionLabel");
+		versionLabel.getStylesheets().add("file:../Resources/css.css");
+		commentLabel.setWrapText(true);
+		commentLabel.setId("commentLabel");
+		commentLabel.getStylesheets().add("file:../Resources/css.css");
 		
 		// remove old labels
 		recipeInfoBox.getChildren().clear();

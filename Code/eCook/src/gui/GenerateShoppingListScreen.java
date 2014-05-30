@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
  * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -53,6 +54,7 @@ public class GenerateShoppingListScreen {
 	private CheckBox[] checkboxes;
 	private TextField newItem;
 	private boolean inEditMode = false;
+	private Tooltip h,c,m;
 	protected VBox bigBox;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
@@ -87,6 +89,13 @@ public class GenerateShoppingListScreen {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);	
 		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
@@ -197,14 +206,20 @@ public class GenerateShoppingListScreen {
 		});
 
 		//Buttons for saving and printing the shopping list
-		saveBtn = new Button("Save as PDF");
 		printBtn = new Button("Print");
+		saveBtn = new Button("Save as PDF");
 		editBtn = new Button("Edit List");
 		addBtn = new Button("Add Item");
 		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
 		printBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
 		editBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
 		addBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		
+		//Tool tips for buttons
+		saveBtn.setTooltip(new Tooltip("Click here to save your shopping list as PDF"));
+		printBtn.setTooltip(new Tooltip("Click here to view your shopping list"));
+		editBtn.setTooltip(new Tooltip("Click here to edit your shopping list"));
+		addBtn.setTooltip(new Tooltip("Click here to add extra items to your shopping list"));
 		
 		saveBtn.setWrapText(true);
 		printBtn.setWrapText(true);

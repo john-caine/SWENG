@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai  & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
  * Date Created: 06/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -12,11 +12,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import shoppingList.IngredientsList;
-
 import xmlparser.Recipe;
-
 import eCook.RecipeCollection;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,11 +41,14 @@ public class IngredientsScreen {
 	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
 	private Image homeIcon, closeIcon, minimiseIcon;
 	private VBox ingredientsList;
+	private Tooltip h,c,m;
 	protected VBox bigBox;
+	protected double height, width;
 	
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection){
 		this.bigBox = bigBox;
-		
+		this.height = height;
+		this.width = width;
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		try {
@@ -77,6 +78,13 @@ public class IngredientsScreen {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);		
 		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
@@ -136,18 +144,19 @@ public class IngredientsScreen {
 		midBoxRight = new VBox(20);
 		
 		midBox.setPadding(new Insets(10,20,10,20));
-		midBoxLeft.setPrefSize(width/3, height-topBox.getHeight()-100);
-		midBoxRight.setPrefSize(width*2/3, height-topBox.getHeight()-100);
+		midBoxLeft.setPrefSize(width/3, height-100);
+		midBoxRight.setPrefSize(width*2/3, height-100);
 		
 		// Create an ArrayList of Recipe Titles
 		ArrayList<String> recipeTitles = new ArrayList<String>();
+		
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
 			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 		}
 		
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
-		listOfRecipes.setStyle("-fx-background: lightgrey;");
+		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
 		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -184,8 +193,12 @@ public class IngredientsScreen {
 			updateInfoLabels(null);
 		}
 		
+		Label recipesLabel = new Label("Recipes:");
+		recipesLabel.setId("recipesLabel");
+		recipesLabel.getStylesheets().add("file:../Resources/css.css");
+		
 		// add content to the main boxes
-		midBoxLeft.getChildren().addAll(new Label("Recipes:"), listOfRecipes);
+		midBoxLeft.getChildren().addAll(recipesLabel, listOfRecipes);
 		midBox.getChildren().addAll(midBoxLeft,midBoxRight);
 		
 		//Box where all content of the IngredientsScreen class are collated 
@@ -208,6 +221,16 @@ public class IngredientsScreen {
 		Label versionLabel = new Label("Version: " + version);
 		Label commentLabel = new Label("Comment: " + comment);
 		
+		authorLabel.setWrapText(true);
+		authorLabel.setId("authorLabel");
+		authorLabel.getStylesheets().add("file:../Resources/css.css");
+		versionLabel.setWrapText(true);
+		versionLabel.setId("versionLabel");
+		versionLabel.getStylesheets().add("file:../Resources/css.css");
+		commentLabel.setWrapText(true);
+		commentLabel.setId("commentLabel");
+		commentLabel.getStylesheets().add("file:../Resources/css.css");
+		
 		// remove old labels
 		recipeInfoBox.getChildren().clear();
 		// add the labels to the info box
@@ -218,15 +241,23 @@ public class IngredientsScreen {
 	public void updateIngredientsList(Recipe recipe) {		
 		if (recipe != null) {
 			// call the ingredients list generator
-			IngredientsList generator = new IngredientsList(recipe);
+			IngredientsList generator = new IngredientsList(recipe, height, width);
 			ingredientsList = generator.getIngredientsListGUI();
 		}
 		else {
 			ingredientsList.getChildren().clear();
 			ingredientsList.getChildren().add(new Label("Sorry. Cannot find ingredients list."));
 		}
+		
+		Label recipeInformationLabel = new Label("Recipe Information:");
+		recipeInformationLabel.setId("recipeInformationLabel");
+		recipeInformationLabel.getStylesheets().add("file:../Resources/css.css");
+		
+		Label ingredientsLabel = new Label("Ingredients:");
+		ingredientsLabel.setId("ingredientsLabel");
+		ingredientsLabel.getStylesheets().add("file:../Resources/css.css");
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();
-		midBoxRight.getChildren().addAll(new Label("Recipe Information:"), recipeInfoBox, new Label("Ingredients:"), ingredientsList);
+		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, ingredientsList);
 	}
 }

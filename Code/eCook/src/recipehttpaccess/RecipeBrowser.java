@@ -22,12 +22,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,7 +40,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+<<<<<<< HEAD
+import xmlValidation.XMLValidator;
+=======
+import javafx.util.Duration;
+>>>>>>> FETCH_HEAD
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import eCook.RecipeCollection;
@@ -50,9 +58,15 @@ public class RecipeBrowser extends Application {
 	Button downloadButton;
 	Scene scene;
 	RecipeCollection recipeCollection;
+<<<<<<< HEAD
+	Label statusBar;
+=======
+	private Label downloadLabel;
+>>>>>>> FETCH_HEAD
 	
-	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show) {
+	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show, Label report) {
 		this.recipeCollection = recipeCollection;
+		this.statusBar = report;
 		// only launch the GUI if required
 		if (show) {
 			start(primaryStage);
@@ -116,22 +130,47 @@ public class RecipeBrowser extends Application {
 	// method to display a basic GUI for recipe file downloads
     public void start(final Stage primaryStage) {
     	ProgressIndicator loading = new ProgressIndicator();
-    	final Label header = new Label("Recipes available to download:");
+    	final Label header = new Label("Recipes available to download");
+    	header.setId("recipeBrowserLabel");
+    	header.getStylesheets().add("file:../Resources/css.css");
+    	header.setWrapText(true);
+    	header.setAlignment(Pos.TOP_CENTER);
+    	header.setTextAlignment(TextAlignment.CENTER);
+    	
         downloadButton = new Button("Download Selected Recipes");
-        downloadButton.setDisable(true);
+        downloadButton.setId("downloadButton");
+        downloadButton.getStylesheets().add("file:../Resources/css.css");
+        downloadButton.setWrapText(true);
+        downloadButton.setAlignment(Pos.CENTER);
+        downloadButton.setTextAlignment(TextAlignment.CENTER);
+    	
         Button exitButton = new Button("Cancel");
-        HBox buttons = new HBox();
+        exitButton.setId("exitButton");
+        exitButton.getStylesheets().add("file:../Resources/css.css");
+        exitButton.setAlignment(Pos.CENTER);
+        exitButton.setTextAlignment(TextAlignment.CENTER);
+        
+    	downloadLabel = new Label();
+    	downloadLabel.setId("recipeBrowserLabel");
+    	downloadLabel.getStylesheets().add("file:../Resources/css.css");
+    	downloadLabel.setWrapText(true);
+    	downloadLabel.setAlignment(Pos.TOP_CENTER);
+    	downloadLabel.setTextAlignment(TextAlignment.CENTER);
+    	
+        HBox buttons = new HBox(377);
         buttons.getChildren().addAll(downloadButton, exitButton);
         
         // do javaFX setup
         StackPane root = new StackPane();
         scene = new Scene(root, 600, 500);
+        root.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/cup.jpg');");
         primaryStage.setTitle("Recipe Browser");
         primaryStage.setScene(scene);
         primaryStage.show();
         final BorderPane border = new BorderPane();
         root.getChildren().add(border);
         border.setTop(loading);
+        
         
         // configure the exit button
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -145,6 +184,7 @@ public class RecipeBrowser extends Application {
         // configure the download button
         downloadButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+            	boolean downloaded = false;
             	// download and save all selected recipe files
             	System.out.println("Downloading Recipes...");
             	String rootURL = "http://www.propartydj.co.uk/SWEng/";
@@ -153,41 +193,64 @@ public class RecipeBrowser extends Application {
             		try {
             			String fileURL = rootURL + selectedFilesList.get(i);
             			String uniqueLocalFileName = localRecipeDirectory.toString() + "/" + selectedFilesList.get(i);
-            			downloadRecipeFile(fileURL, uniqueLocalFileName);
 
             			// update the recipe collection with the new file (parse)
-            			XMLReader reader = new XMLReader("defaultRecipes/" + selectedFilesList.get(i));
-            			Recipe newRecipe = reader.getRecipe();
-            			newRecipe.setFileName(selectedFilesList.get(i));
-            			// only add the recipe file if it doesn't already exist in eCook
-            			boolean exists = false;
-            			for (int j=0; j<recipeCollection.getNumberOfRecipes(); j++) {
-            				if (recipeCollection.getRecipe(j).getFileName().equals(newRecipe.getFileName())) {
-            					exists = true;
-                			}
-            			}
-            			if (!exists) {
-            				recipeCollection.addRecipe(newRecipe);
-            			}
+            			XMLReader reader = new XMLReader(fileURL);
+            			// Check integrity of XML file, report error message if invalid
+				    	XMLValidator validator = new XMLValidator(reader);
+				    	if (validator.isXMLBroken()) {
+				    		//primaryStage.hide();
+				    		statusBar.setText(validator.getErrorMsg());
+						} 
+				    	else {
+				    		downloadRecipeFile(fileURL, uniqueLocalFileName);
+	            			Recipe newRecipe = reader.getRecipe();
+	            			newRecipe.setFileName(selectedFilesList.get(i));
+	            			// only add the recipe file if it doesn't already exist in eCook
+	            			boolean exists = false;
+	            			for (int j=0; j<recipeCollection.getNumberOfRecipes(); j++) {
+	            				if (recipeCollection.getRecipe(j).getFileName().equals(newRecipe.getFileName())) {
+	            					exists = true;
+	                			}
+	            			}
+	            			if (!exists) {
+	            				recipeCollection.addRecipe(newRecipe);
+	            				downloaded = true;
+	            			}
+				    	}
             		} 
             		catch (Exception e) {
             			System.out.println("Error when downloading and saving selected recipe files");
             			e.printStackTrace();
             		}
             	}
+<<<<<<< HEAD
             	border.setTop(null);
             	border.setBottom(null);
             	Label downloadLabel = new Label();
+            	if (downloaded && selectedFilesList.size() == 1) {
+=======
+//            	border.setTop(null);
+//            	border.setBottom(null);
+
             	if (selectedFilesList.size() == 1) {
+>>>>>>> FETCH_HEAD
             		downloadLabel.setText("Recipe Downloaded");
             	}
-            	else {
+            	else if (downloaded) {
             		downloadLabel.setText(selectedFilesList.size() + " Recipes Downloaded");
             	}
-            	border.setCenter(downloadLabel);
+<<<<<<< HEAD
             	
+=======
+            	BorderPane.setAlignment(downloadLabel, Pos.BOTTOM_CENTER);
+            	border.setBottom(downloadLabel);
+>>>>>>> FETCH_HEAD
             	// close the window and return to the main menu
-            	primaryStage.getOwner().setOpacity(1.0);
+            	if (downloaded) {
+            		border.setCenter(downloadLabel);
+	            	primaryStage.getOwner().setOpacity(1.0);
+            	}
             	primaryStage.close();
             }
         });
@@ -196,6 +259,7 @@ public class RecipeBrowser extends Application {
         try {
 			getAvailableRecipeFiles("http://www.propartydj.co.uk/SWEng/contents.txt");
 			listOfRecipeFiles = new ListView<String>();
+			listOfRecipeFiles.getStylesheets().add("file:../Resources/css.css");
 			listOfRecipeFiles.setItems(FXCollections.observableList(availableRecipeFiles));
 			listOfRecipeFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			border.setCenter(listOfRecipeFiles);
@@ -203,8 +267,9 @@ public class RecipeBrowser extends Application {
 			System.out.println("Problem accessing recipe files on server.");
 			e.printStackTrace();
 		}
-		border.setTop(header);
-
+        BorderPane.setAlignment(header, Pos.TOP_CENTER);
+        border.setTop(header);
+        
 		if (availableRecipeFiles.isEmpty()) {
 			header.setText("Sorry. No recipes available to download.");
 			border.setBottom(header);
