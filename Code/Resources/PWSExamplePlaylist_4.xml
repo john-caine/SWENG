@@ -10,10 +10,11 @@
 	</documentinfo>
 	<defaults>
 		<backgroundcolor>#00FF00</backgroundcolor>
-		<font>Times New Roman</font
+		<font>Times New Roman</font>
+		<fontsize>24</fontsize>
 		<linecolor>#000000</linecolor>
 		<fontcolor>#0000FF</fontcolor>
-		<fillcolor>#FF0000</fillco
+		<fillcolor>#FF0000</fillcolor>
 	</defaults>
 	<ingredients>
 		<ingredient name="potato" amount="700" units="grams" />
@@ -23,14 +24,15 @@
 		<ingredient name="brown sugar" amount="0.5" units="teaspoon" />
 		<ingredient name="chicken stock" amount="2" units="pints" />
 	</ingredients>
-	<slide id="0" duration="10" lastSle="false">
+	<slide id="0" duration="10" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="true" bold="true" italic="true">
-        <textstring>This is a test of required attributes</textst
+        <textstring>This is a test of required attributes</textstring>
+      </textbody>
     </text>
 		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" orientation="180">
 			<textbody branch="5">
-        <textstrinal font attributes</textstring>
+        <textstring>This is a test of optional font attributes</textstring>
       </textbody>
 		</text>
 		<text xstart="10" ystart="200" xend="1000" yend="400" starttime="10" duration="10" layer="2">
@@ -61,7 +63,12 @@
 			<point num="1" x="500" y="200"/>
 		</shape>
 		<shape totalpoints="2" width="2" height="2" starttime="15" duration="15" layer="1">
-			<point num="1" x="150" y=="loop"/>
+			<point num="1" x="150" y="150"/>
+			<point num="2" x="250" y="250"/>
+		</shape>
+	</slide>
+	<slide id="2" duration="90" lastSlide="false">
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" false="loop"/>
 		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3" starttime="35" loop="false"/>
 	</slide>
 	<slide id="3" duration="40" lastSlide="false">
