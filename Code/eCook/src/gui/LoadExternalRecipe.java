@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
  * Date Created: 26/05/2014
  * A small window pops up to enable to user to choose between Http or File Browser for Recipe
  */
@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -74,6 +75,9 @@ public class LoadExternalRecipe {
         httpField.setPromptText("Enter Recipe File's URL");
         httpField.setId("httpField");
         httpField.getStylesheets().add("file:../Resources/css.css");
+		//Add tool tip
+		Tooltip URL = new Tooltip("Link must end in .XML");
+		Tooltip.install(httpField, URL);
         
         final Button getFromURLBtn = new Button("Get Recipe from URL");
         getFromURLBtn.setDisable(true);
@@ -117,6 +121,9 @@ public class LoadExternalRecipe {
 			e1.printStackTrace();
 		} 
 		Image closeIcon = new Image(inputStream);
+		
+		Tooltip c = new Tooltip("Close");
+		Tooltip.install(loadExtWinCloseBtnHolder, c);
 		
 		//Creates and adds close button to top Box
 		loadExtWinCloseBtnHolder.setImage(closeIcon);
@@ -229,6 +236,7 @@ public class LoadExternalRecipe {
 				// only allow URLs which end with ".xml"
 				if (!httpField.getText().equals("") && httpField.getText().endsWith(".xml")) {
 					getFromURLBtn.setDisable(false);
+					getFromURLBtn.setTooltip(new Tooltip("Click here to download recipe from external website"));
 				}
 				else {
 					getFromURLBtn.setDisable(true);

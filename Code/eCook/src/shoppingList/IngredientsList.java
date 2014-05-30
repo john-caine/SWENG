@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -129,13 +130,15 @@ public class IngredientsList {
 			scrollBox.getChildren().add(checkboxes[i]);
 		}
 		
-		// add a button to select all of the ingredients listed
+		// add a button to select all of the ingredients listed and add tool tip
 		final Button selectAllButton = new Button("Select All");
 		selectAllButton.setId("selectAllButton");
 		selectAllButton.getStylesheets().add("file:../Resources/css.css");
 		selectAllButton.setPrefSize(120,50);
 		selectAllButton.setAlignment(Pos.CENTER);
 		selectAllButton.setTextAlignment(TextAlignment.CENTER);
+		selectAllButton.setTooltip(new Tooltip("Click here to select all ingredients"));
+
 		// configure the selectAll button
         selectAllButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {            	
@@ -146,6 +149,7 @@ public class IngredientsList {
                 	}
                 	// change the button to deselect all
                 	selectAllButton.setText("Deselect All");
+            		selectAllButton.setTooltip(new Tooltip("Click here to deselect all ingredients"));
             		buttonBox.setSpacing(10);
             	}
             	// when button pressed, set all checkboxes to selected
@@ -166,13 +170,15 @@ public class IngredientsList {
 		// add a button to save the shopping list to PDF
 		savePDFButton = new Button("Save shopping list");
 		// add a button to add ingredients to the shopping list (eCook side)
-		updateShoppingListButton = new Button("Add Selected Ingredients to Shopping List");
+		updateShoppingListButton = new Button("Add Ingredients to Shopping List");
 		updateShoppingListButton.setWrapText(true);
 		updateShoppingListButton.setId("updateShoppingListButton");
 		updateShoppingListButton.getStylesheets().add("file:../Resources/css.css");
 		updateShoppingListButton.setPrefSize(160,50);
 		updateShoppingListButton.setAlignment(Pos.CENTER);
 		updateShoppingListButton.setTextAlignment(TextAlignment.CENTER);
+		updateShoppingListButton.setTooltip(new Tooltip("Click here add selected ingredients to your shopping list"));
+		
 		// configure the add to shopping list button
         updateShoppingListButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {

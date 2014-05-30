@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai  & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan & Ankita Gangotra
  * Date Created: 05/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -205,11 +205,14 @@ public class RecipeScreen {
 				
 		Button playSlideBtn = new Button("Play");
 		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
+		
 		//Set tool tip
 		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
+		
 		playSlideBtn.setId("playSlideBtn");
 		playSlideBtn.getStylesheets().add("file:../Resources/css.css");
 		playSlideBtn.setPrefSize(120, 50);
+		
 		// define the start slideshow button method
 		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

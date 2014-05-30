@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai  & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
  * Date Created: 06/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -12,11 +12,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import shoppingList.IngredientsList;
-
 import xmlparser.Recipe;
-
 import eCook.RecipeCollection;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +41,7 @@ public class IngredientsScreen {
 	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
 	private Image homeIcon, closeIcon, minimiseIcon;
 	private VBox ingredientsList;
+	private Tooltip h,c,m;
 	protected VBox bigBox;
 	protected double height, width;
 	
@@ -79,6 +78,13 @@ public class IngredientsScreen {
 		}
 		minimiseIcon = new Image(inputStream);
 		
+		//Add tool tip
+		h = new Tooltip("Home");
+		Tooltip.install(homeHolder, h);
+		c = new Tooltip("Close");
+		Tooltip.install(closeBtnHolder, c);
+		m = new Tooltip("Minimise");
+		Tooltip.install(minimiseBtnHolder, m);		
 		
 		//Sets the event to happen when the close icon is clicked
 		//Gets the node before closing the stage
