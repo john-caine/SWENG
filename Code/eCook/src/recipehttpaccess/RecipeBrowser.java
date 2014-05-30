@@ -43,7 +43,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import xmlValidation.XMLValidator;
+=======
+import javafx.util.Duration;
+>>>>>>> FETCH_HEAD
 =======
 import javafx.util.Duration;
 >>>>>>> FETCH_HEAD
@@ -59,7 +63,11 @@ public class RecipeBrowser extends Application {
 	Scene scene;
 	RecipeCollection recipeCollection;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Label statusBar;
+=======
+	private Label downloadLabel;
+>>>>>>> FETCH_HEAD
 =======
 	private Label downloadLabel;
 >>>>>>> FETCH_HEAD
@@ -225,11 +233,14 @@ public class RecipeBrowser extends Application {
             		}
             	}
 <<<<<<< HEAD
+<<<<<<< HEAD
             	border.setTop(null);
             	border.setBottom(null);
             	Label downloadLabel = new Label();
             	if (downloaded && selectedFilesList.size() == 1) {
 =======
+=======
+>>>>>>> FETCH_HEAD
 //            	border.setTop(null);
 //            	border.setBottom(null);
 
@@ -241,7 +252,12 @@ public class RecipeBrowser extends Application {
             		downloadLabel.setText(selectedFilesList.size() + " Recipes Downloaded");
             	}
 <<<<<<< HEAD
+<<<<<<< HEAD
             	
+=======
+            	BorderPane.setAlignment(downloadLabel, Pos.BOTTOM_CENTER);
+            	border.setBottom(downloadLabel);
+>>>>>>> FETCH_HEAD
 =======
             	BorderPane.setAlignment(downloadLabel, Pos.BOTTOM_CENTER);
             	border.setBottom(downloadLabel);
