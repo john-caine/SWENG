@@ -9,6 +9,8 @@
 
 package eCook;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -39,6 +42,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -83,6 +87,7 @@ public abstract class MediaControl {
 	private Animation.Status stopped = Animation.Status.STOPPED;
 	private Status status;
 	public Button stopButton;
+	boolean controlPanelVisible = false;
 	
 	/* 
 	 * Constructor for the MediaControl class. Accepts optional parameters from PWS.
@@ -211,13 +216,14 @@ public abstract class MediaControl {
         playTimeFS.setTextFill(Color.WHITE);
 
         // Add components to Control Panel during fullscreen mode
-        fullscreenMediaBar = new HBox(); 
+        fullscreenMediaBar = new HBox(5); 
         fullscreenMediaBar.setAlignment(Pos.CENTER);
         fullscreenMediaBar.setStyle("-fx-background-color: grey;");
         fullscreenMediaBar.getChildren().add(playButtonFS);
         fullscreenMediaBar.getChildren().add(timeSliderFS);
         fullscreenMediaBar.getChildren().add(playTimeFS);
-        fullscreenMediaBar.setLayoutY(bounds.getHeight()-20);
+        fullscreenMediaBar.setLayoutY(bounds.getHeight()+15);
+        fullscreenMediaBar.setMaxWidth(bounds.getWidth());
         
         // Add the mediaBar "box" to the overall MediaControl "bar"
         overallBox.getChildren().add(mediaBar);
@@ -312,7 +318,7 @@ public abstract class MediaControl {
 		// Create a new time slide
         timeSlider = new Slider();
         timeSlider.getStylesheets().add("file:../Resources/css.css");
-        timeSlider.setMinWidth((2*mpWidth)/5);
+        timeSlider.setMaxWidth((3*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
         // Allow the user to drag and position the slider
@@ -341,7 +347,7 @@ public abstract class MediaControl {
         // Create a new time slider for fullscreen mode
         timeSliderFS = new Slider();
         timeSliderFS.getStylesheets().add("file:../Resources/css.css");
-    	timeSliderFS.setMinWidth(bounds.getWidth()-100); 	
+    	timeSliderFS.setPrefWidth(bounds.getWidth()-90);
     	timeSliderFS.valueProperty().addListener(new InvalidationListener() {
 
             @Override
@@ -456,8 +462,16 @@ public abstract class MediaControl {
                     }
                 }); 
                 
-                // If the mouse moves into the control bar stop the fade transition
-                fullscreenMediaBar.setOnMouseEntered(new EventHandler<MouseEvent>(){
+                // If the mouse moves into the timeslider bar stop the fade transition
+                timeSliderFS.setOnMouseEntered(new EventHandler<MouseEvent>(){
+                	@Override
+    	            public void handle(MouseEvent mouseEvent){
+                		fadeTransition.stop();
+    	            }
+    	        });
+                
+                // If the mouse moves into the timeslider bar stop the fade transition
+                playButtonFS.setOnMouseEntered(new EventHandler<MouseEvent>(){
                 	@Override
     	            public void handle(MouseEvent mouseEvent){
                 		fadeTransition.stop();
@@ -474,7 +488,7 @@ public abstract class MediaControl {
         	            	stageFS.close();
         	            	mediaView.setVisible(true);
         	            	stage.setFullScreen(true);
-        	            	stage.getScene().setCursor(Cursor.HAND);
+        	            	stage.getScene().setCursor(Cursor.DEFAULT);
         	            	stage.show();
         			    }	                                 
         		    }

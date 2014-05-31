@@ -33,14 +33,14 @@ import javafx.util.Duration;
 public class MainMenuContent {
 	
 	private Rectangle2D screenBounds;
-	double width;
-	double height;
+	private double width;
+	private double height;
 	private HBox topBox, topBoxRight, topBoxLeft;
 	private HBox midBox;
 	private HBox bottomBox;
 	private InputStream inputStream;
 	private ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	Image homeIcon;
+	private Image homeIcon;
 	private Image logoIcon, closeIcon, minimiseIcon;	
 	private Tooltip h,c,m;
 	public VBox bigBox;
@@ -56,7 +56,7 @@ public class MainMenuContent {
 		//Imports eCook logo, home, close and minimise button icons and set tootips
 		logoholder = new ImageView();
 		try {
-			inputStream = new FileInputStream("../Resources/eCookLogo.png");
+			inputStream = new FileInputStream("../Resources/eCookLogo1.png");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

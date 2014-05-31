@@ -47,7 +47,7 @@ public class LoadExternalRecipe {
 	protected Stage dialog;
 	protected InputStream inputStream;
 	private FileHandler fileHandler;
-	Label statusBar;
+	private Label statusBar;
 
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection){
 		//Creates a new stage bound to the previous that lets the user
@@ -163,7 +163,7 @@ public class LoadExternalRecipe {
 				popup.initModality(Modality.APPLICATION_MODAL);
 		        
 		        //Removes windows' UI close and minimise buttons
-				//popup.initStyle(StageStyle.UNDECORATED);
+				popup.initStyle(StageStyle.UNDECORATED);
 				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 			}
 		});
