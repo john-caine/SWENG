@@ -650,6 +650,12 @@
    -fx-background-radius: 1em; 
 }
 
+.slider .thumb {
+ -fx-background-color: rgb(211,211,211);
+ -fx-background-insets: 3 0 3 0;
+ -fx-background-radius: 1em;
+}
+
 .slider .thumb:hover {
  -fx-background-color: rgb(231,231,231);
 }
