@@ -627,7 +627,7 @@
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-color: rgb(80,80,80); 
     -fx-background-image: url('fullscreen.png');
-    -fx-background-repeat: no-repeat
+    -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
 	
 }

@@ -6,6 +6,7 @@
 
 package videohandler;
 
+import eCook.SlideShow;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 public class VideoPlayerMain extends Application {
 	
+	private SlideShow parent;
 	
     public static void main(String[] args) {
         launch(args);
@@ -37,7 +39,7 @@ public class VideoPlayerMain extends Application {
         scene.setFill(Color.BLACK);
         
         /* Call the videoHandler class to create a videoplayer based on certain attributes */
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, null, 5);
+        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler(parent,"http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, true, null, 5);
         
         /* Add the videoplayer to the stage */
         root.getChildren().add(videoPlayerHandler.mediaControl.overallBox);
