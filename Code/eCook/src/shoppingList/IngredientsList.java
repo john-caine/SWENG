@@ -184,7 +184,7 @@ public class IngredientsList {
             public void handle(ActionEvent event) {
             	// when button pressed, do some stuff with the external shopping list class
             	updateShoppingList();
-            	statusBar.setText("Ingredients Added to Shopping List.");
+            	statusBar.setText("Added to Shopping List.");
             }
         });
 		// configure the savePDF button
