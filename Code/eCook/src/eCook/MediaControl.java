@@ -143,6 +143,7 @@ public abstract class MediaControl {
 		
 		// A HBox that contains all the Controls of the MediaPlayer
 		mediaBar = new HBox();
+		mediaBar.setStyle("-fx-background-color: grey;");
 		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			

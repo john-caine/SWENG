@@ -646,6 +646,9 @@
  -fx-background-color: rgb(255,255,255);
 }
 
+.slider:focused {
+ -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
 
 #bigBox {
 	-fx-background-color: pink;
