@@ -104,6 +104,7 @@
 #urlBtn {
 	-fx-font-size: 20px;
 	-fx-font-family: "Swis721 lt BT";
+	-fx-text-fill:  #FFFFFF;
 	-fx-font-weight: bold;
 	-fx-background-repeat: stretch;   
     	-fx-background-size: 256 228;

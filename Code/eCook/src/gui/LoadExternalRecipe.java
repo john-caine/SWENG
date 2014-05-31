@@ -82,8 +82,8 @@ public class LoadExternalRecipe {
         
         final Button getFromURLBtn = new Button("Get Recipe from URL");
         getFromURLBtn.setDisable(true);
-        downloadBtn.setPrefSize(256, 228);
-        fileBrowserBtn.setPrefSize(256, 228);
+        downloadBtn.setPrefSize(228, 228);
+        fileBrowserBtn.setPrefSize(228, 228);
         getFromURLBtn.setPrefSize(150, 30);
         httpField.setPrefSize(285, 30);
         
@@ -111,7 +111,7 @@ public class LoadExternalRecipe {
 		
         VBox loadExtBox = new VBox(20);
         HBox topBox = new HBox();
-        HBox midBox = new HBox();
+        HBox midBox = new HBox(20);
         HBox bottomBox = new HBox(10);
         topBox.setAlignment(Pos.TOP_RIGHT);
         
