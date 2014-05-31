@@ -634,8 +634,18 @@
     -fx-background-color: rgb(128,128,128); 
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
-	
+
 }
+#SlidePauseBtn{    
+    -fx-background-color: rgb(128,128,128); 
+    -fx-background-image: url('play.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;}
+#SlidePrevBtn{}
+#SlideNextBtn{}
+#SlideExitBtn{}
+#SlideTimeBtn{}	
+
 .slider{
  -fx-background-color: rgb(96,96,96);
  -fx-background-radius: 1em;
