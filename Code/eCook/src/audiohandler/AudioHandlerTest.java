@@ -1,5 +1,5 @@
 
-/*Programmer: P.Mathema, S.Beedell,
+/*Programmer: P.Mathema, S.Beedell & Roger Tan
  * Date Created: 14/03/2014
  * Description: 
 
@@ -12,10 +12,8 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Screen;
 
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +34,7 @@ public class AudioHandlerTest {
 	//Read XML playlist and create a new audioHandler object based on the first audio found
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		audioList = reader.getRecipe().getSlide(2).getContent().getAudios();
 		audioHandler = new AudioHandler(parent, audioList.get(0).getUrlName(), audioList.get(0).getStartTime(), 
 				audioList.get(0).getDuration(), audioList.get(0).getLoop());
