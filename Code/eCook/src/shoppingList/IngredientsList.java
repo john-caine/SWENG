@@ -198,7 +198,7 @@ public class IngredientsList {
 		testEnableSaveButton();
 		
 		// add the buttons and the status bar to the bottom of the VBox
-		buttonBox = new HBox();
+		buttonBox = new HBox(20);
 		buttonBox.setPadding(new Insets(10,0,0,0));
 		buttonBox.setSpacing(10);
 		buttonBox.getChildren().addAll(selectAllButton, updateShoppingListButton, statusBar);

@@ -337,7 +337,7 @@ public class GenerateShoppingListScreen {
 		midBox.setAlignment(Pos.CENTER);
 		midBoxBottom.setAlignment(Pos.CENTER);
 		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
-		HBox buttonBar = new HBox(5);
+		HBox buttonBar = new HBox(20);
 		buttonBar.setAlignment(Pos.CENTER_RIGHT);
 		buttonBar.getChildren().addAll(editBtn, addBtn);
 		midBox.getChildren().addAll(shoppingListLabel, buttonBar, scrollPane, statusBar, midBoxBottom);
