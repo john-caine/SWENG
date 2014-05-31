@@ -520,6 +520,7 @@ public abstract class MediaControl {
 		// Create a play button.
         playButton = new Button();
         playButton.setId("playButton");
+        playButton.setStyle("-fx-background-color: rgb(128,128,128);");
         //playButton.setGraphic(new ImageView(playImage));
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -557,6 +558,7 @@ public abstract class MediaControl {
 	    
         // Play/Pause Button in fullscreen mode
         playButtonFS = new Button();
+        playButtonFS.setStyle("-fx-background-color: rgb(128,128,128);");
         playButtonFS.setId("playButtonFS");
         //playButtonFS.setGraphic(new ImageView(playImage));
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
