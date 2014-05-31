@@ -609,7 +609,6 @@
 #stopButton {
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-color: rgb(128,128,128);
-    -fx-background-image: url('stop.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
 	
@@ -618,15 +617,21 @@
 #playButton {
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-color: rgb(128,128,128); 
-    -fx-background-image: url('play.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;		
 }
 
+#fullscreenButton {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-color: rgb(128,128,128); 
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;		
+}
+
+
 #playButtonFS {
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-color: rgb(128,128,128); 
-    -fx-background-image: url('fullscreen.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
 	

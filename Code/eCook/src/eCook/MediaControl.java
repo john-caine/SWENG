@@ -378,6 +378,8 @@ public abstract class MediaControl {
 	void setFullScreenButton() {
 		// Create a fullscreen button
 		Button fullscreenButton = new Button();
+		fullscreenButton.setId("fullscreenButton");
+		fullscreenButton.getStylesheets().add("file:../Resources/css.css");
         fullscreenButton.setGraphic(new ImageView(fullscreenImage));
         fullscreenButton.setMinWidth(mpWidth/25);
         
@@ -492,8 +494,8 @@ public abstract class MediaControl {
 		// Create a stop button
 		stopButton = new Button();
 		stopButton.setId("stopButton");
+		stopButton.setGraphic(new ImageView(stopImage));
 		stopButton.getStylesheets().add("file:../Resources/css.css");
-        //stopButton.setGraphic(new ImageView(stopImage));
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -520,14 +522,13 @@ public abstract class MediaControl {
 		// Create a play button.
         playButton = new Button();
         playButton.setId("playButton");
-        playButton.setStyle("-fx-background-color: rgb(128,128,128);");
-        //playButton.setGraphic(new ImageView(playImage));
+        playButton.setGraphic(new ImageView(playImage));
+        playButton.getStylesheets().add("file:../Resources/css.css");
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	        // ActionHandler for play button.
 	        public void handle(ActionEvent e) {
-	            updateValues();
 	            status = mp.getStatus();
 	
 	            // Check for bad status's.
@@ -558,14 +559,14 @@ public abstract class MediaControl {
 	    
         // Play/Pause Button in fullscreen mode
         playButtonFS = new Button();
-        playButtonFS.setStyle("-fx-background-color: rgb(128,128,128);");
         playButtonFS.setId("playButtonFS");
-        //playButtonFS.setGraphic(new ImageView(playImage));
+        playButtonFS.setGraphic(new ImageView(playImage));
+        playButtonFS.getStylesheets().add("file:../Resources/css.css");
+        playButtonFS.setMinWidth(mpWidth/25);
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
 
         	// ActionHandler for play button in fullscreen mode.
             public void handle(ActionEvent e) {
-                updateValues();
                 status = mp.getStatus();
                 
                 // Check for bad status's
