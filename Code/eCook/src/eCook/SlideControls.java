@@ -72,18 +72,16 @@ public class SlideControls {
         
         // instantiate and add the buttons to the list
         buttons = new ArrayList<Button>();
-        Button playBtn = new Button("Play");
         Button pauseBtn = new Button("Pause");
         Button prevBtn = new Button("Previous");
         Button nextBtn = new Button("Next");
         Button exitBtn = new Button("Exit");
         Button timerBtn = new Button("Add Timer");
-        buttons.add(playBtn);
         buttons.add(pauseBtn);
         buttons.add(prevBtn);
         buttons.add(nextBtn);
         buttons.add(exitBtn);
-        buttons.add(timerBtn);
+        buttons.add(timerBtn);        
         
         // add the buttons to the panel
         controlPanel.getChildren().addAll(buttons);

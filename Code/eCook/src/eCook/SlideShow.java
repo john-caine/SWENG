@@ -484,7 +484,7 @@ public class SlideShow {
 		 */
 		
         // Exit Slide
-        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
@@ -499,7 +499,7 @@ public class SlideShow {
         });
         
         // Next Slide
-        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
@@ -528,7 +528,7 @@ public class SlideShow {
         });
         
         // Previous Slide
-        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(1).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {           	
             	timeLineDuration.stop();
@@ -557,7 +557,7 @@ public class SlideShow {
         });
         
         // Add Timer
-        buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				 timer = new Timer(null, null, null, null);
@@ -578,9 +578,9 @@ public class SlideShow {
 				new Thread(timer).start();				
 			}		
         });
-        
+ 
         // Pause
-        buttons.get(1).setOnAction( new EventHandler<ActionEvent>(){
+        buttons.get(0).setOnAction( new EventHandler<ActionEvent>(){
 			private boolean paused;
 			@Override
 			//Pause all content on the slide
@@ -602,7 +602,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
-					buttons.get(1).setText("Resume");
+					buttons.get(0).setText("Play");
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -623,7 +623,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(1).setText("Pause");
+					buttons.get(0).setText("Pause");
 					paused = false;
 				}				
 			}			
