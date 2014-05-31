@@ -27,6 +27,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -48,6 +49,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -143,6 +145,7 @@ public abstract class MediaControl {
 		
 		// A HBox that contains all the Controls of the MediaPlayer
 		mediaBar = new HBox();
+		mediaBar.setAlignment(Pos.CENTER);
 		mediaBar.setStyle("-fx-background-color: grey;");
 		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
@@ -173,6 +176,9 @@ public abstract class MediaControl {
 
         // Label to show the length of the video
         Label timeLabel = new Label(" Time: ");
+        timeLabel.setId("timeLabel");
+        timeLabel.getStylesheets().add("file:../Resources/css.css");
+        timeLabel.setTextAlignment(TextAlignment.CENTER);
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(timeLabel);
@@ -182,12 +188,17 @@ public abstract class MediaControl {
         
         // Label to show the current time position of the video
         playTime = new Label();
+        playTime.setId("playTimeLabel");
+        playTime.getStylesheets().add("file:../Resources/css.css");
+        playTime.setTextAlignment(TextAlignment.CENTER);
         playTime.setTextFill(Color.WHITE);
         playTime.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(playTime);
 
         // Label to show the current volume of the media
         Label volumeLabel = new Label(" Vol: ");
+        volumeLabel.setId("volumeLabel");
+        volumeLabel.getStylesheets().add("file:../Resources/css.css");
         volumeLabel.setTextFill(Color.WHITE);
         volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(volumeLabel);
@@ -197,11 +208,15 @@ public abstract class MediaControl {
         
         // Label for play time in full screen mode
         playTimeFS = new Label();
+        playTimeFS.setId("playTimeLabel");
+        playTimeFS.getStylesheets().add("file:../Resources/css.css");
         playTimeFS.setMinWidth(Control.USE_PREF_SIZE);
         playTimeFS.setTextFill(Color.WHITE);
 
         // Add components to Control Panel during fullscreen mode
-        fullscreenMediaBar = new HBox();  
+        fullscreenMediaBar = new HBox(); 
+        fullscreenMediaBar.setAlignment(Pos.CENTER);
+        fullscreenMediaBar.setStyle("-fx-background-color: grey;");
         fullscreenMediaBar.getChildren().add(playButtonFS);
         fullscreenMediaBar.getChildren().add(timeSliderFS);
         fullscreenMediaBar.getChildren().add(playTimeFS);
@@ -210,7 +225,7 @@ public abstract class MediaControl {
         // Add the mediaBar "box" to the overall MediaControl "bar"
         overallBox.getChildren().add(mediaBar);
         
-      //Create the startTime timeline
+        //Create the startTime timeline
   		timeLineStart = new Timeline();
   		
   		//When startTime timeline has finished show the image and if there is a duration begin the duration timeline
@@ -278,6 +293,14 @@ public abstract class MediaControl {
 	    		updateValues();
 	        }
 	    });
+	    
+	    // Allow the user to click on the slider to jump to the desired volume
+	    volumeSlider.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+            	mp.setVolume(volumeSlider.getValue() / 100.0);
+            }
+        });
 	        
 	    // Add the volume slider to MediaControl bar
 	    mediaBar.getChildren().add(volumeSlider);
@@ -320,6 +343,7 @@ public abstract class MediaControl {
         
         // Create a new time slider for fullscreen mode
         timeSliderFS = new Slider();
+        timeSliderFS.getStylesheets().add("file:../Resources/css.css");
     	timeSliderFS.setMinWidth(bounds.getWidth()-100); 	
     	timeSliderFS.valueProperty().addListener(new InvalidationListener() {
 
