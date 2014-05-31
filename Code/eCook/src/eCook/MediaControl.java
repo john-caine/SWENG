@@ -261,6 +261,7 @@ public abstract class MediaControl {
 	void setVolumeSlider() {
 		// Create a new volume slider
 		volumeSlider = new Slider();
+		volumeSlider.getStylesheets().add("file:../Resources/css.css");
 	    volumeSlider.setMaxWidth(mpWidth/5);
 	    // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
 	    volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -289,6 +290,7 @@ public abstract class MediaControl {
 	void setTimeSlider() {
 		// Create a new time slide
         timeSlider = new Slider();
+        timeSlider.getStylesheets().add("file:../Resources/css.css");
         timeSlider.setMinWidth((2*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
