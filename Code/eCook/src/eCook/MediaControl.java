@@ -467,6 +467,8 @@ public abstract class MediaControl {
 	void setStopButton() {
 		// Create a stop button
 		stopButton = new Button();
+		stopButton.setId("stopButton");
+		stopButton.getStylesheets().add("file:../Resources/css.css");
         stopButton.setGraphic(new ImageView(stopImage));
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
