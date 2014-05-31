@@ -133,9 +133,6 @@ public abstract class MediaControl {
             mediaView.setFitHeight(mpHeight-35);
 		}
 		
-		
-		
-		
 	
 		
 		// A VBox that contains the MediaView and Control Panel of the MediaPlayer
@@ -144,7 +141,7 @@ public abstract class MediaControl {
 		overallBox.getChildren().add(mediaView);
 		
 		// A HBox that contains all the Controls of the MediaPlayer
-		mediaBar = new HBox();
+		mediaBar = new HBox(5);
 		mediaBar.setAlignment(Pos.CENTER);
 		mediaBar.setStyle("-fx-background-color: grey;");
 		mediaBar.setMaxWidth(mpWidth);
@@ -522,6 +519,7 @@ public abstract class MediaControl {
 	void setPlayButton() {
 		// Create a play button.
         playButton = new Button();
+        playButton.setId("playButton");
         playButton.setGraphic(new ImageView(playImage));
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -559,6 +557,7 @@ public abstract class MediaControl {
 	    
         // Play/Pause Button in fullscreen mode
         playButtonFS = new Button();
+        playButtonFS.setId("playButtonFS");
         playButtonFS.setGraphic(new ImageView(playImage));
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
 
