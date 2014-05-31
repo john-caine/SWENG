@@ -8,7 +8,7 @@ package timer;
 
 public class TimerData {
 	
-	private Integer seconds, minutes, hours;
+	private Integer seconds, minutes, hours, startSeconds, startMinutes, startHours;
 	private String timerLabel;
 
 	/*
@@ -21,6 +21,14 @@ public class TimerData {
 	}
 	
 	/*
+	 * Sets the startSeconds value of a timer from when the slide changed.
+	 * @Param startSeconds: The seconds value timer the timer was started from.
+	 */
+	public void setSecondStart(Integer startSeconds){
+		this.startSeconds = startSeconds;
+	}
+	
+	/*
 	 * Sets the Minutes value of a timer from when the slide changed.
 	 * @Param minutes: The minutes value of a timer
 	 */
@@ -29,11 +37,27 @@ public class TimerData {
 	}
 	
 	/*
+	 * Sets the start Minutes value of a timer from when the slide changed.
+	 * @Param startMinutes: The minutes value the timer was started from.
+	 */
+	public void setMinutesStart(Integer startMinutes){
+		this.startMinutes = startMinutes;
+	}
+	
+	/*
 	 * Sets the Hours value of a timer from when the slide changed.
 	 * @Param hours: The hours value of a timer
 	 */
 	public void setHours(Integer hours) {
 		this.hours = hours;
+	}
+	
+	/*
+	 * Sets the startHours value of a timer from when the slide changed.
+	 * @Param startHours: The hours value the timer was started from.
+	 */
+	public void setHoursStart(Integer startHours){
+		this.startHours = startHours;
 	}
 	
 	/*
@@ -50,6 +74,12 @@ public class TimerData {
 	public Integer getSeconds() {		
 		return seconds;
 	}
+	/*
+	 * Returns the startsSeconds value of the timer.
+	 */
+	public Integer getStartSeconds(){
+		return startSeconds;
+	}
 	
 	/*
 	 * Returns the Minutes value of a timer from when the slide changed.
@@ -59,12 +89,24 @@ public class TimerData {
 	}
 	
 	/*
+	 * Returns the startMinutes value of the timer.
+	 */
+	public Integer getStartMinutes(){
+		return startMinutes;
+	}
+	/*
 	 * Returns the Hours value of a timer from when the slide changed.
 	 */
 	public Integer getHours() {	
 		return hours;
 	}
 	
+	/*
+	 * Returns the startHours value of the timer.
+	 */
+	public Integer getStartHours(){
+		return startHours;
+	}
 	/*
 	 * Returns the Timer Label from when the slide changed.
 	 */
