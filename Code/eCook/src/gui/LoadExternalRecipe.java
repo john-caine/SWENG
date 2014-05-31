@@ -143,7 +143,7 @@ public class LoadExternalRecipe {
         
         // add everything to the dialog box
         loadExtBox.getChildren().addAll(topBox,midBox,bottomBox);
-        loadExtBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/ingredients.jpg');");
+        loadExtBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5); -fx-background-radius: 10;");
         Scene dialogScene = new Scene(loadExtBox, 500, 300);
         dialog.setScene(dialogScene);
         dialog.show();
@@ -162,7 +162,7 @@ public class LoadExternalRecipe {
 				popup.initModality(Modality.APPLICATION_MODAL);
 		        
 		        //Removes windows' UI close and minimise buttons
-				//popup.initStyle(StageStyle.UNDECORATED);
+				popup.initStyle(StageStyle.UNDECORATED);
 				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 			}
 		});
