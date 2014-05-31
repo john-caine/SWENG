@@ -493,7 +493,7 @@ public abstract class MediaControl {
 		stopButton = new Button();
 		stopButton.setId("stopButton");
 		stopButton.getStylesheets().add("file:../Resources/css.css");
-        stopButton.setGraphic(new ImageView(stopImage));
+        //stopButton.setGraphic(new ImageView(stopImage));
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -520,7 +520,7 @@ public abstract class MediaControl {
 		// Create a play button.
         playButton = new Button();
         playButton.setId("playButton");
-        playButton.setGraphic(new ImageView(playImage));
+        //playButton.setGraphic(new ImageView(playImage));
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -558,7 +558,7 @@ public abstract class MediaControl {
         // Play/Pause Button in fullscreen mode
         playButtonFS = new Button();
         playButtonFS.setId("playButtonFS");
-        playButtonFS.setGraphic(new ImageView(playImage));
+        //playButtonFS.setGraphic(new ImageView(playImage));
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
 
         	// ActionHandler for play button in fullscreen mode.
