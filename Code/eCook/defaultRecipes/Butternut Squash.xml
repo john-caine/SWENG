@@ -21,167 +21,141 @@
 		<ingredient name="butter" amount="25" units="grams" />
 	</ingredients>
 
-	<slide ID="0" duration="20" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+	<slide id="0" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Method</textstring>
+        		<textstring>Butternut Squash Soup</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Step by step method. Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>150</ystart>
-			<width>500</width>
-			<height>300</height>
-			<duration>20</duration>
-			<layer>1</layer>
-		</image>		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="175" ystart="150" width="950" height="633" layer="1" />		
 	</slide>
 
-	<slide ID="1" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+	<slide id="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step One</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
-			<textbody branch="5">
-        		<textstring>Begin by peeling the squash with a sharp knife, reserving the trimmings in a pan. Set the seeds aside as well.</textstring>
+		<text xstart="15" ystart="70" xend="1000" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Begin by peeling the squash with a sharp knife, reserving the trimmings in a pan. </textstring>
       			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>2</layer>
-		</image>		
+		</text>  
+		<text xstart="150" ystart="550" xend="1000" yend="475" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Set the seeds aside as well.</textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
+			
 	</slide>
 
-	<slide ID="2" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+	<slide id="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step Two</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
-			<textbody branch="5">
-        		<textstring>Chop the flesh into 1cm dice and toss in a tablespoon of vegetable oil along with a few pinches of salt.</textstring>
+		<text xstart="15" ystart="70" xend="1200" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Chop the flesh into 1cm dice and toss in a tablespoon of vegetable oil along with a few pinches of salt. Roast in the oven at gas mark 6 for 20-30 minutes, until lightly coloured and cooked through.  </textstring>
       			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>3</layer>
-		</image>		
+		</text>     
+		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
+			<textbody underlined="false" bold="false" italic="false">
+				<textstring>Meanwhile, add cold water to the trimmings and bring to the boil.</textstring>
+      			</textbody>
+		</text>		
+        		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
+			
 	</slide>
 
-	<slide ID="3" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+	<slide id="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step Three</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+		<text xstart="15" ystart="100" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
 			<textbody branch="5">
-        		<textstring>Roast in the oven at gas mark 6 for 20-30 minutes, until lightly coloured and cooked through. Meanwhile, add cold water to the trimmings and bring to the boil. Simmer for 15-20 minutes then strain into another pan. This creates a lightly flavoured squash stock. </textstring>
+        		<textstring>Simmer for 15-20 minutes then strain into another pan. This creates a lightly flavoured squash stock. </textstring>
       			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>4</layer>
-		</image>		
+        </text>
+        <text xstart="650" ystart="550" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody branch="5">
+        		<textstring>Wash and dry the seeds, and lightly toast in a dry pan. </textstring>
+      			</textbody>
+        </text>
+        
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
+	
+					
 	</slide>
 
-	<slide ID="4" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+	<slide id="4" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step Four</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
-			<textbody branch="5">
-        		<textstring>Wash and dry the seeds, and lightly toast in a dry pan.</textstring>
+		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Add the roasted butternut squash to a pan, as well as enough stock to cover. Bring to the boil then blend with the butter using the best equipment available to you.</textstring>
       			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>5</layer>
-		</image>		
+		</text>  
+		<text xstart="750" ystart="550" xend="1200" yend="1000" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Pass through a fine sieve then check the seasoning, adding salt and pepper to taste.</textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
+			
 	</slide>
-
-	<slide ID="5" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
+	
+	<slide id="5" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Step Five</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
-			<textbody branch="5">
-        		<textstring>Add the roasted butternut squash to a pan, as well as enough stock to cover. Bring to the boil then blend with the butter using the best equipment available to you. </textstring>
-      			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>6</layer>
-		</image>		
-	</slide>
-
-	<slide ID="6" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
-			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Step Six</textstring>
-      			</textbody>
-		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
-			<textbody branch="5">
-        		<textstring>Pass through a fine sieve then check the seasoning, adding salt and pepper to taste.</textstring>
-      			</textbody>
-		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>7</layer>
-		</image>		
-	</slide>
-
-	<slide ID="7" duration="30" lastSlide="true">
-		<text xstart="10" ystart="10" xend="1000" yend="100" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
-			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Step Seven</textstring>
-      			</textbody>
-		</text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+		
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
 			<textbody branch="5">
         		<textstring>To serve, reheat the soup and pour into a bowl.</textstring>
       			</textbody>
 		</text>
-		<text xstart="10" ystart="150" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="16" fontcolor="#00FFFF" orientation="0">
+			
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
+	</slide>
+
+	<slide id="6" duration="30" lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Eat.</textstring>
+      			</textbody>
+		</text>
+		<text xstart="350" ystart="700" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
 			<textbody branch="5">
         		<textstring>Top with a teaspoon of the toasted seeds.</textstring>
       			</textbody>
 		</text>
-		<image>
-			<urlname>http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>8</layer>
-		</image>		
+		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
 	</slide>
 
 </slideshow>

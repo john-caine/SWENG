@@ -162,7 +162,7 @@ public class MainMenuContent {
 		
 		bigBox.setPrefSize(width, height+100);
 		bigBox.setMaxSize(width, height+100);
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/IMG_4906.jpg');");
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/bg_image.jpg');");
 		
 		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);
