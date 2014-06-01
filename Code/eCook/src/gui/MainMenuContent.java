@@ -56,7 +56,7 @@ public class MainMenuContent {
 		//Imports eCook logo, home, close and minimise button icons and set tootips
 		logoholder = new ImageView();
 		try {
-			inputStream = new FileInputStream("../Resources/eCookLogo1.png");
+			inputStream = new FileInputStream("../Resources/logo_board.png");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -160,9 +160,15 @@ public class MainMenuContent {
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
 		bottomBox.setAlignment(Pos.CENTER);
 		
-		bigBox.setPrefSize(width, height+100);
-		bigBox.setMaxSize(width, height+100);
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/bg_image.jpg');");
+		// James -
+		// Not sure why content was set to appear off of screen
+		// height variable holds maximum height of screen
+		// bigBox.setPrefSize(width, height+100);
+		// bigBox.setMaxSize(width, height+100);
+		bigBox.setPrefSize(width, height);
+		bigBox.setMaxSize(width, height);
+		
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/bg_image_blur.jpg');");
 		
 		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);
@@ -182,11 +188,14 @@ public class MainMenuContent {
 		ingredientsPickBtn.setId("ingredientsPickBtn");
 		recipesBtn.setId("recipesBtn");
 		
+		// James -
+		// Modified the following to reduce the height by 10px leaving a bit of space at
+		// bottom of screen, looks a little neater.
 		//Setting the sizes of the buttons relative to the size of the screen
-		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight());
-		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight());
-		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight());
-		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight());
+		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
+		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
+		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
+		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
 		
 		//adding the stylesheet to each of the buttons
 		loadExtBtn.getStylesheets().add("file:../Resources/css.css");
