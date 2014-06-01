@@ -47,8 +47,11 @@ public class MainMenuContent {
 	protected Stage dialog;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
+		//Roger
+		//.getBounds() seems to remove the white gap at the bottom of the screen
 		//Gets the visual bounds of the screen
-		screenBounds = Screen.getPrimary().getVisualBounds();
+		screenBounds = Screen.getPrimary().getBounds();
+		//screenBounds = Screen.getPrimary().getVisualBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
