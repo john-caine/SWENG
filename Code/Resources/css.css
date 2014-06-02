@@ -1,15 +1,12 @@
 #loadExtBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: 'Century Gothic';
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-         #ffa500,
-         #ff8c00,
-        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
 
 
@@ -22,16 +19,13 @@
 
 #generateListBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%,   #006400 0%, #556b2f 100%),
-         #2e8b57,
-         #90ee90,
-        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );	
 }
 
 
@@ -61,16 +55,13 @@
 
 #recipesBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%,   #dc143c 0%, #b22222 100%),
-         #e9967a,
-         #f08080,
-        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
 }
 
 #recipesBtn:hover {
@@ -82,13 +73,14 @@
 
 #fileBrowserBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-repeat: stretch;   
-    	-fx-background-size: 256 228;
-    	-fx-background-position: center center;
-	-fx-background-image: url('browse.png');
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-image: url('open.png');	
 }
 
 #fileBrowserBtn:hover {
@@ -100,14 +92,15 @@
 
 #urlBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
-	-fx-text-fill:  #FFFFFF;
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-repeat: stretch;   
-    	-fx-background-size: 256 228;
-    	-fx-background-position: center center;
-	-fx-background-image: url('http.png');
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 		
+    -fx-background-radius: 8;
+	-fx-background-size: 256 228;
+	-fx-background-position: center center;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-image: url('net.png');		
 }
 
 
@@ -129,7 +122,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 }
 
 #directUrlBtn:hover {
@@ -141,13 +134,13 @@
 
 #httpLbl{
 	-fx-font-size: 14px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
 #httpField{
 	-fx-font-size: 14px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 	-fx-border-color: black;
 }
@@ -156,7 +149,7 @@
 	-fx-font-size: 30px;
 	-fx-text-fill:  #4682b4;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -171,7 +164,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";	
+    -fx-font-family: "Century Gothic";	
 }
 
 #downloadButton:hover {
@@ -194,7 +187,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";	
+    -fx-font-family: "Century Gothic";	
 }
 
 #exitButton:hover {
@@ -216,7 +209,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 
 }
@@ -241,7 +234,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 
 }
@@ -266,7 +259,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 
 }
@@ -291,7 +284,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 }
 
@@ -316,7 +309,7 @@
 	-fx-font-size: 16px;
 	-fx-text-fill:  #4682b4;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -324,7 +317,7 @@
 	-fx-font-size: 16px;
 	-fx-text-fill:  #c54e2c;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -332,7 +325,7 @@
 	-fx-font-size: 16px;
 	-fx-text-fill:  #c54e2c;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -412,7 +405,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 }
 
@@ -436,7 +429,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";	
+    -fx-font-family: "Century Gothic";	
 
 }
 
@@ -453,7 +446,7 @@
 	-fx-font-size: 40px;
 	-fx-text-fill:  #4682b4;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -461,7 +454,7 @@
 	-fx-font-size: 40px;
 	-fx-text-fill:  #4682b4;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
@@ -469,35 +462,35 @@
 	-fx-font-size: 40px;
 	-fx-text-fill:  #4682b4;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
 #authorLabel{
 	-fx-font-size: 16px;
 	-fx-text-fill:    #adff2f;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
 #versionLabel{
 	-fx-font-size: 16px;
 	-fx-text-fill:   #adff2f;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
 #commentLabel{
 	-fx-font-size: 16px;
 	-fx-text-fill:    #adff2f;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
 }
 
 .list-view {
    -fx-font-size: 16px;
    -fx-text-fill: #b22222;
-   -fx-font-family: "Swis721 lt BT";
+   -fx-font-family: "Century Gothic";
    -fx-font-weight: bold;
    -fx-background-color: transparent;
 }
@@ -590,7 +583,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 
 }
 
@@ -701,17 +694,17 @@
 #timeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 }
 
 #playTimeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 }
 
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Swis721 lt BT";
+    -fx-font-family: "Century Gothic";
 }
