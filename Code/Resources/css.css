@@ -7,8 +7,9 @@
     -fx-background-radius: 8;
 	-fx-background-image: url('import.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;	
-	-fx-background-size: contain; -fx-background-repeat: no-repeat;	
+	-fx-background-size: 280 200;
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;	
 }
 
 
@@ -209,117 +210,57 @@
 	-fx-opacity: 0.5;
 }
 #saveBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-font-family: "Century Gothic";
-
-
 }
 
 #saveBtn:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #printBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-font-family: "Century Gothic";
-
-
 }
 
 #printBtn:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #editBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-font-family: "Century Gothic";
-
-
 }
 
 #editBtn:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #addBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-font-family: "Century Gothic";
-
 }
 
 #addBtn:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #shoppingListLabel{
-	-fx-font-size: 40px;
-	-fx-text-fill:  #4682b4;
+	-fx-font-size: 60px;
+	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Andy";
 	-fx-font-weight: bold;
 }
 
 #statusBar{
-	-fx-font-size: 16px;
-	-fx-text-fill:  #4682b4;
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-size: 36px;
+	-fx-text-fill:  #000000;
+	-fx-font-family: "Buxton Sketch";
 	-fx-font-weight: bold;
 }
 
@@ -332,10 +273,9 @@
 }
 
 #item{
-	-fx-font-size: 16px;
-	-fx-text-fill:  #c54e2c;
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-size: 26px;
+	-fx-text-fill:  #000000;
+	-fx-font-family: "Buxton Sketch";
 	-fx-font-weight: bold;
 }
 
@@ -346,7 +286,6 @@
 
 #scrollPane{
    -fx-background-color: transparent;
-   -fx-border-color: black;
 }
 
 #scrollPane > .scroll-bar{

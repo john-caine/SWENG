@@ -149,19 +149,23 @@ public class GenerateShoppingListScreen {
 		topBoxLeft.getChildren().add(homeHolder);
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
-		
-		
-         
+	
 		VBox leftBox = new VBox();
 		VBox midBox = new VBox(40);
-		HBox midBoxBottom = new HBox(20);
 		VBox rightBox = new VBox();
 		
 		//Sets  parameters for the leftBox, midBox and rightBox
 		leftBox.setPrefSize(width*0.2, height-topBox.getPrefHeight()-100);
 		midBox.setPrefSize(width*0.6, height-topBox.getPrefHeight()-100);
-		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight()-100);
+		
+		// Set the background of the shopping list to a shopping list image
+		midBox.setPadding(new Insets(50, 50, 150, 150));
+		midBox.setStyle("-fx-background-color: transparent;"
+				+ "-fx-background-image: url('file:../Resources/shoppingListImage.png');"
+				+ "-fx-background-position: center center;"
+				+ "-fx-background-size: contain;"
+				+ "-fx-background-repeat: repeat-y;");
 		
 		// create a scroll box for the shopping list display
 		// create VBox for the list	
@@ -335,12 +339,10 @@ public class GenerateShoppingListScreen {
 		shoppingListLabel.getStylesheets().add("file:../Resources/css.css");
 		
 		midBox.setAlignment(Pos.CENTER);
-		midBoxBottom.setAlignment(Pos.CENTER);
-		midBoxBottom.getChildren().addAll(saveBtn, printBtn);
 		HBox buttonBar = new HBox(20);
-		buttonBar.setAlignment(Pos.CENTER_RIGHT);
-		buttonBar.getChildren().addAll(editBtn, addBtn);
-		midBox.getChildren().addAll(shoppingListLabel, buttonBar, scrollPane, statusBar, midBoxBottom);
+		buttonBar.setAlignment(Pos.CENTER);
+		buttonBar.getChildren().addAll(editBtn, addBtn, saveBtn, printBtn);
+		midBox.getChildren().addAll(shoppingListLabel,  statusBar, scrollPane, buttonBar);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
@@ -387,7 +389,7 @@ public class GenerateShoppingListScreen {
 						shoppingListBox.getChildren().add(item);
 					}
 				}
-				statusBar.setText("You have " + shoppingList.size() + " items in your shopping list");
+				statusBar.setText(shoppingList.size() + " items in your shopping list");
 			}
 			else {
 				statusBar.setText("No items in shopping list");
