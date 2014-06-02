@@ -2,11 +2,14 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+	-fx-background-image: url('MoreRecipes.png');
+	-fx-background-position: center center; 
+	-fx-background-size: 300 200;
 }
 
 
@@ -21,11 +24,14 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );	
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+	-fx-background-image: url('ShoppingList2.png');
+	-fx-background-position: center center; 
+	-fx-background-size: 300 200;	
 }
 
 
@@ -40,11 +46,14 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-image: url('Ingredients.png');
+	-fx-background-position: center center; 
+	-fx-background-size: 280 190;		
 }
 
 #ingredientsPickBtn:hover {
@@ -57,11 +66,14 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-image: url('Recipes.png');
+	-fx-background-position: center center; 
+	-fx-background-size: 280 200;	
 }
 
 #recipesBtn:hover {
@@ -75,12 +87,13 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-radius: 8;
-	-fx-background-size: 300 300;
-	-fx-background-position: center center;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );  
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 650 500;
+	-fx-background-position: center center; 
 	-fx-background-image: url('open_big.png');	
 }
 
@@ -95,12 +108,13 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-radius: 8;
-	-fx-background-size: 256 228;
-	-fx-background-position: center center;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
 	-fx-border-color: rgb(00, 00, 00);
-    -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 650 450;
+	-fx-background-position: center center;
 	-fx-background-image: url('net_big.png');		
 }
 
@@ -113,17 +127,17 @@
 }
 
 #directUrlBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
+    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+    	-fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
         #9d4024,
         #d86e3a,
         radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    	-fx-font-weight: bold;
+    	-fx-font-size: 12px;
+    	-fx-font-family: "Century Gothic";
 }
 
 #directUrlBtn:hover {
