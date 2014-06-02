@@ -146,7 +146,43 @@ public class RecipeScaleTest {
 		assertNotSame(testWidth, recipe.getSlide(4).getContent().getVideos().get(1).getWidth());
 		assertNotSame(testHeight, recipe.getSlide(4).getContent().getVideos().get(1).getHeight());	
 	}
-	
+	/*
+	 * Test to check absolute value of the image in Slide id =3 scales correctly.Image dimensions height= 384 
+	 * and width = 512.
+	 */
+	@Test
+	public void absoluteValueTest() {
+		Integer actualX, actualY, actualWidth, actualHeight;
+		
+		// Return the current recipe
+		recipe = reader.getRecipe();
+		
+		// Set a test resolution of 1440*900
+		recipeScale.setTest(1440, 900);
+		
+		// run the scaler
+		recipe = recipeScale.scaleRecipe(recipe);
+		
+		// Get values from objects
+		testX = recipe.getSlide(3).getContent().getImages().get(0).getXStart();
+		testY = recipe.getSlide(3).getContent().getImages().get(0).getYStart();
+		testWidth = recipe.getSlide(3).getContent().getImages().get(0).getWidth();
+		testHeight = recipe.getSlide(3).getContent().getImages().get(0).getHeight();
+		
+		// Manually calculated values scaled accordingly
+		actualX =  10;
+		actualY =  54;
+		actualWidth = 460;
+		actualHeight = 345;
+		
+		// Assertions - do object values match manually calculated ones?
+		assertEquals(testX, actualX, 0);
+		assertEquals(testY, actualY, 0);
+		assertEquals(testWidth, actualWidth, 0);
+		assertEquals(testHeight, actualHeight, 0);	
+		
+		
+	}
 	/*
 	 *	Further testing:
 	 *	The automatic tests will only check for changes in

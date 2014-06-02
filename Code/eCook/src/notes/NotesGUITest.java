@@ -1,6 +1,17 @@
 package notes;
 
+import static org.junit.Assert.*;
+
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
+
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import eCook.JavaFXThreadingRule;
 
 /* Title: NotesGUITest
  * 
@@ -12,9 +23,24 @@ import org.junit.Test;
  */
 
 public class NotesGUITest {
+	// Run tests on JavaFX thread ref. Andy Till
+	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
+	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
-	// This test class contains no automated tests. Instead, visual tests were carried out.
+	static Group group;
+	static Scene scene;
+	
+	@Before
+	// perform JavaFX setup to launch the notes GUI
+	public void setup() {
+		group = new Group();
+		scene = new Scene(group);
+	}
+	
+	// This test class contains visual and automated tests.
 	// The results of such testing is documented below.
+		
+	/* Visual Tests */
 
 	@Test
 	public void notesPanelDisplayedWhenMouseMovedToLHS() {
@@ -44,5 +70,42 @@ public class NotesGUITest {
 		System.out.println("Testing if notes panel is hidden correctly when mouse is moved out of the notes panel...");
 		System.out.println("Mouse moved to centre of screen, waiting 2 seconds");
 		System.out.println("notes panel hidden correctly.");
+	}
+	
+	@Test
+	public void notesSavedToTextFileCorrectly() {
+		System.out.println("Testing if notes are saved to correct text file when added...");
+		System.out.println("Mouse moved to LHS of screen, waiting 2 seconds");
+		System.out.println("notes panel appears correctly.");
+		System.out.println("Typing text into panel...");
+		System.out.println("Moving mouse back to centre of screen... Panel disappears.");
+		System.out.println("Closing eCook...");
+		System.out.println("Checking that correct text file has been created with correct name");
+		System.out.println("Checking that text file has correct contents. Passed.");
+	}
+	
+	/* Automated Tests */
+	
+	// check that all of the UI components are instantiated correctly
+	@Test
+	public void GUISetupCorrectly() {
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group);
+		assertNotNull(notesGUI.handler);
+		assertNotNull(notesGUI.notesPanel);
+		assertNotNull(notesGUI.notesBox);
+		assertFalse(notesGUI.notesPanel.getChildren().contains(notesGUI.notesBox));
+		assertFalse(notesGUI.notesPanelVisible);
+		assertEquals("Write your notes here", notesGUI.getContentOfNotesBox());
+	}
+	
+	// check that the notes box is updated when text is typed
+	@Test
+	public void notesBoxContainsTypedText() {
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group);
+		assertEquals("Write your notes here", notesGUI.getContentOfNotesBox());
+		notesGUI.notesBox.fireEvent(new InputEvent(KeyEvent.KEY_PRESSED));
+		assertEquals("", notesGUI.getContentOfNotesBox());
+		notesGUI.notesBox.setText("example notes text for testing");
+		assertEquals("example notes text for testing", notesGUI.getContentOfNotesBox());
 	}
 }
