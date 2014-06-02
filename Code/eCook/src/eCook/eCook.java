@@ -48,7 +48,7 @@ public class eCook extends Application {
 		}
 		// log if no default recipes folder is found
 		else {
-			logger.log(Level.WARNING, "No Defualt Recipes folder found");
+			logger.log(Level.WARNING, "No Default Recipes folder found");
 		}
 
 		// This is the group for the main menu - DONT DELETE IT!
