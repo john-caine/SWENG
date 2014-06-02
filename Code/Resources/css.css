@@ -75,12 +75,13 @@
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
+	-fx-background-size: 256 228;
+	-fx-background-position: center center;
 	-fx-border-color: rgb(00, 00, 00);
     -fx-border-radius: 5;
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-image: url('open.png');	
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );  
+	-fx-background-image: url('open_big.png');	
 }
 
 #fileBrowserBtn:hover {
@@ -100,7 +101,7 @@
 	-fx-border-color: rgb(00, 00, 00);
     -fx-border-radius: 5;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-image: url('net.png');		
+	-fx-background-image: url('net_big.png');		
 }
 
 
