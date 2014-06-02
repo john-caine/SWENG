@@ -1,6 +1,6 @@
 #loadExtBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: 'Century Gothic';
 	-fx-font-weight: bold;
     	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     	-fx-background-radius: 8;
@@ -8,8 +8,8 @@
         linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
          #ffa500,
          #ff8c00,
-        radial-gradient(center 50% 50%, radius 100%,  #ff8c00, #ffa500);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 }
 
 
@@ -30,7 +30,7 @@
         linear-gradient(from 0% 93% to 0% 100%,   #006400 0%, #556b2f 100%),
          #2e8b57,
          #90ee90,
-        radial-gradient(center 50% 50%, radius 100%,  #90ee90, #2e8b57);
+        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
     	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
 }
 
@@ -44,16 +44,13 @@
 
 #ingredientsPickBtn {
 	-fx-font-size: 20px;
-	-fx-font-family: "Swis721 lt BT";
+	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%,   #008b8b 0%, #2f4f4f 100%),
-         #778899,
-         #add8e6,
-        radial-gradient(center 50% 50%, radius 100%,   #add8e6, #778899);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 	
 }
 
 #ingredientsPickBtn:hover {
@@ -72,7 +69,7 @@
         linear-gradient(from 0% 93% to 0% 100%,   #dc143c 0%, #b22222 100%),
          #e9967a,
          #f08080,
-        radial-gradient(center 50% 50%, radius 100%,   #f08080,  #e9967a);
+        radial-gradient(center 50% 50%, radius 100%,  #ffffff, #000000);
     	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
 }
 
@@ -717,13 +714,4 @@
     -fx-font-weight: bold;
     -fx-font-size: 11px;
     -fx-font-family: "Swis721 lt BT";
-}
-
-#bigBox {
-	-fx-background-color: pink;
-	//-fx-background-repeat: cover;   
-    	-fx-background-size: cover;
-	-fx-background-repeat: stretch;
-    	-fx-background-position: center center;
-	-fx-background-image: url('IMG_4906.jpg');
 }

@@ -170,8 +170,8 @@ public class MainMenuContent {
 		// bigBox.setMaxSize(width, height+100);
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
-		
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/bg_image_blur.jpg');");
+		/*-fx-background-image: url('file:../Resources/bg_image_blur.jpg');*/
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-color: lightGrey;");
 		
 		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);
