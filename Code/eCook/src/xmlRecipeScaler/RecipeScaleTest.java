@@ -39,7 +39,7 @@ public class RecipeScaleTest {
 	@Before
 	public void setUp() throws Exception {
 		recipeScale = new RecipeScale();
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 	}
 	
 	/*
