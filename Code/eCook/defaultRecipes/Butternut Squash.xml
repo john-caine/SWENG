@@ -4,7 +4,8 @@
 		<author>Jim Dee</author>
 		<version>1.1</version>
     <title>Butternut Squash Soup</title>
-		<comment>Cooking Time: 20 mins /n Preparation Time: 10 mins /n Average Cost = £2 /n Suitable for vegetarians</comment>
+		<comment>Cooking Time: 20 mins 	Preparation Time: 10 mins 	Average Cost = £2 	Suitable for vegetarians.s
+		</comment>
 		
 		<width>1000</width>
 		<height>800</height>
@@ -30,12 +31,12 @@
 		</text>
 		<text xstart="15" ystart="70" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage. <br />Step by step method. Please click 'Next' or press the right arrow key to begin.</textstring>
+        		<textstring>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage. <br>Step by step method. Please click 'Next' or press the right arrow key to begin.</br></textstring>
       			</textbody>
 		</text>
 		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="175" ystart="150" width="950" height="633" layer="1" />	
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="250" width="800" height="533" layer="1" />	
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -55,10 +56,10 @@
       			</textbody>
 		</text>     		
         		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_3.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -78,9 +79,9 @@
       			</textbody>
 		</text>		
         		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -90,19 +91,19 @@
       			</textbody>
 		</text>
 		<text xstart="15" ystart="100" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
-			<textbody branch="5">
+			<textbody >
         		<textstring>Simmer for 15-20 minutes then strain into another pan. This creates a lightly flavoured squash stock. </textstring>
       			</textbody>
         </text>
         <text xstart="650" ystart="550" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
-			<textbody branch="5">
+			<textbody >
         		<textstring>Wash and dry the seeds, and lightly toast in a dry pan. </textstring>
       			</textbody>
         </text>
         
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -123,10 +124,10 @@
       			</textbody>
 		</text>     		
         		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -137,14 +138,14 @@
 		</text>
 		
 		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
-			<textbody branch="5">
+			<textbody >
         		<textstring>To serve, reheat the soup and pour into a bowl.</textstring>
       			</textbody>
 		</text>
 			
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_11.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_12.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="6" duration="30" lastSlide="true">
@@ -154,12 +155,12 @@
       			</textbody>
 		</text>
 		<text xstart="350" ystart="700" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
-			<textbody branch="5">
+			<textbody >
         		<textstring>Top with a teaspoon of the toasted seeds.</textstring>
       			</textbody>
 		</text>
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
-		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>
