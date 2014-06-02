@@ -46,6 +46,7 @@ import xmlValidation.XMLValidator;
 import xmlparser.*;
 import errorhandler.ErrorHandler;
 
+
 public class SlideShow {
 
 	// declare variables
@@ -630,7 +631,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(0).setText("Pause");
+					buttons.get(0).setText("Pause");			        
 					paused = false;
 				}				
 			}			

@@ -641,11 +641,12 @@
     -fx-background-position: center center;
 
 }
-#SlidePauseBtn{    
-    -fx-background-color: rgb(128,128,128);
+#SlidePauseBtn{
+    -fx-background-image: url('Pause.png');    
     -fx-text-fill: white;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
+    -fx-background-size: 300 200;
 }
 #SlidePrevBtn{
     -fx-background-color: rgb(128,128,128);
