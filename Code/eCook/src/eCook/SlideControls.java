@@ -65,28 +65,40 @@ public class SlideControls {
         // Set up the controls panel at the bottom of the screen
         controlPanel = new HBox();
         controlPanel.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/8);
-        controlPanel.setStyle("-fx-background-color: #FF7519;");
+        controlPanel.setStyle("-fx-background-color: rgba(255, 117, 25, 0.5)");
         controlPanel.setPadding(new Insets(30,10,10,30));
         controlPanel.setSpacing(20);
         controlPanel.setAlignment(Pos.TOP_CENTER);
         
         // instantiate and add the buttons to the list
         buttons = new ArrayList<Button>();
-        Button playBtn = new Button("Play");
         Button pauseBtn = new Button("Pause");
         Button prevBtn = new Button("Previous");
         Button nextBtn = new Button("Next");
         Button exitBtn = new Button("Exit");
         Button timerBtn = new Button("Add Timer");
-        buttons.add(playBtn);
+        
+        pauseBtn.setId("SlidePauseBtn");
+        prevBtn.setId("SlidePrevBtn");
+        nextBtn.setId("SlideNextBtn");
+        exitBtn.setId("SlideExitBtn");
+        timerBtn.setId("SlideTimeBtn");
+        
+        pauseBtn.getStylesheets().add("file:../Resources/css.css");
+        prevBtn.getStylesheets().add("file:../Resources/css.css");
+        nextBtn.getStylesheets().add("file:../Resources/css.css");
+        exitBtn.getStylesheets().add("file:../Resources/css.css");
+        timerBtn.getStylesheets().add("file:../Resources/css.css");
+        
         buttons.add(pauseBtn);
         buttons.add(prevBtn);
         buttons.add(nextBtn);
         buttons.add(exitBtn);
-        buttons.add(timerBtn);
+        buttons.add(timerBtn);        
         
         // add the buttons to the panel
         controlPanel.getChildren().addAll(buttons);
+        
         
         // Define an event handler to trigger when the mouse leaves the controls panel
         final EventHandler<InputEvent> mouseoutcontrolPanelHandler = new EventHandler<InputEvent>() {

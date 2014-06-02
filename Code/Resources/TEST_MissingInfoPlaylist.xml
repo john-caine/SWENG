@@ -2,8 +2,10 @@
 <slideshow>
 	<documentinfo>
 		<author>John Caine</author>
-		<width>1000</width>
-		<height>800</height>
+		<version>1.1</version>
+    <title>Recipe Example #2</title>
+		<comment>This is recipe example 2 in the defaultRecipe folder</comment>
+		<height>900</height>
 	</documentinfo>
 	<defaults>
 		<backgroundcolor>#00FF00</backgroundcolor>
@@ -14,12 +16,12 @@
 		<fillcolor>#FF0000</fillcolor>
 	</defaults>
 	<ingredients>
-		<ingredient name="onion" amount="700" units="grams" />
-		<ingredient name="olive oil" amount="2" units="tablespoons" />
-		<ingredient name="butter" amount="2" units="oz" />
+		<ingredient name="potato" amount="700" units="grams" />
+		<ingredient name="vegetable oil" amount="2" units="tablespoons" />
+		<ingredient name="unsalted butter" amount="2" units="oz" />
 		<ingredient name="garlic" amount="2" units="cloves" />
-		<ingredient name="granulated sugar" amount="0.5" units="teaspoon" />
-		<ingredient name="beef stock" amount="2" units="pints" />
+		<ingredient name="brown sugar" amount="0.5" units="teaspoon" />
+		<ingredient name="chicken stock" amount="2" units="pints" />
 	</ingredients>
 	<slide id="0" duration="10" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
@@ -50,14 +52,14 @@
     </text>
 	</slide>
 	<slide id="1" duration="30" lastSlide="false">
-		<shape totalpoints="4" width="15" height="15">
-			<point num="1" x="10" y="10"/>
-			<point num="2" x="25" y="10"/>
-			<point num="3" x="25" y="25"/>
-			<point num="4" x="10" y="25"/>
-		</shape>
-		<shape totalpoints="1" width="10" height="10" fillcolor="#9400D3" linecolor="#000000">
+		<shape totalpoints="4" width="150" height="150">
 			<point num="1" x="100" y="100"/>
+			<point num="2" x="250" y="100"/>
+			<point num="3" x="250" y="250"/>
+			<point num="4" x="100" y="250"/>
+		</shape>
+		<shape totalpoints="1" width="100" height="100" fillcolor="#9400D3" linecolor="#000000">
+			<point num="1" x="500" y="200"/>
 		</shape>
 		<shape totalpoints="2" width="2" height="2" starttime="15" duration="15" layer="1">
 			<point num="1" x="150" y="150"/>
@@ -65,59 +67,16 @@
 		</shape>
 	</slide>
 	<slide id="2" duration="90" lastSlide="false">
-		<audio>
-			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3</urlname>
-			<starttime>5</starttime>
-      <duration>20</duration>
-			<loop>false</loop>
-		</audio>
-		<audio>
-			<urlname>http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3</urlname>
-			<starttime>35</starttime>
-			<loop>false</loop>
-		</audio>
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" false="loop"/>
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3" starttime="35" loop="false"/>
 	</slide>
 	<slide id="3" duration="40" lastSlide="false">
-		<image>
-			<urlname>http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg</urlname>
-			<xstart>10</xstart>
-			<ystart>10</ystart>
-		</image>
-		<image>
-			<urlname>http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg</urlname>
-			<xstart>50</xstart>
-			<ystart>50</ystart>
-			<width>200</width>
-			<height>200</height>
-			<layer>2</layer>
-      			<orientation>180</orientation>
-      			<branch>5</branch>
-		</image>
-		<image>
-			<urlname>http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg</urlname>
-			<xstart>600</xstart>
-			<ystart>100</ystart>
-			<duration>20</duration>
-			<layer>3</layer>
-		</image>
+		<image urlname="http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg" xstart="10" ystart="10" width="512" height="384"/>
+		<image urlname="http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg" xstart="1194" ystart="600" duration="20" width="396" height="300" layer="3"/>
 	</slide>
-	<slide id="4" lastSlide="true">
-		<video>
-			<urlname>http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4</urlname>
-			<xstart>10</xstart>
-			<ystart>10</ystart>
-			<layer>2</layer>
-			<duration>10</duration>
-		</video>
-		<video>
-			<urlname>http://ystv.co.uk/~john.caine/swengrepo/ident_ice-XviD.avi</urlname>
-			<xstart>300</xstart>
-			<ystart>300</ystart>
-      			<width>400</width>
-     			<height>400</height>
-			<loop>true</loop>
-			<starttime>15</starttime>
-		</video>		
+	<slide id="4" duration="90" lastSlide="true">
+		<video urlname="http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4" xstart="10" ystart="10" layer="2" duration="10" />
+		<video urlname="http://ystv.co.uk/~john.caine/swengrepo/ident_ice-XviD.avi" xstart="300" ystart="300" width="400" height="400" loop="true" starttime="15" />		
 	</slide>
 <slide id="5" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100"> 

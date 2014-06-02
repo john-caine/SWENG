@@ -46,9 +46,9 @@ enum ProcessingElement {
 	TEXT,
 	TEXTTEXTBODY, TEXTTEXTBODYTEXT,
 	SHAPE, SHAPEPOINT,
-	AUDIO, AUDIOURLNAME, AUDIOSTARTTIME, AUDIOLOOP, AUDIODURATION,
-	IMAGE, IMAGEURLNAME, IMAGEXSTART, IMAGEYSTART, IMAGEWIDTH, IMAGEHEIGHT, IMAGEDURATION, IMAGELAYER, IMAGEBRANCH, IMAGEORIENTATION,
-	VIDEO, VIDEOURLNAME, VIDEOXSTART, VIDEOYSTART, VIDEODURATION, VIDEOLAYER, VIDEOSTARTTIME, VIDEOLOOP, VIDEOWIDTH, VIDEOHEIGHT
+	AUDIO, 
+	IMAGE,
+	VIDEO
 };
 
 public class XMLReader extends DefaultHandler {
@@ -320,15 +320,12 @@ public class XMLReader extends DefaultHandler {
 				slideElement = ProcessingElement.SHAPE;
 			}
 			else if (elementName.equals("audio")) {
-				audio = new Audio();
 				slideElement = ProcessingElement.AUDIO;
 			}
 			else if (elementName.equals("image")) {
-				image = new Image();
 				slideElement = ProcessingElement.IMAGE;
 			}
 			else if (elementName.equals("video")) {
-				video = new Video();	
 				slideElement = ProcessingElement.VIDEO;
 			}
 			/* 
@@ -397,59 +394,83 @@ public class XMLReader extends DefaultHandler {
 			}
 			// audio
 			if (slideElement.equals(ProcessingElement.AUDIO)) {
-				if (elementName.equals("urlname")) {
-					currentElement = ProcessingElement.AUDIOURLNAME;
-				} else if (elementName.equals("starttime")) {
-					currentElement = ProcessingElement.AUDIOSTARTTIME;
-				} else if (elementName.equals("loop")) {
-					currentElement = ProcessingElement.AUDIOLOOP;
-				} else if (elementName.equals("duration")) {
-					currentElement = ProcessingElement.AUDIODURATION;
+				audio = new Audio();
+				if (attributes.getValue("urlname") != null) {
+					audio.setURLName(attributes.getValue("urlname"));
+				}
+				if (attributes.getValue("starttime") != null) {
+					audio.setStartTime(attributes.getValue("starttime"));
+				}
+				if (attributes.getValue("loop") != null) {
+					audio.setLoop(attributes.getValue("loop"));
+				}
+				if (attributes.getValue("duration") != null) {
+					audio.setDuration(attributes.getValue("duration"));
 				}
 			}
 			// image
 			if (slideElement.equals(ProcessingElement.IMAGE)) {
-				if (elementName.equals("urlname")) {
-					currentElement = ProcessingElement.IMAGEURLNAME;
-				} else if (elementName.equals("xstart")) {
-					currentElement = ProcessingElement.IMAGEXSTART;
-				} else if (elementName.equals("ystart")) {
-					currentElement = ProcessingElement.IMAGEYSTART;
-				} else if (elementName.equals("width")) {
-					currentElement = ProcessingElement.IMAGEWIDTH;
-				} else if (elementName.equals("height")) {
-					currentElement = ProcessingElement.IMAGEHEIGHT;
-				} else if (elementName.equals("duration")) {
-					currentElement = ProcessingElement.IMAGEDURATION;
-				} else if (elementName.equals("layer")) {
-					currentElement = ProcessingElement.IMAGELAYER;
-				} else if (elementName.equals("branch")) {
-					currentElement = ProcessingElement.IMAGEBRANCH;
-				} else if (elementName.equals("orientation")) {
-					currentElement = ProcessingElement.IMAGEORIENTATION;
+				image = new Image();
+				if (attributes.getValue("urlname") != null) {
+					image.setURLName(attributes.getValue("urlname"));
+				} 
+				if (attributes.getValue("xstart") != null) {
+					image.setXStart(attributes.getValue("xstart"));
 				}
-				
+				if (attributes.getValue("ystart") != null) {
+					image.setYStart(attributes.getValue("ystart"));
+				}
+				if (attributes.getValue("width") != null) {
+					image.setWidth(attributes.getValue("width"));
+				}
+				if (attributes.getValue("height") != null) {
+					image.setHeight(attributes.getValue("height"));
+				}
+				if (attributes.getValue("duration") != null) {
+					image.setDuration(attributes.getValue("duration"));
+				}
+				if (attributes.getValue("layer") != null) {
+					image.setLayer(attributes.getValue("layer"));
+				}
+				if (attributes.getValue("branch") != null) {
+					image.setBranch(attributes.getValue("branch"));
+				}
+				if (attributes.getValue("orientation") != null) {
+					image.setOrientation(attributes.getValue("orientation"));
+				}
+				if (attributes.getValue("starttime") != null) {
+					image.setStartTime(attributes.getValue("starttime"));
+				}
 			}
 			// video
 			if (slideElement.equals(ProcessingElement.VIDEO)) {
-				if (elementName.equals("urlname")) {
-					currentElement = ProcessingElement.VIDEOURLNAME;
-				} else if (elementName.equals("xstart")) {
-					currentElement = ProcessingElement.VIDEOXSTART;
-				} else if (elementName.equals("ystart")) {
-					currentElement = ProcessingElement.VIDEOYSTART;
-				} else if (elementName.equals("duration")) {
-					currentElement = ProcessingElement.VIDEODURATION;
-				} else if (elementName.equals("layer")) {
-					currentElement = ProcessingElement.VIDEOLAYER;
-				} else if (elementName.equals("width")) {
-					currentElement = ProcessingElement.VIDEOWIDTH;
-				} else if (elementName.equals("height")) {
-					currentElement = ProcessingElement.VIDEOHEIGHT;
-				} else if (elementName.equals("starttime")) {
-					currentElement = ProcessingElement.VIDEOSTARTTIME;
-				} else if (elementName.equals("loop")) {
-					currentElement = ProcessingElement.VIDEOLOOP;
+				video = new Video();
+				if (attributes.getValue("urlname") != null) {
+					video.setURLName(attributes.getValue("urlname"));
+				}
+				if (attributes.getValue("xstart") != null) {
+					video.setXStart(attributes.getValue("xstart"));
+				}
+				if (attributes.getValue("ystart") != null) {
+					video.setYStart(attributes.getValue("ystart"));
+				}
+				if (attributes.getValue("duration") != null) {
+					video.setDuration(attributes.getValue("duration"));
+				}
+				if (attributes.getValue("layer") != null) {
+					video.setLayer(attributes.getValue("layer"));
+				}
+				if (attributes.getValue("width") != null) {
+					video.setWidth(attributes.getValue("width"));
+				}
+				if (attributes.getValue("height") != null) {
+					video.setHeight(attributes.getValue("height"));
+				}
+				if (attributes.getValue("starttime") != null) {
+					video.setStartTime(attributes.getValue("starttime"));
+				}
+				if (attributes.getValue("loop") != null) {
+					video.setLoop(attributes.getValue("loop"));
 				}
 			}
 		}
@@ -503,78 +524,6 @@ public class XMLReader extends DefaultHandler {
 		// TextBody class
 		case TEXTTEXTBODYTEXT:
 			textString.setText(elementValue);
-			break;
-				
-		// Audio class
-		case AUDIOURLNAME:
-			audio.setURLName(elementValue);			
-			break;
-		case AUDIOSTARTTIME:
-			audio.setStartTime(elementValue);			
-			break;
-		case AUDIOLOOP:
-			audio.setLoop(elementValue);
-			break;
-		case AUDIODURATION:
-			audio.setDuration(elementValue);
-			break;
-			
-		// Image class
-		case IMAGEURLNAME:
-			image.setURLName(elementValue);
-			break;
-		case IMAGEXSTART:
-			image.setXStart(elementValue);
-			break;
-		case IMAGEYSTART:
-			image.setYStart(elementValue);		
-			break;
-		case IMAGEWIDTH:
-			image.setWidth(elementValue);		
-			break;
-		case IMAGEHEIGHT:
-			image.setHeight(elementValue);		
-			break;
-		case IMAGEDURATION:
-			image.setDuration(elementValue);			
-			break;
-		case IMAGELAYER:
-			image.setLayer(elementValue);		
-			break;
-		case IMAGEBRANCH:
-			image.setBranch(elementValue);		
-			break;
-		case IMAGEORIENTATION:
-			image.setOrientation(elementValue);		
-			break;
-			
-		// Video class
-		case VIDEOURLNAME:
-			video.setURLName(elementValue);
-			break;
-		case VIDEOXSTART:
-			video.setXStart(elementValue);
-			break;
-		case VIDEOYSTART:
-			video.setYStart(elementValue);		
-			break;
-		case VIDEODURATION:
-			video.setDuration(elementValue);		
-			break;
-		case VIDEOLAYER:
-			video.setLayer(elementValue);		
-			break;
-		case VIDEOWIDTH:
-			video.setWidth(elementValue);			
-			break;
-		case VIDEOHEIGHT:
-			video.setHeight(elementValue);
-			break;
-		case VIDEOSTARTTIME:
-			video.setStartTime(elementValue);		
-			break;
-		case VIDEOLOOP:
-			video.setLoop(elementValue);		
 			break;
 
 		// catch all case

@@ -8,6 +8,8 @@
 package videohandler;
 
 import java.io.File;
+
+import eCook.SlideShow;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -16,7 +18,7 @@ public class VideoPlayerHandler {
 	public VideoMediaControl mediaControl;
 	protected Media media;
 	
-	public VideoPlayerHandler( String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
+	public VideoPlayerHandler(SlideShow parent, String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
 		
         // create media player
         media = new Media(pathLocation);

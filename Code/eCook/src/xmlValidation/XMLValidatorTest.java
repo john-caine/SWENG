@@ -30,7 +30,7 @@ public class XMLValidatorTest {
 	 */
 	@Test
 	public void areNoErrorsReported() {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		xmlValidationInfo = new XMLValidator(reader);
 		assertEquals(false, xmlValidationInfo.isXMLBroken());
 	}

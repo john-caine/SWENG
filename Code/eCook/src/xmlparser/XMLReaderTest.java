@@ -29,7 +29,7 @@ public class XMLReaderTest {
 	// create instances of the XML reader and recipe
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_3.xml");
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		recipe = reader.getRecipe();
 	}
 	
@@ -53,11 +53,11 @@ public class XMLReaderTest {
 	public void correctInfoDefaultDataReadIntoRecipe() {
 		// check info
 		assertEquals("John Caine", recipe.info.author);
-		assertEquals("1.2", recipe.info.version);
-		assertEquals("Test Playlist", recipe.info.title);
-		assertEquals("Test playlist for eCook product", recipe.info.comment);
-		assertEquals(1000, recipe.info.width.intValue());
-		assertEquals(800, recipe.info.height.intValue());
+		assertEquals("1.1", recipe.info.version);
+		assertEquals("Recipe Example #2", recipe.info.title);
+		assertEquals("This is recipe example 2 in the defaultRecipe folder", recipe.info.comment);
+		assertEquals(1600, recipe.info.width.intValue());
+		assertEquals(900, recipe.info.height.intValue());
 		
 		// check defaults
 		assertEquals("#00FF00", recipe.defaults.backgroundColor);
@@ -76,15 +76,15 @@ public class XMLReaderTest {
 		List<Ingredient> ingredientsList = recipe.getIngredients();
 		// 6 ingredients in total
 		// Ingredient
-		assertEquals("onion", ingredientsList.get(0).getName());
+		assertEquals("potato", ingredientsList.get(0).getName());
 		assertEquals(700, ingredientsList.get(0).getAmount(), 0.01);
 		assertEquals("grams", ingredientsList.get(0).getUnits());
 		// Ingredient
-		assertEquals("olive oil", ingredientsList.get(1).getName());
+		assertEquals("vegetable oil", ingredientsList.get(1).getName());
 		assertEquals(2, ingredientsList.get(1).getAmount(), 0.01);
 		assertEquals("tablespoons", ingredientsList.get(1).getUnits());
 		// Ingredient
-		assertEquals("butter", ingredientsList.get(2).getName());
+		assertEquals("unsalted butter", ingredientsList.get(2).getName());
 		assertEquals(2, ingredientsList.get(2).getAmount(), 0.01);
 		assertEquals("oz", ingredientsList.get(2).getUnits());
 		// Ingredient
@@ -92,11 +92,11 @@ public class XMLReaderTest {
 		assertEquals(2, ingredientsList.get(3).getAmount(), 0.01);
 		assertEquals("cloves", ingredientsList.get(3).getUnits());
 		// Ingredient
-		assertEquals("granulated sugar", ingredientsList.get(4).getName());
+		assertEquals("brown sugar", ingredientsList.get(4).getName());
 		assertEquals(0.5, ingredientsList.get(4).getAmount(), 0.01);
 		assertEquals("teaspoon", ingredientsList.get(4).getUnits());
 		// Ingredient
-		assertEquals("beef stock", ingredientsList.get(5).getName());
+		assertEquals("chicken stock", ingredientsList.get(5).getName());
 		assertEquals(2, ingredientsList.get(5).getAmount(), 0.01);
 		assertEquals("pints", ingredientsList.get(5).getUnits());
 	}
@@ -109,9 +109,9 @@ public class XMLReaderTest {
 	 */
 	@Test
 	public void nGuestsTest() {
-		assertEquals("700.0 grams of onion\n2.0 tablespoons of olive oil\n2.0 oz of butter\n2.0 cloves of garlic\n0.5 teaspoon of granulated sugar\n2.0 pints of beef stock\n", recipe.getStringOfIngredients(1));
-		assertEquals("1400.0 grams of onion\n4.0 tablespoons of olive oil\n4.0 oz of butter\n4.0 cloves of garlic\n1.0 teaspoon of granulated sugar\n4.0 pints of beef stock\n", recipe.getStringOfIngredients(2));
-		assertEquals("700.0 grams of onion\n2.0 tablespoons of olive oil\n2.0 oz of butter\n2.0 cloves of garlic\n0.5 teaspoon of granulated sugar\n2.0 pints of beef stock\n", recipe.getStringOfIngredients(1));
+		assertEquals("700.0 grams of potato\n2.0 tablespoons of vegetable oil\n2.0 oz of unsalted butter\n2.0 cloves of garlic\n0.5 teaspoon of brown sugar\n2.0 pints of chicken stock\n", recipe.getStringOfIngredients(1));
+		assertEquals("1400.0 grams of potato\n4.0 tablespoons of vegetable oil\n4.0 oz of unsalted butter\n4.0 cloves of garlic\n1.0 teaspoon of brown sugar\n4.0 pints of chicken stock\n", recipe.getStringOfIngredients(2));
+		assertEquals("700.0 grams of potato\n2.0 tablespoons of vegetable oil\n2.0 oz of unsalted butter\n2.0 cloves of garlic\n0.5 teaspoon of brown sugar\n2.0 pints of chicken stock\n", recipe.getStringOfIngredients(1));
 	}
 
 	// confirm that all fields in the first slide of the recipe contain the correct data
@@ -246,34 +246,34 @@ public class XMLReaderTest {
 		assertFalse(recipe.slides.get(1).lastSlide);
 			// shape 1
 			assertEquals((Integer)4, recipe.slides.get(1).content.shapes.get(0).getTotalPoints());
-			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getWidth().intValue());
-			assertEquals(15, recipe.slides.get(1).content.shapes.get(0).getHeight().intValue());
+			assertEquals(150, recipe.slides.get(1).content.shapes.get(0).getWidth().intValue());
+			assertEquals(150, recipe.slides.get(1).content.shapes.get(0).getHeight().intValue());
 				// point 1
 				assertEquals(1, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getNum().intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getX().intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getY().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getX().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(0).getPoint(0).getY().intValue());
 				// point 2
 				assertEquals(2, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getNum().intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getX().intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getY().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getX().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(0).getPoint(1).getY().intValue());
 				// point 3
 				assertEquals(3, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getNum().intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getX().intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getY().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getX().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(0).getPoint(2).getY().intValue());
 				// point 4
 				assertEquals(4, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getNum().intValue());
-				assertEquals(10, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getX().intValue());
-				assertEquals(25, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getY().intValue());
+				assertEquals(100, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getX().intValue());
+				assertEquals(250, recipe.slides.get(1).content.shapes.get(0).getPoint(3).getY().intValue());
 			// shape 2
 			assertEquals((Integer)1, recipe.slides.get(1).content.shapes.get(1).getTotalPoints());
-			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getWidth().intValue());
-			assertEquals(10, recipe.slides.get(1).content.shapes.get(1).getHeight().intValue());
-			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getFillColor());
-			assertEquals("", recipe.slides.get(1).content.shapes.get(1).getLineColor());
+			assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getWidth().intValue());
+			assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getHeight().intValue());
+			assertEquals("#9400D3", recipe.slides.get(1).content.shapes.get(1).getFillColor());
+			assertEquals("#000000", recipe.slides.get(1).content.shapes.get(1).getLineColor());
 				// point 1
 				assertEquals(1, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getNum().intValue());
-				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getX().intValue());
-				assertEquals(100, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getY().intValue());
+				assertEquals(500, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getX().intValue());
+				assertEquals(200, recipe.slides.get(1).content.shapes.get(1).getPoint(0).getY().intValue());
 			// shape 3
 			assertEquals((Integer)2, recipe.slides.get(1).content.shapes.get(2).getTotalPoints());
 			assertEquals(2, recipe.slides.get(1).content.shapes.get(2).getWidth().intValue());
@@ -356,18 +356,12 @@ public class XMLReaderTest {
 			assertEquals((Integer)10, recipe.slides.get(3).content.images.get(0).getXStart());
 			assertEquals((Integer)10, recipe.slides.get(3).content.images.get(0).getYStart());
 			// image 2
-			assertEquals("http://www.foodfunhealth.com/wp-content/uploads/2010/11/By-Aylanah.jpg", recipe.slides.get(3).content.images.get(1).getUrlName());
-			assertEquals((Integer)50, recipe.slides.get(3).content.images.get(1).getXStart());
-			assertEquals((Integer)50, recipe.slides.get(3).content.images.get(1).getYStart());
-			assertEquals(200, recipe.slides.get(3).content.images.get(1).getWidth().intValue());
-			assertEquals(200, recipe.slides.get(3).content.images.get(1).getHeight().intValue());
-			assertEquals(2, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
-			// image 3
-			assertEquals("http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg", recipe.slides.get(3).content.images.get(2).getUrlName());
-			assertEquals((Integer)100, recipe.slides.get(3).content.images.get(2).getXStart());
-			assertEquals((Integer)100, recipe.slides.get(3).content.images.get(2).getYStart());
-			assertEquals(20, recipe.slides.get(3).content.images.get(2).getDuration().intValue());
-			assertEquals(3, recipe.slides.get(3).content.images.get(2).getLayer().intValue());
+			assertEquals("http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg", recipe.slides.get(3).content.images.get(1).getUrlName());
+			assertEquals((Integer)1194, recipe.slides.get(3).content.images.get(1).getXStart());
+			assertEquals((Integer)600, recipe.slides.get(3).content.images.get(1).getYStart());
+			assertEquals(396, recipe.slides.get(3).content.images.get(1).getWidth().intValue());
+			assertEquals(300, recipe.slides.get(3).content.images.get(1).getHeight().intValue());
+			assertEquals(3, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 	}
 	
 	// confirm that all fields in the last slide of the recipe contain the correct data
@@ -394,15 +388,15 @@ public class XMLReaderTest {
 		
 		// check slide 5
 		assertEquals((Integer)4, recipe.slides.get(recipe.getNumberOfSlides()-1).id);
-		assertEquals(200, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
+		assertEquals(90, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
 			// video 1
-			assertEquals("http://ystv.co.uk/download/1715/Idents%20-%20Paper.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
+			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
 			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
 			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
 			assertEquals(2, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
 			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getDuration().intValue());
 			// video 2
-			assertEquals("http://ystv.co.uk/download/2064/Union%20-%20Episode%202.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
+			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/ident_ice-XviD.avi", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
 			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart());
 			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
 			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());

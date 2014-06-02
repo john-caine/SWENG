@@ -27,6 +27,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -48,6 +49,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -55,8 +57,8 @@ import javafx.util.Duration;
 public abstract class MediaControl {
 	
 	public MediaPlayer mp;
-    private boolean stopRequested = false;
-    private boolean atEndOfMedia = false;
+    public boolean stopRequested = false;
+    public boolean atEndOfMedia = false;
     private Duration duration;
     private Slider timeSlider, timeSliderFS;
     protected Label playTime, playTimeFS;
@@ -70,7 +72,7 @@ public abstract class MediaControl {
 	private Rectangle2D bounds;
 	public MediaView mediaView;
 	private HBox fullscreenMediaBar;
-	private Button playButton, playButtonFS;
+	public Button playButton, playButtonFS;
 	private FadeTransition fadeTransition;
 	private Integer startTime;
 	private final Integer playDuration;
@@ -79,6 +81,9 @@ public abstract class MediaControl {
 	protected boolean continuePlaying = true;
 	private Timeline timeLineStart;
 	private Animation.Status stopped = Animation.Status.STOPPED;
+	private Status status;
+	public Button stopButton;
+	boolean controlPanelVisible = false;
 	
 	/* 
 	 * Constructor for the MediaControl class. Accepts optional parameters from PWS.
@@ -129,9 +134,6 @@ public abstract class MediaControl {
             mediaView.setFitHeight(mpHeight-35);
 		}
 		
-		
-		
-		
 	
 		
 		// A VBox that contains the MediaView and Control Panel of the MediaPlayer
@@ -140,7 +142,9 @@ public abstract class MediaControl {
 		overallBox.getChildren().add(mediaView);
 		
 		// A HBox that contains all the Controls of the MediaPlayer
-		mediaBar = new HBox();
+		mediaBar = new HBox(5);
+		mediaBar.setAlignment(Pos.CENTER);
+		mediaBar.setStyle("-fx-background-color: grey;");
 		mediaBar.setMaxWidth(mpWidth);
 	    mediaBar.setPadding(new Insets(5, 10, 5, 10));
 			
@@ -170,6 +174,9 @@ public abstract class MediaControl {
 
         // Label to show the length of the video
         Label timeLabel = new Label(" Time: ");
+        timeLabel.setId("timeLabel");
+        timeLabel.getStylesheets().add("file:../Resources/css.css");
+        timeLabel.setTextAlignment(TextAlignment.CENTER);
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(timeLabel);
@@ -179,12 +186,17 @@ public abstract class MediaControl {
         
         // Label to show the current time position of the video
         playTime = new Label();
+        playTime.setId("playTimeLabel");
+        playTime.getStylesheets().add("file:../Resources/css.css");
+        playTime.setTextAlignment(TextAlignment.CENTER);
         playTime.setTextFill(Color.WHITE);
         playTime.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(playTime);
 
         // Label to show the current volume of the media
         Label volumeLabel = new Label(" Vol: ");
+        volumeLabel.setId("volumeLabel");
+        volumeLabel.getStylesheets().add("file:../Resources/css.css");
         volumeLabel.setTextFill(Color.WHITE);
         volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(volumeLabel);
@@ -194,20 +206,25 @@ public abstract class MediaControl {
         
         // Label for play time in full screen mode
         playTimeFS = new Label();
+        playTimeFS.setId("playTimeLabel");
+        playTimeFS.getStylesheets().add("file:../Resources/css.css");
         playTimeFS.setMinWidth(Control.USE_PREF_SIZE);
         playTimeFS.setTextFill(Color.WHITE);
 
         // Add components to Control Panel during fullscreen mode
-        fullscreenMediaBar = new HBox();  
+        fullscreenMediaBar = new HBox(5); 
+        fullscreenMediaBar.setAlignment(Pos.CENTER);
+        fullscreenMediaBar.setStyle("-fx-background-color: grey;");
         fullscreenMediaBar.getChildren().add(playButtonFS);
         fullscreenMediaBar.getChildren().add(timeSliderFS);
         fullscreenMediaBar.getChildren().add(playTimeFS);
-        fullscreenMediaBar.setLayoutY(bounds.getHeight()-20);
+        fullscreenMediaBar.setLayoutY(bounds.getHeight()+15);
+        fullscreenMediaBar.setMaxWidth(bounds.getWidth());
         
         // Add the mediaBar "box" to the overall MediaControl "bar"
         overallBox.getChildren().add(mediaBar);
         
-      //Create the startTime timeline
+        //Create the startTime timeline
   		timeLineStart = new Timeline();
   		
   		//When startTime timeline has finished show the image and if there is a duration begin the duration timeline
@@ -259,6 +276,7 @@ public abstract class MediaControl {
 	void setVolumeSlider() {
 		// Create a new volume slider
 		volumeSlider = new Slider();
+		volumeSlider.getStylesheets().add("file:../Resources/css.css");
 	    volumeSlider.setMaxWidth(mpWidth/5);
 	    // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
 	    volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -274,6 +292,14 @@ public abstract class MediaControl {
 	    		updateValues();
 	        }
 	    });
+	    
+	    // Allow the user to click on the slider to jump to the desired volume
+	    volumeSlider.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+            	mp.setVolume(volumeSlider.getValue() / 100.0);
+            }
+        });
 	        
 	    // Add the volume slider to MediaControl bar
 	    mediaBar.getChildren().add(volumeSlider);
@@ -287,7 +313,8 @@ public abstract class MediaControl {
 	void setTimeSlider() {
 		// Create a new time slide
         timeSlider = new Slider();
-        timeSlider.setMinWidth((2*mpWidth)/5);
+        timeSlider.getStylesheets().add("file:../Resources/css.css");
+        timeSlider.setMaxWidth((3*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
         // Allow the user to drag and position the slider
@@ -315,7 +342,8 @@ public abstract class MediaControl {
         
         // Create a new time slider for fullscreen mode
         timeSliderFS = new Slider();
-    	timeSliderFS.setMinWidth(bounds.getWidth()-100); 	
+        timeSliderFS.getStylesheets().add("file:../Resources/css.css");
+    	timeSliderFS.setPrefWidth(bounds.getWidth()-90);
     	timeSliderFS.valueProperty().addListener(new InvalidationListener() {
 
             @Override
@@ -352,6 +380,8 @@ public abstract class MediaControl {
 	void setFullScreenButton() {
 		// Create a fullscreen button
 		Button fullscreenButton = new Button();
+		fullscreenButton.setId("fullscreenButton");
+		fullscreenButton.getStylesheets().add("file:../Resources/css.css");
         fullscreenButton.setGraphic(new ImageView(fullscreenImage));
         fullscreenButton.setMinWidth(mpWidth/25);
         
@@ -428,8 +458,16 @@ public abstract class MediaControl {
                     }
                 }); 
                 
-                // If the mouse moves into the control bar stop the fade transition
-                fullscreenMediaBar.setOnMouseEntered(new EventHandler<MouseEvent>(){
+                // If the mouse moves into the timeslider bar stop the fade transition
+                timeSliderFS.setOnMouseEntered(new EventHandler<MouseEvent>(){
+                	@Override
+    	            public void handle(MouseEvent mouseEvent){
+                		fadeTransition.stop();
+    	            }
+    	        });
+                
+                // If the mouse moves into the timeslider bar stop the fade transition
+                playButtonFS.setOnMouseEntered(new EventHandler<MouseEvent>(){
                 	@Override
     	            public void handle(MouseEvent mouseEvent){
                 		fadeTransition.stop();
@@ -446,7 +484,7 @@ public abstract class MediaControl {
         	            	stageFS.close();
         	            	mediaView.setVisible(true);
         	            	stage.setFullScreen(true);
-        	            	stage.getScene().setCursor(Cursor.HAND);
+        	            	stage.getScene().setCursor(Cursor.DEFAULT);
         	            	stage.show();
         			    }	                                 
         		    }
@@ -464,8 +502,10 @@ public abstract class MediaControl {
 	 */
 	void setStopButton() {
 		// Create a stop button
-		Button stopButton = new Button();
-        stopButton.setGraphic(new ImageView(stopImage));
+		stopButton = new Button();
+		stopButton.setId("stopButton");
+		stopButton.setGraphic(new ImageView(stopImage));
+		stopButton.getStylesheets().add("file:../Resources/css.css");
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -491,14 +531,15 @@ public abstract class MediaControl {
 	void setPlayButton() {
 		// Create a play button.
         playButton = new Button();
+        playButton.setId("playButton");
         playButton.setGraphic(new ImageView(playImage));
+        playButton.getStylesheets().add("file:../Resources/css.css");
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	        // ActionHandler for play button.
 	        public void handle(ActionEvent e) {
-	            updateValues();
-	            Status status = mp.getStatus();
+	            status = mp.getStatus();
 	
 	            // Check for bad status's.
 	            if (status == Status.UNKNOWN || status == Status.HALTED) {
@@ -528,13 +569,15 @@ public abstract class MediaControl {
 	    
         // Play/Pause Button in fullscreen mode
         playButtonFS = new Button();
+        playButtonFS.setId("playButtonFS");
         playButtonFS.setGraphic(new ImageView(playImage));
+        playButtonFS.getStylesheets().add("file:../Resources/css.css");
+        playButtonFS.setMinWidth(mpWidth/25);
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
 
         	// ActionHandler for play button in fullscreen mode.
             public void handle(ActionEvent e) {
-                updateValues();
-                Status status = mp.getStatus();
+                status = mp.getStatus();
                 
                 // Check for bad status's
                 if (status == Status.UNKNOWN || status == Status.HALTED) {
@@ -588,7 +631,7 @@ public abstract class MediaControl {
         
         // Media is paused so set appropiate playButton image
         mp.setOnPaused(new Runnable() {
-
+        	
             public void run() {
             	// Set the play image for the "play" button
             	playButton.setGraphic(new ImageView(playImage));

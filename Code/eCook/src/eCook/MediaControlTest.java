@@ -9,28 +9,43 @@
 package eCook;
 
 import static org.junit.Assert.*;
+
 import java.awt.AWTException;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaView;
-import javafx.util.Duration;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import videohandler.JavaFXThreadingRule;
 import videohandler.VideoPlayerHandler;
+import xmlparser.Video;
+import xmlparser.XMLReader;
 
 public class MediaControlTest {
 
 
-	VideoPlayerHandler videoPlayerHandler;
+	private VideoPlayerHandler videoPlayerHandler;
+	private XMLReader reader;
+	private SlideShow parent;
+	private List<Video> videoList;
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
 	public void setup() throws AWTException {
-		videoPlayerHandler = new VideoPlayerHandler("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 400, 400, false, 2, 5);    
+		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
+		videoList = reader.getRecipe().getSlide(4).getContent().getVideos();
+		/* Call the videoHandler class to create a videoplayer based on certain attributes */
+		videoPlayerHandler = new VideoPlayerHandler(parent,videoList.get(0).getUrlName(), videoList.get(0).getXStart(), 
+				videoList.get(0).getYStart(), videoList.get(0).getWidth(),
+				videoList.get(0).getHeight(), videoList.get(0).getLoop(),
+				videoList.get(0).getStartTime(), videoList.get(0).getDuration());    
 	}
 	
 	@Test

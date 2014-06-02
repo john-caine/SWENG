@@ -58,13 +58,20 @@ public class Timer extends Task<Object>{
 	 * @Param currentHours: Previous slide timer hours value.
 	 * @Param currentMinutes: Previous slide timer minutes value.
 	 * @Param currentSeconds: Previous slide timer seconds value.
+	 * @Param startSeconds: Seconds value the timer started from.
+	 * @Param startMinutes: Minutes value the timer started from.
+	 * @Param startHours: Hours value the timer started from.
+	 * @Param timerLabel: The timer label.
 	*/
-	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, String timerLabel) {
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, Integer startMinutes, Integer startHours, String timerLabel) {
 		
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
 		timerValueMinutes = currentMinutes;
 		timerValueSeconds = currentSeconds;
+		timerStartSeconds = startSeconds;
+		timerStartMinutes = startMinutes;
+		timerStartHours = startHours;
 		resumeTimer  = true;
 		}
 		this.timerLabel = timerLabel;
@@ -366,6 +373,9 @@ public class Timer extends Task<Object>{
 		timerValues.setSeconds(timerValueSeconds);
 		timerValues.setMinutes(timerValueMinutes);
 		timerValues.setHours(timerValueHours);
+		timerValues.setSecondStart(timerStartSeconds);
+		timerValues.setMinutesStart(timerStartMinutes);
+		timerValues.setHoursStart(timerStartHours);
 		timerValues.setLabel(textField.getText());
 		return timerValues ;
 	}

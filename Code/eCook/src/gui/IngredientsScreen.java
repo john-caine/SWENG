@@ -156,6 +156,7 @@ public class IngredientsScreen {
 		
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
+		listOfRecipes.setStyle("-fx-border-color:black;");
 		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
 		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
@@ -184,11 +185,12 @@ public class IngredientsScreen {
 		// set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
 			listOfRecipes.getSelectionModel().select(0);
+			if (recipeCollection.getRecipe(0) != null) {
+				updateInfoLabels(recipeCollection.getRecipe(0));
+				updateIngredientsList(recipeCollection.getRecipe(0));
+			}
 		}
-		if (recipeCollection.getRecipe(0) != null) {
-			updateInfoLabels(recipeCollection.getRecipe(0));
-			updateIngredientsList(recipeCollection.getRecipe(0));
-		}
+		
 		else {
 			updateInfoLabels(null);
 		}

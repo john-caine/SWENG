@@ -74,6 +74,8 @@ public class SlideShow {
 	private XMLValidator validator;
 	String backGroundColor;
 	boolean endPageReached = false;
+	boolean controlPanelShowing = false;
+	boolean notesPanelShowing = false;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -268,7 +270,7 @@ public class SlideShow {
 		// Call the VideoHandler for each video object
 		if (videoCount != 0){
 			for(int i = 0; i < videoCount; i++){
-				VideoPlayerHandler video1 = new VideoPlayerHandler(videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+				VideoPlayerHandler video1 = new VideoPlayerHandler(this,videos.get(i).getUrlName(), videos.get(i).getXStart(), 
 												videos.get(i).getYStart(), videos.get(i).getWidth(),
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
@@ -348,7 +350,9 @@ public class SlideShow {
         	for(int l = 0; l < currentTimerValues.size(); l++){
         		
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
-        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getLabel());
+        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
+        												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
+        												currentTimerValues.get(l).getLabel());
 				timerList.add(continueTimer);
 				 
 				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -482,7 +486,7 @@ public class SlideShow {
 		 */
 		
         // Exit Slide
-        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
@@ -497,7 +501,7 @@ public class SlideShow {
         });
         
         // Next Slide
-        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
@@ -526,7 +530,7 @@ public class SlideShow {
         });
         
         // Previous Slide
-        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(1).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {           	
             	timeLineDuration.stop();
@@ -555,10 +559,10 @@ public class SlideShow {
         });
         
         // Add Timer
-        buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				 timer = new Timer(null, null, null, null);
+				 timer = new Timer(null, null, null, null, null, null, null);
 				timerList.add(timer);
 				 
 				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -576,9 +580,9 @@ public class SlideShow {
 				new Thread(timer).start();				
 			}		
         });
-        
+ 
         // Pause
-        buttons.get(1).setOnAction( new EventHandler<ActionEvent>(){
+        buttons.get(0).setOnAction( new EventHandler<ActionEvent>(){
 			private boolean paused;
 			@Override
 			//Pause all content on the slide
@@ -600,7 +604,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
-					buttons.get(1).setText("Resume");
+					buttons.get(0).setText("Play");
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -621,7 +625,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(1).setText("Pause");
+					buttons.get(0).setText("Pause");
 					paused = false;
 				}				
 			}			

@@ -104,6 +104,7 @@
 #urlBtn {
 	-fx-font-size: 20px;
 	-fx-font-family: "Swis721 lt BT";
+	-fx-text-fill:  #FFFFFF;
 	-fx-font-weight: bold;
 	-fx-background-repeat: stretch;   
     	-fx-background-size: 256 228;
@@ -219,8 +220,8 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
-	
+
+
 }
 
 #saveBtn:hover {
@@ -244,8 +245,8 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
-	
+
+
 }
 
 #printBtn:hover {
@@ -269,8 +270,8 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
-	
+
+
 }
 
 #editBtn:hover {
@@ -294,7 +295,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
+
 }
 
 #addBtn:hover {
@@ -315,9 +316,9 @@
 }
 
 #statusBar{
-	-fx-font-size: 30px;
+	-fx-font-size: 16px;
 	-fx-text-fill:  #4682b4;
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0) , 4,0,0,1 );
 	-fx-font-family: "Swis721 lt BT";
 	-fx-font-weight: bold;
 }
@@ -415,7 +416,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
+
 }
 
 #selectAllButton:hover {
@@ -439,7 +440,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";	
-	
+
 }
 
 #updateShoppingListButton:hover {
@@ -593,7 +594,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 12px;
     -fx-font-family: "Swis721 lt BT";
-	
+
 }
 
 #playSlideBtn:hover {
@@ -605,6 +606,119 @@
 	-fx-opacity: 0.5;
 }
 
+#stopButton {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-color: rgb(128,128,128);
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+
+}
+
+#playButton {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-color: rgb(128,128,128); 
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;		
+}
+
+#fullscreenButton {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-color: rgb(128,128,128); 
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;		
+}
+
+
+#playButtonFS {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-color: rgb(128,128,128); 
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+
+}
+#SlidePauseBtn{    
+    -fx-background-color: rgb(128,128,128);
+    -fx-text-fill: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+#SlidePrevBtn{
+    -fx-background-color: rgb(128,128,128);
+    -fx-text-fill: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+#SlideNextBtn{
+    -fx-background-color: rgb(128,128,128);
+    -fx-text-fill: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+#SlideExitBtn{
+    -fx-background-color: rgb(128,128,128);
+    -fx-text-fill: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}
+#SlideTimeBtn{
+    -fx-background-color: rgb(128,128,128);
+    -fx-text-fill: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+}	
+
+.slider{
+ -fx-background-color: rgb(96,96,96);
+ -fx-background-radius: 1em;
+}
+
+.slider .track{
+   -fx-background-color: transparent;
+   -fx-border-color:transparent;
+   -fx-background-radius: 1em; 
+}
+
+.slider .track-background{
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+   -fx-background-radius: 1em; 
+}
+
+.slider .thumb {
+ -fx-background-color: rgb(211,211,211);
+ -fx-background-radius: 1em;
+}
+
+.slider .thumb:hover {
+ -fx-background-color: rgb(231,231,231);
+}
+
+.slider .thumb:pressed {
+ -fx-background-color: rgb(255,255,255);
+}
+
+.slider:focused {
+ -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+#timeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-font-family: "Swis721 lt BT";
+}
+
+#playTimeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-font-family: "Swis721 lt BT";
+}
+
+#volumeLabel{
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-font-family: "Swis721 lt BT";
+}
+
 #bigBox {
 	-fx-background-color: pink;
 	//-fx-background-repeat: cover;   
@@ -613,11 +727,3 @@
     	-fx-background-position: center center;
 	-fx-background-image: url('IMG_4906.jpg');
 }
-
-
-
-
-
-
-
-	

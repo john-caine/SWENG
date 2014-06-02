@@ -46,7 +46,7 @@ public class LoadExternalRecipe {
 	protected Stage dialog;
 	protected InputStream inputStream;
 	private FileHandler fileHandler;
-	Label statusBar;
+	private Label statusBar;
 
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection){
 		//Creates a new stage bound to the previous that lets the user
@@ -81,8 +81,8 @@ public class LoadExternalRecipe {
         
         final Button getFromURLBtn = new Button("Get Recipe from URL");
         getFromURLBtn.setDisable(true);
-        downloadBtn.setPrefSize(256, 228);
-        fileBrowserBtn.setPrefSize(256, 228);
+        downloadBtn.setPrefSize(228, 228);
+        fileBrowserBtn.setPrefSize(228, 228);
         getFromURLBtn.setPrefSize(150, 30);
         httpField.setPrefSize(285, 30);
         
@@ -110,7 +110,7 @@ public class LoadExternalRecipe {
 		
         VBox loadExtBox = new VBox(20);
         HBox topBox = new HBox();
-        HBox midBox = new HBox();
+        HBox midBox = new HBox(20);
         HBox bottomBox = new HBox(10);
         topBox.setAlignment(Pos.TOP_RIGHT);
         
@@ -142,7 +142,8 @@ public class LoadExternalRecipe {
         
         // add everything to the dialog box
         loadExtBox.getChildren().addAll(topBox,midBox,bottomBox);
-        loadExtBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/ingredients.jpg');");
+        //loadExtBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/ingredients.jpg');");
+        loadExtBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         Scene dialogScene = new Scene(loadExtBox, 500, 300);
         dialog.setScene(dialogScene);
         dialog.show();
@@ -155,8 +156,14 @@ public class LoadExternalRecipe {
 			public void handle(ActionEvent event) {
 				stage.setOpacity(0.85);
 				Stage popup = new Stage();
-				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 				popup.centerOnScreen();
+				popup.initOwner(dialog); 
+				//Sets at forefront of screen and sets focus on this stage
+				popup.initModality(Modality.APPLICATION_MODAL);
+		        
+		        //Removes windows' UI close and minimise buttons
+				popup.initStyle(StageStyle.UNDECORATED);
+				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 			}
 		});
 		

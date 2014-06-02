@@ -1,6 +1,6 @@
 /* Title: IngredientsList
  * 
- * Programmers: Max, Ankita
+ * Programmers: Max, Ankita & Roger Tan
  * 
  * Date Created: 15/04/14
  * 
@@ -184,7 +184,7 @@ public class IngredientsList {
             public void handle(ActionEvent event) {
             	// when button pressed, do some stuff with the external shopping list class
             	updateShoppingList();
-            	statusBar.setText("Ingredients Added to Shopping List.");
+            	statusBar.setText("Added to Shopping List.");
             }
         });
 		// configure the savePDF button
@@ -198,7 +198,7 @@ public class IngredientsList {
 		testEnableSaveButton();
 		
 		// add the buttons and the status bar to the bottom of the VBox
-		buttonBox = new HBox();
+		buttonBox = new HBox(20);
 		buttonBox.setPadding(new Insets(10,0,0,0));
 		buttonBox.setSpacing(10);
 		buttonBox.getChildren().addAll(selectAllButton, updateShoppingListButton, statusBar);
