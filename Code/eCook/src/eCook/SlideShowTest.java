@@ -85,7 +85,7 @@ public class SlideShowTest {
 	
 		screen = Screen.getPrimary();
 		
-		Rectangle2D screenBounds = screen.getVisualBounds();
+		Rectangle2D screenBounds = screen.getBounds();
 		
 		System.out.println(screenBounds.getWidth());
 		System.out.println(screenBounds.getHeight());

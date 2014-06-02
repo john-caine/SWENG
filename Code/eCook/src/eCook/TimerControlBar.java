@@ -35,7 +35,7 @@ public class TimerControlBar {
 	
 	public void setUpControlPanel(final Integer slideID, final Group root) {   
         // get the size of the screen
-        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         
         // Set up the notes panel on the LHS of the screen
         controlPanel = new HBox();

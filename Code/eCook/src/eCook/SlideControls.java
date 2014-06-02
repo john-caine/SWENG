@@ -60,7 +60,7 @@ public class SlideControls {
 	// set up the controls panel and add the buttons
     public void setupcontrolPanel(final Group root) {   
         // get the size of the screen
-        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         
         // Set up the controls panel at the bottom of the screen
         controlPanel = new HBox();

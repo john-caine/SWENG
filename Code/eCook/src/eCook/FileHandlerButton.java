@@ -27,7 +27,7 @@ public class FileHandlerButton {
 		fileHandler = new FileHandler();
 		Screen screen = Screen.getPrimary();
 		//Get the visual bounds of the screen
-		Rectangle2D screenBounds = screen.getVisualBounds();
+		Rectangle2D screenBounds = screen.getBounds();
 		// Create an hbox in the middle of the screen and add the button
 		openFileBrowser = new Button("Open Slideshow");
 		openFileBrowser.setMaxWidth(120);

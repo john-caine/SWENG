@@ -67,14 +67,14 @@ public class TextHandler {
 		 
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (x_end == null){
-			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+			 Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
 			 x_end = (int)screenBounds.getWidth();
 		 }
 		 
 		 //Gets the screen height to wrap text to if the XML has not specified an Y end value.
 		 if (y_end == null){
-			 Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+			 Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
 			 y_end =(int)screenBounds.getHeight();
 		 }

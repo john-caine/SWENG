@@ -55,7 +55,7 @@ public class GraphicsHandler {
 		this.runDuration = duration;
 		
 		//Get the size of the screen
-		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+		Rectangle2D bounds = Screen.getPrimary().getBounds();
 		
 		graphicsBox = new HBox();
 		graphicsBox.setVisible(false);

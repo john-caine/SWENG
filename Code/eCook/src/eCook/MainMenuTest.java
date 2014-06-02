@@ -60,7 +60,7 @@ public class MainMenuTest{
 		// no need to provide a recipeCollection (use null)
 		new MainMenu(stage, null);
 		Screen screen = Screen.getPrimary();
-		screenBounds = screen.getVisualBounds();
+		screenBounds = screen.getBounds();
 		stage.show();
 	}
 	

@@ -51,7 +51,7 @@ public class MainMenuContent {
 		//.getBounds() seems to remove the white gap at the bottom of the screen
 		//Gets the visual bounds of the screen
 		screenBounds = Screen.getPrimary().getBounds();
-		//screenBounds = Screen.getPrimary().getVisualBounds();
+		//screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		

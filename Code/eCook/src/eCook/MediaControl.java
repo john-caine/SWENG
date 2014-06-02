@@ -106,7 +106,7 @@ public abstract class MediaControl {
 		mediaView = new MediaView(mp);
 		
 		// Retrieve the size of the Screen
-		bounds = Screen.getPrimary().getVisualBounds();
+		bounds = Screen.getPrimary().getBounds();
 		
 		// Assign loop variable as necessary
 		if (loop == null) {

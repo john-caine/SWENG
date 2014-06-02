@@ -90,7 +90,7 @@ public class SlideShow {
 		// Create a new group for objects
 		slideRoot = new Group();
 		// Create a new scene for the slide show
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
 		
     	// Set the scene
