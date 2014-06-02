@@ -17,9 +17,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TextFileHandler {
+	// use an error flag to report issues to the testing class
+	boolean error;
 
 	// constructor
 	public TextFileHandler() {
+		error = false;
 	}
 
 	// method to write String to text file
@@ -31,16 +34,18 @@ public class TextFileHandler {
 				BufferedWriter output = new BufferedWriter(notesStream);
 				output.write(notes);
 				System.out.println("Your file has been written");
+				error = false;
 				// close the output stream
 				output.close();
 			} 
 			catch (IOException e) {
 				System.out.println("Error when writing text file");
-				e.printStackTrace();
+				error = true;
 			}
 		}
 		else {
 			System.out.println("Error: either there are no notes or the SlideID/recipeTitle is invalid");
+			error = true;
 		}	
 	}
 	
@@ -64,18 +69,21 @@ public class TextFileHandler {
 		        	}
 		        }
 		        
+		        error = false;
 		        // close the input stream
 		        input.close();
 		    }
 		    catch (IOException ex) {
 		    	System.out.println("Error when reading text file");
-		        ex.printStackTrace();
+		        error = true;
 		    }
 		    
 		    return contents.toString();
 		}
 		// return null if the filename is invalid
 		else {
+			System.out.println("cannot read file: filename is invalid or file does not exist");
+			error = true;
 			return null;
 		}  
 	}

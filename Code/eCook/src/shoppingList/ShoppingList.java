@@ -80,7 +80,7 @@ public class ShoppingList {
 				// write String items to file
 				for (int i=0; i<shoppingList.size(); i++) {
 					output.write(shoppingList.get(i));
-					output.write("/n");
+					output.write("\n");
 				}
 				// close the output stream
 				output.close();

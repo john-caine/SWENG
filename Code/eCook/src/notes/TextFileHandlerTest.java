@@ -18,53 +18,92 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TextFileHandlerTest {
+	static TextFileHandler handler;
 	
-	// delete any previous "notes.txt" files before running each test
+	// instantiate the text file handler class before the tests
 	@BeforeClass
 	public static void setup() throws FileNotFoundException {
-		File file1 = new File("7_notes.txt");
-		if (file1.exists()) {
-			file1.delete();
+		// remove any previous example notes files from previous tests
+		File exampleFile1 = new File("notes/" + "Example title" + "_" + "7" + ".txt");
+		if (exampleFile1.exists()) {
+			exampleFile1.delete();
 		}
-		File file2 = new File("501_notes.txt");
-		if (file2.exists()) {
-			file2.delete();
+		File exampleFile2 = new File("notes/" + "notesTestTitle" + "_" + "8" + ".txt");
+		if (exampleFile2.exists()) {
+			exampleFile2.delete();
 		}
+		File exampleFile3 = new File("notes/" + "exampleRecipeTitle0" + "_" + "0" + ".txt");
+		if (exampleFile3.exists()) {
+			exampleFile3.delete();
+		}
+		
+		// create an instance of the textfilehandler
+		handler = new TextFileHandler();
 	}
 	
 	// check that no text file is created when null notes String is parsed
 	@Test
 	public void nullNotesTextFileNotCreated() {
-		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile(null, 1005);
-		File file = new File("1005_notes.txt");
+		handler.writeTextFile(null, 5, "Example Recipe Title");
+		File file = new File("notes/" + "Example Recipe Title" + "_" + "5" + ".txt");
 		assertFalse(file.exists());
+		assertTrue(handler.error);
 	}
 	
 	// check that no text file is created when null SlideID String is parsed
 	@Test
 	public void nullSlideIDTextFileNotCreated() {
-		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile("example notes", null);
-		File file = new File("_notes.txt");
+		handler.writeTextFile("Example notes", null, "Example Recipe Title");
+		File file = new File("notes/" + "Example Recipe Title" + "_" + ".txt");
 		assertFalse(file.exists());
+		assertTrue(handler.error);
+	}
+	
+	// check that no text file is created when null recipe title String is parsed
+	@Test
+	public void nullRcipeTitleTextFileNotCreated() {
+		handler.writeTextFile("Example notes", 1, null);
+		File file = new File("notes/" + "_" + "1" + ".txt");
+		assertFalse(file.exists());
+		assertTrue(handler.error);
 	}
 	
 	// check that text file is created when valid Strings are parsed
 	@Test
 	public void validArgumentsTextFileCreated() {
-		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile("here are some example notes.", 7);
-		File file = new File("7_notes.txt");
+		handler.writeTextFile("here are some example notes.", 7, "Example title");
+		File file = new File("notes/" + "Example title" + "_" + "7" + ".txt");
 		assertTrue(file.exists());
+		assertFalse(handler.error);
 	}
 	
 	// check that the contents of the text file is the same as the notes input String
 	// ensure that any special formatting (\n, \t) is preserved
 	@Test
 	public void textFileContainsCorrectString() {
-		TextFileHandler handler = new TextFileHandler();
-		handler.writeTextFile("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", 501);
-		assertEquals("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", handler.readTextFile("501_notes.txt"));
+		handler.writeTextFile("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", 8, "notesTestTitle");
+		File file = new File("notes/" + "notesTestTitle" + "_" + "8" + ".txt");
+		assertTrue(file.exists());
+		assertEquals("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", handler.readTextFile("notesTestTitle" + "_" + "8" + ".txt"));
+		assertFalse(handler.error);
+	}
+	
+	// further test the read text file method with a null string for a filename
+	@Test
+	public void nullFileNameReturnsErrorFromReader() {
+		handler.writeTextFile("example notes", 0, "exampleRecipeTitle0");
+		File file = new File("notes/exampleRecipeTitle0_0.txt");
+		assertTrue(file.exists());
+		assertEquals(null, handler.readTextFile(null));
+		assertTrue(handler.error);
+	}
+	
+	// check that an error is thrown and nothing is returned when trying to read a file that doesn't exist
+	@Test
+	public void nonExistentFileReturnsErrorFromReader() {
+		File file = new File("notes/nothingHere_1.txt");
+		assertFalse(file.exists());
+		assertEquals(null, handler.readTextFile("nothingHere_1.txt"));
+		assertTrue(handler.error);
 	}
 }
