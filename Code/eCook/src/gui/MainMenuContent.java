@@ -182,10 +182,10 @@ public class MainMenuContent {
 		midBox.getChildren().add(logoholder);
 		
 		//Creates the main menu options
-		Button loadExtBtn = new Button("More Recipes");
-		Button generateListBtn = new Button("Shopping List");
-		Button ingredientsPickBtn = new Button("Ingredients");
-		Button recipesBtn= new Button("Recipes");
+		Button loadExtBtn = new Button("");
+		Button generateListBtn = new Button("");
+		Button ingredientsPickBtn = new Button("");
+		Button recipesBtn= new Button("");
 		
 		//Defining the CSS Identifiers
 		loadExtBtn.setId("loadExtBtn");
