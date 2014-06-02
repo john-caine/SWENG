@@ -45,8 +45,10 @@ public class MainMenuContent {
 	private Tooltip h,c,m;
 	public VBox bigBox;
 	protected Stage dialog;
+	protected Stage stage;
 	
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
+		this.stage =  stage;
 		//Roger
 		//.getBounds() seems to remove the white gap at the bottom of the screen
 		//Gets the visual bounds of the screen

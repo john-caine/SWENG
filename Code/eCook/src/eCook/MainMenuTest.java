@@ -1,6 +1,6 @@
 /*
 
- Programmers : Roger & Prakruti
+ Programmers : Roger, Prakruti & Zayyad
  Date created: 27/2/2014
  Description: JUnit test class for eCook's main menu.
  Version : 1.0 27/02/2014
@@ -24,10 +24,17 @@
 package eCook;
 
 import static org.junit.Assert.*;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -42,12 +49,10 @@ import org.junit.Test;
 
 public class MainMenuTest{
 	//Declare Variables
-	
 	private Stage stage;
 	private Rectangle2D screenBounds;
-	private HBox box;
-	private VBox vBox;
-	private Button createSlideShowButton;
+	private VBox bigBox;
+	private Robot robot;
 	// Run tests on JavaFX thread ref. Andy Till
 		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 		@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -55,37 +60,43 @@ public class MainMenuTest{
 	
 	
 	@Before
-	public void setup(){
+	public void setup() throws AWTException{
 		stage = new Stage();
+		robot = new Robot();
 		// no need to provide a recipeCollection (use null)
 		new MainMenu(stage, null);
 		Screen screen = Screen.getPrimary();
 		screenBounds = screen.getBounds();
-		stage.show();
 	}
-	
-	//Tests that a full screen stage is created.
+		//Tests that a full screen stage is created.
 	@Test
 	public void fullScreenStage() {
-		//Gets the size of the screen
-	
+		stage.show();
+		//asserts that the size of the main menu scene is the same as the size of the screen.
+		assertEquals(screenBounds.getWidth(), stage.getScene().getWidth(), 0.1);
+		assertEquals(screenBounds.getHeight() , stage.getScene().getHeight() , 0.1);
 		
 		//asserts that the size of the main menu stage is the same as the size of the screen.
-		// The plus 40 accounts is to account for the task bar, getHeight for screen bounds doesn't seem to include it
-		// 
 		assertEquals(screenBounds.getWidth(), stage.getWidth(), 0.1);
-		assertEquals(screenBounds.getHeight()+ 40 , stage.getHeight() , 0.1);
+		assertEquals(screenBounds.getHeight() , stage.getHeight() , 0.1);
+		
+		//asserts that the stage is set to fullscreen
+		assertTrue(stage.isFullScreen());
+		
+		//asserts that the stage's fullscreen exit hint is empty
+		assertEquals("",stage.getFullScreenExitHint());
+		
+		//asserts that the stage's fullscreen exit key combination is nothing
+		assertEquals(KeyCombination.NO_MATCH,stage.getFullScreenExitKeyCombination());
 	}
 	
 	@Test
 	public void StageContent() {
-		
 		//Checks that the Main Menu stage has a scene added to it
 		assertNotNull(stage.getScene());
 		
 		//Assert that Scene contains a group
 		assertNotNull(stage.getScene().getRoot());
-		
 		
 		//Check that the scene group is not null
 		assertNotNull(stage.getScene().getRoot().getChildrenUnmodifiable());
@@ -94,36 +105,41 @@ public class MainMenuTest{
 		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
 		
 		//Checks that the VBox contains HBox (topBox)
-		vBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
-		assertTrue(vBox.getChildren().get(0) instanceof HBox);
-		//Checks that topBox(HBox) contains two ImageViews (logoHolder1 & logoHolder2)
-		HBox topBox = new HBox();
-		topBox =  (HBox) vBox.getChildren().get(0);
-		assertTrue(topBox.getChildren().get(0) instanceof ImageView);
-		assertTrue(topBox.getChildren().get(1) instanceof ImageView);
+		bigBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
+		assertTrue(bigBox.getChildren().get(0) instanceof HBox);
+			
+		/* Test if topBox contains topLeftBox & topRightBox */
+		HBox topBox = (HBox) bigBox.getChildren().get(0);
+		assertTrue(topBox.getChildren().get(0) instanceof HBox);
+		assertTrue(topBox.getChildren().get(1) instanceof HBox);
 		
-		//Checks that the VBox contains HBox (midBox)
-		vBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
-		assertTrue(vBox.getChildren().get(1) instanceof HBox);
-		//Checks that midBox(HBox) contains one blank Label & four Buttons
-		HBox midBox = new HBox();
-		midBox =  (HBox) vBox.getChildren().get(1);
-		assertTrue(midBox.getChildren().get(0) instanceof Label);
-		assertTrue(midBox.getChildren().get(1) instanceof Button);
-		assertTrue(midBox.getChildren().get(2) instanceof Button);
-		assertTrue(midBox.getChildren().get(3) instanceof Button);
-		assertTrue(midBox.getChildren().get(4) instanceof Button);
-				
-		//Checks that the scene group contains an HBox
-		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(1) instanceof HBox);
-		box = (HBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(1);
+		/* Test if topLeftBox contains 1 Imageview */
+		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
+		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
 		
-		//Check that the HBox contains a Button
-		assertTrue(box.getChildren().get(0) instanceof Button);
+		/* Test for Home Image */
+		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
+		assertTrue(homeHolder.getImage() instanceof Image);
+		homeHolder.getOnMouseClicked();
+		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
+	
+		/*Test if topRightBox contains 2 ImageView */
+		HBox topRightBox = (HBox) topBox.getChildren().get(1);
+		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
+		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
 		
-		//Test that the button has the correct text "Open Slideshow"
-		createSlideShowButton = (Button) box.getChildren().get(0);
-		assertEquals("Open Slideshow", createSlideShowButton.getText());
+		/* Test for Minimise Image */
+		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
+		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
+		minimiseBtnHolder.getOnMouseClicked();
+		assertFalse(stage.isMaximized());
+		
+		/* Test for Close Image */
+		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
+		assertTrue(closeBtnHolder.getImage() instanceof Image);
+		
+		closeBtnHolder.getOnMouseClicked();
+	    assertFalse(stage.isShowing());
 	}
 
 	

@@ -26,7 +26,7 @@ import eCook.RecipeCollection;
 
 public class MainMenuContentTest {
 	
-	private MainMenuContent mainMenuCotent;
+	private MainMenuContent mainMenuContent;
 	private Stage stage;
 	private RecipeCollection recipeCollection;
 	private HBox bottomBox;
@@ -50,16 +50,16 @@ public class MainMenuContentTest {
 			}
 		}
 		// pass a stage and a set of recipe collection into MainMenuContent class
-		mainMenuCotent = new MainMenuContent(stage, recipeCollection);
+		mainMenuContent = new MainMenuContent(stage, recipeCollection);
 	}
 
 	@Test
 	public void mainMenuTopBoxTest() {
 		/* Test if bigBox contains topBox */
-		assertTrue(mainMenuCotent.bigBox.getChildren().get(0) instanceof HBox);
+		assertTrue(mainMenuContent.bigBox.getChildren().get(0) instanceof HBox);
 		
 		/* Test if topBox contains topLeftBox & topRightBox */
-		HBox topBox = (HBox) mainMenuCotent.bigBox.getChildren().get(0);
+		HBox topBox = (HBox) mainMenuContent.bigBox.getChildren().get(0);
 		assertTrue(topBox.getChildren().get(0) instanceof HBox);
 		assertTrue(topBox.getChildren().get(1) instanceof HBox);
 		
@@ -88,10 +88,10 @@ public class MainMenuContentTest {
 	@Test
 	public void  mainMenuMidBoxTest(){
 		/* Test if bigBox contains midBox */
-		assertTrue(mainMenuCotent.bigBox.getChildren().get(1) instanceof HBox);
+		assertTrue(mainMenuContent.bigBox.getChildren().get(1) instanceof HBox);
 		
 		/* Test if midBox contains a ImageView */
-		HBox midBox = (HBox) mainMenuCotent.bigBox.getChildren().get(1);
+		HBox midBox = (HBox) mainMenuContent.bigBox.getChildren().get(1);
 		assertTrue(midBox.getChildren().get(0) instanceof ImageView);
 		
 		/* Test for eCook Image */
@@ -102,9 +102,9 @@ public class MainMenuContentTest {
 	@Test
 	public void bottomBoxLoadExternalRecipeButtonTest(){
 		/* Test if bigBox contains buttomBox */
-		assertTrue(mainMenuCotent.bigBox.getChildren().get(2) instanceof HBox);
+		assertTrue(mainMenuContent.bigBox.getChildren().get(2) instanceof HBox);
 		
-		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
+		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
 		
 		/* Test if bottomBox contains Load External Recipe Button */
 		assertTrue(bottomBox.getChildren().get(3) instanceof Button);
@@ -128,7 +128,7 @@ public class MainMenuContentTest {
 	
 	@Test
 	public void bottomBoxGenearteShoppingListButtonTest(){
-		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
+		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Generate Shopping List Button */
 		assertTrue(bottomBox.getChildren().get(2) instanceof Button);
 		
@@ -142,13 +142,12 @@ public class MainMenuContentTest {
 		
 		/* Test if Load External Recipe Button's style is from css.css */
 		assertEquals("[file:../Resources/css.css]", generateListBtn.getStylesheets().toString());
-		
-		generateListBtn.fire();
+			
 	}
 	
 	@Test
 	public void bottomBoxIngredientPickerButtonTest(){
-		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
+		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Ingredient Picker Button */
 		assertTrue(bottomBox.getChildren().get(1) instanceof Button);
 		
@@ -162,11 +161,14 @@ public class MainMenuContentTest {
 		
 		/* Test if Load External Recipe Button's style is from css.css */
 		assertEquals("[file:../Resources/css.css]", ingredientsPickBtn.getStylesheets().toString());
+		
+		ingredientsPickBtn.fire();
+		assertTrue(mainMenuContent.bigBox.getChildren().isEmpty());
 	}
 	
 	@Test
 	public void bottomBoxRecipesButtonTest(){
-		bottomBox = (HBox) mainMenuCotent.bigBox.getChildren().get(2);
+		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
 		/* Test if bottomBox contains Recipe Button */
 		assertTrue(bottomBox.getChildren().get(0) instanceof Button);
 		
