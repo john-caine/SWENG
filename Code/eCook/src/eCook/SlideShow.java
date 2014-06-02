@@ -76,6 +76,8 @@ public class SlideShow {
 	boolean endPageReached = false;
 	boolean controlPanelShowing = false;
 	boolean notesPanelShowing = false;
+	private int numberOfTimers = 0;
+	private SlideShow slideShow = this;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -341,10 +343,10 @@ public class SlideShow {
 		 */
         
 		// Add timers
-        timerHbox = new HBox();
-        slideRoot.getChildren().add(timerHbox);
-        timerList = new ArrayList<Timer>();
         
+        slideRoot.getChildren().add(getTimerHbox());
+        timerList = new ArrayList<Timer>();
+        numberOfTimers = 0;
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
         	for(int l = 0; l < currentTimerValues.size(); l++){
@@ -352,14 +354,15 @@ public class SlideShow {
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
         												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
         												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-        												currentTimerValues.get(l).getLabel());
+        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
 				timerList.add(continueTimer);
+				numberOfTimers ++;
 				 
 				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 					
 					@Override
 					public void handle(WorkerStateEvent event) {		
-						timerHbox.getChildren().add(continueTimer.getPane());
+						getTimerHbox().getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
 					}
 				});
 				new Thread(continueTimer).start();
@@ -562,23 +565,25 @@ public class SlideShow {
         buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				 timer = new Timer(null, null, null, null, null, null, null);
-				timerList.add(timer);
-				 
-				timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-					
-					@Override
-					public void handle(WorkerStateEvent event) {
-						
-						Platform.runLater( new Runnable(){
-							public void run(){
-								timerHbox.getChildren().add(timer.getPane());								
+				if(numberOfTimers< 4){
+						 timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						timerList.add(timer);
+						 
+						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+							
+							@Override
+							public void handle(WorkerStateEvent event) {
+								
+								Platform.runLater( new Runnable(){
+									public void run(){
+										getTimerHbox().getChildren().add(timer.getTimerID(), timer.getPane());								
+									}
+								});	 									
 							}
-						});	 									
-					}
-				});
-				new Thread(timer).start();				
-			}		
+						});
+						new Thread(timer).start();				
+					}	
+				}
         });
  
         // Pause
@@ -720,4 +725,15 @@ public class SlideShow {
      	root.getChildren().clear();
      	new MainMenu(stage, recipeCollection);
      }
+
+	public void decrementNumberOfTimers() {
+		numberOfTimers--;
+		
+	}
+
+	public HBox getTimerHbox() {
+		return timerHbox;
+	}
+
+	
 }

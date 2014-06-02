@@ -9,6 +9,8 @@
 package timer;
 
 import java.io.FileInputStream;
+
+import eCook.SlideShow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -28,6 +30,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
@@ -35,7 +39,7 @@ public class Timer extends Task<Object>{
 	protected Button startButton;
 	private Label labelSeconds, labelMinutes, labelHours;
 	private Timeline timeLineSeconds; 
-	public HBox timerLabelBox, buttonBox, listBox;
+	public HBox timerLabelBox, buttonBox;
 	private Integer timerValueSeconds = null, timerValueMinutes = null, timerValueHours = null, timerStartSeconds = 0, timerStartMinutes = 0, timerStartHours = 0;
 	protected ListView<Integer> numbersListSeconds;
 	private ListView<Integer> numbersListMinutes;
@@ -50,6 +54,14 @@ public class Timer extends Task<Object>{
 	private String timerLabel;
 	private TextField textField;
 	private FileInputStream inputStream;
+	private Pane listBox;
+	private Image playImage, pauseImage, exitImage;
+	private Button exitButton;
+	private Pane textFieldBox;
+	private HBox completeTimer, mainHBox;
+	private int timerID;
+	private SlideShow main;
+	
 	
 	/*
 	 * Timer Class constructor. As all objects from the slide group are deleted when the slide changes, the value of the timer before the slide was changed
@@ -63,7 +75,7 @@ public class Timer extends Task<Object>{
 	 * @Param startHours: Hours value the timer started from.
 	 * @Param timerLabel: The timer label.
 	*/
-	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, Integer startMinutes, Integer startHours, String timerLabel) {
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, Integer startMinutes, Integer startHours, String timerLabel, int timerID, SlideShow main) {
 		
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
@@ -75,29 +87,54 @@ public class Timer extends Task<Object>{
 		resumeTimer  = true;
 		}
 		this.timerLabel = timerLabel;
+		this.timerID = timerID;
+		this.main = main;
+		
 	}
 
 	@Override
 	protected Object call() throws Exception {
 	
+		textFieldBox = new Pane();
 		timerLabelBox = new HBox();
-		listBox = new HBox();
-		textField = new TextField(timerLabel);
+		listBox = new Pane();
+		
+		if(timerLabel != null){
+			textField = new TextField(timerLabel);
+		}
+		else{
+			textField = new TextField("Timer " + timerID);
+		}
+		
 		//Gets play icon image from resources folder adds to start button.
 		inputStream = new FileInputStream("../Resources/play.png");
-		Image playImage = new Image(inputStream);
-		startButton = new Button("Start", new ImageView(playImage));
+		playImage = new Image(inputStream);
+		inputStream = new FileInputStream("../Resources/pause.png");
+		pauseImage = new Image(inputStream);
+		startButton = new Button("", new ImageView(playImage));
 		startButton.setPrefWidth(50);
 		
-		resetTimer = new Button("Reset");
+		resetTimer = new Button("R");
+		startButton.setStyle("-fx-base: #0000FF");
+		resetTimer.setStyle("-fx-base: #0000FF");
+		resetTimer.setPrefWidth(50);
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
 		buttonBox.setLayoutX(400);
 		buttonBox.setLayoutY(350);
 		buttonBox.getChildren().addAll(startButton,resetTimer);
+		textField.setPrefWidth(startButton.getWidth() + resetTimer.getWidth());
+		textFieldBox.getChildren().add(textField);
+		
+		exitButton = new Button("X");
+		exitButton.setLayoutX(startButton.getWidth() + resetTimer.getWidth());
+		inputStream = new FileInputStream("../Resources/EXIT.png");
+		exitImage = new Image(inputStream);
+		//exitButton.setGraphic(new ImageView(exitImage));
+		//textFieldBox.getChildren().add(exitButton);
 		
 		numberListSetup();
-		//Adds the number lists to list bokx
+		//Adds the number lists to list box
 		listBox.getChildren().addAll(numbersListHours, numbersListMinutes, numbersListSeconds);	
 		
 		setTimerLabels();
@@ -110,6 +147,8 @@ public class Timer extends Task<Object>{
 		//Adds all timer components to timerContainer which will be added to the slide group when created
 		timerContainer = new VBox();
 		timerContainer.getChildren().addAll(textField, buttonBox, timerVBox);
+		completeTimer = new HBox();
+		completeTimer.getChildren().addAll(timerContainer, exitButton);
 		//Gets the audio for when the timer finishes
 		loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
 		
@@ -145,20 +184,20 @@ public class Timer extends Task<Object>{
 						timerValueHours = timerStartHours;
 					}
 					timeLineSeconds.play();
-					startButton.setText("Pause");
+					startButton.setGraphic(new ImageView(pauseImage));
 					
 					started = true;
 				}
 				else if(started == true && paused == false){
 					timeLineSeconds.stop();
-					startButton.setText("Play");
+					startButton.setGraphic(new ImageView(playImage));
 					paused = true;
 				}
 				
 				else if(started == true && paused == true){
 					
 					timeLineSeconds.play();
-					startButton.setText("Pause");
+					startButton.setGraphic(new ImageView(pauseImage));
 					paused = false;
 				}
 
@@ -171,6 +210,9 @@ public class Timer extends Task<Object>{
 				timeLineSeconds.stop();
 				started = false;
 				paused = false;
+				timerValueSeconds = timerStartSeconds;
+				timerValueMinutes = timerStartMinutes;
+				timerValueHours = timerStartHours;
 				
 				if (timerStartSeconds >9){
 					labelSeconds.setText(timerStartSeconds.toString());
@@ -193,12 +235,21 @@ public class Timer extends Task<Object>{
 					labelHours.setText("0" + timerStartHours.toString() + " : ");
 				}
 					
-				startButton.setText("Start");
+				startButton.setGraphic(new ImageView(playImage));
 			}
-			
-			
+				
 		});
 		
+		exitButton.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				main.getTimerHbox().getChildren().remove(timerID);
+				main.decrementNumberOfTimers();
+				
+			}
+			
+		});
 		
 	}
 	
@@ -287,9 +338,9 @@ public class Timer extends Task<Object>{
 		numbersListMinutes.setItems(numbers);
 		numbersListHours.setItems(numbers);
 		
-		numbersListSeconds.setPrefWidth(30);
-		numbersListMinutes.setPrefWidth(30);
-		numbersListHours.setPrefWidth(30);
+		numbersListSeconds.setPrefWidth(0);
+		numbersListMinutes.setPrefWidth(0);
+		numbersListHours.setPrefWidth(0);
 		
 		//Hide all of the number lists
 		numbersListSeconds.setVisible(false);
@@ -358,7 +409,7 @@ public class Timer extends Task<Object>{
 	 * Returns timerContainer for adding to the slide group.
 	 */
 	public Pane getPane(){
-		return timerContainer;
+		return completeTimer;
 	}
 	
 	public boolean getTimerSetupStatus(){
@@ -428,6 +479,8 @@ public class Timer extends Task<Object>{
 			else{
 				labelHours = new Label("0" + timerValueHours.toString() + " : ");
 			}
+			
+			
 		}
 		
 		//Displays the seconds numbers list and hides other numbers lists
@@ -437,6 +490,11 @@ public class Timer extends Task<Object>{
 				numbersListSeconds.setVisible(true);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(false);
+				
+				numbersListSeconds.setPrefWidth(40);
+				numbersListSeconds.setLayoutX(labelSeconds.getLayoutX());
+				numbersListMinutes.setPrefWidth(0);
+				numbersListHours.setPrefWidth(0);
 			}
 		});
 		//Displays the minutes numbers list and hides other numbers lists
@@ -447,6 +505,11 @@ public class Timer extends Task<Object>{
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(true);
 				numbersListHours.setVisible(false);
+				
+				numbersListSeconds.setPrefWidth(0);
+				numbersListMinutes.setPrefWidth(40);
+				numbersListMinutes.setLayoutX(labelMinutes.getLayoutX());
+				numbersListHours.setPrefWidth(0);
 			}
 		});
 		//Displays the minutes numbers list and hides other numbers lists
@@ -456,7 +519,26 @@ public class Timer extends Task<Object>{
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(true);
+				
+				numbersListSeconds.setPrefWidth(0);
+				numbersListMinutes.setPrefWidth(0);
+				numbersListHours.setPrefWidth(40);
+				numbersListHours.setLayoutX(labelHours.getLayoutY());
 			}
 		});
+		
+		labelSeconds.setFont(new Font("Arial", 16));
+		labelMinutes.setFont(new Font("Arial", 16));
+		labelHours.setFont(new Font("Arial", 16));
 	}
+
+	public int getTimerID() {
+		// TODO Auto-generated method stub
+		return timerID;
+	}
+	
+	public Button getExitButton(){
+		return exitButton;
+	}
+	
 }

@@ -10,6 +10,7 @@ public class TimerData {
 	
 	private Integer seconds, minutes, hours, startSeconds, startMinutes, startHours;
 	private String timerLabel;
+	private int timerID;
 
 	/*
 	 * Sets the Seconds value of a timer from when the slide changed.
@@ -68,6 +69,9 @@ public class TimerData {
 		this.timerLabel = timerLabel;
 	}
 	
+	public void setTimerID(int timerID){
+		this.timerID = timerID;
+	}
 	/*
 	 * Returns the Seconds value of a timer from when the slide changed.
 	 */
@@ -112,6 +116,10 @@ public class TimerData {
 	 */
 	public String getLabel() {	
 		return timerLabel;
+	}
+	
+	public int getTimerID(){
+		return timerID;
 	}
 
 }
