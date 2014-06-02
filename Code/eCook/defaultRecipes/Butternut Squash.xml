@@ -4,7 +4,8 @@
 		<author>Jim Dee</author>
 		<version>1.1</version>
     <title>Butternut Squash Soup</title>
-		<comment>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage.</comment>
+		<comment>Cooking Time: 20 mins /n Preparation Time: 10 mins /n Average Cost = £2 /n Suitable for vegetarians</comment>
+		
 		<width>1000</width>
 		<height>800</height>
 	</documentinfo>
@@ -29,12 +30,12 @@
 		</text>
 		<text xstart="15" ystart="70" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Step by step method. Please click 'Next' or press the right arrow key to begin.</textstring>
+        		<textstring>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage. <br />Step by step method. Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="175" ystart="150" width="950" height="633" layer="1" />	
-		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="175" ystart="150" width="950" height="633" layer="1" />		
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -57,7 +58,7 @@
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
-			
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />	
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -79,7 +80,7 @@
         		
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
-			
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />	
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -101,7 +102,7 @@
         
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-	
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -125,7 +126,7 @@
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
-			
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -143,6 +144,7 @@
 			
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="6" duration="30" lastSlide="true">
@@ -157,6 +159,7 @@
       			</textbody>
 		</text>
 		<image urlname="http://www.propartydj.co.uk/SWEng/ButternutSquash/content/IMG_4920.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
+		<image urlname="../Resources/bg_image_blur.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>
