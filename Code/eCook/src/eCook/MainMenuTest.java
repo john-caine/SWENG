@@ -26,12 +26,10 @@ package eCook;
 import static org.junit.Assert.*;
 
 import java.awt.AWTException;
+import java.io.File;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -40,6 +38,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import xmlparser.Recipe;
+import xmlparser.XMLReader;
+
 
 
 
@@ -47,7 +48,7 @@ public class MainMenuTest{
 	//Declare Variables
 	private Stage stage;
 	private Rectangle2D screenBounds;
-	private VBox bigBox;
+	private RecipeCollection recipeCollection;
 	// Run tests on JavaFX thread ref. Andy Till
 		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 		@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -57,10 +58,22 @@ public class MainMenuTest{
 	@Before
 	public void setup() throws AWTException{
 		stage = new Stage();
-		// no need to provide a recipeCollection (use null)
-		new MainMenu(stage, null);
-		Screen screen = Screen.getPrimary();
-		screenBounds = screen.getBounds();
+		recipeCollection = new RecipeCollection();
+		File directory = new File("defaultRecipes");
+		if (directory.exists()) {
+			// parse all files in folder, adding recipes to collection
+			for (int i=0; i<directory.list().length; i++) {
+				// only read XML files if for some reason other files exist
+				if (directory.list()[i].endsWith(".xml")) {
+					XMLReader reader = new XMLReader("defaultRecipes/" + directory.list()[i]);
+					Recipe currentRecipe = reader.getRecipe();
+					currentRecipe.setFileName(directory.list()[i]);
+					recipeCollection.addRecipe(currentRecipe);
+				}
+			}
+		}
+		new MainMenu(stage, recipeCollection);
+		screenBounds = Screen.getPrimary().getBounds();
 	}
 		//Tests that a full screen stage is created.
 	@Test
@@ -85,7 +98,7 @@ public class MainMenuTest{
 	}
 	
 	@Test
-	public void StageContent() {
+	public void stageContent() {
 		//Checks that the Main Menu stage has a scene added to it
 		assertNotNull(stage.getScene());
 		
@@ -98,42 +111,7 @@ public class MainMenuTest{
 		//Checks that the scene group contains an VBox which corresponds to the MainMenuContent Class
 		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
 		
-		//Checks that the VBox contains HBox (topBox)
-		bigBox = (VBox) stage.getScene().getRoot().getChildrenUnmodifiable().get(0);
-		assertTrue(bigBox.getChildren().get(0) instanceof HBox);
-			
-		/* Test if topBox contains topLeftBox & topRightBox */
-		HBox topBox = (HBox) bigBox.getChildren().get(0);
-		assertTrue(topBox.getChildren().get(0) instanceof HBox);
-		assertTrue(topBox.getChildren().get(1) instanceof HBox);
-		
-		/* Test if topLeftBox contains 1 Imageview */
-		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
-		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
-		
-		/* Test for Home Image */
-		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
-		assertTrue(homeHolder.getImage() instanceof Image);
-		homeHolder.getOnMouseClicked();
-		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
-	
-		/*Test if topRightBox contains 2 ImageView */
-		HBox topRightBox = (HBox) topBox.getChildren().get(1);
-		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
-		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
-		
-		/* Test for Minimise Image */
-		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
-		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
-		minimiseBtnHolder.getOnMouseClicked();
-		assertFalse(stage.isMaximized());
-		
-		/* Test for Close Image */
-		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
-		assertTrue(closeBtnHolder.getImage() instanceof Image);
-		
-		closeBtnHolder.getOnMouseClicked();
-	    assertFalse(stage.isShowing());
+		//MainMenuContent Class has its own Test Class
 	}
 
 	

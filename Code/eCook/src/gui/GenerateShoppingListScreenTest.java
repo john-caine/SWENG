@@ -41,7 +41,7 @@ public class GenerateShoppingListScreenTest {
 	public void setUp() throws Exception {
 		
 		//Gets the visual bounds of the screen
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
