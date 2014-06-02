@@ -10,8 +10,8 @@ package xmlparser;
  * 
  */
 public class Ingredient {
-	private String name, units = "";
-	private double amount = 0;
+	String name, units = "";
+	double amount = 0;
 	
 	public Ingredient() {
 	}

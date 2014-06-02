@@ -64,6 +64,7 @@ public class XMLReaderTest {
 		assertEquals("#FF0000", recipe.defaults.fillColor);
 		assertEquals("Times New Roman", recipe.defaults.font);
 		assertEquals("#0000FF", recipe.defaults.fontColor);
+		assertEquals("#000000", recipe.defaults.lineColor);
 		assertEquals(24, recipe.defaults.fontSize.intValue());
 	}
 	
@@ -364,18 +365,18 @@ public class XMLReaderTest {
 			assertEquals(3, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 	}
 	
-	// confirm that all fields in the last slide of the recipe contain the correct data
+	// confirm that all fields in the fifth slide of the recipe contain the correct data
 	// print out values of fields for this slide
 	@Test
-	public void lastSlideReadCorrectly() {
+	public void fifthSlideReadCorrectly() {
 		// print slide information
-		System.out.println("Slide 5 id: " + recipe.slides.get(recipe.getNumberOfSlides()-1).id);
-		System.out.println("Slide 5 Duration: " + recipe.slides.get(recipe.getNumberOfSlides()-1).duration);
-		System.out.println("Is Slide 5 the last slide? " + recipe.slides.get(recipe.getNumberOfSlides()-1).lastSlide);
+		System.out.println("Slide 5 id: " + recipe.slides.get(4).id);
+		System.out.println("Slide 5 Duration: " + recipe.slides.get(4).duration);
+		System.out.println("Is Slide 5 the last slide? " + recipe.slides.get(4).lastSlide);
 		
 		// loop through the two video objects, printing out the contents
-		for (int i=0; i<recipe.slides.get(recipe.getNumberOfSlides()-1).content.getNumberOfVideos(); i++) {
-			Video video = recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(i);
+		for (int i=0; i<recipe.slides.get(4).content.getNumberOfVideos(); i++) {
+			Video video = recipe.slides.get(4).content.videos.get(i);
 			System.out.println("\nSlide 5: Video Object "+ (i+1));
 			System.out.println("\tURL name: " + video.getUrlName());
 			System.out.println("\tXStart: " + video.getXStart());
@@ -387,19 +388,117 @@ public class XMLReaderTest {
 		}
 		
 		// check slide 5
-		assertEquals((Integer)4, recipe.slides.get(recipe.getNumberOfSlides()-1).id);
-		assertEquals(90, recipe.slides.get(recipe.getNumberOfSlides()-1).duration.intValue());
+		assertEquals((Integer)4, recipe.slides.get(4).id);
+		assertEquals(90, recipe.slides.get(4).duration.intValue());
 			// video 1
-			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getUrlName());
-			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getXStart());
-			assertEquals((Integer)10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getYStart());
-			assertEquals(2, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getLayer().intValue());
-			assertEquals(10, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(0).getDuration().intValue());
+			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4", recipe.slides.get(4).content.videos.get(0).getUrlName());
+			assertEquals((Integer)10, recipe.slides.get(4).content.videos.get(0).getXStart());
+			assertEquals((Integer)10, recipe.slides.get(4).content.videos.get(0).getYStart());
+			assertEquals(2, recipe.slides.get(4).content.videos.get(0).getLayer().intValue());
+			assertEquals(10, recipe.slides.get(4).content.videos.get(0).getDuration().intValue());
 			// video 2
-			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/ident_ice-XviD.avi", recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getUrlName());
-			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getXStart());
-			assertEquals((Integer)300, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getYStart());
-			assertTrue(recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getLoop());
-			assertEquals(15, recipe.slides.get(recipe.getNumberOfSlides()-1).content.videos.get(1).getStartTime().intValue());
+			assertEquals("http://ystv.co.uk/~john.caine/swengrepo/ident_ice-XviD.avi", recipe.slides.get(4).content.videos.get(1).getUrlName());
+			assertEquals((Integer)300, recipe.slides.get(4).content.videos.get(1).getXStart());
+			assertEquals((Integer)300, recipe.slides.get(4).content.videos.get(1).getYStart());
+			assertTrue(recipe.slides.get(4).content.videos.get(1).getLoop());
+			assertEquals(15, recipe.slides.get(4).content.videos.get(1).getStartTime().intValue());
 	}
+	
+	// check the contents of the penultimate slide
+	@Test
+	public void sixthSlideReadCorrectly() {
+		// print slide information
+		System.out.println("Slide 6 id: " + recipe.slides.get(5).id);
+		System.out.println("Slide 6 Duration: " + recipe.slides.get(5).duration);
+		System.out.println("Is Slide 6 the last slide? " + recipe.slides.get(5).lastSlide);
+		
+		// print out the text information
+		TextBody text = recipe.slides.get(5).content.texts.get(0);
+		System.out.println("\nSlide 6: Text Object "+ 1);
+		System.out.println("\tXStart: " + text.getXStart());
+		System.out.println("\tXEnd: " + text.getXEnd());
+		System.out.println("\tYStart: " + text.getYStart());
+		System.out.println("\tYEnd: " + text.getYEnd());
+		System.out.println("\tFont: " + text.getFont());
+		System.out.println("\tFont Colour: " + text.getFontColor());
+		System.out.println("\tFont Size: " + text.getFontSize());
+		System.out.println("\tStart Time: " + text.getStartTime());
+		System.out.println("\tDuration: " + text.getDuration());
+		System.out.println("\tLayer: " + text.getLayer());
+		
+		if (text.getTextString(0).getBold()) {
+			System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (bold)");
+		}
+		else if (text.getTextString(0).getItalic()) {
+			System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (italic)");
+		}
+		else if (text.getTextString(0).getUnderline()) {
+			System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (underline)");
+		}
+		else {
+			System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText());
+		}
+	
+		// check contents
+		assertEquals((Integer)5, recipe.slides.get(5).id);
+		assertFalse(recipe.slides.get(5).lastSlide);
+		// text 1
+		assertEquals((Integer)10, recipe.slides.get(5).content.texts.get(0).getXStart());
+		assertEquals((Integer)10, recipe.slides.get(5).content.texts.get(0).getYStart());
+		assertEquals((Integer)1000, recipe.slides.get(5).content.texts.get(0).getXEnd());
+		assertEquals((Integer)100, recipe.slides.get(5).content.texts.get(0).getYEnd());
+		assertEquals("This is the branch slide for the text object", recipe.slides.get(5).content.texts.get(0).getTextString(0).getText());
+		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getBold());
+		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getItalic());
+		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getUnderline());
+	}
+	
+	// check the contents of the last slide
+		@Test
+		public void lastSlideReadCorrectly() {
+			// print slide information
+			System.out.println("Slide 7 id: " + recipe.slides.get(6).id);
+			System.out.println("Slide 7 Duration: " + recipe.slides.get(6).duration);
+			System.out.println("Is Slide 7 the last slide? " + recipe.slides.get(6).lastSlide);
+			
+			// print out the text information
+			TextBody text = recipe.slides.get(6).content.texts.get(0);
+			System.out.println("\nSlide 7: Text Object "+ 1);
+			System.out.println("\tXStart: " + text.getXStart());
+			System.out.println("\tXEnd: " + text.getXEnd());
+			System.out.println("\tYStart: " + text.getYStart());
+			System.out.println("\tYEnd: " + text.getYEnd());
+			System.out.println("\tFont: " + text.getFont());
+			System.out.println("\tFont Colour: " + text.getFontColor());
+			System.out.println("\tFont Size: " + text.getFontSize());
+			System.out.println("\tStart Time: " + text.getStartTime());
+			System.out.println("\tDuration: " + text.getDuration());
+			System.out.println("\tLayer: " + text.getLayer());
+			
+			if (text.getTextString(0).getBold()) {
+				System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (bold)");
+			}
+			else if (text.getTextString(0).getItalic()) {
+				System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (italic)");
+			}
+			else if (text.getTextString(0).getUnderline()) {
+				System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText() + " (underline)");
+			}
+			else {
+				System.out.println("\tText String " + 1 + ": " + text.getTextString(0).getText());
+			}
+		
+			// check contents
+			assertEquals((Integer)6, recipe.slides.get(6).id);
+			assertFalse(recipe.slides.get(6).lastSlide);
+			// text 1
+			assertEquals((Integer)10, recipe.slides.get(6).content.texts.get(0).getXStart());
+			assertEquals((Integer)10, recipe.slides.get(6).content.texts.get(0).getYStart());
+			assertEquals((Integer)1000, recipe.slides.get(6).content.texts.get(0).getXEnd());
+			assertEquals((Integer)100, recipe.slides.get(6).content.texts.get(0).getYEnd());
+			assertEquals("This is the branch slide for the image object", recipe.slides.get(6).content.texts.get(0).getTextString(0).getText());
+			assertFalse(recipe.slides.get(6).content.texts.get(0).getTextString(0).getBold());
+			assertFalse(recipe.slides.get(6).content.texts.get(0).getTextString(0).getItalic());
+			assertFalse(recipe.slides.get(6).content.texts.get(0).getTextString(0).getUnderline());
+		}
 }
