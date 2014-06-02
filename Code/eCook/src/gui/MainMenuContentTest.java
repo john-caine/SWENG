@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.junit.Before;
@@ -70,6 +71,8 @@ public class MainMenuContentTest {
 		/* Test for Home Image */
 		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
 		assertTrue(homeHolder.getImage() instanceof Image);
+		homeHolder.getOnMouseClicked();
+		//assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);
 	
 		/*Test if topRightBox contains 2 ImageView */
 		HBox topRightBox = (HBox) topBox.getChildren().get(1);
@@ -79,10 +82,15 @@ public class MainMenuContentTest {
 		/* Test for Minimise Image */
 		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
 		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
+		minimiseBtnHolder.getOnMouseClicked();
+		assertFalse(stage.isMaximized());
 		
 		/* Test for Close Image */
 		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
 		assertTrue(closeBtnHolder.getImage() instanceof Image);
+		
+		closeBtnHolder.getOnMouseClicked();
+	    assertFalse(stage.isShowing());
 	}
 	
 	@Test
@@ -162,8 +170,6 @@ public class MainMenuContentTest {
 		/* Test if Load External Recipe Button's style is from css.css */
 		assertEquals("[file:../Resources/css.css]", ingredientsPickBtn.getStylesheets().toString());
 		
-		ingredientsPickBtn.fire();
-		assertTrue(mainMenuContent.bigBox.getChildren().isEmpty());
 	}
 	
 	@Test

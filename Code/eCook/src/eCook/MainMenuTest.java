@@ -26,12 +26,8 @@ package eCook;
 import static org.junit.Assert.*;
 
 import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -52,7 +48,6 @@ public class MainMenuTest{
 	private Stage stage;
 	private Rectangle2D screenBounds;
 	private VBox bigBox;
-	private Robot robot;
 	// Run tests on JavaFX thread ref. Andy Till
 		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 		@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -62,7 +57,6 @@ public class MainMenuTest{
 	@Before
 	public void setup() throws AWTException{
 		stage = new Stage();
-		robot = new Robot();
 		// no need to provide a recipeCollection (use null)
 		new MainMenu(stage, null);
 		Screen screen = Screen.getPrimary();
