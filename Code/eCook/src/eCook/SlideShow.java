@@ -343,7 +343,7 @@ public class SlideShow {
 		 */
         
 		// Add timers
-        
+		timerHbox = new HBox();
         slideRoot.getChildren().add(getTimerHbox());
         timerList = new ArrayList<Timer>();
         numberOfTimers = 0;
