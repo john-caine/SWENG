@@ -43,16 +43,6 @@ public class Shape extends Content {
 		return lineColor;
 	}
 	
-	@Override
-	public Integer getWidth() {
-		return width.intValue();
-	}
-	
-	@Override
-	public Integer getHeight() {
-		return height.intValue();
-	}
-	
 	// setters
 	public void setTotalPoints(Object totalPoints) {
 		if (totalPoints != null) {
@@ -69,20 +59,6 @@ public class Shape extends Content {
 	public void setFillColor(Object fillColor) {
 		if (fillColor != null) {
 			this.fillColor = (String) fillColor;
-		}
-	}
-	
-	@Override
-	public void setWidth(Object width) {
-		if (width != null) {
-			this.width = Integer.valueOf((String) width).intValue();
-		}
-	}
-	
-	@Override
-	public void setHeight(Object height) {
-		if (height != null) {
-			this.height = Integer.valueOf((String) height).intValue();
 		}
 	}
 	

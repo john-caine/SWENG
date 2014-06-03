@@ -12,7 +12,7 @@ package xmlparser;
  */
 
 public class Point {
-	private Integer num, x, y = 1; 
+	Integer num, x, y; 
 	
 	public Point() {
 	}

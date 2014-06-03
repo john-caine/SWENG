@@ -85,7 +85,7 @@ public class Content {
 		return branch;
 	}
 	
-	public Integer getOrIntegeration() {
+	public Integer getOrientation() {
 		return orientation;
 	}
 	

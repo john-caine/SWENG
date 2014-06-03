@@ -13,9 +13,9 @@ package xmlparser;
  */
 
 public class TextString {
-	private Boolean bold, italic, underline = false;
-	private Integer branch = null;
-	private String text = "";
+	Boolean bold = false, italic = false, underline = false;
+	Integer branch = null;
+	String text = "";
 	
 	public TextString() {
 	}
