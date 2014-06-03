@@ -181,7 +181,7 @@ public class MainMenuContent {
 		Button loadExtBtn = new Button("");
 		Button generateListBtn = new Button("");
 		Button ingredientsPickBtn = new Button("");
-		Button recipesBtn= new Button("");
+		Button recipesBtn= new Button("Recipes");
 		
 		//Defining the CSS Identifiers
 		loadExtBtn.setId("loadExtBtn");
