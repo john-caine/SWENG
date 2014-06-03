@@ -61,6 +61,7 @@ public class Timer extends Task<Object>{
 	private HBox completeTimer, mainHBox;
 	private int timerID;
 	private SlideShow main;
+	private ImageView playImageView;
 	
 	
 	/*
@@ -109,14 +110,17 @@ public class Timer extends Task<Object>{
 		//Gets play icon image from resources folder adds to start button.
 		inputStream = new FileInputStream("../Resources/play.png");
 		playImage = new Image(inputStream);
+		playImageView = new ImageView(playImage);
+		playImageView.setFitWidth(30);
+		playImageView.setFitHeight(20);
 		inputStream = new FileInputStream("../Resources/pause.png");
 		pauseImage = new Image(inputStream);
-		startButton = new Button("", new ImageView(playImage));
-		startButton.setPrefWidth(50);
+		startButton = new Button("", playImageView);
+		
 		
 		resetTimer = new Button("R");
-		startButton.setStyle("-fx-base: #0000FF");
-		resetTimer.setStyle("-fx-base: #0000FF");
+		//startButton.setStyle("-fx-base: #0000FF");
+		//resetTimer.setStyle("-fx-base: #0000FF");
 		resetTimer.setPrefWidth(50);
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
@@ -150,7 +154,7 @@ public class Timer extends Task<Object>{
 		completeTimer = new HBox();
 		completeTimer.getChildren().addAll(timerContainer, exitButton);
 		//Gets the audio for when the timer finishes
-		loadAudio("file:///C:/Users/Phainax/Documents/GitHub/SWENG/Code/Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
+		loadAudio("../Resources/Ship_Bell_Mike_Koenig_1911209136.wav");
 		
 		timeLineSeconds = new Timeline();
 		timeLineSeconds.setCycleCount(Timeline.INDEFINITE);

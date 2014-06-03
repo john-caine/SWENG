@@ -735,6 +735,10 @@ public class SlideShow {
 	public HBox getTimerHbox() {
 		return timerHbox;
 	}
+	
+	public ArrayList<TimerData> getTimerData(){
+		return timerValues;
+	}
 
 	
 }

@@ -32,7 +32,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
-public class TextHandler {
+public class TextHandler  {
 	
 	public TextFlow textBox;
 	public Text text;
