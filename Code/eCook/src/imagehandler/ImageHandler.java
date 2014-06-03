@@ -64,7 +64,6 @@ public class ImageHandler {
       		
       		//When startTime timeline has finished show the image and if there is a duration begin the duration timeline
       		timeLineStart.setOnFinished(new EventHandler<ActionEvent>(){
-
       			@Override
       			public void handle(ActionEvent arg0) {
       				showImage();	
