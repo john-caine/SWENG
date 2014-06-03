@@ -29,15 +29,21 @@ public class FileHandlerTest {
 	}
 
 	/**
-	 * Run a test to check that the return value is not null (only not null if .xml type chosen)
+	 * Run a test to check that after a selection is made, it is an XML file 
+	 * Run a test to check that if window is closed(no selection made, returns a null 
 	 * Run a test to check that the return value is a file path by printing to console
 	 */
 	@Test
 	public void fileHandler() {
 		fileHandlerResult = fileHandler.openFile(stage);
-		assertNotNull(fileHandlerResult);
-		if (fileHandlerResult != null) {
-			System.out.print("File path: " + fileHandlerResult + "\n");
+		if (stage.isShowing() == false){
+			if ((fileHandlerResult != null)){
+				assertTrue(fileHandlerResult.endsWith(".xml"));
+				System.out.print("File path: " + fileHandlerResult + "\n");
+			}
+			else{
+				assertTrue(fileHandlerResult == null);
+			}
 		}
 	}
 }
