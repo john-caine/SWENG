@@ -44,7 +44,7 @@ public abstract class SubMedia extends Media {
 
 	}
 
-	public void setDurationTimeLineOnFinish(){
+	private void setDurationTimeLineOnFinish(){
 		durationTimeLine.setOnFinished(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {

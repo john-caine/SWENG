@@ -31,10 +31,11 @@ public abstract class Media {
 		createKeyFrame();
 		hbox = new HBox();
 		hbox.setVisible(false);
+		setLocation();
 		
 	}
 	
-	public void setLocation() {
+	private void setLocation() {
 		hbox.setLayoutX(xStart);
     	hbox.setLayoutY(yStart);
 	}
