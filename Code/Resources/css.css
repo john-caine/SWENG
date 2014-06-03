@@ -573,38 +573,89 @@
     -fx-background-color: rgb(128,128,128); 
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;
+}
 
-}
 #SlidePauseBtn{
-    -fx-background-image: url('Pause.png');    
-    -fx-text-fill: white;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
-    -fx-background-size: 300 200;
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+ 	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center; 
+	-fx-background-image: url('Pause.png');
 }
+
 #SlidePrevBtn{
-    -fx-background-color: rgb(128,128,128);
-    -fx-text-fill: white;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center;  
+	-fx-background-image: url('Back.png');
 }
+
 #SlideNextBtn{
-    -fx-background-color: rgb(128,128,128);
-    -fx-text-fill: white;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center; 
+	-fx-background-image: url('Forward.png');
 }
+
 #SlideExitBtn{
-    -fx-background-color: rgb(128,128,128);
-    -fx-text-fill: white;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center; 
+	-fx-background-image: url('Exit.png');
 }
+
 #SlideTimeBtn{
-    -fx-background-color: rgb(128,128,128);
-    -fx-text-fill: white;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center center;
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center; 
+}
+
+#SlidePlayBtn{
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 2;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 300 200;
+	-fx-background-position: center center;
+	-fx-background-image: url('Play.png'); 
 }	
 
 .slider{

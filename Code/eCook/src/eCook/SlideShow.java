@@ -610,7 +610,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
-					buttons.get(0).setText("Play");
+					buttons.get(0).setId("SlidePlayBtn");
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -631,7 +631,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(0).setText("Pause");			        
+					buttons.get(0).setId("SlidePauseBtn");			        
 					paused = false;
 				}				
 			}			

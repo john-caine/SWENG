@@ -64,7 +64,6 @@ public class SlideControls {
         // get the size of the screen
 		screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
-		System.out.print(width);
         final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         
         // Set up the controls panel at the bottom of the screen
@@ -77,12 +76,12 @@ public class SlideControls {
         
         // instantiate and add the buttons to the list
         buttons = new ArrayList<Button>();
-        Button pauseBtn = new Button ("");
+        Button pauseBtn = new Button("");
         Button prevBtn = new Button("");
         Button nextBtn = new Button("");
         Button exitBtn = new Button("");
-        Button timerBtn = new Button("");
-        
+        Button timerBtn = new Button("Timer");
+             
         //Defining the CSS identifier 
         pauseBtn.setId("SlidePauseBtn");
         prevBtn.setId("SlidePrevBtn");
@@ -90,18 +89,28 @@ public class SlideControls {
         exitBtn.setId("SlideExitBtn");
         timerBtn.setId("SlideTimeBtn");
         
-//        pauseBtn.setMinSize(width,controlPanel.getPrefHeight()-40);
-//        prevBtn.setMinSize(width,controlPanel.getPrefHeight()-40);
-//        nextBtn.setMinSize(width,controlPanel.getPrefHeight()-40);
-//        exitBtn.setMinSize(width,controlPanel.getPrefHeight()-40);
-//        timerBtn.setMinSize(width,controlPanel.getPrefHeight()-40);
+        //Adding button size
+        pauseBtn.setMinSize(width/20,controlPanel.getPrefHeight()-50);
+        prevBtn.setMinSize(width/20,controlPanel.getPrefHeight()-50);
+        nextBtn.setMinSize(width/20,controlPanel.getPrefHeight()-50);
+        exitBtn.setMinSize(width/20,controlPanel.getPrefHeight()-50);
+        timerBtn.setMinSize(width/20,controlPanel.getPrefHeight()-50);
         
+        //Set padding to button
+        pauseBtn.setPadding(new Insets(30,10,10,30));
+        prevBtn.setPadding(new Insets(30,10,10,30));
+        nextBtn.setPadding(new Insets(30,10,10,30));
+        exitBtn.setPadding(new Insets(30,10,10,30));
+        timerBtn.setPadding(new Insets(30,10,10,30));
+        
+        //Adding stylesheet
         pauseBtn.getStylesheets().add("file:../Resources/css.css");
         prevBtn.getStylesheets().add("file:../Resources/css.css");
         nextBtn.getStylesheets().add("file:../Resources/css.css");
         exitBtn.getStylesheets().add("file:../Resources/css.css");
         timerBtn.getStylesheets().add("file:../Resources/css.css");
         
+        //Adding button
         buttons.add(pauseBtn);
         buttons.add(prevBtn);
         buttons.add(nextBtn);
