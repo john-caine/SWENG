@@ -137,13 +137,26 @@ public class LoadExternalRecipe {
         midBox.getChildren().addAll(downloadBtn,fileBrowserBtn);
         midBox.setAlignment(Pos.CENTER);
         
+        
+        midBox.setStyle("-fx-background-color: #000000;");
+        bottomBox.setStyle("-fx-background-color: green;");
+        loadExtBox.setStyle("-fx-background-color: yellow;");
+        topBox.setStyle("-fx-background-color: blue;");
+        
         // add URL field and button below
         bottomBox.getChildren().addAll(httpLbl, httpField, getFromURLBtn);
-        
+        /*
+        //loadExtBox.getStylesheets().add("file:../Resources/css.css");
+        loadExtBox.setPadding(new Insets(50, 50, 50, 50));
+        loadExtBox.setStyle("-fx-background-color: #000000;"
+        		+ "-fx-background-radius: 10;"
+        		+ "-fx-border-radius: 10;"
+        		+ "-fx-border-width:5;"
+        		+ "-fx-border-color:black;");
         // add everything to the dialog box
-        loadExtBox.getChildren().addAll(topBox,midBox,bottomBox);
+         * */
+        loadExtBox.getChildren().addAll(midBox,bottomBox);
         //loadExtBox.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/ingredients.jpg');");
-        loadExtBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         Scene dialogScene = new Scene(loadExtBox, 500, 300);
         dialog.setScene(dialogScene);
         dialog.show();
