@@ -24,7 +24,7 @@
 		<ingredient name="brown sugar" amount="0.5" units="teaspoon" />
 		<ingredient name="chicken stock" amount="2" units="pints" />
 	</ingredients>
-	<slide id="0" duration="30" lastSlide="false">
+	<slide id="0" duration="10" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="100" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" starttime="10"> 
 			<textbody underlined="true" bold="true" italic="true">
         <textstring>This is a test of required attributes</textstring>
