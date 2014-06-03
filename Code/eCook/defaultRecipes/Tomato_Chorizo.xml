@@ -3,8 +3,8 @@
 	<documentinfo>
 		<author>Jim Dee</author>
 		<version>1.1</version>
-    <title>Butternut Squash Soup</title>
-		<comment>Cooking Time: 20 mins 	Preparation Time: 10 mins 	Average Cost = £2 	Suitable for vegetarians.
+    <title>Tomato and Chorizo</title>
+		<comment>Cooking Time: 20 mins 	Preparation Time: 10 mins 	Average Cost = £3 	Not suitable for vegetarians.
 		</comment>
 		
 		<width>1000</width>
@@ -19,24 +19,33 @@
 		<fillcolor>#CCCCCC</fillcolor>
 	</defaults>
 	<ingredients>
-		<ingredient name="butternut squash" amount="1" units="whole" />
-		<ingredient name="butter" amount="25" units="grams" />
+		<ingredient name="onion" amount="1" units="whole" />
+		<ingredient name="carrot" amount="1" units="whole" />
+		<ingredient name="garlic" amount="1" units="whole" />
+		<ingredient name="tomato puree" amount="1" units="tbsp" />
+		<ingredient name="chopped tomatoes" amount="1" units="tin" />
+		<ingredient name="sugar" amount="1" units="tsp" />
+		<ingredient name="white chicken stock" amount="300" units="ml" />
+		<ingredient name="whole milk" amount="100" units="ml" />
+		<ingredient name="chorizo" amount="250" units="g" />
+		<ingredient name="fresh thyme" amount="2" units="sprigs" />
 	</ingredients>
 
 	<slide id="0" duration="20" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Butternut Squash Soup</textstring>
+        		<textstring>Tomato and Chorizo Soup</textstring>
       			</textbody>
 		</text>
 		<text xstart="15" ystart="70" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage. <br>Step by step method. Please click 'Next' or press the right arrow key to begin.</br></textstring>
+        		<textstring>The spicy, garlicky Spanish sausage lends its flavour to this soup. Although this soup would work fantastically with a fillet of cod or hake, it is delicious by itself as well.
+        		Step by step method. Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="250" width="800" height="533" layer="1" />	
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -47,19 +56,19 @@
 		</text>
 		<text xstart="15" ystart="70" xend="1000" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Begin by peeling the squash with a sharp knife, reserving the trimmings in a pan. </textstring>
+        		<textstring>Heat a little oil in a pan over a medium heat, and add the onion. Season with salt, and cook until softened but not coloured.  </textstring>
       			</textbody>
 		</text>  
 		<text xstart="150" ystart="550" xend="1000" yend="475" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Set the seeds aside as well.</textstring>
+        		<textstring>Add the carrot, garlic and thyme then continue to cook for 5 minutes.</textstring>
       			</textbody>
 		</text>     		
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_3.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -70,18 +79,18 @@
 		</text>
 		<text xstart="15" ystart="70" xend="1200" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Chop the flesh into 1cm dice and toss in a tablespoon of vegetable oil along with a few pinches of salt. Roast in the oven at gas mark 6 for 20-30 minutes, until lightly coloured and cooked through.  </textstring>
+        		<textstring>Heat a frying pan over medium high heat. Peel the chorizo of its papery casing, then cut two thirds of it into 1cm thick rounds. Cook these in a small amount of oil in the frying pan for 5-6 minutes, turning frequently to avoid burning.  </textstring>
       			</textbody>
 		</text>     
 		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
 			<textbody underlined="false" bold="false" italic="false">
-				<textstring>Meanwhile, add cold water to the trimmings and bring to the boil.</textstring>
+				<textstring>Add the entire contents of the pan to the vegetable mixture (including any fat which has come out of the chorizo).</textstring>
       			</textbody>
 		</text>		
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -92,7 +101,7 @@
 		</text>
 		<text xstart="15" ystart="100" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
 			<textbody >
-        		<textstring>Simmer for 15-20 minutes then strain into another pan. This creates a lightly flavoured squash stock. </textstring>
+        		<textstring>Cook this mixture for 2 minutes over a medium heat, mixing to combine. Add the tomato puree and cook for a further 3-4 minutes, until the raw taste from the puree has gone away. </textstring>
       			</textbody>
         </text>
         <text xstart="650" ystart="550" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
@@ -103,7 +112,7 @@
         
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -115,19 +124,19 @@
 		</text>
 		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Add the roasted butternut squash to a pan, as well as enough stock to cover. Bring to the boil then blend with the butter using the best equipment available to you.</textstring>
+        		<textstring>Now add the chopped tomatoes and the chicken stock, as well as the sugar. Turn the heat to low, and simmer uncovered. After 15-20 minutes, check a piece of chorizo. It should be tender and easy to break apart, if not return the pan to the heat for another 10 minutes.</textstring>
       			</textbody>
 		</text>  
 		<text xstart="750" ystart="550" xend="1200" yend="1000" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Pass through a fine sieve then check the seasoning, adding salt and pepper to taste.</textstring>
+        		<textstring>Once the chorizo is tender, blend the soup with the best equipment available to you and pass through a fine sieve. Discard the solids.</textstring>
       			</textbody>
 		</text>     		
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -139,13 +148,17 @@
 		
 		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
 			<textbody >
-        		<textstring>To serve, reheat the soup and pour into a bowl.</textstring>
+        		<textstring>Finely chop the remaining chorizo, and fry in a little oil over a high heat until crispy but not burnt. The rendered fat in the pan should be a beautiful red colour.</textstring>
       			</textbody>
 		</text>
-			
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
+			<textbody >
+        		<textstring>Add the milk to the soup, and carefully heat, frothing with a hand blender for a cappuccino like texture. </textstring>
+      			</textbody>
+		</text>	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_11.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_12.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="6" duration="30" lastSlide="true">
@@ -156,11 +169,11 @@
 		</text>
 		<text xstart="350" ystart="700" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
 			<textbody >
-        		<textstring>Top with a teaspoon of the toasted seeds.</textstring>
+        		<textstring>Pour into bowls, and garnish with the crispy chorizo pieces, as well as a little of the rendered fat.</textstring>
       			</textbody>
 		</text>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
-		<image urlname="file:../Resources/bg_image_blur_new1.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/bg_image_blur.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>
