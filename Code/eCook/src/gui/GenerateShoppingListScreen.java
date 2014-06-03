@@ -165,7 +165,6 @@ public class GenerateShoppingListScreen {
 		midBox.setStyle("-fx-background-color: transparent;"
 				+ "-fx-background-image: url('file:../Resources/shoppingListImage.png');"
 				+ "-fx-background-position: center center;"
-				+ "-fx-background-color: transparent;"
 				+ "-fx-background-size: contain;"
 				+ "-fx-background-repeat: repeat-y;");
 		

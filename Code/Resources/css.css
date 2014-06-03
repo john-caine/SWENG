@@ -564,93 +564,99 @@
 }
 
 #SlidePauseBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
- 	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
-	-fx-background-position: center center; 
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Pause.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #SlidePrevBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
-	-fx-background-position: center center;  
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Back.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #SlideNextBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
-	-fx-background-position: center center; 
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Forward.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #SlideExitBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
-	-fx-background-position: center center; 
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Exit.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #SlideTimeBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
+	/*Background*/
+	-fx-background-color: transparent;
+	-fx-background-image: url('Timer.png');
 	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #SlidePlayBtn{
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 2;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 300 200;
-	-fx-background-position: center center;
-	-fx-background-image: url('Play.png'); 
+	/*Background*/
+	-fx-background-color: transparent;
+	-fx-background-image: url('Play.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }	
+
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
 
 .slider{
  -fx-background-color: rgb(96,96,96);
