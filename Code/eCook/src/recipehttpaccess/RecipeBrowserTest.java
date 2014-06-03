@@ -7,16 +7,35 @@ package recipehttpaccess;
  * 
  * Description: Test documentation for Recipe Browser. Test specifics are supplied in comments below.
  */
-import org.junit.BeforeClass;
+import static org.junit.Assert.*;
+
+import java.io.File;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-public class RecipeBrowserTest {
+import eCook.JavaFXThreadingRule;
+import eCook.RecipeCollection;
 
-	@BeforeClass
-	public static void setUp() {
-		System.out.println("This test class contains no automated tests.");
-		System.out.println("Instead, visual tests were conducted and the results documented as follows:\n");
+public class RecipeBrowserTest {
+	RecipeBrowser recipeBrowser;
+	Stage testStage;
+	// Run tests on JavaFX thread ref. Andy Till
+	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
+	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+
+	@Before
+	public void setUp() {
+		testStage = new Stage();
+		recipeBrowser = new RecipeBrowser(testStage, new RecipeCollection(), true, new Label());
 	}
+	
+	/* Visual Tests */
 	
 	@Test
 	public void noInternetConnectionOrUnreachableServerReportsError() {
@@ -33,18 +52,45 @@ public class RecipeBrowserTest {
 	}
 	
 	@Test
-	public void canSelectLocalDirectory() {
-		System.out.println("Checking that 'Select Local Recipe File Destination' button works correctly...");
-		System.out.println("Case 'yes': button displayed correctly and enabled. Clicking displays file browser window. Selecting folder and pressing 'open' closes window.\n");
-	}
-	
-	@Test
 	public void canDownloadSelectedRecipeFiles() {
 		System.out.println("Checking that 'Download Selected Recipes' button works correctly...");
-		System.out.println("Case 'yes': button displayed correctly and enabled when local directory has been chosen and at least one file is selected.");
-		System.out.println(" 			clicking button downloads files to chosen directory and application shows confirmation text.");
-		System.out.println("Case 'yes': button displayed but not enabled when no local file directory selected.");
-		System.out.println("			button also displayed but not enabled when no files selected.");
+		System.out.println("Case 'yes': button displayed correctly and enabled when at least one file is selected.");
+		System.out.println(" 			clicking button downloads files to defaultRecipes folder and application shows confirmation text.");
+		System.out.println("Case 'yes': button displayed but not enabled when no files selected.");
 		System.out.println("Case 'yes': correct files downloaded to the correct location. Functionality as expected.");
+	}
+	
+	/* Automated Tests */
+	
+	// check that the correct list of recipes is retrieved from the server
+	@Test
+	public void correctRecipeListRetrievedFromServer() {
+		assertEquals("PWSExamplePlaylist_4.xml", recipeBrowser.availableRecipeFiles.get(0));
+		assertEquals("example1.xml", recipeBrowser.availableRecipeFiles.get(1));
+		assertEquals("example2.xml", recipeBrowser.availableRecipeFiles.get(2));
+		assertEquals("example3.xml", recipeBrowser.availableRecipeFiles.get(3));
+		assertEquals("exampleSoups.xml", recipeBrowser.availableRecipeFiles.get(4));
+		assertEquals(5, recipeBrowser.availableRecipeFiles.size());
+	}
+	
+	// check that the download button is enabled at the correct times
+	@Test
+	public void downloadButtonIsEnabledCorrectly() {
+		recipeBrowser.listOfRecipeFiles.getSelectionModel().select(0);
+		assertFalse(recipeBrowser.downloadButton.isDisabled());
+	}
+	
+	// check that the download procedure executes correctly
+	@Test
+	public void downloadRecipesWorksCorrectly() {
+		recipeBrowser.listOfRecipeFiles.getSelectionModel().select(0);
+		assertFalse(recipeBrowser.downloaded);
+		assertEquals(1, recipeBrowser.listOfRecipeFiles.getSelectionModel().getSelectedItems().size());
+		assertEquals("PWSExamplePlaylist_4.xml", recipeBrowser.listOfRecipeFiles.getSelectionModel().getSelectedItem());
+		recipeBrowser.downloadButton.fireEvent(new ActionEvent());
+		File file = new File("defaultRecipes/PWSExamplePlaylist_4.xml");
+		assertTrue(file != null);
+		assertTrue(file.exists());
+		assertTrue(recipeBrowser.downloaded);
 	}
 }

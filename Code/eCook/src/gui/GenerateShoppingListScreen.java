@@ -163,7 +163,7 @@ public class GenerateShoppingListScreen {
 		// Set the background of the shopping list to a shopping list image
 		midBox.setPadding(new Insets(50, 50, 150, 150));
 		midBox.setStyle("-fx-background-color: transparent;"
-				+ "-fx-background-image: url('file:../Resources/shoppingListImage2.png');"
+				+ "-fx-background-image: url('file:../Resources/shoppingListImage.png');"
 				+ "-fx-background-position: center center;"
 				+ "-fx-background-color: transparent;"
 				+ "-fx-background-size: contain;"

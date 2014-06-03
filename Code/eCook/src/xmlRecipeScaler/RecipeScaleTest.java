@@ -147,8 +147,13 @@ public class RecipeScaleTest {
 		assertNotSame(testHeight, recipe.getSlide(4).getContent().getVideos().get(1).getHeight());	
 	}
 	/*
-	 * Test to check absolute value of the image in Slide id =3 scales correctly.Image dimensions height= 384 
-	 * and width = 512.
+	 *	
+	 *	The automatic tests will only check for changes in
+	 *	x,y,width,height and fontSize values. To fully understand
+	 *	if scaling is functioning correctly open up the PWS
+	 *	slideshow 3. All elements should appear on screen under
+	 *	any resolution.
+	 *
 	 */
 	@Test
 	public void absoluteValueTest() {
@@ -183,14 +188,6 @@ public class RecipeScaleTest {
 		
 		
 	}
-	/*
-	 *	Further testing:
-	 *	The automatic tests will only check for changes in
-	 *	x,y,width,height and fontSize values. To fully understand
-	 *	if scaling is functioning correctly open up the PWS
-	 *	slideshow 3. All elements should appear on screen under
-	 *	any resolution.
-	 *
-	 */
+	
 }
 	

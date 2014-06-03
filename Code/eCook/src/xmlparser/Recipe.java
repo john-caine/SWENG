@@ -47,6 +47,18 @@ public class Recipe {
 			this.fileName = fileName;
 		} 
 	}
+	
+	public void setInfo(Info info) {
+		if (info != null) {
+			this.info = info;
+		}
+	}
+	
+	public void setDefaults(Defaults defaults) {
+		if (defaults != null) {
+			this.defaults = defaults;
+		}
+	}
 
 	public List<Slide> getSlides() {
 		return slides;

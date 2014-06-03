@@ -1,10 +1,10 @@
 #loadExtBtn {
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('import.png');
 	-fx-background-position: center center; 
 	-fx-background-size: 280 200;
@@ -14,69 +14,64 @@
 
 
 #loadExtBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-opacity: 0.5;
+	-fx-opacity: 0.75;
 }
 
 
 #generateListBtn {
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('shopping.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;	
-	-fx-background-size: contain; -fx-background-repeat: no-repeat;	
+	-fx-background-size: 280 200;
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;	
 }
 
 
 #generateListBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-opacity: 0.5;
+	-fx-opacity: 0.75;
 }
 
 
 #ingredientsPickBtn {
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Ingredients.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;	
-	-fx-background-size: contain; -fx-background-repeat: no-repeat;	
+	-fx-background-size: 280 200;
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;	
 }
 
 #ingredientsPickBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-opacity: 0.5;
+	-fx-opacity: 0.75;
 }
 
 #recipesBtn {
-	-fx-background-color:transparent;
+	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
+	/*Background*/
+	-fx-background-color: transparent;
 	-fx-background-image: url('Recipes.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;	
-	-fx-background-size: contain; -fx-background-repeat: no-repeat;
+	-fx-background-size: 280 200;
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;	
 }
 
 #recipesBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-opacity: 0.5;
+	-fx-opacity: 0.75;
 }
 
 #fileBrowserBtn {
