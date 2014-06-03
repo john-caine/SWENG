@@ -40,9 +40,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import xmlValidation.XMLValidator;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
@@ -52,11 +50,12 @@ public class RecipeBrowser extends Application {
 	ArrayList<String> availableRecipeFiles;
 	ListView<String> listOfRecipeFiles;
 	File localRecipeDirectory = new File("defaultRecipes/");
-	Button downloadButton;
+	Button downloadButton, exitButton;
 	Scene scene;
 	RecipeCollection recipeCollection;
 	Label statusBar;
 	private Label downloadLabel;
+	boolean downloaded = false;
 	
 	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show, Label report) {
 		this.recipeCollection = recipeCollection;
@@ -138,7 +137,7 @@ public class RecipeBrowser extends Application {
         downloadButton.setAlignment(Pos.CENTER);
         downloadButton.setTextAlignment(TextAlignment.CENTER);
     	
-        Button exitButton = new Button("Cancel");
+        exitButton = new Button("Cancel");
         exitButton.setId("exitButton");
         exitButton.getStylesheets().add("file:../Resources/css.css");
         exitButton.setAlignment(Pos.CENTER);
@@ -179,7 +178,7 @@ public class RecipeBrowser extends Application {
         // configure the download button
         downloadButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-            	boolean downloaded = false;
+            	downloaded = false;
             	// download and save all selected recipe files
             	System.out.println("Downloading Recipes...");
             	String rootURL = "http://www.propartydj.co.uk/SWEng/";
@@ -232,8 +231,10 @@ public class RecipeBrowser extends Application {
             	border.setBottom(downloadLabel);
             	// close the window and return to the main menu
             	if (downloaded) {
-            		border.setCenter(downloadLabel);
-	            	primaryStage.getOwner().setOpacity(1.0);
+            		if (!border.getChildren().contains(downloadLabel)) {
+            			border.setCenter(downloadLabel);
+            			primaryStage.getOwner().setOpacity(1.0);
+            		}
             	}
             	primaryStage.close();
             }
