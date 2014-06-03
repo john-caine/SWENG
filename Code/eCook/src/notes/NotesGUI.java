@@ -66,14 +66,24 @@ public class NotesGUI {
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
         notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
-        notesPanel.setStyle("-fx-background-color: #336699;");
+        notesPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
+        
         final Label notesTitle = new Label("Notes");
+        notesTitle.setStyle("fx-font-family: Century Gothic; -fx-font-size: 20px; -fx-background-color: gray;");
         final Label searching = new Label("Searching for Notes...");
+        searching.setStyle("fx-font-family: Century Gothic; -fx-font-size: 20px; -fx-background-color: gray;");
         final ProgressIndicator pinwheel = new ProgressIndicator();
         notesBox = new TextArea();
         notesBox.setMaxWidth(4*root.getScene().getWidth()/25);
         notesBox.setPrefSize(4*root.getScene().getWidth()/25, root.getScene().getHeight()/4);
+        notesBox.setPadding(new Insets(30, 0, 0, 0));
         notesBox.setText("Write your notes here");
+        notesBox.getStylesheets().add("file:../Resources/css.css");
+        notesBox.setStyle("-fx-background-image: url('file:../Resources/note_edit.png');"
+        		+ "fx-font-family: Century Gothic;"
+        		+ "-fx-font-size: 14px;"
+				+ "-fx-background-size: contain;"
+				+ "-fx-background-repeat: repeat-y;");
         
         // clear the help text when the user begins typing
         notesBox.setOnKeyPressed(new EventHandler<InputEvent>() {
