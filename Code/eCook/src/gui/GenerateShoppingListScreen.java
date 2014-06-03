@@ -20,6 +20,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -54,7 +55,7 @@ public class GenerateShoppingListScreen {
 	private CheckBox[] checkboxes;
 	private TextField newItem;
 	private boolean inEditMode = false;
-	private Tooltip h,c,m;
+	protected Tooltip h,c,m;
 	protected VBox bigBox;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
@@ -257,16 +258,16 @@ public class GenerateShoppingListScreen {
 		getShoppingList(inEditMode);
 		
 		//Sets actions to be performed when saveBtn is clicked
-		saveBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
+		saveBtn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
             	new PDFCreator(getShoppingList(inEditMode).readFromTextFile(), true);
             	statusBar.setText("Shopping list saved to PDF");
             }
         });
 		
 		//Sets actions to be performed when addBtn is clicked
-		addBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
+		addBtn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
 				if (addBtn.getText().equals("Add Item")) {
 					newItem.setVisible(true);
 					addBtn.setText("Save Changes");
@@ -286,8 +287,8 @@ public class GenerateShoppingListScreen {
 		});
 		
 		//Sets actions to be performed when editBtn is clicked
-		editBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
+		editBtn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
 				if (inEditMode) {
 					// update the shopping list by deleting unselected items
 					List<String> itemsToRemove = new ArrayList<String>();
@@ -315,8 +316,8 @@ public class GenerateShoppingListScreen {
 		});
 		
 		//Sets actions to be performed when printBtn is clicked
-		printBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
+		printBtn.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
             	File fileToRead = new File("ShoppingListTemp.pdf");
         		if (fileToRead.exists()) {
         			printShoppingList();
