@@ -33,6 +33,8 @@ public abstract class SubMedia extends Media {
 		durationTimeLine = new Timeline();
 		createDurationKeyFrame();
 		
+		setDurationTimeLineOnFinish();
+		setTimeLineOnFinish();
 		if(orientation != null){
 			setOrientation();
 		}
@@ -66,7 +68,7 @@ public abstract class SubMedia extends Media {
 		});
 	}
 
-	public void createDurationKeyFrame(){
+	private void createDurationKeyFrame(){
 		durationTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -96,12 +98,12 @@ public abstract class SubMedia extends Media {
 		}
 	}
 
-	public void stopDurationTimeLine() {
+	private void stopDurationTimeLine() {
 		durationTimeLine.stop();
 		logger.log(Level.INFO, "Duration Time Timeline Stopped ");
 	}
 	
-	public void setTimeLines(){
+	protected void setTimeLines(){
 		if(startTime != null){
   			startTimeLine.setCycleCount(this.startTime);
   			if(this.duration == null){
@@ -109,12 +111,14 @@ public abstract class SubMedia extends Media {
   			}
   			durationTimeLine.setCycleCount(this.duration);
   			startTimeLine.playFromStart();
+  			logger.log(Level.INFO, "Starting StartTime time line ");
   		}
   		//Show image and begin duration timeline 
   		else if(duration != null){
   			showObject();
   			durationTimeLine.setCycleCount(this.duration);
   			durationTimeLine.playFromStart();
+  			logger.log(Level.INFO, "Starting Duration time line ");
   		}
   		else{
   			showObject();
@@ -124,5 +128,10 @@ public abstract class SubMedia extends Media {
 	
 	public void setOrientation() {
 		hbox.setRotate(orientation);
+	}
+	
+	public void tearDown() {
+		stopStartTimeTimeLine();
+		stopDurationTimeLine();	
 	}
 }

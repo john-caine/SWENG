@@ -54,7 +54,7 @@ public abstract class Media {
 		 logger.log(Level.INFO, "Start Time Timeline Paused ");
 	 }
 	 
-	 public void stopStartTimeTimeLine() {
+	 protected void stopStartTimeTimeLine() {
 		startTimeLine.stop();
 		logger.log(Level.INFO, "Start Time Timeline Stopped ");
 	}
@@ -66,15 +66,19 @@ public abstract class Media {
 		 }
 	 }
 	 
-	 public void showObject(){
+	 protected void showObject(){
 		 hbox.setVisible(true);
 	 }
 	 
-	 public void hideObject(){
+	 protected void hideObject(){
 		 hbox.setVisible(false);	 
 	 }
-
-	 public abstract void setTimeLineOnFinish();
 	 
-	 public abstract void tearDown();
+	 public HBox getHbox(){
+		 return hbox;
+	 }
+
+	 protected abstract void setTimeLineOnFinish();
+	 
+	 protected abstract void tearDown();
 }

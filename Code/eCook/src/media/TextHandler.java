@@ -1,8 +1,6 @@
 package media;
 
 import java.util.List;
-import java.util.logging.Logger;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -32,8 +30,7 @@ public class TextHandler extends SubMedia {
 		this.font = font;
 		this.fontsize = fontsize;
 		this.fontcolor = fontcolor;
-		this.xEnd = xEnd;
-		
+		this.xEnd = xEnd;	
 		
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (xEnd == null){
@@ -51,7 +48,7 @@ public class TextHandler extends SubMedia {
 		 
 		//Creates new TextFlow textBox, sets to invisible
 		 textBox = new TextFlow();
-		 textBox.setVisible(false);
+		 
 		 
 		 stringList = textBody.getTextBody();
 		
@@ -63,8 +60,7 @@ public class TextHandler extends SubMedia {
 		
 		 hbox.getChildren().add(textBox);
 		 
-		 
-		
+		 setTimeLines();		
 	}
 	
 	private Text setTextAttributes(TextString textString){
@@ -79,9 +75,7 @@ public class TextHandler extends SubMedia {
 		 else  {
 			 weight = FontWeight.BOLD;
 		 }
-
-	
-		
+		 
 		//Set the text posture value to Italic if getItalic is true 
 		 if ((textString.getItalic() == null) || (textString.getItalic() == false)){
 			 posture = FontPosture.REGULAR;
@@ -110,12 +104,6 @@ public class TextHandler extends SubMedia {
 		 text.setWrappingWidth((xEnd - xStart));
 		 
 		 return text;
-	}
-
-	@Override
-	public void tearDown() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
-import imagehandler.ImageHandler;
+import media.ImageHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -37,7 +36,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import texthandler.TextHandler;
+import media.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import videohandler.VideoPlayerHandler;
@@ -217,7 +216,7 @@ public class SlideShow {
 				if (imageLayer == null){
 					imageLayer = 0;
 				}
-				layers.get(imageLayer).getChildren().add(image1.imageBox);
+				layers.get(imageLayer).getChildren().add(image1.getHbox());
 			}
 		}
 		
@@ -243,10 +242,10 @@ public class SlideShow {
 				else 
 					fontColor = text.get(i).getFontColor();
 				
-				TextHandler text1 = new TextHandler(this, logger, i, currentSlideID, text.get(i), font, text.get(i).getXStart(), 
+				TextHandler text1 = new TextHandler(this, text.get(i), font, text.get(i).getXStart(), 
 											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
 											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
-											text.get(i).getLayer(), null, null);
+											text.get(i).getBranch(), text.get(i).getOrientation());
 				
 				textHandlerList.add(text1);
 				
@@ -255,7 +254,7 @@ public class SlideShow {
 					textLayer = 0;
 				}
 				
-				layers.get(textLayer).getChildren().add(text1.textBox);
+				layers.get(textLayer).getChildren().add(text1.getHbox());
 			}
 		}
 		audioHandlerList = new ArrayList<AudioHandler>();
@@ -520,6 +519,9 @@ public class SlideShow {
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
+            	for(int i = 0; i < textHandlerList.size(); i++){
+            		textHandlerList.get(i).tearDown();
+            	}
 
             	// return to the main menu if there are no more slides
             	if (nextSlideID >= numOfSlides) {
@@ -596,10 +598,13 @@ public class SlideShow {
 				if(paused == false){
 					timeLineDuration.pause();
 					for(int r = 0; r < textHandlerList.size(); r++){
-						textHandlerList.get(r).pause();
+						textHandlerList.get(r).pauseStartTimeTimeLine();
+						textHandlerList.get(r).pauseDurationTimeLine();
+						
 					}
 					for(int r = 0; r < imageHandlerList.size(); r++){
-						imageHandlerList.get(r).pause();
+						imageHandlerList.get(r).pauseStartTimeTimeLine();
+						imageHandlerList.get(r).pauseDurationTimeLine();
 					}
 					for(int r= 0; r < graphicsHandlerList.size(); r++){
 						graphicsHandlerList.get(r).pause();
@@ -617,10 +622,12 @@ public class SlideShow {
 				else{
 					timeLineDuration.play();
 					for(int r = 0; r < textHandlerList.size(); r++){
-						textHandlerList.get(r).resume();
+						textHandlerList.get(r).resumeStartTimeTimeLine();
+						textHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r =0; r < imageHandlerList.size(); r++){
-						imageHandlerList.get(r).resume();
+						imageHandlerList.get(r).resumeStartTimeTimeLine();
+						imageHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r= 0; r < graphicsHandlerList.size(); r++){
 						graphicsHandlerList.get(r).resume();
