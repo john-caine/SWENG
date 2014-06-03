@@ -57,7 +57,7 @@ public class SlideShow {
 	private Slide slide;
 	private Integer maxLayer, duration;
 	private Timer timer;
-	private HBox timerHbox;
+	private VBox timerbox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private ArrayList<TextHandler> textHandlerList;
@@ -320,8 +320,11 @@ public class SlideShow {
 		// Add all of the layers BEFORE THE PANELS AND TIMERS - These must sit on top of the slide content
 	    slideRoot.getChildren().addAll(layers);
 	    
+	    // Add timers
+	 	timerbox = new VBox();
+	 		
 	    // Create a notes panel each time new Slide is called.
-	    NotesGUI notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot);
+	    NotesGUI notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox);
 	    notesPanel = notesGUI.getNotesPanel();
 	    slideRoot.getChildren().add(notesPanel);
 	    notesPanel.setLayoutX(-slideScene.getWidth()/5);
@@ -342,9 +345,7 @@ public class SlideShow {
 		 *	We hope you had fun.
 		 */
         
-		// Add timers
-		timerHbox = new HBox();
-        slideRoot.getChildren().add(getTimerHbox());
+        //slideRoot.getChildren().add(getTimerHbox());
         timerList = new ArrayList<Timer>();
         numberOfTimers = 0;
         //If timers were present on previous slide create new timers and resume from saved position
@@ -362,7 +363,7 @@ public class SlideShow {
 					
 					@Override
 					public void handle(WorkerStateEvent event) {		
-						getTimerHbox().getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
+						getTimerbox().getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
 					}
 				});
 				new Thread(continueTimer).start();
@@ -569,7 +570,8 @@ public class SlideShow {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if(numberOfTimers< 4){
-						 timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						numberOfTimers ++;
+						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
 						timerList.add(timer);
 						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -579,7 +581,7 @@ public class SlideShow {
 								
 								Platform.runLater( new Runnable(){
 									public void run(){
-										getTimerHbox().getChildren().add(timer.getTimerID(), timer.getPane());								
+										getTimerbox().getChildren().add(timer.getTimerID(), timer.getPane());								
 									}
 								});	 									
 							}
@@ -739,8 +741,8 @@ public class SlideShow {
 		
 	}
 
-	public HBox getTimerHbox() {
-		return timerHbox;
+	public VBox getTimerbox() {
+		return timerbox;
 	}
 	
 	public ArrayList<TimerData> getTimerData(){

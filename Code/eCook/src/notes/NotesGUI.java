@@ -24,6 +24,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -36,8 +37,8 @@ public class NotesGUI {
 	VBox notesPanel;
 	
 	// constructor
-	public NotesGUI(String recipeTitle, Integer slideID, Group root) {
-		setupNotesPanel(recipeTitle, slideID, root);
+	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox) {
+		setupNotesPanel(recipeTitle, slideID, root, timerbox);
 	}
 	
 	// method to return the notesPanel VBox object
@@ -61,7 +62,7 @@ public class NotesGUI {
 	}
 
 	// set up the panel, content and event handlers
-    public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root) {   
+    public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root,  final VBox timerbox) {   
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
         notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
@@ -85,12 +86,12 @@ public class NotesGUI {
         
         final Label timersLabel = new Label("The timers and other stuff could go here");
         timersLabel.setPadding(new Insets(50,0,0,0));
-        
+     
         notesPanel.setPadding(new Insets(10,10,10,10));
         notesPanel.setSpacing(20);
         notesPanel.setAlignment(Pos.TOP_CENTER);
         
-        notesPanel.getChildren().addAll(searching, pinwheel, timersLabel);
+        notesPanel.getChildren().addAll(searching, pinwheel, timersLabel, timerbox);
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
@@ -141,12 +142,12 @@ public class NotesGUI {
                     if (existingNotes != null) {
                     	notesBox.setText(existingNotes);
                     	notesPanel.getChildren().clear();
-                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
+                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
                     }
                     // else show the empty notes panel
                     else {
                     	notesPanel.getChildren().clear();
-                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel);
+                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
                     }
             		if (!notesPanelVisible) {
             			// show panel
