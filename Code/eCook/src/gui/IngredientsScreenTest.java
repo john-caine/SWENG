@@ -151,7 +151,8 @@ public class IngredientsScreenTest {
 		
 		/* Test if the AuthorLabel is displaying the correct comment */
 		Label commentLabel = (Label) recipeInfoBox.getChildren().get(2);
-		assertEquals("Comment: This is a soup which simply celebrates the squash, so it important to buy a good quality one. If you are partial to garlic or any particular herb, you can add it at the roasting stage.",  
+		assertEquals("Comment: Cooking Time: 20 mins	Preparation Time: 10 mins 	Average Cost = £2 	Suitable for vegetarians."
+				,  
 				commentLabel.getText());
 		
 		/* Test if midBoxRight contains Ingredients Label */
