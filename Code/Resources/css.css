@@ -576,6 +576,7 @@
 }
 
 #SlidePauseBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
@@ -590,6 +591,7 @@
 }
 
 #SlidePrevBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
@@ -604,6 +606,7 @@
 }
 
 #SlideNextBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
@@ -618,6 +621,7 @@
 }
 
 #SlideExitBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
@@ -632,6 +636,7 @@
 }
 
 #SlideTimeBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
@@ -645,6 +650,7 @@
 }
 
 #SlidePlayBtn{
+	-fx-background-color:transparent;
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
