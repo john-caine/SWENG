@@ -69,10 +69,18 @@ public class SlideControlsTest {
 	// check that all of the UI components are instantiated correctly
 	@Test
 	public void GUISetupCorrectly() {
-		SlideControls slideControls = new SlideControls(group);
+		// if panel was not open previously:
+		SlideControls slideControls = new SlideControls(group, false);
 		assertNotNull(slideControls.controlPanel);
 		assertNotNull(slideControls.buttons);
 		assertFalse(slideControls.controlPanel.getChildren().contains(slideControls.buttons));
 		assertFalse(slideControls.controlPanelVisible);
+		
+		// and if notes panel was open previously:
+		SlideControls slideControls2 = new SlideControls(group, true);
+		assertNotNull(slideControls2.controlPanel);
+		assertNotNull(slideControls2.buttons);
+		assertFalse(slideControls2.controlPanel.getChildren().contains(slideControls.buttons));
+		assertTrue(slideControls2.controlPanelVisible);
 	}
 }

@@ -35,10 +35,15 @@ public class NotesGUI {
 	TextArea notesBox;
 	VBox notesPanel;
 	public Timeline timelineIn, timelineOut;
+	boolean getNotesOnLoad = false;
 	
 	// constructor
-	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox) {
+	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox, boolean forceShow) {
+		getNotesOnLoad = forceShow;
 		setupNotesPanel(recipeTitle, slideID, root, timerbox);
+		if (forceShow) {
+			showPanel(root);
+		}
 	}
 	
 	// method to return the notesPanel VBox object
@@ -112,12 +117,7 @@ public class NotesGUI {
             public void handle(InputEvent event) {
             	if (notesPanelVisible) {
             		// hide panel
-            		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
-        			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-        			timelineIn.getKeyFrames().add(kf);
-                  	notesPanelVisible = false;
-                  	timelineIn.stop();
-                  	//notesPanel.setDisable(true);
+            		hidePanel(root);
                   	saveNotes();
             	}
             	event.consume();
@@ -149,37 +149,64 @@ public class NotesGUI {
             	Point mousePosition = MouseInfo.getPointerInfo().getLocation();           	
             	// if the mouse is on the far LHS of the screen, show the notes panel
             	if (mousePosition.getX() <= 10) {
-            		// add the mouselistener
-                    notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
-                    
-                    // search for pre-made notes
-                    String existingNotes = handler.readTextFile(recipeTitle + "_" + slideID.toString() + ".txt");
-                    // if notes have been made for this slide, stop loading and display them in the textarea
-                    if (existingNotes != null) {
-                    	notesBox.setText(existingNotes);
-                    	notesPanel.getChildren().clear();
-                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
-                    }
-                    // else show the empty notes panel
-                    else {
-                    	notesPanel.getChildren().clear();
-                    	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
-                    }
             		if (!notesPanelVisible) {
             			// show panel
-            			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
-            			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-            			timelineOut.getKeyFrames().add(kf);
-            			timelineOut.play();
-                    	notesPanelVisible = true;
-                    	//notesPanel.setDisable(false);
+            			showPanel(root);
             		}
             	}
                 event.consume();
             }
         };
+        
+        // get previous notes if any or display generic note
+        // add the mouselistener
+        notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
+
+        // search for pre-made notes
+        String existingNotes = handler.readTextFile(recipeTitle + "_" + slideID.toString() + ".txt");
+        // if notes have been made for this slide, stop loading and display them in the textarea
+        if (existingNotes != null) {
+        	notesBox.setText(existingNotes);
+        	notesPanel.getChildren().clear();
+        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
+        }
+        // else show the empty notes panel
+        else {
+        	notesPanel.getChildren().clear();
+        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
+        }
+        
+        notesBox.setDisable(true);
 
         // check to see if the mouse is at the LHS of the screen every time it is moved
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
+    }
+    
+    // method to hide panel
+    public void hidePanel(Group root) {
+    	final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
+		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+		timelineIn.getKeyFrames().add(kf);
+      	notesPanelVisible = false;
+      	timelineIn.stop();
+      	notesBox.setDisable(true);
+    }
+    
+    // method to show panel
+    public void showPanel(Group root) {
+    	// normal transition on mouseover
+    	if (!getNotesOnLoad) {
+    		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
+    		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+    		timelineOut.getKeyFrames().add(kf);
+    		timelineOut.play();
+    	}
+    	// no transition on new slide (if panel already open)
+    	else {
+    		notesPanel.setTranslateX(root.getScene().getWidth()/5);
+    		getNotesOnLoad = false;
+    	}
+    	notesPanelVisible = true;
+    	notesBox.setDisable(false);
     }
 }

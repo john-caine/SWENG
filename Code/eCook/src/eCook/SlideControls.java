@@ -36,11 +36,16 @@ public class SlideControls {
 	private double width;
     HBox controlPanel;
 	List<Button> buttons;
+	public Timeline timelineIn, timelineOut;
+	private boolean forceShow = false;
 	
 	// constructor
-	public SlideControls(Group root) {
+	public SlideControls(Group root, boolean forceShow) {
+		this.forceShow = forceShow;
 		setupcontrolPanel(root);
-
+		if (forceShow) {
+			showPanel(root);
+		}
 	}
 
 	// method to return the controlPanel HBox object
@@ -132,23 +137,26 @@ public class SlideControls {
         // add the buttons to the panel
         controlPanel.getChildren().addAll(buttons);
         
+        timelineIn = new Timeline();
+        timelineOut = new Timeline();
         
         // Define an event handler to trigger when the mouse leaves the controls panel
         final EventHandler<InputEvent> mouseoutcontrolPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
             	if (controlPanelVisible) {
             		// hide panel
-            		final Timeline timeline = new Timeline();
-        			final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), root.getScene().getHeight()/8);
-        			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-        			timeline.getKeyFrames().add(kf);
-        			timeline.play();
-                  	controlPanelVisible = false;
-                  	controlPanel.setDisable(true);
+            		hidePanel(root);
             	}
             	event.consume();
             }			
         };
+        
+        controlPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
+          	@Override
+              public void handle(MouseEvent mouseEvent){
+          		timelineIn.play();
+              }
+         });
 
         // Define an event handler to trigger when the user moves the mouse
         final EventHandler<InputEvent> mouseoverBottomHandler = new EventHandler<InputEvent>() {
@@ -157,25 +165,45 @@ public class SlideControls {
             	Point mousePosition = MouseInfo.getPointerInfo().getLocation();           	
             	// if the mouse is at the bottom of the screen, show the notes panel
             	if (mousePosition.getY() >= (primaryScreenBounds.getHeight() - 10)) {
-            		// add the mouselistener
-                    controlPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);
-
             		if (!controlPanelVisible) {
             			// show panel
-            			final Timeline timeline = new Timeline();
-            			final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), -root.getScene().getHeight()/8);
-            			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-            			timeline.getKeyFrames().add(kf);
-            			timeline.play();
-                    	controlPanelVisible = true;
-                    	controlPanel.setDisable(false);
+            			showPanel(root);
             		}
             	}
                 event.consume();     
             }
         };
         
-     // check to see if the mouse is at the bottom of the screen every time it is moved
+        // add the mouselistener
+        controlPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);
+        
+        // check to see if the mouse is at the bottom of the screen every time it is moved
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverBottomHandler);
+    }
+    
+    // method to hide panel
+    public void hidePanel(Group root) {
+		final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), root.getScene().getHeight()/8);
+		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+		timelineIn.getKeyFrames().add(kf);
+		timelineIn.stop();
+      	controlPanelVisible = false;
+    }
+    
+    // method to show panel
+    public void showPanel(Group root) {
+    	// normal transition on mouseover
+    	if (!forceShow) {
+			final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), -root.getScene().getHeight()/8);
+			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+			timelineOut.getKeyFrames().add(kf);
+			timelineOut.play();
+    	}
+    	// no transition on new slide (if panel already open)
+    	else {
+    		controlPanel.setTranslateY(-root.getScene().getHeight()/8);
+    		forceShow = false;
+    	}
+    	controlPanelVisible = true;
     }
 }

@@ -92,19 +92,29 @@ public class NotesGUITest {
 	// check that all of the UI components are instantiated correctly
 	@Test
 	public void GUISetupCorrectly() {
-		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox);
+		// if notes panel was not open previously:
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox, false);
 		assertNotNull(notesGUI.handler);
 		assertNotNull(notesGUI.notesPanel);
 		assertNotNull(notesGUI.notesBox);
-		assertFalse(notesGUI.notesPanel.getChildren().contains(notesGUI.notesBox));
+		assertTrue(notesGUI.notesPanel.getChildren().contains(notesGUI.notesBox));
 		assertFalse(notesGUI.notesPanelVisible);
 		assertEquals("Write your notes here", notesGUI.getContentOfNotesBox());
+		
+		// and if notes panel was open previously:
+		NotesGUI notesGUI2 = new NotesGUI("recipe title", 1, group, timerBox, true);
+		assertNotNull(notesGUI2.handler);
+		assertNotNull(notesGUI2.notesPanel);
+		assertNotNull(notesGUI2.notesBox);
+		assertFalse(notesGUI2.notesPanel.getChildren().contains(notesGUI.notesBox));
+		assertTrue(notesGUI2.notesPanelVisible);
+		assertEquals("Write your notes here", notesGUI2.getContentOfNotesBox());
 	}
 	
 	// check that the notes box is updated when text is typed
 	@Test
 	public void notesBoxContainsTypedText() {
-		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox);
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox, false);
 		assertEquals("Write your notes here", notesGUI.getContentOfNotesBox());
 		notesGUI.notesBox.fireEvent(new InputEvent(KeyEvent.KEY_PRESSED));
 		assertEquals("", notesGUI.getContentOfNotesBox());
