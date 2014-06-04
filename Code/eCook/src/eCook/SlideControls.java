@@ -1,12 +1,11 @@
 package eCook;
-/* Title: NotesGUI
+/* Title: SlideControls
  * 
  * Programmers: Max, Ankita
  * 
  * Date Created: 09/05/14
  * 
- * Description: A basic GUI to display user-made notes about a particular recipe slide
- * 				The GUI allows the user to write, read and save notes.
+ * Description: Control panel GUI and appear/disappear logic for slideshow.
  */
 
 import java.awt.MouseInfo;

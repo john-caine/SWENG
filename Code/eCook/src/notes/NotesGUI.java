@@ -24,7 +24,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -35,7 +34,7 @@ public class NotesGUI {
 	TextFileHandler handler;
 	TextArea notesBox;
 	VBox notesPanel;
-	public Timeline timeline;
+	public Timeline timelineIn, timelineOut;
 	
 	// constructor
 	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox) {
@@ -106,25 +105,26 @@ public class NotesGUI {
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
-        timeline = new Timeline();
+        
+        //Hide the Panel
+        timelineIn = new Timeline();
+		final KeyValue kvIn = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
+		final KeyFrame kfIn = new KeyFrame(Duration.millis(500), kvIn);
+		timelineIn.getKeyFrames().add(kfIn);
+		
+		//Show the Panel
+        timelineOut = new Timeline();
+		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
+		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+		timelineOut.getKeyFrames().add(kf);
         // Define an event handler to trigger when the mouse leaves the notes panel
         final EventHandler<InputEvent> mouseoutNotesPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
             	if (notesPanelVisible) {
             		// hide panel
-            		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
-        			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-        			timeline.getKeyFrames().add(kf);
+            		timelineIn.play();
                   	notesPanelVisible = false;
                   	//notesPanel.setDisable(true);
-                  	timerbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
-        	          	@Override
-        	              public void handle(MouseEvent mouseEvent){
-        	          		System.out.println("in");
-        	          		timeline.stop();
-        	              }
-        	         });
-                  	timeline.play();
                   	saveNotes();
             	}
             	event.consume();
@@ -142,6 +142,7 @@ public class NotesGUI {
 				}
 			}
         };
+        
         // Define an event handler to trigger when the user moves the mouse
         EventHandler<InputEvent> mouseoverLHSHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {            	
@@ -167,11 +168,7 @@ public class NotesGUI {
                     }
             		if (!notesPanelVisible) {
             			// show panel
-            			final Timeline timeline = new Timeline();
-            			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
-            			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-            			timeline.getKeyFrames().add(kf);
-            			timeline.play();
+            			timelineOut.play();
                     	notesPanelVisible = true;
                     	//notesPanel.setDisable(false);
             		}

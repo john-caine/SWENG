@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -358,7 +359,7 @@ public class SlideShow {
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
         												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
         												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI.timeline);
+        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
 				timerList.add(continueTimer);
 				numberOfTimers ++;
 				 
@@ -633,8 +634,9 @@ public class SlideShow {
         buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				notesGUI.timelineOut.play();
 				if(numberOfTimers< 4){
-						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow,notesGUI.timeline);
+						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
 						timerList.add(timer);
 						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -644,14 +646,14 @@ public class SlideShow {
 								
 								Platform.runLater( new Runnable(){
 									public void run(){
-										getTimerbox().getChildren().add(timer.getTimerID(), timer.getPane());								
+										getTimerbox().getChildren().add(timer.getTimerID(), timer.getPane());
+										numberOfTimers ++;
 									}
 								});	 									
 							}
 						});
-						new Thread(timer).start();				
+						new Thread(timer).start();	
 				}
-				numberOfTimers ++;
 			}
         });
  

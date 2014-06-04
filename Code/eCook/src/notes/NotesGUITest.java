@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,12 +30,14 @@ public class NotesGUITest {
 	
 	static Group group;
 	static Scene scene;
+	static VBox timerBox;
 	
 	@Before
 	// perform JavaFX setup to launch the notes GUI
 	public void setup() {
 		group = new Group();
 		scene = new Scene(group);
+		timerBox = new VBox();
 	}
 	
 	// This test class contains visual and automated tests.
@@ -89,7 +92,7 @@ public class NotesGUITest {
 	// check that all of the UI components are instantiated correctly
 	@Test
 	public void GUISetupCorrectly() {
-		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group);
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox);
 		assertNotNull(notesGUI.handler);
 		assertNotNull(notesGUI.notesPanel);
 		assertNotNull(notesGUI.notesBox);
@@ -101,7 +104,7 @@ public class NotesGUITest {
 	// check that the notes box is updated when text is typed
 	@Test
 	public void notesBoxContainsTypedText() {
-		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group);
+		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox);
 		assertEquals("Write your notes here", notesGUI.getContentOfNotesBox());
 		notesGUI.notesBox.fireEvent(new InputEvent(KeyEvent.KEY_PRESSED));
 		assertEquals("", notesGUI.getContentOfNotesBox());
