@@ -218,7 +218,7 @@ public abstract class MediaControl {
         fullscreenMediaBar.getChildren().add(playButtonFS);
         fullscreenMediaBar.getChildren().add(timeSliderFS);
         fullscreenMediaBar.getChildren().add(playTimeFS);
-        fullscreenMediaBar.setLayoutY(bounds.getHeight()+15);
+        fullscreenMediaBar.setLayoutY(bounds.getHeight()-25);
         fullscreenMediaBar.setMaxWidth(bounds.getWidth());
         
         // Add the mediaBar "box" to the overall MediaControl "bar"
