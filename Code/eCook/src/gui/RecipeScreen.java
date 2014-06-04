@@ -53,31 +53,13 @@ public class RecipeScreen {
 		
 		//Imports home, close and minimise button icons
 		homeHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home1.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		homeIcon = new Image(inputStream);
+		homeIcon = new Image("home1.png");
 		
 		closeBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/redx.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		closeIcon = new Image(inputStream);
+		closeIcon = new Image("redx.png");
 		
 		minimiseBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/minimise.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		minimiseIcon = new Image(inputStream);
+		minimiseIcon = new Image("minimise.png");
 		
 		//Add tool tip
 		h = new Tooltip("Home");
@@ -158,7 +140,7 @@ public class RecipeScreen {
 		
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
-		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
+		listOfRecipes.getStylesheets().add("css.css");
 		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.5);
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -210,7 +192,7 @@ public class RecipeScreen {
 		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 		
 		playSlideBtn.setId("playSlideBtn");
-		playSlideBtn.getStylesheets().add("file:../Resources/css.css");
+		playSlideBtn.getStylesheets().add("css.css");
 		playSlideBtn.setPrefSize(120, 50);
 		
 		// define the start slideshow button method
@@ -226,7 +208,7 @@ public class RecipeScreen {
 		
 		Label recipesLabel = new Label("Recipe Playlist");
 		recipesLabel.setId("recipesLabel");
-		recipesLabel.getStylesheets().add("file:../Resources/css.css");
+		recipesLabel.getStylesheets().add("css.css");
 		
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox, playSlideBtn);
@@ -250,13 +232,13 @@ public class RecipeScreen {
 		
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
-		authorLabel.getStylesheets().add("file:../Resources/css.css");
+		authorLabel.getStylesheets().add("css.css");
 		versionLabel.setWrapText(true);
 		versionLabel.setId("versionLabel");
-		versionLabel.getStylesheets().add("file:../Resources/css.css");
+		versionLabel.getStylesheets().add("css.css");
 		commentLabel.setWrapText(true);
 		commentLabel.setId("commentLabel");
-		commentLabel.getStylesheets().add("file:../Resources/css.css");
+		commentLabel.getStylesheets().add("css.css");
 		
 		// remove old labels
 		recipeInfoBox.getChildren().clear();

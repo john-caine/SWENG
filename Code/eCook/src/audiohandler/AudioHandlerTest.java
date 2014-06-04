@@ -34,7 +34,7 @@ public class AudioHandlerTest {
 	//Read XML playlist and create a new audioHandler object based on the first audio found
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
+		reader = new XMLReader("PWSExamplePlaylist_4.xml");
 		audioList = reader.getRecipe().getSlide(2).getContent().getAudios();
 		audioHandler = new AudioHandler(parent, audioList.get(0).getUrlName(), audioList.get(0).getStartTime(), 
 				audioList.get(0).getDuration(), audioList.get(0).getLoop());

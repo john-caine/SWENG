@@ -1,0 +1,122 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>Jim Dee</author>
+		<version>1.1</version>
+    <title>Stocks</title>
+		<comment>There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking. It is not difficult to chuck a few ingredients in a pot of water, let them boil for a while and then strain, but that is not a good way to make stock. The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.  
+		</comment>
+		
+		<width>1000</width>
+		<height>800</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#FFFFFF</backgroundcolor>
+		<font>Helvetica Neue Thin</font>
+		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
+		<fontcolor>#000000</fontcolor>
+		<fillcolor>#CCCCCC</fillcolor>
+	</defaults>
+	<ingredients>
+		
+	</ingredients>
+
+	<slide id="0" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Stock</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="true" branch="10">
+        		<textstring>‘Stock is everything in cooking’- Escoffier  </textstring>
+      			</textbody>
+		</text>
+		
+		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" branch="10">
+        		<textstring>The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.  </textstring>
+      			</textbody>
+		</text>
+		
+		<text xstart="15" ystart="570" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>If you genuinely believe that you don’t have to time to make your own stock, it is permissible to use fresh stocks from the supermarket, although this is an expensive habit. To my palette, stock cubes are a poor substitute, adding nothing more than saltiness and a vague meatiness. If tasked with making a soup without fresh stock, I would always opt to use water over a stock cube.   </textstring>
+      			</textbody>
+		</text>
+		
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+
+	<slide id="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Choose your stock:</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false" branch="2">
+        		<textstring>Chicken Stock   </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="15" ystart="100" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false" branch="3">
+        		<textstring>Vegetable Stock   </textstring>
+      			</textbody>
+		</text> 
+		<text xstart="15" ystart="130" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false" branch="4">
+        		<textstring>Beef Stock   </textstring>
+      			</textbody>
+		</text> 
+			
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Chicken Stock</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. I usually buy my chicken whole, and prepare the carcass myself. A whole chicken usually costs about as much as 2 chicken breasts, so it is far more economical to buy a whole bird.    </textstring>
+      			</textbody>
+		</text>     
+			
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+	
+	<slide id="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Vegetable Stock</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>A vegetable stock should be light and fragrant. A good stock will capture the freshness of the vegetables, and therefore should have a short cooking time.    </textstring>
+      			</textbody>
+		</text>     
+        				
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+	
+	<slide id="4" duration="30" lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Beef Stock</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>If available to you, it is better to use veal bones than beef bones. Their high gelatine content and neutral flavour are perfect for stock making. They are notoriously difficult to get hold of, and can be expensive, so it is perfectly acceptable to use beef bones instead. A pig or calf’s foot is added for extra gelatine.    </textstring>
+      			</textbody>
+		</text>     
+        				
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+</slideshow>
