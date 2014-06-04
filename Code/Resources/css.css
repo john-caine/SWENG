@@ -570,7 +570,7 @@
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
-	-fx-background-image: url('Pause.png');
+	-fx-background-image: url('SlidePause.png');
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
@@ -635,7 +635,7 @@
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
-	-fx-background-image: url('Play.png');
+	-fx-background-image: url('SlidePlay.png');
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
