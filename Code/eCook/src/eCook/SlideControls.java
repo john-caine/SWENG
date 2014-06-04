@@ -70,8 +70,8 @@ public class SlideControls {
         controlPanel = new HBox();
         controlPanel.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/8);
         controlPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
-        controlPanel.setPadding(new Insets(30,10,10,30));
-        controlPanel.setSpacing(50);
+        controlPanel.setPadding(new Insets(30,10,10,2));
+        controlPanel.setSpacing(5);
         controlPanel.setAlignment(Pos.TOP_CENTER);
         
         // instantiate and add the buttons to the list
@@ -81,20 +81,26 @@ public class SlideControls {
         Button nextBtn = new Button("");
         Button exitBtn = new Button("");
         Button timerBtn = new Button("");
-             
+        Button firstBtn = new Button ("");
+        Button lastBtn = new Button ("");  
+        
         //Defining the CSS identifier 
         pauseBtn.setId("SlidePauseBtn");
         prevBtn.setId("SlidePrevBtn");
         nextBtn.setId("SlideNextBtn");
         exitBtn.setId("SlideExitBtn");
         timerBtn.setId("SlideTimeBtn");
+        firstBtn.setId("SlideFirstBtn");
+        lastBtn.setId("SlideLastBtn");
         
         //Adding button size
-        pauseBtn.setMinSize(width/6,controlPanel.getPrefHeight()-40);
-        prevBtn.setMinSize(width/6,controlPanel.getPrefHeight()-40);
-        nextBtn.setMinSize(width/6,controlPanel.getPrefHeight()-40);
-        exitBtn.setMinSize(width/6,controlPanel.getPrefHeight()-40);
-        timerBtn.setMinSize(width/6,controlPanel.getPrefHeight()-40);
+        pauseBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        prevBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        nextBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        exitBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        timerBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        firstBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
+        lastBtn.setMinSize(width/7,controlPanel.getPrefHeight()-40);
         
         //Set padding to button
         pauseBtn.setPadding(new Insets(30,10,10,30));
@@ -102,6 +108,8 @@ public class SlideControls {
         nextBtn.setPadding(new Insets(30,10,10,30));
         exitBtn.setPadding(new Insets(30,10,10,30));
         timerBtn.setPadding(new Insets(30,10,10,30));
+        firstBtn.setPadding(new Insets(30,10,10,30));
+        lastBtn.setPadding(new Insets(30,10,10,30));
         
         //Adding stylesheet
         pauseBtn.getStylesheets().add("file:../Resources/css.css");
@@ -109,13 +117,18 @@ public class SlideControls {
         nextBtn.getStylesheets().add("file:../Resources/css.css");
         exitBtn.getStylesheets().add("file:../Resources/css.css");
         timerBtn.getStylesheets().add("file:../Resources/css.css");
+        firstBtn.getStylesheets().add("file:../Resources/css.css");
+        lastBtn.getStylesheets().add("file:../Resources/css.css");
         
         //Adding button
-        buttons.add(pauseBtn);
+        buttons.add(firstBtn);
         buttons.add(prevBtn);
+        buttons.add(pauseBtn);
         buttons.add(nextBtn);
+        buttons.add(lastBtn);
+        buttons.add(timerBtn);
         buttons.add(exitBtn);
-        buttons.add(timerBtn);        
+    
         
         // add the buttons to the panel
         controlPanel.getChildren().addAll(buttons);

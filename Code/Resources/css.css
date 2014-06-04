@@ -672,6 +672,40 @@
 	-fx-opacity: 0.75;
 }	
 
+#SlideFirstBtn{
+	/* Text */
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	/*Background*/
+	-fx-background-color: transparent;
+	-fx-background-image: url('First.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
+}
+
+#SlideFirstBtn:hover{
+	-fx-opacity: 0.75;
+}
+
+#SlideLastBtn{
+	/* Text */
+	-fx-font-size: 20px;
+	-fx-font-family: "Century Gothic";
+	-fx-font-weight: bold;
+	/*Background*/
+	-fx-background-color: transparent;
+	-fx-background-image: url('Last.png');
+	-fx-background-position: center center; 
+	-fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
+}
+
+#SlideLastBtn:hover{
+	-fx-opacity: 0.75;
+}
+
 .text-area {
     -fx-background-color: transparent;
 }

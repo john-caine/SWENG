@@ -1,5 +1,5 @@
 /*
- * Programmer: Steve Thorpe, Jonathan Caine
+ * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra
  * Date Created: 14/03/2014
  * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
  * 
@@ -52,7 +52,7 @@ public class SlideShow {
 	// declare variables
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides; 
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides, firstSlideID, lastSlideID; 
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
@@ -167,6 +167,8 @@ public class SlideShow {
 			currentSlideID = slideID;
 			nextSlideID = (slideID + 1);
 			prevSlideID = (slideID - 1);
+			firstSlideID  = 0;
+			lastSlideID = (numOfSlides-1);
 		}
 		
 		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
@@ -487,11 +489,11 @@ public class SlideShow {
 	public void configureButtons(final List<Button> buttons) {
 		// for buttons numbering, see SlideControls Class:
 		/*
-		 *	buttons[] = {play,pause,prev,next,exit,timer} 
+		 *	buttons[] = {play,pause,prev,next,exit,timer,first,last} 
 		 */
 		
         // Exit Slide
-        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(6).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
@@ -505,8 +507,69 @@ public class SlideShow {
             }
         });
         
+        // First Slide
+        buttons.get(0).setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {           	
+            	timeLineDuration.stop();
+            	timerValues = new ArrayList<TimerData>();
+            	for(int g = 0; g<timerList.size(); g++){            		
+            		timerList.get(g).cancel();
+            		 timerValues.add(timerList.get(g).getTimerValues());             		 
+            	}
+            	
+            	for (int h = 0; h < audioHandlerList.size(); h++){
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
+            	}
+            	for (int i = 0; i < videoHandlerList.size(); i++){
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
+            	}
+            	//If on first slide
+            	if (currentSlideID <= 0) {
+            		buttons.get(0).setStyle("-fx-opacity: 0.75");
+            	}
+            	// if not, play the first slide
+            	else {
+            		newSlide(firstSlideID, false, timerValues);
+            	}
+            	event.consume();          	
+            }
+        });
+        
+        // Last Slide
+        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+            public void handle(ActionEvent event) {
+				timeLineDuration.stop();
+            	timerValues = new ArrayList<TimerData>();
+            	for (int g = 0; g<timerList.size(); g++){
+            		timerList.get(g).cancel();
+            		timerValues.add(timerList.get(g).getTimerValues());            		 
+            	}
+            	for (int h = 0; h < audioHandlerList.size(); h++){
+            		audioHandlerList.get(h).mediaControl.mp.dispose();
+            	}
+            	for (int i = 0; i < videoHandlerList.size(); i++){
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
+            	}
+            	for(int i = 0; i < textHandlerList.size(); i++){
+            		textHandlerList.get(i).tearDown();
+            	}
+
+            	// If last slide
+            	if (currentSlideID >= numOfSlides-1) {
+            		buttons.get(4).setStyle("-fx-opacity: 0.75");
+            	}
+            	// if not, go to last slide
+            	else {
+            		newSlide(lastSlideID, false, timerValues);
+            	}
+            	event.consume();
+            }
+        });
+        
         // Next Slide
-        buttons.get(2).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(3).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
@@ -567,7 +630,7 @@ public class SlideShow {
         });
         
         // Add Timer
-        buttons.get(4).setOnAction(new EventHandler<ActionEvent>() {
+        buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if(numberOfTimers< 4){
@@ -593,7 +656,7 @@ public class SlideShow {
         });
  
         // Pause
-        buttons.get(0).setOnAction( new EventHandler<ActionEvent>(){
+        buttons.get(2).setOnAction( new EventHandler<ActionEvent>(){
 			private boolean paused;
 			@Override
 			//Pause all content on the slide
@@ -618,7 +681,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
-					buttons.get(0).setId("SlidePlayBtn");
+					buttons.get(2).setId("SlidePlayBtn");
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -641,7 +704,7 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(0).setId("SlidePauseBtn");			        
+					buttons.get(2).setId("SlidePauseBtn");			        
 					paused = false;
 				}				
 			}			
