@@ -75,12 +75,13 @@ public class SlideShow {
 	private RecipeCollection recipeCollection;
 	private XMLValidator validator;
 	String backGroundColor;
-	boolean endPageReached = false;
+	boolean onEndPage = false;
 	boolean controlPanelShowing = false;
 	boolean notesPanelShowing = false;
 	private int numberOfTimers = 0;
 	private SlideShow slideShow = this;
 	NotesGUI notesGUI;
+	SlideControls slideControls;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -151,6 +152,14 @@ public class SlideShow {
 		int imageCount, textCount, audioCount, videoCount, graphicCount;
 		int fontSize;
 		String fontColor, font, lineColor, fillColor;
+		
+		// save the current state of the panels before removing all objects
+		if (notesGUI != null) {
+			notesPanelShowing = notesGUI.getNotesPanelVisible();
+		}
+		if (slideControls != null) {
+			controlPanelShowing = slideControls.getcontrolPanelVisible();
+		}
 		
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
@@ -327,15 +336,15 @@ public class SlideShow {
 	    // Add timers
 	 	timerbox = new VBox();
 	 		
-	    // Create a notes panel each time new Slide is called.
-	    notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox);
-	    notesPanel = notesGUI.getNotesPanel();
-	    slideRoot.getChildren().add(notesPanel);
-	    notesPanel.setLayoutX(-slideScene.getWidth()/5);
-		notesPanel.setLayoutY(0);
+	    // Create a notes panel each time new Slide is called
+	 	notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox, notesPanelShowing);
+	 	notesPanel = notesGUI.getNotesPanel();
+	 	slideRoot.getChildren().add(notesPanel);
+	 	notesPanel.setLayoutX(-slideScene.getWidth()/5);
+	 	notesPanel.setLayoutY(0);		
 		
 		// create a controls panel each time new slide is called
-		SlideControls slideControls = new SlideControls(slideRoot);
+		slideControls = new SlideControls(slideRoot, controlPanelShowing);
 		controlPanel = slideControls.getControlPanel();
 		slideRoot.getChildren().add(controlPanel);
 	    controlPanel.setLayoutY(slideScene.getHeight());
@@ -634,7 +643,7 @@ public class SlideShow {
         buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				notesGUI.timelineOut.play();
+				notesGUI.showPanel(slideRoot);
 				if(numberOfTimers< 4){
 						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
 						timerList.add(timer);
@@ -736,7 +745,7 @@ public class SlideShow {
 	            	}
 	            	event.consume();
 		    	}
-		    	else if (event.getCode() == KeyCode.LEFT) {
+		    	else if (event.getCode() == KeyCode.LEFT) {	    		
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
 		    			audioHandlerList.get(h).mediaControl.mp.dispose();
@@ -751,10 +760,11 @@ public class SlideShow {
 	            	}
 	            	// if not, play the previous slide (or the last slide if end page reached)
 	            	else {
-	            		if (endPageReached) {
+	            		if (onEndPage) {
 	            			// reset the background colour to default
 	            			slideScene.setFill(Color.web(backGroundColor));
 	            			newSlide(currentSlideID, false, timerValues);
+	            			onEndPage = false;
 	            		}
 	            		else {
 	            			newSlide(prevSlideID, false, timerValues);
@@ -792,7 +802,7 @@ public class SlideShow {
 		Label endOfShowLabel = new Label("End of slideshow. Press 'esc' to return to the main menu.");
 		endOfShowLabel.setTextFill(Color.WHITE);
 		slideRoot.getChildren().addAll(endOfShowLabel);
-		endPageReached = true;
+		onEndPage = true;
 	 }
 	 
 	 // exit slideshow to main menu
