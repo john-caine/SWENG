@@ -10,6 +10,7 @@ package timer;
 
 import java.io.FileInputStream;
 
+import notes.NotesGUI;
 import eCook.SlideShow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,6 +21,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -35,6 +38,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
@@ -44,9 +48,9 @@ public class Timer extends Task<Object>{
 	private Timeline timeLineSeconds; 
 	public HBox timerLabelBox, buttonBox;
 	private Integer timerValueSeconds = null, timerValueMinutes = null, timerValueHours = null, timerStartSeconds = 0, timerStartMinutes = 0, timerStartHours = 0;
-	protected ChoiceBox numbersListSeconds;
-	private ChoiceBox numbersListMinutes;
-	private ChoiceBox numbersListHours; 
+	public ChoiceBox numbersListSeconds;
+	protected ChoiceBox numbersListMinutes;
+	protected ChoiceBox numbersListHours; 
 	private boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
 	private TimerData timerValues;
 	private VBox timerVBox;
@@ -61,10 +65,11 @@ public class Timer extends Task<Object>{
 	private Image playImage, pauseImage, exitImage;
 	private Button exitButton;
 	private Pane textFieldBox;
-	private HBox completeTimer, mainHBox;
+	private HBox completeTimer;
 	private int timerID;
 	private SlideShow main;
 	private ImageView playImageView;
+	private Timeline timeLine;
 	
 	
 	/*
@@ -79,7 +84,8 @@ public class Timer extends Task<Object>{
 	 * @Param startHours: Hours value the timer started from.
 	 * @Param timerLabel: The timer label.
 	*/
-	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, Integer startMinutes, Integer startHours, String timerLabel, int timerID, SlideShow main) {
+	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, 
+			Integer startMinutes, Integer startHours, String timerLabel, int timerID, SlideShow main,  Timeline timeLine) {
 		
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
@@ -93,6 +99,7 @@ public class Timer extends Task<Object>{
 		this.timerLabel = timerLabel;
 		this.timerID = timerID;
 		this.main = main;
+		this.timeLine = timeLine;
 		
 	}
 
@@ -262,7 +269,6 @@ public class Timer extends Task<Object>{
 			public void handle(ActionEvent event) {
 				main.getTimerbox().getChildren().remove(timerID);
 				main.decrementNumberOfTimers();
-				
 			}
 			
 		});
@@ -350,11 +356,8 @@ public class Timer extends Task<Object>{
 		//numbersListSeconds = new ListView<Integer>();
 		numbersListSeconds = new ChoiceBox();
 		numbersListMinutes = new ChoiceBox();
-		numbersListHours = new ChoiceBox();;
+		numbersListHours = new ChoiceBox();
 		
-		numbersListSeconds.toFront();
-		numbersListMinutes.toFront();
-		numbersListHours.toFront();
 		
 		// Add the numbers to each of the list
 		//numbersListSeconds.getItems().addAll(numbers);
@@ -370,12 +373,12 @@ public class Timer extends Task<Object>{
 		numbersListSeconds.setVisible(false);
 		numbersListMinutes.setVisible(false);
 		numbersListHours.setVisible(false);
-		
 		//Seconds list event handler, when number is selected sets the seconds label to the selected number, updates the startTimerValue and hides itself.
 		numbersListSeconds.getSelectionModel().selectedIndexProperty().addListener(new
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				timeLine.stop();
 				timerStartSeconds = new_vale.intValue();
 				if(timerStartSeconds > 9){
 					labelSeconds.setText(new_vale.toString() + " : ");
@@ -550,7 +553,7 @@ public class Timer extends Task<Object>{
 				numbersListSeconds.setPrefWidth(0);
 				numbersListMinutes.setPrefWidth(0);
 				numbersListHours.setPrefWidth(40);
-				numbersListHours.setLayoutX(labelHours.getLayoutY());
+				numbersListHours.setLayoutX(labelHours.getLayoutX());
 			}
 		});
 		

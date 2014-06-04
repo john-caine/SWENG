@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
 import graphicshandler.GraphicsHandler;
@@ -78,6 +79,7 @@ public class SlideShow {
 	boolean notesPanelShowing = false;
 	private int numberOfTimers = 0;
 	private SlideShow slideShow = this;
+	NotesGUI notesGUI;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -94,7 +96,7 @@ public class SlideShow {
 		// Create a new scene for the slide show
 		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		slideScene =  new Scene (slideRoot, screenBounds.getWidth(), screenBounds.getHeight());
-		
+
     	// Set the scene
     	stage.setScene(slideScene);
     	
@@ -129,7 +131,6 @@ public class SlideShow {
 			backGroundColor = recipe.getDefaults().getBackgroundColor();
 			// Set the colour of the slide
 			slideScene.setFill(Color.web(backGroundColor));
-			
 			// get started
 	    	stage.show();
 		}
@@ -324,7 +325,7 @@ public class SlideShow {
 	 	timerbox = new VBox();
 	 		
 	    // Create a notes panel each time new Slide is called.
-	    NotesGUI notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox);
+	    notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox);
 	    notesPanel = notesGUI.getNotesPanel();
 	    slideRoot.getChildren().add(notesPanel);
 	    notesPanel.setLayoutX(-slideScene.getWidth()/5);
@@ -355,7 +356,7 @@ public class SlideShow {
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
         												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
         												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
+        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI.timeline);
 				timerList.add(continueTimer);
 				numberOfTimers ++;
 				 
@@ -570,8 +571,7 @@ public class SlideShow {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if(numberOfTimers< 4){
-						numberOfTimers ++;
-						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow,notesGUI.timeline);
 						timerList.add(timer);
 						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
@@ -587,8 +587,9 @@ public class SlideShow {
 							}
 						});
 						new Thread(timer).start();				
-					}	
 				}
+				numberOfTimers ++;
+			}
         });
  
         // Pause

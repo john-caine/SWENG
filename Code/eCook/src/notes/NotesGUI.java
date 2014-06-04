@@ -35,6 +35,7 @@ public class NotesGUI {
 	TextFileHandler handler;
 	TextArea notesBox;
 	VBox notesPanel;
+	public Timeline timeline;
 	
 	// constructor
 	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox) {
@@ -105,19 +106,25 @@ public class NotesGUI {
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
-        
+        timeline = new Timeline();
         // Define an event handler to trigger when the mouse leaves the notes panel
         final EventHandler<InputEvent> mouseoutNotesPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
-            	if (notesPanelVisible) {            		
+            	if (notesPanelVisible) {
             		// hide panel
-            		final Timeline timeline = new Timeline();
             		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
         			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
         			timeline.getKeyFrames().add(kf);
-        			timeline.play();
                   	notesPanelVisible = false;
-                  	notesPanel.setDisable(true);
+                  	//notesPanel.setDisable(true);
+                  	timerbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        	          	@Override
+        	              public void handle(MouseEvent mouseEvent){
+        	          		System.out.println("in");
+        	          		timeline.stop();
+        	              }
+        	         });
+                  	timeline.play();
                   	saveNotes();
             	}
             	event.consume();
@@ -135,7 +142,6 @@ public class NotesGUI {
 				}
 			}
         };
-
         // Define an event handler to trigger when the user moves the mouse
         EventHandler<InputEvent> mouseoverLHSHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {            	
@@ -167,7 +173,7 @@ public class NotesGUI {
             			timeline.getKeyFrames().add(kf);
             			timeline.play();
                     	notesPanelVisible = true;
-                    	notesPanel.setDisable(false);
+                    	//notesPanel.setDisable(false);
             		}
             	}
                 event.consume();
