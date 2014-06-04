@@ -40,7 +40,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		
-		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="250" width="800" height="533" layer="1" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="200" width="800" height="533" layer="1" />	
 		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
