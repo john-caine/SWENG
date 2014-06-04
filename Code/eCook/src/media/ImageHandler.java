@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import eCook.SlideShow;
 
-public class ImageHandler extends SubMedia {
+public class ImageHandler extends SubSlideMedia {
 
 	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branchID, Integer orientation) {
 		super(parent, xStart, yStart, startTime, duration, branchID, orientation);
@@ -17,7 +17,7 @@ public class ImageHandler extends SubMedia {
         
         hbox.getChildren().add(iv1);
         
-        setTimeLines();
+        setTimingValues();
 	}
 	
 	/*

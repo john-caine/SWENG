@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import notes.NotesGUI;
 import audiohandler.AudioHandler;
-import graphicshandler.GraphicsHandler;
+import media.GraphicHandler;
 import media.ImageHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -65,7 +65,7 @@ public class SlideShow {
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<AudioHandler> audioHandlerList;
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
-	private ArrayList<GraphicsHandler> graphicsHandlerList;
+	private ArrayList<GraphicHandler> graphicsHandlerList;
 	private VBox notesPanel;
 	private HBox controlPanel;
 	private Timeline timeLineDuration;
@@ -283,7 +283,7 @@ public class SlideShow {
 				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
 			}
 		}
-		graphicsHandlerList = new ArrayList<GraphicsHandler>();
+		graphicsHandlerList = new ArrayList<GraphicHandler>();
 		// Call the GraphicHandler for each graphic object
 		if (graphicCount != 0){
 			for(int i = 0; i < graphicCount; i++){
@@ -299,18 +299,18 @@ public class SlideShow {
 				else
 					fillColor = graphics.get(i).getFillColor();
 			
-				GraphicsHandler graphic1 = new GraphicsHandler(this, graphics.get(i).getTotalPoints(), 
+				GraphicHandler graphic1 = new GraphicHandler(this, graphics.get(i).getTotalPoints(), 
 												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
 												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
-												graphics.get(i).getLayer(), fillColor, lineColor,
-												graphics.get(i).getBranch(), graphics.get(i).getPoints());
+												fillColor, lineColor, graphics.get(i).getBranch(), 
+												graphics.get(i).getPoints());
 				graphicsHandlerList.add(graphic1);
 				
 				Integer graphicsLayer = graphics.get(i).getLayer();
 				if (graphicsLayer == null){
 					graphicsLayer = 0;
 				}
-				layers.get(graphicsLayer).getChildren().add(graphic1.graphicsBox);
+				layers.get(graphicsLayer).getChildren().add(graphic1.getHbox());
 			}
 		}
 		
@@ -673,7 +673,8 @@ public class SlideShow {
 						imageHandlerList.get(r).pauseDurationTimeLine();
 					}
 					for(int r= 0; r < graphicsHandlerList.size(); r++){
-						graphicsHandlerList.get(r).pause();
+						graphicsHandlerList.get(r).pauseStartTimeTimeLine();
+						graphicsHandlerList.get(r).pauseDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
 						audioHandlerList.get(r).mediaControl.pauseStartTime();
@@ -696,7 +697,8 @@ public class SlideShow {
 						imageHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r= 0; r < graphicsHandlerList.size(); r++){
-						graphicsHandlerList.get(r).resume();
+						graphicsHandlerList.get(r).resumeStartTimeTimeLine();
+						graphicsHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
 						audioHandlerList.get(r).mediaControl.resumeStartTime();

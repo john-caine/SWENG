@@ -11,7 +11,7 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
-public abstract class Media {
+public abstract class SlideMedia {
 	
 	protected Timeline startTimeLine;
 	protected int xStart;
@@ -20,7 +20,7 @@ public abstract class Media {
 	private Logger logger;
 	protected HBox hbox;
 
-	public Media (int xStart, int yStart, Integer startTime) {
+	public SlideMedia (int xStart, int yStart, Integer startTime) {
 		this.xStart = xStart;
 		this.yStart = yStart;
 		this.startTime = startTime;
@@ -81,4 +81,6 @@ public abstract class Media {
 	 protected abstract void setTimeLineOnFinish();
 	 
 	 protected abstract void tearDown();
+	 
+	 protected abstract void setTimingValues();
 }

@@ -13,7 +13,7 @@ import xmlparser.TextBody;
 import xmlparser.TextString;
 import eCook.SlideShow;
 
-public class TextHandler extends SubMedia {
+public class TextHandler extends SubSlideMedia {
 	
 	private List<TextString> stringList;
 	private String font;
@@ -60,7 +60,7 @@ public class TextHandler extends SubMedia {
 		
 		 hbox.getChildren().add(textBox);
 		 
-		 setTimeLines();		
+		 setTimingValues();		
 	}
 	
 	private Text setTextAttributes(TextString textString){

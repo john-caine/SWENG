@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import eCook.SlideShow;
 import eCook.eCook;
 
-public abstract class SubMedia extends Media {
+public abstract class SubSlideMedia extends SlideMedia {
 
 	private Timeline durationTimeLine;
 	private Integer duration;
@@ -22,7 +22,7 @@ public abstract class SubMedia extends Media {
 	private Logger logger;
 	private Integer orientation;
 
-	public SubMedia(SlideShow parent, int xStart, int yStart, Integer startTime, Integer duration, Integer branchID, Integer orientation){
+	public SubSlideMedia(SlideShow parent, int xStart, int yStart, Integer startTime, Integer duration, Integer branchID, Integer orientation){
 		super(xStart, yStart, startTime);
 		logger = Logger.getLogger(eCook.class.getName());
 		this.duration = duration;
@@ -63,6 +63,7 @@ public abstract class SubMedia extends Media {
 				showObject();	
 
 				if(duration != null)
+					durationTimeLine.setCycleCount(duration);
 					durationTimeLine.playFromStart();
 			}	
 		});
@@ -103,20 +104,16 @@ public abstract class SubMedia extends Media {
 		logger.log(Level.INFO, "Duration Time Timeline Stopped ");
 	}
 	
-	protected void setTimeLines(){
+	protected void setTimingValues(){
 		if(startTime != null){
-  			startTimeLine.setCycleCount(this.startTime);
-  			if(this.duration == null){
-  				this.duration = 0;
-  			}
-  			durationTimeLine.setCycleCount(this.duration);
+  			startTimeLine.setCycleCount(startTime);
   			startTimeLine.playFromStart();
   			logger.log(Level.INFO, "Starting StartTime time line ");
   		}
   		//Show image and begin duration timeline 
   		else if(duration != null){
   			showObject();
-  			durationTimeLine.setCycleCount(this.duration);
+  			durationTimeLine.setCycleCount(duration);
   			durationTimeLine.playFromStart();
   			logger.log(Level.INFO, "Starting Duration time line ");
   		}

@@ -8,7 +8,10 @@
 
 package audiohandler;
 
+import java.util.logging.Logger;
+
 import eCook.SlideShow;
+import eCook.eCook;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -18,9 +21,12 @@ public class AudioHandler {
 	public AudioMediaControl mediaControl;
 	protected Media media;
 	protected MediaPlayer mediaPlayer;
+	private Logger logger;
 	
 	public AudioHandler(SlideShow parent, String pathLocation, Integer startTime, Integer duration, Boolean loop){
 		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
         // create media player
         media = new Media(pathLocation);
         mediaPlayer = new MediaPlayer(media);
