@@ -127,13 +127,7 @@ public class NotesGUI {
             public void handle(InputEvent event) {
             	if (notesPanelVisible) {
             		// hide panel
-<<<<<<< HEAD
             		hidePanel(root);
-=======
-            		timelineIn.play();
-                  	notesPanelVisible = false;
-                  	//notesPanel.setDisable(true);
->>>>>>> FETCH_HEAD
                   	saveNotes();
             	}
             	event.consume();
@@ -161,13 +155,7 @@ public class NotesGUI {
             	if (mousePosition.getX() <= 10) {
             		if (!notesPanelVisible) {
             			// show panel
-<<<<<<< HEAD
             			showPanel(root);
-=======
-            			timelineOut.play();
-                    	notesPanelVisible = true;
-                    	//notesPanel.setDisable(false);
->>>>>>> FETCH_HEAD
             		}
             	}
                 event.consume();
