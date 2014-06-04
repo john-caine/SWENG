@@ -1,0 +1,2144 @@
+<zuiprezi>
+  <version>10</version>
+  <zui-table>
+    <settings>
+      
+      <autoplay>
+        
+        <delay>4000</delay>
+        
+      </autoplay>
+      
+      <bounds x="-549242.333812039" y="-370852.3001934083" width="1098484.667624078" height="741704.6003868165"/>
+      <aspectratio>off</aspectratio>
+      <languages>
+        <language>en</language>
+      </languages>
+      <mode type="normal"/>
+    </settings>
+    <object id="0_15277798" type="button" x="-20346.82455540813" y="203576.19318113275" r="1.3270979901769804" s="305.2891815355398" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>1162.222008150833</w>
+        <h>1072.6357287229123</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="OVERVIEW"/>
+      </layout>
+    </object>
+    <object id="1" type="button" x="16443.15554237757" y="119875.67619922277" r="-8.994630346643817" s="53.87243704392335" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="2" type="button" x="-69646.49856284106" y="186063.70020246907" r="-8.994630346643765" s="32.95362047959288" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="3" type="button" x="27802.34785292632" y="164265.64497114174" r="7.673478741960058" s="31.752423335065114" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="4" type="button" x="34228.93386980512" y="230227.49086581357" r="16.975368257183273" s="23.265658113658347" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="5" type="button" x="-42908.93047446405" y="151228.70962362862" r="1.3270979901769744" s="32.07313022861842" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="6" type="shape" x="-38919.3942066297" y="184280.77940233678" r="6.745745205630143" s="179.06330718550447" class="line3">
+      <geom type="arrow">
+        <sp>71.10219808350766 6.964537541713512</sp>
+        <ep>-71.10219808350766 6.96453754171349</ep>
+        <b>13.929075083427003</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="7" type="shape" x="-38126.130976371925" y="202997.54614001655" r="-36.04694503637343" s="179.06330718550424" class="line3">
+      <geom type="arrow">
+        <sp>85.43537815222454 8.25370411218711</sp>
+        <ep>-85.43537815222453 8.253704112187085</ep>
+        <b>16.507408224374196</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="8" type="shape" x="14363.96926133512" y="216290.64049143554" r="34.28533954587616" s="179.06330718550473" class="line3">
+      <geom type="arrow">
+        <sp>-70.47561113623868 5.75175303211979</sp>
+        <ep>70.47561113623868 5.75175303211979</ep>
+        <b>-11.50350606423958</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="9" type="shape" x="10982.016079929095" y="192399.7399200226" r="-17.579287373885855" s="179.06330718550424" class="line3">
+      <geom type="arrow">
+        <sp>-56.12968440912095 6.47924435937075</sp>
+        <ep>56.129684409120955 6.47924435937075</ep>
+        <b>-12.9584887187415</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="0_16535873" type="image" x="-11668.612540670954" y="324008.5471680985" r="1.3270979901769722" s="112.75122489374594">
+      <source w="1200" h="750">1305509093<url>1305509093.png</url></source>
+      <resource>
+        <id>1305509093</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/f/f/ea579c70be3a5ba8338b457272bfbb4d43e74.png</url>
+      </resource>
+      <sourceUrl>aviary.png</sourceUrl>
+    </object>
+    <object id="0_13415665" type="text" x="-10816.340724537196" y="285583.29743898095" r="1.3270979901769702" s="549.2598739432694" class="head">
+      <height>65.3671875</height>
+      <width>490.65722573217215</width>
+      <p align="center">
+        <text><![CDATA[Tender Presentation: Group 2]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[Spoon Ltd.]]></text>
+      </p>
+    </object>
+    <object id="12_4" type="text" x="14396.5654836638" y="107696.93909092528" r="-8.994630346643817" s="157.72039925305407" class="strong">
+      <height>55.546875</height>
+      <width>228.21923792979825</width>
+      <p align="center">
+        <text><![CDATA[Company Profile & Mission]]></text>
+      </p>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+      </meta>
+      <layout>
+        <layout-element role="title" parent-id="1"/>
+      </layout>
+    </object>
+    <object id="25_4" type="text" x="17637.20740796869" y="124925.34021412939" r="-8.994630346643767" s="72.62091805354503" class="head">
+      <height>359.51953125</height>
+      <width>431.29214502647926</width>
+      <p align="center">
+        <text><![CDATA[For clients in the food industry requiring interactive platforms and tools, Spoon is a custom software developer providing new, innovative and useful food-based software solutions. ]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[By fully understanding the client and the market expectations, we aim to provide novel products with real consumer value.]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="1"/>
+      </layout>
+    </object>
+    <object id="38_70777585" type="image" x="37177.13536014789" y="226202.62745967624" r="16.97536825718327" s="0.085369109476698">
+      <source w="1800" h="827">1322697188<url>1322697188.jpg</url></source>
+      <resource>
+        <id>1322697188</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/f/3/f/6957776b124fd00873e75fc0eb41239571b2c.jpg</url>
+      </resource>
+      <sourceUrl>For notes.jpg</sourceUrl>
+    </object>
+    <object id="15_16535873" type="image" x="33115.02923830941" y="234067.74257420402" r="16.975368257183273" s="51.035834373224276">
+      <source w="204" h="93">1343893078<url>1343893078.png</url></source>
+      <sourceUrl>e-Cook Logo.png</sourceUrl>
+    <resource><id>1343893078</id><url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/a/2/d0ef88a6f9f2c969322e0c144e91f2b32002a.png</url></resource></object>
+    <object id="0_30863873" type="text" x="35556.04869740661" y="224445.2206666138" r="16.975368257183273" s="78.55077876463086" class="strong">
+      <height>27.7734375</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[THE IDEA]]></text>
+      </p>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+      </meta>
+      <layout>
+        <layout-element role="title" parent-id="4"/>
+      </layout>
+    </object>
+    <object id="1_30863873" type="text" x="34649.61892900395" y="229037.28898358182" r="16.975368257183273" s="44.26779549215148" class="head">
+      <height>130.734375</height>
+      <width>349.4360723546446</width>
+      <p align="center">
+        <text><![CDATA[e-Cook: An interactive cookbook software for students.]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[Display recipes with video, audio instructions.]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="4"/>
+      </layout>
+    </object>
+    <object id="2_30863873" type="text" x="-71090.0991505729" y="177944.86060044507" r="-8.994630346643815" s="97.0166793171336" class="strong">
+      <height>27.7734375</height>
+      <width>196.4915239877207</width>
+      <p align="center">
+        <text><![CDATA[WHY USE SPOON?]]></text>
+      </p>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+      </meta>
+      <layout>
+        <layout-element role="title" parent-id="2"/>
+      </layout>
+    </object>
+    <object id="6_30863873" type="text" x="-43114.38661551238" y="150582.41844578218" r="1.3270979901769582" s="132.80643656531453" class="strong">
+      <height>27.7734375</height>
+      <width>155.75684661238455</width>
+      <p align="center">
+        <text><![CDATA[FINANCE]]></text>
+      </p>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+      </meta>
+      <layout>
+        <layout-element role="title" parent-id="5"/>
+      </layout>
+    </object>
+    <object id="35" type="shape" x="44962.53416860022" y="218221.41436300808" r="-21.987585395447873" s="65.25630728334687" class="line4">
+      <geom type="arrow">
+        <sp>-62.9637096524602 11.9374320141789</sp>
+        <ep>62.9637096524602 11.9374320141789</ep>
+        <b>-23.8748640283578</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="36" type="button" x="51685.25681642259" y="220131.8939402556" r="12.738994486201221" s="6.332753396532749" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+      <layout>
+        <layout-element role="child" parent-id="4"/>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="39" type="shape" x="53207.29828427238" y="225258.34669280815" r="3.2591478226734774" s="65.2563072833472" class="line4">
+      <geom type="arrow">
+        <sp>-106.06944319714198 17.054160565006573</sp>
+        <ep>106.06944319714196 17.054160565006573</ep>
+        <b>-34.108321130013145</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="43" type="text" x="51986.146326190144" y="218486.13496210577" r="12.738994486201223" s="16.892828761478693" class="strong">
+      <height>55.546875</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[FEATURES: ADJUST FOR MULTIPLE GUESTS]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="36"/>
+      </layout>
+    </object>
+    <object id="53" type="button" x="59189.60373263605" y="239124.2688289765" r="25.720634909564083" s="7.59617994243027" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>813.1703798655071</w>
+        <h>800</h>
+      </size>
+      <layout>
+        <layout-element role="child" parent-id="40"/>
+      </layout>
+    </object>
+    <object id="99_70777585" type="button" x="57056.84469141128" y="239270.41481806088" r="25.720634909564094" s="1.5397662045466765" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>800</w>
+        <h>1551.111111111111</h>
+      </size>
+    </object>
+    <object id="98_70777585" type="image" x="57376.21874623747" y="238634.277969308" r="25.720634909564062" s="2.302448652573932">
+      <source w="480" h="319">1323223313<url>1323223313.png</url></source>
+      <resource>
+        <id>1323223313</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/1/c/3/01fc250bcec46d3658c5820e94b29f99bccc1.png</url>
+      </resource>
+      <sourceUrl>frying pan.png</sourceUrl>
+    </object>
+    <object id="54" type="text" x="60073.551344273146" y="237263.0045416641" r="25.720634909564044" s="26.97013390451882" class="strong">
+      <height>27.7734375</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[FEATURES:TIMER]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="53"/>
+      </layout>
+    </object>
+    <object id="0_32395453" type="text" x="-69710.09476884063" y="186481.88112640614" r="-8.994630346643815" s="58.14308981298377" class="head">
+      <height>261.46875</height>
+      <width>379.8686970819588</width>
+      <p align="center">
+        <text><![CDATA[]]></text>
+      </p>
+      <p align="center">
+        <text color="8856395"><![CDATA[As a young company of students who have grown up with technology  we feel like we can bring plenty of novel ideas to the table, exploiting the user interfaces and processing power of modern consumer technology.]]></text>
+      </p>
+    </object>
+    <object id="12_32395453" type="button" x="-91031.5118285069" y="180697.1897445698" r="-8.994630346643817" s="10.360040788101609" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>470.5346210823656</w>
+        <h>378.37706328475383</h>
+      </size>
+    </object>
+    <object id="1_32395453" type="button" x="-89300.72807864616" y="179139.1237157624" r="-20.03945046554648" s="0.008457477558592483" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>1338.2</w>
+        <h>762.7046632124352</h>
+      </size>
+      <layout>
+        <frametype value="SECTION"/>
+      </layout>
+    </object>
+    <object id="24_4" type="text" x="60007.96424500249" y="237359.81790397258" r="-10.918585067859144" s="0.08461186781187503" class="strong">
+      <height>27.7734375</height>
+      <width>642.4221214502834</width>
+      <p>
+        <text color="16777215"><![CDATA[Which industry...]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="1_32395453"/>
+      </layout>
+    </object>
+    <object id="13_32395453" type="text" x="-91390.28278616871" y="179249.43361383167" r="-8.994630346643817" s="17.88014220798172" class="strong">
+      <height>27.7734375</height>
+      <width>409.346143553921</width>
+      <p align="center">
+        <text><![CDATA[SWOT ANALYSIS]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="12_32395453"/>
+      </layout>
+    </object>
+    <object id="14_32395453" type="text" x="-90839.14026575792" y="180887.74468244036" r="-8.994630346643817" s="7.39085484273617" class="body">
+      <height>361.0546875</height>
+      <width>607.6851455180413</width>
+      <p>
+        <text color="8856395" weight="bold"><![CDATA[Strengths]]></text>
+        <text color="8856395"><![CDATA[:  Talented and dedicated employees with real-world experience in software engineering. ]]></text>
+      </p>
+      <p>
+        <text color="8856395"><![CDATA[]]></text>
+      </p>
+      <p>
+        <text color="8856395" weight="bold"><![CDATA[Weakness]]></text>
+        <text color="8856395"><![CDATA[:  New business; currently with limited funding. ]]></text>
+      </p>
+      <p>
+        <text color="8856395"><![CDATA[]]></text>
+      </p>
+      <p>
+        <text color="8856395" weight="bold"><![CDATA[Opportunities]]></text>
+        <text color="8856395"><![CDATA[:  The digital market remains relatively unexplored in terms of cooking aids.  ]]></text>
+      </p>
+      <p>
+        <text color="8856395"><![CDATA[]]></text>
+      </p>
+      <p>
+        <text color="8856395"><![CDATA[Our technology will be ready for future smart appliance integration .]]></text>
+      </p>
+      <p>
+        <text color="8856395"><![CDATA[]]></text>
+      </p>
+      <p>
+        <text color="8856395" weight="bold"><![CDATA[Threats]]></text>
+        <text color="8856395"><![CDATA[: Future market competitors. ]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="12_32395453"/>
+      </layout>
+    </object>
+    <object id="29_32395453" type="shape" x="-84884.58077649424" y="176626.33097769774" r="-3.300616080034032" s="57.7921270277674" class="line4">
+      <geom type="arrow">
+        <sp>71.22441740144369 21.97373777146031</sp>
+        <ep>-71.22441740144367 21.973737771460303</ep>
+        <b>43.947475542920614</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="43_32395453" type="shape" x="-26503.555766252783" y="172515.70651096874" r="49.67152219334351" s="232.91444326567253" class="line3">
+      <geom type="arrow">
+        <sp>46.697867644454305 3.8956099725496474</sp>
+        <ep>-46.697867644454305 3.895609972549624</ep>
+        <b>7.791219945099272</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="44_32395453" type="text" x="28712.651141316474" y="157478.0910328786" r="7.673478741960037" s="84.70063755441923" class="strong">
+      <height>27.7734375</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[CONCLUSION]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="3"/>
+      </layout>
+    </object>
+    <object id="47_32395453" type="shape" x="-51948.39565913936" y="127881.07455843351" r="41.637423385530795" s="58.228610816418126" class="line4">
+      <geom type="arrow">
+        <sp>200.60278926532644 21.643692574034866</sp>
+        <ep>-200.60278926532644 21.643692574034837</ep>
+        <b>43.2873851480697</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="48_32395453" type="button" x="-72328.3260030291" y="118661.35969895573" r="1.3270979901769147" s="15.863086013874343" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>919.8347152422568</w>
+        <h>352.5678399718024</h>
+      </size>
+    </object>
+    <object id="13_4" type="text" x="-72677.88979977822" y="116706.71561818391" r="1.3270979901769133" s="37.417641011151915" class="strong">
+      <height>27.7734375</height>
+      <width>286.90397303768634</width>
+      <p align="center">
+        <text><![CDATA[BUDGET]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="48_32395453"/>
+      </layout>
+    </object>
+    <object id="14_4" type="text" x="-72041.51689772031" y="119419.98867319785" r="1.3270979901769147" s="25.054487573791565" class="head">
+      <height>130.734375</height>
+      <width>570.5685950413222</width>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Overhead: £19,417.00]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Labour Projection: £25,396.00]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Overhead recovery rate: £9.50 /hour]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Extra costs: £600 - Chef & Photographer hire]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="48_32395453"/>
+      </layout>
+    </object>
+    <object id="62_32395453" type="shape" x="-56056.29767928504" y="133947.3376124571" r="26.901445609211542" s="58.22861081641818" class="line4">
+      <geom type="arrow">
+        <sp>136.92198429826146 21.659953232147156</sp>
+        <ep>-136.92198429826146 21.659953232147103</ep>
+        <b>43.319906464294256</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="63_32395453" type="button" x="-68443.53888415803" y="130701.4303663194" r="1.3270979901769648" s="11.770062506683427" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>550.4197034682805</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="64_32395453" type="text" x="-68529.47107202359" y="128017.1303000658" r="1.3270979901769648" s="21.05387874301122" class="strong">
+      <height>27.7734375</height>
+      <width>167.37581605371605</width>
+      <p align="center">
+        <text><![CDATA[POLICIES]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="63_32395453"/>
+      </layout>
+    </object>
+    <object id="67_32395453" type="shape" x="6073.7023061270875" y="176001.029449229" r="-41.02666898809966" s="232.91444326567222" class="line3">
+      <geom type="arrow">
+        <sp>-46.73793936247862 6.622387929366483</sp>
+        <ep>46.73793936247862 6.622387929366483</ep>
+        <b>-13.244775858732964</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="68_32395453" type="button" x="37378.13927272335" y="191334.7923521588" r="1.3270979901769764" s="30.233783572355794" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+    </object>
+    <object id="69_32395453" type="text" x="37378.76036303438" y="185069.61127598182" r="1.3270979901769555" s="79.90042378359821" class="strong">
+      <height>27.7734375</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[DESIGN METHODOLOGY]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="68_32395453"/>
+      </layout>
+    </object>
+    <object id="71_32395453" type="button" x="-85268.3055076393" y="144886.0092631788" r="1.327097990176973" s="12.533780970797448" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>1095.8590349187946</w>
+        <h>582.0795512423558</h>
+      </size>
+    </object>
+    <object id="72_32395453" type="text" x="-85335.16725450564" y="142219.59044263797" r="1.327097990176973" s="39.78222092627159" class="strong">
+      <height>27.7734375</height>
+      <width>409.346143553921</width>
+      <p align="center">
+        <text><![CDATA[PRICING]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="71_32395453"/>
+      </layout>
+    </object>
+    <object id="73_32395453" type="text" x="-85252.13157339075" y="144457.55535722332" r="1.3270979901769147" s="21.053878743011193" class="head">
+      <height>163.41796875</height>
+      <width>582.5865320757493</width>
+      <p>
+        <text><![CDATA[Each module will require an estimated 5 weeks' worth of labour and overhead; £9375 + £712.5 = £10,087.50]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[We must buy at least two modules to complete the product within the time constraint.]]></text>
+      </p>
+      <layout>
+        <layout-element role="body" parent-id="71_32395453"/>
+      </layout>
+    </object>
+    <object id="74_32395453" type="shape" x="-57089.04795581752" y="140722.7531766528" r="4.7799570650791905" s="29.114305408209024" class="line4">
+      <geom type="arrow">
+        <sp>158.45336782569822 33.175750659954524</sp>
+        <ep>-158.45336782569825 33.17575065995448</ep>
+        <b>66.351501319909</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="80_32395453" type="shape" x="-70102.5919952574" y="153983.65950215023" r="1.3270979601505266" s="72.87564923707562" class="line4">
+      <geom type="arrow">
+        <sp>182.476827507835 -26.990937587427677</sp>
+        <ep>-182.476827507835 -26.99093758742776</ep>
+        <b>-53.981875174855446</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="81_32395453" type="button" x="-68126.45714242366" y="141029.88342014456" r="1.3270979901769744" s="15.566763817008308" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>699.4929470890418</w>
+        <h>391.4762482263069</h>
+      </size>
+    </object>
+    <object id="82_32395453" type="text" x="-68507.03056645828" y="138916.02102647183" r="1.3270979901769309" s="30.629021183158034" class="strong">
+      <height>27.7734375</height>
+      <width>275.396143553921</width>
+      <p align="center">
+        <text><![CDATA[STRATEGIES]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="81_32395453"/>
+      </layout>
+    </object>
+    <object id="84_32395453" type="shape" x="-4147.540627653928" y="159215.78877601624" r="-70.80487340208849" s="291.502596948302" class="line3">
+      <geom type="arrow">
+        <sp>-68.36176581477001 8.464257305354337</sp>
+        <ep>68.36176581477001 8.464257305354337</ep>
+        <b>-16.928514610708675</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="85_32395453" type="button" x="-65827.14842798811" y="231853.1710365406" r="1.327097990176975" s="29.169588511314643" class="circle">
+      <type>circle</type>
+      <size>
+        <w>800</w>
+        <h>800</h>
+      </size>
+    </object>
+    <object id="86_32395453" type="text" x="-66261.99780428722" y="225463.5235386161" r="1.3270979901769382" s="96.13917906917786" class="strong">
+      <height>27.7734375</height>
+      <width>220.4993900181616</width>
+      <p align="center">
+        <text><![CDATA[MARKETING]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="85_32395453"/>
+      </layout>
+    </object>
+    <object id="70_32395453" type="text" x="37068.751492521435" y="192702.26259059715" r="1.3270979901769153" s="65.38975312288783" class="head">
+      <height>163.41796875</height>
+      <width>308.3579197052169</width>
+      <p align="center">
+        <text><![CDATA[Spoon uses the Agile method of software development and progress is tracked using a cloud-based Kanban board. ]]></text>
+      </p>
+    </object>
+    <object id="105_32395453" type="shape" x="-81618.91159034905" y="212586.4491496493" r="7.9510568581517935" s="101.70463870400584" class="line4">
+      <geom type="arrow">
+        <sp>94.12429477537394 25.586143328706033</sp>
+        <ep>-94.12429477537394 25.586143328706</ep>
+        <b>51.17228665741203</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="106_32395453" type="button" x="-92642.23221446655" y="217392.38247929115" r="1.327097990176972" s="14.689908477993969" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>891.4669632232567</w>
+        <h>296.05683528761745</h>
+      </size>
+    </object>
+    <object id="107_32395453" type="text" x="-92618.23698608665" y="215818.36473911165" r="1.3270979901769762" s="28.904477510854335" class="strong">
+      <height>27.7734375</height>
+      <width>419.046143553921</width>
+      <p align="center">
+        <text><![CDATA[MARKET ANALYSIS SUMMARY:]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="106_32395453"/>
+      </layout>
+    </object>
+    <object id="109_32395453" type="text" x="-64621.748149706036" y="236137.2507238193" r="1.3270979901769147" s="46.04887806803534" class="head">
+      <height>359.51953125</height>
+      <width>474.59731300092915</width>
+      <p>
+        <text><![CDATA[Audience: University students. ]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[Suggested Marketing Techniques: ]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Customer fueled promotion via social media]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Campus wide poster dispersing]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Open Beta Promotion]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="2_16535873" type="button" x="-5.279162735630038e-12" y="-163039.45712363347" r="1.3270979901769797" s="650.8200620817059" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>1674.418604651163</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="3_16535873" type="text" x="6159.888783100962" y="-304698.0385839244" r="1.3270979901769473" s="3371.447610989221" class="strong">
+      <height>27.7734375</height>
+      <width>-165.7265625</width>
+      <p align="center">
+        <text><![CDATA[COMPANY VISION]]></text>
+      </p>
+    </object>
+    <object id="5_16535873" type="text" x="-3579.3605445246762" y="-131905.4993111382" r="1.327097990176945" s="1245.8839012160495" class="head">
+      <height>163.41796875</height>
+      <width>806.6581806233829</width>
+      <p align="center">
+        <text><![CDATA[In the near future we see ourselves as a firmly established and competitive company in the market; always delivering quality products on time and on budget. ]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[We aim for products to be integrated into every kitchen environment because of their competitive pricing, usability and longevity.]]></text>
+      </p>
+    </object>
+    <object id="8_16535873" type="button" x="19586.901450467187" y="117718.23647021069" r="-99.2900984978484" s="0.23701867513219949" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>964.5490196078432</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="6_16535873" type="text" x="19524.915023663176" y="117735.4714999061" r="-99.2900984978484" s="0.5077276087759665" class="head">
+      <height>32.68359375</height>
+      <width>-209.28515625</width>
+      <p>
+        <text color="16777215"><![CDATA[Company Structure]]></text>
+      </p>
+    </object>
+    <object id="7_16535873" type="image" x="19599.516601291267" y="117717.62858988246" r="-99.2900984978484" s="0.20059259032596338">
+      <source w="1048" h="615">1309218668<url>1309218668.png</url></source>
+      <resource>
+        <id>1309218668</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/e/f/a/8bd5369420ae0a1422decfab886952ad6b444.png</url>
+      </resource>
+      <sourceUrl>Company Structure.png</sourceUrl>
+    </object>
+    <object id="1_70777585" type="button" x="-11770.443442922835" y="225001.884609055" r="1.3270979901769744" s="15.859635256238443" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>1089.0527509926262</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="0_70777585" type="image" x="-11967.411492172265" y="225194.4047987318" r="1.3270979901769744" s="26.23442288519067">
+      <source w="1200" h="750">1305509093<url>1305509093.png</url></source>
+      <resource>
+        <id>1305509093</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/f/f/ea579c70be3a5ba8338b457272bfbb4d43e74.png</url>
+      </resource>
+      <sourceUrl>aviary.png</sourceUrl>
+    </object>
+    <object id="2_70777585" type="button" x="64634.585077199124" y="228644.95868014955" r="16.97536825718327" s="7.129863903781233" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>991.8820197572932</w>
+        <h>886.9565217391305</h>
+      </size>
+    </object>
+    <object id="46_70777585" type="image" x="66991.28133536462" y="229028.2209039061" r="16.975368257183273" s="8.465897001906601">
+      <source w="165" h="186">1322744708<url>1322744708.jpg</url></source>
+      <resource>
+        <id>1322744708</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/b/8/b/7bf69b60bebf4bef98065cd891e5fcafdf1f6.jpg</url>
+      </resource>
+      <sourceUrl>ingredients_list.jpg</sourceUrl>
+    </object>
+    <object id="3_70777585" type="text" x="65359.39312954239" y="226318.22007116163" r="16.975368257183273" s="18.264815399668855" class="body">
+      <height>27.7734375</height>
+      <width>330.51910714370433</width>
+      <p>
+        <text color="1657497" style="italic"><![CDATA[FEATURES: SHOPPING LIST EXPORT]]></text>
+      </p>
+    </object>
+    <object id="4_70777585" type="shape" x="51598.990903045466" y="233136.9779079451" r="26.782082224460314" s="65.25630728334717" class="line4">
+      <geom type="arrow">
+        <sp>-95.83083588641756 19.576735451307258</sp>
+        <ep>95.83083588641756 19.576735451307258</ep>
+        <b>-39.15347090261451</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="7_70777585" type="button" x="36114.37035621764" y="258435.91003685066" r="16.97536825718327" s="19.8656163262511" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>593.9262405988396</w>
+        <h>517.8585207853466</h>
+      </size>
+    </object>
+    <object id="8_70777585" type="text" x="38370.33908516354" y="255129.34740557475" r="16.975368257183273" s="28.42504081250637" class="strong">
+      <height>27.7734375</height>
+      <width>362.4339140817262</width>
+      <p>
+        <text><![CDATA[FEATURE: PINNED NOTES]]></text>
+      </p>
+    </object>
+    <object id="9_70777585" type="button" x="-106747.4639688594" y="136488.41530598293" r="1.3270979901769586" s="20.89328136422526" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>700</w>
+        <h>424.92206494715185</h>
+      </size>
+    </object>
+    <object id="10_70777585" type="text" x="-106437.10883405645" y="133306.3366083569" r="1.3270979901769582" s="38.17903547407563" class="body">
+      <height>27.7734375</height>
+      <width>-259.5703125</width>
+      <p>
+        <text color="1657497" style="italic"><![CDATA[e-Cook's REVENUE STREAMS]]></text>
+      </p>
+    </object>
+    <object id="14_70777585" type="shape" x="42432.991805615326" y="245091.66093371535" r="-81.66669554296813" s="65.25630728334707" class="line4">
+      <geom type="arrow">
+        <sp>106.61189976679476 -31.51858504797242</sp>
+        <ep>-106.61189976679476 -31.518585047972437</ep>
+        <b>-63.03717009594485</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="16_70777585" type="text" x="-106656.64914921985" y="138289.32060092632" r="1.3270979901769608" s="22.772471242766265" class="head">
+      <height>326.8359375</height>
+      <width>560.4028754505773</width>
+      <p>
+        <text><![CDATA[Spoon plans to profit from:]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Software product sold to client]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[A share of hosted package recipes bought by consumers]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Software modules sold to other companies]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="17_70777585" type="shape" x="-96217.13451042087" y="231154.16949233128" r="10.636016810676518" s="70.84062753477151" class="line4">
+      <geom type="arrow">
+        <sp>261.0109688950375 -43.00235832064644</sp>
+        <ep>-261.0109688950375 -43.00235832064655</ep>
+        <b>-86.00471664129299</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="43_70777585" type="button" x="6307.17381712193" y="246226.76190924805" r="16.975368257183273" s="24.8500323449218" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>798.3104540654699</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="44_70777585" type="text" x="7390.376333490715" y="240233.2035626053" r="16.97536825718327" s="48.87224913736161" class="strong">
+      <height>27.7734375</height>
+      <width>-157.32421875</width>
+      <p>
+        <text><![CDATA[FEATURE: SHARE]]></text>
+      </p>
+    </object>
+    <object id="45_70777585" type="shape" x="26087.43981427823" y="245951.88765718276" r="-13.024632673727286" s="65.25630728334698" class="line4">
+      <geom type="arrow">
+        <sp>128.37079456788112 -31.51858504797241</sp>
+        <ep>-128.3707945678811 -31.51858504797244</ep>
+        <b>-63.03717009594485</b>
+        <t>8</t>
+      </geom>
+      <meta>
+        <parentTemplate>lightbulb2_3D-quick</parentTemplate>
+        <notModifiedByUser>from-template</notModifiedByUser>
+      </meta>
+    </object>
+    <object id="11_70777585" type="button" x="51303.13235465847" y="220905.45040494617" r="12.738994486201221" s="2.0038732857182744" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>800</w>
+        <h>1182.0512820512822</h>
+      </size>
+    </object>
+    <object id="19_70777585" type="image" x="51652.1591115097" y="220308.6540269864" r="12.738994486201223" s="0.7843322515369228">
+      <source w="421" h="799">1322623293<url>1322623293.png</url></source>
+      <resource>
+        <id>1322623293</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/f/f/9/f37e0d4a26df6269fa0807f099ca2b979f6e4.png</url>
+      </resource>
+      <sourceUrl>WomanSymbol.png</sourceUrl>
+    </object>
+    <object id="20_70777585" type="image" x="50124.360383932704" y="219960.1194733335" r="12.738994486201221" s="0.7717752081009869">
+      <source w="375" h="812">1322623348<url>1322623348.png</url></source>
+      <resource>
+        <id>1322623348</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/2/1/396ab298bcd3cf2ebd455d14a852ef7972fe3.png</url>
+      </resource>
+      <sourceUrl>ManSymbol.png</sourceUrl>
+    </object>
+    <object id="50_70777585" type="button" x="63033.36603920639" y="229067.51512590508" r="16.975368257183263" s="4.184770558888107" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>798.8472622478387</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="36_70777585" type="image" x="63026.25643745289" y="229037.08056147568" r="16.97536825718327" s="8.145163919928624">
+      <source w="389" h="287">1322696798<url>1322696798.jpg</url></source>
+      <resource>
+        <id>1322696798</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/4/e/45b2737f7d6d7c41764ab38f27c5fe0c0eb00.jpg</url>
+      </resource>
+      <sourceUrl>ingredients_window.jpg</sourceUrl>
+    </object>
+    <object id="37_70777585" type="image" x="35466.777729045265" y="259499.4281910796" r="16.975368257183266" s="11.205952977893917">
+      <source w="389" h="287">1322696818<url>1322696818.jpg</url></source>
+      <resource>
+        <id>1322696818</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/5/8/d/96ded44dea03fd4f1ed9759a42ab8c6e18847.jpg</url>
+      </resource>
+      <sourceUrl>UI.jpg</sourceUrl>
+    </object>
+    <object id="40_70777585" type="text" x="36750.3616363905" y="256390.28996579748" r="16.975368257183273" s="17.5005581623944" class="head">
+      <height>65.3671875</height>
+      <width>552</width>
+      <p>
+        <text><![CDATA[Users will be able to add their personal notes to the recipes. More fitting to their personal tastes]]></text>
+      </p>
+    </object>
+    <object id="41_70777585" type="image" x="36821.34827543671" y="262358.85532708187" r="16.975368257183266" s="2.0105688819550585">
+      <source w="1800" h="1592">1322728443<url>1322728443.png</url></source>
+      <resource>
+        <id>1322728443</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/converted/b/1/0/747cc1a1a2445023d654613332f18923d87b3.png</url>
+      </resource>
+      <sourceUrl>http://0103.static.prezi.com/media/1/3/7/5e2c41cdad522854122fcc65ea639e83f2278.png</sourceUrl>
+    </object>
+    <object id="42_70777585" type="text" x="36989.855901277966" y="261754.63040180516" r="16.975368257183273" s="9.878608844061478" class="body">
+      <height>27.7734375</height>
+      <width>-157.171875</width>
+      <p>
+        <text style="italic"><![CDATA[Needs more spice!]]></text>
+      </p>
+    </object>
+    <object id="47_70777585" type="image" x="65417.16081790156" y="230730.0408067105" r="9.851589159299602" s="6.349422751429947">
+      <source w="204" h="248">1322776208<url>1322776208.png</url></source>
+      <resource>
+        <id>1322776208</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/a/3/4/8f5286293b82ca25800b0c810a29a0fb64963.png</url>
+      </resource>
+      <sourceUrl>paperwrite.png</sourceUrl>
+    </object>
+    <object id="48_70777585" type="shape" x="65854.74506403455" y="229527.52994581082" r="-56.18620346726994" s="8.75027908119719" class="line3">
+      <geom type="arrow">
+        <sp>46.71320186906764 0</sp>
+        <ep>-46.71320186906763 0</ep>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="49_70777585" type="shape" x="65551.3843206022" y="228430.2334200703" r="-22.497090071692913" s="8.750279081197203" class="line3">
+      <geom type="arrow">
+        <sp>-60.10201684838784 0</sp>
+        <ep>60.102016848387834 0</ep>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="57_70777585" type="image" x="49854.14082805647" y="221051.27927475877" r="12.738994486201221" s="6.450699337081515">
+      <source w="165" h="186">1322877718<url>1322877718.png</url></source>
+      <resource>
+        <id>1322877718</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/6/6/2/c8f9865477959bb3a1c903d5a21bf43b6f7e8.png</url>
+      </resource>
+      <sourceUrl>change 1.png</sourceUrl>
+    </object>
+    <object id="21_70777585" type="button" x="52923.95748671747" y="221289.1774872788" r="12.738994486201221" s="2.019966675088512" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>800</w>
+        <h>1167.5675675675675</h>
+      </size>
+    </object>
+    <object id="56_70777585" type="image" x="52914.49624746095" y="221743.31697159293" r="12.738994486201221" s="6.386267126141128">
+      <source w="165" h="186">1322877713<url>1322877713.png</url></source>
+      <resource>
+        <id>1322877713</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/1/5/8b6005be3ede0acf2c542a79a32b1df89c169.png</url>
+      </resource>
+      <sourceUrl>change3.png</sourceUrl>
+    </object>
+    <object id="55_70777585" type="image" x="51391.510173378534" y="221398.9388005036" r="12.738994486201218" s="6.501894851287482">
+      <source w="165" h="186">1322877708<url>1322877708.png</url></source>
+      <resource>
+        <id>1322877708</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/7/0/8/96cb39283829cb85b580561c85e3020ba5b54.png</url>
+      </resource>
+      <sourceUrl>change2.png</sourceUrl>
+    </object>
+    <object id="61_70777585" type="image" x="53149.003726837014" y="220643.84440504047" r="12.738994486201221" s="0.7717752081009869">
+      <source w="375" h="812">1322623348<url>1322623348.png</url></source>
+      <resource>
+        <id>1322623348</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/2/1/396ab298bcd3cf2ebd455d14a852ef7972fe3.png</url>
+      </resource>
+      <sourceUrl>ManSymbol.png</sourceUrl>
+    </object>
+    <object id="62_70777585" type="image" x="50883.06426951674" y="220131.5975987028" r="12.738994486201221" s="0.45553714861428696">
+      <source w="223" h="226">1322893563<url>1322893563.jpg</url></source>
+      <resource>
+        <id>1322893563</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/4/b/72935ba0907883f228c873b1f79aad0064682.jpg</url>
+      </resource>
+      <sourceUrl>plus#.jpg</sourceUrl>
+    </object>
+    <object id="63_70777585" type="image" x="52403.22248585983" y="220475.24689007827" r="12.738994486201221" s="0.45553714861428696">
+      <source w="223" h="226">1322893563<url>1322893563.jpg</url></source>
+      <resource>
+        <id>1322893563</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/4/b/72935ba0907883f228c873b1f79aad0064682.jpg</url>
+      </resource>
+      <sourceUrl>plus#.jpg</sourceUrl>
+    </object>
+    <object id="100_70777585" type="button" x="59647.34185482878" y="240432.84708935244" r="25.720634909564097" s="4.047303982839914" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>798.8445822178385</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="66_70777585" type="image" x="60791.916470938006" y="240217.24959671684" r="25.72063490956409" s="5.009850516998012">
+      <source w="306" h="209">1323062493<url>1323062493.png</url></source>
+      <resource>
+        <id>1323062493</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/6/c/d/fdea40d1f832d2931156930133aa289c8d4b1.png</url>
+      </resource>
+      <sourceUrl>oven.png</sourceUrl>
+    </object>
+    <object id="67_70777585" type="image" x="59013.647798529775" y="239380.129892942" r="25.720634909564083" s="0.8364661131059178">
+      <source w="1392" h="1260">1323062738<url>1323062738.png</url></source>
+      <resource>
+        <id>1323062738</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/e/3/6efa065ea52cd482a383d68b1e935e6db6dfc.png</url>
+      </resource>
+      <sourceUrl>pot2.png</sourceUrl>
+    </object>
+    <object id="73_70777585" type="image" x="58410.90981902062" y="240701.42790797655" r="25.720634909564094" s="1.3476398488928685">
+      <source w="567" h="567">1323063533<url>1323063533.png</url></source>
+      <resource>
+        <id>1323063533</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/4/2/c/da1a5e83400f229a660e0a8c3be2022eb9789.png</url>
+      </resource>
+      <sourceUrl>15.png</sourceUrl>
+    </object>
+    <object id="72_70777585" type="image" x="60154.34764040142" y="241541.28522398448" r="25.720634909564094" s="1.3476398488928685">
+      <source w="567" h="567">1323063563<url>1323063563.png</url></source>
+      <resource>
+        <id>1323063563</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/e/6/f/96044cc1249414b50dbdb0e7a2c59377f7ea2.png</url>
+      </resource>
+      <sourceUrl>30.png</sourceUrl>
+    </object>
+    <object id="71_70777585" type="image" x="56655.047449812744" y="239855.6320792782" r="25.720634909564094" s="1.3476398488928685">
+      <source w="567" h="567">1323063543<url>1323063543.png</url></source>
+      <resource>
+        <id>1323063543</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/8/6/a9638d1ea4f9a8756cbeb1bce277aa5a44904.png</url>
+      </resource>
+      <sourceUrl>5.png</sourceUrl>
+    </object>
+    <object id="74_70777585" type="text" x="59768.93395509038" y="238305.84873555665" r="25.72063490956408" s="8.153872743551554" class="head">
+      <height>65.3671875</height>
+      <width>684.7955050722807</width>
+      <p>
+        <text><![CDATA[Users can set multiple timers for different cooking functions simultaneously ]]></text>
+      </p>
+    </object>
+    <object id="87_70777585" type="button" x="9348.497379507751" y="249006.0966463029" r="25.720634909564083" s="15.061228588772877" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>698.9690721649486</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="94_70777585" type="button" x="7149.470212536502" y="247639.74056777384" r="16.975368257183273" s="13.299517483439825" class="invisible">
+      <type>invisible</type>
+      <size>
+        <w>799.0783410138248</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="81_70777585" type="image" x="8476.28596746724" y="245252.85584677852" r="16.975368257183273" s="8.673431401333453">
+      <source w="300" h="168">1323084283<url>1323084283.png</url></source>
+      <resource>
+        <id>1323084283</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/6/b/5/6cff78707319ffbe9fe68f3726635deb21f12.png</url>
+      </resource>
+      <sourceUrl>facebook_lopo.png</sourceUrl>
+    </object>
+    <object id="82_70777585" type="image" x="12509.426319101694" y="247233.1260367198" r="16.975368257183273" s="1.9318522964633058">
+      <source w="1139" h="926">1323084318<url>1323084318.png</url></source>
+      <resource>
+        <id>1323084318</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/7/b/d/5dc19d849ac7f01508543f4de56eb1c63b77f.png</url>
+      </resource>
+      <sourceUrl>Twitter_logo_blue.png</sourceUrl>
+    </object>
+    <object id="83_70777585" type="image" x="10876.07735010776" y="250731.7063703592" r="16.975368257183273" s="7.986139404129566">
+      <source w="225" h="224">1323084288<url>1323084288.png</url></source>
+      <resource>
+        <id>1323084288</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/1/b/f/928fd68769235d209b18b700657aa1fced6c7.png</url>
+      </resource>
+      <sourceUrl>Blogger_logo.png</sourceUrl>
+    </object>
+    <object id="84_70777585" type="image" x="9600.69682940111" y="248324.1491150343" r="16.97536825718327" s="3.876297717628893">
+      <source w="512" h="512">1323112743<url>1323112743.png</url></source>
+      <resource>
+        <id>1323112743</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/5/d/4/0c8a6bdc1a5e61643b61acee8b75620a1cebb.png</url>
+      </resource>
+      <sourceUrl>googleplus_logo.png</sourceUrl>
+    </object>
+    <object id="85_70777585" type="image" x="6047.29052839328" y="248738.3381064184" r="16.975368257183263" s="3.998977174097285">
+      <source w="500" h="500">1323113133<url>1323113133.png</url></source>
+      <resource>
+        <id>1323113133</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/b/4/a/c80785b6915f7a5895b4fe83d9f74104e0862.png</url>
+      </resource>
+      <sourceUrl>tumblr-logo.png</sourceUrl>
+    </object>
+    <object id="86_70777585" type="image" x="-857.0898360032025" y="245883.50486693333" r="16.975368257183273" s="21.69472502907437">
+      <source w="216" h="125">750604649<url>750604649.swf</url></source>
+      <resource>
+        <id>750604649</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/a/a/f/cc2305bcb228067d2505d1b267f26ba2f907e.swf</url>
+      </resource>
+      <sourceUrl>laptop_g.swf</sourceUrl>
+    </object>
+    <object id="88_70777585" type="shape" x="5103.33922752917" y="244586.35255132298" r="-8.060017321902878" s="8.928856205303283" class="line3">
+      <geom type="arrow">
+        <sp>-267.0742037817239 32.5375595268634</sp>
+        <ep>267.0742037817239 32.5375595268634</ep>
+        <b>-65.0751190537268</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="89_70777585" type="shape" x="4841.576660211797" y="246448.24187600845" r="32.91154628058751" s="8.928856205303278" class="line3">
+      <geom type="arrow">
+        <sp>-236.9623874182324 32.53755952686339</sp>
+        <ep>236.9623874182324 32.53755952686339</ep>
+        <b>-65.07511905372678</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="90_70777585" type="shape" x="6984.619334577859" y="245969.2762451466" r="5.323059905441846" s="8.928856205303264" class="line3">
+      <geom type="arrow">
+        <sp>-467.10379052914755 32.5375595268634</sp>
+        <ep>467.10379052914755 32.5375595268634</ep>
+        <b>-65.0751190537268</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="91_70777585" type="shape" x="5551.650585200914" y="249477.0424351189" r="38.005432100171255" s="8.92885620530328" class="line3">
+      <geom type="arrow">
+        <sp>-476.9863586926369 -96.11755349826178</sp>
+        <ep>476.9863586926369 -96.11755349826178</ep>
+        <b>192.23510699652357</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="93_70777585" type="shape" x="5789.008700358685" y="246520.69710105087" r="18.270836959980326" s="7.933584805279571" class="line3">
+      <geom type="arrow">
+        <sp>-379.301363582029 17.437401958469966</sp>
+        <ep>379.3013635820291 17.437401958469966</ep>
+        <b>-34.87480391693993</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="95_70777585" type="text" x="52054.71347200399" y="219420.48478152874" r="12.738994486201221" s="8.75027908119721" class="head">
+      <height>65.3671875</height>
+      <width>506.28515625</width>
+      <p>
+        <text><![CDATA[Users can adjust ingredient quantities for the number of guests]]></text>
+      </p>
+    </object>
+    <object id="96_70777585" type="text" x="64918.445781713424" y="227104.8211685604" r="16.97536825718327" s="12.475114677733004" class="head">
+      <height>65.3671875</height>
+      <width>464.3742187499999</width>
+      <p>
+        <text><![CDATA[Ingredients can exported and printed to a physical copy]]></text>
+      </p>
+    </object>
+    <object id="97_70777585" type="text" x="8246.554409505408" y="242260.1827287599" r="16.975368257183266" s="19.566586965966568" class="head">
+      <height>32.68359375</height>
+      <width>953.6735266369724</width>
+      <p>
+        <text><![CDATA[Users will be able to "share" recipes with friends and family through social media]]></text>
+      </p>
+    </object>
+    <object id="16_16535873" type="image" x="27060.705733139483" y="172369.18376669785" r="7.673478741960056" s="37.400839634224646">
+      <source w="204" h="93">1343926213<url>1343926213.png</url></source>
+      <sourceUrl>e-Cook Logo.png</sourceUrl>
+    <resource><id>1343926213</id><url>http://0103.static.prezi.com.s3.amazonaws.com/media/c/d/0/c9b8fafe5fa9874a4a2e1f8d80eaba1e6427b.png</url></resource></object>
+    <object id="1_71391649" type="text" x="27785.723497094063" y="166074.49709284303" r="7.673478741960056" s="52.236853983501454" class="head">
+      <height>228.78515625</height>
+      <width>416.8121001222575</width>
+      <p align="center">
+        <text><![CDATA[The next big software product in cooking and kitchen techniques for students.]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[Cooking made easier, cheaper & healthier.]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="18_70777585" type="text" x="-85248.47587204153" y="148015.62446484945" r="1.327097990176915" s="29.35844301691861" class="head">
+      <height>65.3671875</height>
+      <width>341.41235927345826</width>
+      <p>
+        <text><![CDATA[Total start-up cost: £44,813.00]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="22_70777585" type="text" x="-68091.06629092839" y="130990.27736095335" r="1.327097990176964" s="14.568076811037987" class="head">
+      <height>326.8359375</height>
+      <width>435.2640625</width>
+      <p>
+        <text><![CDATA[-Weekly Timesheets]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[-QA manual]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[-Contracts:]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[25% payment upon placement]]></text>
+      </p>
+      <p>
+        <text><![CDATA[50% payment upon handover]]></text>
+      </p>
+      <p>
+        <text><![CDATA[25% payment upon acceptance]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="23_70777585" type="text" x="-68271.21063515321" y="141648.80647062568" r="1.3270979901769215" s="21.0538787430112" class="head">
+      <height>196.1015625</height>
+      <width>459.7069249003614</width>
+      <p>
+        <text><![CDATA[Strategies taken to optimize costs include:]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Well defined metrics]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Deliverables are met]]></text>
+      </p>
+      <p listType="bullet" indent="1">
+        <text><![CDATA[Careful consideration of testing and implementation]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="24_70777585" type="button" x="-77546.66245013753" y="104626.90598195513" r="1.3270979901769744" s="20.183275185981625" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>935.5263157894736</w>
+        <h>755.2497786693275</h>
+      </size>
+    </object>
+    <object id="30_70777585" type="image" x="-77662.27186513932" y="106079.6155744884" r="1.3270979901769744" s="10.361525038829873">
+      <source w="1235" h="876">1333161233<url>1333161233.png</url></source>
+      <resource>
+        <id>1333161233</id>
+        <url>http://0103.static.prezi.com.s3.amazonaws.com/media/2/5/4/84afd3cc2adee8c730d9bc61df8079f95271c.png</url>
+      </resource>
+      <sourceUrl>PyramidPS.png</sourceUrl>
+    </object>
+    <object id="31_70777585" type="text" x="-77593.09467795918" y="103486.61093289155" r="1.3270979901769657" s="25.810067563082274" class="head">
+      <height>32.68359375</height>
+      <width>-94.60546875</width>
+      <p>
+        <text><![CDATA[MISSION]]></text>
+      </p>
+    </object>
+    <object id="32_70777585" type="text" x="-77559.59236608604" y="104918.68973381384" r="1.327097990176954" s="25.810067563082274" class="head">
+      <height>32.68359375</height>
+      <width>-126.2578125</width>
+      <p>
+        <text><![CDATA[OBJECTIVES]]></text>
+      </p>
+    </object>
+    <object id="33_70777585" type="text" x="-77547.69977052935" y="106420.31121241214" r="1.3270979901769688" s="25.810067563082274" class="head">
+      <height>32.68359375</height>
+      <width>-129.85546875</width>
+      <p>
+        <text><![CDATA[STRATEGIES]]></text>
+      </p>
+    </object>
+    <object id="34_70777585" type="text" x="-77535.44459583986" y="108049.66931950502" r="1.3270979901769722" s="29.84100907056806" class="head">
+      <height>32.68359375</height>
+      <width>-98.015625</width>
+      <p>
+        <text><![CDATA[POLICIES]]></text>
+      </p>
+    </object>
+    <object id="35_70777585" type="text" x="-77658.1776323014" y="109558.14354371371" r="1.3270979901769715" s="29.84100907056806" class="head">
+      <height>32.68359375</height>
+      <width>-105.50390625</width>
+      <p>
+        <text><![CDATA[BUDGETS]]></text>
+      </p>
+    </object>
+    <object id="39_70777585" type="text" x="-76928.35933377141" y="99103.47692893658" r="1.3270979901769744" s="54.58200855321692" class="strong">
+      <height>27.7734375</height>
+      <width>234.19218651736543</width>
+      <p>
+        <text><![CDATA[FINANCIAL ANALYSIS]]></text>
+      </p>
+    </object>
+    <object id="51_70777585" type="shape" x="-99483.44660099155" y="144656.60278333793" r="14.071168211352115" s="72.87564923707556" class="line4">
+      <geom type="arrow">
+        <sp>85.86674778605924 -14.66457902846474</sp>
+        <ep>-85.86674778605924 -14.66457902846478</ep>
+        <b>-29.32915805692952</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="52_70777585" type="button" x="-116630.04438859322" y="218389.37782520053" r="1.7273659290829546" s="19.295907613083816" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>894.0239043824702</w>
+        <h>578.7789214564666</h>
+      </size>
+    </object>
+    <object id="53_70777585" type="text" x="-116374.7558360439" y="214595.7416412964" r="1.3270979901769575" s="44.393933546571105" class="strong">
+      <height>27.7734375</height>
+      <width>138.73036539597015</width>
+      <p>
+        <text><![CDATA[COMPETITION]]></text>
+      </p>
+    </object>
+    <object id="54_70777585" type="text" x="-116497.05338465942" y="219685.57285200316" r="1.3270979901769144" s="28.651499069855074" class="head">
+      <height>294.15234375</height>
+      <width>521.5184221487211</width>
+      <p>
+        <text><![CDATA[Most cookbook software provides all the recipes in a single jumble.]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[No graphical theme just simple, minimalistic design and colour scheme.]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[Method of providing user feedback (Positive, Minor Pains & Errors).]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+    </object>
+    <object id="0" type="shape" x="-48077.575135459534" y="117016.10234605342" r="49.519518054470744" s="83.18372973774045" class="line4">
+      <geom type="arrow">
+        <sp>261.2893133282623 70.8478922258222</sp>
+        <ep>-261.2893133282623 70.84789222582206</ep>
+        <b>141.69578445164427</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="5_70777585" type="text" x="-92670.69903849404" y="217693.3895922175" r="1.3270979901769144" s="11.298983168243543" class="head">
+      <height>130.734375</height>
+      <width>1043.448880402162</width>
+      <p>
+        <text><![CDATA[All of the participants surveyed were interested in eating healthier and on a budget.]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[A survey of our primary market, university students, showed 77%  prefer a cookbook software to a regular cookbook or web resource. ]]></text>
+      </p>
+    </object>
+    <object id="2_71242633" type="shape" x="-131377.757172237" y="228376.5851432156" r="-73.27263400969052" s="101.7046387040059" class="line4">
+      <geom type="arrow">
+        <sp>87.28411836500821 25.586143328706022</sp>
+        <ep>-87.2841183650082 25.586143328706008</ep>
+        <b>51.17228665741203</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="3_71242633" type="button" x="-126917.9707444135" y="239562.40903169196" r="1.327097990176971" s="13.722552610003776" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>636.7287816835008</w>
+        <h>296.05683528761745</h>
+      </size>
+    </object>
+    <object id="4_71242633" type="text" x="-127020.73060654436" y="238383.83537217943" r="1.3270979901769744" s="30.935363236385292" class="strong">
+      <height>55.546875</height>
+      <width>419.046143553921</width>
+      <p align="center">
+        <text><![CDATA[OUTER BENEFITS]]></text>
+      </p>
+      <p align="center">
+        <text><![CDATA[]]></text>
+      </p>
+      <layout>
+        <layout-element role="title" parent-id="3_71242633"/>
+      </layout>
+    </object>
+    <object id="5_71242633" type="text" x="-126818.07566837867" y="239861.13732521227" r="1.327097990176915" s="17.67042470946739" class="head">
+      <height>163.41796875</height>
+      <width>470.9488804021621</width>
+      <p>
+        <text><![CDATA[Chefs gets promotional value from submitting their recipes.]]></text>
+      </p>
+      <p>
+        <text><![CDATA[]]></text>
+      </p>
+      <p>
+        <text><![CDATA[Designed to be healthy, easy and cheap so all can benefit not just students.]]></text>
+      </p>
+    </object>
+    <object id="1_16535873" type="shape" x="59702.29480856591" y="187620.5381114988" r="16.327098008171777" s="84.5070607071704" class="line4">
+      <geom type="arrow">
+        <sp>-92.2811816180021 22.95133545697553</sp>
+        <ep>92.28118161800208 22.95133545697553</ep>
+        <b>-45.90267091395106</b>
+        <t>7</t>
+      </geom>
+    </object>
+    <object id="10_16535873" type="button" x="70342.38992039561" y="195860.90544583695" r="1.3270979901769764" s="10.202655344837998" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>798.9717223650385</w>
+        <h>600</h>
+      </size>
+    </object>
+    <object id="11_16535873" type="text" x="70407.3263799412" y="193291.14700865495" r="1.3270979901769342" s="25.023649182998927" class="strong">
+      <height>27.7734375</height>
+      <width>-186.22265625</width>
+      <p>
+        <text><![CDATA[PROJECT LIFE CYCLE]]></text>
+      </p>
+    </object>
+    <object id="12_16535873" type="image" x="70283.60469629118" y="195977.50538327053" r="1.327097990176973" s="10.9860650203745">
+      <source w="845" h="333">1343632558<mask x="164" y="0" w="670" h="303"/>
+      <url>1343632558.png</url></source>
+      <sourceUrl>Project Life Cycle 1.png</sourceUrl>
+    <resource><id>1343632558</id><url>http://0103.static.prezi.com.s3.amazonaws.com/media/2/6/d/a5296c1054f833e68a3765d1cbf7223653216.png</url></resource></object>
+    <object id="13_16535873" type="button" x="73288.44470104405" y="196895.46993231628" r="1.8682107376794546" s="0.08807054407921071" class="bracket">
+      <type>bracket</type>
+      <size>
+        <w>798.778489497989</w>
+        <h>581</h>
+      </size>
+    </object>
+    <object id="14_16535873" type="image" x="73288.75711701844" y="196895.6833924009" r="1.8682107376794561" s="0.1531224727199167">
+      <source w="560" h="269">1343673453<mask x="144" y="35" w="406" h="221"/>
+      <url>1343673453.png</url></source>
+      <sourceUrl>Project Life Cycle 2.png</sourceUrl>
+    <resource><id>1343673453</id><url>http://0103.static.prezi.com.s3.amazonaws.com/media/9/9/4/3d491a776652b87b0c70869a6020a2ea45074.png</url></resource></object>
+  </zui-table>
+  <background>
+    <layer depth="17.88830107095127" fadescale="0.1229854076848344">
+      <object id="background184780650" type="image" x="-12495.377743885492" y="193223.17742520786" r="0" s="27.290552337855154">
+        <source w="3000" h="2250">184780650<url>184780650.jpg</url></source>
+        <resource>
+          <id>184780650</id>
+          <url>http://0103.static.prezi.com.s3.amazonaws.com/media/8/0/c/fe87ea529e9189f25ac7d436bde9ac8a4d75e.jpg</url>
+        </resource>
+        <sourceUrl>lightbulb.jpg</sourceUrl>
+      </object>
+    </layer>
+  </background>
+  <path>
+    <s>
+      <eagle o="0_15277798"/>
+    </s>
+    <s>
+      <eagle o="1"/>
+    </s>
+    <s>
+      <eagle o="2_16535873"/>
+    </s>
+    <s>
+      <eagle o="8_16535873"/>
+    </s>
+    <s>
+      <eagle o="2"/>
+    </s>
+    <s>
+      <eagle o="12_32395453"/>
+    </s>
+    <s>
+      <eagle o="4"/>
+    </s>
+    <s>
+      <eagle o="36"/>
+    </s>
+    <s>
+      <buildin o="11_70777585"/>
+    </s>
+    <s>
+      <buildin o="21_70777585"/>
+    </s>
+    <s>
+      <eagle o="2_70777585"/>
+    </s>
+    <s>
+      <buildin o="49_70777585"/>
+    </s>
+    <s>
+      <buildin o="46_70777585"/>
+    </s>
+    <s>
+      <buildin o="48_70777585"/>
+    </s>
+    <s>
+      <buildin o="47_70777585"/>
+    </s>
+    <s>
+      <eagle o="53"/>
+    </s>
+    <s>
+      <buildin o="99_70777585"/>
+    </s>
+    <s>
+      <buildin o="100_70777585"/>
+    </s>
+    <s>
+      <eagle o="7_70777585"/>
+    </s>
+    <s>
+      <buildin o="37_70777585"/>
+    </s>
+    <s>
+      <buildin o="41_70777585"/>
+    </s>
+    <s>
+      <buildin o="42_70777585"/>
+    </s>
+    <s>
+      <eagle o="43_70777585"/>
+    </s>
+    <s>
+      <buildin o="87_70777585"/>
+    </s>
+    <s>
+      <buildin o="94_70777585"/>
+    </s>
+    <s>
+      <eagle o="38_70777585"/>
+    </s>
+    <s>
+      <eagle o="68_32395453"/>
+    </s>
+    <s>
+      <eagle o="10_16535873"/>
+    </s>
+    <s>
+      <eagle o="13_16535873"/>
+    </s>
+    <s>
+      <eagle o="85_32395453"/>
+    </s>
+    <s>
+      <eagle o="106_32395453"/>
+    </s>
+    <s>
+      <eagle o="52_70777585"/>
+    </s>
+    <s>
+      <eagle o="4_71242633"/>
+    </s>
+    <s>
+      <eagle o="5"/>
+    </s>
+    <s>
+      <eagle o="24_70777585"/>
+    </s>
+    <s>
+      <buildin o="34_70777585"/>
+    </s>
+    <s>
+      <buildin o="33_70777585"/>
+    </s>
+    <s>
+      <buildin o="32_70777585"/>
+    </s>
+    <s>
+      <buildin o="31_70777585"/>
+    </s>
+    <s>
+      <eagle o="48_32395453"/>
+    </s>
+    <s>
+      <eagle o="63_32395453"/>
+    </s>
+    <s>
+      <eagle o="81_32395453"/>
+    </s>
+    <s>
+      <eagle o="71_32395453"/>
+    </s>
+    <s>
+      <eagle o="9_70777585"/>
+    </s>
+    <s>
+      <eagle o="3"/>
+    </s>
+    <s>
+      <buildin o="16_16535873"/>
+    </s>
+    <s>
+      <eagle o="1_70777585"/>
+    </s>
+    <s>
+      <eagle o="0_15277798"/>
+    </s>
+  </path>
+  <style type="text/css"><![CDATA[
+@font-face
+{
+	src: url('GentiumBasic.keg');
+	fontFamily: body;
+	font-class: body;
+	font-style: normal;
+	font-weight: normal;
+	font-family: GentiumBasic;
+}
+
+@font-face
+{
+	src: url('OpenSans-Light.keg');
+	fontFamily: head;
+	font-class: head;
+	font-style: normal;
+	font-weight: normal;
+	font-family: OpenSansLight;
+}
+
+@font-face
+{
+	src: url('GentiumBasic-I.keg');
+	fontFamily: strong;
+	font-class: strong;
+	font-style: italic;
+	font-weight: normal;
+	font-family: GentiumBasic;
+}
+
+@font-face
+{
+	src: url('GentiumBasic-B.keg');
+	font-style: normal;
+	font-weight: bold;
+	font-family: GentiumBasic;
+}
+
+@font-face
+{
+	src: url('GentiumBasic-BI.keg');
+	font-style: italic;
+	font-weight: bold;
+	font-family: GentiumBasic;
+}
+
+@font-face
+{
+	src: url('OpenSans-Bold.keg');
+	font-style: normal;
+	font-weight: bold;
+	font-family: OpenSansLight;
+}
+
+@font-face
+{
+	src: url('OpenSans-LightItalic.keg');
+	font-style: italic;
+	font-weight: normal;
+	font-family: OpenSansLight;
+}
+
+@font-face
+{
+	src: url('OpenSans-BoldItalic.keg');
+	font-style: italic;
+	font-weight: bold;
+	font-family: OpenSansLight;
+}
+
+.line1
+{
+	color: #b33e71;
+	gradEndColor: #b33e71;
+	gradStartColor: #b33e71;
+}
+
+.line2
+{
+	color: #bd8ab7;
+	gradEndColor: #bd8ab7;
+	gradStartColor: #bd8ab7;
+}
+
+.line3
+{
+	color: #6bb8d6;
+	gradEndAlpha: 1;
+	gradEndColor: #6bb8d6;
+	gradStartAlpha: 1;
+	gradStartColor: #6bb8d6;
+}
+
+.line4
+{
+	color: #fc0;
+	gradEndColor: #fc0;
+	gradStartColor: #fc0;
+}
+
+.line5
+{
+	color: #46353c;
+	gradEndColor: #46353c;
+	gradStartColor: #46353c;
+}
+
+.poly1
+{
+	borderAlpha: 1;
+	borderColor: #b33e71;
+	borderThickness: 8;
+	color: #fff;
+	gradEndColor: #fff;
+	gradStartColor: #fff;
+}
+
+.poly2
+{
+	color: #fff;
+	gradEndColor: #b33e71;
+	gradStartColor: #b33e71;
+}
+
+.poly3
+{
+	borderColor: #6bb8d6;
+	borderThickness: 8;
+	color: #fff;
+	gradEndColor: #fff;
+	gradStartColor: #fff;
+}
+
+.poly4
+{
+	borderColor: #6bb8d6;
+	borderThickness: 0;
+	gradEndColor: #6bb8d6;
+	gradStartColor: #6bb8d6;
+}
+
+.poly5
+{
+	borderColor: #46353c;
+	borderThickness: 8;
+	gradEndColor: #fff;
+	gradStartColor: #fff;
+}
+
+Background
+{
+	gradEnd: #fff;
+	gradStart: #fff;
+}
+
+Grid
+{
+	color: #b8b8b8;
+}
+
+ZArrow
+{
+	borderColor: #fff;
+	borderThickness: -1;
+	gradEndColor: #000;
+	gradStartColor: #000;
+	lockTintAlpha: 0;
+	thickness: 7;
+}
+
+ZCircle
+{
+	borderAlpha: 1;
+	gradEndAlpha: 1;
+	gradStartAlpha: 1;
+	lockTintAlpha: 0;
+	radius: 0;
+	thickness: 100;
+}
+
+ZCurveLine
+{
+	color: #000;
+}
+
+ZFrame.bracket
+{
+	borderColor: #fff;
+	borderThickness: 0;
+	gradEndColor: #c5c3c3;
+	gradStartColor: #c5c3c3;
+	thickness: 8;
+}
+
+ZFrame.circle
+{
+	borderColor: #b33e71;
+	borderThickness: 0;
+	gradEndColor: #b33e71;
+	gradStartColor: #b33e71;
+	thickness: 8;
+}
+
+ZFrame.roundrect
+{
+	borderColor: #fc0;
+	borderThickness: 0;
+	gradEndAlpha: 0.2;
+	gradEndColor: #fc0;
+	gradStartAlpha: 0.5;
+	gradStartColor: #fc0;
+	radius: 3;
+}
+
+ZLabel
+{
+	lockTintAlpha: 0.15;
+	padding: 1.2;
+}
+
+ZLabel.body
+{
+	color: #333;
+	fontFamily: body;
+}
+
+ZLabel.body-background
+{
+	background-alpha: 0.9;
+	background-color: #dfdfdf;
+	background-padding: 7;
+	background-padding-bottom: 5;
+	background-padding-left: 9;
+	background-padding-right: 5;
+}
+
+ZLabel.head
+{
+	color: #640f1e;
+	fontFamily: head;
+}
+
+ZLabel.head-background
+{
+	background-alpha: 0.8;
+	background-color: #ffe683;
+	background-padding: 4;
+	background-padding-bottom: 4;
+}
+
+ZLabel.strong
+{
+	color: #194a99;
+	fontFamily: strong;
+}
+
+ZLabel.strong-background
+{
+	background-alpha: 0.9;
+	background-color: #bff;
+	background-padding: 4;
+	background-padding-bottom: 4;
+}
+
+ZLine
+{
+	alpha: 1;
+	color: #000;
+	gradEndAlpha: 1;
+	gradStartAlpha: 1;
+	lockTintAlpha: 0;
+}
+
+ZMarker
+{
+	alpha: 0.3;
+	color: #fc0;
+}
+
+ZPoly
+{
+	borderAlpha: 1;
+	gradEndAlpha: 1;
+	gradStartAlpha: 1;
+	lockTintAlpha: 0;
+	radius: 0;
+	thickness: 100;
+}
+
+arrow
+{
+	borderColor: #7f7f7f;
+	borderThickness: 0;
+	gradEndColor: #333;
+	gradStartColor: #333;
+}
+
+background
+{
+	gradEnd: #fff;
+	gradStart: #fff;
+}
+
+circle
+{
+	borderAlpha: 1;
+	lockTintAlpha: 0.6;
+	radius: 0;
+	thickness: 100;
+}
+
+frame.bracket
+{
+	borderColor: #fff;
+	borderThickness: 0;
+	gradEndColor: #318bff;
+	gradStartColor: #318bff;
+}
+
+frame.circle
+{
+	borderColor: #fff;
+	borderThickness: 0;
+	gradEndColor: #194a99;
+	gradStartColor: #194a99;
+}
+
+frame.rectangle
+{
+	borderColor: #97f1ff;
+	borderThickness: 0;
+	gradEndColor: #318bff;
+	gradStartColor: #318bff;
+}
+
+free-line
+{
+	color: #333;
+}
+
+free-marker
+{
+	color: #00e1ff;
+}
+
+grid
+{
+	color: #ddd;
+}
+
+line
+{
+	color: #333;
+}
+
+line-arrow.style1
+{
+	color: #efefef;
+	gradEndColor: #efefef;
+	gradStartColor: #efefef;
+}
+
+line-arrow.style2
+{
+	color: #7a8082;
+	gradEndColor: #7a8082;
+	gradStartColor: #7a8082;
+}
+
+line-arrow.style3
+{
+	color: #333;
+	gradEndColor: #333;
+	gradStartColor: #333;
+}
+
+line-arrow.style4
+{
+	color: #318bff;
+	gradEndColor: #318bff;
+	gradStartColor: #318bff;
+}
+
+line-arrow.style5
+{
+	color: #194a99;
+	gradEndColor: #194a99;
+	gradStartColor: #194a99;
+}
+
+point
+{
+	alpha: .5;
+	fillColor: #40abe6;
+	radius: 8;
+}
+
+shape
+{
+	borderAlpha: 1;
+	lockTintAlpha: 0.6;
+	radius: 0;
+	thickness: 100;
+}
+
+shape.style1
+{
+	borderColor: #efefef;
+	borderThickness: 0;
+	gradEndColor: #efefef;
+	gradStartColor: #efefef;
+}
+
+shape.style2
+{
+	borderColor: #7a8082;
+	borderThickness: 0;
+	gradEndColor: #7a8082;
+	gradStartColor: #7a8082;
+}
+
+shape.style3
+{
+	borderColor: #318bff;
+	borderThickness: 0;
+	gradEndColor: #318bff;
+	gradStartColor: #318bff;
+}
+
+shape.style4
+{
+	borderColor: #194a99;
+	borderThickness: 0;
+	gradEndColor: #194a99;
+	gradStartColor: #194a99;
+}
+
+shape.style5
+{
+	borderColor: #333;
+	borderThickness: 0;
+	gradEndColor: #333;
+	gradStartColor: #333;
+}
+
+text
+{
+	padding: 1.2;
+}
+
+text.body
+{
+	color: #333;
+	fontFamily: body;
+}
+
+text.subtitle
+{
+	color: #b8b8b8;
+	fontFamily: strong;
+}
+
+text.title
+{
+	color: #000;
+	fontFamily: head;
+}
+
+]]></style>
+  <hash>f460a46</hash>
+<sync><oid>znajziownghj</oid><title>tender-presentation</title><hash>f460a46</hash></sync><config>lbjb7F6QTjzIwIqxIMXCX9iEK0knf9V/n9v7qol2r8IWjhCMHup5hhNxXFrRbjfz5GRo9vmUJ3fJBdENhvQ/uK1XSnLWix4PxVpurrBr2kAYIlw7BpARa9tjXTKNeg0h0ORveL9bBxRjtbOsMOFE/GcVtr26Miro72LTQVJXwD8iy7NwWQo5S4leucXFvqV8nWuqPGkDhBP1h7ST6y8FZO3feut6SmPpIsaRE7gdqy6aTNi/uDSa0qb3nozFor2mLyzSSD35NJVxs5VlnAubkk1a87Cl0sIPvkw0UAvU5F03ahY0TgpxxVlcBS09jVZpA32/fFEKN/MW10thyUskMw==</config></zuiprezi>
