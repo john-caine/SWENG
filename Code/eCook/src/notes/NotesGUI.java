@@ -12,6 +12,7 @@ package notes;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
+import timer.Timer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,6 +20,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
@@ -35,7 +37,7 @@ public class NotesGUI {
 	TextFileHandler handler;
 	TextArea notesBox;
 	VBox notesPanel;
-	public Timeline timeline;
+	public Timeline timelineIn, timelineOut;
 	
 	// constructor
 	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox) {
@@ -106,7 +108,8 @@ public class NotesGUI {
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
-        timeline = new Timeline();
+        timelineIn = new Timeline();
+        timelineOut = new Timeline();
         // Define an event handler to trigger when the mouse leaves the notes panel
         final EventHandler<InputEvent> mouseoutNotesPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
@@ -114,17 +117,10 @@ public class NotesGUI {
             		// hide panel
             		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
         			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-        			timeline.getKeyFrames().add(kf);
+        			timelineIn.getKeyFrames().add(kf);
                   	notesPanelVisible = false;
+                  	timelineIn.stop();
                   	//notesPanel.setDisable(true);
-                  	timerbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
-        	          	@Override
-        	              public void handle(MouseEvent mouseEvent){
-        	          		System.out.println("in");
-        	          		timeline.stop();
-        	              }
-        	         });
-                  	timeline.play();
                   	saveNotes();
             	}
             	event.consume();
@@ -142,6 +138,13 @@ public class NotesGUI {
 				}
 			}
         };
+        
+     	notesPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
+          	@Override
+              public void handle(MouseEvent mouseEvent){
+          		timelineIn.play();
+              }
+         });
         // Define an event handler to trigger when the user moves the mouse
         EventHandler<InputEvent> mouseoverLHSHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {            	
@@ -167,11 +170,10 @@ public class NotesGUI {
                     }
             		if (!notesPanelVisible) {
             			// show panel
-            			final Timeline timeline = new Timeline();
             			final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
             			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-            			timeline.getKeyFrames().add(kf);
-            			timeline.play();
+            			timelineOut.getKeyFrames().add(kf);
+            			timelineOut.play();
                     	notesPanelVisible = true;
                     	//notesPanel.setDisable(false);
             		}

@@ -48,9 +48,9 @@ public class Timer extends Task<Object>{
 	private Timeline timeLineSeconds; 
 	public HBox timerLabelBox, buttonBox;
 	private Integer timerValueSeconds = null, timerValueMinutes = null, timerValueHours = null, timerStartSeconds = 0, timerStartMinutes = 0, timerStartHours = 0;
-	public ChoiceBox numbersListSeconds;
-	protected ChoiceBox numbersListMinutes;
-	protected ChoiceBox numbersListHours; 
+	public ChoiceBox<Integer> numbersListSeconds;
+	protected ChoiceBox<Integer> numbersListMinutes;
+	protected ChoiceBox<Integer> numbersListHours; 
 	private boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
 	private TimerData timerValues;
 	private VBox timerVBox;
@@ -354,16 +354,16 @@ public class Timer extends Task<Object>{
 		 
 		//Create ListViews which are used to select the start values of the timer
 		//numbersListSeconds = new ListView<Integer>();
-		numbersListSeconds = new ChoiceBox();
-		numbersListMinutes = new ChoiceBox();
-		numbersListHours = new ChoiceBox();
+		numbersListSeconds = new ChoiceBox<Integer>(numbers);
+		numbersListMinutes = new ChoiceBox<Integer>(numbers);
+		numbersListHours = new ChoiceBox<Integer>(numbers);
 		
 		
-		// Add the numbers to each of the list
-		//numbersListSeconds.getItems().addAll(numbers);
-		numbersListSeconds.setItems(numbers);
-		numbersListMinutes.setItems(numbers);
-		numbersListHours.setItems(numbers);
+//		// Add the numbers to each of the list
+//		//numbersListSeconds.getItems().addAll(numbers);
+//		numbersListSeconds.setItems(numbers);
+//		numbersListMinutes.setItems(numbers);
+//		numbersListHours.setItems(numbers);
 		
 		numbersListSeconds.setPrefWidth(0);
 		numbersListMinutes.setPrefWidth(0);
@@ -373,12 +373,12 @@ public class Timer extends Task<Object>{
 		numbersListSeconds.setVisible(false);
 		numbersListMinutes.setVisible(false);
 		numbersListHours.setVisible(false);
+		
 		//Seconds list event handler, when number is selected sets the seconds label to the selected number, updates the startTimerValue and hides itself.
 		numbersListSeconds.getSelectionModel().selectedIndexProperty().addListener(new
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
-				timeLine.stop();
 				timerStartSeconds = new_vale.intValue();
 				if(timerStartSeconds > 9){
 					labelSeconds.setText(new_vale.toString() + " : ");

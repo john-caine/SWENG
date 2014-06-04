@@ -358,7 +358,7 @@ public class SlideShow {
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
         												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
         												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI.timeline);
+        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI.timelineIn);
 				timerList.add(continueTimer);
 				numberOfTimers ++;
 				 
@@ -633,8 +633,9 @@ public class SlideShow {
         buttons.get(5).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				notesGUI.timelineOut.play();
 				if(numberOfTimers< 4){
-						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow,notesGUI.timeline);
+						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow,notesGUI.timelineIn);
 						timerList.add(timer);
 						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
