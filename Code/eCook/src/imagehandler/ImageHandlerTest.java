@@ -33,7 +33,7 @@ public class ImageHandlerTest {
 		@Before 
 		public void SetUp() {
 			JFXPanel fxPanel = new JFXPanel();
-			reader = new XMLReader("../Resources/PWSExamplePlaylist_2.xml");
+			reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		 	images = reader.getRecipe().getSlide(3).getContent().getImages();
 		 	image_object = new ImageHandler(parent, images.get(1).getUrlName(), images.get(1).getXStart(), 
 		 									images.get(1).getYStart(),images.get(1).getWidth(),

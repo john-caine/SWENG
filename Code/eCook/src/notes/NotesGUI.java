@@ -110,14 +110,30 @@ public class NotesGUI {
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
+        
+        //Hide the Panel
         timelineIn = new Timeline();
+		final KeyValue kvIn = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
+		final KeyFrame kfIn = new KeyFrame(Duration.millis(500), kvIn);
+		timelineIn.getKeyFrames().add(kfIn);
+		
+		//Show the Panel
         timelineOut = new Timeline();
+		final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), root.getScene().getWidth()/5);
+		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+		timelineOut.getKeyFrames().add(kf);
         // Define an event handler to trigger when the mouse leaves the notes panel
         final EventHandler<InputEvent> mouseoutNotesPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
             	if (notesPanelVisible) {
             		// hide panel
+<<<<<<< HEAD
             		hidePanel(root);
+=======
+            		timelineIn.play();
+                  	notesPanelVisible = false;
+                  	//notesPanel.setDisable(true);
+>>>>>>> FETCH_HEAD
                   	saveNotes();
             	}
             	event.consume();
@@ -136,12 +152,6 @@ public class NotesGUI {
 			}
         };
         
-     	notesPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
-          	@Override
-              public void handle(MouseEvent mouseEvent){
-          		timelineIn.play();
-              }
-         });
         // Define an event handler to trigger when the user moves the mouse
         EventHandler<InputEvent> mouseoverLHSHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {            	
@@ -151,7 +161,13 @@ public class NotesGUI {
             	if (mousePosition.getX() <= 10) {
             		if (!notesPanelVisible) {
             			// show panel
+<<<<<<< HEAD
             			showPanel(root);
+=======
+            			timelineOut.play();
+                    	notesPanelVisible = true;
+                    	//notesPanel.setDisable(false);
+>>>>>>> FETCH_HEAD
             		}
             	}
                 event.consume();

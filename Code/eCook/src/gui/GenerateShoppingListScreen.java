@@ -63,32 +63,13 @@ public class GenerateShoppingListScreen {
 		
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home1.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		homeIcon = new Image(inputStream);
+		homeIcon = new Image("home1.png");
 		
 		closeBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/redx.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		closeIcon = new Image(inputStream);
-		
+		closeIcon = new Image("redx.png");
 		
 		minimiseBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/minimise.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		minimiseIcon = new Image(inputStream);
+		minimiseIcon = new Image("minimise.png");
 		
 		//Add tool tip
 		h = new Tooltip("Home");
@@ -163,7 +144,7 @@ public class GenerateShoppingListScreen {
 		// Set the background of the shopping list to a shopping list image
 		midBox.setPadding(new Insets(50, 50, 150, 150));
 		midBox.setStyle("-fx-background-color: transparent;"
-				+ "-fx-background-image: url('file:../Resources/shoppingListImage.png');"
+				+ "-fx-background-image: url('shoppingListImage.png');"
 				+ "-fx-background-position: center center;"
 				+ "-fx-background-size: contain;"
 				+ "-fx-background-repeat: repeat-y;");
@@ -184,7 +165,7 @@ public class GenerateShoppingListScreen {
 		//set the scrollpane's desgin
 		scrollPane.setId("scrollPane");
 		//shoppingListBox.setStyle("-fx-background-color: transparent;");
-		scrollPane.getStylesheets().add("file:../Resources/css.css");
+		scrollPane.getStylesheets().add("css.css");
 		
 		// set up the new item field
 		newItem = new TextField();
@@ -244,15 +225,15 @@ public class GenerateShoppingListScreen {
 		printBtn.setId("printBtn");
 		editBtn.setId("editBtn");
 		addBtn.setId("addBtn");
-		saveBtn.getStylesheets().add("file:../Resources/css.css");
-		printBtn.getStylesheets().add("file:../Resources/css.css");
-		editBtn.getStylesheets().add("file:../Resources/css.css");
-		addBtn.getStylesheets().add("file:../Resources/css.css");
+		saveBtn.getStylesheets().add("css.css");
+		printBtn.getStylesheets().add("css.css");
+		editBtn.getStylesheets().add("css.css");
+		addBtn.getStylesheets().add("css.css");
 		
 		// set up the status bar
 		statusBar = new Label("");
 		statusBar.setId("statusBar");
-		statusBar.getStylesheets().add("file:../Resources/css.css");
+		statusBar.getStylesheets().add("css.css");
 		
 		// populate the shopping list display
 		getShoppingList(inEditMode);
@@ -337,7 +318,7 @@ public class GenerateShoppingListScreen {
 		// Set the Css file for shoppingListLabel
 		Label shoppingListLabel = new Label("Shopping List");
 		shoppingListLabel.setId("shoppingListLabel");
-		shoppingListLabel.getStylesheets().add("file:../Resources/css.css");
+		shoppingListLabel.getStylesheets().add("css.css");
 		
 		midBox.setAlignment(Pos.CENTER);
 		HBox buttonBar = new HBox(20);
@@ -379,14 +360,14 @@ public class GenerateShoppingListScreen {
 					if (inEditMode) {
 						CheckBox box = checkboxes[i] = new CheckBox(shoppingList.get(i));
 						box.setId("box");
-						box.getStylesheets().add("file:../Resources/css.css");
+						box.getStylesheets().add("css.css");
 						box.setSelected(true);
 						shoppingListBox.getChildren().add(checkboxes[i]);
 					}
 					else {
 						Label item = new Label(shoppingList.get(i));
 						item.setId("item");
-						item.getStylesheets().add("file:../Resources/css.css");
+						item.getStylesheets().add("css.css");
 						shoppingListBox.getChildren().add(item);
 					}
 				}

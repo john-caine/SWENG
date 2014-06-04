@@ -44,7 +44,7 @@ public class SlideShowTest {
 		
 		stage = new Stage();
 		// don't need to send a recipe collection for this test (use null)
-		slideShow = new SlideShow(stage, "../Resources/Recipe_Example.xml", null);
+		slideShow = new SlideShow(stage, "Recipe_Example.xml", null);
 		
 	}
 	

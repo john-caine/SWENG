@@ -39,7 +39,7 @@ public class MediaControlTest {
 	
 	@Before
 	public void setup() throws AWTException {
-		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
+		reader = new XMLReader("PWSExamplePlaylist_4.xml");
 		videoList = reader.getRecipe().getSlide(4).getContent().getVideos();
 		/* Call the videoHandler class to create a videoplayer based on certain attributes */
 		videoPlayerHandler = new VideoPlayerHandler(parent,videoList.get(0).getUrlName(), videoList.get(0).getXStart(), 

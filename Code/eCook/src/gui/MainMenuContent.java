@@ -6,10 +6,6 @@
 
 package gui;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import eCook.RecipeCollection;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -38,7 +34,6 @@ public class MainMenuContent {
 	private HBox topBox, topBoxRight, topBoxLeft;
 	private HBox midBox;
 	private HBox bottomBox;
-	private InputStream inputStream;
 	private ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
 	private Image homeIcon;
 	private Image logoIcon, closeIcon, minimiseIcon;	
@@ -56,41 +51,17 @@ public class MainMenuContent {
 		
 		
 		//Imports eCook logo, home, close and minimise button icons and set tootips
-		logoholder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/logo_board.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		logoIcon = new Image(inputStream);
+		logoholder = new ImageView();	
+		logoIcon = new Image("logo_board.png");
 		
 		homeHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home1.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		homeIcon = new Image(inputStream);
+		homeIcon = new Image("home1.png");
 		
 		closeBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/redx.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		closeIcon = new Image(inputStream);
+		closeIcon = new Image("redx.png");
 		
 		minimiseBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/minimise.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		minimiseIcon = new Image(inputStream);
+		minimiseIcon = new Image("minimise.png");
 		
 		//Add tool tip
 		h = new Tooltip("Home");
@@ -168,7 +139,7 @@ public class MainMenuContent {
 		// bigBox.setMaxSize(width, height+100);
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('file:../Resources/background.png');");
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('background.png');");
 		// bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-color: lightGrey;");
 		
 		//Sets size and location parameters for the midBox and bottomBox
@@ -199,10 +170,10 @@ public class MainMenuContent {
 		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
 		
 		//adding the stylesheet to each of the buttons
-		loadExtBtn.getStylesheets().add("file:../Resources/css.css");
-		generateListBtn.getStylesheets().add("file:../Resources/css.css");
-		ingredientsPickBtn.getStylesheets().add("file:../Resources/css.css");
-		recipesBtn.getStylesheets().add("file:../Resources/css.css");
+		loadExtBtn.getStylesheets().add("css.css");
+		generateListBtn.getStylesheets().add("css.css");
+		ingredientsPickBtn.getStylesheets().add("css.css");
+		recipesBtn.getStylesheets().add("css.css");
 
 		//Set tool tip
 		loadExtBtn.setTooltip(new Tooltip("Click here to load external recipes form the internet or locally"));
