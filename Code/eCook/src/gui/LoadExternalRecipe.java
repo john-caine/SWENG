@@ -88,7 +88,7 @@ public class LoadExternalRecipe {
 		downloadBtn.setWrapText(true);
 		downloadBtn.setPrefSize(228, 228);
 		downloadBtn.setId("urlBtn");
-		downloadBtn.getStylesheets().add("file:../Resources/css.css");
+		downloadBtn.getStylesheets().add("css.css");
 		downloadBtn.setWrapText(true);
 		downloadBtn.setAlignment(Pos.CENTER);
 		downloadBtn.setTextAlignment(TextAlignment.CENTER);
@@ -112,7 +112,7 @@ public class LoadExternalRecipe {
 		fileBrowserBtn.setWrapText(true);
 		fileBrowserBtn.setPrefSize(228, 228);
 		fileBrowserBtn.setId("fileBrowserBtn");
-		fileBrowserBtn.getStylesheets().add("file:../Resources/css.css");
+		fileBrowserBtn.getStylesheets().add("css.css");
 		fileBrowserBtn.setWrapText(true);
 		fileBrowserBtn.setAlignment(Pos.CENTER);
 		fileBrowserBtn.setTextAlignment(TextAlignment.CENTER);
@@ -157,7 +157,7 @@ public class LoadExternalRecipe {
 		httpField = new TextField();
 		httpField.setText("http://");
 		httpField.setId("httpField");
-		httpField.getStylesheets().add("file:../Resources/css.css");
+		httpField.getStylesheets().add("css.css");
 		httpField.setPrefSize(285, 30);
 		// Add tool tip
 		Tooltip URL = new Tooltip("Link must end in .XML");
@@ -196,7 +196,7 @@ public class LoadExternalRecipe {
 		getFromURLBtn.setDisable(true);
 		getFromURLBtn.setPrefSize(150, 30);
 		getFromURLBtn.setId("directUrlBtn");
-		getFromURLBtn.getStylesheets().add("file:../Resources/css.css");
+		getFromURLBtn.getStylesheets().add("css.css");
 		getFromURLBtn.setWrapText(true);
 		getFromURLBtn.setAlignment(Pos.CENTER);
 		getFromURLBtn.setTextAlignment(TextAlignment.CENTER);
@@ -264,13 +264,7 @@ public class LoadExternalRecipe {
 		// to the
 		// GUI specifications
 		ImageView loadExtWinCloseBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/redx.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		Image closeIcon = new Image(inputStream);
+		Image closeIcon = new Image("redx.png");
 		Tooltip c = new Tooltip("Close");
 		Tooltip.install(loadExtWinCloseBtnHolder, c);
 		// Creates and adds close button to top Box
@@ -293,7 +287,7 @@ public class LoadExternalRecipe {
 
 		loadExtBox = new VBox(20);
 		loadExtBox
-				.setStyle("-fx-background-color: transparent;  -fx-background-image: url('file:../Resources/fullBackground.png'); -fx-background-position: center center; -fx-background-size: contain; -fx-background-repeat: no-repeat;");
+				.setStyle("-fx-background-color: transparent;  -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: contain; -fx-background-repeat: no-repeat;");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);

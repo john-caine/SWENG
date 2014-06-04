@@ -1,0 +1,134 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>Jim Dee</author>
+		<version>1.1</version>
+    <title>Pea Soup</title>
+		<comment>The reader should remember that seasonal produce will make the best soups. More often than not, local produce is better than foreign alternatives, particularly with short season vegetables. I had the misfortune to try Peruvian asparagus in the middle of September last year, and it is not a product I will endorse here. Nearly every recipe here will require vegetable oil, salt and pepper, so they are omitted from the ingredients list. I recommend Maldon salt, which is widely available, and to my mind is one of the best salts in the world. 
+		
+		Cooking Time: x mins 	
+		Preparation Time: x mins 	
+		Average Cost = £x 	
+		Suitable for vegetarians.
+		</comment>
+		
+		<width>1000</width>
+		<height>800</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#FFFFFF</backgroundcolor>
+		<font>Helvetica Neue Thin</font>
+		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
+		<fontcolor>#000000</fontcolor>
+		<fillcolor>#CCCCCC</fillcolor>
+	</defaults>
+	<ingredients>
+		<ingredient name="frozen peas" amount="500" units="grams" />
+		<ingredient name="butter" amount="25" units="grams" />
+		<ingredient name="mint leaves" amount="1" units="handful" />
+		<ingredient name="vegetable oil" amount="200" units="ml" />
+	</ingredients>
+
+	<slide id="0" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Pea Soup</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This is one of the simplest recipes for soup. It’s great hot- perhaps served with some crispy pancetta, but works equally well chilled and served with mint oil. 
+Please click 'Next' or press the right arrow key to begin.</textstring>
+      			</textbody>
+		</text>
+		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="200" width="800" height="533" layer="1" />		
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+
+	<slide id="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step One</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Make the mint oil in advance. Reserve the smallest mint leaves then blend the oil and the rest of the mint together, until thoroughly mixed. Leave for a few hours, or ideally overnight in the fridge.    </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="150" ystart="550" xend="1000" yend="475" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Strain the oil through muslin cloth into a container (a plastic squeeze bottle works well). Keep refrigerated.</textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="200" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="200" width="475" height="316" layer="2" />		
+			
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Two</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>First put a large bowl or saucepan in the freezer. Bring a pan of lightly salted water to the boil, then add the peas and cook for 3 or 4 minutes until tender.  </textstring>
+      			</textbody>
+		</text>     
+		<text xstart="15" ystart="600" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
+			<textbody underlined="false" bold="false" italic="false">
+				<textstring>Strain the peas, reserving the cooking liquid.  </textstring>
+      			</textbody>
+		</text>		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="175" width="600" height="400" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="175" width="600" height="400" layer="2" />		
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Three</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>Blend the peas with the best equipment available to you, adding the butter and enough of the cooking liquid to attain a smooth, velvety soup. Pass through a fine sieve then check the seasoning, adding salt and pepper to taste.  </textstring>
+      			</textbody>
+        </text>
+        <text xstart="650" ystart="500" xend="1200" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>Pour the soup into the frozen bowl or saucepan, and chill immediately. The faster the soup is chilled, the better it will retain its colour.  </textstring>
+      			</textbody>
+        </text>
+        
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+					
+	</slide>
+
+	
+	<slide id="4" duration="30" lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Eat</textstring>
+      			</textbody>
+		</text>
+		<text xstart="100" ystart="650" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
+			<textbody >
+        		<textstring>To serve, ladle the chilled soup into bowls and drizzle with a little mint oil, garnishing with the remaining small mint sprigs.</textstring>
+      			</textbody>
+		</text> 
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="200" ystart="70" width="850" height="566" layer="7" />			
+		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+</slideshow>

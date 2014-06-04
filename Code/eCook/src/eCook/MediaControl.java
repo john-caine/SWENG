@@ -150,13 +150,13 @@ public abstract class MediaControl {
 			
 	    try {
 	    	// Get and load images for buttons on MediaControl bar.
-			inputStream = new FileInputStream("../Resources/play.png");
+			inputStream = new FileInputStream("play.png");
 			playImage = new Image(inputStream);
-			inputStream = new FileInputStream("../Resources/pause.png");
+			inputStream = new FileInputStream("pause.png");
 			pauseImage = new Image(inputStream);
-			inputStream = new FileInputStream("../Resources/stop.png");
+			inputStream = new FileInputStream("stop.png");
 			stopImage = new Image(inputStream);
-			inputStream = new FileInputStream("../Resources/fullscreen.png");
+			inputStream = new FileInputStream("fullscreen.png");
 			fullscreenImage = new Image(inputStream);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block

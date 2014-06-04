@@ -51,32 +51,13 @@ public class IngredientsScreen {
 		this.width = width;
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/home1.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		homeIcon = new Image(inputStream);
+		homeIcon = new Image("home1.png");
 		
 		closeBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/redx.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		closeIcon = new Image(inputStream);
-		
+		closeIcon = new Image("redx.png");
 		
 		minimiseBtnHolder = new ImageView();
-		try {
-			inputStream = new FileInputStream("../Resources/minimise.png");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		minimiseIcon = new Image(inputStream);
+		minimiseIcon = new Image("minimise.png");
 		
 		//Add tool tip
 		h = new Tooltip("Home");
@@ -157,7 +138,7 @@ public class IngredientsScreen {
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
 		listOfRecipes.setStyle("-fx-border-color:black;");
-		listOfRecipes.getStylesheets().add("file:../Resources/css.css");
+		listOfRecipes.getStylesheets().add("css.css");
 		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -197,7 +178,7 @@ public class IngredientsScreen {
 		
 		Label recipesLabel = new Label("Recipes:");
 		recipesLabel.setId("recipesLabel");
-		recipesLabel.getStylesheets().add("file:../Resources/css.css");
+		recipesLabel.getStylesheets().add("css.css");
 		
 		// add content to the main boxes
 		midBoxLeft.getChildren().addAll(recipesLabel, listOfRecipes);
@@ -225,13 +206,13 @@ public class IngredientsScreen {
 		
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
-		authorLabel.getStylesheets().add("file:../Resources/css.css");
+		authorLabel.getStylesheets().add("css.css");
 		versionLabel.setWrapText(true);
 		versionLabel.setId("versionLabel");
-		versionLabel.getStylesheets().add("file:../Resources/css.css");
+		versionLabel.getStylesheets().add("css.css");
 		commentLabel.setWrapText(true);
 		commentLabel.setId("commentLabel");
-		commentLabel.getStylesheets().add("file:../Resources/css.css");
+		commentLabel.getStylesheets().add("css.css");
 		
 		// remove old labels
 		recipeInfoBox.getChildren().clear();
@@ -253,11 +234,11 @@ public class IngredientsScreen {
 		
 		Label recipeInformationLabel = new Label("Recipe Information:");
 		recipeInformationLabel.setId("recipeInformationLabel");
-		recipeInformationLabel.getStylesheets().add("file:../Resources/css.css");
+		recipeInformationLabel.getStylesheets().add("css.css");
 		
 		Label ingredientsLabel = new Label("Ingredients:");
 		ingredientsLabel.setId("ingredientsLabel");
-		ingredientsLabel.getStylesheets().add("file:../Resources/css.css");
+		ingredientsLabel.getStylesheets().add("css.css");
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();
 		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, ingredientsList);
