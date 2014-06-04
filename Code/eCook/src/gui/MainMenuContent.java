@@ -168,7 +168,7 @@ public class MainMenuContent {
 		// bigBox.setMaxSize(width, height+100);
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('file:../Resources/Chopping_Bak.jpg');");
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('file:../Resources/background.png');");
 		// bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-color: lightGrey;");
 		
 		//Sets size and location parameters for the midBox and bottomBox
@@ -181,7 +181,7 @@ public class MainMenuContent {
 		Button loadExtBtn = new Button("");
 		Button generateListBtn = new Button("");
 		Button ingredientsPickBtn = new Button("");
-		Button recipesBtn= new Button("Recipes");
+		Button recipesBtn= new Button("");
 		
 		//Defining the CSS Identifiers
 		loadExtBtn.setId("loadExtBtn");
