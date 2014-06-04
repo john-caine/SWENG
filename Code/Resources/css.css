@@ -1,8 +1,3 @@
-/*
-*
-*	Buttons for the main menu
-*
-*/
 #loadExtBtn {
 	/* Text */
 	-fx-font-size: 20px;
@@ -16,9 +11,13 @@
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
+
+
 #loadExtBtn:hover {
 	-fx-opacity: 0.75;
 }
+
+
 #generateListBtn {
 	/* Text */
 	-fx-font-size: 20px;
@@ -32,9 +31,13 @@
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
+
+
 #generateListBtn:hover {
 	-fx-opacity: 0.75;
 }
+
+
 #ingredientsPickBtn {
 	/* Text */
 	-fx-font-size: 20px;
@@ -66,47 +69,51 @@
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
+
 #recipesBtn:hover {
 	-fx-opacity: 0.75;
 }
-/*
-*
-*
-*
-*/
+
 #fileBrowserBtn {
-	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	/*Background*/
-	-fx-background-color: transparent;
-	-fx-background-image: url('open_big.png');
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 650 500;
 	-fx-background-position: center center; 
-	-fx-background-size: contain;
-	-fx-background-repeat: no-repeat;	
+	-fx-background-image: url('open_big.png');	
 }
 
 #fileBrowserBtn:hover {
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
+
 }
 
 #urlBtn {
-	/* Text */
 	-fx-font-size: 20px;
 	-fx-font-family: "Century Gothic";
 	-fx-font-weight: bold;
-	/*Background*/
-	-fx-background-color: transparent;
-	-fx-background-image: url('net_big.png');
-	-fx-background-position: center center; 
-	-fx-background-size: contain;
-	-fx-background-repeat: no-repeat;	
+	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    	-fx-background-radius: 8;
+	-fx-border-color: rgb(00, 00, 00);
+    	-fx-border-radius: 5;
+    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
+	-fx-background-size: 650 450;
+	-fx-background-position: center center;
+	-fx-background-image: url('net_big.png');		
 }
 
 
 #urlBtn:hover {
-	-fx-opacity: 0.75;
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;;
+	-fx-opacity: 0.5;
 
 }
 
@@ -576,6 +583,10 @@
 	-fx-background-repeat: no-repeat;
 }
 
+#SlidePauseBtn:hover{
+	-fx-opacity: 0.75;
+}
+
 #SlidePrevBtn{
 	/* Text */
 	-fx-font-size: 20px;
@@ -587,6 +598,10 @@
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
+}
+
+#SlidePrevBtn:hover{
+	-fx-opacity: 0.75;
 }
 
 #SlideNextBtn{
@@ -602,6 +617,10 @@
 	-fx-background-repeat: no-repeat;
 }
 
+#SlideNextBtn:hover{
+	-fx-opacity: 0.75;
+}
+
 #SlideExitBtn{
 	/* Text */
 	-fx-font-size: 20px;
@@ -613,6 +632,10 @@
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
+}
+
+#SlideExitBtn:hover{
+	-fx-opacity: 0.75;
 }
 
 #SlideTimeBtn{
@@ -628,6 +651,10 @@
 	-fx-background-repeat: no-repeat;
 }
 
+#SlideTimeBtn:hover{
+	-fx-opacity: 0.75;
+}
+
 #SlidePlayBtn{
 	/* Text */
 	-fx-font-size: 20px;
@@ -639,6 +666,10 @@
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
+}
+
+#SlidePlayBtn:hover{
+	-fx-opacity: 0.75;
 }	
 
 .text-area {
