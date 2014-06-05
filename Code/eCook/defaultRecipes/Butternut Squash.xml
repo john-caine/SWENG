@@ -11,8 +11,8 @@
 		Average Cost = £2 	
 		Suitable for vegetarians.
 		</comment>
-		<width>1000</width>
-		<height>800</height>
+		<width>1440</width>
+		<height>900</height>
 	</documentinfo>
 	<defaults>
 		<backgroundcolor>#FFFFFF</backgroundcolor>
@@ -41,7 +41,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		</text>
 		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="200" width="800" height="533" layer="1" />	
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -64,7 +64,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_3.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -78,7 +78,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Chop the flesh into 1cm dice and toss in a tablespoon of vegetable oil along with a few pinches of salt. Roast in the oven at gas mark 6 for 20-30 minutes, until lightly coloured and cooked through.  </textstring>
       			</textbody>
 		</text>     
-		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
+		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
 				<textstring>Meanwhile, add cold water to the trimmings and bring to the boil.</textstring>
       			</textbody>
@@ -86,7 +86,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -108,7 +108,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -132,7 +132,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -150,7 +150,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 			
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_11.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_12.jpg" xstart="650" ystart="250" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="6" duration="30" lastSlide="true">
@@ -165,7 +165,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>

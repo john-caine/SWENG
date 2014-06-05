@@ -1,3 +1,0 @@
-This is what should be stored in the txt file
-New Line	tabbed
-Return

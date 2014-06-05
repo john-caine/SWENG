@@ -4,10 +4,9 @@ import graphicshandler.GraphicsHandler;
 import imagehandler.ImageHandler;
 
 import java.util.ArrayList;
-
-import audiohandler.AudioHandler;
-import texthandler.TextHandler;
+import media.TextHandler;
 import videohandler.VideoPlayerHandler;
+import audiohandler.AudioHandler;
 
 public class HandlerCollection {
 	

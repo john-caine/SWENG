@@ -30,7 +30,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+<<<<<<< HEAD
+import javafx.scene.layout.Background;
+=======
 import javafx.scene.input.MouseEvent;
+>>>>>>> FETCH_HEAD
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -68,7 +72,7 @@ public class SlideShow {
 	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	private ArrayList<GraphicHandler> graphicsHandlerList;
 	private VBox notesPanel;
-	private HBox controlPanel;
+	private VBox bottomPanel;
 	private Timeline timeLineDuration;
 	private Stage stage;
 	static Logger logger;
@@ -76,7 +80,7 @@ public class SlideShow {
 	private XMLValidator validator;
 	String backGroundColor;
 	boolean onEndPage = false;
-	boolean controlPanelShowing = false;
+	boolean bottomPanelShowing = false;
 	boolean notesPanelShowing = false;
 	private int numberOfTimers = 0;
 	private SlideShow slideShow = this;
@@ -158,7 +162,7 @@ public class SlideShow {
 			notesPanelShowing = notesGUI.getNotesPanelVisible();
 		}
 		if (slideControls != null) {
-			controlPanelShowing = slideControls.getcontrolPanelVisible();
+			bottomPanelShowing = slideControls.getBottomPanelVisible();
 		}
 		
 		// Clear the current objects on the slide
@@ -341,14 +345,32 @@ public class SlideShow {
 	 	notesPanel = notesGUI.getNotesPanel();
 	 	slideRoot.getChildren().add(notesPanel);
 	 	notesPanel.setLayoutX(-slideScene.getWidth()/5);
-	 	notesPanel.setLayoutY(0);		
+	 	notesPanel.setLayoutY(0);
+	 	
+	 	// Add the audio control bar if required
+	 	 HBox audioBox = null;
+
+	 	if (audioCount != 0) {
+	 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
+	 		audioBox = audioBar.getControlBar();
+	 	}
 		
 		// create a controls panel each time new slide is called
-		slideControls = new SlideControls(slideRoot, controlPanelShowing);
-		controlPanel = slideControls.getControlPanel();
-		slideRoot.getChildren().add(controlPanel);
-	    controlPanel.setLayoutY(slideScene.getHeight());
-		controlPanel.setLayoutX(0);
+		slideControls = new SlideControls(slideRoot, bottomPanelShowing, audioBox);
+		bottomPanel = slideControls.getBottomPanel();
+		
+		// set the size of the control panel: bigger if audioBar needs to be displayed
+		if (audioCount == 0) {
+			bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/8);
+		}
+		else {
+			bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/5);
+		}
+		
+		slideRoot.getChildren().add(bottomPanel);
+		bottomPanel.setLayoutX(0);
+		bottomPanel.setLayoutY(slideScene.getHeight());
+		
 		// set up the control panel buttons
 		configureButtons(slideControls.getButtons());
 		
@@ -363,6 +385,7 @@ public class SlideShow {
         numberOfTimers = 0;
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
+        	numberOfTimers = 0;
         	for(int l = 0; l < currentTimerValues.size(); l++){
         		
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
@@ -376,11 +399,11 @@ public class SlideShow {
 					
 					@Override
 					public void handle(WorkerStateEvent event) {		
-						getTimerbox().getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
+						timerbox.getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
 					}
 				});
 				new Thread(continueTimer).start();
-				}
+			}
         }
         
       //Create duration timeline
@@ -645,9 +668,8 @@ public class SlideShow {
 			public void handle(ActionEvent arg0) {
 				notesGUI.showPanel(slideRoot);
 				if(numberOfTimers< 4){
-						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
 						timerList.add(timer);
-						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 							
 							@Override
@@ -655,13 +677,13 @@ public class SlideShow {
 								
 								Platform.runLater( new Runnable(){
 									public void run(){
-										getTimerbox().getChildren().add(timer.getTimerID(), timer.getPane());
+										timerbox.getChildren().add(timer.getTimerID(), timer.getPane());
 										numberOfTimers ++;
 									}
 								});	 									
 							}
 						});
-						new Thread(timer).start();	
+					new Thread(timer).start();	
 				}
 			}
         });

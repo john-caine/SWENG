@@ -16,9 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>resources</name>
+			<name>Resources</name>
 			<type>2</type>
-			<location>C:/Users/Max/SWEng Project/SWENG/Code/Resources</location>
+			<location>../Resources</location>
 		</link>
 	</linkedResources>
 </projectDescription>

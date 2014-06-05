@@ -12,8 +12,8 @@
 		Not suitable for vegetarians.
 		</comment>
 		
-		<width>1000</width>
-		<height>800</height>
+		<width>1440</width>
+		<height>900</height>
 	</documentinfo>
 	<defaults>
 		<backgroundcolor>#FFFFFF</backgroundcolor>
@@ -50,7 +50,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		</text>
 		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="250" width="800" height="533" layer="1" />	
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -60,20 +60,20 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		<text xstart="15" ystart="70" xend="1000" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Heat a little oil in a pan over a medium heat, and add the onion. Season with salt, and cook until softened but not coloured.  </textstring>
+			<textbody underlined="false" bold="false" italic="false" branch="7">
+        		<textstring>Heat a little oil in a pan over a medium heat, and add the peeled and diced onion. Season with salt, and cook until softened but not coloured.  </textstring>
       			</textbody>
 		</text>  
 		<text xstart="150" ystart="550" xend="550" yend="470" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Add the carrot, garlic and thyme then continue to cook for 5 minutes.</textstring>
+        		<textstring>Peel and finely dice the carrot and garlic. Add to the pan with the thyme, then continue to cook for 5 minutes.</textstring>
       			</textbody>
 		</text>     		
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_3.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -87,7 +87,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Heat a frying pan over medium high heat. Peel the chorizo of its papery casing, then cut two thirds of it into 1cm thick rounds. Cook these in a small amount of oil in the frying pan for 5-6 minutes, turning frequently to avoid burning.  </textstring>
       			</textbody>
 		</text>     
-		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
+		<text xstart="15" ystart="650" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
 				<textstring>Add the entire contents of the pan to the vegetable mixture (including any fat which has come out of the chorizo).</textstring>
       			</textbody>
@@ -95,7 +95,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="200" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -111,13 +111,13 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         </text>
         <text xstart="650" ystart="550" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
 			<textbody >
-        		<textstring>Wash and dry the seeds, and lightly toast in a dry pan. </textstring>
+        		<textstring>Now add the chopped tomatoes and the chicken stock, as well as the sugar. Turn the heat to low, and simmer uncovered.  </textstring>
       			</textbody>
         </text>
         
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -129,7 +129,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		</text>
 		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Now add the chopped tomatoes and the chicken stock, as well as the sugar. Turn the heat to low, and simmer uncovered. After 15-20 minutes, check a piece of chorizo. It should be tender and easy to break apart, if not return the pan to the heat for another 10 minutes.</textstring>
+        		<textstring>After 15-20 minutes, check a piece of chorizo. It should be tender and easy to break apart, if not return the pan to the heat for another 10 minutes.</textstring>
       			</textbody>
 		</text>  
 		<text xstart="100" ystart="550" xend="900" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
@@ -141,7 +141,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="20" ystart="220" width="400" height="267" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="440" ystart="220" width="400" height="267" layer="2" />		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="860" ystart="220" width="400" height="267" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -163,10 +163,10 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		</text>	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_11.jpg" xstart="15" ystart="200" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_12.jpg" xstart="650" ystart="350" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
-	<slide id="6" duration="30" lastSlide="true">
+	<slide id="6" duration="30" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Eat.</textstring>
@@ -178,7 +178,22 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+	
+	<slide id="7"  lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Onion video.</textstring>
+      			</textbody>
+		</text>
+		<text xstart="300" ystart="650" xend="1050" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
+			<textbody >
+        		<textstring>Press 'Back' to return to previous slide.</textstring>
+      			</textbody>
+		</text>
+		<video urlname="file:../Resources/Product Content/Chopping an Onion.mov" xstart="100" ystart="67" width="800" height="533" loop="true" />			
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>
