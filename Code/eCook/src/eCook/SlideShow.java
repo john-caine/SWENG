@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import notes.NotesGUI;
-import audiohandler.AudioHandler;
+import media.AudioHandler;
 import media.GraphicHandler;
 import media.ImageHandler;
 import javafx.animation.KeyFrame;
@@ -30,7 +30,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -262,6 +261,8 @@ public class SlideShow {
 				
 				textHandlerList.add(text1);
 				
+				System.out.println(text.get(i).getBranch());
+				
 				Integer textLayer = text.get(i).getLayer();
 				if (textLayer == null){
 					textLayer = 0;
@@ -278,7 +279,6 @@ public class SlideShow {
 														audio.get(i).getDuration(), audio.get(i).getLoop());
 				
 				audioHandlerList.add(audio1);
-				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
 			}
 		}
 		videoHandlerList = new ArrayList<VideoPlayerHandler>();
@@ -509,7 +509,7 @@ public class SlideShow {
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).mediaControl.mp.dispose();
+	    			audioHandlerList.get(h).tearDown();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -530,7 +530,7 @@ public class SlideShow {
             	}
             	
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).mediaControl.mp.dispose();
+	    			audioHandlerList.get(h).tearDown();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -558,7 +558,7 @@ public class SlideShow {
             		timerValues.add(timerList.get(g).getTimerValues());            		 
             	}
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).mediaControl.mp.dispose();
+            		audioHandlerList.get(h).tearDown();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -590,7 +590,7 @@ public class SlideShow {
             		timerValues.add(timerList.get(g).getTimerValues());            		 
             	}
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).mediaControl.mp.dispose();
+            		audioHandlerList.get(h).tearDown();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -623,7 +623,7 @@ public class SlideShow {
             	}
             	
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).mediaControl.mp.dispose();
+	    			audioHandlerList.get(h).tearDown();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
             		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -688,7 +688,7 @@ public class SlideShow {
 						graphicsHandlerList.get(r).pauseDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
-						audioHandlerList.get(r).mediaControl.pauseStartTime();
+						audioHandlerList.get(r).pauseStartTimeTimeLine();
 					}
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
@@ -712,7 +712,7 @@ public class SlideShow {
 						graphicsHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
-						audioHandlerList.get(r).mediaControl.resumeStartTime();
+						audioHandlerList.get(r).resumeStartTimeTimeLine();
 					}
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
@@ -729,7 +729,7 @@ public class SlideShow {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).mediaControl.mp.dispose();
+		    			audioHandlerList.get(h).tearDown();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
 	            		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -748,7 +748,7 @@ public class SlideShow {
 		    	else if (event.getCode() == KeyCode.LEFT) {	    		
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).mediaControl.mp.dispose();
+		    			audioHandlerList.get(h).tearDown();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
 	            		videoHandlerList.get(i).mediaControl.mp.dispose();
@@ -775,7 +775,7 @@ public class SlideShow {
 		    	else if (event.getCode() == KeyCode.ESCAPE) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).mediaControl.mp.dispose();
+		    			audioHandlerList.get(h).tearDown();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
 	            		videoHandlerList.get(i).mediaControl.mp.dispose();

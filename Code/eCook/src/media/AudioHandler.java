@@ -2,8 +2,9 @@ package media;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.util.Duration;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -15,9 +16,12 @@ public class AudioHandler extends SlideMedia{
 	private Media audio;
 	private MediaPlayer mediaPlayer;
 	private Logger logger;
+	private String pathLocation;
+	private Duration currentTime;
 
 	public AudioHandler(SlideShow parent, String pathLocation, Integer startTime, Integer duration, Boolean loop){
 		super(0, 0, startTime);
+		this.pathLocation = pathLocation;
 		
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -37,8 +41,49 @@ public class AudioHandler extends SlideMedia{
 		
 		mediaPlayer.setVolume(1.0);
 		
+		mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+
+			
+
+			@Override
+			public void changed(ObservableValue<? extends Duration> observableValue,
+					Duration duration, Duration current) {
+				currentTime = mediaPlayer.getCurrentTime();
+				
+			}
+			
+		});
+		
 		setTimingValues();
 		
+	}
+	
+	public void pauseAudio(){
+		mediaPlayer.pause();
+		logger.log(Level.INFO, "Paused Audio");
+	}
+	
+	public void stopAudio(){
+		mediaPlayer.stop();
+	}
+	
+	public void setVolume(double volume){
+		if(volume >= 0 && volume <= 1.0){
+			mediaPlayer.setVolume(volume);
+		}
+	}
+	public void resumeAudio(){
+		mediaPlayer.play();
+		logger.log(Level.INFO, "Resumed Audio");
+		
+	}
+	
+	public Duration getCurrentTime(){
+		return currentTime;
+	}
+	
+	public String getAudioFileName(){
+		return pathLocation;
 	}
 
 	protected void setTimeLineOnFinish() {
