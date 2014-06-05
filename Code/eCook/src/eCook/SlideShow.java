@@ -1,5 +1,5 @@
 /*
- * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra
+ * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra & Roger Tan
  * Date Created: 14/03/2014
  * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
  * 
@@ -379,29 +379,7 @@ public class SlideShow {
         
         //slideRoot.getChildren().add(getTimerHbox());
         timerList = new ArrayList<Timer>();
-        numberOfTimers = 0;
-        //If timers were present on previous slide create new timers and resume from saved position
-        if(currentTimerValues != null){
-        	numberOfTimers = 0;
-        	for(int l = 0; l < currentTimerValues.size(); l++){
-        		
-        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
-        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
-        												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
-				timerList.add(continueTimer);
-				numberOfTimers ++;
-				 
-				continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
-					
-					@Override
-					public void handle(WorkerStateEvent event) {		
-						timerbox.getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
-					}
-				});
-				new Thread(continueTimer).start();
-			}
-        }
+        resumeTimer(currentTimerValues);
         
       //Create duration timeline
       	timeLineDuration = new Timeline();
@@ -748,6 +726,12 @@ public class SlideShow {
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		timeLineDuration.stop();
+	            	timerValues = new ArrayList<TimerData>();
+	            	for(int g = 0; g<timerList.size(); g++){            		
+	            		timerList.get(g).cancel();
+	            		 timerValues.add(timerList.get(g).getTimerValues());             		 
+	            	}
+	     
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
 		    			audioHandlerList.get(h).tearDown();
 	            	}
@@ -767,6 +751,11 @@ public class SlideShow {
 		    	}
 		    	else if (event.getCode() == KeyCode.LEFT) {	    		
 		    		timeLineDuration.stop();
+	            	timerValues = new ArrayList<TimerData>();
+	            	for(int g = 0; g<timerList.size(); g++){            		
+	            		timerList.get(g).cancel();
+	            		 timerValues.add(timerList.get(g).getTimerValues());             		 
+	            	}
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
 		    			audioHandlerList.get(h).tearDown();
 	            	}
@@ -846,6 +835,31 @@ public class SlideShow {
 	public ArrayList<TimerData> getTimerData(){
 		return timerValues;
 	}
-
+	
+	public void resumeTimer(ArrayList<TimerData> currentTimerValues){
+		   numberOfTimers = 0;
+	        //If timers were present on previous slide create new timers and resume from saved position
+	        if(currentTimerValues != null){
+	        	numberOfTimers = 0;
+	        	for(int l = 0; l < currentTimerValues.size(); l++){
+	        		
+	        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
+	        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
+	        												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
+	        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
+					timerList.add(continueTimer);
+					numberOfTimers ++;
+					 
+					continueTimer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+						
+						@Override
+						public void handle(WorkerStateEvent event) {		
+							timerbox.getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
+						}
+					});
+					new Thread(continueTimer).start();
+				}
+	        }
+	}
 	
 }
