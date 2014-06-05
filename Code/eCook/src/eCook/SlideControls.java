@@ -91,7 +91,7 @@ public class SlideControls {
         // set up the bottom panel VBox
         bottomPanel = new VBox();
         bottomPanel.setPrefSize(root.getScene().getWidth(), panelHeight);
-        bottomPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
+        bottomPanel.setStyle("-fx-background-color: rgba(255,255,255,0.9);");
         
         // Set up the controls panel at the bottom of the screen
         controlPanel = new HBox();
