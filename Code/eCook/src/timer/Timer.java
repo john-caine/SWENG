@@ -40,7 +40,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
@@ -110,6 +111,7 @@ public class Timer extends Task<Object>{
 	protected Object call() throws Exception {
 		textFieldBox = new Pane();
 		timerLabelBox = new HBox();
+		
 		listBox = new Pane();
 		
 		if(timerLabel != null){
@@ -127,7 +129,7 @@ public class Timer extends Task<Object>{
 		startBtnHolder.setImage(startIcon);
 		startButton.setGraphic(startBtnHolder);
 		startButton.setId("playButton");
-		startButton.getStylesheets().add("file:../Resources/css.css");
+		startButton.getStylesheets().add("css.css");
 		
 		pauseBtnHolder = new ImageView();
 		pauseIcon = new Image("Pause.png");
@@ -140,11 +142,12 @@ public class Timer extends Task<Object>{
 		resetIcon = new Image("reset.png");
 		resetBtnHolder.setImage(resetIcon);
 		resetTimer.setGraphic(resetBtnHolder);
+		resetTimer.setId("playButton");
+		resetTimer.getStylesheets().add("css.css");
 		
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
-		buttonBox.setLayoutX(400);
-		buttonBox.setLayoutY(350);
+		buttonBox.setPrefWidth(100);
 		buttonBox.getChildren().addAll(startButton,resetTimer);
 		textField.setPrefWidth(100);
 		textFieldBox.getChildren().add(textField);
@@ -152,10 +155,14 @@ public class Timer extends Task<Object>{
 		closeBtnHolder = new ImageView();
 		closeIcon = new Image("closeTimer.png");
 		closeBtnHolder.setImage(closeIcon);
+		resetTimer.setId("playButton");
+		resetTimer.getStylesheets().add("css.css");
 		
 		exitButton = new Button();
 		exitButton.setLayoutX(startButton.getWidth() + resetTimer.getWidth());
 		exitButton.setGraphic(closeBtnHolder);
+		exitButton.setId("playButton");
+		exitButton.getStylesheets().add("css.css");
 		
 		numberListSetup();
 		//Adds the number lists to list box
@@ -190,6 +197,11 @@ public class Timer extends Task<Object>{
 			timeLineSeconds.play();
 			started = true;
 			startButton.setGraphic(pauseBtnHolder);
+			
+			//Disable all the choice box
+			numbersListSeconds.setDisable(true);
+			numbersListMinutes.setDisable(true);
+			numbersListHours.setDisable(true);
 		}
 		return null;
 		
@@ -253,33 +265,12 @@ public class Timer extends Task<Object>{
 					
 				labelSeconds.setText("00");
 				labelMinutes.setText("00" + " : ");
-				labelHours.setText("00" + " : ");
+				labelHours.setText(" 00" + " : ");
 				
 				numbersListSeconds.setDisable(false);
 				numbersListMinutes.setDisable(false);
 				numbersListHours.setDisable(false);
 				
-//				if (timerStartSeconds >9){
-//					labelSeconds.setText(timerStartSeconds.toString());
-//				}
-//				else{
-//					labelSeconds.setText("0" + timerStartSeconds.toString());
-//				}
-//				if (timerStartMinutes > 9){
-//					labelMinutes.setText(timerStartMinutes.toString() + " : ");
-//				}
-//				else{
-//					labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
-//				}
-//				if (timerStartHours > 9){
-//					
-//					labelHours.setText(timerStartHours.toString() + " : ");
-//				}
-//				else{
-//					
-//					labelHours.setText("0" + timerStartHours.toString() + " : ");
-//				}
-					
 				startButton.setGraphic(startBtnHolder);
 			}
 				
@@ -324,7 +315,7 @@ public class Timer extends Task<Object>{
 					//audio.play();
 					labelSeconds.setText("00");
 					labelMinutes.setText("00" + " : ");
-					labelHours.setText("00" + " : ");
+					labelHours.setText(" 00" + " : ");
 					started = false;
 					paused = false;
 					startButton.setDisable(true);
@@ -340,7 +331,7 @@ public class Timer extends Task<Object>{
 						labelHours.setText(timerValueHours.toString() + " : ");
 					}
 					else {
-						labelHours.setText("0" + timerValueHours.toString() + " : ");
+						labelHours.setText(" 0" + timerValueHours.toString() + " : ");
 					}
 					labelMinutes.setText(timerValueMinutes.toString() + " : ");
 					labelSeconds.setText(timerValueSeconds.toString());
@@ -429,7 +420,7 @@ public class Timer extends Task<Object>{
 					labelHours.setText(new_vale.toString() + " : ");
 				}
 				else{
-					labelHours.setText("0" +new_vale.toString() + " : ");
+					labelHours.setText(" 0" +new_vale.toString() + " : ");
 				}
 				numbersListHours.setVisible(false);
 			}
@@ -501,7 +492,7 @@ public class Timer extends Task<Object>{
 				labelHours = new Label(timerStartHours.toString() + " : ");
 			}
 			else{
-				labelHours = new Label("0" + timerStartHours.toString() + " : ");
+				labelHours = new Label(" 0" + timerStartHours.toString() + " : ");
 			}
 		} 
 		else {
@@ -523,10 +514,8 @@ public class Timer extends Task<Object>{
 				labelHours = new Label(timerValueHours.toString() + " : ");
 			}
 			else{
-				labelHours = new Label("0" + timerValueHours.toString() + " : ");
+				labelHours = new Label(" 0" + timerValueHours.toString() + " : ");
 			}
-			
-			
 		}
 		
 		//Displays the seconds numbers list and hides other numbers lists
@@ -573,12 +562,23 @@ public class Timer extends Task<Object>{
 			}
 		});
 		
+		// Setup Id and Css for the labels
+		labelSeconds.setId("timerLabel");
+		labelMinutes.setId("timerLabel");
+		labelHours.setId("timerLabel");
+		labelSeconds.getStylesheets().add("css.css");
+		labelMinutes.getStylesheets().add("css.css");
+		labelHours.getStylesheets().add("css.css");
+		
+		// Set the text alignment of the labels
+		labelSeconds.setTextAlignment(TextAlignment.CENTER);
+		labelMinutes.setTextAlignment(TextAlignment.CENTER);
+		labelHours.setTextAlignment(TextAlignment.CENTER);
+		
+		// Set font color
 		labelSeconds.setTextFill(Color.WHITE);
 		labelMinutes.setTextFill(Color.WHITE);
 		labelHours.setTextFill(Color.WHITE);
-		labelSeconds.setFont(new Font("Arial", 16));
-		labelMinutes.setFont(new Font("Arial", 16));
-		labelHours.setFont(new Font("Arial", 16));
 	}
 
 	public int getTimerID() {

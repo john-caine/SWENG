@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import notes.NotesGUI;
-import media.AudioHandler;
+import audiohandler.AudioHandler;
 import media.GraphicHandler;
 import media.ImageHandler;
 import javafx.animation.KeyFrame;
@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,7 +41,7 @@ import javafx.util.Duration;
 import media.TextHandler;
 import timer.Timer;
 import timer.TimerData;
-import media.VideoHandler;
+import videohandler.VideoPlayerHandler;
 import xmlRecipeScaler.RecipeScale;
 import xmlValidation.XMLValidator;
 import xmlparser.*;
@@ -64,7 +65,7 @@ public class SlideShow {
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<AudioHandler> audioHandlerList;
-	private ArrayList<VideoHandler> videoHandlerList;
+	private ArrayList<VideoPlayerHandler> videoHandlerList;
 	private ArrayList<GraphicHandler> graphicsHandlerList;
 	private VBox notesPanel;
 	private HBox controlPanel;
@@ -261,8 +262,6 @@ public class SlideShow {
 				
 				textHandlerList.add(text1);
 				
-				System.out.println(text.get(i).getBranch());
-				
 				Integer textLayer = text.get(i).getLayer();
 				if (textLayer == null){
 					textLayer = 0;
@@ -279,18 +278,19 @@ public class SlideShow {
 														audio.get(i).getDuration(), audio.get(i).getLoop());
 				
 				audioHandlerList.add(audio1);
+				layers.get(0).getChildren().add(audio1.mediaControl.overallBox);
 			}
 		}
-		videoHandlerList = new ArrayList<VideoHandler>();
+		videoHandlerList = new ArrayList<VideoPlayerHandler>();
 		// Call the VideoHandler for each video object
 		if (videoCount != 0){
 			for(int i = 0; i < videoCount; i++){
-				VideoHandler video1 = new VideoHandler(this,videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+				VideoPlayerHandler video1 = new VideoPlayerHandler(this,videos.get(i).getUrlName(), videos.get(i).getXStart(), 
 												videos.get(i).getYStart(), videos.get(i).getWidth(),
 												videos.get(i).getHeight(), videos.get(i).getLoop(),
 												videos.get(i).getStartTime(), videos.get(i).getDuration());
 				videoHandlerList.add(video1);								
-				layers.get(0).getChildren().add(video1.getHbox());
+				layers.get(0).getChildren().add(video1.mediaControl.overallBox);
 			}
 		}
 		graphicsHandlerList = new ArrayList<GraphicHandler>();
@@ -509,10 +509,10 @@ public class SlideShow {
             public void handle(ActionEvent event) {
             	timeLineDuration.stop();
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).tearDown();
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).tearDown();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	exitToMainMenu(event);
             }
@@ -530,10 +530,10 @@ public class SlideShow {
             	}
             	
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).tearDown();
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).tearDown();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	//If on first slide
             	if (currentSlideID <= 0) {
@@ -558,10 +558,10 @@ public class SlideShow {
             		timerValues.add(timerList.get(g).getTimerValues());            		 
             	}
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).tearDown();
+            		audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).tearDown();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	for(int i = 0; i < textHandlerList.size(); i++){
             		textHandlerList.get(i).tearDown();
@@ -590,10 +590,10 @@ public class SlideShow {
             		timerValues.add(timerList.get(g).getTimerValues());            		 
             	}
             	for (int h = 0; h < audioHandlerList.size(); h++){
-            		audioHandlerList.get(h).tearDown();
+            		audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).tearDown();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	for(int i = 0; i < textHandlerList.size(); i++){
             		textHandlerList.get(i).tearDown();
@@ -623,10 +623,10 @@ public class SlideShow {
             	}
             	
             	for (int h = 0; h < audioHandlerList.size(); h++){
-	    			audioHandlerList.get(h).tearDown();
+	    			audioHandlerList.get(h).mediaControl.mp.dispose();
             	}
             	for (int i = 0; i < videoHandlerList.size(); i++){
-            		videoHandlerList.get(i).tearDown();
+            		videoHandlerList.get(i).mediaControl.mp.dispose();
             	}
             	// return to the main menu if the previous slide is nothing (beginning of the slideshow)
             	if (prevSlideID <= -1) {
@@ -688,10 +688,10 @@ public class SlideShow {
 						graphicsHandlerList.get(r).pauseDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
-						audioHandlerList.get(r).pauseStartTimeTimeLine();
+						audioHandlerList.get(r).mediaControl.pauseStartTime();
 					}
 					for(int r= 0; r< videoHandlerList.size(); r++){
-						videoHandlerList.get(r).pauseStartTimeTimeLine();
+						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
 					buttons.get(2).setId("SlidePlayBtn");
 					paused = true;
@@ -712,10 +712,10 @@ public class SlideShow {
 						graphicsHandlerList.get(r).resumeDurationTimeLine();
 					}
 					for(int r = 0; r< audioHandlerList.size(); r++){
-						audioHandlerList.get(r).resumeStartTimeTimeLine();
+						audioHandlerList.get(r).mediaControl.resumeStartTime();
 					}
 					for(int r= 0; r< videoHandlerList.size(); r++){
-						videoHandlerList.get(r).resumeStartTimeTimeLine();
+						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
 					buttons.get(2).setId("SlidePauseBtn");			        
 					paused = false;
@@ -729,10 +729,10 @@ public class SlideShow {
 		    	if(event.getCode() == KeyCode.RIGHT) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 		    		System.out.println("Next slide");
 		    		// return to the main menu if there are no more slides
@@ -748,10 +748,10 @@ public class SlideShow {
 		    	else if (event.getCode() == KeyCode.LEFT) {	    		
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 		    		System.out.println("Previous slide");
 		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
@@ -775,10 +775,10 @@ public class SlideShow {
 		    	else if (event.getCode() == KeyCode.ESCAPE) {
 		    		timeLineDuration.stop();
 		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
+		    			audioHandlerList.get(h).mediaControl.mp.dispose();
 	            	}
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();
+	            		videoHandlerList.get(i).mediaControl.mp.dispose();
 	            	}
 	            	new MainMenu(stage, recipeCollection);
 		    	}
