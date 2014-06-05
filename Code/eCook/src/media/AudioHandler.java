@@ -40,6 +40,17 @@ public class AudioHandler extends SlideMedia{
 		setTimingValues();
 		
 	}
+	
+	public void pauseAudio(){
+		mediaPlayer.pause();
+		logger.log(Level.INFO, "Paused Audio");
+	}
+	
+	public void resumeAudio(){
+		mediaPlayer.play();
+		logger.log(Level.INFO, "Resumed Audio");
+		
+	}
 
 	protected void setTimeLineOnFinish() {
 		mediaPlayer.play();

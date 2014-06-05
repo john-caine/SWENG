@@ -1,7 +1,10 @@
 package media;
 
 import java.util.List;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -21,6 +24,7 @@ public class TextHandler extends SubSlideMedia {
 	private String fontcolor;
 	private int xEnd;
 	private TextFlow textBox;
+	private SlideShow parent;
 
 	public TextHandler(SlideShow parent, TextBody textBody, String font, Integer xStart, Integer yStart, Integer fontsize, 
 			String fontcolor, Integer xEnd, Integer yEnd, Integer startTime, Integer duration, 
@@ -30,7 +34,8 @@ public class TextHandler extends SubSlideMedia {
 		this.font = font;
 		this.fontsize = fontsize;
 		this.fontcolor = fontcolor;
-		this.xEnd = xEnd;	
+		this.xEnd = xEnd;
+		this.parent = parent;
 		
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (xEnd == null){
@@ -103,6 +108,17 @@ public class TextHandler extends SubSlideMedia {
 		//Sets the wrapping width of the text object, if  x end is null, the wrapping width is set to the edge 
 		 // of the screen.
 		 text.setWrappingWidth((xEnd - xStart));
+		 
+		 final Integer branch = textString.getBranch();
+		 text.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				parent.newSlide(branch, true, parent.getTimerData());
+				
+			}
+			 
+		 });
 		 
 		 return text;
 	}
