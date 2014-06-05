@@ -58,6 +58,7 @@ public class TextHandler extends SubSlideMedia {
 			textBox.getChildren().add(text); 
 		 }
 		
+		 textBox.setMaxWidth(xEnd - xStart);
 		 hbox.getChildren().add(textBox);
 		 
 		 setTimingValues();		
