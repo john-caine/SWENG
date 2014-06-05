@@ -30,7 +30,7 @@
         <textstring>This is a test of required attributes</textstring>
       </textbody>
     </text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" orientation="180">
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="36" fontcolor="#00FFFF" orientation="180">
 			<textbody branch="5">
         <textstring>This is a test of optional font attributes</textstring>
       </textbody>
