@@ -3,8 +3,8 @@
 	<documentinfo>
 		<author>Jim Dee</author>
 		<version>1.1</version>
-    <title>Stocks</title>
-		<comment>There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking. It is not difficult to chuck a few ingredients in a pot of water, let them boil for a while and then strain, but that is not a good way to make stock. The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.  
+    <title>How to make a Stock</title>
+		<comment>"There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking..." - Jim Dee 
 		</comment>
 		
 		<width>1440</width>
@@ -25,48 +25,100 @@
 	<slide id="0" duration="20" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Stock</textstring>
+        		<textstring>Soups</textstring>
       			</textbody>
 		</text>
 		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="false" italic="true" branch="10">
-        		<textstring>‘Stock is everything in cooking’- Escoffier  </textstring>
-      			</textbody>
-		</text>
-		
-		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="false" italic="false" branch="10">
-        		<textstring>The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.  </textstring>
+			<textbody underlined="false" bold="false" italic="false" >
+        		<textstring>The making of the soup is usually divided into three parts: the liquid, the key flavours, and the finishing touches. The foundation of any soup is the liquid. Some soups benefit from a neutral stock, such as a white chicken stock or a vegetable stock. Other soups require a more specific stock, often made from the trim of the principal ingredient.   </textstring>
       			</textbody>
 		</text>
 		
 		<text xstart="15" ystart="570" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>If you genuinely believe that you don’t have to time to make your own stock, it is permissible to use fresh stocks from the supermarket, although this is an expensive habit. To my palette, stock cubes are a poor substitute, adding nothing more than saltiness and a vague meatiness. If tasked with making a soup without fresh stock, I would always opt to use water over a stock cube.   </textstring>
+        		<textstring>The most important part of any soup is the main flavour. A pumpkin soup should taste of pumpkin! Depth of flavour is essential to a successful soup, and so it is absolutely critical to make the most of whichever ingredient you are working with, and not to waste any potential flavour available to you. The final aspect of putting together a soup of quality is the finish and presentation you opt for. Sometimes this can be as little as a twist of pepper, while at other times anything from toasted seeds to flavoured oils can be added. Ultimately, the process of making a great soup will depend on these three ideas, so time should be dedicated towards improving every step.  </textstring>
       			</textbody>
 		</text>
 		
 		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
+	<slide id="1" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Stocks</textstring>
+      			</textbody>
+		</text>
+	
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" >
+        		<textstring>There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking. It is not difficult to chuck a few ingredients in a pot of water, let them boil for a while and then strain, but that is not a good way to make stock.   </textstring>
+      			</textbody>
+		</text>
+		
+		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="true" >
+        		<textstring>‘Stock is everything in cooking’- Escoffier  </textstring>
+      			</textbody>
+		</text>
+		
+		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+	
+	<slide id="2" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Stocks</textstring>
+      			</textbody>
+		</text>
+	
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" >
+        		<textstring>The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.    </textstring>
+      			</textbody>
+		</text>
+		
+		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>If you genuinely believe that you don’t have to time to make your own stock, it is permissible to use fresh stocks from the supermarket, although this is an expensive habit. To my palette, stock cubes are a poor substitute, adding nothing more than saltiness and a vague meatiness. If tasked with making a soup without fresh stock, I would always opt to use water over a stock cube.   </textstring>
+      			</textbody>
+		</text>
+		
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+
+	<slide id="3" duration="30" lastSlide="true">
+=======
+>>>>>>> xml and directory changes
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
 
 	<slide id="1" duration="30" lastSlide="true">
+<<<<<<< HEAD
+=======
+>>>>>>> FETCH_HEAD
+>>>>>>> xml and directory changes
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Choose your stock:</textstring>
       			</textbody>
 		</text>
-		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="2">
+		<text xstart="15" ystart="80" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" branch="2">
         		<textstring>Chicken Stock   </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="100" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="3">
+		<text xstart="15" ystart="150" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" branch="3">
         		<textstring>Vegetable Stock   </textstring>
       			</textbody>
 		</text> 
-		<text xstart="15" ystart="130" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="4">
+		<text xstart="15" ystart="100" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false" branch="4">
         		<textstring>Beef Stock   </textstring>
       			</textbody>
 		</text> 
