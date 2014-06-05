@@ -74,8 +74,6 @@
 }
 
 #urlBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
 
 }
@@ -87,8 +85,6 @@
     	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 #directUrlBtn:hover {
-	-fx-font-size: 11px;
-	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
 
 }
