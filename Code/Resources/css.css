@@ -1,48 +1,31 @@
+/* Main menu button for importing external recipes */
 #loadExtBtn {
-	/* Text */
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
 	-fx-background-image: url('import.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
-
-
 #loadExtBtn:hover {
 	-fx-opacity: 0.75;
 }
 
-
+/* Main menu button for opening up the shopping list */
 #generateListBtn {
-	/* Text */
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
 	-fx-background-image: url('shopping.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
-
-
 #generateListBtn:hover {
 	-fx-opacity: 0.75;
 }
 
-
+/* Main menu button for viewing ingredients */
 #ingredientsPickBtn {
-	/* Text */
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
 	-fx-background-image: url('Ingredients.png');
@@ -51,85 +34,59 @@
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
-
 #ingredientsPickBtn:hover {
 	-fx-opacity: 0.75;
 }
 
+/* Main menu button for viewing a selection of recipes */
 #recipesBtn {
-	/* Text */
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
 	-fx-background-image: url('Recipes.png');
 	-fx-background-position: center center; 
-	-fx-background-size: 280 200;
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;	
 }
-
 #recipesBtn:hover {
 	-fx-opacity: 0.75;
 }
 
+/* Import meny button for opening the file browser */
 #fileBrowserBtn {
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 5;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 650 500;
+	-fx-background-color: transparent;
 	-fx-background-position: center center; 
+	-fx-background-size: contain;
 	-fx-background-image: url('open_big.png');	
+	-fx-background-repeat: no-repeat;	
 }
-
 #fileBrowserBtn:hover {
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
 
 }
 
+/* Import menu button for importing a recipe URL */
 #urlBtn {
-	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
-	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-	-fx-border-color: rgb(00, 00, 00);
-    	-fx-border-radius: 5;
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); 
-	-fx-background-size: 650 450;
+	-fx-background-color: transparent;
+	-fx-background-size: contain;
 	-fx-background-position: center center;
-	-fx-background-image: url('net_big.png');		
+	-fx-background-image: url('net_big.png');	
+	-fx-background-repeat: no-repeat;		
 }
-
-
 #urlBtn:hover {
+<<<<<<< HEAD
 	-fx-font-size: 18px;
 	-fx-font-weight: bold;
+=======
+>>>>>>> fb007bf95e9cdfb19b9f56a7a8d990c2da06b487
 	-fx-opacity: 0.5;
 }
 
+/* Import menu button for importing a direct URL to a recipe */
 #directUrlBtn {
-    	-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    	-fx-background-radius: 8;
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     	-fx-font-weight: bold;
     	-fx-font-size: 12px;
-    	-fx-font-family: "Century Gothic";
+    	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
-
 #directUrlBtn:hover {
 	-fx-font-size: 11px;
 	-fx-font-weight: bold;
@@ -139,74 +96,47 @@
 
 #httpLbl{
 	-fx-font-size: 14px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 }
 
 #httpField{
 	-fx-font-size: 14px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	-fx-border-color: black;
 }
 
 #recipeBrowserLabel{
 	-fx-font-size: 30px;
-	-fx-text-fill:  #4682b4;
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 }
 
 #downloadButton {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";	
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";	
 }
 
 #downloadButton:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #exitButton {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";	
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";	
 }
 
 #exitButton:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
+
 #saveBtn {
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #saveBtn:hover {
@@ -216,7 +146,7 @@
 #printBtn {
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #printBtn:hover {
@@ -226,7 +156,7 @@
 #editBtn {
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #editBtn:hover {
@@ -236,7 +166,7 @@
 #addBtn {
     -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #addBtn:hover {
@@ -259,11 +189,10 @@
 }
 
 #box{
-	-fx-font-size: 16px;
-	-fx-text-fill:  #c54e2c;
-	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
+
+	-fx-font-size: 26px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: "Buxton Sketch";
 }
 
 #item{
@@ -338,104 +267,76 @@
 }
 
 #selectAllButton {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-size: 16px;
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 
 }
 
 #selectAllButton:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #updateShoppingListButton {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";	
+    -fx-font-size: 16px;
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 
 }
 
 #updateShoppingListButton:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
 #ingredientsLabel{
-	-fx-font-size: 40px;
-	-fx-text-fill:  #4682b4;
+	-fx-font-size: 60px;
+	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "Andy";
 	-fx-font-weight: bold;
 }
 
 #recipeInformationLabel{
-	-fx-font-size: 40px;
-	-fx-text-fill:  #4682b4;
+	-fx-font-size: 60px;
+	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "Andy";
 	-fx-font-weight: bold;
 }
 
 #recipesLabel{
-	-fx-font-size: 40px;
-	-fx-text-fill:  #4682b4;
+	-fx-font-size: 60px;
+	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 }
 
 #authorLabel{
-	-fx-font-size: 16px;
-	-fx-text-fill:    #adff2f;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
+	-fx-font-size: 26px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: "Buxton Sketch";
 }
 
 #versionLabel{
-	-fx-font-size: 16px;
-	-fx-text-fill:   #adff2f;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
+	-fx-font-size: 26px;
+	-fx-text-fill:   #000000;
+	-fx-font-family: "Buxton Sketch";
 }
 
 #commentLabel{
-	-fx-font-size: 16px;
-	-fx-text-fill:    #adff2f;
-	-fx-font-family: "Century Gothic";
-	-fx-font-weight: bold;
+	-fx-font-size: 26px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: "Buxton Sketch";
 }
 
 .list-view {
    -fx-font-size: 16px;
    -fx-text-fill: #b22222;
-   -fx-font-family: "Century Gothic";
+   -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
    -fx-font-weight: bold;
    -fx-background-color: transparent;
+   
 }
 
 .list-view:focused {
@@ -514,26 +415,13 @@
 
 
 #playSlideBtn {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 
 }
 
 #playSlideBtn:hover {
-    	-fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 	-fx-opacity: 0.5;
 }
 
@@ -570,7 +458,7 @@
 #SlidePauseBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -587,7 +475,7 @@
 #SlidePrevBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -604,7 +492,7 @@
 #SlideNextBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -621,7 +509,7 @@
 #SlideExitBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -638,7 +526,7 @@
 #SlideTimeBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -655,7 +543,7 @@
 #SlidePlayBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -672,7 +560,7 @@
 #SlideFirstBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -689,7 +577,7 @@
 #SlideLastBtn{
 	/* Text */
 	-fx-font-size: 20px;
-	-fx-font-family: "Century Gothic";
+	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
@@ -757,18 +645,19 @@
 #timeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #playTimeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Century Gothic";
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
+<<<<<<< HEAD
     -fx-font-family: "Century Gothic";
 }
 
@@ -776,4 +665,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 17px;
     -fx-font-family: "Century Gothic";
+=======
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+>>>>>>> fb007bf95e9cdfb19b9f56a7a8d990c2da06b487
 }
