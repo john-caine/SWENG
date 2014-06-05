@@ -73,11 +73,6 @@
 	-fx-background-repeat: no-repeat;		
 }
 #urlBtn:hover {
-<<<<<<< HEAD
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-=======
->>>>>>> d7df653b18cd95d95ec893bd5494747dd5a2c04a
 	-fx-opacity: 0.5;
 }
 
@@ -657,18 +652,13 @@
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-<<<<<<< HEAD
-    -fx-font-family: "Century Gothic";
-=======
 	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
->>>>>>> d7df653b18cd95d95ec893bd5494747dd5a2c04a
 }
 
 #timerLabel{
     -fx-font-weight: bold;
     -fx-font-size: 17px;
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-<<<<<<< HEAD
 }
 #timerField{
 	-fx-font-size: 14px;
@@ -677,6 +667,4 @@
 	-fx-font-weight: bold;
 	-fx-border-color: white;
 	-fx-background-color: transparent;
-=======
->>>>>>> d7df653b18cd95d95ec893bd5494747dd5a2c04a
 }
