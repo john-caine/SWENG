@@ -139,13 +139,13 @@ public class SlideControls {
         lastBtn.setPadding(new Insets(30,10,10,30));
         
         //Adding stylesheet
-        pauseBtn.getStylesheets().add("file:../Resources/css.css");
-        prevBtn.getStylesheets().add("file:../Resources/css.css");
-        nextBtn.getStylesheets().add("file:../Resources/css.css");
-        exitBtn.getStylesheets().add("file:../Resources/css.css");
-        timerBtn.getStylesheets().add("file:../Resources/css.css");
-        firstBtn.getStylesheets().add("file:../Resources/css.css");
-        lastBtn.getStylesheets().add("file:../Resources/css.css");
+        pauseBtn.getStylesheets().add("css.css");
+        prevBtn.getStylesheets().add("css.css");
+        nextBtn.getStylesheets().add("css.css");
+        exitBtn.getStylesheets().add("css.css");
+        timerBtn.getStylesheets().add("css.css");
+        firstBtn.getStylesheets().add("css.css");
+        lastBtn.getStylesheets().add("css.css");
         
         //Adding button
         buttons.add(firstBtn);

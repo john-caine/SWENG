@@ -103,7 +103,7 @@ scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 scrollPane.setPrefHeight(400);
 scrollPane.setId("scrollPane");
-scrollPane.getStylesheets().add("file:../Resources/css.css");
+scrollPane.getStylesheets().add("css.css");
 
 // set up the checkboxes
 checkboxes = new CheckBox[ingredientsList.size()];
@@ -111,7 +111,7 @@ checkboxes = new CheckBox[ingredientsList.size()];
 // setup the status bar
 statusBar = new Label("");
 statusBar.setId("statusBar");
-statusBar.getStylesheets().add("file:../Resources/css.css");
+statusBar.getStylesheets().add("css.css");
 statusBar.setPadding(new Insets(5,0,0,100));
 
 // populate the list with checkboxes
@@ -119,7 +119,7 @@ statusBar.setPadding(new Insets(5,0,0,100));
 for (int i=0; i<ingredientsList.size(); i++) {
 CheckBox box = checkboxes[i] = new CheckBox(ingredientsList.get(i));
 box.setId("box");
-box.getStylesheets().add("file:../Resources/css.css");
+box.getStylesheets().add("css.css");
 box.setSelected(false);
 box.selectedProperty().addListener(new ChangeListener<Boolean>() {
 public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
@@ -133,7 +133,7 @@ scrollBox.getChildren().add(checkboxes[i]);
 // add a button to select all of the ingredients listed and add tool tip
 final Button selectAllButton = new Button("Select All");
 selectAllButton.setId("selectAllButton");
-selectAllButton.getStylesheets().add("file:../Resources/css.css");
+selectAllButton.getStylesheets().add("css.css");
 selectAllButton.setPrefSize(120,50);
 selectAllButton.setAlignment(Pos.CENTER);
 selectAllButton.setTextAlignment(TextAlignment.CENTER);
@@ -173,7 +173,7 @@ savePDFButton = new Button("Save shopping list");
 updateShoppingListButton = new Button("Add Ingredients to Shopping List");
 updateShoppingListButton.setWrapText(true);
 updateShoppingListButton.setId("updateShoppingListButton");
-updateShoppingListButton.getStylesheets().add("file:../Resources/css.css");
+updateShoppingListButton.getStylesheets().add("css.css");
 updateShoppingListButton.setPrefSize(160,50);
 updateShoppingListButton.setAlignment(Pos.CENTER);
 updateShoppingListButton.setTextAlignment(TextAlignment.CENTER);
