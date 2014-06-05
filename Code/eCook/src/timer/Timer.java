@@ -72,8 +72,8 @@ public class Timer extends Task<Object>{
 	private SlideShow main;
 	private ImageView playImageView;
 	private Timeline timeLine;
-	private ImageView closeBtnHolder, startBtnHolder;
-	private Image closeIcon, startIcon;
+	private ImageView closeBtnHolder, startBtnHolder, pauseBtnHolder, resetBtnHolder;
+	private Image closeIcon, startIcon, pauseIcon, resetIcon;
 	
 	
 	/*
@@ -122,16 +122,25 @@ public class Timer extends Task<Object>{
 		//Gets play icon image from resources folder adds to start button.
 		startButton = new Button();
 		startButton.setPrefWidth(50);
-		
 		startBtnHolder = new ImageView();
 		startIcon = new Image("PLAY.png");
 		startBtnHolder.setImage(startIcon);
 		startButton.setGraphic(startBtnHolder);
+		startButton.setId("playButton");
+		startButton.getStylesheets().add("file:../Resources/css.css");
 		
-		resetTimer = new Button("R");
-		//startButton.setStyle("-fx-base: #0000FF");
-		//resetTimer.setStyle("-fx-base: #0000FF");
+		pauseBtnHolder = new ImageView();
+		pauseIcon = new Image("Pause.png");
+		pauseBtnHolder.setImage(pauseIcon);
+		
+		//Gets play icon image from resources folder adds to reset button.
+		resetTimer = new Button();
 		resetTimer.setPrefWidth(50);
+		resetBtnHolder = new ImageView();
+		resetIcon = new Image("reset.png");
+		resetBtnHolder.setImage(resetIcon);
+		resetTimer.setGraphic(resetBtnHolder);
+		
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
 		buttonBox.setLayoutX(400);
@@ -141,7 +150,7 @@ public class Timer extends Task<Object>{
 		textFieldBox.getChildren().add(textField);
 		
 		closeBtnHolder = new ImageView();
-		closeIcon = new Image("redx.png");
+		closeIcon = new Image("closeTimer.png");
 		closeBtnHolder.setImage(closeIcon);
 		
 		exitButton = new Button();
@@ -179,8 +188,8 @@ public class Timer extends Task<Object>{
 		// Resumes the timer if the new timer object is recreating a timer from the previous slide
 		if(resumeTimer  == true){
 			timeLineSeconds.play();
-			startButton.setText("Pause");
 			started = true;
+			startButton.setGraphic(pauseBtnHolder);
 		}
 		return null;
 		
@@ -204,22 +213,26 @@ public class Timer extends Task<Object>{
 						timerValueHours = timerStartHours;
 					}
 					timeLineSeconds.play();
-					//startButton.setGraphic(new ImageView(pauseImage));
+					startButton.setGraphic(pauseBtnHolder);
 					
 					started = true;
 				}
 				else if(started == true && paused == false){
 					timeLineSeconds.stop();
-					//startButton.setGraphic(new ImageView(playImage));
+					startButton.setGraphic(pauseBtnHolder);
 					paused = true;
 				}
 				
 				else if(started == true && paused == true){
 					
 					timeLineSeconds.play();
-					//startButton.setGraphic(new ImageView(pauseImage));
+					startButton.setGraphic(pauseBtnHolder);
 					paused = false;
 				}
+				
+				numbersListSeconds.setDisable(true);
+				numbersListMinutes.setDisable(true);
+				numbersListHours.setDisable(true);
 
 	        }
 	    });
@@ -242,6 +255,10 @@ public class Timer extends Task<Object>{
 				labelMinutes.setText("00" + " : ");
 				labelHours.setText("00" + " : ");
 				
+				numbersListSeconds.setDisable(false);
+				numbersListMinutes.setDisable(false);
+				numbersListHours.setDisable(false);
+				
 //				if (timerStartSeconds >9){
 //					labelSeconds.setText(timerStartSeconds.toString());
 //				}
@@ -263,7 +280,7 @@ public class Timer extends Task<Object>{
 //					labelHours.setText("0" + timerStartHours.toString() + " : ");
 //				}
 					
-				//startButton.setGraphic(new ImageView(playImage));
+				startButton.setGraphic(startBtnHolder);
 			}
 				
 		});
@@ -310,7 +327,6 @@ public class Timer extends Task<Object>{
 					labelHours.setText("00" + " : ");
 					started = false;
 					paused = false;
-					startButton.setText("Start");
 					startButton.setDisable(true);
 				}
 				// Timer has moved past an hour
@@ -375,6 +391,7 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartSeconds = new_vale.intValue();
 				if(timerStartSeconds > 9){
 					labelSeconds.setText(new_vale.toString());
@@ -390,6 +407,7 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartMinutes = new_vale.intValue();
 				if(timerStartMinutes > 9){
 					labelMinutes.setText(new_vale.toString() + " : ");
@@ -405,6 +423,7 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartHours = new_vale.intValue();
 				if(timerStartHours > 9){
 					labelHours.setText(new_vale.toString() + " : ");
@@ -514,7 +533,6 @@ public class Timer extends Task<Object>{
 		labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(true);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(false);
@@ -530,7 +548,6 @@ public class Timer extends Task<Object>{
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(true);
 				numbersListHours.setVisible(false);
@@ -545,7 +562,6 @@ public class Timer extends Task<Object>{
 		labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(true);
