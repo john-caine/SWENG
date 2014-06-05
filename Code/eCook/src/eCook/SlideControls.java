@@ -24,38 +24,57 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class SlideControls {
 	
 	// declare variables
-	boolean controlPanelVisible = false;
+	boolean bottomPanelVisible = false;
 	private Rectangle2D screenBounds;
 	private double width;
     HBox controlPanel;
+    VBox bottomPanel;
 	List<Button> buttons;
 	public Timeline timelineIn, timelineOut;
 	private boolean forceShow = false;
+	double panelHeight;
 	
 	// constructor
-	public SlideControls(Group root, boolean forceShow) {
+	public SlideControls(Group root, boolean forceShow, HBox audioBar) {
 		this.forceShow = forceShow;
-		setupcontrolPanel(root);
+		
+		// set the height of the panel (make room for audio bar if neccessary)
+		if (audioBar == null) {
+			panelHeight = root.getScene().getHeight()/8;
+		}
+		else {
+			panelHeight = root.getScene().getHeight()/5;
+		}
+		
+		// setup; and show if already visible
+		setupcontrolPanel(root, audioBar);
 		if (forceShow) {
 			showPanel(root);
 		}
 	}
+	
+	// method to return the bottom panel VBox object
+	public VBox getBottomPanel() {
+		return bottomPanel;
+	}
 
 	// method to return the controlPanel HBox object
-	public HBox getControlPanel() {
+	public HBox getControlBar() {
 		return controlPanel;
 	}
 	
-	// method to indicate when the controls panel is onscreen
-	public boolean getcontrolPanelVisible() {
-		return controlPanelVisible;
+	// method to indicate when the bottom panel is onscreen
+	public boolean getBottomPanelVisible() {
+		return bottomPanelVisible;
 	}
 
 	// method to access the list of buttons in the controlsBox
@@ -64,16 +83,21 @@ public class SlideControls {
 	}
 	
 	// set up the controls panel and add the buttons
-    public void setupcontrolPanel(final Group root) {   
+    public void setupcontrolPanel(final Group root, HBox audioBar) {   
         // get the size of the screen
 		screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
         final Rectangle2D primaryScreenBounds = Screen.getPrimary().getBounds();
         
+        // set up the bottom panel VBox
+        bottomPanel = new VBox();
+        bottomPanel.setPrefSize(root.getScene().getWidth(), panelHeight);
+        bottomPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
+        
         // Set up the controls panel at the bottom of the screen
         controlPanel = new HBox();
         controlPanel.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/8);
-        controlPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
+        controlPanel.setBackground(Background.EMPTY);
         controlPanel.setPadding(new Insets(30,10,10,2));
         controlPanel.setSpacing(5);
         controlPanel.setAlignment(Pos.TOP_CENTER);
@@ -137,13 +161,19 @@ public class SlideControls {
         // add the buttons to the panel
         controlPanel.getChildren().addAll(buttons);
         
+        // add the panel to the bottom panel and audio panel if required
+        bottomPanel.getChildren().add(controlPanel);
+        if (audioBar != null) {
+        	bottomPanel.getChildren().add(audioBar);
+        }
+        
         timelineIn = new Timeline();
         timelineOut = new Timeline();
         
         // Define an event handler to trigger when the mouse leaves the controls panel
         final EventHandler<InputEvent> mouseoutcontrolPanelHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {
-            	if (controlPanelVisible) {
+            	if (bottomPanelVisible) {
             		// hide panel
             		hidePanel(root);
             	}
@@ -151,7 +181,7 @@ public class SlideControls {
             }			
         };
         
-        controlPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
+        bottomPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
           	@Override
               public void handle(MouseEvent mouseEvent){
           		timelineIn.play();
@@ -165,7 +195,7 @@ public class SlideControls {
             	Point mousePosition = MouseInfo.getPointerInfo().getLocation();           	
             	// if the mouse is at the bottom of the screen, show the notes panel
             	if (mousePosition.getY() >= (primaryScreenBounds.getHeight() - 10)) {
-            		if (!controlPanelVisible) {
+            		if (!bottomPanelVisible) {
             			// show panel
             			showPanel(root);
             		}
@@ -175,7 +205,7 @@ public class SlideControls {
         };
         
         // add the mouselistener
-        controlPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);
+        bottomPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutcontrolPanelHandler);
         
         // check to see if the mouse is at the bottom of the screen every time it is moved
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverBottomHandler);
@@ -183,27 +213,27 @@ public class SlideControls {
     
     // method to hide panel
     public void hidePanel(Group root) {
-		final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), root.getScene().getHeight()/8);
+		final KeyValue kv = new KeyValue(bottomPanel.translateYProperty(), panelHeight);
 		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
 		timelineIn.getKeyFrames().add(kf);
 		timelineIn.stop();
-      	controlPanelVisible = false;
+      	bottomPanelVisible = false;
     }
     
     // method to show panel
     public void showPanel(Group root) {
     	// normal transition on mouseover
     	if (!forceShow) {
-			final KeyValue kv = new KeyValue(controlPanel.translateYProperty(), -root.getScene().getHeight()/8);
+			final KeyValue kv = new KeyValue(bottomPanel.translateYProperty(), -panelHeight);
 			final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
 			timelineOut.getKeyFrames().add(kf);
 			timelineOut.play();
     	}
     	// no transition on new slide (if panel already open)
     	else {
-    		controlPanel.setTranslateY(-root.getScene().getHeight()/8);
+    		bottomPanel.setTranslateY(-panelHeight);
     		forceShow = false;
     	}
-    	controlPanelVisible = true;
+    	bottomPanelVisible = true;
     }
 }
