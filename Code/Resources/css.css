@@ -72,13 +72,12 @@
 	-fx-background-image: url('net_big.png');	
 	-fx-background-repeat: no-repeat;		
 }
+
 #urlBtn:hover {
-<<<<<<< HEAD
 	-fx-font-size: 18px;
 	-fx-font-weight: bold;
-=======
->>>>>>> fb007bf95e9cdfb19b9f56a7a8d990c2da06b487
 	-fx-opacity: 0.5;
+
 }
 
 /* Import menu button for importing a direct URL to a recipe */
@@ -657,7 +656,6 @@
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-<<<<<<< HEAD
     -fx-font-family: "Century Gothic";
 }
 
@@ -665,7 +663,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 17px;
     -fx-font-family: "Century Gothic";
-=======
+
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
->>>>>>> fb007bf95e9cdfb19b9f56a7a8d990c2da06b487
+
 }

@@ -30,5 +30,7 @@ public class AudioHandler extends SlideMediaPlayer{
 		mediaView = new MediaView(mediaPlayer);
 		hbox.getChildren().add(mediaView);
 		
+		setTimingValues();
+		
 	}
 }
