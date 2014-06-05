@@ -363,6 +363,7 @@ public class SlideShow {
         numberOfTimers = 0;
         //If timers were present on previous slide create new timers and resume from saved position
         if(currentTimerValues != null){
+        	numberOfTimers = 0;
         	for(int l = 0; l < currentTimerValues.size(); l++){
         		
         		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
@@ -376,11 +377,11 @@ public class SlideShow {
 					
 					@Override
 					public void handle(WorkerStateEvent event) {		
-						getTimerbox().getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
+						timerbox.getChildren().add(continueTimer.getTimerID(), continueTimer.getPane());
 					}
 				});
 				new Thread(continueTimer).start();
-				}
+			}
         }
         
       //Create duration timeline
@@ -645,9 +646,8 @@ public class SlideShow {
 			public void handle(ActionEvent arg0) {
 				notesGUI.showPanel(slideRoot);
 				if(numberOfTimers< 4){
-						timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
 						timerList.add(timer);
-						 
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 							
 							@Override
@@ -655,13 +655,13 @@ public class SlideShow {
 								
 								Platform.runLater( new Runnable(){
 									public void run(){
-										getTimerbox().getChildren().add(timer.getTimerID(), timer.getPane());
+										timerbox.getChildren().add(timer.getTimerID(), timer.getPane());
 										numberOfTimers ++;
 									}
 								});	 									
 							}
 						});
-						new Thread(timer).start();	
+					new Thread(timer).start();	
 				}
 			}
         });

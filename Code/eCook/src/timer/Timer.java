@@ -32,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -52,7 +53,7 @@ public class Timer extends Task<Object>{
 	public ChoiceBox<Integer> numbersListSeconds;
 	protected ChoiceBox<Integer> numbersListMinutes;
 	protected ChoiceBox<Integer> numbersListHours; 
-	private boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
+	public boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
 	private TimerData timerValues;
 	private VBox timerVBox;
 	private int i;
@@ -71,6 +72,8 @@ public class Timer extends Task<Object>{
 	private SlideShow main;
 	private ImageView playImageView;
 	private Timeline timeLine;
+	private ImageView closeBtnHolder, startBtnHolder;
+	private Image closeIcon, startIcon;
 	
 	
 	/*
@@ -105,7 +108,6 @@ public class Timer extends Task<Object>{
 
 	@Override
 	protected Object call() throws Exception {
-	
 		textFieldBox = new Pane();
 		timerLabelBox = new HBox();
 		listBox = new Pane();
@@ -116,17 +118,15 @@ public class Timer extends Task<Object>{
 		else{
 			textField = new TextField("Timer " + timerID);
 		}
-		
+	
 		//Gets play icon image from resources folder adds to start button.
-		inputStream = new FileInputStream("play.png");
-		playImage = new Image(inputStream);
-		playImageView = new ImageView(playImage);
-		playImageView.setFitWidth(30);
-		playImageView.setFitHeight(20);
-		inputStream = new FileInputStream("pause.png");
-		pauseImage = new Image(inputStream);
-		startButton = new Button("", playImageView);
+		startButton = new Button();
+		startButton.setPrefWidth(50);
 		
+		startBtnHolder = new ImageView();
+		startIcon = new Image("PLAY.png");
+		startBtnHolder.setImage(startIcon);
+		startButton.setGraphic(startBtnHolder);
 		
 		resetTimer = new Button("R");
 		//startButton.setStyle("-fx-base: #0000FF");
@@ -140,11 +140,13 @@ public class Timer extends Task<Object>{
 		textField.setPrefWidth(100);
 		textFieldBox.getChildren().add(textField);
 		
-		exitButton = new Button("X");
+		closeBtnHolder = new ImageView();
+		closeIcon = new Image("redx.png");
+		closeBtnHolder.setImage(closeIcon);
+		
+		exitButton = new Button();
 		exitButton.setLayoutX(startButton.getWidth() + resetTimer.getWidth());
-		exitImage = new Image("EXIT.png");
-		//exitButton.setGraphic(new ImageView(exitImage));
-		//textFieldBox.getChildren().add(exitButton);
+		exitButton.setGraphic(closeBtnHolder);
 		
 		numberListSetup();
 		//Adds the number lists to list box
@@ -172,7 +174,7 @@ public class Timer extends Task<Object>{
 		timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
 		createKeyFrame();
 		setButtonEventListeners();
-
+		
 		timerSetupFinished = true;
 		// Resumes the timer if the new timer object is recreating a timer from the previous slide
 		if(resumeTimer  == true){
@@ -271,7 +273,7 @@ public class Timer extends Task<Object>{
 			@Override
 			public void handle(ActionEvent event) {
 				main.getTimerbox().getChildren().remove(timerID);
-				main.decrementNumberOfTimers();;
+				main.decrementNumberOfTimers();
 			}
 			
 		});
@@ -303,9 +305,9 @@ public class Timer extends Task<Object>{
 				if(timerValueHours <= 0 && timerValueMinutes <= 0 && timerValueSeconds <= 0){
 					timeLineSeconds.stop();
 					//audio.play();
-//					labelHours.setText("Finished");
-//					labelMinutes.setText("");
-//					labelSeconds.setText("");
+					labelSeconds.setText("00");
+					labelMinutes.setText("00" + " : ");
+					labelHours.setText("00" + " : ");
 					started = false;
 					paused = false;
 					startButton.setText("Start");
@@ -356,17 +358,9 @@ public class Timer extends Task<Object>{
 		 }
 		 
 		//Create ListViews which are used to select the start values of the timer
-		//numbersListSeconds = new ListView<Integer>();
 		numbersListSeconds = new ChoiceBox<Integer>(numbers);
 		numbersListMinutes = new ChoiceBox<Integer>(numbers);
 		numbersListHours = new ChoiceBox<Integer>(numbers);
-		
-		
-//		// Add the numbers to each of the list
-//		//numbersListSeconds.getItems().addAll(numbers);
-//		numbersListSeconds.setItems(numbers);
-//		numbersListMinutes.setItems(numbers);
-//		numbersListHours.setItems(numbers);
 		
 		numbersListSeconds.setPrefWidth(0);
 		numbersListMinutes.setPrefWidth(0);
