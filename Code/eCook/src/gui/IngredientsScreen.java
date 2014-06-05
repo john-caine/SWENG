@@ -45,9 +45,9 @@ public class IngredientsScreen {
 	protected VBox bigBox;
 	protected double height, width;
 
-	public IngredientsScreen(final VBox bigBox, final double height,
-			final double width, final RecipeCollection recipeCollection) {
+	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		this.bigBox = bigBox;
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
 		this.height = height;
 		this.width = width;
 		// Imports eCook logo, home, close and minimise button icons
@@ -129,6 +129,11 @@ public class IngredientsScreen {
 
 		midBox.setPadding(new Insets(10, 20, 10, 20));
 		midBoxLeft.setPrefSize(width / 3, height - 100);
+		midBoxLeft.setPadding(new Insets(60, 60, 60, 60));
+		midBoxLeft.setStyle("-fx-background-color: transparent;"
+				+ "-fx-background-image: url('half_book.png');"
+				+ "-fx-background-position: center center;"
+				+ "-fx-background-size: stretch;");
 		midBoxRight.setPrefSize(width * 2 / 3, height - 100);
 
 		// Create an ArrayList of Recipe Titles
@@ -188,6 +193,7 @@ public class IngredientsScreen {
 		Label recipesLabel = new Label("Recipes");
 		recipesLabel.setId("recipesLabel");
 		recipesLabel.getStylesheets().add("css.css");
+		recipesLabel.setPadding(new Insets(0, 0, 40, 10));
 
 		// add content to the main boxes
 		midBoxLeft.getChildren().addAll(recipesLabel, listOfRecipes);

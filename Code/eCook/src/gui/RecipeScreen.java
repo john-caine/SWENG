@@ -50,7 +50,7 @@ protected VBox bigBox;
 public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
 
 this.bigBox = bigBox;
-
+bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
 //Imports home, close and minimise button icons
 homeHolder = new ImageView();
 homeIcon = new Image("home1.png");
@@ -155,7 +155,6 @@ recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3)
 // Create a new HBox to hold the recipe information
 recipeInfoBox = new VBox();
 recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.4-100);
-recipeInfoBox.setStyle("-fx-border-color:black");
 
 
 // when recipe selection changes, update the info and ingredients fields
