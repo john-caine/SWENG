@@ -49,7 +49,7 @@ public class IngredientsList {
 		// populate the ingredientsList
 		ingredientsList = new ArrayList<String>();
 		for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
-			ingredientsList.add(recipe.getIngredient(i).getName());
+			ingredientsList.add(recipe.getIngredient(i).getName() + " " + recipe.getIngredient(i).getAmount() + " " + recipe.getIngredient(i).getUnits());
 		}
 
 		// copy the current shopping list to the local instance
