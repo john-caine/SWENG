@@ -62,10 +62,11 @@ public class XMLFilepathHandler {
 		/*
 		 * TODO
 		 */
-		// If we have a URL then:
 		// 		obtain the name of the media file
-		//		download the media file and place in filepath + title + "//" + media file name
+		//		download the media file and place in filepath + title + "//" + title.xml
 		//		return the string where the file was placed
+		
+		
 		else {
 			return mediaAddress;
 		}

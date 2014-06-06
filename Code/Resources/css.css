@@ -174,14 +174,14 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
 #statusBar{
 	-fx-font-size: 36px;
 	-fx-text-fill:  #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -189,13 +189,13 @@
 
 	-fx-font-size: 26px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #item{
 	-fx-font-size: 26px;
 	-fx-text-fill:  #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -289,7 +289,7 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -297,7 +297,7 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -312,19 +312,19 @@
 #authorLabel{
 	-fx-font-size: 26px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #versionLabel{
 	-fx-font-size: 26px;
 	-fx-text-fill:   #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #commentLabel{
 	-fx-font-size: 26px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 .list-view {
@@ -654,14 +654,12 @@
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Century Gothic";
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #timerLabel{
     -fx-font-weight: bold;
     -fx-font-size: 17px;
-    -fx-font-family: "Century Gothic";
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 #timerField{
