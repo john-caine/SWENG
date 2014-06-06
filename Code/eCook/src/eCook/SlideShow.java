@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -694,6 +695,7 @@ public class SlideShow {
 						videoHandlerList.get(r).mediaControl.pauseStartTime();
 					}
 					buttons.get(2).setId("SlidePlayBtn");
+					buttons.get(2).setTooltip(new Tooltip("Click here to play slide"));
 					paused = true;
 				}
 				//Resume all content on the slide
@@ -717,7 +719,8 @@ public class SlideShow {
 					for(int r= 0; r< videoHandlerList.size(); r++){
 						videoHandlerList.get(r).mediaControl.resumeStartTime();
 					}
-					buttons.get(2).setId("SlidePauseBtn");			        
+					buttons.get(2).setId("SlidePauseBtn");	
+					
 					paused = false;
 				}				
 			}			

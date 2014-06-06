@@ -22,6 +22,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -132,6 +133,15 @@ public class SlideControls {
         buttons.add(lastBtn);
         buttons.add(timerBtn);
         buttons.add(exitBtn);
+        
+        //Add Tooltips
+        firstBtn.setTooltip(new Tooltip("Click here to the first slide"));
+        prevBtn.setTooltip(new Tooltip("Click here to go to the previous slide"));
+        pauseBtn.setTooltip(new Tooltip("Click here to pause slide"));
+        nextBtn.setTooltip(new Tooltip("Click here to go to next slide"));
+        lastBtn.setTooltip(new Tooltip("Click here to go to last slide"));
+        timerBtn.setTooltip(new Tooltip("Click here to add a timer"));
+        exitBtn.setTooltip(new Tooltip("Click here to the exit to main menu"));
     
         
         // add the buttons to the panel
