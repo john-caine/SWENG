@@ -71,7 +71,7 @@ public class AudioControlBar {
         trackBar = new Slider();
         trackBar.setMin(0);
         trackBar.setMax(10);			// this must be the current audioHandlerObject.getDuration();
-        trackBar.setValue(currentHandler.getCurrentTime().toSeconds());
+        //trackBar.setValue(currentHandler.getCurrentTime().toSeconds());
         volBar = new Slider();
         volBar.setMin(0);
         volBar.setMax(1.0);

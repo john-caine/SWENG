@@ -5,7 +5,7 @@ import imagehandler.ImageHandler;
 
 import java.util.ArrayList;
 import media.TextHandler;
-import videohandler.VideoPlayerHandler;
+import videohandler.VideoHandler;
 import audiohandler.AudioHandler;
 
 public class HandlerCollection {
@@ -13,14 +13,14 @@ public class HandlerCollection {
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
 	private ArrayList<GraphicsHandler> graphicsHandlerList;
-	private ArrayList<VideoPlayerHandler> videoHandlerList;
+	private ArrayList<VideoHandler> videoHandlerList;
 	private ArrayList<AudioHandler> audioHandlerList;
 
 	public HandlerCollection(){
 		textHandlerList = new ArrayList<TextHandler>();
 		imageHandlerList = new ArrayList<ImageHandler>();
 		graphicsHandlerList = new ArrayList<GraphicsHandler>();
-		videoHandlerList = new ArrayList<VideoPlayerHandler>();
+		videoHandlerList = new ArrayList<VideoHandler>();
 		audioHandlerList = new ArrayList<AudioHandler>();
 		
 	}
@@ -49,11 +49,11 @@ public class HandlerCollection {
 		return graphicsHandlerList;
 	}
 	
-	public void addVideoPlayerHandler(VideoPlayerHandler videoPlayerHandler){
+	public void addVideoPlayerHandler(VideoHandler videoPlayerHandler){
 		videoHandlerList.add(videoPlayerHandler);
 	}
 	
-	public ArrayList<VideoPlayerHandler> getVideoHandlerList(){
+	public ArrayList<VideoHandler> getVideoHandlerList(){
 		return videoHandlerList;
 	}
 	
