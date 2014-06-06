@@ -43,6 +43,7 @@ public class eCook extends Application {
 					Recipe currentRecipe = reader.getRecipe();
 					currentRecipe.setFileName(directory.list()[i]);
 					recipeCollection.addRecipe(currentRecipe);
+					logger.log(Level.INFO, "Logged Recipe" + directory.list()[i]);
 				}
 			}
 		}

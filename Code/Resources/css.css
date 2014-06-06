@@ -77,8 +77,6 @@
 <<<<<<< HEAD
 	-fx-font-size: 18px;
 	-fx-font-weight: bold;
-=======
->>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 	-fx-opacity: 0.5;
 
 }
@@ -658,19 +656,14 @@
     -fx-font-weight: bold;
     -fx-font-size: 11px;
     -fx-font-family: "Century Gothic";
-<<<<<<< HEAD
-	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-=======
->>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
 #timerLabel{
     -fx-font-weight: bold;
     -fx-font-size: 17px;
     -fx-font-family: "Century Gothic";
-
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-<<<<<<< HEAD
 }
 #timerField{
 	-fx-font-size: 14px;
@@ -679,7 +672,4 @@
 	-fx-font-weight: bold;
 	-fx-border-color: white;
 	-fx-background-color: transparent;
-=======
-
->>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 }

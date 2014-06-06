@@ -39,7 +39,7 @@ public class VideoPlayerMain extends Application {
         scene.setFill(Color.BLACK);
         
         /* Call the videoHandler class to create a videoplayer based on certain attributes */
-        VideoPlayerHandler videoPlayerHandler = new VideoPlayerHandler(parent,"http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 800, 400, true, null, 10);
+        VideoHandler videoPlayerHandler = new VideoHandler(parent,"http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv", 300, 300, 800, 400, true, null, 10);
         
         /* Add the videoplayer to the stage */
         root.getChildren().add(videoPlayerHandler.mediaControl.overallBox);
