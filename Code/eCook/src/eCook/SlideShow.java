@@ -61,7 +61,6 @@ public class SlideShow {
 	private Recipe recipe;
 	private Slide slide;
 	private Integer maxLayer, duration;
-	private Timer timer;
 	private VBox timerbox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
