@@ -180,10 +180,10 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
-	<slide id="7" duration="100" lastSlide="true">
+	<slide id="7" lastSlide="true">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Onion video.</textstring>
+        		<textstring>Kitchen Basics</textstring>
       			</textbody>
 		</text>
 		<text xstart="70" ystart="15" xend="1050" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
@@ -191,7 +191,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Press 'Back' to return to previous slide.</textstring>
       			</textbody>
 		</text>
-		<video urlname="file:../Resources/Chopping_an_Onion.mp4" xstart="100" ystart="67" width="800" height="533" loop="true" />			
+		<video urlname="file:../Resources/Chopping_an_Onion.mp4" xstart="100" ystart="67" width="900" height="600" loop="true" />			
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 

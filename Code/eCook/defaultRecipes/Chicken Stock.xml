@@ -6,7 +6,10 @@
     <title>Chicken Stock</title>
 		<comment>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. Please see the de-boning video for instructions on preparing the chicken carcass. 
 		</comment>
-		
+		<cook>1 day</cook>
+		<prep>10 min</prep>
+		<price>£3</price>
+		<veg>No</veg>
 		<width>1440</width>
 		<height>900</height>
 	</documentinfo>
