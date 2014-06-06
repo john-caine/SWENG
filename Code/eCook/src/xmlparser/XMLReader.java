@@ -39,7 +39,7 @@ import org.xml.sax.helpers.DefaultHandler;
 // enumerated type for keeping track of where we need to store content
 enum ProcessingElement {
 	NONE,
-	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT,
+	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT, INFOCOOK, INFOPREP, INFOPRICE, INFOVEG,
 	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
 	INGREDIENTS,
 	SLIDE,
@@ -213,6 +213,14 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.INFOTITLE;
 			} else if (elementName.equals("comment")) {
 				currentElement = ProcessingElement.INFOCOMMENT;
+			} else if (elementName.equals("cook")) {
+				currentElement = ProcessingElement.INFOCOOK;
+			} else if (elementName.equals("prep")) {
+				currentElement = ProcessingElement.INFOPREP;
+			} else if (elementName.equals("price")) {
+				currentElement = ProcessingElement.INFOPRICE;
+			} else if (elementName.equals("veg")) {
+				currentElement = ProcessingElement.INFOVEG;
 			} else if (elementName.equals("width")) {
 				currentElement = ProcessingElement.INFOWIDTH;
 			} else if (elementName.equals("height")) {
@@ -493,6 +501,18 @@ public class XMLReader extends DefaultHandler {
 			break;
 		case INFOCOMMENT:
 			info.setComment(elementValue);		
+			break;
+		case INFOCOOK:
+			info.setCook(elementValue);		
+			break;
+		case INFOPREP:
+			info.setPrep(elementValue);		
+			break;
+		case INFOPRICE:
+			info.setPrice(elementValue);		
+			break;
+		case INFOVEG:
+			info.setVeg(elementValue);		
 			break;
 		case INFOWIDTH:
 			info.setWidth(elementValue);			

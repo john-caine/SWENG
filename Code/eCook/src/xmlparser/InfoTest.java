@@ -24,6 +24,10 @@ public class InfoTest {
 		assertNull(info.version);
 		assertNull(info.title);
 		assertNull(info.comment);
+		assertNull(info.cook);
+		assertNull(info.prep);
+		assertNull(info.veg);
+		assertNull(info.price);
 		assertNull(info.width);
 		assertNull(info.height);
 		assertFalse(info.infoComplete());
@@ -33,6 +37,10 @@ public class InfoTest {
 		info.setVersion("1.1");
 		info.setTitle("example title");
 		info.setComment("example comment");
+		info.setCook("example cook");
+		info.setPrep("example prep");
+		info.setVeg("yes veg");
+		info.setPrice("too expensive");
 		info.setWidth("200");
 		info.setHeight("100");
 		
@@ -44,6 +52,10 @@ public class InfoTest {
 		assertEquals("1.1", info.version);
 		assertEquals("example title", info.title);
 		assertEquals("example comment", info.comment);
+		assertEquals("example cook", info.cook);
+		assertEquals("example prep", info.prep);
+		assertEquals("yes veg", info.veg);
+		assertEquals("too expensive", info.price);
 		assertEquals(200, info.width.intValue());
 		assertEquals(100, info.height.intValue());
 	}
@@ -59,6 +71,10 @@ public class InfoTest {
 		assertNull(info.getVersion());
 		assertNull(info.getTitle());
 		assertNull(info.getComment());
+		assertNull(info.getCook());
+		assertNull(info.getPrep());
+		assertNull(info.getPrice());
+		assertNull(info.getVeg());
 		assertNull(info.getWidth());
 		assertNull(info.getHeight());
 		assertFalse(info.infoComplete());
@@ -68,6 +84,10 @@ public class InfoTest {
 		info.setVersion("1.1");
 		info.setTitle("example title");
 		info.setComment("example comment");
+		info.setCook("example cook");
+		info.setPrep("example prep");
+		info.setVeg("yes veg");
+		info.setPrice("too expensive");
 		info.setWidth("200");
 		info.setHeight("100");
 
@@ -79,6 +99,10 @@ public class InfoTest {
 		assertEquals("1.1", info.getVersion());
 		assertEquals("example title", info.getTitle());
 		assertEquals("example comment", info.getComment());
+		assertEquals("example cook", info.getCook());
+		assertEquals("example prep", info.getPrep());
+		assertEquals("yes veg", info.getVeg());
+		assertEquals("too expensive", info.getPrice());
 		assertEquals(200, info.getWidth().intValue());
 		assertEquals(100, info.getHeight().intValue());
 	}

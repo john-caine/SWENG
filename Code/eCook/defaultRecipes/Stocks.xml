@@ -6,7 +6,10 @@
     <title>Stocks</title>
 		<comment>There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking. It is not difficult to chuck a few ingredients in a pot of water, let them boil for a while and then strain, but that is not a good way to make stock.   
 		</comment>
-		
+		<cook>1 day</cook>
+		<prep>5 min</prep>
+		<price>£3</price>
+		<veg>n/a</veg>
 		<width>1440</width>
 		<height>900</height>
 	</documentinfo>

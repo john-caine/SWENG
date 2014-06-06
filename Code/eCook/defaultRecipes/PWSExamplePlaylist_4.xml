@@ -3,8 +3,13 @@
 	<documentinfo>
 		<author>John Caine</author>
 		<version>1.1</version>
-    <title>Recipe Example #2</title>
-		<comment>This is recipe example 2 in the defaultRecipe folder</comment>
+    	<title>Recipe Example #2</title>
+		<comment>This is recipe example 2 in the defaultRecipe folder
+		</comment>
+		<cook>example cooking time</cook>
+		<prep>example preperation time</prep>
+		<price>example £5</price>
+		<veg>example vegetarian comment</veg>
 		<width>1600</width>
 		<height>900</height>
 	</documentinfo>

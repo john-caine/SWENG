@@ -4,14 +4,12 @@
 		<author>Jim Dee</author>
 		<version>1.1</version>
     <title>Pea Soup</title>
-		<comment>The reader should remember that seasonal produce will make the best soups. More often than not, local produce is better than foreign alternatives, particularly with short season vegetables. I had the misfortune to try Peruvian asparagus in the middle of September last year, and it is not a product I will endorse here. Nearly every recipe here will require vegetable oil, salt and pepper, so they are omitted from the ingredients list. I recommend Maldon salt, which is widely available, and to my mind is one of the best salts in the world. 
-		
-		Cooking Time: x mins 	
-		Preparation Time: x mins 	
-		Average Cost = £x 	
-		Suitable for vegetarians.
+		<comment>The reader should remember that seasonal produce will make the best soups. More often than not, local produce is better than foreign alternatives, particularly with short season vegetables. I had the misfortune to try Peruvian asparagus in the middle of September last year, and it is not a product I will endorse here. Nearly every recipe here will require vegetable oil, salt and pepper, so they are omitted from the ingredients list. I recommend Maldon salt, which is widely available, and to my mind is one of the best salts in the world. 	
 		</comment>
-		
+		<cook>10 min</cook>
+		<prep>5 min</prep>
+		<price>£2</price>
+		<veg>Yes</veg>
 		<width>1440</width>
 		<height>900</height>
 	</documentinfo>

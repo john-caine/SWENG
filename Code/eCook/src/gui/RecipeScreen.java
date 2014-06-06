@@ -215,34 +215,56 @@ midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox, playSlide
 
 // method to update labels in the recipe info box
 public void updateInfoLabels(Recipe recipe) {
-String author = "", version = "", comment = "";
+String author = "", version = "", comment = "", cook = "", prep = "", price = "", veg ="";
 
 if (recipe != null) {
 // update the info Strings
 author = recipe.getInfo().getAuthor();
 version = recipe.getInfo().getVersion();
 comment = recipe.getInfo().getComment();
+cook = recipe.getInfo().getCook();
+prep = recipe.getInfo().getPrep();
+price = recipe.getInfo().getPrice();
+veg = recipe.getInfo().getVeg();
 }
 
 // add labels for author, version and comment
 Label authorLabel = new Label("Author: " + author);
-Label versionLabel = new Label("Version: " + version);
+//Label versionLabel = new Label("Version: " + version);
 Label commentLabel = new Label("Comment: " + comment);
+Label cookLabel = new Label("Cooking Time: " + cook);
+Label prepLabel = new Label("Preperation Time: " + prep);
+Label priceLabel = new Label("Average Price: " + price);
+Label vegLabel = new Label("Suitable for Vegetarians? " + veg);
+
 
 authorLabel.setWrapText(true);
 authorLabel.setId("authorLabel");
 authorLabel.getStylesheets().add("css.css");
-versionLabel.setWrapText(true);
-versionLabel.setId("versionLabel");
-versionLabel.getStylesheets().add("css.css");
+//versionLabel.setWrapText(true);
+//versionLabel.setId("versionLabel");
+//versionLabel.getStylesheets().add("css.css");
 commentLabel.setWrapText(true);
 commentLabel.setId("commentLabel");
 commentLabel.getStylesheets().add("css.css");
+cookLabel.setWrapText(true);
+cookLabel.setId("cookLabel");
+cookLabel.getStylesheets().add("css.css");
+prepLabel.setWrapText(true);
+prepLabel.setId("prepLabel");
+prepLabel.getStylesheets().add("css.css");
+priceLabel.setWrapText(true);
+priceLabel.setId("priceLabel");
+priceLabel.getStylesheets().add("css.css");
+vegLabel.setWrapText(true);
+vegLabel.setId("vegLabel");
+vegLabel.getStylesheets().add("css.css");
 
 // remove old labels
 recipeInfoBox.getChildren().clear();
 // add the labels to the info box
-recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
+//recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
+recipeInfoBox.getChildren().addAll(authorLabel, commentLabel, cookLabel, prepLabel, priceLabel, vegLabel);
 }
 
 
