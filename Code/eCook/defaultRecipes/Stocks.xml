@@ -31,13 +31,13 @@
         		<textstring>Soups</textstring>
       			</textbody>
 		</text>
-		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="15" ystart="70" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>The making of the soup is usually divided into three parts: the liquid, the key flavours, and the finishing touches. The foundation of any soup is the liquid. Some soups benefit from a neutral stock, such as a white chicken stock or a vegetable stock. Other soups require a more specific stock, often made from the trim of the principal ingredient.  </textstring>
       			</textbody>
 		</text>
 		
-		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="15" ystart="300" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>The most important part of any soup is the main flavour. A pumpkin soup should taste of pumpkin! Depth of flavour is essential to a successful soup, and so it is absolutely critical to make the most of whichever ingredient you are working with, and not to waste any potential flavour available to you. The final aspect of putting together a soup of quality is the finish and presentation you opt for. Sometimes this can be as little as a twist of pepper, while at other times anything from toasted seeds to flavoured oils can be added. Ultimately, the process of making a great soup will depend on these three ideas, so time should be dedicated towards improving every step.  </textstring>
       			</textbody>
@@ -53,13 +53,13 @@
         		<textstring>Stock</textstring>
       			</textbody>
 		</text>
-		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="15" ystart="70" xend="1300" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>There are several kinds of stock which are important to keep on hand. Homemade stocks are the best, and the process of making good stock will teach you many important things about cooking. It is not difficult to chuck a few ingredients in a pot of water, let them boil for a while and then strain, but that is not a good way to make stock. </textstring>
       			</textbody>
 		</text>
 		
-		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="55" ystart="500" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="true" >
         		<textstring>‘Stock is everything in cooking’- Escoffier    </textstring>
       			</textbody>
@@ -75,13 +75,13 @@
         		<textstring>Stock</textstring>
       			</textbody>
 		</text>
-		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="15" ystart="70" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>The ingredients should be carefully chosen and added to the pot when they are clean. Water should only ever come to a slight simmer, and it is important to skim any scum which rises to the surface. Passing the stock carefully through the finest sieve you have is essential. Don’t pour the whole pan through the sieve at once, or you risk forcing solid particles through. Instead ladle the stock through the sieve, beginning with the liquid closest to the surface, so as not to disturb any of the small particles at the bottom of the pan. Next, reduce the stock, concentrating its flavours. Reduce over a high heat and skim almost constantly to attain the very best, clear stocks. Ideally they will be chilled before use, which enables any excess fat to solidify and be removed.  </textstring>
       			</textbody>
 		</text>
 		
-		<text xstart="15" ystart="170" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+		<text xstart="15" ystart="500" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>If you genuinely believe that you don’t have to time to make your own stock, it is permissible to use fresh stocks from the supermarket, although this is an expensive habit. To my palette, stock cubes are a poor substitute, adding nothing more than saltiness and a vague meatiness. If tasked with making a soup without fresh stock, I would always opt to use water over a stock cube.   </textstring>
       			</textbody>
@@ -91,24 +91,24 @@
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
-	<slide id="3" duration="30" lastSlide="true">
+	<slide id="3" lastSlide="true">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Choose your stock:</textstring>
       			</textbody>
 		</text>
-		<text xstart="25" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="4">
+		<text xstart="25" ystart="100" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="true" bold="false" italic="false" branch="4">
         		<textstring>Chicken Stock   </textstring>
       			</textbody>
 		</text>  
-		<text xstart="25" ystart="150" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="5">
+		<text xstart="25" ystart="350" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="true" bold="false" italic="false" branch="5">
         		<textstring>Vegetable Stock   </textstring>
       			</textbody>
 		</text> 
-		<text xstart="25" ystart="200" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="true" italic="false" branch="6">
+		<text xstart="25" ystart="600" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="true" bold="false" italic="false" branch="6">
         		<textstring>Beef Stock   </textstring>
       			</textbody>
 		</text> 
@@ -116,76 +116,55 @@
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
-	<slide id="4" duration="30" lastSlide="false">
+	<slide id="4" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Chicken Stock</textstring>
       			</textbody>
 		</text>
+		<text xstart="950" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false" branch="7">
+        		<textstring>CLICK HERE FOR VIDEO  </textstring>
+      			</textbody>
+		</text>  
 		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
         		<textstring>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. I usually buy my chicken whole, and prepare the carcass myself. A whole chicken usually costs about as much as 2 chicken breasts, so it is far more economical to buy a whole bird.    </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="100" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false">
+		
+		<text xstart="15" ystart="220" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="true" bold="true" italic="false">
         		<textstring>Ingredients:    </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="130" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="false">
+		<text xstart="15" ystart="230" xend="1400" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
         		<textstring>The carcass of a chicken
 1 carrot, 2 onions and 1 small leek, all peeled, washed and chopped into 1 inch pieces
 3 bay leaves, 3 sprigs of thyme, 6 black peppercorns
     </textstring>
       			</textbody>
 		</text>    
-			
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
-	</slide>
 	
-	<slide id="5" duration="30" lastSlide="false">
-		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Chicken Stock</textstring>
-      			</textbody>
-		</text>
-		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+		<text xstart="15" ystart="400" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="true">
-        		<textstring>(VIDEO?) Begin by removing the chicken wings at the joint with a sharp knife. Next remove the legs, aiming to leave the skin largely intact. Chop the 1 inch, scaly part of the legs off. Using a small but sharp knife, remove the wishbone from the back of the breasts. Now cut down either side of the central bone on the breasts. Working as closely to the bone as possible, cut the breasts from the carcass. Everything but the breast and legs can be used for stock, and not a single part of the animal is wasted.    </textstring>
-      			</textbody>
-		</text>   
-		
-		<text xstart="15" ystart="150" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="15" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Chop the carcass into 1-2 inch pieces, along with the wings and the trim from the legs. Discard any small organs remaining on the bird, and wash off as much blood as possible. Put the chicken a large saucepan, cover with water, and place on a medium low heat. Bring very slowly to the boil, skimming off anything which rises to the top.
+        		<textstring>Begin by removing the chicken wings at the joint with a sharp knife. Next remove the legs, aiming to leave the skin largely intact. Chop the 1 inch, scaly part of the legs off. Using a small but sharp knife, remove the wishbone from the back of the breasts. Now cut down either side of the central bone on the breasts. Working as closely to the bone as possible, cut the breasts from the carcass. Everything but the breast and legs can be used for stock, and not a single part of the animal is wasted.   
+
+Chop the carcass into 1-2 inch pieces, along with the wings and the trim from the legs. Discard any small organs remaining on the bird, and wash off as much blood as possible. Put the chicken a large saucepan, cover with water, and place on a medium low heat. Bring very slowly to the boil, skimming off anything which rises to the top.
 
 Just before the water comes to the boil, turn off the heat and pour away the water. Rinse the chicken bones while they are still hot to remove any scum. Clean the pan as well. This blanching process enables a clearer stock. Put the chicken back in the pan, and place on a low heat. Bring to a simmer and skim frequently. Simmer for 1 hour, and then add all the other ingredients. Simmer for a further hour and a half then strain the stock into another saucepan. 
 
 Discard the solids. Reduce the stock over a high heat until reduced by one third. Chill, and remove the fat from the top.
-   </textstring>
+
+A dark chicken stock can be made in a similar way as above, but by replacing the blanching with oven roasting. Toss the bones in a little vegetable oil and roast at gas mark 7 for 30-45 minutes until golden brown. Lightly brown the vegetables in a frying pan. Add everything to a large pan, cover with cold water and bring to a simmer. Simmer for 4 hours then strain as above.</textstring>
       			</textbody>
 		</text>   
 			
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
-	<slide id="6" duration="30" lastSlide="true">
-		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Chicken Stock</textstring>
-      			</textbody>
-		</text>
-		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="true">
-        		<textstring>A dark chicken stock can be made in a similar way as above, but by replacing the blanching with oven roasting. Toss the bones in a little vegetable oil and roast at gas mark 7 for 30-45 minutes until golden brown. Lightly brown the vegetables in a frying pan. Add everything to a large pan, cover with cold water and bring to a simmer. Simmer for 4 hours then strain as above.</textstring>
-      			</textbody>
-		</text>   
-			
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
-	</slide>
-	
-	<slide id="7" duration="30" lastSlide="false">
+	<slide id="5" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Vegetable Stock</textstring>
@@ -196,28 +175,19 @@ Discard the solids. Reduce the stock over a high heat until reduced by one third
         		<textstring>A vegetable stock should be light and fragrant. A good stock will capture the freshness of the vegetables, and therefore should have a short cooking time.    </textstring>
       			</textbody>
 		</text>    
-		<text xstart="15" ystart="100" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false">
+		<text xstart="15" ystart="170" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="true" bold="true" italic="false">
         		<textstring>Ingredients:    </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="130" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="false">
+		<text xstart="15" ystart="220" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
         		<textstring>1 carrot, 2 onions and 1 small leek, all peeled, washed and chopped into ½ inch pieces
 3 bay leaves, 3 sprigs of thyme, 6 black peppercorns    </textstring>
       			</textbody>
 		</text> 
-        				
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
-	</slide>
-	
-	<slide id="8" duration="30" lastSlide="true">
-		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Vegetable Stock</textstring>
-      			</textbody>
-		</text>
-		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+       
+		<text xstart="15" ystart="400" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
         		<textstring>Cover the all the ingredients with cold water and bring to a simmer over a low heat. Cook for 20-30 minutes until the liquid is lightly flavoured and fresh. Strain and reserve. 				</textstring>
       			</textbody>
@@ -226,7 +196,7 @@ Discard the solids. Reduce the stock over a high heat until reduced by one third
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
-	<slide id="9" duration="30" lastSlide="false">
+	<slide id="6" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Beef Stock</textstring>
@@ -237,15 +207,22 @@ Discard the solids. Reduce the stock over a high heat until reduced by one third
         		<textstring>If available to you, it is better to use veal bones than beef bones. Their high gelatine content and neutral flavour are perfect for stock making. They are notoriously difficult to get hold of, and can be expensive, so it is perfectly acceptable to use beef bones instead. A pig or calf’s foot is added for extra gelatine.    </textstring>
       			</textbody>
 		</text>   
-		<text xstart="15" ystart="100" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+		<text xstart="15" ystart="220" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Ingredients:    </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="130" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+		<text xstart="15" ystart="230" xend="1400" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
         		<textstring>For every 2 kilos of bones use:  1 carrot, 2 onions and 1 small leek, washed and chopped into 1 inch pieces.
 3 bay leaves, 3 sprigs of thyme, 6 black peppercorns
+				</textstring>
+      			</textbody>
+		</text>   
+        
+		<text xstart="15" ystart="400" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Roast the bones in the oven for up to an hour at gas mark 7, turning them occasionally and browning evenly. Brown the vegetables in a frying pan. Add everything to a large saucepan and cover with water. Bring to a simmer and simmer for at least six hours, but 16 hours is ideal. Remember to skim frequently. Strain and reduce by one third. Strain again, chill and remove any fat. 
 				</textstring>
       			</textbody>
 		</text>   
@@ -253,18 +230,12 @@ Discard the solids. Reduce the stock over a high heat until reduced by one third
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
-	<slide id="9" duration="30" lastSlide="true">
+	<slide id="7" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
-        		<textstring>Beef Stock</textstring>
+        		<textstring>De-boning a Chicken</textstring>
       			</textbody>
 		</text>
-		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>Roast the bones in the oven for up to an hour at gas mark 7, turning them occasionally and browning evenly. Brown the vegetables in a frying pan. Add everything to a large saucepan and cover with water. Bring to a simmer and simmer for at least six hours, but 16 hours is ideal. Remember to skim frequently. Strain and reduce by one third. Strain again, chill and remove any fat. 
-				</textstring>
-      			</textbody>
-		</text>   
         				
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
