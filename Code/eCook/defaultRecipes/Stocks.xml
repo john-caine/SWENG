@@ -117,6 +117,12 @@
 	</slide>
 
 	<slide id="4" lastSlide="false">
+		
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. I usually buy my chicken whole, and prepare the carcass myself. A whole chicken usually costs about as much as 2 chicken breasts, so it is far more economical to buy a whole bird.    </textstring>
+      			</textbody>
+		</text>
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Chicken Stock</textstring>
@@ -126,13 +132,7 @@
 			<textbody underlined="false" bold="true" italic="false" branch="7">
         		<textstring>CLICK HERE FOR VIDEO  </textstring>
       			</textbody>
-		</text>  
-		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
-			<textbody underlined="false" bold="false" italic="false">
-        		<textstring>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. I usually buy my chicken whole, and prepare the carcass myself. A whole chicken usually costs about as much as 2 chicken breasts, so it is far more economical to buy a whole bird.    </textstring>
-      			</textbody>
-		</text>  
-		
+		</text>
 		<text xstart="15" ystart="220" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="true" bold="true" italic="false">
         		<textstring>Ingredients:    </textstring>
@@ -218,15 +218,13 @@ A dark chicken stock can be made in a similar way as above, but by replacing the
 3 bay leaves, 3 sprigs of thyme, 6 black peppercorns
 				</textstring>
       			</textbody>
-		</text>   
-        
+		</text>
 		<text xstart="15" ystart="400" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
         		<textstring>Roast the bones in the oven for up to an hour at gas mark 7, turning them occasionally and browning evenly. Brown the vegetables in a frying pan. Add everything to a large saucepan and cover with water. Bring to a simmer and simmer for at least six hours, but 16 hours is ideal. Remember to skim frequently. Strain and reduce by one third. Strain again, chill and remove any fat. 
 				</textstring>
       			</textbody>
-		</text>   
-        				
+		</text>
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	

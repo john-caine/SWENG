@@ -29,12 +29,14 @@ public class Recipe {
 	List<Ingredient> ingredients;
 	List<Slide> slides;
 	String fileName = null;
+	Integer prevGuests;
 		
 	public Recipe() {
 		slides = new ArrayList<Slide>();
 		info = new Info();
 		defaults = new Defaults();
 		ingredients = new ArrayList<Ingredient>();
+		prevGuests = 1;
 	}
 	
 	// method to report errors when setting fields
@@ -80,14 +82,20 @@ public class Recipe {
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-	
-	// method to return a single string with a list of every ingredient stored within the array list
-	public String getStringOfIngredients(Integer guests) {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (Integer i = 0; i < this.getNumberOfIngredients(); i++) {
-			 stringBuilder.append(ingredients.get(i).getAmount()*guests+" "+ingredients.get(i).getUnits() + " of "+ingredients.get(i).getName()+"\n");
+
+	public void ingreientsAmountUpdate(Integer guests) {
+		if (guests != null) {
+			for (Integer i = 0; i < this.getNumberOfIngredients(); i++) {
+				// Reset to 1 guest
+				ingredients.get(i).setAmount(ingredients.get(i).getAmount()/prevGuests);
+				ingredients.get(i).setAmount(ingredients.get(i).getAmount()*guests);
+			}
+			prevGuests = guests;
 		}
-		return stringBuilder.toString();
+		else {
+			/* TODO */
+			// Max & logger.
+		}
 	}
 
 	public Slide getSlide(int slideNumber) {

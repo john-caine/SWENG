@@ -35,7 +35,7 @@ public class XMLFilepathHandler {
 		// Loop through each slide in turn
 				// For each slide get the number of object X elements and update their content
 				// to match users native resolution
-				for (int i = 0; i < reader.getRecipe().getNumberOfSlides(); i++) {
+				for (int i = 0; i < reader.getRecipe().getNumberOfSlidesIncBranchSlides(); i++) {
 					// Image paths
 					for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getImages().size(); j++) {
 						reader.getRecipe().getSlide(i).getContent().getImages().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getImages().get(j).getUrlName()));
