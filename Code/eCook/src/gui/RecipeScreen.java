@@ -200,7 +200,7 @@ playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
 public void handle(ActionEvent arg0) {
 //Get filename of currently selected recipe
 String fileName = recipeCollection.getRecipe(listOfRecipes.getSelectionModel().getSelectedIndex()).getFileName();
-new SlideShow(stage, "defaultRecipes/" + fileName, recipeCollection);
+new SlideShow(stage, "defaultRecipes_new/" + fileName, recipeCollection);
 }
 
 });

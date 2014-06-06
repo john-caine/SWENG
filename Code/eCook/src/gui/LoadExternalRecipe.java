@@ -126,7 +126,7 @@ public class LoadExternalRecipe {
 				// defaults folder
 				if (filepath != null) {
 					Path source = Paths.get(filepath);
-					Path defaultsFolder = Paths.get("defaultRecipes/");
+					Path defaultsFolder = Paths.get("defaultRecipes_new/");
 					try {
 						// parse the source file through the reader to validate
 						XMLReader reader = new XMLReader(filepath);
@@ -220,11 +220,11 @@ public class LoadExternalRecipe {
 					try {
 						String assumedFileName = fileURL.substring(fileURL
 								.length() - 12);
-						browser.downloadRecipeFile(fileURL, "defaultRecipes/"
+						browser.downloadRecipeFile(fileURL, "defaultRecipes_new/"
 								+ assumedFileName);
 						// update the recipe collection with the new file
 						// (parse)
-						XMLReader reader = new XMLReader("defaultRecipes/"
+						XMLReader reader = new XMLReader("defaultRecipes_new/"
 								+ assumedFileName);
 						Recipe newRecipe = reader.getRecipe();
 						newRecipe.setFileName(assumedFileName);
