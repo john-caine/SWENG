@@ -25,7 +25,7 @@ public class XMLFilepathHandler {
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
 		filename = reader.getRecipe().getFileName();
-		filepath = System.getProperty("user.dir") + "\\defaultRecipes\\";
+		filepath = System.getProperty("user.dir") + "\\defaultRecipes_new\\";
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;

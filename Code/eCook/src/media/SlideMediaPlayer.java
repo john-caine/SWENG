@@ -106,11 +106,11 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 	
 	public double getDuration(){
 		if(duration != null){
-			return (double)duration;
+			return (double)duration*1000;
 		}
 		else {
 			
-			return mediaPlayer.getMedia().getDuration().toSeconds();
+			return mediaPlayer.getMedia().getDuration().toMillis();
 		}	
 	}
 	
@@ -126,5 +126,9 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		stopStartTimeTimeLine();
 		mediaPlayer.stop();
 		mediaPlayer.dispose();
+	}
+	
+	public MediaPlayer getMediaPlayer(){
+		return mediaPlayer;
 	}
 }

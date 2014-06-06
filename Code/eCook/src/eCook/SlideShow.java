@@ -179,7 +179,7 @@ public class SlideShow {
 			nextSlideID = currentSlideID;
 			prevSlideID = currentSlideID;
 			currentSlideID = slideID;
-		} 
+		}
 		else 
 		{
 			currentSlideID = slideID;
