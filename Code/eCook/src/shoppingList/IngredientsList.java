@@ -32,6 +32,7 @@ import javafx.scene.text.TextAlignment;
 
 public class IngredientsList {
 <<<<<<< HEAD
+<<<<<<< HEAD
 static ArrayList<String> ingredientsList;
 CheckBox[] checkboxes;
 VBox ingredientsListBox, scrollBox;
@@ -234,6 +235,8 @@ itemSelected = true;
      }
     }	
 =======
+=======
+>>>>>>> 600f31b94dd546721cdf75b851678803fbc847e3
 	static ArrayList<String> ingredientsList;
 	CheckBox[] checkboxes;
 	VBox ingredientsListBox, scrollBox;
@@ -435,5 +438,8 @@ itemSelected = true;
 			updateShoppingListButton.setDisable(true);
 		}
 	}	
+<<<<<<< HEAD
+>>>>>>> 600f31b94dd546721cdf75b851678803fbc847e3
+=======
 >>>>>>> 600f31b94dd546721cdf75b851678803fbc847e3
 }
