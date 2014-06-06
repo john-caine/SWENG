@@ -64,7 +64,8 @@ public class LoadExternalRecipe {
 	private HBox midBox;
 	private HBox bottomBox;
 
-	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
+	public LoadExternalRecipe(final Stage stage,
+			final RecipeCollection recipeCollection) {
 		// New stage
 		dialog = new Stage();
 		// Focus on new stage
@@ -147,7 +148,8 @@ public class LoadExternalRecipe {
 							dialog.close();
 						}
 					} catch (IOException e) {
-						System.out.println("Error copying XML file from local directory to defaults folder");
+						System.out
+								.println("Error copying XML file from local directory to defaults folder");
 						e.printStackTrace();
 					}
 				}
@@ -179,18 +181,19 @@ public class LoadExternalRecipe {
 		});
 		// James
 		// Method to always keep https:// in front of web address in text box
-	    httpField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-	                @Override
-	                public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue) {
-	                    if (!newPropertyValue) {
-	                    	if(!httpField.getText().contains("http://")) {
-		                    	String tempStr = httpField.getText();
-		                    	httpField.setText("http://");
-		                        httpField.setText(httpField.getText().concat(tempStr));
-	                    	}
-	                    }
-	                }
-	            });
+		httpField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0,
+					Boolean oldPropertyValue, Boolean newPropertyValue) {
+				if (!newPropertyValue) {
+					if (!httpField.getText().contains("http://")) {
+						String tempStr = httpField.getText();
+						httpField.setText("http://");
+						httpField.setText(httpField.getText().concat(tempStr));
+					}
+				}
+			}
+		});
 
 		getFromURLBtn = new Button("Get Recipe from URL");
 		getFromURLBtn.setDisable(true);
@@ -206,11 +209,14 @@ public class LoadExternalRecipe {
 			public void handle(ActionEvent event) {
 				String fileURL;
 				// if valid filepath
-				if (httpField != null && !httpField.getText().equals("") && httpField.getText().endsWith(".xml") && httpField.getText().contains("http://")) {
+				if (httpField != null && !httpField.getText().equals("")
+						&& httpField.getText().endsWith(".xml")
+						&& httpField.getText().contains("http://")) {
 					// complete the URL from the textfield
 					fileURL = httpField.getText().toString();
 					// call the recipe browser (no GUI)
-					RecipeBrowser browser = new RecipeBrowser(dialog, recipeCollection, false, statusBar);
+					RecipeBrowser browser = new RecipeBrowser(dialog,
+							recipeCollection, false, statusBar);
 					try {
 						String assumedFileName = fileURL.substring(fileURL
 								.length() - 12);
@@ -236,7 +242,8 @@ public class LoadExternalRecipe {
 							recipeCollection.addRecipe(newRecipe);
 						}
 					} catch (Exception e) {
-						System.out.println("error downloading recipe file from URL");
+						System.out
+								.println("error downloading recipe file from URL");
 					}
 				}
 				dialog.close();
@@ -246,7 +253,7 @@ public class LoadExternalRecipe {
 		// set up the status bar
 		statusBar = new Label();
 		statusBar.setPadding(new Insets(10, 200, 0, 0));
-	
+
 		bottomBox = new HBox(10); // add URL field and button below
 		bottomBox.getChildren().addAll(httpField, getFromURLBtn);
 		bottomBox.setAlignment(Pos.BASELINE_CENTER);
@@ -271,7 +278,8 @@ public class LoadExternalRecipe {
 		loadExtWinCloseBtnHolder.setImage(closeIcon);
 		topBox.getChildren().addAll(statusBar, loadExtWinCloseBtnHolder);
 		// Mouse click event
-		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		loadExtWinCloseBtnHolder
+				.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent mouseEvent) {
 						Node source = (Node) mouseEvent.getSource();
 						Stage dialog = (Stage) source.getScene().getWindow();
@@ -287,7 +295,7 @@ public class LoadExternalRecipe {
 
 		loadExtBox = new VBox(20);
 		loadExtBox
-				.setStyle("-fx-background-color: transparent;  -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: contain; -fx-background-repeat: no-repeat;");
+				.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);

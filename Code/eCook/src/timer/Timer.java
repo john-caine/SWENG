@@ -1,16 +1,16 @@
 /*
- * Programmer: Steve Thorpe and Paul Mathema
+ * Programmer: Steve Thorpe, Paul Mathema & Roger Tan
  * Date Created: 08/04/2014
- * Description: The Timer class, creates a cooking timer that can be set using Combobox fields which are made visible by time labels.
+ * Description: The Timer class, creates a cooking timer that can be set using ChoiceBox fields which are made visible by time labels.
  * The timer is controlled using the start and restart buttons and contains a editable Text Field for the user to label the timer.
  * 
  */
 
 package timer;
 
-import java.io.FileInputStream;
 
-import notes.NotesGUI;
+import java.awt.Toolkit;
+
 import eCook.SlideShow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,12 +22,9 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,8 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaException;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class Timer extends Task<Object>{
@@ -52,7 +48,7 @@ public class Timer extends Task<Object>{
 	public ChoiceBox<Integer> numbersListSeconds;
 	protected ChoiceBox<Integer> numbersListMinutes;
 	protected ChoiceBox<Integer> numbersListHours; 
-	private boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
+	public boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false;
 	private TimerData timerValues;
 	private VBox timerVBox;
 	private int i;
@@ -61,16 +57,14 @@ public class Timer extends Task<Object>{
 	private VBox timerContainer;
 	private String timerLabel;
 	private TextField textField;
-	private FileInputStream inputStream;
 	private Pane listBox;
-	private Image playImage, pauseImage, exitImage;
 	private Button exitButton;
 	private Pane textFieldBox;
 	private HBox completeTimer;
 	private int timerID;
 	private SlideShow main;
-	private ImageView playImageView;
-	private Timeline timeLine;
+	private ImageView closeBtnHolder, startBtnHolder, pauseBtnHolder, resetBtnHolder;
+	private Image closeIcon, startIcon, pauseIcon, resetIcon;
 	
 	
 	/*
@@ -88,6 +82,7 @@ public class Timer extends Task<Object>{
 	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, 
 			Integer startMinutes, Integer startHours, String timerLabel, int timerID, SlideShow main) {
 		
+		//If the timer is still running between slide transition, assign the current timer values to the variables
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 		timerValueHours = currentHours;
 		timerValueMinutes = currentMinutes;
@@ -95,6 +90,7 @@ public class Timer extends Task<Object>{
 		timerStartSeconds = startSeconds;
 		timerStartMinutes = startMinutes;
 		timerStartHours = startHours;
+		// Condition to indicate that the timer is resuming counting from the previous slide
 		resumeTimer  = true;
 		}
 		this.timerLabel = timerLabel;
@@ -105,11 +101,11 @@ public class Timer extends Task<Object>{
 
 	@Override
 	protected Object call() throws Exception {
-	
 		textFieldBox = new Pane();
 		timerLabelBox = new HBox();
 		listBox = new Pane();
 		
+		// Insert Text for the TextField 
 		if(timerLabel != null){
 			textField = new TextField(timerLabel);
 		}
@@ -117,34 +113,54 @@ public class Timer extends Task<Object>{
 			textField = new TextField("Timer " + timerID);
 		}
 		
-		//Gets play icon image from resources folder adds to start button.
-		inputStream = new FileInputStream("play.png");
-		playImage = new Image(inputStream);
-		playImageView = new ImageView(playImage);
-		playImageView.setFitWidth(30);
-		playImageView.setFitHeight(20);
-		inputStream = new FileInputStream("pause.png");
-		pauseImage = new Image(inputStream);
-		startButton = new Button("", playImageView);
+		// Configure TextField's size along with CSS
+		textField.setId("timerField");
+		textField.getStylesheets().add("css.css");
+		textField.setAlignment(Pos.CENTER);
+		textField.setPrefWidth(120);
+		textFieldBox.getChildren().add(textField);
+	
+		//Get a play image from resources folder adds to start button.
+		startButton = new Button();
+		startButton.setPrefWidth(60);
+		startBtnHolder = new ImageView();
+		startIcon = new Image("PLAY.png");
+		startBtnHolder.setImage(startIcon);
+		startButton.setGraphic(startBtnHolder);
+		startButton.setId("playButton");
+		startButton.getStylesheets().add("css.css");
 		
+		// Get a pause image from resources folder
+		pauseBtnHolder = new ImageView();
+		pauseIcon = new Image("Pause.png");
+		pauseBtnHolder.setImage(pauseIcon);
 		
-		resetTimer = new Button("R");
-		//startButton.setStyle("-fx-base: #0000FF");
-		//resetTimer.setStyle("-fx-base: #0000FF");
-		resetTimer.setPrefWidth(50);
+		//Gets play icon image from resources folder adds to reset button.
+		resetTimer = new Button();
+		resetTimer.setPrefWidth(60);
+		resetBtnHolder = new ImageView();
+		resetIcon = new Image("reset.png");
+		resetBtnHolder.setImage(resetIcon);
+		resetTimer.setGraphic(resetBtnHolder);
+		resetTimer.setId("playButton");
+		resetTimer.getStylesheets().add("css.css");
+		
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
-		buttonBox.setLayoutX(400);
-		buttonBox.setLayoutY(350);
+		buttonBox.setPrefWidth(100);
 		buttonBox.getChildren().addAll(startButton,resetTimer);
-		textField.setPrefWidth(100);
-		textFieldBox.getChildren().add(textField);
 		
-		exitButton = new Button("X");
+		closeBtnHolder = new ImageView();
+		closeIcon = new Image("closeTimer.png");
+		closeBtnHolder.setImage(closeIcon);
+		resetTimer.setId("playButton");
+		resetTimer.getStylesheets().add("css.css");
+		
+		exitButton = new Button();
 		exitButton.setLayoutX(startButton.getWidth() + resetTimer.getWidth());
-		exitImage = new Image("EXIT.png");
-		//exitButton.setGraphic(new ImageView(exitImage));
-		//textFieldBox.getChildren().add(exitButton);
+		exitButton.setGraphic(closeBtnHolder);
+		exitButton.setId("playButton");
+		exitButton.getStylesheets().add("css.css");
 		
 		numberListSetup();
 		//Adds the number lists to list box
@@ -166,19 +182,30 @@ public class Timer extends Task<Object>{
 		completeTimer.setAlignment(Pos.CENTER);
 		completeTimer.getChildren().addAll(timerContainer);
 		//Gets the audio for when the timer finishes
-		loadAudio("Ship_Bell_Mike_Koenig_1911209136.wav");
+		//loadAudio("Ship_Bell_Mike_Koenig_1911209136.wav");
 		
 		timeLineSeconds = new Timeline();
 		timeLineSeconds.setCycleCount(Timeline.INDEFINITE);
 		createKeyFrame();
 		setButtonEventListeners();
-
+		
 		timerSetupFinished = true;
 		// Resumes the timer if the new timer object is recreating a timer from the previous slide
 		if(resumeTimer  == true){
 			timeLineSeconds.play();
-			startButton.setText("Pause");
 			started = true;
+			paused = false;
+			startButton.setGraphic(pauseBtnHolder);
+			startButton.setDisable(false);
+			//Disable all the choice box
+			numbersListSeconds.setDisable(true);
+			numbersListMinutes.setDisable(true);
+			numbersListHours.setDisable(true);
+		}
+		else{
+			started = false;
+			paused = false;
+			startButton.setDisable(true);
 		}
 		return null;
 		
@@ -193,8 +220,10 @@ public class Timer extends Task<Object>{
 			@Override
 	        public void handle(ActionEvent event) {
 				
+				// If the Timer is not started non paused
 				if(started == false && paused == false){
-				
+					
+					// If the Timer has no previous time values or the the Timer has been reset to zero
 					if((timerValueHours == null) && (timerValueMinutes == null) && (timerValueSeconds == null)
 							||(timerValueHours == 0) && (timerValueMinutes == 0) && (timerValueSeconds == 0)){
 						timerValueSeconds = timerStartSeconds;
@@ -202,22 +231,31 @@ public class Timer extends Task<Object>{
 						timerValueHours = timerStartHours;
 					}
 					timeLineSeconds.play();
-					//startButton.setGraphic(new ImageView(pauseImage));
-					
+					startButton.setGraphic(pauseBtnHolder);					
 					started = true;
 				}
+				// If the Timer has started and is counting down. Pause the timer when startButton is pressed
 				else if(started == true && paused == false){
 					timeLineSeconds.stop();
-					//startButton.setGraphic(new ImageView(playImage));
+					startButton.setGraphic(startBtnHolder);
 					paused = true;
 				}
-				
-				else if(started == true && paused == true){
-					
+				// If the Timer is paused, resume the timer when startButton is pressed
+				else if(started == true && paused == true){			
 					timeLineSeconds.play();
-					//startButton.setGraphic(new ImageView(pauseImage));
+					startButton.setGraphic(pauseBtnHolder);
 					paused = false;
 				}
+				
+				//Disable the choicebox
+				numbersListSeconds.setDisable(true);
+				numbersListMinutes.setDisable(true);
+				numbersListHours.setDisable(true);
+				
+				//Set choicebox to invisible
+				numbersListSeconds.setVisible(false);
+				numbersListMinutes.setVisible(false);
+				numbersListHours.setVisible(false);
 
 	        }
 	    });
@@ -225,43 +263,32 @@ public class Timer extends Task<Object>{
 		resetTimer.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
-				startButton.setDisable(false);
+				// Stop the timer
 				timeLineSeconds.stop();
 				started = false;
 				paused = false;
+				
+				// Reset the hours, minutes, seconds variable
 				timerValueSeconds = 0;
 				timerValueMinutes = 0;
 				timerValueHours = 0;
-//				timerValueSeconds = timerStartSeconds;
-//				timerValueMinutes = timerStartMinutes;
-//				timerValueHours = timerStartHours;
-					
+				timerStartSeconds = 0;
+				timerStartMinutes = 0;
+				timerStartHours  = 0;
+				
+				// Reset the hours, minutes, seconds Label
 				labelSeconds.setText("00");
 				labelMinutes.setText("00" + " : ");
-				labelHours.setText("00" + " : ");
+				labelHours.setText(" 00" + " : ");
 				
-//				if (timerStartSeconds >9){
-//					labelSeconds.setText(timerStartSeconds.toString());
-//				}
-//				else{
-//					labelSeconds.setText("0" + timerStartSeconds.toString());
-//				}
-//				if (timerStartMinutes > 9){
-//					labelMinutes.setText(timerStartMinutes.toString() + " : ");
-//				}
-//				else{
-//					labelMinutes.setText("0" + timerStartMinutes.toString() + " : ");
-//				}
-//				if (timerStartHours > 9){
-//					
-//					labelHours.setText(timerStartHours.toString() + " : ");
-//				}
-//				else{
-//					
-//					labelHours.setText("0" + timerStartHours.toString() + " : ");
-//				}
-					
-				//startButton.setGraphic(new ImageView(playImage));
+				// Enable the Choice Box
+				numbersListSeconds.setDisable(false);
+				numbersListMinutes.setDisable(false);
+				numbersListHours.setDisable(false);
+				
+				// Enable start button and set the image of the start button
+				startButton.setDisable(false);
+				startButton.setGraphic(startBtnHolder);
 			}
 				
 		});
@@ -270,8 +297,10 @@ public class Timer extends Task<Object>{
 
 			@Override
 			public void handle(ActionEvent event) {
+				//Remove the appropriate Timmer from the timerbox inside the notes panel
 				main.getTimerbox().getChildren().remove(timerID);
-				main.decrementNumberOfTimers();;
+				//Decrement the total amount of timers left
+				main.decrementNumberOfTimers();
 			}
 			
 		});
@@ -300,15 +329,15 @@ public class Timer extends Task<Object>{
 					labelSeconds.setText("0" + timerValueSeconds.toString());
 				}
 				//Timer has finished
-				if(timerValueHours <= 0 && timerValueMinutes <= 0 && timerValueSeconds <= 0){
+				if(timerValueHours <= 0 && timerValueMinutes <= 0 && timerValueSeconds <= 0 && started == true){
 					timeLineSeconds.stop();
+					Toolkit.getDefaultToolkit().beep();
 					//audio.play();
-//					labelHours.setText("Finished");
-//					labelMinutes.setText("");
-//					labelSeconds.setText("");
+					labelSeconds.setText("00");
+					labelMinutes.setText("00" + " : ");
+					labelHours.setText(" 00" + " : ");
 					started = false;
 					paused = false;
-					startButton.setText("Start");
 					startButton.setDisable(true);
 				}
 				// Timer has moved past an hour
@@ -322,7 +351,7 @@ public class Timer extends Task<Object>{
 						labelHours.setText(timerValueHours.toString() + " : ");
 					}
 					else {
-						labelHours.setText("0" + timerValueHours.toString() + " : ");
+						labelHours.setText(" 0" + timerValueHours.toString() + " : ");
 					}
 					labelMinutes.setText(timerValueMinutes.toString() + " : ");
 					labelSeconds.setText(timerValueSeconds.toString());
@@ -356,17 +385,9 @@ public class Timer extends Task<Object>{
 		 }
 		 
 		//Create ListViews which are used to select the start values of the timer
-		//numbersListSeconds = new ListView<Integer>();
 		numbersListSeconds = new ChoiceBox<Integer>(numbers);
 		numbersListMinutes = new ChoiceBox<Integer>(numbers);
 		numbersListHours = new ChoiceBox<Integer>(numbers);
-		
-		
-//		// Add the numbers to each of the list
-//		//numbersListSeconds.getItems().addAll(numbers);
-//		numbersListSeconds.setItems(numbers);
-//		numbersListMinutes.setItems(numbers);
-//		numbersListHours.setItems(numbers);
 		
 		numbersListSeconds.setPrefWidth(0);
 		numbersListMinutes.setPrefWidth(0);
@@ -381,6 +402,7 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartSeconds = new_vale.intValue();
 				if(timerStartSeconds > 9){
 					labelSeconds.setText(new_vale.toString());
@@ -396,6 +418,7 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartMinutes = new_vale.intValue();
 				if(timerStartMinutes > 9){
 					labelMinutes.setText(new_vale.toString() + " : ");
@@ -411,12 +434,13 @@ public class Timer extends Task<Object>{
 				ChangeListener<Number>() {
 			public void changed(ObservableValue ov,
 					Number value, Number new_vale){
+				startButton.setDisable(false);
 				timerStartHours = new_vale.intValue();
 				if(timerStartHours > 9){
 					labelHours.setText(new_vale.toString() + " : ");
 				}
 				else{
-					labelHours.setText("0" +new_vale.toString() + " : ");
+					labelHours.setText(" 0" +new_vale.toString() + " : ");
 				}
 				numbersListHours.setVisible(false);
 			}
@@ -488,7 +512,7 @@ public class Timer extends Task<Object>{
 				labelHours = new Label(timerStartHours.toString() + " : ");
 			}
 			else{
-				labelHours = new Label("0" + timerStartHours.toString() + " : ");
+				labelHours = new Label(" 0" + timerStartHours.toString() + " : ");
 			}
 		} 
 		else {
@@ -510,17 +534,14 @@ public class Timer extends Task<Object>{
 				labelHours = new Label(timerValueHours.toString() + " : ");
 			}
 			else{
-				labelHours = new Label("0" + timerValueHours.toString() + " : ");
+				labelHours = new Label(" 0" + timerValueHours.toString() + " : ");
 			}
-			
-			
 		}
 		
 		//Displays the seconds numbers list and hides other numbers lists
 		labelSeconds.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(true);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(false);
@@ -536,7 +557,6 @@ public class Timer extends Task<Object>{
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(true);
 				numbersListHours.setVisible(false);
@@ -551,7 +571,6 @@ public class Timer extends Task<Object>{
 		labelHours.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0) {
-				startButton.setDisable(false);
 				numbersListSeconds.setVisible(false);
 				numbersListMinutes.setVisible(false);
 				numbersListHours.setVisible(true);
@@ -563,12 +582,23 @@ public class Timer extends Task<Object>{
 			}
 		});
 		
+		// Setup Id and Css for the labels
+		labelSeconds.setId("timerLabel");
+		labelMinutes.setId("timerLabel");
+		labelHours.setId("timerLabel");
+		labelSeconds.getStylesheets().add("css.css");
+		labelMinutes.getStylesheets().add("css.css");
+		labelHours.getStylesheets().add("css.css");
+		
+		// Set the text alignment of the labels
+		labelSeconds.setTextAlignment(TextAlignment.CENTER);
+		labelMinutes.setTextAlignment(TextAlignment.CENTER);
+		labelHours.setTextAlignment(TextAlignment.CENTER);
+		
+		// Set font color
 		labelSeconds.setTextFill(Color.WHITE);
 		labelMinutes.setTextFill(Color.WHITE);
 		labelHours.setTextFill(Color.WHITE);
-		labelSeconds.setFont(new Font("Arial", 16));
-		labelMinutes.setFont(new Font("Arial", 16));
-		labelHours.setFont(new Font("Arial", 16));
 	}
 
 	public int getTimerID() {

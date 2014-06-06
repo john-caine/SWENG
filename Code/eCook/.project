@@ -18,7 +18,13 @@
 		<link>
 			<name>Resources</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<location>C:/Users/lenovo/Documents/MEng- York/Yr-3 (2013-2014)/Sweng/GitHub/SWENG/Code/Resources</location>
+=======
+			
+			<location>../Resources</location>
+
+>>>>>>> a07939f1aa321e928c18f72226c2b1cb526b3072
 		</link>
 	</linkedResources>
 </projectDescription>

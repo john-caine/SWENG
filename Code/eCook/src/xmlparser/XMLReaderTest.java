@@ -156,7 +156,7 @@ public class XMLReaderTest {
 		
 		// check slide 1
 		assertEquals((Integer)0, recipe.slides.get(0).id);
-		assertEquals(10, recipe.slides.get(0).duration.intValue());
+		assertEquals(30, recipe.slides.get(0).duration.intValue());
 		assertFalse(recipe.slides.get(0).lastSlide);
 			// text 1
 			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(0).getXStart());
@@ -179,6 +179,7 @@ public class XMLReaderTest {
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getBold());
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getItalic());
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getUnderline());
+			System.out.println("\n ***" + recipe.slides.get(0).content.texts.get(1).getTextBody().get(0).getBranch());
 			// text 3
 			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(2).getXStart());
 			assertEquals((Integer)200, recipe.slides.get(0).content.texts.get(2).getYStart());
@@ -447,6 +448,7 @@ public class XMLReaderTest {
 		assertEquals((Integer)10, recipe.slides.get(5).content.texts.get(0).getYStart());
 		assertEquals((Integer)1000, recipe.slides.get(5).content.texts.get(0).getXEnd());
 		assertEquals((Integer)100, recipe.slides.get(5).content.texts.get(0).getYEnd());
+		
 		assertEquals("This is the branch slide for the text object", recipe.slides.get(5).content.texts.get(0).getTextString(0).getText());
 		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getBold());
 		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getItalic());

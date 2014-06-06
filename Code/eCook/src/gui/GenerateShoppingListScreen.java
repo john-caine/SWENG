@@ -60,7 +60,7 @@ public class GenerateShoppingListScreen {
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		this.bigBox = bigBox;
-		
+		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
 		//Imports eCook logo, home, close and minimise button icons
 		homeHolder = new ImageView();
 		homeIcon = new Image("home1.png");

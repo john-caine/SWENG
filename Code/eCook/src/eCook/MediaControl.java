@@ -104,7 +104,7 @@ public abstract class MediaControl {
 		this.startTime = startTime;
 		this.playDuration = playDuration;
 		mediaView = new MediaView(mp);
-		
+		mediaView.setVisible(true);
 		// Retrieve the size of the Screen
 		bounds = Screen.getPrimary().getBounds();
 		
@@ -175,7 +175,7 @@ public abstract class MediaControl {
         // Label to show the length of the video
         Label timeLabel = new Label(" Time: ");
         timeLabel.setId("timeLabel");
-        timeLabel.getStylesheets().add("file:../Resources/css.css");
+        timeLabel.getStylesheets().add("css.css");
         timeLabel.setTextAlignment(TextAlignment.CENTER);
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setMinWidth(Control.USE_PREF_SIZE);
@@ -187,7 +187,7 @@ public abstract class MediaControl {
         // Label to show the current time position of the video
         playTime = new Label();
         playTime.setId("playTimeLabel");
-        playTime.getStylesheets().add("file:../Resources/css.css");
+        playTime.getStylesheets().add("css.css");
         playTime.setTextAlignment(TextAlignment.CENTER);
         playTime.setTextFill(Color.WHITE);
         playTime.setMinWidth(Control.USE_PREF_SIZE);
@@ -196,7 +196,7 @@ public abstract class MediaControl {
         // Label to show the current volume of the media
         Label volumeLabel = new Label(" Vol: ");
         volumeLabel.setId("volumeLabel");
-        volumeLabel.getStylesheets().add("file:../Resources/css.css");
+        volumeLabel.getStylesheets().add("css.css");
         volumeLabel.setTextFill(Color.WHITE);
         volumeLabel.setMinWidth(Control.USE_PREF_SIZE);
         mediaBar.getChildren().add(volumeLabel);
@@ -207,7 +207,7 @@ public abstract class MediaControl {
         // Label for play time in full screen mode
         playTimeFS = new Label();
         playTimeFS.setId("playTimeLabel");
-        playTimeFS.getStylesheets().add("file:../Resources/css.css");
+        playTimeFS.getStylesheets().add("css.css");
         playTimeFS.setMinWidth(Control.USE_PREF_SIZE);
         playTimeFS.setTextFill(Color.WHITE);
 
@@ -276,7 +276,7 @@ public abstract class MediaControl {
 	void setVolumeSlider() {
 		// Create a new volume slider
 		volumeSlider = new Slider();
-		volumeSlider.getStylesheets().add("file:../Resources/css.css");
+		volumeSlider.getStylesheets().add("css.css");
 	    volumeSlider.setMaxWidth(mpWidth/5);
 	    // Detect the change in volume slider bar and sets the MediaPlayer's volume accordingly
 	    volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -313,7 +313,7 @@ public abstract class MediaControl {
 	void setTimeSlider() {
 		// Create a new time slide
         timeSlider = new Slider();
-        timeSlider.getStylesheets().add("file:../Resources/css.css");
+        timeSlider.getStylesheets().add("css.css");
         timeSlider.setMaxWidth((3*mpWidth)/5);
         HBox.setHgrow(timeSlider, Priority.ALWAYS);
         
@@ -342,7 +342,7 @@ public abstract class MediaControl {
         
         // Create a new time slider for fullscreen mode
         timeSliderFS = new Slider();
-        timeSliderFS.getStylesheets().add("file:../Resources/css.css");
+        timeSliderFS.getStylesheets().add("css.css");
     	timeSliderFS.setPrefWidth(bounds.getWidth()-90);
     	timeSliderFS.valueProperty().addListener(new InvalidationListener() {
 
@@ -381,7 +381,7 @@ public abstract class MediaControl {
 		// Create a fullscreen button
 		Button fullscreenButton = new Button();
 		fullscreenButton.setId("fullscreenButton");
-		fullscreenButton.getStylesheets().add("file:../Resources/css.css");
+		fullscreenButton.getStylesheets().add("css.css");
         fullscreenButton.setGraphic(new ImageView(fullscreenImage));
         fullscreenButton.setMinWidth(mpWidth/25);
         
@@ -505,7 +505,7 @@ public abstract class MediaControl {
 		stopButton = new Button();
 		stopButton.setId("stopButton");
 		stopButton.setGraphic(new ImageView(stopImage));
-		stopButton.getStylesheets().add("file:../Resources/css.css");
+		stopButton.getStylesheets().add("css.css");
         stopButton.setMinWidth(mpWidth/25);
         stopButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -533,7 +533,7 @@ public abstract class MediaControl {
         playButton = new Button();
         playButton.setId("playButton");
         playButton.setGraphic(new ImageView(playImage));
-        playButton.getStylesheets().add("file:../Resources/css.css");
+        playButton.getStylesheets().add("css.css");
         playButton.setMinWidth(mpWidth/25);
         playButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -571,7 +571,7 @@ public abstract class MediaControl {
         playButtonFS = new Button();
         playButtonFS.setId("playButtonFS");
         playButtonFS.setGraphic(new ImageView(playImage));
-        playButtonFS.getStylesheets().add("file:../Resources/css.css");
+        playButtonFS.getStylesheets().add("css.css");
         playButtonFS.setMinWidth(mpWidth/25);
         playButtonFS.setOnAction(new EventHandler<ActionEvent>() {
 

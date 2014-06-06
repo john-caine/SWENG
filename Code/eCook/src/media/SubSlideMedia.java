@@ -15,7 +15,7 @@ import eCook.eCook;
 
 public abstract class SubSlideMedia extends SlideMedia {
 
-	private Timeline durationTimeLine;
+	protected Timeline durationTimeLine;
 	private Integer duration;
 	private SlideShow parent;
 	private Integer branchID;
@@ -73,13 +73,14 @@ public abstract class SubSlideMedia extends SlideMedia {
 		durationTimeLine.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event) {
-				duration--;	
+
 			}
 		} ));
 
 	}
 
-	public void doBranch() {
+	protected void doBranch() {
+		logger.log(Level.INFO, "Branch added: " + branchID);
 		hbox.setOnMouseClicked(new EventHandler<MouseEvent> (){
 			public void handle(MouseEvent e) {
 				parent.newSlide(branchID, true, parent.getTimerData());

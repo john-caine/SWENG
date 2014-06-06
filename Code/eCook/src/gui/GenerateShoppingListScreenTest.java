@@ -163,7 +163,7 @@ public class GenerateShoppingListScreenTest {
 		assertEquals("shoppingListLabel", shoppingListLabel.getId());
 		
 		/* Test if Shopping List Label's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", shoppingListLabel.getStylesheets().toString());
+		assertEquals("[css.css]", shoppingListLabel.getStylesheets().toString());
 		
 		/* Test if midBox contains buttonBar*/
 		assertTrue(midBox.getChildren().get(1) instanceof HBox);

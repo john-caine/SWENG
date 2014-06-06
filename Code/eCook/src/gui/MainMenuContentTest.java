@@ -176,7 +176,7 @@ public class MainMenuContentTest {
 		assertEquals("loadExtBtn", loadExtBtn.getId());
 		
 		/* Test if Load External Recipe Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", loadExtBtn.getStylesheets().toString());
+		assertEquals("[css.css]", loadExtBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
 		assertEquals("Click here to load external recipes form the internet or locally"
@@ -206,7 +206,7 @@ public class MainMenuContentTest {
 		assertEquals("generateListBtn", generateListBtn.getId());
 		
 		/* Test if Shopping List Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", generateListBtn.getStylesheets().toString());
+		assertEquals("[css.css]", generateListBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
 		assertEquals("Click here to make shopping list from ingredients chosen"
@@ -257,7 +257,7 @@ public class MainMenuContentTest {
 		assertEquals("ingredientsPickBtn", ingredientsPickBtn.getId());
 		
 		/* Test if Ingredients Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", ingredientsPickBtn.getStylesheets().toString());
+		assertEquals("[css.css]", ingredientsPickBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
 		assertEquals("Click here to choose ingredients from list of recipes"
@@ -305,7 +305,7 @@ public class MainMenuContentTest {
 		assertEquals("recipesBtn", recipesBtn.getId());
 		
 		/* Test if Recipes Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", recipesBtn.getStylesheets().toString());
+		assertEquals("[css.css]", recipesBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
 		assertEquals("Click here to choose from a list of recipes"

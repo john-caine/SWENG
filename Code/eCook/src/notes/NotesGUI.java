@@ -70,21 +70,20 @@ public class NotesGUI {
     public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root,  final VBox timerbox) {   
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
+        notesPanel.setPadding(new Insets(60, 10, 10, 10));
         notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
-        notesPanel.setStyle("-fx-background-image: url(file:../Resources/woodenPanel.png)");
+        notesPanel.setStyle("-fx-background-color: rgba(255,255,255,0.9);");
         
-        final Label notesTitle = new Label("Notes");
-        notesTitle.setStyle("fx-font-family: Century Gothic; -fx-font-size: 20px; -fx-background-color: gray;");
         final Label searching = new Label("Searching for Notes...");
         searching.setStyle("fx-font-family: Century Gothic; -fx-font-size: 20px; -fx-background-color: gray;");
         final ProgressIndicator pinwheel = new ProgressIndicator();
         notesBox = new TextArea();
         notesBox.setMaxWidth(4*root.getScene().getWidth()/25);
         notesBox.setPrefSize(4*root.getScene().getWidth()/25, root.getScene().getHeight()/4);
-        notesBox.setPadding(new Insets(30, 0, 0, 0));
+        notesBox.setPadding(new Insets(64, 10, 10, 10));
         notesBox.setText("Write your notes here");
-        notesBox.getStylesheets().add("file:../Resources/css.css");
-        notesBox.setStyle("-fx-background-image: url('file:../Resources/note_edit.png');"
+        notesBox.getStylesheets().add("css.css");
+        notesBox.setStyle("-fx-background-image: url('note_edit.png');"
         		+ "fx-font-family: Century Gothic;"
         		+ "-fx-font-size: 14px;"
 				+ "-fx-background-size: contain;"
@@ -98,15 +97,11 @@ public class NotesGUI {
             	}
             }
         });
-        
-        final Label timersLabel = new Label("The timers and other stuff could go here");
-        timersLabel.setPadding(new Insets(50,0,0,0));
      
-        notesPanel.setPadding(new Insets(10,10,10,10));
         notesPanel.setSpacing(20);
         notesPanel.setAlignment(Pos.TOP_CENTER);
         
-        notesPanel.getChildren().addAll(searching, pinwheel, timersLabel, timerbox);
+        notesPanel.getChildren().addAll(searching, pinwheel, timerbox);
         
         // create an instance of the text file handler
         handler = new TextFileHandler();
@@ -170,12 +165,12 @@ public class NotesGUI {
         if (existingNotes != null) {
         	notesBox.setText(existingNotes);
         	notesPanel.getChildren().clear();
-        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
+        	notesPanel.getChildren().addAll(notesBox, timerbox);
         }
         // else show the empty notes panel
         else {
         	notesPanel.getChildren().clear();
-        	notesPanel.getChildren().addAll(notesTitle, notesBox, timersLabel, timerbox);
+        	notesPanel.getChildren().addAll(notesBox, timerbox);
         }
         
         notesBox.setDisable(true);

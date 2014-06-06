@@ -43,6 +43,7 @@ public class eCook extends Application {
 					Recipe currentRecipe = reader.getRecipe();
 					currentRecipe.setFileName(directory.list()[i]);
 					recipeCollection.addRecipe(currentRecipe);
+					logger.log(Level.INFO, "Logged Recipe" + directory.list()[i]);
 				}
 			}
 		}
@@ -69,6 +70,7 @@ public class eCook extends Application {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		
+		/*
 		// Create a file handler for the logger and catch any exceptions
 		FileHandler handler = null;
 		try {
@@ -86,7 +88,7 @@ public class eCook extends Application {
 		
 		// Add the file handler to the logger
 		logger.addHandler(handler);
-		
+		*/
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.ALL);
 		
