@@ -52,7 +52,7 @@ public class XMLValidator {
 	 */
 	private Boolean missingElementAttributes(XMLReader reader) {
 		// Loop through slides determining missing element attributes within them
-		for (int i = 0; (i < reader.getRecipe().getNumberOfSlides()) && !broken; i++) {
+		for (int i = 0; (i < reader.getRecipe().getNumberOfSlidesIncBranchSlides()) && !broken; i++) {
 			// Check that all slide IDs have been set
 			if (reader.getRecipe().getSlide(i).getID() == null) {
 				broken = true;

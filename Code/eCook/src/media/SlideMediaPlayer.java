@@ -19,7 +19,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 	private Integer duration;
 	private Logger logger;
 	private Media media;
-	private MediaPlayer mediaPlayer;
+	protected MediaPlayer mediaPlayer;
 	private Duration currentTime;
 
 	public SlideMediaPlayer(SlideShow parent, String pathLocation,  Integer xStart, Integer yStart, Integer startTime, Integer duration, Boolean loop) {

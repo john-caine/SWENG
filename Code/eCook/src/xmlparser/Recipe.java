@@ -91,7 +91,7 @@ public class Recipe {
 	}
 
 	public Slide getSlide(int slideNumber) {
-		if (slideNumber >= 0 && slideNumber < this.getNumberOfSlides()) {
+		if (slideNumber >= 0 && slideNumber < this.getNumberOfSlidesIncBranchSlides()) {
 			return slides.get(slideNumber);
 		}
 		else {
@@ -129,7 +129,7 @@ public class Recipe {
 	}
 
 	// get the number of slides excluding branch slides
-	public int getNumberOfSlides() {
+	public int getNumberOfSlidesExcBranchSlides() {
 		for (int i=0; i<slides.size(); i++) {
 			if (slides.get(i).getLastSlide() == true) {
 				return i+1;

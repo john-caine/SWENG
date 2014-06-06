@@ -126,7 +126,7 @@ public class RecipeTest {
 		assertEquals(slide2, recipe.getSlide(1));
 		
 		assertEquals(3, recipe.getNumberOfSlidesIncBranchSlides());
-		assertEquals(2, recipe.getNumberOfSlides());
+		assertEquals(2, recipe.getNumberOfSlidesExcBranchSlides());
 				
 		assertEquals(ingredient1, recipe.getIngredient(0));
 		assertEquals(ingredient2, recipe.getIngredient(1));

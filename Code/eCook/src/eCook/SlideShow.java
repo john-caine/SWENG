@@ -55,7 +55,8 @@ public class SlideShow {
 	// declare variables
 	private Scene slideScene;
 	private Group slideRoot;
-	public int currentSlideID, nextSlideID, prevSlideID, numOfSlides, firstSlideID, lastSlideID; 
+	public int currentSlideID, nextSlideID, prevSlideID, numOfSlidesIncBranch, numOfSlidesExcBranch;
+	private int firstSlideID, lastSlideID;
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
@@ -119,12 +120,14 @@ public class SlideShow {
 			RecipeScale recipeScale = new RecipeScale();
 			recipe = recipeScale.scaleRecipe(recipe);
 			
-			// Get the total number of slides without branch slides
-			numOfSlides = recipe.getNumberOfSlides();
+			// Get the total number of slides
+			numOfSlidesExcBranch = recipe.getNumberOfSlidesExcBranchSlides();
+			numOfSlidesIncBranch = recipe.getNumberOfSlidesIncBranchSlides();
+			
+			// Set first & last slideIDs
+			firstSlideID  = 0;
+			lastSlideID = (numOfSlidesExcBranch-1);
 
-			// Call newSlide() to start displaying the side show from slide with
-			// ID 0.
-			// Change back to 0, 3 only for testing purposes.
 			logger.log(Level.INFO, "Starting slideshow with slide index 0");
 			// set fullscreen here to ensure that the stage and scene bounds are the 
 			//	maximum possible when new slide is called
@@ -146,11 +149,8 @@ public class SlideShow {
 		List<Audio> audio;
 		List<Shape> graphics;
 		List<Video> videos;
-		
 		Pane layer;
 		ArrayList<Pane> layers;
-		
-		
 		int imageCount, textCount, audioCount, videoCount, graphicCount;
 		int fontSize;
 		String fontColor, font, lineColor, fillColor;
@@ -166,6 +166,12 @@ public class SlideShow {
 		// Clear the current objects on the slide
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
+		
+		if (isBranch != true) {
+			if (slideID > numOfSlidesExcBranch) {
+				new MainMenu(stage, recipeCollection);
+			}
+		}
 
 		// If branched slide set relevant globals
 		if (isBranch == true)
@@ -179,8 +185,6 @@ public class SlideShow {
 			currentSlideID = slideID;
 			nextSlideID = (slideID + 1);
 			prevSlideID = (slideID - 1);
-			firstSlideID  = 0;
-			lastSlideID = (numOfSlides-1);
 		}
 		
 		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
@@ -225,7 +229,8 @@ public class SlideShow {
 				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
 												images.get(i).getYStart(), images.get(i).getWidth(),
 												images.get(i).getHeight(), images.get(i).getStartTime(), 
-												images.get(i).getDuration(), images.get(i).getLayer(), null, null);
+												images.get(i).getDuration(), images.get(i).getLayer(), 
+												images.get(i).getBranch(), images.get(i).getOrientation());
 				imageHandlerList.add(image1);
 				Integer imageLayer = images.get(i).getLayer();
 				if (imageLayer == null){
@@ -570,7 +575,7 @@ public class SlideShow {
             	}
 
             	// If last slide
-            	if (currentSlideID >= numOfSlides-1) {
+            	if (currentSlideID >= numOfSlidesIncBranch-1) {
             		buttons.get(4).setStyle("-fx-opacity: 0.75");
             	}
             	// if not, go to last slide
@@ -602,7 +607,7 @@ public class SlideShow {
             	}
 
             	// return to the main menu if there are no more slides
-            	if (nextSlideID >= numOfSlides) {
+            	if (nextSlideID >= numOfSlidesIncBranch) {
             		showEndOfSlideshowPage();
             	}
             	// if not, play the next slide
@@ -729,6 +734,7 @@ public class SlideShow {
 			}			
 		});
         
+        // Right arrow key pressed
 		slideScene.setOnKeyPressed(new EventHandler<KeyEvent>() {  
 		    @Override
 		    public void handle(KeyEvent event) {
@@ -746,9 +752,8 @@ public class SlideShow {
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
 	            		videoHandlerList.get(i).tearDown();;
 	            	}
-		    		System.out.println("Next slide");
 		    		// return to the main menu if there are no more slides
-	            	if (nextSlideID >= numOfSlides) {
+	            	if (nextSlideID >= numOfSlidesIncBranch) {
 	            		showEndOfSlideshowPage();
 	            	}
 	            	// if not, play the next slide
@@ -757,6 +762,7 @@ public class SlideShow {
 	            	}
 	            	event.consume();
 		    	}
+		    	// Left arrow key
 		    	else if (event.getCode() == KeyCode.LEFT) {	    		
 		    		timeLineDuration.stop();
 	            	timerValues = new ArrayList<TimerData>();
@@ -770,7 +776,6 @@ public class SlideShow {
 	            	for (int i = 0; i < videoHandlerList.size(); i++){
 	            		videoHandlerList.get(i).tearDown();;
 	            	}
-		    		System.out.println("Previous slide");
 		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
 	            	if (prevSlideID <= -1) {
 	            		new MainMenu(stage, recipeCollection);

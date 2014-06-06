@@ -2,7 +2,6 @@ package media;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Animation.Status;
@@ -39,6 +38,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 			setOrientation();
 		}
 		
+		System.out.print("Checking branchID: it is " + branchID);
 		if(branchID != null){
 			doBranch();
 		}

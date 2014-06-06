@@ -84,7 +84,7 @@ public class RecipeScale {
 		// Loop through each slide in turn
 		// For each slide get the number of object X elements and update their content
 		// to match users native resolution
-		for (int i = 0; i < recipe.getNumberOfSlides(); i++) {
+		for (int i = 0; i < recipe.getNumberOfSlidesIncBranchSlides(); i++) {
 			// Text scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getTexts().size(); j++) {
 				// Get text start values

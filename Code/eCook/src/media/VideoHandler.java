@@ -2,7 +2,6 @@ package media;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -12,8 +11,6 @@ import eCook.SlideShow;
 import eCook.eCook;
 
 public class VideoHandler extends SlideMediaPlayer {
-	private Media media;
-	private MediaPlayer mediaPlayer;
 	private Logger logger;
 	private MediaView mediaView;
 	private Integer width;
@@ -27,6 +24,7 @@ public class VideoHandler extends SlideMediaPlayer {
 		
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
+		
 		//Create a MediaView object to display the video content
 		mediaView = new MediaView(mediaPlayer);
 		mediaView.setVisible(true);
