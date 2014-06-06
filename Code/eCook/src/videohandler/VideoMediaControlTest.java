@@ -27,7 +27,7 @@ import eCook.SlideShow;
 public class VideoMediaControlTest {
 
 
-	private VideoPlayerHandler videoPlayerHandler;
+	private VideoHandler videoPlayerHandler;
 	private XMLReader reader;
 	private SlideShow parent;
 	private List<Video> videoList;
@@ -38,7 +38,7 @@ public class VideoMediaControlTest {
 		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		videoList = reader.getRecipe().getSlide(4).getContent().getVideos();
 		/* Call the videoHandler class to create a videoplayer based on certain attributes */
-		videoPlayerHandler = new VideoPlayerHandler(parent,videoList.get(0).getUrlName(), videoList.get(0).getXStart(), 
+		videoPlayerHandler = new VideoHandler(parent,videoList.get(0).getUrlName(), videoList.get(0).getXStart(), 
 				videoList.get(0).getYStart(), videoList.get(0).getWidth(),
 				videoList.get(0).getHeight(), videoList.get(0).getLoop(),
 				videoList.get(0).getStartTime(), videoList.get(0).getDuration());    

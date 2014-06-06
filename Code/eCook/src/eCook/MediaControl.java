@@ -104,7 +104,7 @@ public abstract class MediaControl {
 		this.startTime = startTime;
 		this.playDuration = playDuration;
 		mediaView = new MediaView(mp);
-		
+		mediaView.setVisible(true);
 		// Retrieve the size of the Screen
 		bounds = Screen.getPrimary().getBounds();
 		
