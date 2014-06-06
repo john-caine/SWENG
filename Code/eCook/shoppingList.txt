@@ -1,7 +1,2 @@
-butternut squash
-potatoes
-chicken stock
-double cream
-celaric
-button mushrooms
-butter
+butternut squash 1.0 whole
+butter 25.0 grams

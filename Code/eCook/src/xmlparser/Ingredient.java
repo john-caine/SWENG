@@ -1,6 +1,6 @@
 package xmlparser;
 /*
- * Programmers: James Sam
+ * Programmers: James & Sam
  * 
  * Description:
  * A class to hold data relating to a single ingredient

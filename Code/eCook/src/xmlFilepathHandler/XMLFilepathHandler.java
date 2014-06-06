@@ -25,7 +25,7 @@ public class XMLFilepathHandler {
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
 		filename = reader.getRecipe().getFileName();
-		filepath = System.getProperty("user.dir") + "\\defaultRecipes\\";
+		filepath = System.getProperty("user.dir") + "\\defaultRecipes_new\\";
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;
@@ -62,10 +62,11 @@ public class XMLFilepathHandler {
 		/*
 		 * TODO
 		 */
-		// If we have a URL then:
 		// 		obtain the name of the media file
-		//		download the media file and place in filepath + title + "//" + media file name
+		//		download the media file and place in filepath + title + "//" + title.xml
 		//		return the string where the file was placed
+		
+		
 		else {
 			return mediaAddress;
 		}

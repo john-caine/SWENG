@@ -12,8 +12,10 @@ import xmlparser.XMLReader;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
+import gui.GenerateShoppingListScreen;
 import javafx.stage.StageStyle;
 
 public class eCook extends Application {
@@ -26,6 +28,9 @@ public class eCook extends Application {
 	
 	@Override
 	public void start(Stage stage) {
+		// Load external font
+		Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
+		
 		logger.entering(eCook.class.getName(), "start");
 		
 		/* This is where the parser is called to populate the 	 *

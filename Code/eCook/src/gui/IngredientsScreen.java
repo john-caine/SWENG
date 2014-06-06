@@ -6,8 +6,6 @@
 
 package gui;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -17,31 +15,37 @@ import eCook.RecipeCollection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class IngredientsScreen {
 	private HBox topBox, topBoxLeft, topBoxRight;
 	private HBox midBox;
-	private VBox midBoxLeft, midBoxRight, recipeInfoBox;
-	private InputStream inputStream;
+	private VBox midBoxLeft, midBoxRight, recipeInfoBox, guestsBox;
 	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
 	private Image homeIcon, closeIcon, minimiseIcon;
 	private VBox ingredientsList;
 	private Tooltip h, c, m;
+	private TextField nGuests;
+	private Button updateIngredients;
 	protected VBox bigBox;
 	protected double height, width;
 
@@ -235,13 +239,61 @@ public class IngredientsScreen {
 		recipeInfoBox.getChildren().addAll(authorLabel, versionLabel,
 				commentLabel);
 	}
+	
+	
 
 	// method to update list of ingredients from recipe
-	public void updateIngredientsList(Recipe recipe) {
+	public void updateIngredientsList(final Recipe recipe) {	
+
+	// n guests functionality		
+	nGuests = new TextField();
+	nGuests.setText("1");
+	nGuests.setPrefSize(midBoxRight.getPrefWidth()/2,midBoxRight.getPrefHeight() * 0.8 - 100);
+	// Add tool tip
+	Tooltip URL = new Tooltip("Must be a number eg. 6 ");
+	Tooltip.install(nGuests, URL);
+	// add a eventhandler to detect when user selects number of guests
+	nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
+		public void handle(KeyEvent event) {
+			// only allows integer numbers
+			if (!nGuests.getText().equals("")
+					&& nGuests.getText().matches("[0-9]*")) {
+				updateIngredients.setDisable(false);
+				updateIngredients.setTooltip(new Tooltip("Click here to update ingredients accoring to number of people selected"));
+			} else {
+				updateIngredients.setDisable(true);
+			}
+		}
+	});
+		
+	updateIngredients = new Button("Update Ingredients");
+	updateIngredients.setDisable(true);
+	updateIngredients.setPrefSize(150, 30);
+	updateIngredients.setId("directUrlBtn");
+	updateIngredients.getStylesheets().add("css.css");
+	updateIngredients.setWrapText(true);
+	updateIngredients.setAlignment(Pos.CENTER);
+	updateIngredients.setTextAlignment(TextAlignment.CENTER);
+	
+	updateIngredients.setOnAction(new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent event) {
+			int NumberOfGuests;
+			// if valid number of guests entered
+			if (nGuests != null && !nGuests.getText().equals("")
+					&& nGuests.getText().matches("[0-9]*")) {
+				// get logic to update amount of ingredients 
+				NumberOfGuests = Integer.valueOf(nGuests.getText().toString());
+				recipe.ingreientsAmountUpdate(NumberOfGuests);
+				ingredientsList.getChildren().clear();
+				ingredientsList.getChildren().addAll();
+		}
+	}});
+	
+	
+		
 		if (recipe != null) {
 			// call the ingredients list generator
-			IngredientsList generator = new IngredientsList(recipe, height,
-					width);
+			IngredientsList generator = new IngredientsList(recipe, height, width);
 			ingredientsList = generator.getIngredientsListGUI();
 		} else {
 			ingredientsList.getChildren().clear();
@@ -249,16 +301,16 @@ public class IngredientsScreen {
 					new Label("Sorry. Cannot find ingredients list."));
 		}
 
-		Label recipeInformationLabel = new Label("Recipe Information:");
+		Label recipeInformationLabel = new Label("Recipe Information");
 		recipeInformationLabel.setId("recipeInformationLabel");
 		recipeInformationLabel.getStylesheets().add("css.css");
 
-		Label ingredientsLabel = new Label("Ingredients:");
+		Label ingredientsLabel = new Label("Ingredients");
 		ingredientsLabel.setId("ingredientsLabel");
 		ingredientsLabel.getStylesheets().add("css.css");
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();
 		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox,
-				ingredientsLabel, ingredientsList);
+				ingredientsLabel, ingredientsList, nGuests, updateIngredients);
 	}
 }

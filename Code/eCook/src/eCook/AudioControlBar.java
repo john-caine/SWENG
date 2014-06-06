@@ -22,6 +22,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 public class AudioControlBar {
 	HBox controlBar;
@@ -77,7 +78,7 @@ public class AudioControlBar {
         trackBar = new Slider();
         trackBar.setMin(0);
         trackBar.setMax(currentHandler.getDuration());
-        trackBar.setValue(0);
+        //trackBar.setValue(0);
         volBar = new Slider();
         volBar.setMin(0);
         volBar.setMax(1.0);
@@ -176,9 +177,20 @@ public class AudioControlBar {
 		trackBar.valueProperty().addListener(new InvalidationListener() {
 			@Override
 			public void invalidated(Observable value) {
-				// Insert tracking bar logic here
 			}
 		});
+		
+		// Whenever there's a change in duration of the MediaPlayer, update the Time Label and Slider Position
+        currentHandler.getMediaPlayer().currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
+            	timeLbl.setText(currentHandler.getMediaPlayer().getCurrentTime().toString());
+            	trackBar.setValue(currentHandler.getMediaPlayer().getCurrentTime().toMillis());
+            }
+        });
+        trackBar.setMax(currentHandler.getDuration());
+        
+        System.out.println(trackBar.getMax());
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
@@ -197,6 +209,9 @@ public class AudioControlBar {
 		else {
 			buttons.get(2).setDisable(true);
 		}
+		
+		// set the slider
+		setupSliders();
 	}
 	
 	// method to write information to the labels
