@@ -10,8 +10,13 @@ package timer;
 
 
 import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import eCook.SlideShow;
+import eCook.eCook;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -65,6 +70,7 @@ public class Timer extends Task<Object>{
 	private SlideShow main;
 	private ImageView closeBtnHolder, startBtnHolder, pauseBtnHolder, resetBtnHolder;
 	private Image closeIcon, startIcon, pauseIcon, resetIcon;
+	static Logger logger;
 	
 	
 	/*
@@ -101,6 +107,9 @@ public class Timer extends Task<Object>{
 
 	@Override
 	protected Object call() throws Exception {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		textFieldBox = new Pane();
 		timerLabelBox = new HBox();
 		listBox = new Pane();
@@ -119,7 +128,7 @@ public class Timer extends Task<Object>{
 		textField.setAlignment(Pos.CENTER);
 		textField.setPrefWidth(120);
 		textFieldBox.getChildren().add(textField);
-	
+		
 		//Get a play image from resources folder adds to start button.
 		startButton = new Button();
 		startButton.setPrefWidth(60);
@@ -129,6 +138,11 @@ public class Timer extends Task<Object>{
 		startButton.setGraphic(startBtnHolder);
 		startButton.setId("playButton");
 		startButton.getStylesheets().add("css.css");
+		
+		if (startIcon.isError()){
+			// log if no play image is found in the resources folder
+			logger.log(Level.WARNING, "No play image is found");
+		}
 		
 		// Get a pause image from resources folder
 		pauseBtnHolder = new ImageView();
@@ -144,7 +158,7 @@ public class Timer extends Task<Object>{
 		resetTimer.setGraphic(resetBtnHolder);
 		resetTimer.setId("playButton");
 		resetTimer.getStylesheets().add("css.css");
-		
+	
 		//Creates buttonBox HBox, sets the layout and adds all buttons to the list.
 		buttonBox = new HBox();
 		buttonBox.setPrefWidth(100);
@@ -389,6 +403,8 @@ public class Timer extends Task<Object>{
 		numbersListMinutes = new ChoiceBox<Integer>(numbers);
 		numbersListHours = new ChoiceBox<Integer>(numbers);
 		
+		numbersListSeconds.getStylesheets().add("css.css");
+		
 		numbersListSeconds.setPrefWidth(0);
 		numbersListMinutes.setPrefWidth(0);
 		numbersListHours.setPrefWidth(0);
@@ -596,9 +612,9 @@ public class Timer extends Task<Object>{
 		labelHours.setTextAlignment(TextAlignment.CENTER);
 		
 		// Set font color
-		labelSeconds.setTextFill(Color.WHITE);
-		labelMinutes.setTextFill(Color.WHITE);
-		labelHours.setTextFill(Color.WHITE);
+		labelSeconds.setTextFill(Color.GREY);
+		labelMinutes.setTextFill(Color.GREY);
+		labelHours.setTextFill(Color.GREY);
 	}
 
 	public int getTimerID() {
