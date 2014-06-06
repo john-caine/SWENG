@@ -18,7 +18,11 @@
 		<link>
 			<name>Resources</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<location>C:/Users/R T/Documents/GitHub/SWENG/Code/Resources</location>
+=======
+			<location>../Resources</location>
+>>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 		</link>
 	</linkedResources>
 </projectDescription>

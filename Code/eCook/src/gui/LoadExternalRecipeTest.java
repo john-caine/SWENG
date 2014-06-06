@@ -88,7 +88,7 @@ public class LoadExternalRecipeTest {
 		assertEquals("urlBtn", urlBtn.getId());
 		
 		/* Test if HTTP Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", urlBtn.getStylesheets().toString());
+		assertEquals("[css.css]", urlBtn.getStylesheets().toString());
 		
 		/* Test if topBox contains File Browser Button */
 		assertTrue(midBox.getChildren().get(1) instanceof Button);
@@ -102,7 +102,7 @@ public class LoadExternalRecipeTest {
 		assertEquals("fileBrowserBtn", fileBrowserBtn.getId());
 		
 		/* Test if HTTP Button's style is from css.css */
-		assertEquals("[file:../Resources/css.css]", fileBrowserBtn.getStylesheets().toString());
+		assertEquals("[css.css]", fileBrowserBtn.getStylesheets().toString());
 	}
 
 }

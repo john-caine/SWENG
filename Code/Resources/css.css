@@ -51,7 +51,7 @@
 	-fx-opacity: 0.75;
 }
 
-/* Import menu button for opening the file browser */
+/* Import meny button for opening the file browser */
 #fileBrowserBtn {
 	-fx-background-color: transparent;
 	-fx-background-position: center center; 
@@ -72,10 +72,15 @@
 	-fx-background-image: url('net_big.png');	
 	-fx-background-repeat: no-repeat;		
 }
+
 #urlBtn:hover {
+<<<<<<< HEAD
 	-fx-font-size: 18px;
 	-fx-font-weight: bold;
+=======
+>>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 	-fx-opacity: 0.5;
+
 }
 
 /* Import menu button for importing a direct URL to a recipe */
@@ -85,8 +90,6 @@
     	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 #directUrlBtn:hover {
-	-fx-font-size: 11px;
-	-fx-font-weight: bold;
 	-fx-opacity: 0.5;
 
 }
@@ -655,13 +658,19 @@
     -fx-font-weight: bold;
     -fx-font-size: 11px;
     -fx-font-family: "Century Gothic";
+<<<<<<< HEAD
 	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+=======
+>>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 }
 
 #timerLabel{
     -fx-font-weight: bold;
     -fx-font-size: 17px;
+    -fx-font-family: "Century Gothic";
+
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+<<<<<<< HEAD
 }
 #timerField{
 	-fx-font-size: 14px;
@@ -670,4 +679,7 @@
 	-fx-font-weight: bold;
 	-fx-border-color: white;
 	-fx-background-color: transparent;
+=======
+
+>>>>>>> 71d3402c16cbeb20523a3956865a04d804e14d25
 }

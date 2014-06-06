@@ -57,7 +57,8 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 			
 		});
 		
-		setTimingValues();
+		setTimeLineOnFinish();
+		
 	}
 	
 	protected void setTimingValues(){

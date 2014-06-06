@@ -29,9 +29,9 @@ public class AudioControlBar {
 	List<AudioHandler> audioHandlerObjects;
 	
 	// constructor
-	public AudioControlBar(List<AudioHandler> audioHandlerObjects, Group root) {
-		this.audioHandlerObjects = audioHandlerObjects;
-		currentHandler = audioHandlerObjects.get(currentHandlerIndex);
+	public AudioControlBar(ArrayList<AudioHandler> audioHandlerList, Group root) {
+		this.audioHandlerObjects = audioHandlerList;
+		currentHandler = audioHandlerList.get(currentHandlerIndex);
 		setupControlBar(root);
 		setupButtons();
 		setupSliders();
@@ -71,14 +71,14 @@ public class AudioControlBar {
         trackBar = new Slider();
         trackBar.setMin(0);
         trackBar.setMax(10);			// this must be the current audioHandlerObject.getDuration();
-        trackBar.setValue(0);
+        trackBar.setValue(currentHandler.getCurrentTime().toSeconds());
         volBar = new Slider();
         volBar.setMin(0);
         volBar.setMax(1.0);
         volBar.setValue(1.0);
         
         // set up filename and time labels
-        fileLbl = new Label(currentHandler.getAudioFileName());
+        fileLbl = new Label(currentHandler.getFilePath());
         fileLbl.setStyle("-fx-text-fill: white;");
         timeLbl = new Label("00:00/00:00");
         timeLbl.setStyle("-fx-text-fill: white;");
@@ -95,11 +95,11 @@ public class AudioControlBar {
 			public void handle(ActionEvent event) {
 				// toggle play/pause
 				if (buttons.get(0).getText().equals("play")) {
-					currentHandler.resumeAudio();
+					currentHandler.resumeMedia();
 					buttons.get(0).setText("pause");
 				}
 				else {
-					currentHandler.pauseAudio();
+					currentHandler.pauseMedia();
 					buttons.get(0).setText("play");
 				}
 			}
@@ -110,7 +110,7 @@ public class AudioControlBar {
 			@Override
 			public void handle(ActionEvent event) {
 				// call stop
-				currentHandler.stopAudio();
+				currentHandler.stopMedia();
 				// set the pause button to play if not already
 				buttons.get(0).setText("play");
 			}
@@ -123,7 +123,7 @@ public class AudioControlBar {
 				// set current handler to previous instance unless currently on the first
 				if (currentHandlerIndex != 0) {
 					// stop anything playing first
-					currentHandler.stopAudio();
+					currentHandler.stopMedia();
 					buttons.get(0).setText("play");
 					currentHandler = audioHandlerObjects.get(currentHandlerIndex-1);
 					currentHandlerIndex--;
@@ -142,7 +142,7 @@ public class AudioControlBar {
 				// set current handler to next instance unless currently on the last
 				if (currentHandlerIndex != audioHandlerObjects.size()-1) {
 					// stop anything playing first
-					currentHandler.stopAudio();
+					currentHandler.stopMedia();
 					buttons.get(0).setText("play");
 					currentHandler = audioHandlerObjects.get(currentHandlerIndex+1);
 					currentHandlerIndex++;
@@ -187,6 +187,6 @@ public class AudioControlBar {
 	
 	// method to write information to the labels
 	public void writeLabels() {
-		fileLbl.setText(currentHandler.getAudioFileName());
+		fileLbl.setText(currentHandler.getFilePath());
 	}
 }

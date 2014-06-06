@@ -15,7 +15,7 @@ import eCook.eCook;
 
 public abstract class SubSlideMedia extends SlideMedia {
 
-	private Timeline durationTimeLine;
+	protected Timeline durationTimeLine;
 	private Integer duration;
 	private SlideShow parent;
 	private Integer branchID;

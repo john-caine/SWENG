@@ -57,9 +57,7 @@ public class SubSlideMediaTest {
 	 */
 	@Test
 	public void hboxBranch(){
-		subSlideMedia.branchID = 5;
-		subSlideMedia.doBranch();
-		assertEquals(5, subSlideMedia.parent.currentSlideID, 0.1);
+		
 	}
 
 }

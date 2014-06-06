@@ -125,27 +125,27 @@ public class RecipeBrowser extends Application {
     	ProgressIndicator loading = new ProgressIndicator();
     	final Label header = new Label("Recipes available to download");
     	header.setId("recipeBrowserLabel");
-    	header.getStylesheets().add("file:../Resources/css.css");
+    	header.getStylesheets().add("css.css");
     	header.setWrapText(true);
     	header.setAlignment(Pos.TOP_CENTER);
     	header.setTextAlignment(TextAlignment.CENTER);
     	
         downloadButton = new Button("Download Selected Recipes");
         downloadButton.setId("downloadButton");
-        downloadButton.getStylesheets().add("file:../Resources/css.css");
+        downloadButton.getStylesheets().add("css.css");
         downloadButton.setWrapText(true);
         downloadButton.setAlignment(Pos.CENTER);
         downloadButton.setTextAlignment(TextAlignment.CENTER);
     	
         exitButton = new Button("Cancel");
         exitButton.setId("exitButton");
-        exitButton.getStylesheets().add("file:../Resources/css.css");
+        exitButton.getStylesheets().add("css.css");
         exitButton.setAlignment(Pos.CENTER);
         exitButton.setTextAlignment(TextAlignment.CENTER);
         
     	downloadLabel = new Label();
     	downloadLabel.setId("recipeBrowserLabel");
-    	downloadLabel.getStylesheets().add("file:../Resources/css.css");
+    	downloadLabel.getStylesheets().add("css.css");
     	downloadLabel.setWrapText(true);
     	downloadLabel.setAlignment(Pos.TOP_CENTER);
     	downloadLabel.setTextAlignment(TextAlignment.CENTER);
@@ -156,7 +156,7 @@ public class RecipeBrowser extends Application {
         // do javaFX setup
         StackPane root = new StackPane();
         scene = new Scene(root, 600, 500);
-        root.setStyle("-fx-background-size: cover; -fx-background-position: center center;-fx-background-image: url('file:../Resources/cup.jpg');");
+        root.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
 		
         primaryStage.setTitle("Recipe Browser");
         primaryStage.setScene(scene);
@@ -244,7 +244,7 @@ public class RecipeBrowser extends Application {
         try {
 			getAvailableRecipeFiles("http://www.propartydj.co.uk/SWEng/contents.txt");
 			listOfRecipeFiles = new ListView<String>();
-			listOfRecipeFiles.getStylesheets().add("file:../Resources/css.css");
+			listOfRecipeFiles.getStylesheets().add("css.css");
 			listOfRecipeFiles.setItems(FXCollections.observableList(availableRecipeFiles));
 			listOfRecipeFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 			border.setCenter(listOfRecipeFiles);
