@@ -354,12 +354,8 @@ public class SlideShow {
 	 	 HBox audioBox = null;
 
 	 	if (audioCount != 0) {
-
-	 		//AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		//audioBox = audioBar.getControlBar();
-	 		// AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		// audioBox = audioBar.getControlBar();
-
+	 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
+	 		audioBox = audioBar.getControlBar();
 	 	}
 		
 		// create a controls panel each time new slide is called

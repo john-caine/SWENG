@@ -58,7 +58,7 @@ public class XMLReaderTest {
 		assertEquals("This is recipe example 2 in the defaultRecipe folder", recipe.info.comment);
 		assertEquals("example cooking time", recipe.info.cook);
 		assertEquals("example preperation time", recipe.info.prep);
-		assertEquals("example £5", recipe.info.price);
+		assertEquals("example Â£5", recipe.info.price);
 		assertEquals("example vegetarian comment", recipe.info.veg);
 		assertEquals(1600, recipe.info.width.intValue());
 		assertEquals(900, recipe.info.height.intValue());
