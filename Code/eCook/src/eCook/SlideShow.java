@@ -30,11 +30,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-<<<<<<< HEAD
 import javafx.scene.layout.Background;
-=======
 import javafx.scene.input.MouseEvent;
->>>>>>> FETCH_HEAD
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -351,8 +348,8 @@ public class SlideShow {
 	 	 HBox audioBox = null;
 
 	 	if (audioCount != 0) {
-	 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		audioBox = audioBar.getControlBar();
+	 		//AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
+	 		//audioBox = audioBar.getControlBar();
 	 	}
 		
 		// create a controls panel each time new slide is called
