@@ -19,6 +19,7 @@ import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
 import eCook.eCook;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -57,6 +58,7 @@ public class GenerateShoppingListScreen {
 	private boolean inEditMode = false;
 	protected Tooltip h,c,m;
 	protected VBox bigBox;
+	private PDDocument pdf = null;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		this.bigBox = bigBox;
@@ -133,7 +135,7 @@ public class GenerateShoppingListScreen {
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
 	
 		VBox leftBox = new VBox();
-		VBox midBox = new VBox(40);
+		final VBox midBox = new VBox(40);
 		VBox rightBox = new VBox();
 		
 		//Sets  parameters for the leftBox, midBox and rightBox
@@ -196,10 +198,10 @@ public class GenerateShoppingListScreen {
 		saveBtn = new Button("Save as PDF");
 		editBtn = new Button("Edit List");
 		addBtn = new Button("Add Item");
-		saveBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		saveBtn.setPrefSize(midBox.getPrefWidth()/6, 200);
 		printBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
-		editBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
-		addBtn.setPrefSize(midBox.getPrefWidth()/8, 200);
+		editBtn.setPrefSize(midBox.getPrefWidth()/4, 200);
+		addBtn.setPrefSize(midBox.getPrefWidth()/6, 200);
 		
 		//Tool tips for buttons
 		saveBtn.setTooltip(new Tooltip("Click here to save your shopping list as PDF"));
@@ -271,10 +273,10 @@ public class GenerateShoppingListScreen {
 		editBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 				if (inEditMode) {
-					// update the shopping list by deleting unselected items
+					// update the shopping list by deleting selected items
 					List<String> itemsToRemove = new ArrayList<String>();
 					for (int i=0; i<checkboxes.length; i++) {
-						if (!checkboxes[i].isSelected()) {
+						if (checkboxes[i].isSelected()) {
 							itemsToRemove.add(checkboxes[i].getText());
 						}
 					}
@@ -288,7 +290,7 @@ public class GenerateShoppingListScreen {
 				}
 				else {
 					inEditMode = true;
-					editBtn.setText("Remove Unselected Items");
+					editBtn.setText("Remove Selected Items");
 					saveBtn.setDisable(true);
 					printBtn.setDisable(true);
 				}
@@ -361,7 +363,7 @@ public class GenerateShoppingListScreen {
 						CheckBox box = checkboxes[i] = new CheckBox(shoppingList.get(i));
 						box.setId("box");
 						box.getStylesheets().add("css.css");
-						box.setSelected(true);
+						box.setSelected(false);
 						shoppingListBox.getChildren().add(checkboxes[i]);
 					}
 					else {
@@ -392,24 +394,35 @@ public class GenerateShoppingListScreen {
 	
 	// method to print the shopping list PDF
 	public void printShoppingList() {
-		PDDocument pdf = null;
-		try {
-			pdf = PDDocument.load("ShoppingListTemp.pdf");
-			statusBar.setText("Printing shopping list...");
-			pdf.silentPrint();											// WARNING MAC USERS: This may write a big scary red error message
-																		// to the console. It will print the file anyway though!
-		} catch (IOException | PrinterException e) {
-			statusBar.setText("Sorry. Print error: cannot print file");
-			e.printStackTrace();
-		}
-		finally {
-			if (pdf != null) {
+		pdf = null;
+		statusBar.setText("Printing shopping list...");
+		// run the print task on a new thread asynchronously
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
 				try {
-					pdf.close();
-				} catch (IOException e) {
+					pdf = PDDocument.load("ShoppingListTemp.pdf");
+					pdf.silentPrint();
+				} catch (IOException | PrinterException e) {
+					statusBar.setText("Sorry. Print error: cannot print file");
 					e.printStackTrace();
+				} finally {
+					// clean up and display finsh confirmation
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (pdf != null) {
+								try {
+									pdf.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+							statusBar.setText("Printing complete.");
+						}
+					});
 				}
 			}
-		}
+		}).start();																		
 	}
 }

@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javafx.stage.FileChooser;
@@ -51,8 +52,16 @@ public class PDFCreator {
 			InputStream in;
 			try {
 				shoppingListDocument = new PDDocument();
-				in = new FileInputStream(new File("spoon.jpg"));
-				logo = new PDJpeg(shoppingListDocument, in);
+				// point to the correct directory before retrieving file
+				URL defaultDirectory = getClass().getResource("/");
+				File logoFile = new File(defaultDirectory.getPath() + "/eCookPDFLogo.jpg");
+				if (logoFile.exists()) {
+					in = new FileInputStream(logoFile);
+					logo = new PDJpeg(shoppingListDocument, in);
+				}
+				else {
+					System.out.println("cannot get logo for shopping list PDF");
+				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
