@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
@@ -134,33 +135,104 @@ public class RecipeScreen {
 		rightBox.setPrefSize(width*0.2, height - topBox.getPrefHeight()-100);
 
 		// Create an ArrayList of Recipe Titles
+		// create an ArrayList of HBoxes to use to display text and buttons
+		// create lists of buttons to use
+		final Button[] downloadButtons = new Button[recipeCollection.getNumberOfRecipes()];
+		final Button[] playButtons = new Button[recipeCollection.getNumberOfRecipes()];
+		final ArrayList<HBox> recipeRows = new ArrayList<HBox>();
 		ArrayList<String> recipeTitles = new ArrayList<String>();
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
+			// get recipe title String and set up HBox
 			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
+			HBox row = new HBox(10);
+			row.setId("r" + i);
+			row.setPrefWidth(rightBox.getPrefWidth()-10);
+			row.setAlignment(Pos.CENTER_LEFT);
+			// set up buttons
+			downloadButtons[i] = new Button("Download Recipe Content");
+			downloadButtons[i].setVisible(false);
+			downloadButtons[i].setId("d" + i);
+			playButtons[i] = new Button("Play");
+			playButtons[i].setVisible(false);
+			playButtons[i].setId("p" + i);
+			//Set tool tips
+			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
+			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
+			
+			// configure the buttons
+			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					
+				}
+				
+			});
+			playButtons[i].setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					int index = 0;
+					// get the selected recipe
+					Button focusButton = (Button) event.getSource();
+					index = Integer.valueOf(focusButton.getId().substring(1));
+					//Get filename of currently selected recipe
+					String fileName = recipeCollection.getRecipe(index).getFileName();
+					// play the slideshow
+					new SlideShow(stage, fileName, recipeCollection);
+				}
+			});
+			
+			// set up the HBox so that mouseover works as a selection tool
+			row.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					int index = 0;
+					// get the selected recipe
+					HBox focusBox = (HBox) event.getSource();
+					index = Integer.valueOf(focusBox.getId().substring(1));
+					// call the update info labels method
+					updateInfoLabels(recipeCollection.getRecipe(index));
+					// show the buttons for that row
+					playButtons[index].setVisible(true);
+					downloadButtons[index].setVisible(true);
+				}
+			});
+			
+			// set up the HBox so that mouseout hides the buttons for that row
+			row.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					int index = 0;
+					// get the selected recipe
+					HBox focusBox = (HBox) event.getSource();
+					index = Integer.valueOf(focusBox.getId().substring(1));
+					// hide the buttons for that row
+					playButtons[index].setVisible(false);
+					downloadButtons[index].setVisible(false);
+				}
+			});
+			
+			// add everything to the HBox
+			Label recipeTitle = new Label(recipeTitles.get(i));
+			HBox labelBox = new HBox();
+			double boxWidth = 9*midBox.getPrefWidth()/16;
+			labelBox.setPrefWidth(boxWidth);
+			labelBox.getChildren().add(recipeTitle);
+			row.getChildren().addAll(labelBox, downloadButtons[i], playButtons[i]);
+		
+			// add HBox to list
+			recipeRows.add(row);
 		}
 
 		// Create a list view and populate it with the recipe titles
-		final ListView<String> listOfRecipes = new ListView<String>();
+		final ListView<HBox> listOfRecipes = new ListView<HBox>();
 		listOfRecipes.getStylesheets().add("css.css");
 		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.75);
-		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
+		listOfRecipes.setItems(FXCollections.observableList(recipeRows));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 		// Create a new HBox to hold the recipe information
 		recipeInfoBox = new VBox();
 		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.8);
-
-
-		// when recipe selection changes, update the info and ingredients fields
-		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> ov,
-					String old_val, String new_val) {
-				// get the selected recipe
-				int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
-				// call the update info labels method
-				updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
-			}
-		});	
 
 		// set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
@@ -178,34 +250,12 @@ public class RecipeScreen {
 		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
 		bigBox.getChildren().addAll(topBox,horizontalBox);	
 
-		final Button playSlideBtn = new Button("Play");
-		playSlideBtn.setPrefSize(midBox.getPrefWidth()/4, 40);
-
-		//Set tool tip
-		playSlideBtn.setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
-
-		playSlideBtn.setId("playSlideBtn");
-		playSlideBtn.getStylesheets().add("css.css");
-		playSlideBtn.setPrefSize(120, 50);
-
-		// define the start slideshow button method
-		playSlideBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				//Get filename of currently selected recipe
-				String fileName = recipeCollection.getRecipe(listOfRecipes.getSelectionModel().getSelectedIndex()).getFileName();
-				
-				new SlideShow(stage, fileName, recipeCollection);
-			}
-
-		});
-
 		Label recipesLabel = new Label("Recipe Playlist");
 		recipesLabel.setId("recipesLabel");
 		recipesLabel.getStylesheets().add("css.css");
 
 		midBox.setAlignment(Pos.CENTER);
-		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox, playSlideBtn);
+		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox);
 	}
 
 	// method to update labels in the recipe info box
