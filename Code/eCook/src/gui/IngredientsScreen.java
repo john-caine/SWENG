@@ -273,7 +273,7 @@ public class IngredientsScreen {
 	nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
 		public void handle(KeyEvent event) {
 			// only allows integer numbers
-			if (nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("")) {
+			if (!nGuests.getText().equals("0")&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("")) {
 				updateIngredients.setDisable(false);
 				updateIngredients.setTooltip(new Tooltip("Click here to choose number of people to modify quantity of ingredients"));
 			} else {
@@ -302,7 +302,7 @@ public class IngredientsScreen {
 				public void handle(ActionEvent event) {
 					int NumberOfGuests;
 					// if valid number of guests entered
-					if (nGuests != null && !nGuests.getText().equals("") && nGuests.getText().matches("[1-20]*")) {
+					if (nGuests != null && !nGuests.getText().equals("") && nGuests.getText().matches("[0-9]*")) {
 						// get logic to update amount of ingredients 
 						NumberOfGuests = Integer.valueOf(nGuests.getText().toString());
 						recipe.ingredientsAmountUpdate(NumberOfGuests);	
