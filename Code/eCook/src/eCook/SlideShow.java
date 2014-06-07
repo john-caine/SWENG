@@ -7,6 +7,8 @@
 
 package eCook;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -107,7 +109,10 @@ public class SlideShow {
     	// Set the scene
     	stage.setScene(slideScene);
     	
-    	reader = new XMLReader(filepath);
+    	URL defaultDirectory = getClass().getResource("/");
+    	File filePath = new File(defaultDirectory.getPath());
+    	
+    	reader = new XMLReader(filePath + "/" + filepath);
     	
     	// Check integrity of XML file, report error message if invalid
     	validator = new XMLValidator(reader);
@@ -347,7 +352,7 @@ public class SlideShow {
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Add timers
-	 	timerbox = new VBox();
+	 	timerbox = new VBox(10);
 	 		
 	    // Create a notes panel each time new Slide is called
 	 	notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox, notesPanelShowing);
@@ -655,7 +660,7 @@ public class SlideShow {
 			public void handle(ActionEvent arg0) {
 				notesGUI.showPanel(slideRoot);
 				if(numberOfTimers< 4){
-						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow, notesGUI, slideRoot);
 						timerList.add(timer);
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 							
@@ -861,7 +866,7 @@ public class SlideShow {
 	        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
 	        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
 	        												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-	        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
+	        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI, slideRoot);
 					timerList.add(continueTimer);
 					numberOfTimers ++;
 					 

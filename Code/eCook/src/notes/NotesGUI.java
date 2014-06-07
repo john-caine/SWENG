@@ -138,7 +138,7 @@ public class NotesGUI {
           		timelineIn.play();
               }
          });
-        
+      
         // Define an event handler to trigger when the user moves the mouse
         EventHandler<InputEvent> mouseoverLHSHandler = new EventHandler<InputEvent>() {
             public void handle(InputEvent event) {            	
@@ -173,7 +173,7 @@ public class NotesGUI {
         	notesPanel.getChildren().addAll(notesBox, timerbox);
         }
         
-        notesBox.setDisable(true);
+        //notesBox.setDisable(true);
 
         // check to see if the mouse is at the LHS of the screen every time it is moved
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
@@ -186,7 +186,7 @@ public class NotesGUI {
 		timelineIn.getKeyFrames().add(kf);
       	notesPanelVisible = false;
       	timelineIn.stop();
-      	notesBox.setDisable(true);
+      	//notesBox.setDisable(true);
     }
     
     // method to show panel
@@ -204,6 +204,6 @@ public class NotesGUI {
     		getNotesOnLoad = false;
     	}
     	notesPanelVisible = true;
-    	notesBox.setDisable(false);
+    	//notesBox.setDisable(false);
     }
 }

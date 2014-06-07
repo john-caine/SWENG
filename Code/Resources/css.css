@@ -698,11 +698,6 @@
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
-#timerLabel{
-    -fx-font-weight: bold;
-    -fx-font-size: 17px;
-    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-}
 #timerField{
 	-fx-font-size: 14px;
 	-fx-text-fill:  white;
@@ -710,27 +705,4 @@
 	-fx-font-weight: bold;
 	-fx-border-color: black;
 	-fx-background-color: grey;
-}
-.choice-box {
-  -fx-background-color: grey;
-}
-.context-menu  {
-  -fx-background-color: grey;
-}
-.choice-box .context-menu .label {
-  -fx-text-fill: white;
-  -fx-font-size: 14;
-  -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-}
-.context-menu .scroll-arrow {
-    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
-    -fx-background-color: #006699;
-}
-.context-menu .scroll-arrow:hover {
-    -fx-background: -fx-accent;
-    -fx-background-color: #006699;
-    -fx-text-fill: -fx-selection-bar-text;
-}
-.context-menu:show-mnemonics .mnemonic-underline {
-    -fx-stroke: -fx-text-fill;
 }

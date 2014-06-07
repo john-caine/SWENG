@@ -1,0 +1,96 @@
+.list-view {
+   -fx-font-size: 16px;
+   -fx-text-fill: white;
+   -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+   -fx-font-weight: bold;
+   -fx-background-color: grey;  
+}
+
+.list-cell{
+    -fx-background-color: transparent;
+    -fx-text-fill:   white;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+}
+
+.list-cell:hover{
+    -fx-text-fill:   #adff2f;
+}
+
+
+.list-cell > .scroll-bar{
+ -fx-background-color: grey;
+}
+
+.list-view  .scroll-bar:vertical .track {
+ -fx-background-color: grey;
+ -fx-border-color:transparent;
+}
+
+.list-view  .scroll-bar:vertical .track-background{
+ -fx-background-color: grey;
+ -fx-background-insets: 0;
+}
+
+.list-view  .scroll-bar:vertical .thumb {
+ -fx-background-color: rgb(211,211,211);
+ -fx-background-insets: 0 4 0 4;
+ -fx-background-radius: 2em;
+}
+
+.list-view  .scroll-bar:vertical .thumb:hover {
+ -fx-background-color: rgb(231,231,231);
+}
+
+.list-view  .scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: rgb(255,255,255);
+}
+
+.list-view  .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:transparent;
+ -fx-background-radius: 2em;
+ -fx-padding: 5;
+}
+
+.list-view  .scroll-bar:vertical .increment-arrow {
+ -fx-background-color: rgb(211,211,211);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+
+.list-view  .scroll-bar:vertical .decrement-arrow {
+ -fx-background-color: rgb(211,211,211);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+
+.list-view  .scroll-bar:vertical:focused {
+ -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+.combo-box{
+   -fx-font-size: 14px;
+   -fx-text-fill: white;
+   -fx-font-weight: bold;
+   -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+}
+
+.combo-box-base{
+   -fx-background-color: grey;
+}
+
+.combo-box-base .arrow{
+   -fx-background-color: white;
+}
+
+.label{
+    -fx-font-weight: bold;
+    -fx-font-size: 17px;
+    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+}
+
+.combo-box-popup > .list-view {
+    -fx-pref-width: 70;
+    -fx-pref-height: 110;
+}
