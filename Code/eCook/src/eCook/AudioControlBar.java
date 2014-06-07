@@ -190,7 +190,7 @@ public class AudioControlBar {
         });
         trackBar.setMax(currentHandler.getDuration());
         
-        System.out.println(trackBar.getMax());
+        
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
