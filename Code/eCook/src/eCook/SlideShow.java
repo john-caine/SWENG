@@ -186,6 +186,7 @@ public class SlideShow {
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
 		
+		// Check the slideID is valid and if not exit to MainMenu
 		if (isBranch != true) {
 			if (slideID > numOfSlidesExcBranch) {
 				new MainMenu(stage, recipeCollection);
