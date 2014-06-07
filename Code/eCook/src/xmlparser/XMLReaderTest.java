@@ -106,19 +106,6 @@ public class XMLReaderTest {
 		assertEquals("pints", ingredientsList.get(5).getUnits());
 	}
 	
-	/*
-	 * A test to check that the ingredient strings are updated accordingly based on the number of guests
-	 * provided into the method
-	 * 1 guest, 2 guests and 1 guests are tested
-	 * James and Sam
-	 */
-	@Test
-	public void nGuestsTest() {
-		assertEquals("700.0 grams of potato\n2.0 tablespoons of vegetable oil\n2.0 oz of unsalted butter\n2.0 cloves of garlic\n0.5 teaspoon of brown sugar\n2.0 pints of chicken stock\n", recipe.getStringOfIngredients(1));
-		assertEquals("1400.0 grams of potato\n4.0 tablespoons of vegetable oil\n4.0 oz of unsalted butter\n4.0 cloves of garlic\n1.0 teaspoon of brown sugar\n4.0 pints of chicken stock\n", recipe.getStringOfIngredients(2));
-		assertEquals("700.0 grams of potato\n2.0 tablespoons of vegetable oil\n2.0 oz of unsalted butter\n2.0 cloves of garlic\n0.5 teaspoon of brown sugar\n2.0 pints of chicken stock\n", recipe.getStringOfIngredients(1));
-	}
-
 	// confirm that all fields in the first slide of the recipe contain the correct data
 	// print out values of fields for this slide
 	@Test
