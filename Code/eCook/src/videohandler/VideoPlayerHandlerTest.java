@@ -23,7 +23,7 @@ import xmlparser.Video;
 import xmlparser.XMLReader;
 import eCook.SlideShow;
 
-public class VideoPlayerMainTest {
+public class VideoPlayerHandlerTest {
 	
 	private VideoHandler videoPlayerHandler;
 	private XMLReader reader;
@@ -59,7 +59,7 @@ public class VideoPlayerMainTest {
 		
 		/* VideoPlayer's Width and Height */
 		assertEquals(width, videoPlayerHandler.mediaControl.overallBox.getMaxWidth(), 0.01);
-		assertEquals(height, videoPlayerHandler.mediaControl.overallBox.getMaxHeight(), 0.01);
+		assertEquals(height, videoPlayerHandler.mediaControl.overallBox.getMaxHeight()-14, 0.01);
 		
 		/* VideoPlayer's MediaView and Control Panel are visible */
 		assertTrue(videoPlayerHandler.mediaControl.mediaView.isVisible());
