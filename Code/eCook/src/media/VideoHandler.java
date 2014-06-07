@@ -1,10 +1,9 @@
 package media;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.geometry.Rectangle2D;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 import eCook.SlideShow;
@@ -28,14 +27,17 @@ public class VideoHandler extends SlideMediaPlayer {
 		//Create a MediaView object to display the video content
 		mediaView = new MediaView(mediaPlayer);
 		mediaView.setVisible(true);
+		VideoControlBar controlBar = new VideoControlBar(this);
 		setMediaViewSize();
 		showObject();
-		hbox.getChildren().add(mediaView);
+		VBox playerBox = new VBox();
+		playerBox.getChildren().addAll(mediaView, controlBar.getVideoControlBar());
+		hbox.getChildren().add(playerBox);
 		setTimingValues();
 		
 	}
 	
-	public void setMediaViewSize(){
+	private void setMediaViewSize(){
 		if (width != null && height != null) {
 			// Set the height and width of the MediaPlayer based on the values
 			
@@ -43,15 +45,14 @@ public class VideoHandler extends SlideMediaPlayer {
             mediaView.setFitWidth(width);
             mediaView.setFitHeight(height-35);
 		} else {
-			Rectangle2D bounds = Screen.getPrimary().getBounds();
-			// Set a default size of the MediaPlayer when no height and width are being indicated
-			width = (int) (bounds.getWidth()/2);
-			height  = (int) (bounds.getHeight()/3);
-			mediaView.setPreserveRatio(false);
-            mediaView.setFitWidth(width);
-            mediaView.setFitHeight(width-35);
+			mediaView.setPreserveRatio(true);
 		}
 		
 	}
+	
+	public MediaView getMediaView(){
+		return mediaView;
+	}
+	
 
 }

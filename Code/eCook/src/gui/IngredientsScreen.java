@@ -257,18 +257,13 @@ public class IngredientsScreen {
 	//Add label for nGuests
 	Label nGuestsLabel = new Label("Serves:");
 	nGuestsLabel.setId("nGuestsLabel");
-	nGuestsLabel.getStylesheets().add("css1.css");
-//	nGuestsLabel.setStyle("-fx-background-color: transparent;"
-//			+ "-fx-background-image: url('half_book.png');"
-//			+ "-fx-background-position: center center;"
-//			+ "-fx-background-size: stretch;");
+	nGuestsLabel.getStylesheets().add("css.css");
 
 	
 	//Add text field
 	nGuests = new TextField();
 	nGuests.setText("1");
-	nGuests.setMaxSize(midBoxRight.getPrefWidth()/20,
-			midBoxRight.getPrefHeight()/20);
+	nGuests.setMaxSize(midBoxRight.getPrefWidth()/20, midBoxRight.getPrefHeight()/20);
 	
 	// Add tool tip
 	Tooltip TTnGuests = new Tooltip("Must be a number eg. 6 ");
@@ -278,8 +273,7 @@ public class IngredientsScreen {
 	nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
 		public void handle(KeyEvent event) {
 			// only allows integer numbers
-			if (!nGuests.getText().equals("1")
-					&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("")) {
+			if (nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("")) {
 				updateIngredients.setDisable(false);
 				updateIngredients.setTooltip(new Tooltip("Click here to choose number of people to modify quantity of ingredients"));
 			} else {
@@ -291,7 +285,7 @@ public class IngredientsScreen {
 	//Add button 
 	updateIngredients = new Button("Update Ingredients");
 	updateIngredients.setDisable(true);
-	updateIngredients.setPrefSize(150, 30);
+	updateIngredients.setMaxSize(midBoxRight.getPrefWidth()/5, midBoxRight.getPrefHeight()/20);
 	updateIngredients.setId("nGuestsBtn");
 	updateIngredients.getStylesheets().add("css.css");
 	updateIngredients.setWrapText(true);
@@ -303,6 +297,7 @@ public class IngredientsScreen {
 			// call the ingredients list generator
 			final IngredientsList generator = new IngredientsList(recipe, height, width);
 			ingredientsList = generator.getIngredientsListGUI();
+			//Call updateIngredients button to change amount of ingredients
 			updateIngredients.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
 					int NumberOfGuests;
@@ -325,8 +320,8 @@ public class IngredientsScreen {
 		}
 
 		// add the buttons and the status bar to the bottom of the VBox
-		nGuestsBox = new HBox(20);
-		nGuestsBox.setPadding(new Insets(10,0,0,0));
+		nGuestsBox = new HBox(10);
+		nGuestsBox.setMaxSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()/20);
 		nGuestsBox.setSpacing(10);
 		nGuestsBox.getChildren().addAll(nGuestsLabel,nGuests,updateIngredients);
 		midBoxRight.getChildren().add(nGuestsBox);

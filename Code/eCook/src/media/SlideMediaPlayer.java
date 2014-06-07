@@ -115,9 +115,9 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 	}
 	
 	public Duration getCurrentTime(){
-		return currentTime;
+		return mediaPlayer.getCurrentTime();
 	}
-	
+
 	public String getFilePath(){
 		return pathLocation;
 	}
@@ -131,4 +131,6 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 	public MediaPlayer getMediaPlayer(){
 		return mediaPlayer;
 	}
+	
+
 }

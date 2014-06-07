@@ -91,6 +91,16 @@
 
 }
 
+#nGuestsBtn {
+    	-fx-font-weight: bold;
+    	-fx-font-size: 12px;
+    	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+}
+#nGuestsBtn:hover {
+	-fx-opacity: 0.5;
+
+}
+
 #httpLbl{
 	-fx-font-size: 14px;
 	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
@@ -296,7 +306,7 @@
 }
 
 #ingredientsLabel{
-	-fx-font-size: 60px;
+	-fx-font-size: 50px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 	-fx-font-family: 'Buxton Sketch';
@@ -304,7 +314,7 @@
 }
 
 #recipeInformationLabel{
-	-fx-font-size: 60px;
+	-fx-font-size: 50px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
 	-fx-font-family: 'Buxton Sketch';
@@ -312,9 +322,11 @@
 }
 
 #nGuestsLabel{
-	-fx-font-size: 60px;
+	-fx-font-size: 20px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+	-fx-background-size: contain;
+	-fx-padding: 0;
 	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
