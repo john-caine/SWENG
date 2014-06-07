@@ -13,7 +13,7 @@ import xmlparser.XMLReader;
 
 public class XMLFilepathHandler {
 
-	private String filepath;
+	private File filepath;
 	private String title;
 	private XMLReader reader;
 	
@@ -24,7 +24,8 @@ public class XMLFilepathHandler {
 		this.reader = reader;
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
-		filepath = System.getProperty("user.dir") + "\\defaultRecipes";
+		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		filepath = new File(defaultDirectory.getPath());
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;
@@ -65,13 +66,19 @@ public class XMLFilepathHandler {
 		 * 
 		 */
 		if (mediaAddress.startsWith(title)) {
-			System.out.println("Working correctly");
 			StringBuilder tempURL = new StringBuilder();
 			tempURL.append(filepath);
 			tempURL.append("\\");
 			tempURL.append(mediaAddress);
 			mediaAddress = tempURL.toString();
-			System.out.println(mediaAddress);
+		}
+		else if (mediaAddress.startsWith("../")) {
+			mediaAddress = mediaAddress.replace("../", "");
+			StringBuilder tempURL = new StringBuilder();
+			tempURL.append(filepath);
+			tempURL.append("\\");
+			tempURL.append(mediaAddress);
+			mediaAddress = tempURL.toString();
 		}
 		/*
 		 * Existance of files
@@ -88,7 +95,6 @@ public class XMLFilepathHandler {
 		if (!(new File(mediaAddress).exists())) {
 			// Get the individual filename first and see if it is a filename
 			String mediaElementName = new File(mediaAddress).getName();
-			System.out.println(mediaElementName);
 			if (mediaElementName.contains(".")) {
 				/*
 				* We can see if the file exists on the local machine at this point
@@ -152,6 +158,7 @@ public class XMLFilepathHandler {
 		if (exists) {
 			// Convert the filepath to something JavaFX understands
 			mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+			System.out.println(mediaAddress);
 			return mediaAddress;
 		}
 		else {

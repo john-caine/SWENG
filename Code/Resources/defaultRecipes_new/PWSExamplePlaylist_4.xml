@@ -3,8 +3,13 @@
 	<documentinfo>
 		<author>John Caine</author>
 		<version>1.1</version>
-    <title>Recipe Example #2</title>
-		<comment>This is recipe example 2 in the defaultRecipe folder</comment>
+    	<title>Recipe Example #2</title>
+		<comment>This is recipe example 2 in the defaultRecipe folder
+		</comment>
+		<cook>example cooking time</cook>
+		<prep>example preperation time</prep>
+		<price>example £5</price>
+		<veg>example vegetarian comment</veg>
 		<width>1600</width>
 		<height>900</height>
 	</documentinfo>
@@ -30,7 +35,7 @@
         <textstring>This is a test of required attributes</textstring>
       </textbody>
     </text>
-		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="16" fontcolor="#00FFFF" orientation="180">
+		<text xstart="10" ystart="100" xend="1000" yend="300" font="Times New Roman" fontsize="36" fontcolor="#00FFFF" orientation="180">
 			<textbody branch="5">
         <textstring>This is a test of optional font attributes</textstring>
       </textbody>
@@ -68,12 +73,12 @@
 		</shape>
 	</slide>
 	<slide id="2" duration="90" lastSlide="false">
-		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" false="loop"/>
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" loop="false"/>
 		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3" starttime="35" loop="false"/>
 	</slide>
 	<slide id="3" duration="40" lastSlide="false">
 		<image urlname="http://4.bp.blogspot.com/-D6YYIZDSxks/UXvED6as6cI/AAAAAAAAAHs/ddOuPj9Yh7I/s1600/waffle+and+syrup.jpg" xstart="10" ystart="10" width="512" height="384"/>
-		<image urlname="http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg" xstart="1194" ystart="600" duration="20" width="396" height="300" layer="3"/>
+		<image urlname="http://2.bp.blogspot.com/-UwQy6WiradM/T9igHkNTakI/AAAAAAAARfA/2lj7tz2L-So/s1600/P5294569.jpg" xstart="1194" ystart="600" duration="20" width="396" height="300" layer="3" branch="5"/>
 	</slide>
 	<slide id="4" duration="90" lastSlide="true">
 		<video urlname="http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4" xstart="10" ystart="10" layer="2" duration="10" />
