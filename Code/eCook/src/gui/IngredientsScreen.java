@@ -302,7 +302,7 @@ public class IngredientsScreen {
 				public void handle(ActionEvent event) {
 					int NumberOfGuests;
 					// if valid number of guests entered
-					if (nGuests != null && !nGuests.getText().equals("") && nGuests.getText().matches("[0-9]*")) {
+					if (nGuests != null && !nGuests.getText().equals("") && nGuests.getText().matches("[1-20]*")) {
 						// get logic to update amount of ingredients 
 						NumberOfGuests = Integer.valueOf(nGuests.getText().toString());
 						recipe.ingredientsAmountUpdate(NumberOfGuests);	
