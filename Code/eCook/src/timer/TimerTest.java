@@ -52,7 +52,6 @@ public class TimerTest {
 				
 				Platform.runLater( new Runnable(){
 					public void run(){
-						System.out.println("print");
 						timerbox.getChildren().add(timer.getTimerID(), timer.getPane());
 						numberOfTimers ++;
 					}
