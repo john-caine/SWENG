@@ -46,7 +46,7 @@ public class ImageHandler extends SubSlideMedia {
 		try {
 			image = new Image(imageLocationPath);
 		}
-		catch (NullPointerException e) {
+		catch (NullPointerException | IllegalArgumentException e) {
 			new ErrorHandler("Fatal error displaying media");
 		}
 		

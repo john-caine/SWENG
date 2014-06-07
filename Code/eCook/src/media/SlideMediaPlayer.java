@@ -36,7 +36,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		try {
 			media = new Media(pathLocation);
 		}
-		catch (NullPointerException e) {
+		catch (NullPointerException | IllegalArgumentException e) {
 			new ErrorHandler("Fatal error displaying media");
 		}
 		
