@@ -325,8 +325,6 @@
 	-fx-font-size: 20px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-background-size: contain;
-	-fx-padding: 0;
 	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }

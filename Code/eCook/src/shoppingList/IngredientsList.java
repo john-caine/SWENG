@@ -10,6 +10,8 @@
  */
 package shoppingList;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import xmlparser.Recipe;
@@ -49,7 +51,9 @@ public class IngredientsList {
 		// populate the ingredientsList
 		ingredientsList = new ArrayList<String>();
 		for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
-			ingredientsList.add(recipe.getIngredient(i).getName() + " " + recipe.getIngredient(i).getAmount() + " " + recipe.getIngredient(i).getUnits());
+			BigDecimal amountOfIngredients = new BigDecimal(recipe.getIngredient(i).getAmount());
+			amountOfIngredients.stripTrailingZeros();
+			ingredientsList.add(recipe.getIngredient(i).getName() + " " + amountOfIngredients + " " + recipe.getIngredient(i).getUnits());
 		}
 
 		// copy the current shopping list to the local instance

@@ -82,7 +82,7 @@ public class TextFileHandler {
 		}
 		// return null if the filename is invalid
 		else {
-			System.out.println("cannot read file: filename is invalid or file does not exist");
+			System.out.println("Please remove printing to console and handle error properly :-) notes/TextFileHandler.java");
 			error = true;
 			return null;
 		}  

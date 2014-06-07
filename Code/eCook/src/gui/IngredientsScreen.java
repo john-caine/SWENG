@@ -248,7 +248,7 @@ public class IngredientsScreen {
 		recipeInformationLabel.setId("recipeInformationLabel");
 		recipeInformationLabel.getStylesheets().add("css.css");
 
-		Label ingredientsLabel = new Label("Ingredients");
+		final Label ingredientsLabel = new Label("Ingredients");
 		ingredientsLabel.setId("ingredientsLabel");
 		ingredientsLabel.getStylesheets().add("css.css");
 		
@@ -302,15 +302,16 @@ public class IngredientsScreen {
 				public void handle(ActionEvent event) {
 					int NumberOfGuests;
 					// if valid number of guests entered
-					if (nGuests != null && !nGuests.getText().equals("")
-							&& nGuests.getText().matches("[0-9]*")) {
+					if (nGuests != null && !nGuests.getText().equals("") && nGuests.getText().matches("[0-9]*")) {
 						// get logic to update amount of ingredients 
 						NumberOfGuests = Integer.valueOf(nGuests.getText().toString());
 						recipe.ingredientsAmountUpdate(NumberOfGuests);	
 						ingredientsList.getChildren().clear();
 						IngredientsList changedingredients = new IngredientsList(recipe,height,width);
 						ingredientsList = changedingredients.getIngredientsListGUI();
-						midBoxRight.getChildren().add(ingredientsList);
+						// refresh the entire box contents
+						midBoxRight.getChildren().clear();
+						midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, nGuestsBox, ingredientsList);
 				}
 			}});
 		} else {
@@ -324,11 +325,10 @@ public class IngredientsScreen {
 		nGuestsBox.setMaxSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()/20);
 		nGuestsBox.setSpacing(10);
 		nGuestsBox.getChildren().addAll(nGuestsLabel,nGuests,updateIngredients);
-		midBoxRight.getChildren().add(nGuestsBox);
+		// midBoxRight.getChildren().add(nGuestsBox);
 		
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();
-		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel,
-				nGuestsBox, ingredientsList);
+		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, nGuestsBox, ingredientsList);
 	}
 }
