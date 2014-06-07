@@ -9,6 +9,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -16,6 +19,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class VideoControlBar {
@@ -29,6 +35,7 @@ public class VideoControlBar {
 	private Button stopButton;
 	private ImageView playImage;
 	private ImageView pauseImage;
+	private Button fullScreenButton;
 
 	public VideoControlBar(VideoHandler videoHandler){
 		this.videoHandler = videoHandler;
@@ -57,6 +64,9 @@ public class VideoControlBar {
 		stopButton = new Button ("");
 		ImageView stopImage = new ImageView(new Image("audioBarStop.png"));
 		stopButton.setGraphic(stopImage);
+		
+		fullScreenButton = new Button("FS");
+		
        
 		
         // set up sliders
@@ -82,7 +92,7 @@ public class VideoControlBar {
         
         
         // populate the controlBar
-        controlBar.getChildren().addAll(playPauseButton, stopButton,  trackBar, timeLbl, volumeLabel,  volBar);
+        controlBar.getChildren().addAll(playPauseButton, stopButton,  trackBar, timeLbl, volumeLabel,  volBar , fullScreenButton);
         
         videoHandler.getMediaPlayer().setOnPlaying(new Runnable(){
 			@Override
@@ -134,6 +144,15 @@ public class VideoControlBar {
 				// set the pause button to play if not already
 				playPauseButton.setGraphic(playImage);
 			}
+		});
+		
+		fullScreenButton.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent e) {
+				videoHandler.setFullScreen(e);
+			}
+			
 		});
 		
 	}

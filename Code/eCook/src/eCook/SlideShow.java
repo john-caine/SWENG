@@ -884,4 +884,8 @@ public class SlideShow {
 		timeLineDuration.stop();
 		logger.log(Level.INFO, "Slide timeline Stopped");
 	}
+	
+	public Stage getMainStage(){
+		return stage;
+	}
 }

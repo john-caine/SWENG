@@ -31,6 +31,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		
+		
 		media = new Media(pathLocation);
 		mediaPlayer = new MediaPlayer(media);
 		
