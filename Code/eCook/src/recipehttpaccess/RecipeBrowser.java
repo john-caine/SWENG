@@ -35,6 +35,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -150,13 +152,14 @@ public class RecipeBrowser extends Application {
     	downloadLabel.setAlignment(Pos.TOP_CENTER);
     	downloadLabel.setTextAlignment(TextAlignment.CENTER);
     	
-        HBox buttons = new HBox(377);
+        HBox buttons = new HBox(20);
+        buttons.setAlignment(Pos.BOTTOM_CENTER);
         buttons.getChildren().addAll(downloadButton, exitButton);
         
         // do javaFX setup
         StackPane root = new StackPane();
         scene = new Scene(root, 600, 500);
-        root.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+        root.setStyle("-fx-background-color: rgba(0,0,0,0.5);  -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
 		
         primaryStage.setTitle("Recipe Browser");
         primaryStage.setScene(scene);
@@ -174,6 +177,7 @@ public class RecipeBrowser extends Application {
             	primaryStage.close();
         	}
         });
+        
         
         // configure the download button
         downloadButton.setOnAction(new EventHandler<ActionEvent>() {

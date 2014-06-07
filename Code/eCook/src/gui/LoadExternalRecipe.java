@@ -286,10 +286,14 @@ public class LoadExternalRecipe {
 		midBox.setStyle("-fx-background-color: transparent;");
 
 		loadExtBox = new VBox(20);
-		loadExtBox
-				.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+		loadExtBox.setStyle("-fx-background-color: rgba(0,0,0,0.5); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+		
+	
+		
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
+		
 
+		//Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		dialog.setScene(dialogScene);
 		dialog.show();
