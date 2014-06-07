@@ -40,8 +40,9 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_0.png" xstart="250" ystart="260" width="900" height="600" layer="1" />	
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_0.png" xstart="250" ystart="260" width="900" height="600" layer="1" />	
+		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />	
+		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -61,10 +62,11 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>     		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_1.png" xstart="100" ystart="120" width="550" height="366" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_2.png" xstart="750" ystart="120" width="550" height="366" layer="2" />		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_3.png" xstart="550" ystart="525" width="550" height="366" layer="2" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_1.png" xstart="100" ystart="120" width="550" height="366" layer="2" />	
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_2.png" xstart="750" ystart="120" width="550" height="366" layer="2" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_3.png" xstart="550" ystart="525" width="550" height="366" layer="2" />		
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3" starttime="5" loop="false" />		
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -84,8 +86,8 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_4.png" xstart="15" ystart="200" width="700" height="466" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_5.png" xstart="725" ystart="200" width="700" height="466" layer="2" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_4.png" xstart="15" ystart="200" width="700" height="466" layer="2" />	
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_5.png" xstart="725" ystart="200" width="700" height="466" layer="2" />		
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
@@ -106,8 +108,8 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
         </text>
         
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_6.png" xstart="700" ystart="70" width="650" height="433" layer="3" />
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_7.png" xstart="15" ystart="360" width="650" height="433" layer="3" />
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_6.png" xstart="700" ystart="70" width="650" height="433" layer="3" />
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_7.png" xstart="15" ystart="360" width="650" height="433" layer="3" />
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
@@ -129,9 +131,9 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>     		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_8.png" xstart="100" ystart="150" width="550" height="366" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_9.png" xstart="750" ystart="150" width="550" height="366" layer="2" />		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_10.png" xstart="150" ystart="520" width="550" height="366" layer="2" />				
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_8.png" xstart="100" ystart="150" width="550" height="366" layer="2" />	
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_9.png" xstart="750" ystart="150" width="550" height="366" layer="2" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_10.png" xstart="150" ystart="520" width="550" height="366" layer="2" />				
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 	
@@ -148,8 +150,8 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 			
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_11.png" xstart="15" ystart="150" width="700" height="466" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_12.png" xstart="725" ystart="250" width="700" height="466" layer="2" />		
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_11.png" xstart="15" ystart="150" width="700" height="466" layer="2" />	
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_12.png" xstart="725" ystart="250" width="700" height="466" layer="2" />		
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
@@ -164,7 +166,7 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Top with a teaspoon of the toasted seeds.</textstring>
       			</textbody>
 		</text>
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_13.png" xstart="250" ystart="100" width="900" height="600" layer="7" />			
+		<image urlname="file:../Resources/Product_Content/Butternut_Squash/IMG_butnut_13.png" xstart="250" ystart="100" width="900" height="600" layer="7" />			
 		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
