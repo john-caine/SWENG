@@ -71,8 +71,7 @@ public class VideoHandler extends SlideMediaPlayer {
 	
 	public void setFullScreen(ActionEvent e){
 		stage = new Stage();
-		Node  source = (Node)  e.getSource();
-    	stage  = (Stage) source.getScene().getWindow();
+		
     	final Group root = new Group();
 		Rectangle2D bounds = Screen.getPrimary().getBounds();
 		MediaView fullMediaView = new MediaView(mediaPlayer);
