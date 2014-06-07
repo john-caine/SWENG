@@ -47,9 +47,14 @@
 Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
+		<text xstart="950" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false" >
+        		<textstring>Please refer to the 'Stocks' slideshow for essential basics  </textstring>
+      			</textbody>
+		</text>
 		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_0.png" xstart="250" ystart="260" width="900" height="600" layer="1" />	
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_0.png" xstart="250" ystart="260" width="900" height="600" layer="1" />	
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />			
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -59,20 +64,26 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>
 		<text xstart="15" ystart="70" xend="1400" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
-			<textbody underlined="false" bold="false" italic="false" branch="7">
+			<textbody underlined="false" bold="false" italic="false" >
         		<textstring>Heat a little oil in a pan over a medium heat, and add the peeled and diced onion. Season with salt, and cook until softened but not coloured.  </textstring>
       			</textbody>
-		</text>  
+		</text> 
+		<text xstart="950" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false" branch="7">
+        		<textstring>How to chop an onion...  </textstring>
+      			</textbody>
+		</text> 
 		<text xstart="100" ystart="550" xend="530" yend="470" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="false">
         		<textstring>Peel and finely dice the carrot and garlic. Add to the pan with the thyme, then continue to cook for 5 minutes.</textstring>
       			</textbody>
 		</text>     		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_1.png" xstart="100" ystart="150" width="550" height="366" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_2.png" xstart="750" ystart="150" width="550" height="366" layer="2" />		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_3.png" xstart="550" ystart="525" width="550" height="366" layer="2" />		
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_1.png" xstart="100" ystart="150" width="550" height="366" layer="2" />	
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_2.png" xstart="750" ystart="150" width="550" height="366" layer="2" />		
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_3.png" xstart="550" ystart="525" width="550" height="366" layer="2" />		
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_1.mp3" starttime="5" loop="false" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -92,9 +103,10 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_4.png" xstart="15" ystart="200" width="700" height="466" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_5.png" xstart="725" ystart="200" width="700" height="466" layer="2" />			
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_4.png" xstart="15" ystart="200" width="700" height="466" layer="2" />	
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_5.png" xstart="725" ystart="200" width="700" height="466" layer="2" />			
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_2.mp3" starttime="5" loop="false" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -114,9 +126,10 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
         </text>
         
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_6.png" xstart="700" ystart="70" width="650" height="433" layer="3" />
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_7.png" xstart="15" ystart="360" width="650" height="433" layer="3" />
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_6.png" xstart="700" ystart="70" width="650" height="433" layer="3" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_7.png" xstart="15" ystart="360" width="650" height="433" layer="3" />
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_3.mp3" starttime="5" loop="false" />
 					
 	</slide>
 
@@ -137,10 +150,11 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
       			</textbody>
 		</text>     		
         		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_8.png" xstart="100" ystart="100" width="550" height="366" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_9.png" xstart="700" ystart="250" width="650" height="433" layer="2" />		
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_10.png" xstart="100" ystart="500" width="550" height="366" layer="2" />		
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_8.png" xstart="100" ystart="100" width="550" height="366" layer="2" />	
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_9.png" xstart="700" ystart="250" width="650" height="433" layer="2" />		
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_10.png" xstart="100" ystart="500" width="550" height="366" layer="2" />		
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_4.mp3" starttime="5" loop="false" />
 	</slide>
 	
 	<slide id="5" duration="30" lastSlide="false">
@@ -160,9 +174,10 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Add the milk to the soup, and carefully heat, frothing with a hand blender for a cappuccino like texture. </textstring>
       			</textbody>
 		</text>	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_11.png" xstart="15" ystart="150" width="700" height="466" layer="2" />	
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_12.png" xstart="725" ystart="250" width="700" height="466" layer="2" />		
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_11.png" xstart="15" ystart="150" width="700" height="466" layer="2" />	
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_12.png" xstart="725" ystart="250" width="700" height="466" layer="2" />		
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_5.mp3" starttime="5" loop="false" />
 	</slide>
 
 	<slide id="6" duration="30" lastSlide="false">
@@ -176,8 +191,9 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Pour into bowls, and garnish with the crispy chorizo pieces, as well as a little of the rendered fat.</textstring>
       			</textbody>
 		</text>
-		<image urlname="file:../Resources/Product Content/Butternut_Squash/IMG_butnut_13.png" xstart="250" ystart="100" width="900" height="600" layer="7" />				
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="Tomato and Chorizo Soup/IMG_butnut_13.png" xstart="250" ystart="100" width="900" height="600" layer="7" />				
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<audio urlname="Tomato and Chorizo Soup/tom_churro_audio_6.mp3" starttime="5" loop="false" />
 	</slide>
 	
 	<slide id="7" lastSlide="true">
@@ -191,8 +207,9 @@ Please click 'Next' or press the right arrow key to begin.</textstring>
         		<textstring>Press 'Back' to return to previous slide.</textstring>
       			</textbody>
 		</text>
-		<video urlname="file:../Resources/Chopping_an_Onion.mp4" xstart="100" ystart="67" width="900" height="600" loop="true" />			
-		<image urlname="file:../Resources/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<video urlname="Tomato and Chorizo Soup/Chopping_an_Onion.mp4" xstart="100" ystart="67" width="1200" height="800" loop="true" />			
+		<image urlname="Tomato and Chorizo Soup/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
+	
 
 </slideshow>

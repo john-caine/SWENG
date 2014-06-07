@@ -1,0 +1,158 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>Jim Dee</author>
+		<version>1.1</version>
+    <title>Celariac and Mushroom Soup</title>
+		<comment>The reader should remember that seasonal produce will make the best soups. More often than not, local produce is better than foreign alternatives, particularly with short season vegetables. I had the misfortune to try Peruvian asparagus in the middle of September last year, and it is not a product I will endorse here. Nearly every recipe here will require vegetable oil, salt and pepper, so they are omitted from the ingredients list. I recommend Maldon salt, which is widely available, and to my mind is one of the best salts in the world. 	
+		</comment>
+		<cook>15 min</cook>
+		<prep>5 min</prep>
+		<price>£3</price>
+		<veg>Yes</veg>
+		<width>1440</width>
+		<height>900</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#FFFFFF</backgroundcolor>
+		<font>Helvetica Neue Thin</font>
+		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
+		<fontcolor>#000000</fontcolor>
+		<fillcolor>#CCCCCC</fillcolor>
+	</defaults>
+	<ingredients>
+		<ingredient name="celaric" amount="1" units="whole" />
+		<ingredient name="potatoes" amount="2" units="whole" />
+		<ingredient name="button mushrooms" amount="250" units="grams" />
+		<ingredient name="dried porcini mushrooms" amount="10" units="grams" />
+		<ingredient name="butter" amount="25" units="grams" />
+		<ingredient name="white truffle oil" amount="3" units="drops" />
+	</ingredients>
+
+	<slide id="0" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Celariac and Mushroom Soup</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This is one of my absolute favourite soups. The earthiness of the mushrooms and the entirely autumnal taste of celeriac pair so nicely. The soup can be served with crusty bread and butter as it is, or spruced up with a little truffle oil or even fresh truffle if you are feeling particularly luxurious. 
+Please click 'Next' or press the right arrow key to begin.</textstring>
+      			</textbody>
+		</text>
+		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="250" width="800" height="533" layer="1" />	
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+
+	<slide id="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step One</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1000" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Pour 500ml of nearly boiling water onto the dried mushrooms, leave to infuse for 10 minutes.  </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="150" ystart="500" xend="550" yend="475" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Remove the mushrooms and roughly chop. Strain this mushroom stock through a very fine sieve and keep hot.</textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_3.jpg" xstart="550" ystart="475" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Two</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Peel and discard the skin from the celeriac with a sharp knife. Chop the flesh into 1cm dice. Peel the potatoes and dice to the same size.  </textstring>
+      			</textbody>
+		</text>     
+		<text xstart="15" ystart="600" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+				<textstring>Heat some oil in large pan and add the celeriac and potato. Season then cook without colouring for 8 minutes then add the rehydrated porcini.</textstring>
+      			</textbody>
+		</text>		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="150" width="600" height="400" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="150" width="600" height="400" layer="2" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Three</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="100" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>In a separate frying pan, season and lightly brown the button mushrooms for 2 or 3 minutes. Add the mushrooms to the other pan then cover with the hot mushroom stock, adding a little more hot water if necessary.  </textstring>
+      			</textbody>
+        </text>
+        <text xstart="650" ystart="550" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>Simmer for 20-25 minutes, until the potatoes and celeriac are completely tender. </textstring>
+      			</textbody>
+        </text>
+        
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+					
+	</slide>
+
+	<slide id="4" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Four</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Blend the soup with the butter using the best equipment available to you then pass through a fine sieve and check the seasoning. </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="750" ystart="550" xend="1100" yend="1000" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This soup benefits from a nice amount of black pepper, but be careful not to overdo it. </textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+	
+	<slide id="5" duration="30" lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Eat</textstring>
+      			</textbody>
+		</text>
+		
+		<text xstart="200" ystart="650" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
+			<textbody >
+        		<textstring>To serve, heat thoroughly and add to bowls. Drizzle a very small amount of the white truffle oil on top (optional).</textstring>
+      			</textbody>
+		</text>
+		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="250" ystart="100" width="800" height="533" layer="7" />			
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+</slideshow>
