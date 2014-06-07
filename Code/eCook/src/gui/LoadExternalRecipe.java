@@ -6,8 +6,6 @@
  */
 package gui;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -42,18 +40,12 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class LoadExternalRecipe {
 
 	public Stage dialog;
-	private InputStream inputStream;
 	private FileHandler fileHandler;
 	private Label statusBar;
 	private Stage popup;
@@ -220,11 +212,11 @@ public class LoadExternalRecipe {
 					try {
 						String assumedFileName = fileURL.substring(fileURL
 								.length() - 12);
-						browser.downloadRecipeFile(fileURL, "defaultRecipes/"
+						browser.downloadRecipeFile(fileURL, "defaultRecipes_new/"
 								+ assumedFileName);
 						// update the recipe collection with the new file
 						// (parse)
-						XMLReader reader = new XMLReader("defaultRecipes/"
+						XMLReader reader = new XMLReader("defaultRecipes_new/"
 								+ assumedFileName);
 						Recipe newRecipe = reader.getRecipe();
 						newRecipe.setFileName(assumedFileName);

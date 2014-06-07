@@ -8,8 +8,6 @@ package gui;
 
 import java.awt.print.PrinterException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
+import eCook.eCook;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -40,6 +39,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 

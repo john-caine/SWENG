@@ -8,6 +8,8 @@ package eCook;
 import java.util.ArrayList;
 import java.util.List;
 import media.AudioHandler;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,7 +19,10 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 public class AudioControlBar {
 	HBox controlBar;
@@ -52,9 +57,11 @@ public class AudioControlBar {
         controlBar.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/10);
         controlBar.setAlignment(Pos.CENTER);
 		
-		// declare buttons
+		// declare buttons and set up images
 		buttons = new ArrayList<Button>();
 		Button playPauseBtn = new Button("play");
+		ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+		playPauseBtn.setGraphic(playImg);
         Button prevBtn = new Button("prev");
         prevBtn.setDisable(true);
         Button nextBtn = new Button("next");
@@ -70,8 +77,8 @@ public class AudioControlBar {
         // set up sliders
         trackBar = new Slider();
         trackBar.setMin(0);
-        trackBar.setMax(10);			// this must be the current audioHandlerObject.getDuration();
-        //trackBar.setValue(currentHandler.getCurrentTime().toSeconds());
+        trackBar.setMax(currentHandler.getDuration());
+        //trackBar.setValue(0);
         volBar = new Slider();
         volBar.setMin(0);
         volBar.setMax(1.0);
@@ -79,9 +86,9 @@ public class AudioControlBar {
         
         // set up filename and time labels
         fileLbl = new Label(currentHandler.getFilePath());
-        fileLbl.setStyle("-fx-text-fill: white;");
+        fileLbl.setStyle("-fx-text-fill: black;");
         timeLbl = new Label("00:00/00:00");
-        timeLbl.setStyle("-fx-text-fill: white;");
+        timeLbl.setStyle("-fx-text-fill: black;");
         
         // populate the controlBar
         controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volBar);
@@ -165,6 +172,25 @@ public class AudioControlBar {
 				currentHandler.setVolume(new_val.doubleValue());
 			}
 		});
+		
+		// tracking bar
+		trackBar.valueProperty().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable value) {
+			}
+		});
+		
+		// Whenever there's a change in duration of the MediaPlayer, update the Time Label and Slider Position
+        currentHandler.getMediaPlayer().currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
+            	timeLbl.setText(currentHandler.getMediaPlayer().getCurrentTime().toString());
+            	trackBar.setValue(currentHandler.getMediaPlayer().getCurrentTime().toMillis());
+            }
+        });
+        trackBar.setMax(currentHandler.getDuration());
+        
+        System.out.println(trackBar.getMax());
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
@@ -183,6 +209,9 @@ public class AudioControlBar {
 		else {
 			buttons.get(2).setDisable(true);
 		}
+		
+		// set the slider
+		setupSliders();
 	}
 	
 	// method to write information to the labels

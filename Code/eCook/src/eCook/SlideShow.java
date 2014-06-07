@@ -7,6 +7,8 @@
 
 package eCook;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +25,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -44,6 +47,7 @@ import media.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import media.VideoHandler;
+import xmlFilepathHandler.XMLFilepathHandler;
 import xmlRecipeScaler.RecipeScale;
 import xmlValidation.XMLValidator;
 import xmlparser.*;
@@ -113,6 +117,10 @@ public class SlideShow {
     		stage.hide();
     		new ErrorHandler(validator.getErrorMsg());
 		} else {
+
+			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+			reader = filepathHandler.updateFilepaths(reader);
+			
 			// If there's no error with the recipe then grab it from the parser
 			recipe = reader.getRecipe();
 			
@@ -179,7 +187,7 @@ public class SlideShow {
 			nextSlideID = currentSlideID;
 			prevSlideID = currentSlideID;
 			currentSlideID = slideID;
-		} 
+		}
 		else 
 		{
 			currentSlideID = slideID;
@@ -341,7 +349,7 @@ public class SlideShow {
 	    slideRoot.getChildren().addAll(layers);
 	    
 	    // Add timers
-	 	timerbox = new VBox();
+	 	timerbox = new VBox(10);
 	 		
 	    // Create a notes panel each time new Slide is called
 	 	notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox, notesPanelShowing);
@@ -354,12 +362,8 @@ public class SlideShow {
 	 	 HBox audioBox = null;
 
 	 	if (audioCount != 0) {
-
-	 		//AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		//audioBox = audioBar.getControlBar();
-	 		// AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		// audioBox = audioBar.getControlBar();
-
+	 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
+	 		audioBox = audioBar.getControlBar();
 	 	}
 		
 		// create a controls panel each time new slide is called
@@ -653,7 +657,7 @@ public class SlideShow {
 			public void handle(ActionEvent arg0) {
 				notesGUI.showPanel(slideRoot);
 				if(numberOfTimers< 4){
-						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+						final Timer timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow, notesGUI, slideRoot);
 						timerList.add(timer);
 						timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 							
@@ -859,7 +863,7 @@ public class SlideShow {
 	        		final Timer continueTimer = new Timer(currentTimerValues.get(l).getHours(), currentTimerValues.get(l).getMinutes(), 
 	        												currentTimerValues.get(l).getSeconds(), currentTimerValues.get(l).getStartSeconds(),
 	        												currentTimerValues.get(l).getStartMinutes(), currentTimerValues.get(l).getStartHours(),
-	        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow);
+	        												currentTimerValues.get(l).getLabel(), currentTimerValues.get(l).getTimerID(), slideShow, notesGUI, slideRoot);
 					timerList.add(continueTimer);
 					numberOfTimers ++;
 					 

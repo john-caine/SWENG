@@ -49,7 +49,7 @@ import eCook.RecipeCollection;
 public class RecipeBrowser extends Application {
 	ArrayList<String> availableRecipeFiles;
 	ListView<String> listOfRecipeFiles;
-	File localRecipeDirectory = new File("defaultRecipes/");
+	File localRecipeDirectory = new File("defaultRecipes_new/");
 	Button downloadButton, exitButton;
 	Scene scene;
 	RecipeCollection recipeCollection;

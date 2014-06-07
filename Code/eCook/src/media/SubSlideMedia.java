@@ -37,8 +37,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		if(orientation != null){
 			setOrientation();
 		}
-		
-		System.out.print("Checking branchID: it is " + branchID);
+
 		if(branchID != null){
 			doBranch();
 		}
