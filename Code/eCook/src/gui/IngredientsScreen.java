@@ -257,7 +257,11 @@ public class IngredientsScreen {
 	//Add label for nGuests
 	Label nGuestsLabel = new Label("Serves:");
 	nGuestsLabel.setId("nGuestsLabel");
-	nGuestsLabel.getStylesheets().add("css.css");
+	nGuestsLabel.getStylesheets().add("css1.css");
+//	nGuestsLabel.setStyle("-fx-background-color: transparent;"
+//			+ "-fx-background-image: url('half_book.png');"
+//			+ "-fx-background-position: center center;"
+//			+ "-fx-background-size: stretch;");
 
 	
 	//Add text field
