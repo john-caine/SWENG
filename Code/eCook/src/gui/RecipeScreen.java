@@ -6,23 +6,21 @@
 
 package gui;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
 import eCook.SlideShow;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -39,15 +37,13 @@ import javafx.stage.Stage;
 
 public class RecipeScreen {
 
-	private InputStream inputStream;
-	private String recipeInfo;
 	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
 	private Image homeIcon, closeIcon, minimiseIcon;	
 	private HBox topBox, topBoxLeft, topBoxRight;
 	private VBox recipeInfoBox;
 	private Tooltip h,c,m;
 	protected VBox bigBox;
-
+	Button currentDownloadButton;
 
 	public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
 
@@ -162,8 +158,49 @@ public class RecipeScreen {
 			// configure the buttons
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(ActionEvent event) {
-					
+				public void handle(final ActionEvent event) {
+					// run the download task on a new thread asynchronously
+					// update the button text
+					currentDownloadButton = (Button) event.getSource();
+					currentDownloadButton.setText("Downloading...");
+					currentDownloadButton.setDisable(true);
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+																			// ***** do the download stuff here
+								System.out.println("doing stuff...");
+								Thread.sleep(2000);
+								System.out.println("doing more stuff...");
+								Thread.sleep(3000);
+								System.out.println("doing even more stuff...");
+								Thread.sleep(5000);
+								System.out.println("doing so much stuff...");
+								Thread.sleep(1000);
+								System.out.println("woo nearly done...");
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+							} finally {
+								// clean up and display finish confirmation
+								Platform.runLater(new Runnable() {
+									@Override
+									public void run() {
+										System.out.println("finished doing stuff!");
+																			// ***** put some success logic here
+										//if (success) {
+										// update the button text
+										currentDownloadButton.setText("Recipe Content Downloaded");
+										currentDownloadButton.setDisable(true);
+										//}
+										//else {
+										//	currentDownloadButton.setText("Download Recipe Content");
+										//	currentDownloadButton.setDisable(false);
+										//}
+									}
+								});
+							}
+						}
+					}).start();
 				}
 				
 			});
@@ -260,12 +297,11 @@ public class RecipeScreen {
 
 	// method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
-		String author = "", version = "", comment = "", cook = "", prep = "", guests = "", veg ="";
+		String author = "", comment = "", cook = "", prep = "", guests = "", veg ="";
 
 		if (recipe != null) {
 			// update the info Strings
 			author = recipe.getInfo().getAuthor();
-			version = recipe.getInfo().getVersion();
 			comment = recipe.getInfo().getComment();
 			cook = recipe.getInfo().getCook();
 			prep = recipe.getInfo().getPrep();
