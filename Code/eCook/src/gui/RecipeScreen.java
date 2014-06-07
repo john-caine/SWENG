@@ -6,16 +6,14 @@
 
 package gui;
 
-import java.awt.print.PrinterException;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
 import eCook.SlideShow;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,6 +42,7 @@ public class RecipeScreen {
 	private Tooltip h,c,m;
 	protected VBox bigBox;
 	Button currentDownloadButton;
+	int lastRowHovered = 0;
 
 	public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
 
@@ -160,10 +159,16 @@ public class RecipeScreen {
 				@Override
 				public void handle(final ActionEvent event) {
 					// run the download task on a new thread asynchronously
-					// update the button text
 					currentDownloadButton = (Button) event.getSource();
+					// block out the other buttons - we can only download one recipe at a time
+					for (int i=0; i<downloadButtons.length; i++) {
+						downloadButtons[i].setText("Waiting...");
+						downloadButtons[i].setDisable(true);
+					}
+					// update the current button text
 					currentDownloadButton.setText("Downloading...");
 					currentDownloadButton.setDisable(true);
+					
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
@@ -186,6 +191,11 @@ public class RecipeScreen {
 									@Override
 									public void run() {
 										System.out.println("finished doing stuff!");
+										// reactivate the other buttons
+										for (int i=0; i<downloadButtons.length; i++) {
+											downloadButtons[i].setText("Download Recipe Content");
+											downloadButtons[i].setDisable(false);
+										}
 																			// ***** put some success logic here
 										//if (success) {
 										// update the button text
@@ -222,12 +232,13 @@ public class RecipeScreen {
 			row.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
+					// hide any previously showing buttons
+					playButtons[lastRowHovered].setVisible(false);
+					downloadButtons[lastRowHovered].setVisible(false);
 					int index = 0;
 					// get the selected recipe
 					HBox focusBox = (HBox) event.getSource();
 					index = Integer.valueOf(focusBox.getId().substring(1));
-					// call the update info labels method
-					updateInfoLabels(recipeCollection.getRecipe(index));
 					// show the buttons for that row
 					playButtons[index].setVisible(true);
 					downloadButtons[index].setVisible(true);
@@ -245,6 +256,7 @@ public class RecipeScreen {
 					// hide the buttons for that row
 					playButtons[index].setVisible(false);
 					downloadButtons[index].setVisible(false);
+					lastRowHovered = index;
 				}
 			});
 			
@@ -266,6 +278,16 @@ public class RecipeScreen {
 		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.75);
 		listOfRecipes.setItems(FXCollections.observableList(recipeRows));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+		
+		// set up the list so that mouseout continues showing the buttons for the last row hovered over
+		listOfRecipes.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				// show the buttons for that row
+				playButtons[lastRowHovered].setVisible(true);
+				downloadButtons[lastRowHovered].setVisible(true);
+			}
+		});
 
 		// Create a new HBox to hold the recipe information
 		recipeInfoBox = new VBox();
@@ -281,6 +303,17 @@ public class RecipeScreen {
 		else {
 			updateInfoLabels(null);
 		}
+		
+		// when recipe selection changes, update the info and ingredients fields
+		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<HBox>() {
+			public void changed(ObservableValue<? extends HBox> ov,
+					HBox old_val, HBox new_val) {
+				// get the selected recipe
+				int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
+				// call the update info labels method
+				updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
+			}
+		});
 
 		//Box where all content of the RecipeScreen class are collated
 		HBox horizontalBox = new HBox();
