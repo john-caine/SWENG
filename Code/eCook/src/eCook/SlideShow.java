@@ -109,7 +109,12 @@ public class SlideShow {
     	// Set the scene
     	stage.setScene(slideScene);
     	
-    	reader = new XMLReader(filepath);
+    							// TEMPORARY FIX TO GET THE SLIDESHOW TO PLAY FROM THE CORRECT LOCATION
+    							URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+    							File filePath = new File(defaultDirectory.getPath());
+    	
+    	reader = new XMLReader(filePath + "/" + filepath);
+    	//reader = new XMLReader(filepath);
     	
     	// Check integrity of XML file, report error message if invalid
     	validator = new XMLValidator(reader);

@@ -6,9 +6,12 @@
     <title>Chicken Stock</title>
 		<comment>This is a basic, white chicken stock. It is light and neutral in flavour, and therefore serves as an excellent, all-purpose stock. Please see the de-boning video for instructions on preparing the chicken carcass. 
 		</comment>
-		
-		<width>1000</width>
-		<height>800</height>
+		<cook>1 day</cook>
+		<prep>10 min</prep>
+		<price>£3</price>
+		<veg>No</veg>
+		<width>1440</width>
+		<height>900</height>
 	</documentinfo>
 	<defaults>
 		<backgroundcolor>#FFFFFF</backgroundcolor>
@@ -41,7 +44,7 @@
 		</text>
 		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="250" ystart="200" width="800" height="533" layer="1" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
 	<slide id="1" duration="30" lastSlide="false">
@@ -64,7 +67,7 @@
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="200" width="475" height="316" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="200" width="475" height="316" layer="2" />		
 			
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="2" duration="30" lastSlide="false">
@@ -78,7 +81,7 @@
         		<textstring>Just before the water comes to the boil, turn off the heat and pour away the water. Rinse the chicken bones while they are still hot to remove any scum. Clean the pan as well. This blanching process enables a clearer stock. Put the chicken back in the pan, and place on a low heat. Bring to a simmer and skim frequently.   </textstring>
       			</textbody>
 		</text>     
-		<text xstart="15" ystart="600" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" starttime="1" > 
+		<text xstart="15" ystart="600" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="false" italic="false">
 				<textstring>Simmer for 1 hour, and then add all the other ingredients. Simmer for a further hour and a half then strain the stock into another saucepan.   </textstring>
       			</textbody>
@@ -86,7 +89,7 @@
         		
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="175" width="600" height="400" layer="2" />	
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="175" width="600" height="400" layer="2" />		
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 	<slide id="3" duration="30" lastSlide="false">
@@ -104,7 +107,7 @@
         
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 					
 	</slide>
 
@@ -121,7 +124,7 @@
       			</textbody>
 		</text> 
 		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="200" ystart="70" width="850" height="566" layer="7" />			
-		<image urlname="file:../Resources/Chopping_Bak.jpg" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 	</slide>
 
 </slideshow>

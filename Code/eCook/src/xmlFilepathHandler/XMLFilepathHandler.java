@@ -13,7 +13,7 @@ import xmlparser.XMLReader;
 
 public class XMLFilepathHandler {
 
-	private String filepath;
+	private File filepath;
 	private String title;
 	private XMLReader reader;
 	
@@ -24,7 +24,8 @@ public class XMLFilepathHandler {
 		this.reader = reader;
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
-		filepath = System.getProperty("user.dir") + "\\defaultRecipes";
+		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		filepath = new File(defaultDirectory.getPath());
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;
@@ -65,10 +66,18 @@ public class XMLFilepathHandler {
 		 * 
 		 */
 		if (mediaAddress.startsWith(title)) {
-			System.out.println("Working correctly");
 			StringBuilder tempURL = new StringBuilder();
 			tempURL.append(filepath);
 			tempURL.append("\\");
+			tempURL.append(mediaAddress);
+			mediaAddress = tempURL.toString();
+			System.out.println(mediaAddress);
+		}
+		else if (mediaAddress.startsWith("file:../")) {
+			mediaAddress = mediaAddress.replace("file:../", "");
+			StringBuilder tempURL = new StringBuilder();
+			tempURL.append(System.getProperty("user.dir"));
+			tempURL.append("\\..\\");
 			tempURL.append(mediaAddress);
 			mediaAddress = tempURL.toString();
 			System.out.println(mediaAddress);
@@ -88,13 +97,15 @@ public class XMLFilepathHandler {
 		if (!(new File(mediaAddress).exists())) {
 			// Get the individual filename first and see if it is a filename
 			String mediaElementName = new File(mediaAddress).getName();
-			System.out.println(mediaElementName);
 			if (mediaElementName.contains(".")) {
 				/*
-				* We can see if the file exists on the local machine at this point
-				* If the file doesn't exist then we need to download it
-				* If it does exist skip this part and just leave mediaAddress updated
-				*/
+				 * At this point we know that a relative working filepath has not been provided
+				 * We can check if the file has already been downloaded on a previous running
+				 * of eCook though and stored in a relative directory to the XML
+				 * 
+				 * If it hasn't already been downloaded we can try and download it.
+				 * 
+				 */
 				if (!(new File(filepath + "\\" + title + "\\" + mediaElementName).exists())) {
 					try {
 						// URL things
@@ -135,9 +146,9 @@ public class XMLFilepathHandler {
 					} catch (IOException e) {
 						// If we have an IO exception then if the file exists delete it
 						// It may be corrupt!
-						if (new File(mediaAddress).exists()) {
+						if (new File(filepath + "\\" + title + "\\" + mediaElementName).exists()) {
 							// Delete the file because there has been an exception
-							new File(mediaAddress).delete();
+							new File(filepath + "\\" + title + "\\" + mediaElementName).delete();
 						}
 						exists = false;
 					}

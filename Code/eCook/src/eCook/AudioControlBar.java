@@ -5,6 +5,7 @@
  */
 package eCook;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import media.AudioHandler;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
@@ -34,13 +36,14 @@ public class AudioControlBar {
 	List<AudioHandler> audioHandlerObjects;
 	
 	// constructor
-	public AudioControlBar(ArrayList<AudioHandler> audioHandlerList, Group root) {
+	public AudioControlBar(final ArrayList<AudioHandler> audioHandlerList, Group root) {
 		this.audioHandlerObjects = audioHandlerList;
 		currentHandler = audioHandlerList.get(currentHandlerIndex);
 		setupControlBar(root);
 		setupButtons();
 		setupSliders();
 		writeLabels();
+		detectAutoPlay();
 	}
 	
 	// method to get the controlBar HBox
@@ -56,19 +59,27 @@ public class AudioControlBar {
 		controlBar = new HBox();
         controlBar.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/10);
         controlBar.setAlignment(Pos.CENTER);
+        controlBar.setSpacing(10);
 		
 		// declare buttons and set up images
 		buttons = new ArrayList<Button>();
-		Button playPauseBtn = new Button("play");
+		Button playPauseBtn = new Button();
+		playPauseBtn.setId("audioBarPlay");
 		ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
 		playPauseBtn.setGraphic(playImg);
-        Button prevBtn = new Button("prev");
+        Button prevBtn = new Button();
+        ImageView prevImg = new ImageView(new Image("audioBarPrev.png"));
+		prevBtn.setGraphic(prevImg);
         prevBtn.setDisable(true);
-        Button nextBtn = new Button("next");
+        Button nextBtn = new Button();
+        ImageView nextImg = new ImageView(new Image("audioBarNext.png"));
+		nextBtn.setGraphic(nextImg);
         if (audioHandlerObjects.size() == 1) {
         	nextBtn.setDisable(true);
         }
-        Button stopBtn = new Button ("stop");
+        Button stopBtn = new Button();
+        ImageView stopImg = new ImageView(new Image("audioBarStop.png"));
+		stopBtn.setGraphic(stopImg);
         buttons.add(playPauseBtn);
         buttons.add(stopBtn);
         buttons.add(prevBtn);
@@ -78,7 +89,8 @@ public class AudioControlBar {
         trackBar = new Slider();
         trackBar.setMin(0);
         trackBar.setMax(currentHandler.getDuration());
-        //trackBar.setValue(0);
+        trackBar.setPrefWidth(root.getScene().getWidth()/3);
+        
         volBar = new Slider();
         volBar.setMin(0);
         volBar.setMax(1.0);
@@ -89,9 +101,13 @@ public class AudioControlBar {
         fileLbl.setStyle("-fx-text-fill: black;");
         timeLbl = new Label("00:00/00:00");
         timeLbl.setStyle("-fx-text-fill: black;");
+        Label volLbl = new Label();
+        ImageView volImg = new ImageView(new Image("audioBarVol.png"));
+		volLbl.setGraphic(volImg);
+        
         
         // populate the controlBar
-        controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volBar);
+        controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volLbl, volBar);
 	}
 	
 	// set up event handlers for the buttons
@@ -101,14 +117,20 @@ public class AudioControlBar {
 			@Override
 			public void handle(ActionEvent event) {
 				// toggle play/pause
-				if (buttons.get(0).getText().equals("play")) {
+				if (buttons.get(0).getId().equals("audioBarPlay")) {
 					currentHandler.resumeMedia();
-					buttons.get(0).setText("pause");
+					buttons.get(0).setId("audioBarPause");
+					ImageView pauseImg = new ImageView(new Image("audioBarPause.png"));
+					buttons.get(0).setGraphic(pauseImg);
 				}
 				else {
 					currentHandler.pauseMedia();
-					buttons.get(0).setText("play");
+					buttons.get(0).setId("audioBarPlay");
+					ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+					buttons.get(0).setGraphic(playImg);
 				}
+				
+				detectAutoPlay();
 			}
 		});
 		
@@ -119,7 +141,9 @@ public class AudioControlBar {
 				// call stop
 				currentHandler.stopMedia();
 				// set the pause button to play if not already
-				buttons.get(0).setText("play");
+				buttons.get(0).setId("audioBarPlay");
+				ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+				buttons.get(0).setGraphic(playImg);
 			}
 		});
 		
@@ -131,7 +155,9 @@ public class AudioControlBar {
 				if (currentHandlerIndex != 0) {
 					// stop anything playing first
 					currentHandler.stopMedia();
-					buttons.get(0).setText("play");
+					buttons.get(0).setId("audioBarPlay");
+					ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+					buttons.get(0).setGraphic(playImg);
 					currentHandler = audioHandlerObjects.get(currentHandlerIndex-1);
 					currentHandlerIndex--;
 					// validate buttons
@@ -150,7 +176,9 @@ public class AudioControlBar {
 				if (currentHandlerIndex != audioHandlerObjects.size()-1) {
 					// stop anything playing first
 					currentHandler.stopMedia();
-					buttons.get(0).setText("play");
+					buttons.get(0).setId("audioBarPlay");
+					ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+					buttons.get(0).setGraphic(playImg);
 					currentHandler = audioHandlerObjects.get(currentHandlerIndex+1);
 					currentHandlerIndex++;
 					// validate buttons
@@ -174,23 +202,55 @@ public class AudioControlBar {
 		});
 		
 		// tracking bar
+		
+		// Allow the user to drag and position the slider
 		trackBar.valueProperty().addListener(new InvalidationListener() {
 			@Override
 			public void invalidated(Observable value) {
+				// If the value is changing perform an action
+                if (trackBar.isValueChanging()) {
+                	// If the duration of the audio file is not zero, move to requested time
+                    if (currentHandler.getDuration() != 0) {
+                    	Duration seekPos = new Duration(trackBar.getValue());
+                    	currentHandler.getMediaPlayer().seek(seekPos);
+                    }
+                }
 			}
 		});
+        
+        // Allow the user to click on the slider to jump to the desired timing
+        trackBar.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+            	Duration newPos = new Duration(trackBar.getValue());
+                currentHandler.getMediaPlayer().seek(newPos);
+            }
+        });
 		
 		// Whenever there's a change in duration of the MediaPlayer, update the Time Label and Slider Position
         currentHandler.getMediaPlayer().currentTimeProperty().addListener(new ChangeListener<Duration>() {
             @Override
             public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration current) {
-            	timeLbl.setText(currentHandler.getMediaPlayer().getCurrentTime().toString());
+            	// set up the numbers for the time display label
+            	Integer currentTimeSeconds = (int) currentHandler.getMediaPlayer().getCurrentTime().toSeconds();
+            	Integer currentTimeMinutes = (int) currentHandler.getMediaPlayer().getCurrentTime().toMinutes();
+            	String currentTimeString = currentTimeMinutes.toString() + ":" + currentTimeSeconds.toString();
+            	Double durationMilliseconds = currentHandler.getDuration();
+            	Integer durationMinutes = 0;
+            	// split up the milliseconds into minutes and seconds
+            	if (durationMilliseconds >= 60000) {
+            		durationMinutes = (int) (durationMilliseconds/60000);
+            	}
+            	String durationMinutesString = durationMinutes.toString();
+            	Double durationSeconds = (durationMilliseconds - durationMinutes*60000);
+            	String durationSecondsString = durationSeconds.toString().substring(0, 2);
+            	
+            	String durationString = durationMinutesString + ":" + durationSecondsString;
+            	timeLbl.setText(currentTimeString + "/" + durationString);
             	trackBar.setValue(currentHandler.getMediaPlayer().getCurrentTime().toMillis());
             }
         });
         trackBar.setMax(currentHandler.getDuration());
-        
-        System.out.println(trackBar.getMax());
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
@@ -210,12 +270,68 @@ public class AudioControlBar {
 			buttons.get(2).setDisable(true);
 		}
 		
-		// set the slider
+		// update the sliders
 		setupSliders();
 	}
 	
 	// method to write information to the labels
 	public void writeLabels() {
-		fileLbl.setText(currentHandler.getFilePath());
+		File audioFile = new File(currentHandler.getFilePath());
+		if (audioFile.exists()) {
+			fileLbl.setText(audioFile.getName());
+		}
+		else {
+			String fileName = currentHandler.getFilePath().substring(currentHandler.getFilePath().lastIndexOf('/')+1, currentHandler.getFilePath().length() );
+			String fileNameWithoutExtn = fileName.substring(0, fileName.lastIndexOf('.'));
+			fileLbl.setText(fileNameWithoutExtn);
+		}
+	}
+	
+	// method to detect when audio is playing to update the GUI
+	public void detectAutoPlay() {
+		// set up an action listener for the current handler to detect if the audio plays automatically
+        currentHandler.getMediaPlayer().setOnPlaying(new Runnable() {
+			@Override
+			public void run() {
+				// set play button to pause
+				buttons.get(0).setId("audioBarPause");
+				ImageView pauseImg = new ImageView(new Image("audioBarPause.png"));
+				buttons.get(0).setGraphic(pauseImg);
+			}
+        });
+        
+        // do the opposite for paused or stopped
+        currentHandler.getMediaPlayer().setOnPaused(new Runnable() {
+			@Override
+			public void run() {
+				// set pause button to play
+				buttons.get(0).setId("audioBarPlay");
+				ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+				buttons.get(0).setGraphic(playImg);
+			}
+        });
+        currentHandler.getMediaPlayer().setOnStopped(new Runnable() {
+			@Override
+			public void run() {
+				// set pause button to play
+				buttons.get(0).setId("audioBarPlay");
+				ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+				buttons.get(0).setGraphic(playImg);
+			}
+        });
+        
+        currentHandler.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+			@Override
+			public void run() {
+				// stop
+				currentHandler.getMediaPlayer().stop();
+				// set pause button to play
+				buttons.get(0).setId("audioBarPlay");
+				ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
+				buttons.get(0).setGraphic(playImg);
+				// update slider
+				currentHandler.getMediaPlayer().seek(new Duration(0));
+			}
+        });
 	}
 }
