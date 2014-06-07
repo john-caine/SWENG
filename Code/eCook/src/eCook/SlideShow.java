@@ -110,7 +110,7 @@ public class SlideShow {
     	stage.setScene(slideScene);
     	
     							// TEMPORARY FIX TO GET THE SLIDESHOW TO PLAY FROM THE CORRECT LOCATION
-    							URL defaultDirectory = getClass().getResource("/");
+    							URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
     							File filePath = new File(defaultDirectory.getPath());
     	
     	reader = new XMLReader(filePath + "/" + filepath);
