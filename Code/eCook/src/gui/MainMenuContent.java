@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai & Roger Tan
+ * Programmer: Zayyad Tagwai, Roger Tan & Ankita Gangotra
  * Date Created: 19/03/2014
  * Makes Box conatining components of main menu upon opening the program 
  */

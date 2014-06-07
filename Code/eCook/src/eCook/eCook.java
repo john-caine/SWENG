@@ -13,6 +13,7 @@ import xmlparser.XMLReader;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
@@ -29,6 +30,7 @@ public class eCook extends Application {
 	@Override
 	public void start(Stage stage) {
   
+		stage.getIcons().add(new Image("eCookIcon.png"));
 		try {
 			// Load external font
 			Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
