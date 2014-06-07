@@ -68,20 +68,12 @@ public class XMLFilepathHandler {
 		if (mediaAddress.startsWith(title)) {
 			StringBuilder tempURL = new StringBuilder();
 			tempURL.append(filepath);
-			tempURL.append("\\");
-			tempURL.append(mediaAddress);
-			mediaAddress = tempURL.toString();
-		}
-		else if (mediaAddress.startsWith("../")) {
-			mediaAddress = mediaAddress.replace("../", "");
-			StringBuilder tempURL = new StringBuilder();
-			tempURL.append(filepath);
-			tempURL.append("\\");
+			tempURL.append("/");
 			tempURL.append(mediaAddress);
 			mediaAddress = tempURL.toString();
 		}
 		/*
-		 * Existance of files
+		 * Existence of files
 		 * If the updated or provided filepath does not exist on the local
 		 * machine then try treating it as a URL
 		 * 
@@ -97,11 +89,14 @@ public class XMLFilepathHandler {
 			String mediaElementName = new File(mediaAddress).getName();
 			if (mediaElementName.contains(".")) {
 				/*
-				* We can see if the file exists on the local machine at this point
-				* If the file doesn't exist then we need to download it
-				* If it does exist skip this part and just leave mediaAddress updated
-				*/
-				if (!(new File(filepath + "\\" + title + "\\" + mediaElementName).exists())) {
+				 * At this point we know that a relative working filepath has not been provided
+				 * We can check if the file has already been downloaded on a previous running
+				 * of eCook though and stored in a relative directory to the XML
+				 * 
+				 * If it hasn't already been downloaded we can try and download it.
+				 * 
+				 */
+				if (!(new File(filepath + "/" + title + "/" + mediaElementName).exists())) {
 					try {
 						// URL things
 						URL url = new URL(mediaAddress);
@@ -109,13 +104,13 @@ public class XMLFilepathHandler {
 						InputStream inputStream = connection.getInputStream();
 						
 						// Create a storage directory for the file if it does not exist
-						File storage = new File(filepath + "\\" + title + "\\");
+						File storage = new File(filepath + "/" + title + "/");
 						if (!storage.exists()) {
 							storage.mkdir();
 						}
 						
 						// This is where the file will be saved
-						FileOutputStream fileOutputStream = new FileOutputStream(filepath + "\\" + title + "\\" + mediaElementName);
+						FileOutputStream fileOutputStream = new FileOutputStream(filepath + "/" + title + "/" + mediaElementName);
 						
 						// Define a new buffer to write data to
 						byte[] buffer = new byte[512];
@@ -141,24 +136,19 @@ public class XMLFilepathHandler {
 					} catch (IOException e) {
 						// If we have an IO exception then if the file exists delete it
 						// It may be corrupt!
-						if (new File(mediaAddress).exists()) {
+						if (new File(filepath + "/" + title + "/" + mediaElementName).exists()) {
 							// Delete the file because there has been an exception
-							new File(mediaAddress).delete();
+							new File(filepath + "/" + title + "/" + mediaElementName).delete();
 						}
 						exists = false;
 					}
 				}
-				else {
-					// We already have a valid file, no need to download again
-					// Determine the correct address for the file on the local machine
-					mediaAddress = filepath + "\\" + title + "\\" + mediaElementName;
-				}
+				mediaAddress = filepath + "/" + title + "/" + mediaElementName;
 			}
 		}
 		if (exists) {
 			// Convert the filepath to something JavaFX understands
 			mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
-			System.out.println(mediaAddress);
 			return mediaAddress;
 		}
 		else {

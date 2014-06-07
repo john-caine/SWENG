@@ -542,6 +542,9 @@ public abstract class MediaControl {
 	            status = mp.getStatus();
 	
 	            // Check for bad status's.
+	            
+	            
+	     
 	            if (status == Status.UNKNOWN || status == Status.HALTED) {
 	                System.out.println("Player is in a bad or unknown state, can't play.");
 	                return;

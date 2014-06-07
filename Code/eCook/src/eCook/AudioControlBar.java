@@ -251,6 +251,7 @@ public class AudioControlBar {
             }
         });
         trackBar.setMax(currentHandler.getDuration());
+
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
