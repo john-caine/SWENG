@@ -46,19 +46,6 @@ public class eCook extends Application {
 		// get number of files in the defaultRecipe folder
 		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
 		File filePath = new File(defaultDirectory.getPath());
-		
-//		// parse all files in folder, adding recipes to collection
-//		for (int i=0; i<filePath.list().length; i++) {
-//			// only read XML files if for some reason other files exist
-//			if (filePath.list()[i].endsWith(".xml")) {
-//				logger.log(Level.INFO, "Calling XML parser");
-//				XMLReader reader = new XMLReader(filePath + "/" + filePath.list()[i]);
-//				Recipe currentRecipe = reader.getRecipe();
-//				currentRecipe.setFileName(filePath.list()[i]);
-//				recipeCollection.addRecipe(currentRecipe);
-//				logger.log(Level.INFO, "Logged Recipe" + filePath.list()[i]);
-//			}
-//		}
 
 		// Make a recipes folder in %localappdata%
 		File recipeDirectory = new File(System.getenv("localappdata") + "/eCook/Recipes");			

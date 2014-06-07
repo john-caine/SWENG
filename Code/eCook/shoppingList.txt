@@ -1,6 +1,0 @@
-butternut squash 1.0 whole
-butter 25.0 grams
-butternut squash 2.0 whole
-butter 50.0 grams
-butternut squash 4.0 whole
-butter 100.0 grams
