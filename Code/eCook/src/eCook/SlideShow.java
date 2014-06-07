@@ -145,7 +145,7 @@ public class SlideShow {
 			
 			// Set first & last slideIDs
 			firstSlideID  = 0;
-			lastSlideID = (numOfSlidesExcBranch-1);
+			lastSlideID = (numOfSlidesExcBranch);
 
 			logger.log(Level.INFO, "Starting slideshow with slide index 0");
 			// set fullscreen here to ensure that the stage and scene bounds are the 
@@ -189,6 +189,7 @@ public class SlideShow {
 		// Check the slideID is valid and if not exit to MainMenu
 		if (isBranch != true) {
 			if (slideID > numOfSlidesExcBranch) {
+				logger.log(Level.INFO, "End of SlideShow returning to main menu");
 				new MainMenu(stage, recipeCollection);
 			}
 		}
@@ -426,26 +427,24 @@ public class SlideShow {
             		 timerValues.add(timerList.get(g).getTimerValues()); 	 
             	}
             	tearDownHandlers();
-            	if (nextSlideID >= numOfSlidesExcBranch) {
-            		exitToMainMenu(event);
-            	}
+            	
             	// if not, play the next slide
-            	else {
-            		newSlide(nextSlideID, false, timerValues);
-            	}
+            	
+            	newSlide(nextSlideID, false, timerValues);
+            	logger.log(Level.INFO, "New slide called by slide timeline");
+            	
             	event.consume();
 			}
       	});
       	
       	createKeyFrame();
       	
-      	if(duration != null){
+      	if(duration != null && duration != 0){
       		timeLineDuration.setCycleCount(this.duration);
       		timeLineDuration.playFromStart();
+      		logger.log(Level.INFO, "Starting Slide Timeline with duration: " + duration);
       	}
-      	else{
-      		timeLineDuration.stop();
-      	}
+      	
        
 	    slideRoot.setVisible(true);  
 	}	
@@ -609,13 +608,9 @@ public class SlideShow {
             	tearDownHandlers();
 
             	// return to the main menu if there are no more slides
-            	if (nextSlideID >= numOfSlidesExcBranch) {
-            		exitToMainMenu(event);
-            	}
-            	// if not, play the next slide
-            	else {
+          
             		newSlide(nextSlideID, false, timerValues);
-            	}
+            	
             	event.consume();
             }
         });
@@ -881,5 +876,8 @@ public class SlideShow {
 		for(int i = 0; i < slideMediaPlayerList.size(); i++){
 			slideMediaPlayerList.get(i).tearDown();
 		}
+		
+		timeLineDuration.stop();
+		logger.log(Level.INFO, "Slide timeline Stopped");
 	}
 }

@@ -2,11 +2,13 @@ package media;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Animation.Status;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import eCook.SlideShow;
@@ -82,8 +84,19 @@ public abstract class SubSlideMedia extends SlideMedia {
 		logger.log(Level.INFO, "Branch added: " + branchID);
 		hbox.setOnMouseClicked(new EventHandler<MouseEvent> (){
 			public void handle(MouseEvent e) {
+				parent.tearDownHandlers();
 				parent.newSlide(branchID, true, parent.getTimerData());
 			}
+		});
+		
+		hbox.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				hbox.setEffect(new Glow());
+				
+			}
+			
 		});
 	}
 
