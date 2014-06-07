@@ -1,5 +1,6 @@
 package xmlFilepathHandler;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import xmlparser.XMLReader;
 
 public class XMLFilepathHandler {
 
-	private String filename;
 	private String filepath;
 	private String title;
 	private XMLReader reader;
@@ -24,8 +24,7 @@ public class XMLFilepathHandler {
 		this.reader = reader;
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
-		filename = reader.getRecipe().getFileName();
-		filepath = System.getProperty("user.dir") + "\\defaultRecipes_new\\";
+		filepath = System.getProperty("user.dir") + "\\defaultRecipes";
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;
@@ -33,73 +32,131 @@ public class XMLFilepathHandler {
 
 	private void loopThroughMedia() {
 		// Loop through each slide in turn
-				// For each slide get the number of object X elements and update their content
-				// to match users native resolution
-				for (int i = 0; i < reader.getRecipe().getNumberOfSlidesIncBranchSlides(); i++) {
-					// Image paths
-					for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getImages().size(); j++) {
-						reader.getRecipe().getSlide(i).getContent().getImages().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getImages().get(j).getUrlName()));
-					}
-					// Video paths
-					for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getVideos().size(); j++) {
-						reader.getRecipe().getSlide(i).getContent().getVideos().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getUrlName()));
-					}
-					// Audio paths
-					for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getVideos().size(); j++) {
-						reader.getRecipe().getSlide(i).getContent().getAudios().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getAudios().get(j).getUrlName()));
-					}
-				}
+		for (int i = 0; i < reader.getRecipe().getNumberOfSlidesIncBranchSlides(); i++) {
+			// Image paths
+			for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getImages().size(); j++) {
+				reader.getRecipe().getSlide(i).getContent().getImages().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getImages().get(j).getUrlName()));
+			}
+			// Video paths
+			for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getVideos().size(); j++) {
+				reader.getRecipe().getSlide(i).getContent().getVideos().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getVideos().get(j).getUrlName()));
+			}
+			// Audio paths
+			for (int j = 0; j < reader.getRecipe().getSlide(i).getContent().getAudios().size(); j++) {
+				reader.getRecipe().getSlide(i).getContent().getAudios().get(j).setURLName(updateFilepath(reader.getRecipe().getSlide(i).getContent().getAudios().get(j).getUrlName()));
+			}
+		}
 	}
-	
+
 	private String updateFilepath(String mediaAddress) {
-		// If we have a relative filepath then make it non-relative
+		if (mediaAddress.contains("file:/")) {
+			// Remove from beginning of string
+			mediaAddress = mediaAddress.replace("file:/", "");
+		}
+		Boolean exists = true;
+		/*
+		 * Relative filepaths
+		 * If the file path begins with the title of the XML slideshow
+		 * we need to complete the path and turn it into a full path
+		 * for the users machine upon loading the slideshow
+		 * 
+		 * Note: ONLY this type of relative filepath will actually work
+		 * 		 - Not all can be accounted for reasonably
+		 * 
+		 */
 		if (mediaAddress.startsWith(title)) {
+			System.out.println("Working correctly");
 			StringBuilder tempURL = new StringBuilder();
 			tempURL.append(filepath);
+			tempURL.append("\\");
 			tempURL.append(mediaAddress);
-			return tempURL.toString();
+			mediaAddress = tempURL.toString();
+			System.out.println(mediaAddress);
 		}
 		/*
-		 * TODO
+		 * Existance of files
+		 * If the updated or provided filepath does not exist on the local
+		 * machine then try treating it as a URL
+		 * 
+		 * Firstly we will determine if the content has already been downloaded
+		 * and a new filepath is only required
+		 * 
+		 * If it is not a valid URL then we can catch the exception and
+		 * assume the file does not exist anywhere reasonable
+		 * 
 		 */
-		// 		obtain the name of the media file
-		//		download the media file and place in filepath + title + "//" + title.xml
-		//		return the string where the file was placed
-		
-		
-		else {
+		if (!(new File(mediaAddress).exists())) {
+			// Get the individual filename first and see if it is a filename
+			String mediaElementName = new File(mediaAddress).getName();
+			System.out.println(mediaElementName);
+			if (mediaElementName.contains(".")) {
+				/*
+				* We can see if the file exists on the local machine at this point
+				* If the file doesn't exist then we need to download it
+				* If it does exist skip this part and just leave mediaAddress updated
+				*/
+				if (!(new File(filepath + "\\" + title + "\\" + mediaElementName).exists())) {
+					try {
+						// URL things
+						URL url = new URL(mediaAddress);
+						URLConnection connection = url.openConnection();
+						InputStream inputStream = connection.getInputStream();
+						
+						// Create a storage directory for the file if it does not exist
+						File storage = new File(filepath + "\\" + title + "\\");
+						if (!storage.exists()) {
+							storage.mkdir();
+						}
+						
+						// This is where the file will be saved
+						FileOutputStream fileOutputStream = new FileOutputStream(filepath + "\\" + title + "\\" + mediaElementName);
+						
+						// Define a new buffer to write data to
+						byte[] buffer = new byte[512];
+						int length;
+						while (true) {
+							// Length of data left to be read
+							length = inputStream.read(buffer);
+							if (length == -1) {
+								// Data read
+								break;
+							}
+							// Write to the output media file
+							fileOutputStream.write(buffer, 0, length);
+						}
+						// Close things up
+						inputStream.close();
+						fileOutputStream.flush();
+						fileOutputStream.close();
+					} catch (MalformedURLException e) {
+						exists = false;
+					} catch (FileNotFoundException e) {
+						exists = false;
+					} catch (IOException e) {
+						// If we have an IO exception then if the file exists delete it
+						// It may be corrupt!
+						if (new File(mediaAddress).exists()) {
+							// Delete the file because there has been an exception
+							new File(mediaAddress).delete();
+						}
+						exists = false;
+					}
+				}
+				else {
+					// We already have a valid file, no need to download again
+					// Determine the correct address for the file on the local machine
+					mediaAddress = filepath + "\\" + title + "\\" + mediaElementName;
+				}
+			}
+		}
+		if (exists) {
+			// Convert the filepath to something JavaFX understands
+			mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
 			return mediaAddress;
 		}
-	}
-	
-	private void obtainMedia(String mediaAddress, String mediaDirectory) {
-		String filename = null;
-		// Obtain the filename
-/*
- * TODO
- */
-		try {
-			URL url = new URL(mediaAddress);
-			URLConnection connection = url.openConnection();
-			InputStream inputStream = connection.getInputStream();
-			FileOutputStream fileOutputStream = new FileOutputStream(mediaDirectory + "/" + filename);
-			byte[] buffer = new byte[8192];
-
-			while (true) {
-				int length = inputStream.read(buffer);
-				if (length == -1) {
-					break;
-				}
-				fileOutputStream.write(buffer, 0, length);
-			}
-
-			inputStream.close();
-			fileOutputStream.flush();
-			fileOutputStream.close();
-
-		} catch (MalformedURLException e) {
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
+		else {
+			// Offline or content missing
+			return null;
 		}
 	}
 }

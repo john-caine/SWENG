@@ -68,7 +68,7 @@ public class Info {
 	 * Decides whether default information has been set
 	 */
 	public boolean infoComplete() {
-		if ((author == null) || (version == null) || (title == null) || (comment == null) || (cook == null) || (prep == null) || (veg == null) || (price == null) || (width == null) || (height == null)) {
+		if ((author == null) || (version == null) || (title == null) || (comment == null) ||  (width == null) || (height == null)) {
 			return false;
 		}
 		else {

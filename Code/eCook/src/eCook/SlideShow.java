@@ -23,6 +23,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -44,6 +45,7 @@ import media.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import media.VideoHandler;
+import xmlFilepathHandler.XMLFilepathHandler;
 import xmlRecipeScaler.RecipeScale;
 import xmlValidation.XMLValidator;
 import xmlparser.*;
@@ -61,6 +63,7 @@ public class SlideShow {
 	private Recipe recipe;
 	private Slide slide;
 	private Integer maxLayer, duration;
+	private Timer timer;
 	private VBox timerbox;
 	private ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
@@ -112,6 +115,10 @@ public class SlideShow {
     		stage.hide();
     		new ErrorHandler(validator.getErrorMsg());
 		} else {
+
+			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+			reader = filepathHandler.updateFilepaths(reader);
+			
 			// If there's no error with the recipe then grab it from the parser
 			recipe = reader.getRecipe();
 			

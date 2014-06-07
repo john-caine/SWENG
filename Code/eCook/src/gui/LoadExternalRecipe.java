@@ -118,7 +118,7 @@ public class LoadExternalRecipe {
 				// defaults folder
 				if (filepath != null) {
 					Path source = Paths.get(filepath);
-					Path defaultsFolder = Paths.get("defaultRecipes_new/");
+					Path defaultsFolder = Paths.get("defaultRecipes/");
 					try {
 						// parse the source file through the reader to validate
 						XMLReader reader = new XMLReader(filepath);
