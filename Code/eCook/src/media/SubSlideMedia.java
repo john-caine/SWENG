@@ -40,7 +40,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 			setOrientation();
 		}
 
-		if(branchID != null){
+		if(this.branchID != null){
 			doBranch();
 		}
 
@@ -86,6 +86,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 			public void handle(MouseEvent e) {
 				parent.tearDownHandlers();
 				parent.newSlide(branchID, true, parent.getTimerData());
+				logger.log(Level.INFO, "Branched to Slide:"  + branchID);
 			}
 		});
 		

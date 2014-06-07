@@ -184,18 +184,20 @@ public class SlideShow {
 		
 		logger.log(Level.INFO, "Current Slide ID: " + slideID);
 		// Check the slideID is valid and if not exit to MainMenu
-		if (isBranch != true) {
-			if (slideID > numOfSlidesExcBranch - 1) {
+		if (isBranch != true && (slideID > numOfSlidesExcBranch - 1 || slideID < 0)) {
+			
 				logger.log(Level.INFO, "End of SlideShow returning to main menu");
 				new MainMenu(stage, recipeCollection);
-			}
+		}	
 			else{
 				// If branched slide set relevant globals
 				if (isBranch == true)
 				{
+					
 					nextSlideID = currentSlideID;
 					prevSlideID = currentSlideID;
 					currentSlideID = slideID;
+					logger.log(Level.INFO, "Branch Slide Globals set");
 				}
 				else 
 				{
@@ -444,7 +446,7 @@ public class SlideShow {
 		       
 			    slideRoot.setVisible(true);
 			}
-		}
+		
 
 		  
 	}	
@@ -550,12 +552,8 @@ public class SlideShow {
         buttons.get(0).setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {           	
-            	timeLineDuration.stop();
-            	timerValues = new ArrayList<TimerData>();
-            	for(int g = 0; g<timerList.size(); g++){            		
-            		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues());             		 
-            	}
+            	
+            	setTimerArray();
             	
             	tearDownHandlers();
             	//If on first slide
@@ -575,11 +573,7 @@ public class SlideShow {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
-            	timerValues = new ArrayList<TimerData>();
-            	for (int g = 0; g<timerList.size(); g++){
-            		timerList.get(g).cancel();
-            		timerValues.add(timerList.get(g).getTimerValues());            		 
-            	}
+				setTimerArray();
             	tearDownHandlers();
 
             	// If last slide
@@ -599,11 +593,7 @@ public class SlideShow {
 			@Override
             public void handle(ActionEvent event) {
 				timeLineDuration.stop();
-            	timerValues = new ArrayList<TimerData>();
-            	for (int g = 0; g<timerList.size(); g++){
-            		timerList.get(g).cancel();
-            		timerValues.add(timerList.get(g).getTimerValues());            		 
-            	}
+				setTimerArray();
             	
             	tearDownHandlers();
 
@@ -620,11 +610,7 @@ public class SlideShow {
             @Override
             public void handle(ActionEvent event) {           	
             	timeLineDuration.stop();
-            	timerValues = new ArrayList<TimerData>();
-            	for(int g = 0; g<timerList.size(); g++){            		
-            		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues());             		 
-            	}
+            	setTimerArray();
             	
             	tearDownHandlers();
             	// return to the main menu if the previous slide is nothing (beginning of the slideshow)
@@ -731,69 +717,23 @@ public class SlideShow {
 		    @Override
 		    public void handle(KeyEvent event) {
 		    	if(event.getCode() == KeyCode.RIGHT) {
-		    		timeLineDuration.stop();
-	            	timerValues = new ArrayList<TimerData>();
-	            	for(int g = 0; g<timerList.size(); g++){            		
-	            		timerList.get(g).cancel();
-	            		 timerValues.add(timerList.get(g).getTimerValues());             		 
-	            	}
-	     
-		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
-	            	}
-	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();;
-	            	}
-		    		// return to the main menu if there are no more slides
-	            	if (nextSlideID >= numOfSlidesIncBranch) {
-	            		showEndOfSlideshowPage();
-	            	}
-	            	// if not, play the next slide
-	            	else {
-	            		newSlide(nextSlideID, false, timerValues);
-	            	}
+		    		logger.log(Level.INFO, "Right arrow pressed");
+		    		setTimerArray();
+	            	tearDownHandlers();
+	            	newSlide(nextSlideID, false, timerValues);
 	            	event.consume();
 		    	}
 		    	// Left arrow key
 		    	else if (event.getCode() == KeyCode.LEFT) {	    		
-		    		timeLineDuration.stop();
-	            	timerValues = new ArrayList<TimerData>();
-	            	for(int g = 0; g<timerList.size(); g++){            		
-	            		timerList.get(g).cancel();
-	            		 timerValues.add(timerList.get(g).getTimerValues());             		 
-	            	}
-		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
-	            	}
-	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();;
-	            	}
-		    		// return to the main menu if the previous slide is nothing (beginning of the slideshow)
-	            	if (prevSlideID <= -1) {
-	            		new MainMenu(stage, recipeCollection);
-	            	}
-	            	// if not, play the previous slide (or the last slide if end page reached)
-	            	else {
-	            		if (onEndPage) {
-	            			// reset the background colour to default
-	            			slideScene.setFill(Color.web(backGroundColor));
-	            			newSlide(currentSlideID, false, timerValues);
-	            			onEndPage = false;
-	            		}
-	            		else {
-	            			newSlide(prevSlideID, false, timerValues);
-	            		}
-	            	}
+		    		logger.log(Level.INFO, "Left arrow pressed");
+		    		setTimerArray();
+		    		tearDownHandlers();
+		    		newSlide(prevSlideID, false, timerValues);
 	            	event.consume();
 		    	}
 		    	else if (event.getCode() == KeyCode.ESCAPE) {
-		    		timeLineDuration.stop();
-		    		for (int h = 0; h < audioHandlerList.size(); h++){
-		    			audioHandlerList.get(h).tearDown();
-	            	}
-	            	for (int i = 0; i < videoHandlerList.size(); i++){
-	            		videoHandlerList.get(i).tearDown();
-	            	}
+		    		logger.log(Level.INFO, "Esc key pressed");
+		    		tearDownHandlers();
 	            	new MainMenu(stage, recipeCollection);
 		    	}
 		    }
@@ -879,6 +819,14 @@ public class SlideShow {
 		
 		timeLineDuration.stop();
 		logger.log(Level.INFO, "Slide timeline Stopped");
+	}
+	
+	private void setTimerArray(){
+		timerValues = new ArrayList<TimerData>();
+    	for(int g = 0; g<timerList.size(); g++){            		
+    		timerList.get(g).cancel();
+    		 timerValues.add(timerList.get(g).getTimerValues());             		 
+    	}
 	}
 	
 	public Stage getMainStage(){

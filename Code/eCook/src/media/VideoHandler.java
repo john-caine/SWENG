@@ -71,14 +71,14 @@ public class VideoHandler extends SlideMediaPlayer {
 	
 	public void setFullScreen(ActionEvent e){
 		stage = new Stage();
-		Node  source = (Node)  e.getSource();
-    	stage  = (Stage) source.getScene().getWindow();
+		
     	final Group root = new Group();
 		Rectangle2D bounds = Screen.getPrimary().getBounds();
-		mediaView.setPreserveRatio(false);
-    	mediaView.setFitWidth(bounds.getWidth());
-    	mediaView.setFitHeight(bounds.getHeight());
-    	root.getChildren().add(mediaView);
+		MediaView fullMediaView = new MediaView(mediaPlayer);
+		fullMediaView.setPreserveRatio(false);
+		fullMediaView.setFitWidth(bounds.getWidth());
+		fullMediaView.setFitHeight(bounds.getHeight());
+    	root.getChildren().add(fullMediaView);
     	
     	final Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
     	  
@@ -94,10 +94,12 @@ public class VideoHandler extends SlideMediaPlayer {
  			    if(event.getCode() == KeyCode.ESCAPE){
  			    	// Close fullscreen mode and return to previous view
  	            	stage.close();
- 	            	mediaView.setVisible(true);
- 	            	parent.getMainStage().setFullScreen(true);
+ 	            	
  	            	parent.getMainStage().getScene().setCursor(Cursor.DEFAULT);
+ 	            	parent.getMainStage().setFullScreen(true);
  	            	parent.getMainStage().show();
+ 	            	
+ 	            	
  			    }	                                 
  		    }
          });              
