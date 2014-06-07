@@ -16,7 +16,7 @@ package xmlparser;
  */
 
 public class Info {
-	String author, version, title, comment, cook, prep, price, veg = null;
+	String author, version, title, comment, cook, prep, numOfGuests, veg = null;
 	Integer width, height = null;
 		
 	public Info() {
@@ -47,8 +47,8 @@ public class Info {
 		return prep;
 	}
 	
-	public String getPrice() {
-		return price;
+	public String getGuests() {
+		return numOfGuests;
 	}
 	
 	public String getVeg() {
@@ -112,9 +112,9 @@ public class Info {
 			this.prep = (String) prep;
 		}
 	}
-	public void setPrice(Object price) {
-		if (price != null) {
-			this.price = (String) price;
+	public void setGuests(Object numberOfGuests) {
+		if (numberOfGuests != null) {
+			this.numOfGuests = (String) numberOfGuests;
 		}
 	}
 	public void setVeg(Object veg) {

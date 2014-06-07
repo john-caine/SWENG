@@ -39,7 +39,7 @@ import org.xml.sax.helpers.DefaultHandler;
 // enumerated type for keeping track of where we need to store content
 enum ProcessingElement {
 	NONE,
-	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT, INFOCOOK, INFOPREP, INFOPRICE, INFOVEG,
+	DOCUMENTINFO, INFOAUTHOR, INFOVERSION, INFOTITLE, INFOCOMMENT, INFOWIDTH, INFOHEIGHT, INFOCOOK, INFOPREP, INFOGUESTS, INFOVEG,
 	DEFAULTS, DEFAULTSBACKGROUNDCOLOR, DEFAULTSFONT, DEFAULTSFONTSIZE, DEFAULTSFONTCOLOR, DEFAULTSFILLCOLOR, DEFAULTSLINECOLOR,
 	INGREDIENTS,
 	SLIDE,
@@ -217,8 +217,8 @@ public class XMLReader extends DefaultHandler {
 				currentElement = ProcessingElement.INFOCOOK;
 			} else if (elementName.equals("prep")) {
 				currentElement = ProcessingElement.INFOPREP;
-			} else if (elementName.equals("price")) {
-				currentElement = ProcessingElement.INFOPRICE;
+			} else if (elementName.equals("guests")) {
+				currentElement = ProcessingElement.INFOGUESTS;
 			} else if (elementName.equals("veg")) {
 				currentElement = ProcessingElement.INFOVEG;
 			} else if (elementName.equals("width")) {
@@ -508,8 +508,8 @@ public class XMLReader extends DefaultHandler {
 		case INFOPREP:
 			info.setPrep(elementValue);		
 			break;
-		case INFOPRICE:
-			info.setPrice(elementValue);		
+		case INFOGUESTS:
+			info.setGuests(elementValue);		
 			break;
 		case INFOVEG:
 			info.setVeg(elementValue);		

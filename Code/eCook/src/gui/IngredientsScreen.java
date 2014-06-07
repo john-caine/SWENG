@@ -208,26 +208,26 @@ public class IngredientsScreen {
 
 	// method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
-		String author = "", version = "", comment = "";
+		String author = "", guests = "", comment = "";
 
 		if (recipe != null) {
 			// update the info Strings
 			author = recipe.getInfo().getAuthor();
-			version = recipe.getInfo().getVersion();
+			guests = recipe.getInfo().getGuests();
 			comment = recipe.getInfo().getComment();
 		}
 
 		// add labels for author, version and comment
 		Label authorLabel = new Label("Author: " + author);
-		Label versionLabel = new Label("Version: " + version);
+		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label commentLabel = new Label("Comment: " + comment);
 
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
 		authorLabel.getStylesheets().add("css.css");
-		versionLabel.setWrapText(true);
-		versionLabel.setId("versionLabel");
-		versionLabel.getStylesheets().add("css.css");
+		guestsLabel.setWrapText(true);
+		guestsLabel.setId("guestsLabel");
+		guestsLabel.getStylesheets().add("css.css");
 		commentLabel.setWrapText(true);
 		commentLabel.setId("commentLabel");
 		commentLabel.getStylesheets().add("css.css");
@@ -235,7 +235,7 @@ public class IngredientsScreen {
 		// remove old labels
 		recipeInfoBox.getChildren().clear();
 		// add the labels to the info box
-		recipeInfoBox.getChildren().addAll(authorLabel, versionLabel,
+		recipeInfoBox.getChildren().addAll(authorLabel, guestsLabel,
 				commentLabel);
 	}
 	
@@ -262,7 +262,7 @@ public class IngredientsScreen {
 	
 	//Add text field
 	nGuests = new TextField();
-	nGuests.setText("1");
+	nGuests.setText("4");
 	nGuests.setMaxSize(midBoxRight.getPrefWidth()/20, midBoxRight.getPrefHeight()/20);
 	
 	// Add tool tip

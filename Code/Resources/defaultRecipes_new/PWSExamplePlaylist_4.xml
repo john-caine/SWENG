@@ -8,7 +8,7 @@
 		</comment>
 		<cook>example cooking time</cook>
 		<prep>example preperation time</prep>
-		<price>example £5</price>
+		<guests>example 4</guests>
 		<veg>example vegetarian comment</veg>
 		<width>1600</width>
 		<height>900</height>

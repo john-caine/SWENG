@@ -27,7 +27,7 @@ public class InfoTest {
 		assertNull(info.cook);
 		assertNull(info.prep);
 		assertNull(info.veg);
-		assertNull(info.price);
+		assertNull(info.numOfGuests);
 		assertNull(info.width);
 		assertNull(info.height);
 		assertFalse(info.infoComplete());
@@ -40,7 +40,7 @@ public class InfoTest {
 		info.setCook("example cook");
 		info.setPrep("example prep");
 		info.setVeg("yes veg");
-		info.setPrice("too expensive");
+		info.setGuests("4");
 		info.setWidth("200");
 		info.setHeight("100");
 		
@@ -55,7 +55,7 @@ public class InfoTest {
 		assertEquals("example cook", info.cook);
 		assertEquals("example prep", info.prep);
 		assertEquals("yes veg", info.veg);
-		assertEquals("too expensive", info.price);
+		assertEquals("4", info.numOfGuests);
 		assertEquals(200, info.width.intValue());
 		assertEquals(100, info.height.intValue());
 	}
@@ -73,7 +73,7 @@ public class InfoTest {
 		assertNull(info.getComment());
 		assertNull(info.getCook());
 		assertNull(info.getPrep());
-		assertNull(info.getPrice());
+		assertNull(info.getGuests());
 		assertNull(info.getVeg());
 		assertNull(info.getWidth());
 		assertNull(info.getHeight());
@@ -87,7 +87,7 @@ public class InfoTest {
 		info.setCook("example cook");
 		info.setPrep("example prep");
 		info.setVeg("yes veg");
-		info.setPrice("too expensive");
+		info.setGuests("4");
 		info.setWidth("200");
 		info.setHeight("100");
 
@@ -102,7 +102,7 @@ public class InfoTest {
 		assertEquals("example cook", info.getCook());
 		assertEquals("example prep", info.getPrep());
 		assertEquals("yes veg", info.getVeg());
-		assertEquals("too expensive", info.getPrice());
+		assertEquals("4", info.getGuests());
 		assertEquals(200, info.getWidth().intValue());
 		assertEquals(100, info.getHeight().intValue());
 	}

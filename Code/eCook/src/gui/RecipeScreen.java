@@ -210,7 +210,7 @@ public class RecipeScreen {
 
 	// method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
-		String author = "", version = "", comment = "", cook = "", prep = "", price = "", veg ="";
+		String author = "", version = "", comment = "", cook = "", prep = "", guests = "", veg ="";
 
 		if (recipe != null) {
 			// update the info Strings
@@ -219,17 +219,17 @@ public class RecipeScreen {
 			comment = recipe.getInfo().getComment();
 			cook = recipe.getInfo().getCook();
 			prep = recipe.getInfo().getPrep();
-			price = recipe.getInfo().getPrice();
+			guests = recipe.getInfo().getGuests();
 			veg = recipe.getInfo().getVeg();
 		}
 
 		// add labels for author, version and comment
 		Label authorLabel = new Label("Author: " + author);
 		//Label versionLabel = new Label("Version: " + version);
-		Label commentLabel = new Label("Comment: " + comment);
+		Label commentLabel = new Label("Description: " + comment);
 		Label cookLabel = new Label("Cooking Time: " + cook);
 		Label prepLabel = new Label("Preperation Time: " + prep);
-		Label priceLabel = new Label("Average Price: " + price);
+		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label vegLabel = new Label("Suitable for Vegetarians? " + veg);
 
 
@@ -248,9 +248,9 @@ public class RecipeScreen {
 		prepLabel.setWrapText(true);
 		prepLabel.setId("prepLabel");
 		prepLabel.getStylesheets().add("css.css");
-		priceLabel.setWrapText(true);
-		priceLabel.setId("priceLabel");
-		priceLabel.getStylesheets().add("css.css");
+		guestsLabel.setWrapText(true);
+		guestsLabel.setId("guestsLabel");
+		guestsLabel.getStylesheets().add("css.css");
 		vegLabel.setWrapText(true);
 		vegLabel.setId("vegLabel");
 		vegLabel.getStylesheets().add("css.css");
@@ -259,7 +259,7 @@ public class RecipeScreen {
 		recipeInfoBox.getChildren().clear();
 		// add the labels to the info box
 		//recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
-		recipeInfoBox.getChildren().addAll(authorLabel, cookLabel, prepLabel, priceLabel, vegLabel, commentLabel);
+		recipeInfoBox.getChildren().addAll(authorLabel, cookLabel, prepLabel, guestsLabel, vegLabel, commentLabel);
 	}
 
 

@@ -343,7 +343,7 @@
 	-fx-font-family: 'Buxton Sketch';
 }
 
-#versionLabel{
+#guestsLabel{
 	-fx-font-size: 20px;
 	-fx-text-fill:   #000000;
 	-fx-font-family: 'Buxton Sketch';
@@ -367,7 +367,7 @@
 	-fx-font-family: 'Buxton Sketch';
 }
 
-#priceLabel{
+#guestsLabel{
 	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
 	-fx-font-family: 'Buxton Sketch';
