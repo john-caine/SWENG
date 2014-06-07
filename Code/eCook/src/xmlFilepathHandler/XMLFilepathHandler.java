@@ -68,22 +68,12 @@ public class XMLFilepathHandler {
 		if (mediaAddress.startsWith(title)) {
 			StringBuilder tempURL = new StringBuilder();
 			tempURL.append(filepath);
-			tempURL.append("\\");
+			tempURL.append("/");
 			tempURL.append(mediaAddress);
 			mediaAddress = tempURL.toString();
-			System.out.println(mediaAddress);
-		}
-		else if (mediaAddress.startsWith("file:../")) {
-			mediaAddress = mediaAddress.replace("file:../", "");
-			StringBuilder tempURL = new StringBuilder();
-			tempURL.append(System.getProperty("user.dir"));
-			tempURL.append("\\..\\");
-			tempURL.append(mediaAddress);
-			mediaAddress = tempURL.toString();
-			System.out.println(mediaAddress);
 		}
 		/*
-		 * Existance of files
+		 * Existence of files
 		 * If the updated or provided filepath does not exist on the local
 		 * machine then try treating it as a URL
 		 * 
@@ -106,7 +96,7 @@ public class XMLFilepathHandler {
 				 * If it hasn't already been downloaded we can try and download it.
 				 * 
 				 */
-				if (!(new File(filepath + "\\" + title + "\\" + mediaElementName).exists())) {
+				if (!(new File(filepath + "/" + title + "/" + mediaElementName).exists())) {
 					try {
 						// URL things
 						URL url = new URL(mediaAddress);
@@ -114,13 +104,13 @@ public class XMLFilepathHandler {
 						InputStream inputStream = connection.getInputStream();
 						
 						// Create a storage directory for the file if it does not exist
-						File storage = new File(filepath + "\\" + title + "\\");
+						File storage = new File(filepath + "/" + title + "/");
 						if (!storage.exists()) {
 							storage.mkdir();
 						}
 						
 						// This is where the file will be saved
-						FileOutputStream fileOutputStream = new FileOutputStream(filepath + "\\" + title + "\\" + mediaElementName);
+						FileOutputStream fileOutputStream = new FileOutputStream(filepath + "/" + title + "/" + mediaElementName);
 						
 						// Define a new buffer to write data to
 						byte[] buffer = new byte[512];
@@ -146,18 +136,14 @@ public class XMLFilepathHandler {
 					} catch (IOException e) {
 						// If we have an IO exception then if the file exists delete it
 						// It may be corrupt!
-						if (new File(filepath + "\\" + title + "\\" + mediaElementName).exists()) {
+						if (new File(filepath + "/" + title + "/" + mediaElementName).exists()) {
 							// Delete the file because there has been an exception
-							new File(filepath + "\\" + title + "\\" + mediaElementName).delete();
+							new File(filepath + "/" + title + "/" + mediaElementName).delete();
 						}
 						exists = false;
 					}
 				}
-				else {
-					// We already have a valid file, no need to download again
-					// Determine the correct address for the file on the local machine
-					mediaAddress = filepath + "\\" + title + "\\" + mediaElementName;
-				}
+				mediaAddress = filepath + "/" + title + "/" + mediaElementName;
 			}
 		}
 		if (exists) {
