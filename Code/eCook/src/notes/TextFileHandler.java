@@ -15,14 +15,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
 
 public class TextFileHandler {
 	// use an error flag to report issues to the testing class
 	boolean error;
+	private Logger logger;
 
 	// constructor
 	public TextFileHandler() {
 		error = false;
+		logger = Logger.getLogger(eCook.class.getName());
 	}
 
 	// method to write String to text file
@@ -33,18 +39,19 @@ public class TextFileHandler {
 				FileWriter notesStream = new FileWriter("notes/" + recipeTitle + "_" + slideID.toString() + ".txt");
 				BufferedWriter output = new BufferedWriter(notesStream);
 				output.write(notes);
-				System.out.println("Your file has been written");
+				logger.log(Level.INFO, "File written");
 				error = false;
 				// close the output stream
 				output.close();
 			} 
 			catch (IOException e) {
-				System.out.println("Error when writing text file");
+				
+				logger.log(Level.WARNING, "Error when writing text file");
 				error = true;
 			}
 		}
 		else {
-			System.out.println("Error: either there are no notes or the SlideID/recipeTitle is invalid");
+			logger.log(Level.WARNING, "Error: either there are no notes or the SlideID/recipeTitle is invalid");
 			error = true;
 		}	
 	}
@@ -74,7 +81,8 @@ public class TextFileHandler {
 		        input.close();
 		    }
 		    catch (IOException ex) {
-		    	System.out.println("Error when reading text file");
+		    
+		    	logger.log(Level.WARNING, "Error reading text file");
 		        error = true;
 		    }
 		    
@@ -82,7 +90,7 @@ public class TextFileHandler {
 		}
 		// return null if the filename is invalid
 		else {
-			System.out.println("Please remove printing to console and handle error properly :-) notes/TextFileHandler.java");
+			
 			error = true;
 			return null;
 		}  

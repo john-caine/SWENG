@@ -145,7 +145,7 @@ public class SlideShow {
 			
 			// Set first & last slideIDs
 			firstSlideID  = 0;
-			lastSlideID = (numOfSlidesExcBranch);
+			lastSlideID = (numOfSlidesExcBranch - 1);
 
 			logger.log(Level.INFO, "Starting slideshow with slide index 0");
 			// set fullscreen here to ensure that the stage and scene bounds are the 
@@ -186,267 +186,271 @@ public class SlideShow {
 		slideRoot.setVisible(false);
 		slideRoot.getChildren().clear();
 		
+		logger.log(Level.INFO, "Current Slide ID: " + slideID);
 		// Check the slideID is valid and if not exit to MainMenu
 		if (isBranch != true) {
-			if (slideID > numOfSlidesExcBranch) {
+			if (slideID > numOfSlidesExcBranch - 1) {
 				logger.log(Level.INFO, "End of SlideShow returning to main menu");
 				new MainMenu(stage, recipeCollection);
 			}
+			else{
+				// If branched slide set relevant globals
+				if (isBranch == true)
+				{
+					nextSlideID = currentSlideID;
+					prevSlideID = currentSlideID;
+					currentSlideID = slideID;
+				}
+				else 
+				{
+					currentSlideID = slideID;
+					nextSlideID = (slideID + 1);
+					prevSlideID = (slideID - 1);
+				}
+				
+				logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
+						
+				slide = recipe.getSlide(slideID);
+				duration = slide.getDuration();
+				
+				// Get arrays containing the required objects
+				images = slide.getContent().getImages();
+				text = slide.getContent().getTexts();
+				audio = slide.getContent().getAudios();
+				videos = slide.getContent().getVideos();
+				graphics = slide.getContent().getShapes();
+				
+				// Get how many objects of each type are required
+				imageCount = images.size();
+				textCount = text.size();
+				audioCount = audio.size();
+				videoCount = videos.size();
+				graphicCount = graphics.size();
+				
+			
+				//Get number of layers to be used on slide
+				maxLayer = getMaxLayer(images, text, audio, videos, graphics);
+				
+				//Array list to store layers created for slide content
+				layers = new ArrayList<Pane>();
+				
+				//Create a pane for each layer and add to the group
+				for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
+					
+					layer = new Pane();
+					layers.add(currentLayer, layer);
+				}
+				
+				subSlideMediaList = new ArrayList<SubSlideMedia>();
+				slideMediaPlayerList = new ArrayList<SlideMediaPlayer>();
+				
+				
+				
+				imageHandlerList = new ArrayList<ImageHandler>();
+				// Call the ImageHandler for each image object
+				if (imageCount != 0){
+					for(int i = 0; i < imageCount; i++){
+						ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
+														images.get(i).getYStart(), images.get(i).getWidth(),
+														images.get(i).getHeight(), images.get(i).getStartTime(), 
+														images.get(i).getDuration(), images.get(i).getLayer(), 
+														images.get(i).getBranch(), images.get(i).getOrientation());
+						imageHandlerList.add(image1);
+						subSlideMediaList.add(image1);
+						Integer imageLayer = images.get(i).getLayer();
+						if (imageLayer == null){
+							imageLayer = 0;
+						}
+						layers.get(imageLayer).getChildren().add(image1.getHbox());
+					}
+				}
+				
+				textHandlerList = new ArrayList<TextHandler>();
+				// Call the TextHanlder for each text object
+				if (textCount != 0){
+					for(int i = 0; i < textCount; i++){
+						
+						
+						// Retrieve any defaults that have been set
+						if (text.get(i).getFont() == null) 
+							font = recipe.getDefaults().getFont();
+						else 
+							font = text.get(i).getFont();
+						
+						if (text.get(i).getFontSize() == null)
+							fontSize = recipe.getDefaults().getFontSize();
+						else
+							fontSize = text.get(i).getFontSize();
+						
+						if (text.get(i).getFontColor() == null)
+							fontColor = recipe.getDefaults().getFontColor();
+						else 
+							fontColor = text.get(i).getFontColor();
+						
+						TextHandler text1 = new TextHandler(this, text.get(i), font, text.get(i).getXStart(), 
+													text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
+													text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
+													text.get(i).getBranch(), text.get(i).getOrientation());
+						
+						textHandlerList.add(text1);
+						subSlideMediaList.add(text1);
+						Integer textLayer = text.get(i).getLayer();
+						if (textLayer == null){
+							textLayer = 0;
+						}
+						
+						layers.get(textLayer).getChildren().add(text1.getHbox());
+					}
+				}
+				audioHandlerList = new ArrayList<AudioHandler>();
+				// Call the AudioHanlder for each audio object
+				if (audioCount != 0){
+					for(int i = 0; i < audioCount; i++){
+						AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
+																audio.get(i).getDuration(), audio.get(i).getLoop());
+						
+						audioHandlerList.add(audio1);
+						slideMediaPlayerList.add(audio1);
+						layers.get(0).getChildren().add(audio1.getHbox());
+					}
+				}
+				videoHandlerList = new ArrayList<VideoHandler>();
+				// Call the VideoHandler for each video object
+				if (videoCount != 0){
+					for(int i = 0; i < videoCount; i++){
+						VideoHandler video1 = new VideoHandler(this,videos.get(i).getUrlName(), videos.get(i).getXStart(), 
+														videos.get(i).getYStart(), videos.get(i).getWidth(),
+														videos.get(i).getHeight(), videos.get(i).getLoop(),
+														videos.get(i).getStartTime(), videos.get(i).getDuration());
+						videoHandlerList.add(video1);
+						slideMediaPlayerList.add(video1);
+						layers.get(0).getChildren().add(video1.getHbox());
+					}
+				}
+				graphicsHandlerList = new ArrayList<GraphicHandler>();
+				// Call the GraphicHandler for each graphic object
+				if (graphicCount != 0){
+					for(int i = 0; i < graphicCount; i++){
+						
+						// Retrieve any defaults that have been set
+						if (graphics.get(i).getLineColor() == null) 
+							lineColor = recipe.getDefaults().getLineColor();
+						else 
+							lineColor = graphics.get(i).getLineColor();
+						
+						if (graphics.get(i).getFillColor() == null)
+							fillColor = recipe.getDefaults().getFillColor();
+						else
+							fillColor = graphics.get(i).getFillColor();
+					
+						GraphicHandler graphic1 = new GraphicHandler(this, graphics.get(i).getTotalPoints(), 
+														graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
+														graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
+														fillColor, lineColor, graphics.get(i).getBranch(), 
+														graphics.get(i).getPoints());
+						graphicsHandlerList.add(graphic1);
+						subSlideMediaList.add(graphic1);
+						Integer graphicsLayer = graphics.get(i).getLayer();
+						if (graphicsLayer == null){
+							graphicsLayer = 0;
+						}
+						layers.get(graphicsLayer).getChildren().add(graphic1.getHbox());
+					}
+				}
+				
+				/*
+				 * 	WELCOME TO THE PANELS AND OVERLAYS SECTION.
+			 	 *
+				 * 	The home of the notes panel and the controls panel.
+				 */
+				
+				// Add all of the layers BEFORE THE PANELS AND TIMERS - These must sit on top of the slide content
+			    slideRoot.getChildren().addAll(layers);
+			    
+			    // Add timers
+			 	timerbox = new VBox(10);
+			 		
+			    // Create a notes panel each time new Slide is called
+			 	notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox, notesPanelShowing);
+			 	notesPanel = notesGUI.getNotesPanel();
+			 	slideRoot.getChildren().add(notesPanel);
+			 	notesPanel.setLayoutX(-slideScene.getWidth()/5);
+			 	notesPanel.setLayoutY(0);
+			 	
+			 	// Add the audio control bar if required
+			 	 HBox audioBox = null;
+
+			 	if (audioCount != 0) {
+			 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
+			 		audioBox = audioBar.getControlBar();
+			 	}
+				
+				// create a controls panel each time new slide is called
+				slideControls = new SlideControls(slideRoot, bottomPanelShowing, audioBox);
+				bottomPanel = slideControls.getBottomPanel();
+				
+				// set the size of the control panel: bigger if audioBar needs to be displayed
+				if (audioCount == 0) {
+					bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/8);
+				}
+				else {
+					bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/5);
+				}
+				
+				slideRoot.getChildren().add(bottomPanel);
+				bottomPanel.setLayoutX(0);
+				bottomPanel.setLayoutY(slideScene.getHeight());
+				
+				// set up the control panel buttons
+				configureButtons(slideControls.getButtons());
+				
+				/*
+				 * 	THANKS FOR VISITING THE PANELS AND OVERLAYS SECTION
+				 * 
+				 *	We hope you had fun.
+				 */
+		        
+		        //slideRoot.getChildren().add(getTimerHbox());
+		        timerList = new ArrayList<Timer>();
+		        resumeTimer(currentTimerValues);
+		        
+		      //Create duration timeline
+		      	timeLineDuration = new Timeline();
+		      		
+		      		//When duration timeline has finished remove the text. 
+		      	timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
+					public void handle(ActionEvent event) {
+						
+		            	timerValues = new ArrayList<TimerData>();
+		            	for(int g = 0; g<timerList.size(); g++){          		
+		            		timerList.get(g).cancel();
+		            		 timerValues.add(timerList.get(g).getTimerValues()); 	 
+		            	}
+		            	tearDownHandlers();
+		            	
+		            	// if not, play the next slide
+		            	
+		            	newSlide(nextSlideID, false, timerValues);
+		            	logger.log(Level.INFO, "New slide called by slide timeline");
+		            	
+		            	event.consume();
+					}
+		      	});
+		      	
+		      	createKeyFrame();
+		      	
+		      	if(duration != null && duration != 0){
+		      		timeLineDuration.setCycleCount(this.duration);
+		      		timeLineDuration.playFromStart();
+		      		logger.log(Level.INFO, "Starting Slide Timeline with duration: " + duration);
+		      	}
+		      	
+		       
+			    slideRoot.setVisible(true);
+			}
 		}
 
-		// If branched slide set relevant globals
-		if (isBranch == true)
-		{
-			nextSlideID = currentSlideID;
-			prevSlideID = currentSlideID;
-			currentSlideID = slideID;
-		}
-		else 
-		{
-			currentSlideID = slideID;
-			nextSlideID = (slideID + 1);
-			prevSlideID = (slideID - 1);
-		}
-		
-		logger.log(Level.INFO, "newSlide() has been called with index {0}", currentSlideID);
-				
-		slide = recipe.getSlide(slideID);
-		duration = slide.getDuration();
-		
-		// Get arrays containing the required objects
-		images = slide.getContent().getImages();
-		text = slide.getContent().getTexts();
-		audio = slide.getContent().getAudios();
-		videos = slide.getContent().getVideos();
-		graphics = slide.getContent().getShapes();
-		
-		// Get how many objects of each type are required
-		imageCount = images.size();
-		textCount = text.size();
-		audioCount = audio.size();
-		videoCount = videos.size();
-		graphicCount = graphics.size();
-		
-	
-		//Get number of layers to be used on slide
-		maxLayer = getMaxLayer(images, text, audio, videos, graphics);
-		
-		//Array list to store layers created for slide content
-		layers = new ArrayList<Pane>();
-		
-		//Create a pane for each layer and add to the group
-		for(int currentLayer = 0; currentLayer <= maxLayer; currentLayer++){
-			
-			layer = new Pane();
-			layers.add(currentLayer, layer);
-		}
-		
-		subSlideMediaList = new ArrayList<SubSlideMedia>();
-		slideMediaPlayerList = new ArrayList<SlideMediaPlayer>();
-		
-		
-		
-		imageHandlerList = new ArrayList<ImageHandler>();
-		// Call the ImageHandler for each image object
-		if (imageCount != 0){
-			for(int i = 0; i < imageCount; i++){
-				ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
-												images.get(i).getYStart(), images.get(i).getWidth(),
-												images.get(i).getHeight(), images.get(i).getStartTime(), 
-												images.get(i).getDuration(), images.get(i).getLayer(), 
-												images.get(i).getBranch(), images.get(i).getOrientation());
-				imageHandlerList.add(image1);
-				subSlideMediaList.add(image1);
-				Integer imageLayer = images.get(i).getLayer();
-				if (imageLayer == null){
-					imageLayer = 0;
-				}
-				layers.get(imageLayer).getChildren().add(image1.getHbox());
-			}
-		}
-		
-		textHandlerList = new ArrayList<TextHandler>();
-		// Call the TextHanlder for each text object
-		if (textCount != 0){
-			for(int i = 0; i < textCount; i++){
-				
-				
-				// Retrieve any defaults that have been set
-				if (text.get(i).getFont() == null) 
-					font = recipe.getDefaults().getFont();
-				else 
-					font = text.get(i).getFont();
-				
-				if (text.get(i).getFontSize() == null)
-					fontSize = recipe.getDefaults().getFontSize();
-				else
-					fontSize = text.get(i).getFontSize();
-				
-				if (text.get(i).getFontColor() == null)
-					fontColor = recipe.getDefaults().getFontColor();
-				else 
-					fontColor = text.get(i).getFontColor();
-				
-				TextHandler text1 = new TextHandler(this, text.get(i), font, text.get(i).getXStart(), 
-											text.get(i).getYStart(), fontSize, fontColor, text.get(i).getXEnd(), 
-											text.get(i).getYEnd(), text.get(i).getStartTime(), text.get(i).getDuration(), 
-											text.get(i).getBranch(), text.get(i).getOrientation());
-				
-				textHandlerList.add(text1);
-				subSlideMediaList.add(text1);
-				Integer textLayer = text.get(i).getLayer();
-				if (textLayer == null){
-					textLayer = 0;
-				}
-				
-				layers.get(textLayer).getChildren().add(text1.getHbox());
-			}
-		}
-		audioHandlerList = new ArrayList<AudioHandler>();
-		// Call the AudioHanlder for each audio object
-		if (audioCount != 0){
-			for(int i = 0; i < audioCount; i++){
-				AudioHandler audio1 = new AudioHandler(this, audio.get(i).getUrlName(), audio.get(i).getStartTime(), 
-														audio.get(i).getDuration(), audio.get(i).getLoop());
-				
-				audioHandlerList.add(audio1);
-				slideMediaPlayerList.add(audio1);
-				layers.get(0).getChildren().add(audio1.getHbox());
-			}
-		}
-		videoHandlerList = new ArrayList<VideoHandler>();
-		// Call the VideoHandler for each video object
-		if (videoCount != 0){
-			for(int i = 0; i < videoCount; i++){
-				VideoHandler video1 = new VideoHandler(this,videos.get(i).getUrlName(), videos.get(i).getXStart(), 
-												videos.get(i).getYStart(), videos.get(i).getWidth(),
-												videos.get(i).getHeight(), videos.get(i).getLoop(),
-												videos.get(i).getStartTime(), videos.get(i).getDuration());
-				videoHandlerList.add(video1);
-				slideMediaPlayerList.add(video1);
-				layers.get(0).getChildren().add(video1.getHbox());
-			}
-		}
-		graphicsHandlerList = new ArrayList<GraphicHandler>();
-		// Call the GraphicHandler for each graphic object
-		if (graphicCount != 0){
-			for(int i = 0; i < graphicCount; i++){
-				
-				// Retrieve any defaults that have been set
-				if (graphics.get(i).getLineColor() == null) 
-					lineColor = recipe.getDefaults().getLineColor();
-				else 
-					lineColor = graphics.get(i).getLineColor();
-				
-				if (graphics.get(i).getFillColor() == null)
-					fillColor = recipe.getDefaults().getFillColor();
-				else
-					fillColor = graphics.get(i).getFillColor();
-			
-				GraphicHandler graphic1 = new GraphicHandler(this, graphics.get(i).getTotalPoints(), 
-												graphics.get(i).getWidth(), graphics.get(i).getHeight(), 
-												graphics.get(i).getStartTime(), graphics.get(i).getDuration(), 
-												fillColor, lineColor, graphics.get(i).getBranch(), 
-												graphics.get(i).getPoints());
-				graphicsHandlerList.add(graphic1);
-				subSlideMediaList.add(graphic1);
-				Integer graphicsLayer = graphics.get(i).getLayer();
-				if (graphicsLayer == null){
-					graphicsLayer = 0;
-				}
-				layers.get(graphicsLayer).getChildren().add(graphic1.getHbox());
-			}
-		}
-		
-		/*
-		 * 	WELCOME TO THE PANELS AND OVERLAYS SECTION.
-	 	 *
-		 * 	The home of the notes panel and the controls panel.
-		 */
-		
-		// Add all of the layers BEFORE THE PANELS AND TIMERS - These must sit on top of the slide content
-	    slideRoot.getChildren().addAll(layers);
-	    
-	    // Add timers
-	 	timerbox = new VBox(10);
-	 		
-	    // Create a notes panel each time new Slide is called
-	 	notesGUI = new NotesGUI(recipe.getInfo().getTitle(), currentSlideID, slideRoot, timerbox, notesPanelShowing);
-	 	notesPanel = notesGUI.getNotesPanel();
-	 	slideRoot.getChildren().add(notesPanel);
-	 	notesPanel.setLayoutX(-slideScene.getWidth()/5);
-	 	notesPanel.setLayoutY(0);
-	 	
-	 	// Add the audio control bar if required
-	 	 HBox audioBox = null;
-
-	 	if (audioCount != 0) {
-	 		AudioControlBar audioBar = new AudioControlBar(audioHandlerList, slideRoot);
-	 		audioBox = audioBar.getControlBar();
-	 	}
-		
-		// create a controls panel each time new slide is called
-		slideControls = new SlideControls(slideRoot, bottomPanelShowing, audioBox);
-		bottomPanel = slideControls.getBottomPanel();
-		
-		// set the size of the control panel: bigger if audioBar needs to be displayed
-		if (audioCount == 0) {
-			bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/8);
-		}
-		else {
-			bottomPanel.setPrefSize(slideRoot.getScene().getWidth(), slideRoot.getScene().getHeight()/5);
-		}
-		
-		slideRoot.getChildren().add(bottomPanel);
-		bottomPanel.setLayoutX(0);
-		bottomPanel.setLayoutY(slideScene.getHeight());
-		
-		// set up the control panel buttons
-		configureButtons(slideControls.getButtons());
-		
-		/*
-		 * 	THANKS FOR VISITING THE PANELS AND OVERLAYS SECTION
-		 * 
-		 *	We hope you had fun.
-		 */
-        
-        //slideRoot.getChildren().add(getTimerHbox());
-        timerList = new ArrayList<Timer>();
-        resumeTimer(currentTimerValues);
-        
-      //Create duration timeline
-      	timeLineDuration = new Timeline();
-      		
-      		//When duration timeline has finished remove the text. 
-      	timeLineDuration.setOnFinished(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event) {
-				
-            	timerValues = new ArrayList<TimerData>();
-            	for(int g = 0; g<timerList.size(); g++){          		
-            		timerList.get(g).cancel();
-            		 timerValues.add(timerList.get(g).getTimerValues()); 	 
-            	}
-            	tearDownHandlers();
-            	
-            	// if not, play the next slide
-            	
-            	newSlide(nextSlideID, false, timerValues);
-            	logger.log(Level.INFO, "New slide called by slide timeline");
-            	
-            	event.consume();
-			}
-      	});
-      	
-      	createKeyFrame();
-      	
-      	if(duration != null && duration != 0){
-      		timeLineDuration.setCycleCount(this.duration);
-      		timeLineDuration.playFromStart();
-      		logger.log(Level.INFO, "Starting Slide Timeline with duration: " + duration);
-      	}
-      	
-       
-	    slideRoot.setVisible(true);  
+		  
 	}	
 
 	

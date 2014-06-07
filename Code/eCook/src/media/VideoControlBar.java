@@ -75,10 +75,14 @@ public class VideoControlBar {
         timeLbl = new Label("");
         timeLbl.setText(formatTime(videoHandler.getMediaPlayer().getCurrentTime(), Duration.seconds(videoHandler.getDuration()) ));
         timeLbl.setStyle("-fx-text-fill: black;");
+        Label volumeLabel = new Label();
+        ImageView volumeImage = new ImageView(new Image("audioBarVol.png"));
+		volumeLabel.setGraphic(volumeImage);
+        
         
         
         // populate the controlBar
-        controlBar.getChildren().addAll(playPauseButton, stopButton,  trackBar, timeLbl, volBar);
+        controlBar.getChildren().addAll(playPauseButton, stopButton,  trackBar, timeLbl, volumeLabel,  volBar);
         
         videoHandler.getMediaPlayer().setOnPlaying(new Runnable(){
 			@Override
