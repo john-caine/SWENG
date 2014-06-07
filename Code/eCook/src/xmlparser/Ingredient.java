@@ -44,7 +44,10 @@ public class Ingredient {
 
 	public void setAmount(Object value) {
 		if (value != null) {
-			amount =  Float.valueOf((String) value);
+			//amount =  Float.valueOf((String) value);
+			amount = Float.parseFloat(value.toString());
+
+			
 		}
 	}
 }
