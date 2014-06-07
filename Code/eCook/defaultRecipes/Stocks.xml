@@ -48,9 +48,9 @@
       			</textbody>
 		</text>
 		
-		<text xstart="950" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false" >
-        		<textstring>CLICK HERE FOR KNIFE SKILLS  (branch="8")</textstring>
+		<text xstart="1150" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false" branch="8">
+        		<textstring>CLICK HERE FOR KNIFE SKILLS </textstring>
       			</textbody>
 		</text>
 		
@@ -70,13 +70,13 @@
       			</textbody>
 		</text>
 		
-		<text xstart="55" ystart="500" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+		<text xstart="55" ystart="300" xend="1000" yend="600" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="false" italic="true" >
-        		<textstring>‘Stock is everything in cooking’- Escoffier  (put picture in here)  </textstring>
+        		<textstring>‘Stock is everything in cooking’- Escoffier    </textstring>
       			</textbody>
 		</text>
 		
-		
+		<image urlname="Stocks/jim.png" xstart="1000" ystart="250" width="400" height="600" layer="1" />
 		<image urlname="Stocks/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 	
@@ -101,31 +101,31 @@
 		<image urlname="Stocks/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
-	<slide id="3" duration="1000" lastSlide="false">
+	<slide id="3" duration="1000" lastSlide="true">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Choose your stock</textstring>
       			</textbody>
 		</text>
 		<text xstart="25" ystart="100" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">  
-			<textbody underlined="true" bold="false" italic="false" >
-        		<textstring>Chicken Stock (branch="4")</textstring>
+			<textbody underlined="true" bold="false" italic="false" branch="4">
+        		<textstring>Chicken Stock</textstring>
         		</textbody>
 		</text>
-		<text xstart="25" ystart="350" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">  
-			<textbody underlined="true" bold="false" italic="false" >
-        		<textstring>Vegetable Stock (branch="5")</textstring>
+		<text xstart="550" ystart="250" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">  
+			<textbody underlined="true" bold="false" italic="false" branch="5">
+        		<textstring>Vegetable Stock</textstring>
         		</textbody>
 		</text>	
-		<text xstart="25" ystart="600" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">  
-			<textbody underlined="true" bold="false" italic="false" >
-        		<textstring>Vegetable Stock (branch="6")</textstring>
+		<text xstart="1000" ystart="560" xend="1400" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">  
+			<textbody underlined="true" bold="false" italic="false" branch="6">
+        		<textstring>Beef Stock</textstring>
         		</textbody>
 		</text>	
 		
-		<image urlname="Stocks/chicken_stock_complete.png" xstart="500" ystart="90" width="400" height="266" layer="1" />	
-		<image urlname="Stocks/veg_stock_complete.png" xstart="900" ystart="350" width="400" height="266" layer="1" />
-		<image urlname="Stocks/beef_stock_complete.png" xstart="500" ystart="600" width="400" height="266" layer="1" />
+		<image urlname="Stocks/chicken_stock_complete.png" xstart="25" ystart="140" width="400" height="266" layer="1" />	
+		<image urlname="Stocks/veg_stock_complete.png" xstart="500" ystart="290" width="400" height="266" layer="1" />
+		<image urlname="Stocks/beef_stock_complete.png" xstart="950" ystart="600" width="400" height="266" layer="1" />
 		<image urlname="Stocks/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
 	</slide>
 
@@ -141,9 +141,9 @@
         		<textstring>Chicken Stock</textstring>
       			</textbody>
 		</text>
-		<text xstart="950" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
-			<textbody underlined="false" bold="true" italic="false" >
-        		<textstring>CLICK HERE FOR DE-BONING VIDEO  (branch="7")</textstring>
+		<text xstart="1150" ystart="15" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="20" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false" branch="7">
+        		<textstring>CLICK HERE FOR DE-BONING VIDEO</textstring>
       			</textbody>
 		</text>
 		<text xstart="15" ystart="225" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
@@ -151,7 +151,7 @@
         		<textstring>Ingredients:    </textstring>
       			</textbody>
 		</text>  
-		<text xstart="15" ystart="260" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+		<text xstart="15" ystart="270" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>The carcass of a chicken, 1 carrot, 2 onions and 1 small leek, all peeled, washed and chopped into 1 inch pieces, 3 bay leaves, 3 sprigs of thyme, 6 black peppercorns
     </textstring>
@@ -262,7 +262,7 @@ A dark chicken stock can be made in a similar way as above, but by replacing the
 		<image urlname="Stocks/slideBackground.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
 		
 	</slide>
-	<slide id="9" duration="1000" lastSlide="true">
+	<slide id="9" duration="1000" lastSlide="false">
 		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
 			<textbody underlined="false" bold="true" italic="false">
         		<textstring>Kitchen Basics</textstring>
