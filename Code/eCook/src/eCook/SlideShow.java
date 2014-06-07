@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import notes.NotesGUI;
 import media.AudioHandler;
 import media.GraphicHandler;
@@ -113,10 +112,9 @@ public class SlideShow {
     	stage.setScene(slideScene);
 
     	// TEMPORARY FIX TO GET THE SLIDESHOW TO PLAY FROM THE CORRECT LOCATION
-    	URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
-    	File filePath = new File(defaultDirectory.getPath());
+    	File recipePath = new File(System.getenv("localappdata") + "/eCook/Recipes");
     	
-    	reader = new XMLReader(filePath + "/" + filepath);
+    	reader = new XMLReader(recipePath + "/" + filepath);
     	//reader = new XMLReader(filepath);
 
     	
@@ -127,8 +125,8 @@ public class SlideShow {
     		new ErrorHandler(validator.getErrorMsg());
 		} else {
 
-			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
-			reader = filepathHandler.updateFilepaths(reader);
+//			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+//			reader = filepathHandler.updateFilepaths(reader);
 			
 			// If there's no error with the recipe then grab it from the parser
 			recipe = reader.getRecipe();

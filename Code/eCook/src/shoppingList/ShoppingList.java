@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.scene.text.Font;
 
 public class ShoppingList {
@@ -76,7 +77,7 @@ public class ShoppingList {
 		if (shoppingList != null) {
 			try {
 				// create file 
-				FileWriter notesStream = new FileWriter("shoppingList.txt");
+				FileWriter notesStream = new FileWriter(System.getenv("localappdata") + "/eCook/ShoppingLists/" + "shoppingList.txt");
 				BufferedWriter output = new BufferedWriter(notesStream);
 				// write String items to file
 				for (int i=0; i<shoppingList.size(); i++) {
@@ -98,14 +99,14 @@ public class ShoppingList {
 	
 	// method to read out strings from a text file
 	public ArrayList<String> readFromTextFile() {
-		File fileToRead = new File("shoppingList.txt");
+		File fileToRead = new File(System.getenv("localappdata") + "/eCook/ShoppingLists/" + "shoppingList.txt");
 		
 		if (fileToRead.exists()) {
 			// create array list to populate
 			ArrayList<String> shoppingList = new ArrayList<String>();
 			
 		    try {
-		       	FileReader fileStream = new FileReader("shoppingList.txt");
+		       	FileReader fileStream = new FileReader(System.getenv("localappdata") + "/eCook/ShoppingLists/" + "shoppingList.txt");
 		        BufferedReader input =  new BufferedReader(fileStream);
 		        String line = input.readLine();
 		        

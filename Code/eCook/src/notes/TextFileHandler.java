@@ -36,7 +36,7 @@ public class TextFileHandler {
 		if (notes != null && slideID != null && recipeTitle != null) {
 			try {
 				// create file 
-				FileWriter notesStream = new FileWriter("notes/" + recipeTitle + "_" + slideID.toString() + ".txt");
+				FileWriter notesStream = new FileWriter(System.getenv("localappdata") + "/eCook/Recipes/" + recipeTitle + "_" + slideID.toString() + ".txt");
 				BufferedWriter output = new BufferedWriter(notesStream);
 				output.write(notes);
 				logger.log(Level.INFO, "File written");
@@ -58,13 +58,13 @@ public class TextFileHandler {
 	
 	// method to read String from text file
 	public String readTextFile(String filename) {
-		File fileToRead = new File("notes/" + filename);
+		File fileToRead = new File(System.getenv("localappdata") + "/eCook/Recipes/" + filename);
 		
 		if (filename != null && fileToRead.exists()) {
 			StringBuilder contents = new StringBuilder();
 			 
 		    try {
-		       	FileReader fileStream = new FileReader("notes/" + filename);
+		       	FileReader fileStream = new FileReader(System.getenv("localappdata") + "/eCook/Recipes/" + filename);
 		        BufferedReader input =  new BufferedReader(fileStream);
 		        String line = input.readLine();
 		        

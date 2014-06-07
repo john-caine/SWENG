@@ -7,7 +7,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import javafx.application.Application;
@@ -18,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
 import javafx.stage.StageStyle;
+import org.apache.commons.io.*;
 
 public class eCook extends Application {
 	
@@ -46,41 +46,36 @@ public class eCook extends Application {
 		// get number of files in the defaultRecipe folder
 		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
 		File filePath = new File(defaultDirectory.getPath());
+
+		// Make a recipes folder in %localappdata%
+		File recipeDirectory = new File(System.getenv("localappdata") + "/eCook/Recipes");			
+		recipeDirectory.mkdirs();
+		
+		// Make a shoppingList folder in %localappdata%
+		File shoppingListDirectory = new File(System.getenv("localappdata") + "/eCook/ShoppingLists");
+		shoppingListDirectory.mkdirs();
+		
+		// Copy the defaultRecipes folder to our %localappdata% folder
+		try {
+			FileUtils.copyDirectory(filePath, recipeDirectory);
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Unable to copy defaultRecipes folder to Local Application Data folder");
+			new ErrorHandler("Unable to copy defaultRecipes folder to Local Application Data folder");
+		}
 		
 		// parse all files in folder, adding recipes to collection
-		for (int i=0; i<filePath.list().length; i++) {
+		for (int i=0; i<recipeDirectory.list().length; i++) {
 			// only read XML files if for some reason other files exist
-			if (filePath.list()[i].endsWith(".xml")) {
+			if (recipeDirectory.list()[i].endsWith(".xml")) {
 				logger.log(Level.INFO, "Calling XML parser");
-				XMLReader reader = new XMLReader(filePath + "/" + filePath.list()[i]);
+				XMLReader reader = new XMLReader(recipeDirectory + "/" + recipeDirectory.list()[i]);
 				Recipe currentRecipe = reader.getRecipe();
-				currentRecipe.setFileName(filePath.list()[i]);
+				currentRecipe.setFileName(recipeDirectory.list()[i]);
 				recipeCollection.addRecipe(currentRecipe);
-				logger.log(Level.INFO, "Logged Recipe" + filePath.list()[i]);
+				logger.log(Level.INFO, "Logged Recipe" + recipeDirectory.list()[i]);
 			}
 		}
 
-//		// Check the application data default recipes folder
-//		File directory = new File(System.getenv("localappdata") + "/eCook/defaultRecipes");		
-//			
-//			if (directory.exists()) {
-//				// parse all files in folder, adding recipes to collection
-//				for (int i=0; i<directory.list().length; i++) {
-//					// only read XML files if for some reason other files exist
-//					if (directory.list()[i].endsWith(".xml")) {
-//						logger.log(Level.INFO, "Calling XML parser");
-//						XMLReader reader = new XMLReader(directory + "/" + directory.list()[i]);
-//						Recipe currentRecipe = reader.getRecipe();
-//						currentRecipe.setFileName(directory.list()[i]);
-//						recipeCollection.addRecipe(currentRecipe);
-//						logger.log(Level.INFO, "Logged Recipe" + directory.list()[i]);
-//					}
-//				}
-//			}
-//			// log if no default recipes folder is found
-//			else {
-//				logger.log(Level.WARNING, "No Default Recipes folder found in Local Application Data directory");
-//			}
 
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();

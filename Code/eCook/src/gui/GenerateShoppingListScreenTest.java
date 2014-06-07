@@ -58,13 +58,13 @@ public class GenerateShoppingListScreenTest {
 		stage =  new Stage();
 		//Populate the recipeList
 		recipeCollection = new RecipeCollection();
-		File directory = new File("defaultRecipes_new");
+		File directory = new File(System.getenv("localappdata") + "/eCook/Recipes");
 		if (directory.exists()) {
 			// parse all files in folder, adding recipes to collection
 			for (int i=0; i<directory.list().length; i++) {
 				// only read XML files if for some reason other files exist
 				if (directory.list()[i].endsWith(".xml")) {
-					XMLReader reader = new XMLReader("defaultRecipes_new/" + directory.list()[i]);
+					XMLReader reader = new XMLReader(System.getenv("localappdata") + "/eCook/Recipes" + directory.list()[i]);
 					Recipe currentRecipe = reader.getRecipe();
 					currentRecipe.setFileName(directory.list()[i]);
 					recipeCollection.addRecipe(currentRecipe);
