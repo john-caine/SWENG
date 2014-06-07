@@ -83,13 +83,14 @@ public class Recipe {
 		return ingredients;
 	}
 
-	public void ingreientsAmountUpdate(Integer guests) {
+	public void ingredientsAmountUpdate(Integer guests) {
 		if (guests != null) {
 			for (Integer i = 0; i < this.getNumberOfIngredients(); i++) {
 				// Reset to 1 guest
 				ingredients.get(i).setAmount(ingredients.get(i).getAmount()/prevGuests);
 				ingredients.get(i).setAmount(ingredients.get(i).getAmount()*guests);
 			}
+		
 			prevGuests = guests;
 		}
 		else {

@@ -2,7 +2,6 @@ package eCook;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -14,6 +13,7 @@ import xmlparser.XMLReader;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
 import javafx.stage.StageStyle;
@@ -28,7 +28,15 @@ public class eCook extends Application {
 	
 	@Override
 	public void start(Stage stage) {
-		
+  
+		try {
+			// Load external font
+			Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
+		} 
+		catch(NullPointerException e) {
+			logger.log(Level.WARNING, "Failed to import BoxtonSketch font");
+		}
+			
 		/* This is where the parser is called to populate the 	 *
 		 * list of recipes available in the defaultRecipe folder */
 		recipeCollection = new RecipeCollection();
@@ -36,8 +44,6 @@ public class eCook extends Application {
 		// get number of files in the defaultRecipe folder
 		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
 		File filePath = new File(defaultDirectory.getPath());
-		
-		System.out.print("THE FILE PATH IS = " + filePath);
 		
 		// parse all files in folder, adding recipes to collection
 		for (int i=0; i<filePath.list().length; i++) {

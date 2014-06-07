@@ -73,7 +73,7 @@
 		</shape>
 	</slide>
 	<slide id="2" duration="90" lastSlide="false">
-		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" false="loop"/>
+		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample1.mp3" starttime="5" duration="20" loop="false"/>
 		<audio urlname="http://ystv.co.uk/~john.caine/swengrepo/sample2.mp3" starttime="35" loop="false"/>
 	</slide>
 	<slide id="3" duration="40" lastSlide="false">

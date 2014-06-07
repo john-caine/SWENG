@@ -174,28 +174,28 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
 #statusBar{
 	-fx-font-size: 36px;
 	-fx-text-fill:  #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
 #box{
 
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #item{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:  #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -274,6 +274,16 @@
 	-fx-opacity: 0.5;
 }
 
+#nGuestsBtn {
+    	-fx-font-weight: bold;
+    	-fx-font-size: 12px;
+    	-fx-font-family: "HelveticaNeueLT Pro 55 Roman";
+}
+
+#nGuestsButton:hover {
+	-fx-opacity: 0.5;
+}
+
 #updateShoppingListButton {
     -fx-font-weight: bold;
     -fx-font-size: 16px;
@@ -289,7 +299,7 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -297,7 +307,15 @@
 	-fx-font-size: 60px;
 	-fx-text-fill:  #000000;
 	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-	-fx-font-family: "Andy";
+	-fx-font-family: 'Buxton Sketch';
+	-fx-font-weight: bold;
+}
+
+#nGuestsLabel{
+	-fx-font-size: 60px;
+	-fx-text-fill:  #000000;
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
 }
 
@@ -310,21 +328,45 @@
 }
 
 #authorLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #versionLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:   #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
 }
 
 #commentLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
-	-fx-font-family: "Buxton Sketch";
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#cookLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#prepLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#priceLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#vegLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
 }
 
 .list-view {
@@ -333,7 +375,6 @@
    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
    -fx-font-weight: bold;
    -fx-background-color: transparent;
-   
 }
 
 .list-view:focused {
@@ -654,16 +695,9 @@
 #volumeLabel{
     -fx-font-weight: bold;
     -fx-font-size: 11px;
-    -fx-font-family: "Century Gothic";
     -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
 }
 
-#timerLabel{
-    -fx-font-weight: bold;
-    -fx-font-size: 17px;
-    -fx-font-family: "Century Gothic";
-    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-}
 #timerField{
 	-fx-font-size: 14px;
 	-fx-text-fill:  white;
@@ -671,27 +705,4 @@
 	-fx-font-weight: bold;
 	-fx-border-color: black;
 	-fx-background-color: grey;
-}
-.choice-box {
-  -fx-background-color: grey;
-}
-.context-menu  {
-  -fx-background-color: grey;
-}
-.choice-box .context-menu .label {
-  -fx-text-fill: white;
-  -fx-font-size: 14;
-  -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
-}
-.context-menu .scroll-arrow {
-    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
-    -fx-background-color: #006699;
-}
-.context-menu .scroll-arrow:hover {
-    -fx-background: -fx-accent;
-    -fx-background-color: #006699;
-    -fx-text-fill: -fx-selection-bar-text;
-}
-.context-menu:show-mnemonics .mnemonic-underline {
-    -fx-stroke: -fx-text-fill;
 }

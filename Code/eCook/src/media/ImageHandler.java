@@ -8,7 +8,7 @@ public class ImageHandler extends SubSlideMedia {
 
 	public ImageHandler(SlideShow parent, String path, int xStart, int yStart, Integer width, Integer height, Integer startTime, Integer duration, Integer layer, Integer branchID, Integer orientation) {
 		super(parent, xStart, yStart, startTime, duration, branchID, orientation);
-		
+
     	ImageView iv1 = new ImageView();
         iv1.setImage(retrieveImage(path));
         
