@@ -187,13 +187,13 @@
 
 #box{
 
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
 	-fx-font-family: 'Buxton Sketch';
 }
 
 #item{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:  #000000;
 	-fx-font-family: 'Buxton Sketch';
 	-fx-font-weight: bold;
@@ -310,19 +310,43 @@
 }
 
 #authorLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
 	-fx-font-family: 'Buxton Sketch';
 }
 
 #versionLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
 	-fx-text-fill:   #000000;
 	-fx-font-family: 'Buxton Sketch';
 }
 
 #commentLabel{
-	-fx-font-size: 26px;
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#cookLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#prepLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#priceLabel{
+	-fx-font-size: 20px;
+	-fx-text-fill:    #000000;
+	-fx-font-family: 'Buxton Sketch';
+}
+
+#vegLabel{
+	-fx-font-size: 20px;
 	-fx-text-fill:    #000000;
 	-fx-font-family: 'Buxton Sketch';
 }
@@ -333,7 +357,6 @@
    -fx-font-family: "HelveticaNeueLT Pro 55 Roman";
    -fx-font-weight: bold;
    -fx-background-color: transparent;
-   
 }
 
 .list-view:focused {

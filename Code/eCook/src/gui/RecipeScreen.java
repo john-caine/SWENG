@@ -142,20 +142,13 @@ public class RecipeScreen {
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
 		listOfRecipes.getStylesheets().add("css.css");
-		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.5);
+		listOfRecipes.setPrefSize(rightBox.getPrefWidth() , rightBox.getPrefHeight()*0.75);
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-		Label recipeInfoLabel = new Label();
-		recipeInfoLabel.setWrapText(true);
-		recipeInfoLabel.setStyle("-fx-border-color:red; -fx-background-color: beige;");
-		recipeInfo ="Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here Recipe Information goes here";
-		recipeInfoLabel.setText(recipeInfo);
-		recipeInfoLabel.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight() * 0.3);
-
 		// Create a new HBox to hold the recipe information
 		recipeInfoBox = new VBox();
-		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.4-100);
+		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.8);
 
 
 		// when recipe selection changes, update the info and ingredients fields
@@ -266,7 +259,7 @@ public class RecipeScreen {
 		recipeInfoBox.getChildren().clear();
 		// add the labels to the info box
 		//recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
-		recipeInfoBox.getChildren().addAll(authorLabel, commentLabel, cookLabel, prepLabel, priceLabel, vegLabel);
+		recipeInfoBox.getChildren().addAll(authorLabel, cookLabel, prepLabel, priceLabel, vegLabel, commentLabel);
 	}
 
 
