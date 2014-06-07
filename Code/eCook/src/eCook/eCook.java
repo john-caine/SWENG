@@ -2,6 +2,7 @@ package eCook;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,6 @@ import javafx.scene.Group;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
-import gui.GenerateShoppingListScreen;
 import javafx.stage.StageStyle;
 
 public class eCook extends Application {
@@ -28,34 +28,57 @@ public class eCook extends Application {
 	
 	@Override
 	public void start(Stage stage) {
-		// Load external font
-		Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
-		
-		logger.entering(eCook.class.getName(), "start");
-		
+  
+		try {
+			// Load external font
+			Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
+		} 
+		catch(NullPointerException e) {
+			logger.log(Level.WARNING, "Failed to import BoxtonSketch font");
+		}
+			
 		/* This is where the parser is called to populate the 	 *
 		 * list of recipes available in the defaultRecipe folder */
 		recipeCollection = new RecipeCollection();
+		
 		// get number of files in the defaultRecipe folder
-		File directory = new File("defaultRecipes");
-		if (directory.exists()) {
-			// parse all files in folder, adding recipes to collection
-			for (int i=0; i<directory.list().length; i++) {
-				// only read XML files if for some reason other files exist
-				if (directory.list()[i].endsWith(".xml")) {
-					logger.log(Level.INFO, "Calling XML parser");
-					XMLReader reader = new XMLReader("defaultRecipes/" + directory.list()[i]);
-					Recipe currentRecipe = reader.getRecipe();
-					currentRecipe.setFileName(directory.list()[i]);
-					recipeCollection.addRecipe(currentRecipe);
-					logger.log(Level.INFO, "Logged Recipe" + directory.list()[i]);
-				}
+		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		File filePath = new File(defaultDirectory.getPath());
+		
+		// parse all files in folder, adding recipes to collection
+		for (int i=0; i<filePath.list().length; i++) {
+			// only read XML files if for some reason other files exist
+			if (filePath.list()[i].endsWith(".xml")) {
+				logger.log(Level.INFO, "Calling XML parser");
+				XMLReader reader = new XMLReader(filePath + "/" + filePath.list()[i]);
+				Recipe currentRecipe = reader.getRecipe();
+				currentRecipe.setFileName(filePath.list()[i]);
+				recipeCollection.addRecipe(currentRecipe);
+				logger.log(Level.INFO, "Logged Recipe" + filePath.list()[i]);
 			}
 		}
-		// log if no default recipes folder is found
-		else {
-			logger.log(Level.WARNING, "No Default Recipes folder found");
-		}
+
+//		// Check the application data default recipes folder
+//		File directory = new File(System.getenv("localappdata") + "/eCook/defaultRecipes");		
+//			
+//			if (directory.exists()) {
+//				// parse all files in folder, adding recipes to collection
+//				for (int i=0; i<directory.list().length; i++) {
+//					// only read XML files if for some reason other files exist
+//					if (directory.list()[i].endsWith(".xml")) {
+//						logger.log(Level.INFO, "Calling XML parser");
+//						XMLReader reader = new XMLReader(directory + "/" + directory.list()[i]);
+//						Recipe currentRecipe = reader.getRecipe();
+//						currentRecipe.setFileName(directory.list()[i]);
+//						recipeCollection.addRecipe(currentRecipe);
+//						logger.log(Level.INFO, "Logged Recipe" + directory.list()[i]);
+//					}
+//				}
+//			}
+//			// log if no default recipes folder is found
+//			else {
+//				logger.log(Level.WARNING, "No Default Recipes folder found in Local Application Data directory");
+//			}
 
 		// This is the group for the main menu - DONT DELETE IT!
 		root = new Group();
@@ -67,8 +90,6 @@ public class eCook extends Application {
 		MainMenu mainMenu = new MainMenu(stage, recipeCollection);
 		// Show the stage when ready
 	    stage.show();
-	    
-	    logger.exiting(eCook.class.getName(), "start");
 	}
 	
 	public static void main(String[] args) {
@@ -93,6 +114,7 @@ public class eCook extends Application {
 		
 		// Add the file handler to the logger
 		logger.addHandler(handler);
+
 		*/
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.ALL);

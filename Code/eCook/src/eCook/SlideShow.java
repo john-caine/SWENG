@@ -7,6 +7,7 @@
 
 package eCook;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,11 +112,15 @@ public class SlideShow {
     	// Set the scene
     	stage.setScene(slideScene);
     	
-    	URL defaultDirectory = getClass().getResource("/");
-    	//File filePath = new File(defaultDirectory.getPath());
-    	//System.out.println(filePath);
+
+
+    	// TEMPORARY FIX TO GET THE SLIDESHOW TO PLAY FROM THE CORRECT LOCATION
+    	URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+    	File filePath = new File(defaultDirectory.getPath());
     	
-    	reader = new XMLReader(filepath);
+    	reader = new XMLReader(filePath + "/" + filepath);
+    	//reader = new XMLReader(filepath);
+
     	
     	// Check integrity of XML file, report error message if invalid
     	validator = new XMLValidator(reader);

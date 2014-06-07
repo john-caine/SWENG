@@ -9,10 +9,12 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import notes.NotesGUI;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,6 +32,8 @@ public class TimerTest {
 	private SlideShow slideShow;
 	private Thread thread;
 	private ArrayList<Timer> timerList;
+	NotesGUI notesGUI;
+	Group slideRoot;
 	// Run tests on JavaFX thread ref. Andy Till
 		// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 		//@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -39,7 +43,7 @@ public class TimerTest {
 		timerbox = new VBox();
 		timerList = new ArrayList<Timer>();
 
-		timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow);
+		timer = new Timer(null, null, null, null, null, null, null, numberOfTimers, slideShow, notesGUI, slideRoot);
 		timerList.add(timer);
 		timer.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 			
