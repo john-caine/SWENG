@@ -1,5 +1,6 @@
 package media;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,13 +13,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import eCook.SlideShow;
 import eCook.eCook;
+import errorhandler.ErrorHandler;
 
 public abstract class SlideMediaPlayer extends SlideMedia{
 
 	private String pathLocation;
 	private Integer duration;
 	private Logger logger;
-	private Media media;
+	private Media media = null;
 	protected MediaPlayer mediaPlayer;
 	private Duration currentTime;
 
@@ -31,8 +33,13 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		
+		try {
+			media = new Media(pathLocation);
+		}
+		catch (NullPointerException e) {
+			new ErrorHandler("Fatal error displaying media");
+		}
 		
-		media = new Media(pathLocation);
 		mediaPlayer = new MediaPlayer(media);
 		
 		if(loop == true){

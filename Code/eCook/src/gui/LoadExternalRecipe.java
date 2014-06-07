@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
 import filebrowser.FileHandler;
@@ -212,11 +213,11 @@ public class LoadExternalRecipe {
 					try {
 						String assumedFileName = fileURL.substring(fileURL
 								.length() - 12);
-						browser.downloadRecipeFile(fileURL, "defaultRecipes_new/"
+						browser.downloadRecipeFile(fileURL, System.getenv("localappdata") + "/eCook/Recipes"
 								+ assumedFileName);
 						// update the recipe collection with the new file
 						// (parse)
-						XMLReader reader = new XMLReader("defaultRecipes_new/"
+						XMLReader reader = new XMLReader(System.getenv("localappdata") + "/eCook/Recipes"
 								+ assumedFileName);
 						Recipe newRecipe = reader.getRecipe();
 						newRecipe.setFileName(assumedFileName);

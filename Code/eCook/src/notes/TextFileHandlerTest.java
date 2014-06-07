@@ -24,15 +24,15 @@ public class TextFileHandlerTest {
 	@BeforeClass
 	public static void setup() throws FileNotFoundException {
 		// remove any previous example notes files from previous tests
-		File exampleFile1 = new File("notes/" + "Example title" + "_" + "7" + ".txt");
+		File exampleFile1 = new File(System.getenv("localappdata") + "/eCook/Recipes" + "Example title" + "_" + "7" + ".txt");
 		if (exampleFile1.exists()) {
 			exampleFile1.delete();
 		}
-		File exampleFile2 = new File("notes/" + "notesTestTitle" + "_" + "8" + ".txt");
+		File exampleFile2 = new File(System.getenv("localappdata") + "/eCook/Recipes" + "notesTestTitle" + "_" + "8" + ".txt");
 		if (exampleFile2.exists()) {
 			exampleFile2.delete();
 		}
-		File exampleFile3 = new File("notes/" + "exampleRecipeTitle0" + "_" + "0" + ".txt");
+		File exampleFile3 = new File(System.getenv("localappdata") + "/eCook/Recipes" + "exampleRecipeTitle0" + "_" + "0" + ".txt");
 		if (exampleFile3.exists()) {
 			exampleFile3.delete();
 		}
@@ -45,7 +45,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void nullNotesTextFileNotCreated() {
 		handler.writeTextFile(null, 5, "Example Recipe Title");
-		File file = new File("notes/" + "Example Recipe Title" + "_" + "5" + ".txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "Example Recipe Title" + "_" + "5" + ".txt");
 		assertFalse(file.exists());
 		assertTrue(handler.error);
 	}
@@ -54,7 +54,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void nullSlideIDTextFileNotCreated() {
 		handler.writeTextFile("Example notes", null, "Example Recipe Title");
-		File file = new File("notes/" + "Example Recipe Title" + "_" + ".txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "Example Recipe Title" + "_" + ".txt");
 		assertFalse(file.exists());
 		assertTrue(handler.error);
 	}
@@ -63,7 +63,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void nullRcipeTitleTextFileNotCreated() {
 		handler.writeTextFile("Example notes", 1, null);
-		File file = new File("notes/" + "_" + "1" + ".txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "_" + "1" + ".txt");
 		assertFalse(file.exists());
 		assertTrue(handler.error);
 	}
@@ -72,7 +72,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void validArgumentsTextFileCreated() {
 		handler.writeTextFile("here are some example notes.", 7, "Example title");
-		File file = new File("notes/" + "Example title" + "_" + "7" + ".txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "Example title" + "_" + "7" + ".txt");
 		assertTrue(file.exists());
 		assertFalse(handler.error);
 	}
@@ -82,7 +82,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void textFileContainsCorrectString() {
 		handler.writeTextFile("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", 8, "notesTestTitle");
-		File file = new File("notes/" + "notesTestTitle" + "_" + "8" + ".txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "notesTestTitle" + "_" + "8" + ".txt");
 		assertTrue(file.exists());
 		assertEquals("This is what should be stored in the txt file\nNew Line\ttabbed\nReturn", handler.readTextFile("notesTestTitle" + "_" + "8" + ".txt"));
 		assertFalse(handler.error);
@@ -92,7 +92,7 @@ public class TextFileHandlerTest {
 	@Test
 	public void nullFileNameReturnsErrorFromReader() {
 		handler.writeTextFile("example notes", 0, "exampleRecipeTitle0");
-		File file = new File("notes/exampleRecipeTitle0_0.txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "/exampleRecipeTitle0_0.txt");
 		assertTrue(file.exists());
 		assertEquals(null, handler.readTextFile(null));
 		assertTrue(handler.error);
@@ -101,7 +101,7 @@ public class TextFileHandlerTest {
 	// check that an error is thrown and nothing is returned when trying to read a file that doesn't exist
 	@Test
 	public void nonExistentFileReturnsErrorFromReader() {
-		File file = new File("notes/nothingHere_1.txt");
+		File file = new File(System.getenv("localappdata") + "/eCook/Recipes" + "/nothingHere_1.txt");
 		assertFalse(file.exists());
 		assertEquals(null, handler.readTextFile("nothingHere_1.txt"));
 		assertTrue(handler.error);

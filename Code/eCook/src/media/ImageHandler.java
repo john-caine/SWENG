@@ -1,8 +1,12 @@
 package media;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import eCook.SlideShow;
+import errorhandler.ErrorHandler;
 
 public class ImageHandler extends SubSlideMedia {
 
@@ -38,7 +42,14 @@ public class ImageHandler extends SubSlideMedia {
 	 * @Param imageLocationPath: The image file location.
 	 */
 	public Image retrieveImage(String imageLocationPath) {	
-		Image image = new Image(imageLocationPath);
+		Image image = null;
+		try {
+			image = new Image(imageLocationPath);
+		}
+		catch (NullPointerException e) {
+			new ErrorHandler("Fatal error displaying media");
+		}
+		
 		return image;
     }
 }

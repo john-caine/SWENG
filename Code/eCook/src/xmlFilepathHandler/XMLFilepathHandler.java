@@ -24,8 +24,7 @@ public class XMLFilepathHandler {
 		this.reader = reader;
 		// Set some default strings
 		title = reader.getRecipe().getInfo().getTitle();
-		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
-		filepath = new File(defaultDirectory.getPath());
+		filepath = new File(System.getenv("localappdata") + "/eCook/Recipes");
 		// Loop through the slideshow updating elements filepaths
 		loopThroughMedia();
 		return this.reader;

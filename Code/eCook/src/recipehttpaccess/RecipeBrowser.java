@@ -51,7 +51,7 @@ import eCook.RecipeCollection;
 public class RecipeBrowser extends Application {
 	ArrayList<String> availableRecipeFiles;
 	ListView<String> listOfRecipeFiles;
-	File localRecipeDirectory = new File("defaultRecipes_new/");
+	File localRecipeDirectory = new File(System.getenv("localappdata") + "/eCook/Recipes");
 	Button downloadButton, exitButton;
 	Scene scene;
 	RecipeCollection recipeCollection;
