@@ -16,6 +16,7 @@ import xmlparser.Recipe;
  * 					v0.2 (23/05/14) - Dummy code added for scaling elements from retrieved element attributes
  * 					v0.3 (24/05/14)	- Rough code added for entire scaling of slideshow elements
  * 					v1.0 (25/05/14)	- Major bug fixes and re-factoring of code
+ * 					v1.1 (07/06/14) - Mathematical bug found and fixed, background "stretch" applied
  */
 public class RecipeScale {
 	// Holding variables
@@ -61,13 +62,13 @@ public class RecipeScale {
 				// Scale the content to fit on by width
 				scaleFactor = (double)userWidth/(double)xmlWidth;
 				// Center the content by height
-				xShift = 1;
+				xShift = 0;
 				yShift = (userHeight-xmlHeight*scaleFactor)/2;
 			} else {
 				scaleFactor = (double)userHeight/(double)xmlHeight;
 				// Center the content by width
-				xShift = (userHeight-xmlHeight*scaleFactor)/2;
-				yShift = 1;
+				xShift = (userWidth-xmlWidth*scaleFactor)/2;
+				yShift = 0;
 			}
 			// Shift and scale Recipe elements
 			scaleRecipeElements(recipe);
@@ -128,24 +129,33 @@ public class RecipeScale {
 			// Image scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getImages().size(); j++) {
 				// Image width and height are "implied", may equal null
-				if (recipe.getSlide(i).getContent().getImages().get(j).getWidth() != null) {
-					// Get image width
-					tempX = recipe.getSlide(i).getContent().getImages().get(j).getWidth();
-					// Scale image width
-					recipe.getSlide(i).getContent().getImages().get(j).setWidth(String.valueOf((int)(Math.floor(tempX*scaleFactor))));
+				// Firstly check if we are dealing with a background image
+				if ((recipe.getSlide(i).getContent().getImages().get(j).getHeight() == xmlHeight) && (recipe.getSlide(i).getContent().getImages().get(j).getWidth() == xmlWidth) && (recipe.getSlide(i).getContent().getImages().get(j).getLayer() == 0) && (recipe.getSlide(i).getContent().getImages().get(j).getXStart() == 0) && (recipe.getSlide(i).getContent().getImages().get(j).getYStart() == 0)) {
+					// If background image "stretch" to fill in both directions
+					recipe.getSlide(i).getContent().getImages().get(j).setWidth(String.valueOf((int)(Math.floor(userWidth))));
+					recipe.getSlide(i).getContent().getImages().get(j).setHeight(String.valueOf((int)(Math.floor(userHeight))));
 				}
-				if (recipe.getSlide(i).getContent().getImages().get(j).getHeight() != null) {
-					// Get image height
-					tempY = recipe.getSlide(i).getContent().getImages().get(j).getHeight();
-					// Scale image height
-					recipe.getSlide(i).getContent().getImages().get(j).setHeight(String.valueOf((int)(Math.floor(tempY*scaleFactor))));
+				// If we're not dealing with a background image continue as normal
+				else {
+					if (recipe.getSlide(i).getContent().getImages().get(j).getWidth() != null) {
+						// Get image width
+						tempX = recipe.getSlide(i).getContent().getImages().get(j).getWidth();
+						// Scale image width
+						recipe.getSlide(i).getContent().getImages().get(j).setWidth(String.valueOf((int)(Math.floor(tempX*scaleFactor))));
+					}
+					if (recipe.getSlide(i).getContent().getImages().get(j).getHeight() != null) {
+						// Get image height
+						tempY = recipe.getSlide(i).getContent().getImages().get(j).getHeight();
+						// Scale image height
+						recipe.getSlide(i).getContent().getImages().get(j).setHeight(String.valueOf((int)(Math.floor(tempY*scaleFactor))));
+					}
+					// Get image start values
+					tempX = recipe.getSlide(i).getContent().getImages().get(j).getXStart();
+					tempY = recipe.getSlide(i).getContent().getImages().get(j).getYStart();
+					// Scale start values
+					recipe.getSlide(i).getContent().getImages().get(j).setXStart(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
+					recipe.getSlide(i).getContent().getImages().get(j).setYStart(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
 				}
-				// Get image start values
-				tempX = recipe.getSlide(i).getContent().getImages().get(j).getXStart();
-				tempY = recipe.getSlide(i).getContent().getImages().get(j).getYStart();
-				// Scale start values
-				recipe.getSlide(i).getContent().getImages().get(j).setXStart(String.valueOf((int)(Math.floor(tempX*scaleFactor+xShift))));
-				recipe.getSlide(i).getContent().getImages().get(j).setYStart(String.valueOf((int)(Math.floor(tempY*scaleFactor+yShift))));
 			}
 			// Video scaling
 			for (int j = 0; j < recipe.getSlide(i).getContent().getVideos().size(); j++) {
