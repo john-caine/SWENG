@@ -176,7 +176,7 @@ public class IngredientsList {
 		// add a button to save the shopping list to PDF
 		savePDFButton = new Button("Save shopping list");
 		// add a button to add ingredients to the shopping list (eCook side)
-		updateShoppingListButton = new Button("Add Ingredients to Shopping List");
+		updateShoppingListButton = new Button("Add Ingredients");
 		updateShoppingListButton.setWrapText(true);
 		updateShoppingListButton.setId("updateShoppingListButton");
 		updateShoppingListButton.getStylesheets().add("css.css");

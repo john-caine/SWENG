@@ -187,6 +187,7 @@ public class XMLFilepathHandler {
 	private String handleMediaPathsFor(String mediaAddress, Boolean localCheck) {
 		if (localCheck && !existsLocally) {
 			// We're doing a local filepath check but some files already do not exist locally
+			// System.out.println(mediaAddress);
 			return mediaAddress;
 		}
 		else {
@@ -201,8 +202,12 @@ public class XMLFilepathHandler {
 				// If not we are dealing with online content or an invalid link to content/broken content
 				File potentialWinner = new File(mediaAddress);
 				if (potentialWinner.exists()) {
-					// Make sure the mediaAddress meets the correct standards
-					mediaAddress = potentialWinner.toURI().toASCIIString();
+					if (!localCheck) {
+						// Make sure the mediaAddress meets the correct standards
+						mediaAddress = potentialWinner.toURI().toASCIIString();
+					}
+					// We're doing a local filepath check but some files already do not exist locally
+					// System.out.println("Full normal filepath location: " + mediaAddress);
 					return mediaAddress;
 				}
 			}
@@ -213,38 +218,47 @@ public class XMLFilepathHandler {
 			if (mediaElementName.contains(".")) {
 				File potentialWinner = new File(filepath + "/" + title + "/" + mediaElementName);
 				if (potentialWinner.exists()) {
-					mediaAddress = filepath + "/" + title + "/" + mediaElementName;
-					mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+					if (!localCheck) {
+						// Make sure the mediaAddress meets the correct standards
+						mediaAddress = filepath + "/" + title + "/" + mediaElementName;
+						mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+					}
+					// System.out.println("Full downloaded filepath section: " + mediaAddress);
 					return mediaAddress;
 				}
 			}
 			if (localCheck) {
 				// If we've reached this stage then some content does not exist locally
 				existsLocally = false;
-				mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
-				return mediaAddress;
-			}
-			// If we've got to this stage we're dealing with a URL or invalid local path
-			// We need to check if the URL contains valid content
-			try {
-				HttpURLConnection.setFollowRedirects(false);
-				HttpURLConnection con = (HttpURLConnection) new URL(mediaAddress).openConnection();
-				con.setRequestMethod("HEAD");
-				broken = !(con.getResponseCode() == HttpURLConnection.HTTP_OK);
-				existsLocally = false;
-			}
-			catch (Exception e) {
-				broken = true;
-			}
-			// If the media file exists online it is hopefully OK so re-return the online address
-			if (!broken) {
-				mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+				// System.out.println("Address does not exist locally: " + mediaAddress);
 				return mediaAddress;
 			}
 			else {
-				broken = true;
-				// e-Cock will not function correctly with this filepath
-				return null;
+				// If we've got to this stage we're dealing with a URL or invalid local path
+				// We need to check if the URL contains valid content
+				try {
+					HttpURLConnection.setFollowRedirects(false);
+					HttpURLConnection con = (HttpURLConnection) new URL(mediaAddress).openConnection();
+					con.setRequestMethod("HEAD");
+					broken = !(con.getResponseCode() == HttpURLConnection.HTTP_OK);
+					existsLocally = false;
+				}
+				catch (Exception e) {
+					// System.out.println(mediaAddress);
+					broken = true;
+				}
+				// If the media file exists online it is hopefully OK so re-return the online address
+				if (!broken) {
+					mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+					// System.out.println("Not broken online: " + mediaAddress);
+					return mediaAddress;
+				}
+				else {
+					System.out.println("Broken " + mediaAddress);
+					broken = true;
+					// e-Cock will not function correctly with this filepath
+					return null;
+				}
 			}
 		}
 	}
