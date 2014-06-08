@@ -248,10 +248,14 @@ public class AudioControlBar {
             	String durationString = durationMinutesString + ":" + durationSecondsString;
             	timeLbl.setText(currentTimeString + "/" + durationString);
             	trackBar.setValue(currentHandler.getMediaPlayer().getCurrentTime().toMillis());
+            	
+            	// fix a bug with the SlideMediaPlayer getDuration method
+            	if (Double.valueOf(trackBar.getMax()).toString() == "NaN") {
+            		trackBar.setMax(currentHandler.getDuration());
+            	}
             }
         });
         trackBar.setMax(currentHandler.getDuration());
-
 	}
 	
 	// method to update the button enables to prevent undefined behaviour {
