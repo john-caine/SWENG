@@ -1,0 +1,160 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<slideshow>
+	<documentinfo>
+		<author>Jim Dee</author>
+		<version>1.1</version>
+    <title>Leek and Potato Soup</title>
+		<comment>The reader should remember that seasonal produce will make the best soups. More often than not, local produce is better than foreign alternatives, particularly with short season vegetables. I had the misfortune to try Peruvian asparagus in the middle of September last year, and it is not a product I will endorse here. Nearly every recipe here will require vegetable oil, salt and pepper, so they are omitted from the ingredients list. I recommend Maldon salt, which is widely available, and to my mind is one of the best salts in the world. 	
+		</comment>
+		<cook>25 min</cook>
+		<prep>10 min</prep>
+		<guests>4</guests>
+		<veg>Yes</veg>
+		<width>1440</width>
+		<height>900</height>
+	</documentinfo>
+	<defaults>
+		<backgroundcolor>#FFFFFF</backgroundcolor>
+		<font>Helvetica Neue Thin</font>
+		<fontsize>24</fontsize>
+		<linecolor>#000000</linecolor>
+		<fontcolor>#000000</fontcolor>
+		<fillcolor>#CCCCCC</fillcolor>
+	</defaults>
+	<ingredients>
+		<ingredient name="leeks" amount="2" units="whole" />
+		<ingredient name="potatoes" amount="4" units="whole" />
+		<ingredient name="chicken stock" amount="1" units="l" />
+		<ingredient name="butter" amount="25" units="grams" />
+		<ingredient name="double cream" amount="50" units="ml" />
+		<ingredient name="chives" amount="1" units="bunch" />
+	</ingredients>
+
+	<slide id="0" duration="20" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Leek and Potato Soup</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>This soup is something quite often badly done, often being bland. For me it is essential to really taste the leek, so choose the best quality you can. Choose a good floury potato for the best texture. I like to use chicken stock but if you are vegetarian a vegetable stock will work just as well. It may not be necessary to use all the cream as too much can dampen the flavour of the soup. Add it little by little, stopping when you are happy with the flavour and consistency. 
+Please click 'Next' or press the right arrow key to begin.</textstring>
+      			</textbody>
+		</text>
+		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_0.jpg" xstart="300" ystart="350" width="650" height="433" layer="1" />	
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />		
+	</slide>
+
+	<slide id="1" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step One</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Begin by cleaning the leeks. Remove the dark green tops, wash and set aside. Cut the leeks in quarters almost all the way to the root then wash under the tap. Keep the water flowing away from the root end and fan out the layers to remove any mud and grit.    </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="150" ystart="600" xend="850" yend="475" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Cook the leeks over a low heat in a little oil, being sure to season. Once the leeks are soft, cool and set aside.</textstring>
+      			</textbody>
+		</text>     		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_1.jpg" xstart="100" ystart="250" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_2.jpg" xstart="650" ystart="250" width="475" height="316" layer="2" />		
+			
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="2" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Two</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1400" yend="600" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Bring the chicken stock to a simmer, adding the leek tops at the start. Simmer for 30 minutes. This reinforces the flavour of the chicken stock with the flavour of leeks.  </textstring>
+      			</textbody>
+		</text>     
+		<text xstart="15" ystart="600" xend="1000" yend="800" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" > 
+			<textbody underlined="false" bold="false" italic="false">
+				<textstring>Peel and chop the potatoes into 2cm dice, then place in a pan of cold salted water. Bring to the boil and simmer until cooked. Strain the potatoes and mix with the leeks.</textstring>
+      			</textbody>
+		</text>		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_4.jpg" xstart="15" ystart="175" width="600" height="400" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_5.jpg" xstart="650" ystart="175" width="600" height="400" layer="2" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+	<slide id="3" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Three</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="650" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>Cover the potato and leek mixture with the chicken and leek stock, and bring to the boil. Blend with the butter using the best equipment you have and pass through a fine sieve. 
+
+Remeber to check the seasoning.  </textstring>
+      			</textbody>
+        </text>
+        <text xstart="650" ystart="500" xend="1000" yend="400" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" >
+			<textbody >
+        		<textstring>Bring the soup to a simmer and stir in some or all of the cream little by little, tasting as you go. </textstring>
+      			</textbody>
+        </text>
+        
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_6.jpg" xstart="650" ystart="70" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_7.jpg" xstart="15" ystart="360" width="600" height="400" layer="3" />
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+					
+	</slide>
+
+	<slide id="4" duration="30" lastSlide="false">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Step Four</textstring>
+      			</textbody>
+		</text>
+		<text xstart="15" ystart="70" xend="1200" yend="200" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>Blend the soup with the butter using the best equipment available to you then pass through a fine sieve and check the seasoning. </textstring>
+      			</textbody>
+		</text>  
+		<text xstart="750" ystart="500" xend="1100" yend="1000" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0"> 
+			<textbody underlined="false" bold="false" italic="false">
+        		<textstring>To serve, heat thoroughly, add to bowls and sprinkle the top with some very finely chopped chives. </textstring>
+      			</textbody>
+		</text>   
+		
+		 		
+        		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_8.jpg" xstart="100" ystart="150" width="475" height="316" layer="2" />	
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_9.jpg" xstart="650" ystart="150" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_10.jpg" xstart="250" ystart="475" width="475" height="316" layer="2" />		
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+	
+	<slide id="5" duration="30" lastSlide="true">
+		<text xstart="10" ystart="10" xend="1000" yend="300" font="Helvetica Neue Thin" fontsize="40" fontcolor="#000000" > 
+			<textbody underlined="false" bold="true" italic="false">
+        		<textstring>Eat</textstring>
+      			</textbody>
+		</text>
+		<text xstart="100" ystart="650" xend="1200" yend="300" font="Helvetica Neue Thin" fontsize="30" fontcolor="#000000" orientation="0">
+			<textbody >
+        		<textstring>N.B. This soup can also be served cold. Omit the cream and thoroughly chill the soup. When serving, swirl a teaspoon of the cream on top of the soup, and sprinkle with freshly chopped chives. When prepared in this manner, the soup is called vichyssoise.</textstring>
+      			</textbody>
+		</text> 
+		<image urlname="file:../Resources/Butternut_Squash/IMG_butnut_13.jpg" xstart="200" ystart="70" width="850" height="566" layer="7" />			
+		<image urlname="file:../Resources/background.png" xstart="0" ystart="0" width="1440" height="900" layer="0" />
+	</slide>
+
+</slideshow>
