@@ -41,7 +41,7 @@ public class Recipe {
 		info = new Info();
 		defaults = new Defaults();
 		ingredients = new ArrayList<Ingredient>();
-		prevGuests = 1;
+		prevGuests = 4;
 		downloadingLocalContent = false;
 		localExistance = false;
 		localExistanceSet = false;

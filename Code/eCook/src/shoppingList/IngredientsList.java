@@ -140,7 +140,7 @@ public class IngredientsList {
 		final Button selectAllButton = new Button("Select All");
 		selectAllButton.setId("selectAllButton");
 		selectAllButton.getStylesheets().add("css.css");
-		selectAllButton.setPrefSize(120,50);
+		selectAllButton.setPrefSize(150,50);
 		selectAllButton.setAlignment(Pos.CENTER);
 		selectAllButton.setTextAlignment(TextAlignment.CENTER);
 		selectAllButton.setTooltip(new Tooltip("Click here to select all ingredients"));
@@ -180,7 +180,7 @@ public class IngredientsList {
 		updateShoppingListButton.setWrapText(true);
 		updateShoppingListButton.setId("updateShoppingListButton");
 		updateShoppingListButton.getStylesheets().add("css.css");
-		updateShoppingListButton.setPrefSize(160,50);
+		updateShoppingListButton.setPrefSize(350,50);
 		updateShoppingListButton.setAlignment(Pos.CENTER);
 		updateShoppingListButton.setTextAlignment(TextAlignment.CENTER);
 		updateShoppingListButton.setTooltip(new Tooltip("Click here add selected ingredients to your shopping list"));
