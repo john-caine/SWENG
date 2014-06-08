@@ -16,9 +16,9 @@ import java.nio.file.StandardCopyOption;
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
 import filebrowser.FileHandler;
-import xmlValidation.XMLValidator;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
+import xmlvalidation.XMLValidator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -287,7 +287,7 @@ public class LoadExternalRecipe {
 		midBox.setStyle("-fx-background-color: transparent;");
 
 		loadExtBox = new VBox(20);
-		loadExtBox.setStyle("-fx-background-color: rgba(0,0,0,0.5); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+		loadExtBox.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
 		
 	
 		

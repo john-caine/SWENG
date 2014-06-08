@@ -23,6 +23,8 @@ package xmlparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import xmlfilepathhandler.XMLFilepathHandler;
+
 public class Recipe {
 	Info info;
 	Defaults defaults;
@@ -30,6 +32,9 @@ public class Recipe {
 	List<Slide> slides;
 	String fileName = null;
 	Integer prevGuests;
+	Boolean downloadingLocalContent;
+	Boolean localExistance;
+	Boolean localExistanceSet;
 		
 	public Recipe() {
 		slides = new ArrayList<Slide>();
@@ -37,8 +42,39 @@ public class Recipe {
 		defaults = new Defaults();
 		ingredients = new ArrayList<Ingredient>();
 		prevGuests = 1;
+		downloadingLocalContent = false;
+		localExistance = false;
+		localExistanceSet = false;
 	}
 	
+	// James- use this method in a thread to check if the recipe is being downloaded
+	public Boolean isDownloading() {
+		return downloadingLocalContent;
+	}
+	
+	// James- use this method to set the downloading var
+	public void setDownloading(Boolean value) {
+		localExistanceSet = false;
+		downloadingLocalContent = value;
+	}
+	
+	public Boolean existsLocally() {
+		if (downloadingLocalContent) {
+			return false;
+		}
+		else {
+			if (!localExistanceSet) {
+				XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+				localExistance = filepathHandler.checkMediaPathsExistOffline(getFileName());
+				localExistanceSet = true;
+				return localExistance;
+			}
+			else {
+				return localExistance;
+			}
+		}
+	}
+
 	// method to report errors when setting fields
 	public void reportError(String errorMessage) {
 		System.out.println(errorMessage);

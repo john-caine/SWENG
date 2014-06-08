@@ -43,9 +43,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import xmlValidation.XMLValidator;
+import javafx.stage.StageStyle;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
+import xmlvalidation.XMLValidator;
 import eCook.RecipeCollection;
 
 public class RecipeBrowser extends Application {
@@ -159,11 +160,14 @@ public class RecipeBrowser extends Application {
         // do javaFX setup
         StackPane root = new StackPane();
         scene = new Scene(root, 600, 500);
-        root.setStyle("-fx-background-color: rgba(0,0,0,0.5);  -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+        scene.setFill(null);
+        root.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
 		
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Recipe Browser");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
         final BorderPane border = new BorderPane();
         root.getChildren().add(border);
         border.setTop(loading);

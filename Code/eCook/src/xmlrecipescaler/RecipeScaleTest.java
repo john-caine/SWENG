@@ -1,4 +1,4 @@
-package xmlRecipeScaler;
+package xmlrecipescaler;
 /* Title: RecipeScaler
  * 
  * Programmers: James, Prakruti

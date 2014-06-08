@@ -1,4 +1,4 @@
-package xmlValidation;
+package xmlvalidation;
 
 /* Title: XMLValidation
  * 

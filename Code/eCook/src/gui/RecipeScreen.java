@@ -7,7 +7,10 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
 import eCook.SlideShow;
@@ -43,9 +46,15 @@ public class RecipeScreen {
 	protected VBox bigBox;
 	Button currentDownloadButton;
 	int lastRowHovered = 0;
+	static final int downloading = 1;
+	static final int existsLocally = 2;
+	static final int canBeDownloaded = 3;
 
+	final Button[] downloadButtons;
+	final Button[] playButtons;
+	
 	public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
-
+		
 		this.bigBox = bigBox;
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
 		//Imports home, close and minimise button icons
@@ -132,8 +141,8 @@ public class RecipeScreen {
 		// Create an ArrayList of Recipe Titles
 		// create an ArrayList of HBoxes to use to display text and buttons
 		// create lists of buttons to use
-		final Button[] downloadButtons = new Button[recipeCollection.getNumberOfRecipes()];
-		final Button[] playButtons = new Button[recipeCollection.getNumberOfRecipes()];
+		downloadButtons = new Button[recipeCollection.getNumberOfRecipes()];
+		playButtons = new Button[recipeCollection.getNumberOfRecipes()];
 		final ArrayList<HBox> recipeRows = new ArrayList<HBox>();
 		ArrayList<String> recipeTitles = new ArrayList<String>();
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
@@ -146,69 +155,29 @@ public class RecipeScreen {
 			// set up buttons
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
-			downloadButtons[i].setId("d" + i);
+			downloadButtons[i].setId(Integer.toString(i));
+			downloadButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
 			playButtons[i].setId("p" + i);
+			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
-			
 			// configure the buttons
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {
-					// run the download task on a new thread asynchronously
+					// Set button state to downloading
 					currentDownloadButton = (Button) event.getSource();
-					// block out the other buttons - we can only download one recipe at a time
-					for (int i=0; i<downloadButtons.length; i++) {
-						downloadButtons[i].setText("Waiting...");
-						downloadButtons[i].setDisable(true);
-					}
-					// update the current button text
-					currentDownloadButton.setText("Downloading...");
-					currentDownloadButton.setDisable(true);
-					
+					updateButtonLabels(Integer.parseInt(currentDownloadButton.getId()), downloading);
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-							try {
-																			// ***** do the download stuff here
-								System.out.println("doing stuff...");
-								Thread.sleep(2000);
-								System.out.println("doing more stuff...");
-								Thread.sleep(3000);
-								System.out.println("doing even more stuff...");
-								Thread.sleep(5000);
-								System.out.println("doing so much stuff...");
-								Thread.sleep(1000);
-								System.out.println("woo nearly done...");
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-							} finally {
-								// clean up and display finish confirmation
-								Platform.runLater(new Runnable() {
-									@Override
-									public void run() {
-										System.out.println("finished doing stuff!");
-										// reactivate the other buttons
-										for (int i=0; i<downloadButtons.length; i++) {
-											downloadButtons[i].setText("Download Recipe Content");
-											downloadButtons[i].setDisable(false);
-										}
-																			// ***** put some success logic here
-										//if (success) {
-										// update the button text
-										currentDownloadButton.setText("Recipe Content Downloaded");
-										currentDownloadButton.setDisable(true);
-										//}
-										//else {
-										//	currentDownloadButton.setText("Download Recipe Content");
-										//	currentDownloadButton.setDisable(false);
-										//}
-									}
-								});
-							}
+							XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+							recipeCollection.getRecipe(Integer.parseInt(currentDownloadButton.getId())).setDownloading(true);
+							filepathHandler.downloadRecipeMedia(recipeCollection.getRecipe(Integer.parseInt(currentDownloadButton.getId())));
+							recipeCollection.getRecipe(Integer.parseInt(currentDownloadButton.getId())).setDownloading(false);
 						}
 					}).start();
 				}
@@ -239,9 +208,15 @@ public class RecipeScreen {
 					// get the selected recipe
 					HBox focusBox = (HBox) event.getSource();
 					index = Integer.valueOf(focusBox.getId().substring(1));
-					// show the buttons for that row
-					playButtons[index].setVisible(true);
-					downloadButtons[index].setVisible(true);
+					if (recipeCollection.getRecipe(index).existsLocally()) {
+						updateButtonLabels(index, existsLocally);
+					}
+					else if (recipeCollection.getRecipe(index).isDownloading()) {
+						updateButtonLabels(index, downloading);
+					}
+					else {
+						updateButtonLabels(index, canBeDownloaded);
+					}
 				}
 			});
 			
@@ -259,7 +234,6 @@ public class RecipeScreen {
 					lastRowHovered = index;
 				}
 			});
-			
 			// add everything to the HBox
 			Label recipeTitle = new Label(recipeTitles.get(i));
 			HBox labelBox = new HBox();
@@ -284,8 +258,15 @@ public class RecipeScreen {
 			@Override
 			public void handle(MouseEvent event) {
 				// show the buttons for that row
-				playButtons[lastRowHovered].setVisible(true);
-				downloadButtons[lastRowHovered].setVisible(true);
+				if (recipeCollection.getRecipe(lastRowHovered).existsLocally()) {
+					updateButtonLabels(lastRowHovered, existsLocally);
+				}
+				else if (recipeCollection.getRecipe(lastRowHovered).isDownloading()) {
+					updateButtonLabels(lastRowHovered, downloading);
+				}
+				else {
+					updateButtonLabels(lastRowHovered, canBeDownloaded);
+				}
 			}
 		});
 
@@ -326,8 +307,45 @@ public class RecipeScreen {
 
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().addAll(recipesLabel,listOfRecipes, recipeInfoBox);
+		for (int i1=0; i1<recipeCollection.getNumberOfRecipes(); i1++) {
+			if (recipeCollection.getRecipe(i1).existsLocally()) {
+				updateButtonLabels(i1, existsLocally);
+			}
+			else if (recipeCollection.getRecipe(i1).isDownloading()) {
+				updateButtonLabels(i1, downloading);
+			}
+			else {
+				updateButtonLabels(i1, canBeDownloaded);
+			}
+			if (i1 != 0) {
+				downloadButtons[i1].setVisible(false);
+				playButtons[i1].setVisible(false);
+			}
+		}
 	}
 
+	private void updateButtonLabels(int buttonId, int setting) {
+		if (setting == downloading) {
+			downloadButtons[buttonId].setVisible(true);
+			downloadButtons[buttonId].setText("Downloading...");
+			downloadButtons[buttonId].setDisable(true);
+			playButtons[buttonId].setVisible(true);
+			playButtons[buttonId].setDisable(true);
+		}
+		if (setting == canBeDownloaded) {
+			downloadButtons[buttonId].setVisible(true);
+			downloadButtons[buttonId].setText("Download Recipe Content");
+			downloadButtons[buttonId].setDisable(false);
+			playButtons[buttonId].setVisible(true);
+			playButtons[buttonId].setDisable(false);
+		}
+		if (setting == existsLocally) {
+			downloadButtons[buttonId].setVisible(false);
+			playButtons[buttonId].setVisible(true);
+			playButtons[buttonId].setDisable(false);
+		}
+	}
+	
 	// method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", comment = "", cook = "", prep = "", guests = "", veg ="";

@@ -1,4 +1,4 @@
-package xmlRecipeScaler;
+package xmlrecipescaler;
 
 import java.awt.GraphicsEnvironment;
 import xmlparser.Recipe;

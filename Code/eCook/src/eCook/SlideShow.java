@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import notes.NotesGUI;
 import media.AudioHandler;
 import media.GraphicHandler;
@@ -46,10 +47,10 @@ import media.TextHandler;
 import timer.Timer;
 import timer.TimerData;
 import media.VideoHandler;
-import xmlFilepathHandler.XMLFilepathHandler;
-import xmlRecipeScaler.RecipeScale;
-import xmlValidation.XMLValidator;
+import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.*;
+import xmlrecipescaler.RecipeScale;
+import xmlvalidation.XMLValidator;
 import errorhandler.ErrorHandler;
 
 
@@ -124,37 +125,44 @@ public class SlideShow {
     		stage.hide();
     		new ErrorHandler(validator.getErrorMsg());
 		} else {
+			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+			reader = filepathHandler.setMediaPaths(reader);
+			System.out.println("If this file has broken paths the main menu will be called, needs more work");
+			if (filepathHandler.mediaPathsAreBroken()) {
+				stage  = (Stage) slideScene.getWindow();
+				Group root = (Group) stage.getScene().getRoot();
+				root.getChildren().clear();
+				new MainMenu(stage, recipeCollection);
+			}
+			else {
+				// If there's no error with the recipe then grab it from the parser
+				recipe = reader.getRecipe();
+			
+				// Scale the recipe for user resolution
+				RecipeScale recipeScale = new RecipeScale();
+				recipe = recipeScale.scaleRecipe(recipe);
+			
+				// Get the total number of slides
+				numOfSlidesExcBranch = recipe.getNumberOfSlidesExcBranchSlides();
+				numOfSlidesIncBranch = recipe.getNumberOfSlidesIncBranchSlides();
+			
+				// Set first & last slideIDs
+				firstSlideID  = 0;
+				lastSlideID = (numOfSlidesExcBranch - 1);
 
-//			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
-//			reader = filepathHandler.updateFilepaths(reader);
-			
-			// If there's no error with the recipe then grab it from the parser
-			recipe = reader.getRecipe();
-			
-			// Scale the recipe for user resolution
-			RecipeScale recipeScale = new RecipeScale();
-			recipe = recipeScale.scaleRecipe(recipe);
-			
-			// Get the total number of slides
-			numOfSlidesExcBranch = recipe.getNumberOfSlidesExcBranchSlides();
-			numOfSlidesIncBranch = recipe.getNumberOfSlidesIncBranchSlides();
-			
-			// Set first & last slideIDs
-			firstSlideID  = 0;
-			lastSlideID = (numOfSlidesExcBranch - 1);
+				logger.log(Level.INFO, "Starting slideshow with slide index 0");
+				// set fullscreen here to ensure that the stage and scene bounds are the 
+				//	maximum possible when new slide is called
+				stage.setFullScreen(true);
+				stage.setFullScreenExitHint("Press ESC to return to the main menu.");
+				newSlide(0, false, null);
 
-			logger.log(Level.INFO, "Starting slideshow with slide index 0");
-			// set fullscreen here to ensure that the stage and scene bounds are the 
-			//	maximum possible when new slide is called
-			stage.setFullScreen(true);
-			stage.setFullScreenExitHint("Press ESC to return to the main menu.");
-			newSlide(0, false, null);
-			
-			backGroundColor = recipe.getDefaults().getBackgroundColor();
-			// Set the colour of the slide
-			slideScene.setFill(Color.web(backGroundColor));
-			// get started
-	    	stage.show();
+				backGroundColor = recipe.getDefaults().getBackgroundColor();
+				// Set the colour of the slide
+				slideScene.setFill(Color.web(backGroundColor));
+				// get started
+				stage.show();
+			}
 		}
 	}
 	
