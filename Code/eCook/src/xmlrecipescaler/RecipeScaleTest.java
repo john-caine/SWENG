@@ -2,7 +2,7 @@ package xmlrecipescaler;
 /* Title: RecipeScaler
  * 
  * Programmers: James, Prakruti
- * 
+ *   P. Mathema my contribution was only on the last section on AbsoluteValue Testing.
  * Date Created: 22/05/14
  * 
  * Description: Test class for RecipeScale class
@@ -10,6 +10,7 @@ package xmlrecipescaler;
  * Version History: v0.1 (22/05/14) - Wrote tests
  * 					v1.0 (25/05/14)	- Re-factoring of code
  */
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
