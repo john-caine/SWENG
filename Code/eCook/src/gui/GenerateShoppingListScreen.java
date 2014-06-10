@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra & James Oatley
  * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */

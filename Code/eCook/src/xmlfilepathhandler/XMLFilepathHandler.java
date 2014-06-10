@@ -249,7 +249,7 @@ public class XMLFilepathHandler {
 				}
 				// If the media file exists online it is hopefully OK so re-return the online address
 				if (!broken) {
-					mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
+					// mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
 					// System.out.println("Not broken online: " + mediaAddress);
 					return mediaAddress;
 				}

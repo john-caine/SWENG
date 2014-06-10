@@ -1,5 +1,5 @@
 /*
- * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra & Roger Tan
+ * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra, Roger Tan and James Oatley
  * Date Created: 14/03/2014
  * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
  * 

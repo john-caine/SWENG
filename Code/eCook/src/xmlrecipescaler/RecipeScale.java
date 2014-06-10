@@ -18,6 +18,7 @@ import xmlparser.Recipe;
  * 					v1.0 (25/05/14)	- Major bug fixes and re-factoring of code
  * 					v1.1 (07/06/14) - Mathematical bug found and fixed, background "stretch" applied
  */
+
 public class RecipeScale {
 	// Holding variables
 	private double tempX;
@@ -40,12 +41,23 @@ public class RecipeScale {
 		test = false;
 	}
 	
+	/*
+	 * Testing method: Used to overwrite the resolution fetching to test the maths
+	 * Inputs: Integer x, Integer y
+	 * Returns: void
+	 */
 	public void setTest(Integer x, Integer y) {
 		test = true;
 		userWidth = x;
 		userHeight = y;
 	}
-
+	
+	/*
+	 * Scaling method:
+	 * Scales Recipe elements to user screen size
+	 * Inputs: Recipe recipe
+	 * Return: void
+	 */
 	public Recipe scaleRecipe(Recipe recipe) {
 		if (!test) {
 			// Figure out user screen size values
@@ -79,7 +91,8 @@ public class RecipeScale {
 	/*
 	 * Scaling method:
 	 * Scales Recipe elements to user screen size
-	 * - James and Pakruti
+	 * Inputs: Recipe recipe
+	 * Return: void
 	 */
 	private void scaleRecipeElements(Recipe recipe) {
 		// Loop through each slide in turn
