@@ -149,46 +149,35 @@ public class RecipeScaleTest {
 	}
 	/*
 	 *	
-	 *	The automatic tests will only check for changes in
-	 *	x,y,width,height and fontSize values. To fully understand
-	 *	if scaling is functioning correctly open up the PWS
-	 *	slideshow 3. All elements should appear on screen under
-	 *	any resolution.
+	 *	Finally do an in-depth test for absolute values.
+	 *	Use hand calculated expected values for scaling
+	 *	and compare them to the output from the recipe scaler.
 	 *
 	 */
 	@Test
 	public void absoluteValueTest() {
 		Integer actualX, actualY, actualWidth, actualHeight;
-		
 		// Return the current recipe
 		recipe = reader.getRecipe();
-		
 		// Set a test resolution of 1440*900
 		recipeScale.setTest(1440, 900);
-		
 		// run the scaler
 		recipe = recipeScale.scaleRecipe(recipe);
-		
 		// Get values from objects
 		testX = recipe.getSlide(3).getContent().getImages().get(0).getXStart();
 		testY = recipe.getSlide(3).getContent().getImages().get(0).getYStart();
 		testWidth = recipe.getSlide(3).getContent().getImages().get(0).getWidth();
 		testHeight = recipe.getSlide(3).getContent().getImages().get(0).getHeight();
-		
 		// Manually calculated values scaled accordingly
-		actualX =  10;
+		actualX =  9;
 		actualY =  54;
 		actualWidth = 460;
 		actualHeight = 345;
-		
 		// Assertions - do object values match manually calculated ones?
 		assertEquals(testX, actualX, 0);
 		assertEquals(testY, actualY, 0);
 		assertEquals(testWidth, actualWidth, 0);
 		assertEquals(testHeight, actualHeight, 0);	
-		
-		
 	}
-	
 }
 	
