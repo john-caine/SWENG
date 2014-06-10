@@ -1,7 +1,7 @@
 package eCook;
 /* Title: SlideControls
  * 
- * Programmers: Max, Ankita
+ * Programmers: Max, Ankita, Steve Thorpe and Paul Mathema.
  * 
  * Date Created: 09/05/14
  * 
