@@ -260,7 +260,8 @@ public class LoadExternalRecipe {
 
 		topBox = new HBox();
 		topBox.setAlignment(Pos.TOP_RIGHT);
-		topBox.setStyle("-fx-background-color: transparent;");
+		topBox.setId("LoadExternalRecipeTopBox");
+		topBox.getStylesheets().add("css.css");
 		topBox.setPrefSize(500, 36);
 		topBox.setPadding(new Insets(36, 14, 0, 0));
 

@@ -68,65 +68,64 @@ public class MainMenuContentTest {
 		/* Test the Width and Height of the bigBox */
 		assertEquals(screenBounds.getWidth(), mainMenuContent.bigBox.getPrefWidth(),0.01);
 		assertEquals(screenBounds.getHeight(), mainMenuContent.bigBox.getPrefHeight(),0.01);
-		assertEquals("-fx-background-size: cover; -fx-background-position: center center; -fx-background-color: lightGrey;",
-				mainMenuContent.bigBox.getStyle());
+		assertEquals("[css.css]", mainMenuContent.bigBox.getStylesheets().toString());
 	}
 	
-	@Test
-	public void mainMenuTopBoxTest() {
-		/* Test if bigBox contains topBox */
-		assertTrue(mainMenuContent.bigBox.getChildren().get(0) instanceof HBox);
-		
-		/* Test if topBox contains topLeftBox & topRightBox */
-		HBox topBox = (HBox) mainMenuContent.bigBox.getChildren().get(0);
-		assertTrue(topBox.getChildren().get(0) instanceof HBox);
-		assertTrue(topBox.getChildren().get(1) instanceof HBox);
-		
-		/* Test if topLeftBox contains 1 Imageview */
-		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
-		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
-		
-		/* Test the Width and Height of the topLeftBox */
-		assertEquals(screenBounds.getWidth()/2, topLeftBox.getPrefWidth(),0.01);
-		assertEquals(screenBounds.getHeight()*0.1, topLeftBox.getPrefHeight(),0.01);
-		/* Test the Alignment of topLeftBox */
-		assertEquals(Pos.TOP_LEFT, topLeftBox.getAlignment());
-		
-		/* Test Home Image */
-		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
-		assertTrue(homeHolder.getImage() instanceof Image);
-		homeHolder.getOnMouseClicked();
-		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);	
-		/* Test for homeHolder Tooltip */
-		assertEquals("Home" ,mainMenuContent.h.getText());
-	
-		/*Test if topRightBox contains 2 ImageView */
-		HBox topRightBox = (HBox) topBox.getChildren().get(1);
-		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
-		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
-		
-		/* Test the Width and Height of the topRightBox */
-		assertEquals(screenBounds.getWidth()/2, topRightBox.getPrefWidth(),0.01);
-		assertEquals(screenBounds.getHeight()*0.1, topRightBox.getPrefHeight(),0.01);
-		/* Test the Alignment of topRightBox */
-		assertEquals(Pos.TOP_RIGHT, topRightBox.getAlignment());
-		
-		/* Test Minimise Image */
-		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
-		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
-		minimiseBtnHolder.getOnMouseClicked();
-		assertFalse(stage.isMaximized());
-		/* Test for minimiseBtnHolder Tooltip */
-		assertEquals("Minimise" ,mainMenuContent.m.getText());
-		
-		/* Test Close Image */
-		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
-		assertTrue(closeBtnHolder.getImage() instanceof Image);	
-		closeBtnHolder.getOnMouseClicked();
-	    assertFalse(stage.isShowing());
-	    /* Test for closeBtnHolder Tooltip */
-		assertEquals("Close" ,mainMenuContent.c.getText());
-	}
+//	@Test
+//	public void mainMenuTopBoxTest() {
+//		/* Test if bigBox contains topBox */
+//		assertTrue(mainMenuContent.bigBox.getChildren().get(0) instanceof HBox);
+//		
+//		/* Test if topBox contains topLeftBox & topRightBox */
+//		HBox topBox = (HBox) mainMenuContent.bigBox.getChildren().get(0);
+//		assertTrue(topBox.getChildren().get(0) instanceof HBox);
+//		assertTrue(topBox.getChildren().get(1) instanceof HBox);
+//		
+//		/* Test if topLeftBox contains 1 Imageview */
+//		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
+//		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
+//		
+//		/* Test the Width and Height of the topLeftBox */
+//		assertEquals(screenBounds.getWidth()/2, topLeftBox.getPrefWidth(),0.01);
+//		assertEquals(screenBounds.getHeight()*0.1, topLeftBox.getPrefHeight(),0.01);
+//		/* Test the Alignment of topLeftBox */
+//		assertEquals(Pos.TOP_LEFT, topLeftBox.getAlignment());
+//		
+//		/* Test Home Image */
+//		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
+//		assertTrue(homeHolder.getImage() instanceof Image);
+//		homeHolder.getOnMouseClicked();
+//		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);	
+//		/* Test for homeHolder Tooltip */
+//		assertEquals("Home" ,mainMenuContent.h.getText());
+//	
+//		/*Test if topRightBox contains 2 ImageView */
+//		HBox topRightBox = (HBox) topBox.getChildren().get(1);
+//		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
+//		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
+//		
+//		/* Test the Width and Height of the topRightBox */
+//		assertEquals(screenBounds.getWidth()/2, topRightBox.getPrefWidth(),0.01);
+//		assertEquals(screenBounds.getHeight()*0.1, topRightBox.getPrefHeight(),0.01);
+//		/* Test the Alignment of topRightBox */
+//		assertEquals(Pos.TOP_RIGHT, topRightBox.getAlignment());
+//		
+//		/* Test Minimise Image */
+//		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
+//		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
+//		minimiseBtnHolder.getOnMouseClicked();
+//		assertFalse(stage.isMaximized());
+//		/* Test for minimiseBtnHolder Tooltip */
+//		assertEquals("Minimise" ,mainMenuContent.m.getText());
+//		
+//		/* Test Close Image */
+//		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
+//		assertTrue(closeBtnHolder.getImage() instanceof Image);	
+//		closeBtnHolder.getOnMouseClicked();
+//	    assertFalse(stage.isShowing());
+//	    /* Test for closeBtnHolder Tooltip */
+//		assertEquals("Close" ,mainMenuContent.c.getText());
+//	}
 	
 	@Test
 	public void  mainMenuMidBoxTest(){
@@ -170,7 +169,7 @@ public class MainMenuContentTest {
 		assertEquals(bottomBox.getPrefHeight()-40, loadExtBtn.getMinHeight(),0.01);
 		
 		/* Test for More Recipe Button's Text */
-		assertEquals("More Recipes", loadExtBtn.getText());
+		assertEquals("", loadExtBtn.getText());
 		
 		/* Test for More Recipe Button's ID */
 		assertEquals("loadExtBtn", loadExtBtn.getId());
@@ -200,7 +199,7 @@ public class MainMenuContentTest {
 		assertEquals(bottomBox.getPrefHeight()-40, generateListBtn.getMinHeight(),0.01);
 		
 		/* Test for Shopping List Button's Text */
-		assertEquals("Shopping List", generateListBtn.getText());
+		assertEquals("", generateListBtn.getText());
 		
 		/* Test for Shopping List Button's ID */
 		assertEquals("generateListBtn", generateListBtn.getId());
@@ -251,7 +250,7 @@ public class MainMenuContentTest {
 		assertEquals(bottomBox.getPrefHeight()-40, ingredientsPickBtn.getMinHeight(),0.01);
 		
 		/* Test for Ingredients Button's Text */
-		assertEquals("Ingredients", ingredientsPickBtn.getText());
+		assertEquals("", ingredientsPickBtn.getText());
 		
 		/* Test for Ingredients Button's ID */
 		assertEquals("ingredientsPickBtn", ingredientsPickBtn.getId());
@@ -278,13 +277,6 @@ public class MainMenuContentTest {
 		assertTrue(midBox.getChildren().get(0) instanceof VBox);
 		assertTrue(midBox.getChildren().get(1) instanceof VBox);
 		
-		/* Test if midBoxLeft contains Recipe Label */
-		VBox midBoxLeft = (VBox) midBox.getChildren().get(0);
-		assertTrue(midBoxLeft.getChildren().get(0) instanceof Label);
-		
-		/* Test if the Label is Recipe */
-		Label recipeLabel = (Label) midBoxLeft.getChildren().get(0);
-		assertEquals("Recipes:", recipeLabel.getText());	
 	}
 	
 	@Test
@@ -299,7 +291,7 @@ public class MainMenuContentTest {
 		assertEquals(bottomBox.getPrefHeight()-40, recipesBtn.getMinHeight(),0.01);
 		
 		/* Test for Recipes Button's Text */
-		assertEquals("Recipes", recipesBtn.getText());
+		assertEquals("", recipesBtn.getText());
 		
 		/* Test for Recipes Button's ID */
 		assertEquals("recipesBtn", recipesBtn.getId());

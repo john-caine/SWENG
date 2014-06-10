@@ -65,10 +65,11 @@ public class LoadExternalRecipeTest {
 		
 		/* Test if topBox contains ImageView */
 		HBox topBox =  (HBox)loadExtBox.getChildren().get(0);
-		assertTrue(topBox.getChildren().get(0) instanceof ImageView);
+		ImageView loadExtWinCloseBtnHolder = (ImageView) topBox.getChildren().get(1);
+		assertTrue(topBox.getChildren().get(1) instanceof ImageView);
 		
 		/* Test for Close Image */
-		ImageView loadExtWinCloseBtnHolder = (ImageView) topBox.getChildren().get(0);
+	
 		assertTrue(loadExtWinCloseBtnHolder.getImage() instanceof Image);
 		
 		
@@ -79,16 +80,16 @@ public class LoadExternalRecipeTest {
 		HBox midBox =  (HBox)loadExtBox.getChildren().get(1);
 		assertTrue(midBox.getChildren().get(0) instanceof Button);
 		
-		Button urlBtn = (Button) midBox.getChildren().get(0);
+		Button downloadBtn = (Button) midBox.getChildren().get(0);
 		
 		/* Test for HTTP Button's Text */
-		assertEquals("Download Recipes from eCook Store", urlBtn.getText());
+		assertEquals("", downloadBtn.getText());
 		
 		/* Test for HTTP Button's ID */
-		assertEquals("urlBtn", urlBtn.getId());
+		assertEquals("urlBtn", downloadBtn.getId());
 		
 		/* Test if HTTP Button's style is from css.css */
-		assertEquals("[css.css]", urlBtn.getStylesheets().toString());
+		assertEquals("[css.css]", downloadBtn.getStylesheets().toString());
 		
 		/* Test if topBox contains File Browser Button */
 		assertTrue(midBox.getChildren().get(1) instanceof Button);
@@ -96,7 +97,7 @@ public class LoadExternalRecipeTest {
 		Button fileBrowserBtn = (Button) midBox.getChildren().get(1);
 		
 		/* Test for HTTP Button's Text */
-		assertEquals("Get Recipe from Local Directory", fileBrowserBtn.getText());
+		assertEquals("", fileBrowserBtn.getText());
 		
 		/* Test for HTTP Button's ID */
 		assertEquals("fileBrowserBtn", fileBrowserBtn.getId());
