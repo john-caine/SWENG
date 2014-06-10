@@ -283,10 +283,12 @@ public class LoadExternalRecipe {
 		// Adds buttons to midBox and aligns to middle
 		midBox.getChildren().addAll(downloadBtn, fileBrowserBtn);
 		midBox.setAlignment(Pos.CENTER);
-		midBox.setStyle("-fx-background-color: transparent;");
+		midBox.setId("LoadExternalRecipeMidBox");
+		midBox.getStylesheets().add("css.css");
 
 		loadExtBox = new VBox(20);
-		loadExtBox.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+		loadExtBox.setId("LoadExteralRecipeLoadExtBox");
+		loadExtBox.getStylesheets().add("css.css");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 		
 

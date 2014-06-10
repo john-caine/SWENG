@@ -49,7 +49,8 @@ public class MainMenuContent extends menu{
 		//bigBox height, width and background
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('background.png');");
+		bigBox.setId("MainMenuContentBigBox");
+		//bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('background.png');");
 
 		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);

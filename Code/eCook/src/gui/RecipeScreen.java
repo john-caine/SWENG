@@ -46,7 +46,8 @@ public class RecipeScreen extends menu{
 		
 		//Get bigBox and set background image
 		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		bigBox.setId("RecipeScreenBigBox");
+		bigBox.getStylesheets().add("css.css");
 
 		//Define leftBox, rightBox and midBox
 		VBox leftBox = new VBox();
@@ -77,12 +78,12 @@ public class RecipeScreen extends menu{
 			// Set up buttons
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
-			downloadButtons[i].setId(Integer.toString(i));
-			downloadButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
+			downloadButtons[i].setId("downloadButtons");
+			downloadButtons[i].getStylesheets().add("css.css");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
-			playButtons[i].setId("p" + i);
-			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
+			playButtons[i].setId("playButtons");
+			playButtons[i].getStylesheets().add("css.css");
 			
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));

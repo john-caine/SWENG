@@ -50,7 +50,8 @@ public class GenerateShoppingListScreen  extends menu{
 		
 		//Get bigBox and set background for it
 		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		bigBox.setId("GenerateShoppingListBigBox");
+		bigBox.getStylesheets().add("css.css");
 		
 		//Define a VBox for leftBox
 		VBox leftBox = new VBox();
@@ -64,11 +65,8 @@ public class GenerateShoppingListScreen  extends menu{
 		
 		// Set the background of the shopping list to a shopping list image
 		midBox.setPadding(new Insets(50, 50, 150, 150));
-		midBox.setStyle("-fx-background-color: transparent;"
-				+ "-fx-background-image: url('shoppingListImage.png');"
-				+ "-fx-background-position: center center;"
-				+ "-fx-background-size: contain;"
-				+ "-fx-background-repeat: repeat-y;");
+		midBox.setId("GenerateShoppingListMidBox");
+		midBox.getStylesheets().add("css.css");
 		
 		// create a scroll box for the shopping list display
 		// create VBox for the list	
@@ -85,7 +83,6 @@ public class GenerateShoppingListScreen  extends menu{
 		
 		//set the scrollpane's desgin
 		scrollPane.setId("scrollPane");
-		//shoppingListBox.setStyle("-fx-background-color: transparent;");
 		scrollPane.getStylesheets().add("css.css");
 		
 		// set up the new item field
