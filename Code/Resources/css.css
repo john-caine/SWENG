@@ -716,3 +716,73 @@
 	-fx-border-color: black;
 	-fx-background-color: grey;
 }
+
+
+#MainMenuContentBigBox {
+	-fx-background-size: cover; 
+	-fx-background-position: center center; 
+	-fx-background-image: url('background.png');	
+}
+
+#GenerateShoppingListBigBox {
+	-fx-background-size: cover; 
+	-fx-background-position: center center; 
+	-fx-background-image: url('backgroundBlur.png');
+}
+
+#GenerateShoppingListMidBox {
+	-fx-background-color: transparent;
+	-fx-background-image: url('shoppingListImage.png');
+	-fx-background-position: center center;
+	-fx-background-size: contain;
+	-fx-background-repeat: repeat-y;
+}
+
+#IngredientsScreenMidBoxLeft {
+	-fx-background-color: transparent;
+	-fx-background-image: url('half_book.png');
+	-fx-background-position: center center;
+	-fx-background-size: stretch;	
+}
+
+#LoadExteralRecipeLoadExtBox {
+	-fx-background-color: transparent;
+	-fx-background-image: url('fullBackground.png');
+	-fx-background-position: center center;
+	-fx-background-size: stretch; 
+	-fx-background-repeat: no-repeat;
+}
+
+
+#LoadExternalRecipeMidBox {
+	-fx-background-color: transparent;
+}
+
+#RecipeScreenBigBox {
+	-fx-background-size: cover; 
+	-fx-background-position: center center; 
+	-fx-background-image: url('backgroundBlur.png');
+}
+
+
+#downloadButtons {
+	-fx-background-color: rgba(0,0,0,0.04); 
+ 	-fx-font-size: 20px; 
+	-fx-text-fill:    #000000; 
+	-fx-font-family: 'Buxton Sketch';	
+}
+
+#downloadButtons:hover {
+	-fx-opacity: 0.5;
+}
+
+#playButtons {
+	-fx-background-color: rgba(0,0,0,0.04); 
+ 	-fx-font-size: 20px; 
+	-fx-text-fill:    #000000; 
+	-fx-font-family: 'Buxton Sketch';	
+}
+
+#playButtons:hover {
+	-fx-opacity: 0.5;
+}

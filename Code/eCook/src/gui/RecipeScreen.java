@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan & Ankita Gangotra
+ * Programmer: Zayyad Tagwai, Roger Tan, Ankita Gangotra and James Oatley
  * Date Created: 05/05/2014
  * Adds components of the recipe screen to the bigBox window
  */
@@ -45,8 +45,9 @@ public class RecipeScreen extends menu{
 		super (recipeCollection);
 		
 		//Get bigBox and set background image
-		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		//this.bigBox = bigBox;
+		bigBox.setId("RecipeScreenBigBox");
+		bigBox.getStylesheets().add("css.css");
 
 		//Define leftBox, rightBox and midBox
 		VBox leftBox = new VBox();
@@ -58,14 +59,14 @@ public class RecipeScreen extends menu{
 		midBox.setPrefSize(width*0.6, height - topBox.getPrefHeight()-100);
 		midBox.setPadding(new Insets(40,0,10,0));
 		rightBox.setPrefSize(width*0.2, height - topBox.getPrefHeight()-100);
-
-		// Create an ArrayList of Recipe Titles
-		// create an ArrayList of HBoxes to use to display text and buttons
-		// create lists of buttons to use
+		
+		// Ask James and Max about the following!
+		// Arrays of download and play buttons for each of the recipes
 		downloadButtons = new Button[recipeCollection.getNumberOfRecipes()];
 		playButtons = new Button[recipeCollection.getNumberOfRecipes()];
 		final ArrayList<HBox> recipeRows = new ArrayList<HBox>();
 		ArrayList<String> recipeTitles = new ArrayList<String>();
+		// Loop through and initialise all of the download and play buttons to the desired settings (for each recipe in defaultRecipes)
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
 			// Get recipe title String and set up HBox
 			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
@@ -73,31 +74,46 @@ public class RecipeScreen extends menu{
 			row.setId("r" + i);
 			row.setPrefWidth(rightBox.getPrefWidth()-10);
 			row.setAlignment(Pos.CENTER_LEFT);
+
+			// Set up default button parameters
+
 			
 			// Set up buttons
+
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
-			downloadButtons[i].setId(Integer.toString(i));
-			downloadButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
+			downloadButtons[i].setId("downloadButtons");
+			downloadButtons[i].getStylesheets().add("css.css");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
-			playButtons[i].setId("p" + i);
-			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
+
+			playButtons[i].setId("playButtons");
+			playButtons[i].getStylesheets().add("css.css");
+
+			// Put some tooltips on the buttons
+			downloadButtons[i].setTooltip(new Tooltip("Downloads online content for this recipe"));
+			playButtons[i].setTooltip(new Tooltip("Opens the selected recipe"));
+			// Download button requires a thread on action, methods within the thread will be run in the background
+
 			
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 			
 			// Configure the buttons
+
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {
-					// Set button state to downloading
+					// Get the ID of the button pressed
 					currentDownloadButton = (Button) event.getSource();
+					// Update the button to say its downloading
 					updateButtonLabels(Integer.parseInt(currentDownloadButton.getId()), downloading);
+					// Create a new thread to run the download on
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
+							// Loop through the recipe and download content from all of the links
 							XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
 							recipeCollection.getRecipe(Integer.parseInt(currentDownloadButton.getId())).setDownloading(true);
 							filepathHandler.downloadRecipeMedia(recipeCollection.getRecipe(Integer.parseInt(currentDownloadButton.getId())));

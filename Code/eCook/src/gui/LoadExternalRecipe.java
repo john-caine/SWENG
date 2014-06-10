@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra and James Oatley
+=======
  * Programmer: Zayyad Tagwai & Prakruti Sinha, Roger Tan,  Max Holland & Ankita Gangotra
+>>>>>>> origin/master
  * Date Created: 26/05/2014
  * A small window pops up to enable to user to choose between Http or File Browser for Recipe
  * Re-factored by James on 03/06/2014
@@ -14,7 +18,7 @@ import java.nio.file.StandardCopyOption;
 
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
-import filebrowser.FileHandler;
+import filebrowser.FileBrowser;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import xmlvalidation.XMLValidator;
@@ -46,7 +50,7 @@ import javafx.beans.value.ObservableValue;
 public class LoadExternalRecipe {
 
 	public Stage dialog;
-	private FileHandler fileHandler;
+	private FileBrowser fileBrowser;
 	private Label statusBar;
 	private Stage popup;
 	private TextField httpField;
@@ -109,11 +113,11 @@ public class LoadExternalRecipe {
 		fileBrowserBtn.setWrapText(true);
 		fileBrowserBtn.setAlignment(Pos.CENTER);
 		fileBrowserBtn.setTextAlignment(TextAlignment.CENTER);
-		fileHandler = new FileHandler();
+		fileBrowser = new FileBrowser();
 		// call the file handler to get a local XML file
 		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				String filepath = fileHandler.openFile(dialog);
+				String filepath = fileBrowser.openFile(dialog);
 				// if the filepath points to a vaild XML file, copy to the
 				// defaults folder
 				if (filepath != null) {
@@ -256,7 +260,8 @@ public class LoadExternalRecipe {
 
 		topBox = new HBox();
 		topBox.setAlignment(Pos.TOP_RIGHT);
-		topBox.setStyle("-fx-background-color: transparent;");
+		topBox.setId("LoadExternalRecipeTopBox");
+		topBox.getStylesheets().add("css.css");
 		topBox.setPrefSize(500, 36);
 		topBox.setPadding(new Insets(36, 14, 0, 0));
 
@@ -282,10 +287,12 @@ public class LoadExternalRecipe {
 		// Adds buttons to midBox and aligns to middle
 		midBox.getChildren().addAll(downloadBtn, fileBrowserBtn);
 		midBox.setAlignment(Pos.CENTER);
-		midBox.setStyle("-fx-background-color: transparent;");
+		midBox.setId("LoadExternalRecipeMidBox");
+		midBox.getStylesheets().add("css.css");
 
 		loadExtBox = new VBox(20);
-		loadExtBox.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
+		loadExtBox.setId("LoadExteralRecipeLoadExtBox");
+		loadExtBox.getStylesheets().add("css.css");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 
 

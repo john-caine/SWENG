@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra and James Oatley
  * Date Created: 06/05/2014
  * Adds components of the recipe screen to the bigBox window
  */
@@ -43,10 +43,13 @@ public class IngredientsScreen extends menu {
 
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
+		//Get bigBox and set background
 
-		//Get bigBox and set barckground
+		//Get bigBox and set background
+
 		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		bigBox.setId("IngredientsScreenBigBox");
+		bigBox.getStylesheets().add("css.css");
 		this.height = height;
 		this.width = width;
 
@@ -58,10 +61,8 @@ public class IngredientsScreen extends menu {
 		midBox.setPadding(new Insets(10, 20, 10, 20));
 		midBoxLeft.setPrefSize(width / 3, height - 100);
 		midBoxLeft.setPadding(new Insets(60, 60, 60, 60));
-		midBoxLeft.setStyle("-fx-background-color: transparent;"
-				+ "-fx-background-image: url('half_book.png');"
-				+ "-fx-background-position: center center;"
-				+ "-fx-background-size: stretch;");
+		midBoxLeft.setId("IngredientsScreenMidBoxLeft");
+		midBoxLeft.getStylesheets().add("css.css");
 		midBoxRight.setPrefSize(width * 2 / 3, height - 100);
 
 		// Create an ArrayList of Recipe Titles

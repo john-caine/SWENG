@@ -29,7 +29,9 @@ public class ShoppingList {
 		return shoppingList.size();
 	}
 	
-	// method to add item to shopping list
+	/*
+	 * Adds the string 
+	 */
 	public void addItem(String item) {
 		if (item != null | !item.equals("")) {
 			if (!shoppingList.contains(item)) {
@@ -42,7 +44,9 @@ public class ShoppingList {
 		saveToTextFile();
 	}
 	
-	// method to remove an item from the shopping list
+	/*
+	 *  method to remove an item from the shopping list
+	 */
 	public void removeItem(String itemName) {
 		if (itemName != null | !itemName.equals("")) {
 			if (shoppingList.contains(itemName)) {
