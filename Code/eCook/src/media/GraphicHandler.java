@@ -1,6 +1,7 @@
 package media;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
@@ -9,13 +10,32 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import xmlparser.Point;
 import eCook.SlideShow;
+import eCook.eCook;
 
 public class GraphicHandler extends SubSlideMedia{
 
+	private Logger logger;
+
+	/*
+	 * Graphics Handler Constructor
+	 * @Param parent: The slideshow class which has called the constructor
+	 * @Param totalPoints: Total of number of points in the shape 
+	 * @Param width: The width of the shape
+	 * @Param height: The height of the shape
+	 * @Param startTime: The time the shape is to appear on the slide
+	 * @Param duration: The time to shape is to disappear from the slide
+	 * @Param fillColour: The colour of shape
+	 * @Param lineColour: The colour of the outline of the shape
+	 * @Param branchID: The branch ID of the object
+	 * @Param points: A list of the points in the shape
+	 */
+	
 	public GraphicHandler(SlideShow parent, int totalPoints, int width, int height, Integer startTime, Integer duration,
 							String fillColour, String lineColour, Integer branchID, List<Point> points) {
 		super(parent, 0, 0, startTime, duration, branchID, null);
 		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 		//Get the size of the screen
 		Rectangle2D bounds = Screen.getPrimary().getBounds();
 		

@@ -1,5 +1,5 @@
 /*
- * Programmer: Max
+ * Programmer: Max , Paul.
  * Date Created: 03/06/2014
  * Description: Unit tests for shopping list class.
  */
@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ShoppingListTest {
-	ShoppingList shoppingList;
-	
 	/* Automated Tests */
 	
 	// check that the information in the current shoppingList.txt file is read correctly
@@ -36,21 +36,67 @@ public class ShoppingListTest {
 		testList.add(line5);
 		testList.add(line6);
 
-		shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList();
+		
+		shoppingList.addItem(line1);
+		shoppingList.addItem(line2);
+		shoppingList.addItem(line3);
+		shoppingList.addItem(line4);
+		shoppingList.addItem(line5);
+		shoppingList.addItem(line6);
+		
 		assertEquals(testList, shoppingList.shoppingList);
 	}
+	
+	//execute only once, in the starting 
+	   @BeforeClass
+	   public static void beforeClass() {
+		  ShoppingList shoppingList = new ShoppingList();
+		  ArrayList<String> testList = new ArrayList<String>();
+		  
+		  // Check if there is anything currently in the shopping list
+		  if (shoppingList.getNumberOfItems() > 0) {
+			  // Get the contents of the shopping list
+			  testList = shoppingList.readFromTextFile();
+			  
+			  // Remove all the items from the shopping list
+			  shoppingList.removeItems(testList);
+		  }
+	      
+		  System.out.println("in before class");
+	   }
+
+	   //execute only once, in the end
+	   @AfterClass
+	   public static void afterClass() {
+			  ShoppingList shoppingList = new ShoppingList();
+			  ArrayList<String> testList = new ArrayList<String>();
+			  
+			  // Check if there is anything currently in the shopping list
+			  if (shoppingList.getNumberOfItems() > 0) {
+				  // Get the contents of the shopping list
+				  testList = shoppingList.readFromTextFile();
+				  
+				  // Remove all the items from the shopping list
+				  shoppingList.removeItems(testList);
+			  }
+		   
+		   System.out.println("in after class");
+	   }
+	
+	
 	
 	// check that the number of items in the list is correct
 	@Test
 	public void correctNumberOfItemsInList() {
-		shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList();
 		assertEquals(6, shoppingList.getNumberOfItems());
 	}
 	
 	// check that adding an item works correctly
 	@Test
 	public void itemAddedCorrectlyAppearsInList() {
-		shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList();
 		shoppingList.addItem("custard creams");
 		assertTrue(shoppingList.shoppingList.contains("custard creams"));
 		// if the test passes, remove the item from the list to avoid upsetting the other tests
@@ -60,7 +106,7 @@ public class ShoppingListTest {
 	// check that removing an item works correctly
 	@Test
 	public void itemRemovedCorrectlyDisappearsFromList() {
-		shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList();
 		shoppingList.removeItem("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out");
 		assertFalse(shoppingList.shoppingList.contains("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out"));
 		// if the test passes, add the item back to the list to avoid upsetting the other tests
@@ -70,7 +116,7 @@ public class ShoppingListTest {
 	// check that removing several item works correctly
 	@Test
 	public void itemsRemovedCorrectlyDisappearFromList() {
-		shoppingList = new ShoppingList();
+		ShoppingList shoppingList = new ShoppingList();
 		List<String> itemsToRemove = new ArrayList<String>();
 		itemsToRemove.add("just lots of lemons please");
 		itemsToRemove.add("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out");

@@ -1,6 +1,6 @@
 /* Title: SlideControlsTest
  * 
- * Programmers: Max
+ * Programmers: Max & Ankita
  * 
  * Date Created: 04/06/14
  * 
@@ -38,7 +38,7 @@ public class SlideControlsTest {
 	// This test class contains visual and automated tests.
 	// The results of such testing is documented below.
 	
-	//!!	THIS TEST CLASS DOES NOT COVER BUTTON FUNCTIONALITY, THAT IS TESTED IN THE SLIDESHOW CLASS
+	// THIS TEST CLASS DOES NOT COVER BUTTON FUNCTIONALITY, THAT IS TESTED IN THE SLIDESHOW CLASS
 		
 	/* Visual Tests */
 
@@ -46,7 +46,7 @@ public class SlideControlsTest {
 	public void controlsPanelDisplayedWhenMouseMovedToBottom() {
 		System.out.println("Testing if controls panel is displayed when mouse is moved to bottom of screen...");
 		System.out.println("Mouse moved to bottom of screen, waiting 2 seconds");
-		System.out.println("controls panel displayed correctly.\n");
+		System.out.println("Controls panel displayed correctly.\n");
 	}
 	
 	@Test
@@ -54,14 +54,21 @@ public class SlideControlsTest {
 		System.out.println("Testing if controls panel shows all buttons correctly...");
 		System.out.println("Mouse moved to bottom of screen, waiting 2 seconds");
 		System.out.println("controls panel displayed correctly.");
-		System.out.println("controls panel shows all buttons correctly in the panel.\n");
+		System.out.println("Controls panel shows all buttons correctly in the panel.\n");
 	}
 	
 	@Test
 	public void controlsPanelDisappearsOnMouseout() {
 		System.out.println("Testing if controls panel is hidden correctly when mouse is moved out of the panel...");
 		System.out.println("Mouse moved to centre of screen, waiting 2 seconds");
-		System.out.println("controls panel hidden correctly.");
+		System.out.println("Controls panel hidden correctly.\n");
+	}
+	
+	@Test 
+	public void toolTipsShowCorrectly(){
+		System.out.println("Testing if tooltips apper when mouse is on a button....");
+		System.out.println("Mouse moved to a button on control panel");
+		System.out.println("Tooltips appear correctly.\n");
 	}
 	
 	/* Automated Tests */
@@ -74,13 +81,11 @@ public class SlideControlsTest {
 		assertNotNull(slideControls.controlPanel);
 		assertNotNull(slideControls.buttons);
 		assertFalse(slideControls.controlPanel.getChildren().contains(slideControls.buttons));
-		//assertFalse(slideControls.controlPanelVisible);
 		
 		// and if notes panel was open previously:
 		SlideControls slideControls2 = new SlideControls(group, true, null);
 		assertNotNull(slideControls2.controlPanel);
 		assertNotNull(slideControls2.buttons);
 		assertFalse(slideControls2.controlPanel.getChildren().contains(slideControls.buttons));
-	//	assertTrue(slideControls2.controlPanelVisible);
 	}
 }

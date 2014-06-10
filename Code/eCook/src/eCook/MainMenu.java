@@ -1,13 +1,11 @@
 /*
- Programmers : Roger & Zayyad
+ Programmers : Roger, Zayyad, James and Ankita
  Date created: 27/2/2014
  Description: Create a Main Menu
 
  */
 package eCook;
 
-
-import java.io.File;
 
 import gui.MainMenuContent;
 import javafx.geometry.Rectangle2D;

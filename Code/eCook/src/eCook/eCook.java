@@ -7,6 +7,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import javafx.application.Application;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
 import javafx.stage.StageStyle;
+
 import org.apache.commons.io.*;
 
 public class eCook extends Application {
@@ -93,6 +95,7 @@ public class eCook extends Application {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		
+		/*
 		// Create a file handler for the logger and catch any exceptions
 		FileHandler handler = null;
 		try {
@@ -113,6 +116,7 @@ public class eCook extends Application {
 
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.INFO);
+		*/
 		
 		// Launch the JFx Application thread
 		Application.launch(args);

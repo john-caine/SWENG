@@ -24,6 +24,8 @@ public class XMLValidator {
 	
 	/*
 	 * Constructor reads in inputFile
+	 * Inputs: XMLReader
+	 * 
 	 */
 	public XMLValidator(XMLReader reader) {
 		broken = false;
@@ -49,6 +51,8 @@ public class XMLValidator {
 
 	/*
 	 * Searches content elements for missing PWS essential attributes
+	 * Inputs: XMLReader
+	 * Returns: Boolean
 	 */
 	private Boolean missingElementAttributes(XMLReader reader) {
 		// Loop through slides determining missing element attributes within them
@@ -110,6 +114,8 @@ public class XMLValidator {
 	
 	/*
 	 * Searches for missing fundamental slideshow elements
+	 * Inputs: XMLReader
+	 * Returns: Boolean
 	 */
 	private Boolean missingSlideshowElements(XMLReader reader) {
 		// See if info, defaults or slide have not been initialised
@@ -154,6 +160,7 @@ public class XMLValidator {
 
 	/*
 	 * Function to determine if XML file is broken
+	 * Returns: Boolean
 	 */
 	public boolean isXMLBroken() {
 		return broken;
@@ -161,6 +168,7 @@ public class XMLValidator {
 
 	/*
 	 * Function to return String containing error message
+	 * Returns: String
 	 */
 	public String getErrorMsg() {
 		return errorMsg;

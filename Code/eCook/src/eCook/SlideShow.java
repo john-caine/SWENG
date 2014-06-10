@@ -1,5 +1,5 @@
 /*
- * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra & Roger Tan
+ * Programmer: Steve Thorpe, Jonathan Caine, Ankita Gangotra, Roger Tan and James Oatley
  * Date Created: 14/03/2014
  * Description: Creates new slideshow and slides from a parsed XML player with logic for setting the layer of all content and for moving between slides
  * 
@@ -259,8 +259,8 @@ public class SlideShow {
 						ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
 														images.get(i).getYStart(), images.get(i).getWidth(),
 														images.get(i).getHeight(), images.get(i).getStartTime(), 
-														images.get(i).getDuration(), images.get(i).getLayer(), 
-														images.get(i).getBranch(), images.get(i).getOrientation());
+														images.get(i).getDuration(), images.get(i).getBranch(),
+														images.get(i).getOrientation());
 						imageHandlerList.add(image1);
 						subSlideMediaList.add(image1);
 						Integer imageLayer = images.get(i).getLayer();

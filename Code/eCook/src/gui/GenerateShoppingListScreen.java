@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
+ * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra & James Oatley
  * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -9,23 +9,17 @@ package gui;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
-
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
-import eCook.eCook;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -33,22 +27,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
-public class GenerateShoppingListScreen {
-	private InputStream inputStream;
-	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
-	private Image homeIcon, closeIcon, minimiseIcon;	
-	private HBox topBox, topBoxRight, topBoxLeft;
+public class GenerateShoppingListScreen  extends menu{
 	private Label statusBar;
 	private Button saveBtn, printBtn, editBtn, addBtn;
 	private VBox shoppingListBox;
@@ -61,79 +46,13 @@ public class GenerateShoppingListScreen {
 	private PDDocument pdf = null;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
+		super (recipeCollection);
+		
+		//Get bigBox and set background for it
 		this.bigBox = bigBox;
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
-		//Imports eCook logo, home, close and minimise button icons
-		homeHolder = new ImageView();
-		homeIcon = new Image("home1.png");
 		
-		closeBtnHolder = new ImageView();
-		closeIcon = new Image("redx.png");
-		
-		minimiseBtnHolder = new ImageView();
-		minimiseIcon = new Image("minimise.png");
-		
-		//Add tool tip
-		h = new Tooltip("Home");
-		Tooltip.install(homeHolder, h);
-		c = new Tooltip("Close");
-		Tooltip.install(closeBtnHolder, c);
-		m = new Tooltip("Minimise");
-		Tooltip.install(minimiseBtnHolder, m);	
-		
-		//Sets the event to happen when the close icon is clicked
-		//Gets the node before closing the stage
-	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	stage.close();
-            }
-        });
-		
-	    //Sets the event to happen when the minimise icon is clicked
-	    //Gets the node before closing the stage
-		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent mouseEvent) {
-		    	Node  source = (Node)  mouseEvent.getSource();
-		    	Stage stage  = (Stage) source.getScene().getWindow(); 
-		    	stage.setIconified(true);
-		    }
-		});
-		
-		//Sets the event to happen when the home icon is clicked
-		//Gets the node before closing the stage and returning to the main menu
-		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	Group root = (Group) source.getScene().getRoot();
-         	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
-         	stage.show();
-            }
-        });
-         
-		minimiseBtnHolder.setImage(minimiseIcon);
-		closeBtnHolder.setImage(closeIcon);
-		homeHolder.setImage(homeIcon);
-		
-		//Creates a box containing the menu bar
-		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
-        topBox = new HBox();
-        topBoxLeft = new HBox();
-        topBoxRight = new HBox(5);
-		
-		topBoxRight.setPrefSize(width/2, height*0.1);
-		topBoxRight.setAlignment(Pos.TOP_RIGHT);
-		topBoxLeft.setPrefSize(width/2, height*0.1);
-		topBoxLeft.setAlignment(Pos.TOP_LEFT);
-		
-		topBox.setPadding(new Insets(10, 45, 0, 40));
-		topBoxLeft.getChildren().add(homeHolder);
-		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
-		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
-	
+		//Define a VBox for leftBox
 		VBox leftBox = new VBox();
 		final VBox midBox = new VBox(40);
 		VBox rightBox = new VBox();
@@ -209,6 +128,7 @@ public class GenerateShoppingListScreen {
 		editBtn.setTooltip(new Tooltip("Click here to edit your shopping list"));
 		addBtn.setTooltip(new Tooltip("Click here to add extra items to your shopping list"));
 		
+		//Set ID for the buttons to access CSS file
 		saveBtn.setWrapText(true);
 		printBtn.setWrapText(true);
 		editBtn.setWrapText(true);
@@ -232,12 +152,12 @@ public class GenerateShoppingListScreen {
 		editBtn.getStylesheets().add("css.css");
 		addBtn.getStylesheets().add("css.css");
 		
-		// set up the status bar
+		// Set up the status bar
 		statusBar = new Label("");
 		statusBar.setId("statusBar");
 		statusBar.getStylesheets().add("css.css");
 		
-		// populate the shopping list display
+		// Populate the shopping list display
 		getShoppingList(inEditMode);
 		
 		//Sets actions to be performed when saveBtn is clicked
@@ -336,7 +256,7 @@ public class GenerateShoppingListScreen {
 	
 	}
 	
-	// method to get the shopping list and create a Text Area
+	// Method to get the shopping list and create a Text Area
 	public ShoppingList getShoppingList(boolean editMode) {
 		// read the shopping list file
 		ShoppingList list = new ShoppingList();
@@ -352,8 +272,8 @@ public class GenerateShoppingListScreen {
 				checkboxes = new CheckBox[shoppingList.size()];
 			}
 			
-			// populate the list with checkboxes or labels
-			// assign each checkbox an event handler (if in edit mode)
+			// Populate the list with checkboxes or labels
+			// Assign each checkbox an event handler (if in edit mode)
 			if (shoppingList != null && shoppingList.size() != 0) {
 				editBtn.setDisable(false);
 				saveBtn.setDisable(false);
@@ -381,14 +301,14 @@ public class GenerateShoppingListScreen {
 				saveBtn.setDisable(true);
 				printBtn.setDisable(true);
 			}
-			// add the new item field
+			// Add the new item field
 			shoppingListBox.getChildren().add(newItem);
 		}
 		else {
 			System.out.println("Shopping List display is broken.");
 		}
 		
-		// return the ShoppingList instance
+		// Return the ShoppingList instance
 		return list;
 	}
 	

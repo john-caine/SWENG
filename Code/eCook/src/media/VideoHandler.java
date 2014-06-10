@@ -1,3 +1,8 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine 
+ * Date Created: 04/06/2014
+ * Description: VideoHandler class which takes a video file path and displays the media
+ */
 package media;
 
 import java.util.logging.Logger;
@@ -28,6 +33,16 @@ public class VideoHandler extends SlideMediaPlayer {
 	private SlideShow parent;
 
 
+	/*
+	 * Video Handler constructor
+	 * @Param parent: The slideshow that called the constructor
+	 * @Param pathLocation: The media file path
+	 * @Param xStart: The x co ordinate of the top left corner of the hBox
+	 * @Param yStart: The y co ordinate of the top left corner of the hBox
+	 * @Param width: The width of the media object
+	 * @Param height: The height of the media object
+	 * @Param loop: Sets if the media should loop when finished
+	 */
 	public VideoHandler(SlideShow parent, String pathLocation, int xStart, int yStart, Integer width, Integer height, Boolean loop, Integer startTime, Integer duration){
 		super(parent, pathLocation, xStart, yStart, startTime, duration, loop);
 		
@@ -41,16 +56,26 @@ public class VideoHandler extends SlideMediaPlayer {
 		//Create a MediaView object to display the video content
 		mediaView = new MediaView(mediaPlayer);
 		mediaView.setVisible(true);
+		
+		//Create the Video Control Bar
 		VideoControlBar controlBar = new VideoControlBar(this);
+		
 		setMediaViewSize();
 		showObject();
+		//Create a VBox and add the media view and the control bar.
 		VBox playerBox = new VBox();
 		playerBox.getChildren().addAll(mediaView, controlBar.getVideoControlBar());
+		
+		//Add the Vbox to the output HBox
 		hbox.getChildren().add(playerBox);
+		
 		setTimingValues();
 		
 	}
 	
+	/*
+	 * Sets the size of the media view size
+	 */
 	private void setMediaViewSize(){
 		if (width != null && height != null) {
 			// Set the height and width of the MediaPlayer based on the values
@@ -64,20 +89,32 @@ public class VideoHandler extends SlideMediaPlayer {
 		
 	}
 	
+	/*
+	 * Gets the media view object
+	 */
 	public MediaView getMediaView(){
 		return mediaView;
 	}
 	
-	
+	/*
+	 * Sets the video to full screen
+	 */
 	public void setFullScreen(ActionEvent e){
 		stage = new Stage();
 		
+		// Create a new group
     	final Group root = new Group();
 		Rectangle2D bounds = Screen.getPrimary().getBounds();
+		
+		//Create a new media view and adding the playing media Player
 		MediaView fullMediaView = new MediaView(mediaPlayer);
+		
+		//Set the size of the MediaView to the size of the screen
 		fullMediaView.setPreserveRatio(false);
 		fullMediaView.setFitWidth(bounds.getWidth());
 		fullMediaView.setFitHeight(bounds.getHeight());
+		
+		//Add the MediaView to the group
     	root.getChildren().add(fullMediaView);
     	
     	final Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight(), Color.BLACK);
@@ -87,6 +124,7 @@ public class VideoHandler extends SlideMediaPlayer {
     	stage.setFullScreen(true);
     	stage.show();
     	
+    	//Add the filter to close the new stage and return to eCook
     	 stage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
  		    @Override
  		    public void handle(KeyEvent event){
