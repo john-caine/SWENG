@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan, Max Holland & Ankita Gangotra
+ * Programmer: Zayyad Tagwai & Prakruti Sinha, Roger Tan,  Max Holland & Ankita Gangotra
  * Date Created: 26/05/2014
  * A small window pops up to enable to user to choose between Http or File Browser for Recipe
  * Re-factored by James on 03/06/2014
