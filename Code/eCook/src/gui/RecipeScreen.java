@@ -74,38 +74,24 @@ public class RecipeScreen extends menu{
 			row.setId("r" + i);
 			row.setPrefWidth(rightBox.getPrefWidth()-10);
 			row.setAlignment(Pos.CENTER_LEFT);
-<<<<<<< HEAD
 			// Set up default button parameters
-=======
 			
 			// Set up buttons
->>>>>>> origin/master
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
 			downloadButtons[i].setId("downloadButtons");
 			downloadButtons[i].getStylesheets().add("css.css");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
-<<<<<<< HEAD
 			playButtons[i].setId("playButtons");
 			playButtons[i].getStylesheets().add("css.css");
-=======
-			playButtons[i].setId("p" + i);
-			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
-<<<<<<< HEAD
-			// Put some tooltips on the buttons
-			downloadButtons[i].setTooltip(new Tooltip("Downloads online content for this recipe"));
-			playButtons[i].setTooltip(new Tooltip("Opens the selected recipe"));
-			// Download button requires a thread on action, methods within the thread will be run in the background
-=======
->>>>>>> origin/master
-			
+
+			// Download button requires a thread on action, methods within the thread will be run in the background			
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 			
 			// Configure the buttons
->>>>>>> origin/master
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {

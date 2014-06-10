@@ -94,12 +94,7 @@ public class eCook extends Application {
 	public static void main(String[] args) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
-<<<<<<< HEAD
-			
-=======
 		
-		/*
->>>>>>> origin/master
 		// Create a file handler for the logger and catch any exceptions
 		FileHandler handler = null;
 		try {
@@ -120,7 +115,6 @@ public class eCook extends Application {
 
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.INFO);
-		*/
 		
 		// Launch the JFx Application thread
 		Application.launch(args);
