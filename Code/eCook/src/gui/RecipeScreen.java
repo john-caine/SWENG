@@ -7,14 +7,10 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
 import eCook.SlideShow;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,27 +18,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class RecipeScreen {
+public class RecipeScreen extends menu{
 
-	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
-	private Image homeIcon, closeIcon, minimiseIcon;	
-	private HBox topBox, topBoxLeft, topBoxRight;
 	private VBox recipeInfoBox;
-	private Tooltip h,c,m;
 	protected VBox bigBox;
 	Button currentDownloadButton;
 	int lastRowHovered = 0;
@@ -53,81 +41,14 @@ public class RecipeScreen {
 	final Button[] downloadButtons;
 	final Button[] playButtons;
 	
-	public RecipeScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
+	public RecipeScreen (VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
+		super (recipeCollection);
 		
+		//Get bigBox and set background image
 		this.bigBox = bigBox;
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
-		//Imports home, close and minimise button icons
-		homeHolder = new ImageView();
-		homeIcon = new Image("home1.png");
 
-		closeBtnHolder = new ImageView();
-		closeIcon = new Image("redx.png");
-
-		minimiseBtnHolder = new ImageView();
-		minimiseIcon = new Image("minimise.png");
-
-		//Add tool tip
-		h = new Tooltip("Home");
-		Tooltip.install(homeHolder, h);
-		c = new Tooltip("Close");
-		Tooltip.install(closeBtnHolder, c);
-		m = new Tooltip("Minimise");
-		Tooltip.install(minimiseBtnHolder, m);
-
-		//Sets the event to happen when the close icon is clicked
-		//Gets the node before closing the stage
-		closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				stage.close();
-			}
-		});
-
-		//Sets the event to happen when the minimise icon is clicked
-		//Gets the node before closing the stage
-		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				stage.setIconified(true);
-			}
-		});
-
-		//Sets the event to happen when the home icon is clicked
-		//Gets the node before closing the stage and returning to the main menu
-		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				Group root = (Group) source.getScene().getRoot();
-				root.getChildren().clear();
-				root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
-				stage.show();
-			}
-		});
-
-		minimiseBtnHolder.setImage(minimiseIcon);
-		closeBtnHolder.setImage(closeIcon);
-		homeHolder.setImage(homeIcon);
-
-		//Creates a box containing the menu bar
-		//Sets size and location parameters for eCook's menu bar containing home, minimise and close buttons
-		topBox = new HBox();
-		topBoxLeft = new HBox();
-		topBoxRight = new HBox(5);
-
-		topBoxRight.setPrefSize(width/2, height*0.1);
-		topBoxRight.setAlignment(Pos.TOP_RIGHT);
-		topBoxLeft.setPrefSize(width/2, height*0.1);
-		topBoxLeft.setAlignment(Pos.TOP_LEFT);
-
-		topBox.setPadding(new Insets(10, 45, 0, 40));
-		topBoxLeft.getChildren().add(homeHolder);
-		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
-		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
-
+		//Define leftBox, rightBox and midBox
 		VBox leftBox = new VBox();
 		VBox midBox = new VBox(20);
 		VBox rightBox = new VBox();
@@ -146,13 +67,14 @@ public class RecipeScreen {
 		final ArrayList<HBox> recipeRows = new ArrayList<HBox>();
 		ArrayList<String> recipeTitles = new ArrayList<String>();
 		for (int i=0; i<recipeCollection.getNumberOfRecipes(); i++) {
-			// get recipe title String and set up HBox
+			// Get recipe title String and set up HBox
 			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 			HBox row = new HBox(10);
 			row.setId("r" + i);
 			row.setPrefWidth(rightBox.getPrefWidth()-10);
 			row.setAlignment(Pos.CENTER_LEFT);
-			// set up buttons
+			
+			// Set up buttons
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
 			downloadButtons[i].setId(Integer.toString(i));
@@ -161,10 +83,12 @@ public class RecipeScreen {
 			playButtons[i].setVisible(false);
 			playButtons[i].setId("p" + i);
 			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
+			
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
-			// configure the buttons
+			
+			// Configure the buttons
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {
@@ -197,7 +121,7 @@ public class RecipeScreen {
 				}
 			});
 			
-			// set up the HBox so that mouseover works as a selection tool
+			// Set up the HBox so that mouseover works as a selection tool
 			row.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
@@ -220,21 +144,21 @@ public class RecipeScreen {
 				}
 			});
 			
-			// set up the HBox so that mouseout hides the buttons for that row
+			// Set up the HBox so that mouseout hides the buttons for that row
 			row.setOnMouseExited(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
 					int index = 0;
-					// get the selected recipe
+					// Get the selected recipe
 					HBox focusBox = (HBox) event.getSource();
 					index = Integer.valueOf(focusBox.getId().substring(1));
-					// hide the buttons for that row
+					// Hide the buttons for that row
 					playButtons[index].setVisible(false);
 					downloadButtons[index].setVisible(false);
 					lastRowHovered = index;
 				}
 			});
-			// add everything to the HBox
+			// Add everything to the HBox
 			Label recipeTitle = new Label(recipeTitles.get(i));
 			HBox labelBox = new HBox();
 			double boxWidth = 9*midBox.getPrefWidth()/16;
@@ -242,7 +166,7 @@ public class RecipeScreen {
 			labelBox.getChildren().add(recipeTitle);
 			row.getChildren().addAll(labelBox, downloadButtons[i], playButtons[i]);
 		
-			// add HBox to list
+			// Add HBox to list
 			recipeRows.add(row);
 		}
 
@@ -253,7 +177,7 @@ public class RecipeScreen {
 		listOfRecipes.setItems(FXCollections.observableList(recipeRows));
 		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 		
-		// set up the list so that mouseout continues showing the buttons for the last row hovered over
+		// Set up the list so that mouseout continues showing the buttons for the last row hovered over
 		listOfRecipes.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -274,7 +198,7 @@ public class RecipeScreen {
 		recipeInfoBox = new VBox();
 		recipeInfoBox.setPrefSize(rightBox.getPrefWidth(), rightBox.getPrefHeight()*0.8);
 
-		// set the first recipe in the list to be selected on loading
+		// Set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
 			listOfRecipes.getSelectionModel().select(0);
 			if (recipeCollection.getRecipe(0) != null) {
@@ -285,7 +209,7 @@ public class RecipeScreen {
 			updateInfoLabels(null);
 		}
 		
-		// when recipe selection changes, update the info and ingredients fields
+		// When recipe selection changes, update the info and ingredients fields
 		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<HBox>() {
 			public void changed(ObservableValue<? extends HBox> ov,
 					HBox old_val, HBox new_val) {
@@ -324,6 +248,7 @@ public class RecipeScreen {
 		}
 	}
 
+	//Method for updating button lablels
 	private void updateButtonLabels(int buttonId, int setting) {
 		if (setting == downloading) {
 			downloadButtons[buttonId].setVisible(true);
@@ -346,7 +271,7 @@ public class RecipeScreen {
 		}
 	}
 	
-	// method to update labels in the recipe info box
+	// Method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", comment = "", cook = "", prep = "", guests = "", veg ="";
 
@@ -360,7 +285,7 @@ public class RecipeScreen {
 			veg = recipe.getInfo().getVeg();
 		}
 
-		// add labels for author, version and comment
+		// Add labels for author, version and comment
 		Label authorLabel = new Label("Author: " + author);
 		//Label versionLabel = new Label("Version: " + version);
 		Label commentLabel = new Label("Description: " + comment);
@@ -370,12 +295,10 @@ public class RecipeScreen {
 		Label vegLabel = new Label("Suitable for Vegetarians? " + veg);
 
 
+		//Set ID for labels to access CSS file
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
 		authorLabel.getStylesheets().add("css.css");
-		//versionLabel.setWrapText(true);
-		//versionLabel.setId("versionLabel");
-		//versionLabel.getStylesheets().add("css.css");
 		commentLabel.setWrapText(true);
 		commentLabel.setId("commentLabel");
 		commentLabel.getStylesheets().add("css.css");
@@ -392,10 +315,9 @@ public class RecipeScreen {
 		vegLabel.setId("vegLabel");
 		vegLabel.getStylesheets().add("css.css");
 
-		// remove old labels
+		// Remove old labels
 		recipeInfoBox.getChildren().clear();
-		// add the labels to the info box
-		//recipeInfoBox.getChildren().addAll(authorLabel, versionLabel, commentLabel);
+		// Add the labels to the info box
 		recipeInfoBox.getChildren().addAll(authorLabel, cookLabel, prepLabel, guestsLabel, vegLabel, commentLabel);
 	}
 

@@ -7,6 +7,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import javafx.application.Application;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
 import javafx.stage.StageStyle;
+
 import org.apache.commons.io.*;
 
 public class eCook extends Application {
