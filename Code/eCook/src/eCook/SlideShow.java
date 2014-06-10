@@ -259,8 +259,8 @@ public class SlideShow {
 						ImageHandler image1 = new ImageHandler(this, images.get(i).getUrlName(), images.get(i).getXStart(), 
 														images.get(i).getYStart(), images.get(i).getWidth(),
 														images.get(i).getHeight(), images.get(i).getStartTime(), 
-														images.get(i).getDuration(), images.get(i).getLayer(), 
-														images.get(i).getBranch(), images.get(i).getOrientation());
+														images.get(i).getDuration(), images.get(i).getBranch(),
+														images.get(i).getOrientation());
 						imageHandlerList.add(image1);
 						subSlideMediaList.add(image1);
 						Integer imageLayer = images.get(i).getLayer();
