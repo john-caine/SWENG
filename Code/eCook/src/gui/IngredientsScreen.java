@@ -44,9 +44,10 @@ public class IngredientsScreen extends menu {
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
 		
-		//Get bigBox and set barckground
+		//Get bigBox and set background
 		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		bigBox.setId("IngredientsScreenBigBox");
+		bigBox.getStylesheets().add("css.css");
 		this.height = height;
 		this.width = width;
 

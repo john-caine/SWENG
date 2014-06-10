@@ -94,9 +94,7 @@ public class eCook extends Application {
 	public static void main(String[] args) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
-<<<<<<< HEAD
-			
-=======
+
 		
 		/*
 >>>>>>> origin/master
