@@ -7,8 +7,6 @@
 package eCook;
 
 
-import java.io.File;
-
 import gui.MainMenuContent;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;

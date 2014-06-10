@@ -1,3 +1,9 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine, Roger Tan, Paul Mathema 
+ * Date Created: 04/06/2014
+ * Description: Audio Handler class which plays an audio file from a given path location.
+ */
+ 
 package media;
 
 import java.util.logging.Level;
@@ -14,22 +20,19 @@ import eCook.eCook;
 
 public class AudioHandler extends SlideMediaPlayer{
 	
-	private Media audio;
+	
 	private MediaPlayer mediaPlayer;
 	private Logger logger;
-	private String pathLocation;
-	private Duration currentTime;
-	private Integer duration;
 	private MediaView mediaView;
 
+	
 	public AudioHandler(SlideShow parent, String pathLocation, Integer startTime, Integer duration, Boolean loop){
 		super(parent, pathLocation, 0, 0, startTime, duration, loop);
-		this.pathLocation = pathLocation;
-		this.duration = duration;
 		
+	// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 		mediaView = new MediaView(mediaPlayer);
 		hbox.getChildren().add(mediaView);
-		
 		setTimingValues();
 		
 	}

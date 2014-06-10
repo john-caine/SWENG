@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra and James Oatley
+=======
+ * Programmer: Zayyad Tagwai & Prakruti Sinha, Roger Tan,  Max Holland & Ankita Gangotra
+>>>>>>> origin/master
  * Date Created: 26/05/2014
  * A small window pops up to enable to user to choose between Http or File Browser for Recipe
  * Re-factored by James on 03/06/2014
@@ -56,8 +60,8 @@ public class LoadExternalRecipe {
 	private HBox midBox;
 	private HBox bottomBox;
 
-	public LoadExternalRecipe(final Stage stage,
-			final RecipeCollection recipeCollection) {
+	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
+		
 		// New stage
 		dialog = new Stage();
 		// Focus on new stage
@@ -148,6 +152,7 @@ public class LoadExternalRecipe {
 			}
 		});
 
+		//Make a text field and add ID to access CSS file
 		httpField = new TextField();
 		httpField.setText("http://");
 		httpField.setId("httpField");
@@ -187,6 +192,7 @@ public class LoadExternalRecipe {
 			}
 		});
 
+		//Define URL button 
 		getFromURLBtn = new Button("Get Recipe from URL");
 		getFromURLBtn.setDisable(true);
 		getFromURLBtn.setPrefSize(150, 30);
@@ -195,8 +201,8 @@ public class LoadExternalRecipe {
 		getFromURLBtn.setWrapText(true);
 		getFromURLBtn.setAlignment(Pos.CENTER);
 		getFromURLBtn.setTextAlignment(TextAlignment.CENTER);
-		// get from URL button gets XML file via HTTP and saves to defaults
-		// folder
+		
+		// get from URL button gets XML file via HTTP and saves to defaults folder
 		getFromURLBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				String fileURL;
@@ -259,8 +265,7 @@ public class LoadExternalRecipe {
 		topBox.setPadding(new Insets(36, 14, 0, 0));
 
 		// New imageView required as using the old one moves its content as well
-		// Adds image onto the box containing the load Ext window made according
-		// to the
+		// Adds image onto the box containing the load Ext window made according to the
 		// GUI specifications
 		ImageView loadExtWinCloseBtnHolder = new ImageView();
 		Image closeIcon = new Image("redx.png");
@@ -270,8 +275,7 @@ public class LoadExternalRecipe {
 		loadExtWinCloseBtnHolder.setImage(closeIcon);
 		topBox.getChildren().addAll(statusBar, loadExtWinCloseBtnHolder);
 		// Mouse click event
-		loadExtWinCloseBtnHolder
-				.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent mouseEvent) {
 						Node source = (Node) mouseEvent.getSource();
 						Stage dialog = (Stage) source.getScene().getWindow();
@@ -280,25 +284,19 @@ public class LoadExternalRecipe {
 				});
 
 		midBox = new HBox(20);
-		// adds buttons to midBox and aligns to middle
+		// Adds buttons to midBox and aligns to middle
 		midBox.getChildren().addAll(downloadBtn, fileBrowserBtn);
 		midBox.setAlignment(Pos.CENTER);
 		midBox.setStyle("-fx-background-color: transparent;");
 
 		loadExtBox = new VBox(20);
 		loadExtBox.setStyle("-fx-background-color: transparent; -fx-background-image: url('fullBackground.png'); -fx-background-position: center center; -fx-background-size: stretch; -fx-background-repeat: no-repeat;");
-		
-	
-		
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 		
 
-		//Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		dialog.setScene(dialogScene);
 		dialog.show();
 
-		// Adds action to the buttons and makes it close upon
-		// selection of option
 	}
 }

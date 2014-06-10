@@ -12,163 +12,69 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MainMenuContent {
-	
-	private Rectangle2D screenBounds;
-	private double width;
-	private double height;
-	private HBox topBox, topBoxRight, topBoxLeft;
+public class MainMenuContent extends menu{
+
 	private HBox midBox;
 	private HBox bottomBox;
-	private ImageView homeHolder, logoholder, closeBtnHolder, minimiseBtnHolder;
-	private Image homeIcon;
-	private Image logoIcon, closeIcon, minimiseIcon;	
-	protected Tooltip h,c,m;
+	private ImageView logoholder;
+	private Image logoIcon;	
 	public VBox bigBox;
 	protected Stage stage;
-	
+
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
+		super (recipeCollection);
 		this.stage =  stage;
-		
-		//Gets the visual bounds of the screen
-		screenBounds = Screen.getPrimary().getBounds();
-		width =  screenBounds.getWidth();
-		height = screenBounds.getHeight();
-		
-		
-		//Imports eCook logo, home, close and minimise button icons and set tootips
+
+		//Imports eCook logo
 		logoholder = new ImageView();	
 		logoIcon = new Image("logo_board.png");
-		
-		homeHolder = new ImageView();
-		homeIcon = new Image("home1.png");
-		
-		closeBtnHolder = new ImageView();
-		closeIcon = new Image("redx.png");
-		
-		minimiseBtnHolder = new ImageView();
-		minimiseIcon = new Image("minimise.png");
-		
-		//Add tool tip
-		h = new Tooltip("Home");
-		Tooltip.install(homeHolder, h);
-		c = new Tooltip("Close");
-		Tooltip.install(closeBtnHolder, c);
-		m = new Tooltip("Minimise");
-		Tooltip.install(minimiseBtnHolder, m);
-		
-		
-		//Sets the event to happen when the close icon is clicked
-		//Gets the node before closing the stage
-	    closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	stage.close();
-            }
-        });
-		
-	    //Sets the event to happen when the minimise icon is clicked
-	    //Gets the node before closing the stage
-		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    public void handle(MouseEvent mouseEvent) {
-		    	Node  source = (Node)  mouseEvent.getSource();
-		    	Stage stage  = (Stage) source.getScene().getWindow(); 
-		    	stage.setIconified(true);
-		    }
-		});
-		
-		//Sets the event to happen when the home icon is clicked
-		//Gets the node before closing the stage and returning to the main menu
-		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent mouseEvent) {
-            Node  source = (Node)  mouseEvent.getSource();
-         	Stage stage  = (Stage) source.getScene().getWindow();
-         	Group root = (Group) source.getScene().getRoot();
-         	root.getChildren().clear();
-         	root.getChildren().add(new MainMenuContent(stage, recipeCollection).bigBox);
-         	stage.show();
-            }
-        });
-         
 		logoholder.setImage(logoIcon);
-		minimiseBtnHolder.setImage(minimiseIcon);
-		closeBtnHolder.setImage(closeIcon);
-		homeHolder.setImage(homeIcon);
-	
-		//Creates a box containing the menu bar
-		//Sets size and location parameters for eCook's menu bar containing home, minimse and close buttons
-        topBox = new HBox();
-        topBoxLeft = new HBox();
-        topBoxRight = new HBox(5);
-		
-		topBoxRight.setPrefSize(width/2, height*0.1);
-		topBoxRight.setAlignment(Pos.TOP_RIGHT);
-		topBoxLeft.setPrefSize(width/2, height*0.1);
-		topBoxLeft.setAlignment(Pos.TOP_LEFT);
-		
-		topBox.setPadding(new Insets(10, 45, 0, 40));
-		topBoxLeft.getChildren().add(homeHolder);
-		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
-		topBox.getChildren().addAll(topBoxLeft,topBoxRight);
-		
+
+		//Add bigBox, midBox, bottomBox
 		bigBox = new VBox();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
 		bottomBox.setPadding(new Insets(0, 45, 0, 40));
 		bottomBox.setAlignment(Pos.CENTER);
-		
-		// James -
-		// Not sure why content was set to appear off of screen
-		// height variable holds maximum height of screen
-		// bigBox.setPrefSize(width, height+100);
-		// bigBox.setMaxSize(width, height+100);
+
+		//bigBox height, width and background
 		bigBox.setPrefSize(width, height);
 		bigBox.setMaxSize(width, height);
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('background.png');");
-		// bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-color: lightGrey;");
-		
+
 		//Sets size and location parameters for the midBox and bottomBox
 		midBox.setPrefSize(width, height * 0.6);
 		bottomBox.setPrefSize(width, height*0.3);
 		midBox.setAlignment(Pos.CENTER);
 		midBox.getChildren().add(logoholder);
-		
+
 		//Creates the main menu options
 		Button loadExtBtn = new Button("");
 		Button generateListBtn = new Button("");
 		Button ingredientsPickBtn = new Button("");
 		Button recipesBtn= new Button("");
-		
+
 		//Defining the CSS Identifiers
 		loadExtBtn.setId("loadExtBtn");
 		generateListBtn.setId("generateListBtn");
 		ingredientsPickBtn.setId("ingredientsPickBtn");
 		recipesBtn.setId("recipesBtn");
-		
-		// James -
-		// Modified the following to reduce the height by 10px leaving a bit of space at
-		// bottom of screen, looks a little neater.
+
 		//Setting the sizes of the buttons relative to the size of the screen
 		loadExtBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
 		generateListBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
 		ingredientsPickBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
 		recipesBtn.setMinSize(width/5,bottomBox.getPrefHeight()-40);
-		
+
 		//adding the stylesheet to each of the buttons
 		loadExtBtn.getStylesheets().add("css.css");
 		generateListBtn.getStylesheets().add("css.css");
@@ -180,59 +86,59 @@ public class MainMenuContent {
 		generateListBtn.setTooltip(new Tooltip("Click here to make shopping list from ingredients chosen"));
 		ingredientsPickBtn.setTooltip(new Tooltip("Click here to choose ingredients from list of recipes"));
 		recipesBtn.setTooltip(new Tooltip("Click here to choose from a list of recipes"));
-		
+
 		bottomBox.getChildren().add(recipesBtn);
 		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(generateListBtn);
 		bottomBox.getChildren().add(loadExtBtn);		
-		
+
 		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
 
 		FadeTransition fadeTransition 
-         = new FadeTransition(Duration.millis(500), bigBox);
-		 fadeTransition.setFromValue(0.0);
-		 fadeTransition.setToValue(1.0);
-		 fadeTransition.play();
-		 
-				 
-		 //BUTTON ACTIONS
-		 //Making the Load External Recipe button make a new window that takes the focus off the main stage
-		 //When any of the options are chosen, the new window closes
-		 //New window allows for closing using the ESC button
-		
-		 loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
-			 //Creates a new stage bound to the previous that lets the user
-			 //pick between the two options
-			 public void handle(ActionEvent event) {
-	            new LoadExternalRecipe(stage, recipeCollection);
-	         }
-	        });
-		
-		 //Clears the bigBox and runs generateShoppingListScreen passing
-		 //the bigBox, height and width to the class
+		= new FadeTransition(Duration.millis(500), bigBox);
+		fadeTransition.setFromValue(0.0);
+		fadeTransition.setToValue(1.0);
+		fadeTransition.play();
+
+
+		//BUTTON ACTIONS
+		//Making the Load External Recipe button make a new window that takes the focus off the main stage
+		//When any of the options are chosen, the new window closes
+		//New window allows for closing using the ESC button
+
+		loadExtBtn.setOnAction(new EventHandler<ActionEvent>() {
+			//Creates a new stage bound to the previous that lets the user
+			//pick between the two options
+			public void handle(ActionEvent event) {
+				new LoadExternalRecipe(stage, recipeCollection);
+			}
+		});
+
+		//Clears the bigBox and runs generateShoppingListScreen passing
+		//the bigBox, height and width to the class
 		generateListBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                bigBox.getChildren().clear();  
-                new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
-            }
-        });
+			public void handle(ActionEvent event) {
+				bigBox.getChildren().clear();  
+				new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
+			}
+		});
 		//Clears the bigBox and runs IngredientsScreen passing
 		//the bigBox, height and width to the class
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                bigBox.getChildren().clear();
-                new IngredientsScreen(bigBox, height, width, recipeCollection);
-            }
-        });
+			public void handle(ActionEvent event) {
+				bigBox.getChildren().clear();
+				new IngredientsScreen(bigBox, height, width, recipeCollection);
+			}
+		});
 		//Clears the bigBox and runs RecipeSceen passing 
 		//the bigBox, height and width to the class
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                bigBox.getChildren().clear();
-                new RecipeScreen(bigBox, height, width, recipeCollection, stage);
-            }
-        });
+			public void handle(ActionEvent event) {
+				bigBox.getChildren().clear();
+				new RecipeScreen(bigBox, height, width, recipeCollection, stage);
+			}
+		});
 
-		
+
 	}
 }

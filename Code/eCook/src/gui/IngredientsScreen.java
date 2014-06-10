@@ -18,114 +18,39 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
-public class IngredientsScreen {
-	private HBox topBox, topBoxLeft, topBoxRight;
+public class IngredientsScreen extends menu {
+
 	private HBox midBox,nGuestsBox;
 	private VBox midBoxLeft, midBoxRight, recipeInfoBox;
-	private ImageView homeHolder, closeBtnHolder, minimiseBtnHolder;
-	private Image homeIcon, closeIcon, minimiseIcon;
+
 	private VBox ingredientsList;
-	private Tooltip h, c, m;
+
 	private TextField nGuests;
 	private Button updateIngredients;
 	protected VBox bigBox;
 	protected double height, width;
 
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
+		super (recipeCollection);
+		
+		//Get bigBox and set barckground
 		this.bigBox = bigBox;
 		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
 		this.height = height;
 		this.width = width;
-		// Imports eCook logo, home, close and minimise button icons
-		homeHolder = new ImageView();
-		homeIcon = new Image("home1.png");
 
-		closeBtnHolder = new ImageView();
-		closeIcon = new Image("redx.png");
-
-		minimiseBtnHolder = new ImageView();
-		minimiseIcon = new Image("minimise.png");
-
-		// Add tool tip
-		h = new Tooltip("Home");
-		Tooltip.install(homeHolder, h);
-		c = new Tooltip("Close");
-		Tooltip.install(closeBtnHolder, c);
-		m = new Tooltip("Minimise");
-		Tooltip.install(minimiseBtnHolder, m);
-
-		// Sets the event to happen when the close icon is clicked
-		// Gets the node before closing the stage
-		closeBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				stage.close();
-			}
-		});
-
-		// Sets the event to happen when the minimise icon is clicked
-		// Gets the node before closing the stage
-		minimiseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				stage.setIconified(true);
-			}
-		});
-
-		// Sets the event to happen when the home icon is clicked
-		// Gets the node before closing the stage and returning to the main menu
-		homeHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent mouseEvent) {
-				Node source = (Node) mouseEvent.getSource();
-				Stage stage = (Stage) source.getScene().getWindow();
-				Group root = (Group) source.getScene().getRoot();
-				root.getChildren().clear();
-				root.getChildren().add(
-						new MainMenuContent(stage, recipeCollection).bigBox);
-				stage.show();
-			}
-		});
-
-		minimiseBtnHolder.setImage(minimiseIcon);
-		closeBtnHolder.setImage(closeIcon);
-		homeHolder.setImage(homeIcon);
-
-		// Creates a box containing the menu bar
-		// Sets size and location parameters for eCook's menu bar containing
-		// home, minimise and close buttons
-		topBox = new HBox();
-		topBoxLeft = new HBox();
-		topBoxRight = new HBox(5);
-
-		topBoxRight.setPrefSize(width / 2, height * 0.1);
-		topBoxRight.setAlignment(Pos.TOP_RIGHT);
-		topBoxLeft.setPrefSize(width / 2, height * 0.1);
-		topBoxLeft.setAlignment(Pos.TOP_LEFT);
-
-		topBox.setPadding(new Insets(10, 45, 0, 40));
-		topBoxLeft.getChildren().add(homeHolder);
-		topBoxRight.getChildren().addAll(minimiseBtnHolder, closeBtnHolder);
-		topBox.getChildren().addAll(topBoxLeft, topBoxRight);
-
+		//Define midBox
 		midBox = new HBox(20);
 		midBoxLeft = new VBox();
 		midBoxRight = new VBox(20);
@@ -156,7 +81,7 @@ public class IngredientsScreen {
 		listOfRecipes.getSelectionModel()
 				.setSelectionMode(SelectionMode.SINGLE);
 
-		// initialise the ingredients list VBox
+		// Initialise the ingredients list VBox
 		ingredientsList = new VBox();
 
 		// when recipe selection changes, update the info and ingredients fields
@@ -180,7 +105,7 @@ public class IngredientsScreen {
 		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(),
 				midBoxRight.getPrefHeight() * 0.4 - 100);
 
-		// set the first recipe in the list to be selected on loading
+		// Set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
 			listOfRecipes.getSelectionModel().select(0);
 			if (recipeCollection.getRecipe(0) != null) {
@@ -192,13 +117,14 @@ public class IngredientsScreen {
 		else {
 			updateInfoLabels(null);
 		}
-
+		
+		//Add labels
 		Label recipesLabel = new Label("Recipes");
 		recipesLabel.setId("recipesLabel");
 		recipesLabel.getStylesheets().add("css.css");
 		recipesLabel.setPadding(new Insets(0, 0, 40, 10));
 
-		// add content to the main boxes
+		// Add content to the main boxes
 		midBoxLeft.getChildren().addAll(recipesLabel, listOfRecipes);
 		midBox.getChildren().addAll(midBoxLeft, midBoxRight);
 
@@ -206,7 +132,7 @@ public class IngredientsScreen {
 		bigBox.getChildren().addAll(topBox, midBox);
 	}
 
-	// method to update labels in the recipe info box
+	// Method to update labels in the recipe info box
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", guests = "", comment = "";
 
@@ -217,7 +143,7 @@ public class IngredientsScreen {
 			comment = recipe.getInfo().getComment();
 		}
 
-		// add labels for author, version and comment
+		// Add labels for author, version and comment
 		Label authorLabel = new Label("Author: " + author);
 		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label commentLabel = new Label("Comment: " + comment);
@@ -232,7 +158,7 @@ public class IngredientsScreen {
 		commentLabel.setId("commentLabel");
 		commentLabel.getStylesheets().add("css.css");
 
-		// remove old labels
+		// Remove old labels
 		recipeInfoBox.getChildren().clear();
 		// add the labels to the info box
 		recipeInfoBox.getChildren().addAll(authorLabel, guestsLabel,
@@ -241,7 +167,7 @@ public class IngredientsScreen {
 	
 	
 
-	// method to update list of ingredients from recipe
+	// Method to update list of ingredients from recipe and update for multiple guests
 	public void updateIngredientsList(final Recipe recipe) {	
 
 		final Label recipeInformationLabel = new Label("Recipe Information");
@@ -252,8 +178,7 @@ public class IngredientsScreen {
 		ingredientsLabel.setId("ingredientsLabel");
 		ingredientsLabel.getStylesheets().add("css.css");
 		
-/* n guests functionality- Ankita */	
-	
+	//Adding multiple guests functionality 
 	//Add label for nGuests
 	Label nGuestsLabel = new Label("Serves:");
 	nGuestsLabel.setId("nGuestsLabel");
@@ -266,14 +191,14 @@ public class IngredientsScreen {
 	nGuests.setMaxSize(midBoxRight.getPrefWidth()/20, midBoxRight.getPrefHeight()/20);
 	
 	// Add tool tip
-	Tooltip TTnGuests = new Tooltip("Must be a number eg. 6 ");
+	Tooltip TTnGuests = new Tooltip("Must be a number more than 0 and less than 100");
 	Tooltip.install(nGuests, TTnGuests);
 	
 	// Add an eventhandler to detect when user selects number of guests
 	nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
 		public void handle(KeyEvent event) {
 			// only allows integer numbers
-			if (!nGuests.getText().equals("0")&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("")) {
+			if (!nGuests.getText().equals("0")&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("") && Integer.valueOf(nGuests.getText()) < 100) {
 				updateIngredients.setDisable(false);
 				updateIngredients.setTooltip(new Tooltip("Click here to choose number of people to modify quantity of ingredients"));
 			} else {

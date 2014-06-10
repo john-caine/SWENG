@@ -1,3 +1,9 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine 
+ * Date Created: 04/06/2014
+ * Description: SubSlideMedia Test Class
+ */
+
 package media;
 
 import static org.junit.Assert.*;
@@ -57,6 +63,7 @@ public class SubSlideMediaTest {
 	 */
 	@Test
 	public void hboxBranch(){
+		
 		
 	}
 
