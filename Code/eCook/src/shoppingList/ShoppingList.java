@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.text.Font;
-
 public class ShoppingList {
 	List<String> shoppingList;
 	
