@@ -26,13 +26,13 @@ import javafx.util.Duration;
 
 public class VideoControlBar {
 
-	private VideoHandler videoHandler;
-	private HBox controlBar;
-	private Slider trackBar;
-	private Slider volBar;
-	private Label timeLbl;
-	private Button playPauseButton;
-	private Button stopButton;
+	protected VideoHandler videoHandler;
+	protected HBox controlBar;
+	protected Slider trackBar;
+	protected Slider volBar;
+	protected Label timeLbl;
+	protected Button playPauseButton;
+	protected Button stopButton;
 	private ImageView playImage;
 	private ImageView pauseImage;
 	private Button fullScreenButton;

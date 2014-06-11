@@ -12,9 +12,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
+import eCook.eCook;
 import filebrowser.FileBrowser;
 import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
@@ -57,9 +60,12 @@ public class LoadExternalRecipe {
 	private HBox topBox;
 	private HBox midBox;
 	private HBox bottomBox;
+	private Logger logger;
 
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
-
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		// New stage
 		dialog = new Stage();
 		// Focus on new stage
@@ -148,7 +154,7 @@ public class LoadExternalRecipe {
 							dialog.close();
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.log(Level.WARNING, "Error copying XML file from local directory to defaults folder");
 					}
 				}
 			}
@@ -242,8 +248,7 @@ public class LoadExternalRecipe {
 							recipeCollection.addRecipe(newRecipe);
 						}
 					} catch (Exception e) {
-						System.out
-						.println("error downloading recipe file from URL");
+						logger.log(Level.WARNING, "error downloading recipe file from URL");
 					}
 				}
 				dialog.close();

@@ -58,17 +58,17 @@ import errorhandler.ErrorHandler;
 public class SlideShow {
 
 	// declare variables
-	private Scene slideScene;
-	private Group slideRoot;
+	protected Scene slideScene;
+	protected Group slideRoot;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlidesIncBranch, numOfSlidesExcBranch;
 	protected int firstSlideID, lastSlideID;
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
-	private Integer maxLayer, duration;
+	protected Integer maxLayer, duration;
 	private Timer timer;
 	private VBox timerbox;
-	private ArrayList<Timer> timerList;
+	protected ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
@@ -88,11 +88,12 @@ public class SlideShow {
 	boolean notesPanelShowing = false;
 	private int numberOfTimers = 0;
 	private SlideShow slideShow = this;
-	NotesGUI notesGUI;
-	SlideControls slideControls;
+	protected NotesGUI notesGUI;
+	protected SlideControls slideControls;
 	private ArrayList<SlideMedia> mediaList;
 	private ArrayList<SubSlideMedia> subSlideMediaList;
 	private ArrayList<SlideMediaPlayer> slideMediaPlayerList;
+	protected ArrayList<Pane> layers;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -166,7 +167,7 @@ public class SlideShow {
 		List<Shape> graphics;
 		List<Video> videos;
 		Pane layer;
-		ArrayList<Pane> layers;
+		
 		int imageCount, textCount, audioCount, videoCount, graphicCount;
 		int fontSize;
 		String fontColor, font, lineColor, fillColor;

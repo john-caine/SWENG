@@ -1,4 +1,10 @@
 package xmlparser;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
+
 /* Title: Defaults
  * 
  * Programmers: Ankita, Max, James, Prakruti
@@ -17,15 +23,19 @@ package xmlparser;
  *  				v1.2  (18/05/24) - Added function defaultsComplete() - James and Prakruti
  */
 public class Defaults {
-	String backgroundColor, font, fontColor, fillColor, lineColor = null;
+	// declare fields
+	String backgroundColor = null, font = null, fontColor = null, fillColor = null, lineColor = null;
 	Integer fontSize = null;
-		
-	public Defaults() {
-	}
+	Logger logger;
 	
 	// method to report errors when setting fields
 	public void reportError(String errorMessage) {
-		System.out.println(errorMessage);
+		logger.log(Level.WARNING, errorMessage);
+	}
+		
+	public Defaults() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 	}
 
 	// getters
@@ -71,35 +81,53 @@ public class Defaults {
 		if (backgroundColor != null) {
 			this.backgroundColor = (String) backgroundColor;
 		}
+		else {
+			reportError("cannot set backgroundColor default");
+		}
 	}
 	
 	public void setFont(Object font) {
 		if (font != null) {
 			this.font = (String) font;
-		}	
+		}
+		else {
+			reportError("cannot set font default");
+		}
 	}
 
 	public void setFontSize(Object fontSize) {
 		if (fontSize != null) {
 			this.fontSize = Integer.valueOf((String) fontSize);
-		}	
+		}
+		else {
+			reportError("cannot set font size default");
+		}
 	}
 	
 	public void setFontColor(Object fontColor) {
 		if (fontColor != null) {
 			this.fontColor = (String) fontColor;
 		}
+		else {
+			reportError("cannot set font colour default");
+		}
 	}
 	
 	public void setFillColor(Object fillColor) {
 		if (fillColor != null) {
 			this.fillColor = (String) fillColor;
-		}	
+		}
+		else {
+			reportError("cannot set fill colour default");
+		}
 	}
 	
 	public void setLineColor(Object lineColor) {
 		if (lineColor != null) {
 			this.lineColor = (String) lineColor;
+		}
+		else {
+			reportError("cannot set line colour default");
 		}
 	}
 }

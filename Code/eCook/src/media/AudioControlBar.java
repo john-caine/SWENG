@@ -8,7 +8,10 @@ package media;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import eCook.eCook;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -27,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 public class AudioControlBar {
+	// declare variables
 	HBox controlBar;
 	List<Button> buttons;
 	Slider trackBar, volBar;
@@ -34,9 +38,13 @@ public class AudioControlBar {
 	AudioHandler currentHandler;
 	int currentHandlerIndex = 0;
 	List<AudioHandler> audioHandlerObjects;
+	private Logger logger;
 	
 	// constructor
 	public AudioControlBar(final ArrayList<AudioHandler> audioHandlerList, Group root) {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		this.audioHandlerObjects = audioHandlerList;
 		currentHandler = audioHandlerList.get(currentHandlerIndex);
 		setupControlBar(root);
@@ -46,15 +54,19 @@ public class AudioControlBar {
 		detectAutoPlay();
 	}
 	
-	// method to get the controlBar HBox
+	/*
+	 *  method to get the controlBar HBox
+	 */
 	public HBox getControlBar() {
 		if (controlBar == null) {
-			System.out.println("audioControlBar has not been set yet! Will return null.");
+			logger.log(Level.WARNING, "audioControlBar has not been set yet! Will return null.");
 		}
 		return this.controlBar;
 	}
 	
-	// method to populate the controlBar with buttons
+	/*
+	 *  method to populate the controlBar with buttons
+	 */
 	public void setupControlBar(Group root) {
 		controlBar = new HBox();
         controlBar.setPrefSize(root.getScene().getWidth(), root.getScene().getHeight()/10);
@@ -110,7 +122,9 @@ public class AudioControlBar {
         controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volLbl, volBar);
 	}
 	
-	// set up event handlers for the buttons
+	/*
+	 *  set up event handlers for the buttons
+	 */
 	public void setupButtons() {
 		// play/pause button
 		buttons.get(0).setOnAction(new EventHandler<ActionEvent>() {
@@ -190,9 +204,11 @@ public class AudioControlBar {
 		});
 	}
 	
-	// set up event handlers for sliders
+	/*
+	 *  set up event handlers for sliders
+	 */
 	public void setupSliders() {
-		// volume bar
+		/* volume bar */
 		volBar.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> ov,
@@ -201,8 +217,7 @@ public class AudioControlBar {
 			}
 		});
 		
-		// tracking bar
-		
+		/* tracking bar */
 		// Allow the user to drag and position the slider
 		trackBar.valueProperty().addListener(new InvalidationListener() {
 			@Override
@@ -258,7 +273,9 @@ public class AudioControlBar {
         trackBar.setMax(currentHandler.getDuration());
 	}
 	
-	// method to update the button enables to prevent undefined behaviour {
+	/*
+	 *  method to update the button enables to prevent undefined behaviour {
+	 */
 	public void validateButtons() {
 		// enable the next button if necessary
 		if ((currentHandlerIndex < audioHandlerObjects.size()-1) && (audioHandlerObjects.size() != 1)) {
@@ -279,7 +296,9 @@ public class AudioControlBar {
 		setupSliders();
 	}
 	
-	// method to write information to the labels
+	/*
+	 *  method to write information to the labels
+	 */
 	public void writeLabels() {
 		File audioFile = new File(currentHandler.getFilePath());
 		if (audioFile.exists()) {
@@ -292,7 +311,9 @@ public class AudioControlBar {
 		}
 	}
 	
-	// method to detect when audio is playing to update the GUI
+	/*
+	 *  method to detect when audio is playing to update the GUI
+	 */
 	public void detectAutoPlay() {
 		// set up an action listener for the current handler to detect if the audio plays automatically
         currentHandler.getMediaPlayer().setOnPlaying(new Runnable() {

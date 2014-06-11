@@ -22,10 +22,14 @@ package xmlparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import eCook.eCook;
 import xmlfilepathhandler.XMLFilepathHandler;
 
 public class Recipe {
+	// declare variables
 	Info info;
 	Defaults defaults;
 	List<Ingredient> ingredients;
@@ -35,8 +39,13 @@ public class Recipe {
 	Boolean downloadingLocalContent;
 	Boolean localExistance;
 	Boolean localExistanceSet;
+	Logger logger;
 		
+	// constructor
 	public Recipe() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		slides = new ArrayList<Slide>();
 		info = new Info();
 		defaults = new Defaults();
@@ -47,17 +56,24 @@ public class Recipe {
 		localExistanceSet = false;
 	}
 	
-	// James- use this method in a thread to check if the recipe is being downloaded
+	/*
+	 *  James- use this method in a thread to check if the recipe is being downloaded
+	 */
 	public Boolean isDownloading() {
 		return downloadingLocalContent;
 	}
 	
-	// James- use this method to set the downloading var
+	/*
+	 *  James- use this method to set the downloading var
+	 */
 	public void setDownloading(Boolean value) {
 		localExistanceSet = false;
 		downloadingLocalContent = value;
 	}
 	
+	/*
+	 *  James- use this method to see if the file already exists locally
+	 */
 	public Boolean existsLocally() {
 		if (downloadingLocalContent) {
 			return false;
@@ -75,9 +91,11 @@ public class Recipe {
 		}
 	}
 
-	// method to report errors when setting fields
+	/*
+	 *  method to report errors when setting fields
+	 */
 	public void reportError(String errorMessage) {
-		System.out.println(errorMessage);
+		logger.log(Level.WARNING, errorMessage);
 	}
 	
 	public void setFileName(String fileName) {
@@ -130,8 +148,7 @@ public class Recipe {
 			prevGuests = guests;
 		}
 		else {
-			/* TODO */
-			// Max & logger.
+			logger.log(Level.WARNING, "Number of guests not set in update amount for n guests");
 		}
 	}
 
@@ -140,7 +157,7 @@ public class Recipe {
 			return slides.get(slideNumber);
 		}
 		else {
-			reportError("Error getting slide: index out of range");
+			logger.log(Level.SEVERE, "Error getting slide: index out of range");
 			return null;
 		}
 	}
@@ -150,7 +167,7 @@ public class Recipe {
 			return ingredients.get(ingredientNumber);
 		}
 		else {
-			reportError("Error getting ingredient: index out of range");
+			logger.log(Level.SEVERE, "Error getting ingredient: index out of range");
 			return null;
 		}
 	}
@@ -160,7 +177,7 @@ public class Recipe {
 			slides.add(slide);
 		}
 		else {
-			reportError("Error adding slide: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding slide: object received from parser is null");
 		}
 	}
 	
@@ -169,7 +186,7 @@ public class Recipe {
 			ingredients.add(ingredient);
 		}
 		else {
-			reportError("Error adding ingredient: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding ingredient: object received from parser is null");
 		}
 	}
 

@@ -46,17 +46,23 @@ public class NotesGUI {
 		}
 	}
 	
-	// method to return the notesPanel VBox object
+	/*
+	 *  method to return the notesPanel VBox object
+	 */
 	public VBox getNotesPanel() {
 		return notesPanel;
 	}
 	
-	// method to indicate when the notes panel is onscreen
+	/*
+	 *  method to indicate when the notes panel is onscreen
+	 */
 	public boolean getNotesPanelVisible() {
 		return notesPanelVisible;
 	}
 	
-	// method to access the content of the notesBox
+	/*
+	 *  method to access the content of the notesBox
+	 */
 	public String getContentOfNotesBox() {
 		if (notesBox != null) {
 			return notesBox.getText();
@@ -66,7 +72,9 @@ public class NotesGUI {
 		}
 	}
 
-	// set up the panel, content and event handlers
+	/*
+	 *  set up the panel, content and event handlers
+	 */
     public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root,  final VBox timerbox) {   
         // Set up the notes panel on the LHS of the screen
         notesPanel = new VBox();
@@ -131,7 +139,7 @@ public class NotesGUI {
 				}
 			}
         };
-        
+        // dictate that the panel should hide on mouseout of the panel
         notesPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
           	@Override
               public void handle(MouseEvent mouseEvent){
@@ -172,24 +180,25 @@ public class NotesGUI {
         	notesPanel.getChildren().clear();
         	notesPanel.getChildren().addAll(notesBox, timerbox);
         }
-        
-        //notesBox.setDisable(true);
 
         // check to see if the mouse is at the LHS of the screen every time it is moved
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
     }
     
-    // method to hide panel
+    /*
+     *  method to hide panel
+     */
     public void hidePanel(Group root) {
     	final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
 		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
 		timelineIn.getKeyFrames().add(kf);
       	notesPanelVisible = false;
       	timelineIn.stop();
-      	//notesBox.setDisable(true);
     }
     
-    // method to show panel
+    /*
+     *  method to show panel
+     */
     public void showPanel(Group root) {
     	// normal transition on mouseover
     	if (!getNotesOnLoad) {
@@ -204,6 +213,5 @@ public class NotesGUI {
     		getNotesOnLoad = false;
     	}
     	notesPanelVisible = true;
-    	//notesBox.setDisable(false);
     }
 }

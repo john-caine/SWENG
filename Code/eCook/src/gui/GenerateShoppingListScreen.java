@@ -11,10 +11,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
+
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
+import eCook.eCook;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -43,9 +48,13 @@ public class GenerateShoppingListScreen  extends menu{
 	private boolean inEditMode = false;
 	protected VBox bigBox;
 	private PDDocument pdf = null;
+	private Logger logger;
 	
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 		
 		//Get bigBox and set background for it
 		this.bigBox = bigBox;
@@ -302,7 +311,7 @@ public class GenerateShoppingListScreen  extends menu{
 			shoppingListBox.getChildren().add(newItem);
 		}
 		else {
-			System.out.println("Shopping List display is broken.");
+			logger.log(Level.WARNING, "Shopping List display is broken.");
 		}
 		
 		// Return the ShoppingList instance
