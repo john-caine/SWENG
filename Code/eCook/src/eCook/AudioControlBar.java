@@ -1,5 +1,5 @@
 /*
- * Programmer: Max
+ * Programmer: Max and Steve
  * Date Created: 05/06/14
  * Description: Audio Control Bar to sit under the control buttons in the slideshow control panel.
  */

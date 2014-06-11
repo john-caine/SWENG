@@ -1,4 +1,8 @@
-
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine 
+ * Date Created: 04/06/2014
+ * Description: Text Handler class which produces a text flow object from the input text body
+ */
 
 package media;
 
@@ -89,7 +93,7 @@ public class TextHandler extends SubSlideMedia {
 	 * Sets all of the attributes for a a single text element
 	 * @Param textString: 
 	 */
-	private Text setTextAttributes(TextString textString){
+	protected Text setTextAttributes(TextString textString){
 		 FontWeight weight;
 		 FontPosture posture;
 		 Text text;
@@ -148,6 +152,10 @@ public class TextHandler extends SubSlideMedia {
 		 });
 		}
 		 return text;
+	}
+	
+	public Text getText(int text){
+		return (Text) textBox.getChildren().get(text);
 	}
 
 }
