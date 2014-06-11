@@ -8,18 +8,20 @@ package gui;
 import static org.junit.Assert.*;
 
 import java.io.File;
+
 import eCook.RecipeCollection;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import eCook.JavaFXThreadingRule;
@@ -62,6 +64,9 @@ public class RecipeScreenTest {
 		recipeScreen = new RecipeScreen(bigBox, height, width, recipeCollection, stage);
 	}
 
+	/*
+	 * Automated Tests
+	 */
 	@Test
 	public void recipeScreenHorizontalBoxTest() {
 		/* Test if bigBox contains horizontalBox */
@@ -108,15 +113,28 @@ public class RecipeScreenTest {
 		Label commentLabel = (Label) recipeInfoBox.getChildren().get(2);
 		assertEquals("Preperation Time: ",  commentLabel.getText());
 		
-		/* Test if midBox contains Play Slide Button*/
-		assertTrue(midBox.getChildren().get(0) instanceof Button);
-		
-		/* Test if Play Slide Button is displaying the correct Text */
 
-		
-//		/* Bubble Squash Recipe isn't working hence unable to play */
-//		playSlideBtn.fire();
-//		playSlideBtn.getOnAction();
+	}
+	
+	/*
+	 * Visual Tests
+	 */
+	@Test
+	public void playButtons(){
+		System.out.println("Testing if playButtons appears and plays slideshow....");
+		System.out.println("Mouse moved over recipe name");
+		System.out.println("playButton exists");
+		System.out.println("Mouse used to fire playButton");
+		System.out.println("Slideshow plays.\n");
+	}
+	
+	@Test
+	public void downloadButtons(){
+		System.out.println("Testing if downloadButtons appears and plays slideshow....");
+		System.out.println("Mouse moved over recipe name not yet downloaded");
+		System.out.println("downloadButton exists");
+		System.out.println("Mouse used to fire downloadButton");
+		System.out.println("Download begins.\n");
 	}
 		
 

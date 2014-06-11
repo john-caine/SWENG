@@ -41,6 +41,9 @@ public class IngredientsScreen extends menu {
 	protected VBox bigBox;
 	protected double height, width;
 
+	/*
+	 * Constructor for class IngredientsScreen which extends abstract class menu
+	 */
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
 		
@@ -131,7 +134,9 @@ public class IngredientsScreen extends menu {
 		bigBox.getChildren().addAll(topBox, midBox);
 	}
 
-	// Method to update labels in the recipe info box
+	/*
+	 *  Method to update labels in the recipe info box
+	 */
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", guests = "", comment = "";
 
@@ -166,7 +171,9 @@ public class IngredientsScreen extends menu {
 
 
 
-	// Method to update list of ingredients from recipe and update for multiple guests
+	/*
+	 *  Method to update list of ingredients from recipe and update for multiple guests
+	 */
 	public void updateIngredientsList(final Recipe recipe) {	
 
 		final Label recipeInformationLabel = new Label("Recipe Information");

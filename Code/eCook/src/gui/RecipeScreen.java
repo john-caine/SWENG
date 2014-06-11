@@ -41,11 +41,14 @@ public class RecipeScreen extends menu{
 	final Button[] downloadButtons;
 	final Button[] playButtons;
 	
+	/*
+	 * Constructor for class RecipeScreen which extends menu
+	 */
 	public RecipeScreen (VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
 		super (recipeCollection);
 		
 		//Get bigBox and set background image
-		//this.bigBox = bigBox;
+		this.bigBox = bigBox;
 		bigBox.setId("RecipeScreenBigBox");
 		bigBox.getStylesheets().add("css.css");
 
@@ -266,7 +269,9 @@ public class RecipeScreen extends menu{
 		}
 	}
 
-	//Method for updating button lablels
+	/*
+	 * Method for updating button labels
+	 */
 	private void updateButtonLabels(int buttonId, int setting) {
 		if (setting == downloading) {
 			downloadButtons[buttonId].setVisible(true);
@@ -289,7 +294,9 @@ public class RecipeScreen extends menu{
 		}
 	}
 	
-	// Method to update labels in the recipe info box
+	/*
+	 *  Method to update labels in the recipe info box
+	 */
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", comment = "", cook = "", prep = "", guests = "", veg ="";
 

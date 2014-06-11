@@ -62,6 +62,9 @@ public class LoadExternalRecipe {
 	private HBox bottomBox;
 	private Logger logger;
 
+	/*
+	 * Constructor for class LoadRecipeScreen 
+	 */
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -184,8 +187,10 @@ public class LoadExternalRecipe {
 				}
 			}
 		});
-		// James
-		// Method to always keep https:// in front of web address in text box
+
+		/*
+		 *  Method to always keep https:// in front of web address in text box
+		 */
 		httpField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,

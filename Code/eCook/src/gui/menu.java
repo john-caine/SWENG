@@ -31,6 +31,9 @@ public abstract class menu {
 	public HBox topBox;
 	protected VBox bigBox;
 
+	/*
+	 * Constructor for abstract class menu
+	 */
 	public menu (final RecipeCollection recipeCollection) {
 
 		//Get screenbounds to set width and height
