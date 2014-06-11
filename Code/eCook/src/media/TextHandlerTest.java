@@ -6,18 +6,13 @@
 package media;
 
 import static org.junit.Assert.*;
-
 import java.util.List;
-
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import eCook.SlideShow;
 import xmlparser.TextBody;
-import xmlparser.TextString;
 import xmlparser.XMLReader;
 
 public class TextHandlerTest {
