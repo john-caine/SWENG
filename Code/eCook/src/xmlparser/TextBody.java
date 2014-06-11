@@ -17,6 +17,10 @@ package xmlparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
 
 public class TextBody extends Content {
 	// declare variables
@@ -24,10 +28,15 @@ public class TextBody extends Content {
 	private Integer fontSize = null;
 	private String font, fontColor = null;
 	private List<TextString> textBody;
+	private Logger logger;
 	
 	// constructor
 	public TextBody() {
 		super();
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		textBody = new ArrayList<TextString>();
 	}
 
@@ -93,7 +102,7 @@ public class TextBody extends Content {
 			return textBody.get(textStringNumber);
 		}
 		else {
-			reportError("Error getting text string: index out of range");
+			logger.log(Level.SEVERE, "Error getting text string: index out of range");
 			return null;
 		}
 	}
@@ -103,7 +112,7 @@ public class TextBody extends Content {
 			textBody.add(textString);
 		}
 		else {
-			reportError("Error adding text string: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding text string: object received from parser is null");
 		}
 	}
 
