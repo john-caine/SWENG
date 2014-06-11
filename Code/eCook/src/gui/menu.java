@@ -1,5 +1,9 @@
 package gui;
-
+/*
+ * Programmer: Ankita Gangotra
+ * Date Created: 06/05/2014
+ * Makes an abstract menu class for close, minimise and home buttons.
+ */
 import eCook.RecipeCollection;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,26 +26,24 @@ public abstract class menu {
 	private Image closeIcon, minimiseIcon, homeIcon;
 	protected double width;
 	protected double height;
-	protected Tooltip h,c,m;
+	protected Tooltip m,h,c;
 	private HBox topBoxLeft, topBoxRight;
-	protected HBox topBox;
+	public HBox topBox;
 	protected VBox bigBox;
 
 	public menu (final RecipeCollection recipeCollection) {
-		
+
 		//Get screenbounds to set width and height
 		screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
-		
-	//Creating buttons for the menu i.e home, minimise and close
-		
-	
+
+		//Creating buttons for the menu i.e home, minimise and close
 		//Add images for the buttons	
 		homeIcon = new Image("home1.png");
 		closeIcon = new Image("redx.png");
 		minimiseIcon = new Image("minimise.png");
-		
+
 		//Set images for buttons
 		minimiseBtnHolder = new ImageView(); 
 		minimiseBtnHolder.setImage(minimiseIcon);
@@ -49,7 +51,7 @@ public abstract class menu {
 		closeBtnHolder.setImage(closeIcon);
 		homeHolder = new ImageView();
 		homeHolder.setImage(homeIcon);
-		
+
 		//Add tool tips to the buttons
 		h = new Tooltip("Home");
 		Tooltip.install(homeHolder, h);
@@ -94,16 +96,16 @@ public abstract class menu {
 		});
 
 		//Defining an HBox to hold the buttons 
-        topBox = new HBox();
-        topBoxLeft = new HBox();
-        topBoxRight = new HBox(5);
-        
+		topBox = new HBox();
+		topBoxLeft = new HBox();
+		topBoxRight = new HBox(5);
+
 		topBoxRight.setPrefSize(width/2, height*0.1);
 		topBoxRight.setAlignment(Pos.TOP_RIGHT);
 		topBoxLeft.setPrefSize(width/2, height*0.1);
 		topBoxLeft.setAlignment(Pos.TOP_LEFT);
 		topBox.setPadding(new Insets(10, 45, 0, 40));
-		
+
 		topBoxLeft.getChildren().add(homeHolder);
 		topBoxRight.getChildren().addAll(minimiseBtnHolder,closeBtnHolder);
 		topBox.getChildren().addAll(topBoxLeft,topBoxRight);

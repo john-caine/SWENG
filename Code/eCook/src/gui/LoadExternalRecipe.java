@@ -61,7 +61,7 @@ public class LoadExternalRecipe {
 	private HBox bottomBox;
 
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
-		
+
 		// New stage
 		dialog = new Stage();
 		// Focus on new stage
@@ -73,12 +73,12 @@ public class LoadExternalRecipe {
 		// Allows for using the ESC key to exit the stage
 		dialog.addEventHandler(KeyEvent.KEY_PRESSED,
 				new EventHandler<KeyEvent>() {
-					public void handle(KeyEvent t) {
-						if (t.getCode() == KeyCode.ESCAPE) {
-							dialog.close();
-						}
-					}
-				});
+			public void handle(KeyEvent t) {
+				if (t.getCode() == KeyCode.ESCAPE) {
+					dialog.close();
+				}
+			}
+		});
 
 		// Download button
 		Button downloadBtn = new Button("");
@@ -145,7 +145,7 @@ public class LoadExternalRecipe {
 						}
 					} catch (IOException e) {
 						System.out
-								.println("Error copying XML file from local directory to defaults folder");
+						.println("Error copying XML file from local directory to defaults folder");
 						e.printStackTrace();
 					}
 				}
@@ -169,8 +169,8 @@ public class LoadExternalRecipe {
 						&& httpField.getText().endsWith(".xml")) {
 					getFromURLBtn.setDisable(false);
 					getFromURLBtn
-							.setTooltip(new Tooltip(
-									"Click here to download recipe from external website"));
+					.setTooltip(new Tooltip(
+							"Click here to download recipe from external website"));
 				} else {
 					getFromURLBtn.setDisable(true);
 				}
@@ -201,7 +201,7 @@ public class LoadExternalRecipe {
 		getFromURLBtn.setWrapText(true);
 		getFromURLBtn.setAlignment(Pos.CENTER);
 		getFromURLBtn.setTextAlignment(TextAlignment.CENTER);
-		
+
 		// get from URL button gets XML file via HTTP and saves to defaults folder
 		getFromURLBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -241,7 +241,7 @@ public class LoadExternalRecipe {
 						}
 					} catch (Exception e) {
 						System.out
-								.println("error downloading recipe file from URL");
+						.println("error downloading recipe file from URL");
 					}
 				}
 				dialog.close();
@@ -260,13 +260,13 @@ public class LoadExternalRecipe {
 
 		topBox = new HBox();
 		topBox.setAlignment(Pos.TOP_RIGHT);
-		topBox.setStyle("-fx-background-color: transparent;");
+		topBox.setId("LoadExternalRecipeTopBox");
+		topBox.getStylesheets().add("css.css");
 		topBox.setPrefSize(500, 36);
 		topBox.setPadding(new Insets(36, 14, 0, 0));
 
 		// New imageView required as using the old one moves its content as well
-		// Adds image onto the box containing the load Ext window made according to the
-		// GUI specifications
+		// Adds image onto the box containing the load Ext window made according to the GUI specifications
 		ImageView loadExtWinCloseBtnHolder = new ImageView();
 		Image closeIcon = new Image("redx.png");
 		Tooltip c = new Tooltip("Close");
@@ -276,12 +276,12 @@ public class LoadExternalRecipe {
 		topBox.getChildren().addAll(statusBar, loadExtWinCloseBtnHolder);
 		// Mouse click event
 		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					public void handle(MouseEvent mouseEvent) {
-						Node source = (Node) mouseEvent.getSource();
-						Stage dialog = (Stage) source.getScene().getWindow();
-						dialog.close();
-					}
-				});
+			public void handle(MouseEvent mouseEvent) {
+				Node source = (Node) mouseEvent.getSource();
+				Stage dialog = (Stage) source.getScene().getWindow();
+				dialog.close();
+			}
+		});
 
 		midBox = new HBox(20);
 		// Adds buttons to midBox and aligns to middle
@@ -294,7 +294,7 @@ public class LoadExternalRecipe {
 		loadExtBox.setId("LoadExteralRecipeLoadExtBox");
 		loadExtBox.getStylesheets().add("css.css");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
-		
+
 
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		dialog.setScene(dialogScene);
