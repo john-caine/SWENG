@@ -22,10 +22,13 @@ package xmlparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import xmlfilepathhandler.XMLFilepathHandler;
 
 public class Recipe {
+	// declare variables
 	Info info;
 	Defaults defaults;
 	List<Ingredient> ingredients;
@@ -35,7 +38,9 @@ public class Recipe {
 	Boolean downloadingLocalContent;
 	Boolean localExistance;
 	Boolean localExistanceSet;
+	Logger logger;
 		
+	// constructor
 	public Recipe() {
 		slides = new ArrayList<Slide>();
 		info = new Info();
@@ -47,17 +52,24 @@ public class Recipe {
 		localExistanceSet = false;
 	}
 	
-	// James- use this method in a thread to check if the recipe is being downloaded
+	/*
+	 *  James- use this method in a thread to check if the recipe is being downloaded
+	 */
 	public Boolean isDownloading() {
 		return downloadingLocalContent;
 	}
 	
-	// James- use this method to set the downloading var
+	/*
+	 *  James- use this method to set the downloading var
+	 */
 	public void setDownloading(Boolean value) {
 		localExistanceSet = false;
 		downloadingLocalContent = value;
 	}
 	
+	/*
+	 *  James- use this method to see if the file already exists locally
+	 */
 	public Boolean existsLocally() {
 		if (downloadingLocalContent) {
 			return false;
@@ -75,7 +87,9 @@ public class Recipe {
 		}
 	}
 
-	// method to report errors when setting fields
+	/*
+	 *  method to report errors when setting fields
+	 */
 	public void reportError(String errorMessage) {
 		System.out.println(errorMessage);
 	}
@@ -130,8 +144,7 @@ public class Recipe {
 			prevGuests = guests;
 		}
 		else {
-			/* TODO */
-			// Max & logger.
+			logger.log(Level.WARNING, "Number of guests not set in update amount for n guests");
 		}
 	}
 

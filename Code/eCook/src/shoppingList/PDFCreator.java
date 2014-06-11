@@ -35,6 +35,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 
 public class PDFCreator {
+	// declare variables
 	PDDocument shoppingListDocument;
 	PDPage currentPage;
 	PDPageContentStream currentContentStream;
@@ -43,6 +44,7 @@ public class PDFCreator {
 	int numberOfLinesUsed;
 	boolean allowFilepathSelection;
 	
+	// constructor
 	public PDFCreator(ArrayList<String> shoppingList, boolean allowFilepathSelection) {
 		// constructor takes a list of strings (shopping list items) and turns them into a single PDF
 		if (shoppingList != null && shoppingList.size() != 0) {
@@ -63,9 +65,9 @@ public class PDFCreator {
 					System.out.println("cannot get logo for shopping list PDF");
 				}
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				System.out.println("PDF Creator: file not found");
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("PDF Creator: IO error");
 			}
 			
 			// set the allow filepath selection flag
@@ -79,7 +81,9 @@ public class PDFCreator {
 		}
 	}
 	
-	// method to add a new page to the PDF document
+	/*
+	 *  method to add a new page to the PDF document
+	 */
 	private void addPage() throws IOException {
 		currentPage = new PDPage(PDPage.PAGE_SIZE_A4);
 		shoppingListDocument.addPage(currentPage);
@@ -101,7 +105,9 @@ public class PDFCreator {
 		currentContentStream.setFont(bodyFont, 12);
 	}
 	
-	// simple method to drop to a new line on the page
+	/*
+	 *  simple method to drop to a new line on the page
+	 */
 	private void newLine(PDPageContentStream contentStream) throws IOException {
 		contentStream.moveTextPositionByAmount(0, -20);
 		numberOfLinesUsed++;
@@ -116,7 +122,9 @@ public class PDFCreator {
 		}
 	}
 	
-	// main method to create a PDF file from an array list
+	/*
+	 *  main method to create a PDF file from an array list
+	 */
 	private void createPDFFromList(ArrayList<String> shoppingList) {
 		// initialise the number of lines used flag
 		numberOfLinesUsed = 0;
@@ -163,15 +171,17 @@ public class PDFCreator {
 			shoppingListDocument.close();
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("PDF Creator: IO error");
 		} 
 		catch (COSVisitorException e) {
-			e.printStackTrace();
+			System.out.println("PDF Creator: error creating PDF file");
 		}
 
 	}
 	
-	// method to get the filename from the file browser
+	/*
+	 *  method to get the filename from the file browser
+	 */
 	public String getSaveLocation() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Shopping List");

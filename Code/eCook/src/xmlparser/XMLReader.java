@@ -27,6 +27,8 @@
 package xmlparser;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -52,6 +54,7 @@ enum ProcessingElement {
 };
 
 public class XMLReader extends DefaultHandler {
+	// declare variables
 	private Recipe recipe;
 	private Slide slide;
 	private Content content;
@@ -64,7 +67,9 @@ public class XMLReader extends DefaultHandler {
 	private Image image;
 	private Video video;
 	private Ingredient ingredient;
+	Logger logger;
 	
+	// initialise the processing flags to nothing
 	private ProcessingElement currentElement = ProcessingElement.NONE;
 	private ProcessingElement recipeElement = ProcessingElement.NONE;
 	private ProcessingElement slideElement = ProcessingElement.NONE;
@@ -74,6 +79,16 @@ public class XMLReader extends DefaultHandler {
 	private Boolean xmlIsBroken = false;
 	private String xmlReadError = null;
 	
+	/*
+	 * Constructor
+	 */
+	public XMLReader(String inputFile) {
+		readXMLFile(inputFile);
+	}
+	
+	/*	
+	 * The method to parse an XML file, provide the full filepath.
+	 */
 	public void readXMLFile(String inputFile) {
 		try {
 			xmlIsBroken = false;
@@ -83,22 +98,15 @@ public class XMLReader extends DefaultHandler {
 			// parse the input
 			saxParser.parse(inputFile, this);
 		} catch (ParserConfigurationException pce) {
-			// pce.printStackTrace();
 			xmlReadError = "Error: Critical error reading slideshow file.";
 			xmlIsBroken = true;
 		} catch (SAXException saxe) {
-			// saxe.printStackTrace();
 			xmlReadError = "Error: File could not be read; errors exist in XML.";
 			xmlIsBroken = true;
 		} catch (IOException ioe) {
-			// ioe.printStackTrace();
 			xmlReadError = "Error: File could not be read; it could be corrupt or damaged.";
 			xmlIsBroken = true;
 		}
-	}
-		
-	public XMLReader(String inputFile) {
-		readXMLFile(inputFile);
 	}
 	
 	/*
@@ -112,7 +120,6 @@ public class XMLReader extends DefaultHandler {
 	/*
 	 * James and Prakruti
 	 * Returns a String explaining error with the xml file
-	 * 
 	 */
 	public String getErrorMsg() {
 		if (xmlIsBroken) {
@@ -124,7 +131,6 @@ public class XMLReader extends DefaultHandler {
 	/*
 	 * James and Prakruti
 	 * Returns recipe
-	 * 
 	 */
 	public Recipe getRecipe() {
 		return this.recipe;
@@ -133,7 +139,6 @@ public class XMLReader extends DefaultHandler {
 	/*
 	 * James and Prakruti
 	 * Returns documentinfo
-	 * 
 	 */
 	public Info getInfo() {
 		return this.info;
@@ -142,7 +147,6 @@ public class XMLReader extends DefaultHandler {
 	/*
 	 * James and Prakruti
 	 * Returns defaults
-	 * 
 	 */
 	public Defaults getDefaults() {
 		return this.defaults;
@@ -151,13 +155,14 @@ public class XMLReader extends DefaultHandler {
 	/*
 	 * James and Prakruti
 	 * Returns content
-	 * 
 	 */
 	public Content getContent() {
 		return this.content;
 	}
 	
-	// called by the parser when it encounters any start element tag
+	/*
+	 *  called by the parser when it encounters any start element tag
+	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// sort out element name if (no) namespace in use
@@ -289,7 +294,6 @@ public class XMLReader extends DefaultHandler {
 					}
 				} catch (Exception e) {
 					System.out.println("text attribute setting issue");
-					e.printStackTrace();
 				}
 				slideElement = ProcessingElement.TEXT;
 			}
@@ -322,8 +326,7 @@ public class XMLReader extends DefaultHandler {
 						shape.setLayer(attributes.getValue("layer"));
 					}
 				} catch (Exception e) {
-					System.out.println("shape attribute setting issue");
-					e.printStackTrace();
+					logger.log(Level.WARNING, "shape attribute setting issue");
 				}
 				slideElement = ProcessingElement.SHAPE;
 			}
@@ -368,7 +371,7 @@ public class XMLReader extends DefaultHandler {
 							textString.setBranch(attributes.getValue("branch"));
 						}
 					} catch (Exception e) {
-						System.out.println("textString (textBody in XML) attribute setting issue");
+						logger.log(Level.WARNING, "textString (textBody in XML) attribute setting issue");
 						e.printStackTrace();
 					}
 					
@@ -614,10 +617,5 @@ public class XMLReader extends DefaultHandler {
 		}
 		
 		currentElement = ProcessingElement.NONE;
-	}
-
-	// called by the parser when it encounters the end of the XML file.
-	public void endDocument() throws SAXException {
-//		System.out.println("XML Parser: finished processing document: " + inputFile);
 	}
 }

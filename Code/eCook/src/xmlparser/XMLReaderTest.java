@@ -17,6 +17,7 @@ package xmlparser;
 
 import static org.junit.Assert.*;
 
+import java.net.URL;
 import java.util.List;
 
 import org.junit.Before;
@@ -29,7 +30,9 @@ public class XMLReaderTest {
 	// create instances of the XML reader and recipe
 	@Before
 	public void setUp() throws Exception {
-		reader = new XMLReader("PWSExamplePlaylist_4.xml");
+		// get the example file from the defaultRecipe folder
+		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		reader = new XMLReader(defaultDirectory.getPath() + "/PWSExamplePlaylist_4.xml");
 		recipe = reader.getRecipe();
 	}
 	
@@ -146,7 +149,7 @@ public class XMLReaderTest {
 		
 		// check slide 1
 		assertEquals((Integer)0, recipe.slides.get(0).id);
-		assertEquals(30, recipe.slides.get(0).duration.intValue());
+		assertEquals(10, recipe.slides.get(0).duration.intValue());
 		assertFalse(recipe.slides.get(0).lastSlide);
 			// text 1
 			assertEquals((Integer)10, recipe.slides.get(0).content.texts.get(0).getXStart());
@@ -163,7 +166,7 @@ public class XMLReaderTest {
 			assertEquals((Integer)1000, recipe.slides.get(0).content.texts.get(1).getXEnd());
 			assertEquals((Integer)300, recipe.slides.get(0).content.texts.get(1).getYEnd());
 			assertEquals("Times New Roman", recipe.slides.get(0).content.texts.get(1).getFont());
-			assertEquals(16, recipe.slides.get(0).content.texts.get(1).getFontSize().intValue());
+			assertEquals(36, recipe.slides.get(0).content.texts.get(1).getFontSize().intValue());
 			assertEquals("#00FFFF", recipe.slides.get(0).content.texts.get(1).getFontColor());
 			assertEquals("This is a test of optional font attributes", recipe.slides.get(0).content.texts.get(1).getTextString(0).getText());
 			assertFalse(recipe.slides.get(0).content.texts.get(1).getTextString(0).getBold());

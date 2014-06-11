@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SlideTest {
+	// declare variables
 	Slide slide;
 	
 	// check that setting attributes works correctly

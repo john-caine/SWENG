@@ -62,27 +62,37 @@ public class SlideControls {
 		}
 	}
 	
-	// method to return the bottom panel VBox object
+	/*
+	 *  method to return the bottom panel VBox object
+	 */
 	public VBox getBottomPanel() {
 		return bottomPanel;
 	}
 
-	// method to return the controlPanel HBox object
+	/*
+	 *  method to return the controlPanel HBox object
+	 */
 	public HBox getControlBar() {
 		return controlPanel;
 	}
 	
-	// method to indicate when the bottom panel is onscreen
+	/*
+	 *  method to indicate when the bottom panel is onscreen
+	 */
 	public boolean getBottomPanelVisible() {
 		return bottomPanelVisible;
 	}
 
-	// method to access the list of buttons in the controlsBox
+	/*
+	 *  method to access the list of buttons in the controlsBox
+	 */
 	public List<Button> getButtons() {
 		return buttons;
 	}
 	
-	// set up the controls panel and add the buttons
+	/*
+	 *  set up the controls panel and add the buttons
+	 */
     public void setupcontrolPanel(final Group root, HBox audioBar) {   
         // get the size of the screen
 		screenBounds = Screen.getPrimary().getBounds();
@@ -220,7 +230,9 @@ public class SlideControls {
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverBottomHandler);
     }
     
-    // method to hide panel
+    /*
+     *  method to hide panel
+     */
     public void hidePanel(Group root) {
 		final KeyValue kv = new KeyValue(bottomPanel.translateYProperty(), panelHeight);
 		final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
@@ -229,7 +241,9 @@ public class SlideControls {
       	bottomPanelVisible = false;
     }
     
-    // method to show panel
+    /*
+     *  method to show panel
+     */
     public void showPanel(Group root) {
     	// normal transition on mouseover
     	if (!forceShow) {

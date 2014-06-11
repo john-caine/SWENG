@@ -51,11 +51,11 @@ public class IngredientsListTest {
 		testRecipe.addIngredient(ingredient2);
 		testRecipe.addIngredient(ingredient3);
 		
-		// populate the testing list
+		// populate the testing list (with 0 for ingredient amount and no units)
 		List<String> testIngList = new ArrayList<String>();
-		testIngList.add(ingredient1.getName());
-		testIngList.add(ingredient2.getName());
-		testIngList.add(ingredient3.getName());
+		testIngList.add(ingredient1.getName() + " 0 ");
+		testIngList.add(ingredient2.getName() + " 0 ");
+		testIngList.add(ingredient3.getName() + " 0 ");
 		
 		// call the ingredients list class and test
 		testClass = new IngredientsList(testRecipe, 100, 100);

@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextBody extends Content {
+	// declare variables
 	private Integer xEnd, yEnd = null;
 	private Integer fontSize = null;
 	private String font, fontColor = null;
 	private List<TextString> textBody;
 	
+	// constructor
 	public TextBody() {
 		super();
 		textBody = new ArrayList<TextString>();

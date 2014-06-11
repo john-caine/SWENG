@@ -10,6 +10,7 @@ package recipehttpaccess;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.net.URL;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -23,8 +24,10 @@ import eCook.JavaFXThreadingRule;
 import eCook.RecipeCollection;
 
 public class RecipeBrowserTest {
+	// declare variables
 	RecipeBrowser recipeBrowser;
 	Stage testStage;
+	
 	// Run tests on JavaFX thread ref. Andy Till
 	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
@@ -88,7 +91,9 @@ public class RecipeBrowserTest {
 		assertEquals(1, recipeBrowser.listOfRecipeFiles.getSelectionModel().getSelectedItems().size());
 		assertEquals("PWSExamplePlaylist_4.xml", recipeBrowser.listOfRecipeFiles.getSelectionModel().getSelectedItem());
 		recipeBrowser.downloadButton.fireEvent(new ActionEvent());
-		File file = new File("defaultRecipes/PWSExamplePlaylist_4.xml");
+		// point to the defaults folder
+		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		File file = new File(defaultDirectory.getPath() + "/PWSExamplePlaylist_4.xml");
 		assertTrue(file != null);
 		assertTrue(file.exists());
 		assertTrue(recipeBrowser.downloaded);

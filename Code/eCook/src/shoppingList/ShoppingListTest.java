@@ -48,51 +48,51 @@ public class ShoppingListTest {
 		assertEquals(testList, shoppingList.shoppingList);
 	}
 	
-	//execute only once, in the starting 
-	   @BeforeClass
-	   public static void beforeClass() {
-		  ShoppingList shoppingList = new ShoppingList();
-		  ArrayList<String> testList = new ArrayList<String>();
-		  
-		  // Check if there is anything currently in the shopping list
-		  if (shoppingList.getNumberOfItems() > 0) {
-			  // Get the contents of the shopping list
-			  testList = shoppingList.readFromTextFile();
-			  
-			  // Remove all the items from the shopping list
-			  shoppingList.removeItems(testList);
-		  }
-	      
-		  System.out.println("in before class");
-	   }
+	/* Paul
+	 * execute only once, in the starting
+	 */
+	@BeforeClass
+	public static void beforeClass() {
+		ShoppingList shoppingList = new ShoppingList();
+		ArrayList<String> testList = new ArrayList<String>();
 
-	   //execute only once, in the end
-	   @AfterClass
-	   public static void afterClass() {
-			  ShoppingList shoppingList = new ShoppingList();
-			  ArrayList<String> testList = new ArrayList<String>();
-			  
-			  // Check if there is anything currently in the shopping list
-			  if (shoppingList.getNumberOfItems() > 0) {
-				  // Get the contents of the shopping list
-				  testList = shoppingList.readFromTextFile();
-				  
-				  // Remove all the items from the shopping list
-				  shoppingList.removeItems(testList);
-			  }
-		   
-		   System.out.println("in after class");
-	   }
-	
-	
-	
+		// Check if there is anything currently in the shopping list
+		if (shoppingList.getNumberOfItems() > 0) {
+			// Get the contents of the shopping list
+			testList = shoppingList.readFromTextFile();
+
+			// Remove all the items from the shopping list
+			shoppingList.removeItems(testList);
+		}
+	}
+
+	/* Paul
+	 * execute only once, in the end
+	 */
+	@AfterClass
+	public static void afterClass() {
+		ShoppingList shoppingList = new ShoppingList();
+		ArrayList<String> testList = new ArrayList<String>();
+
+		// Check if there is anything currently in the shopping list
+		if (shoppingList.getNumberOfItems() > 0) {
+			// Get the contents of the shopping list
+			testList = shoppingList.readFromTextFile();
+
+			// Remove all the items from the shopping list
+			shoppingList.removeItems(testList);
+		}
+	}
+
+
+
 	// check that the number of items in the list is correct
 	@Test
 	public void correctNumberOfItemsInList() {
 		ShoppingList shoppingList = new ShoppingList();
 		assertEquals(6, shoppingList.getNumberOfItems());
 	}
-	
+
 	// check that adding an item works correctly
 	@Test
 	public void itemAddedCorrectlyAppearsInList() {
@@ -102,7 +102,7 @@ public class ShoppingListTest {
 		// if the test passes, remove the item from the list to avoid upsetting the other tests
 		shoppingList.removeItem("custard creams");
 	}
-	
+
 	// check that removing an item works correctly
 	@Test
 	public void itemRemovedCorrectlyDisappearsFromList() {
@@ -112,7 +112,7 @@ public class ShoppingListTest {
 		// if the test passes, add the item back to the list to avoid upsetting the other tests
 		shoppingList.addItem("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out");
 	}
-	
+
 	// check that removing several item works correctly
 	@Test
 	public void itemsRemovedCorrectlyDisappearFromList() {
@@ -127,10 +127,10 @@ public class ShoppingListTest {
 		shoppingList.addItem("just lots of lemons please");
 		shoppingList.addItem("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out");
 	}
-	
-	
+
+
 	/* Visual Tests */
-	
+
 	// check that the .txt file is updated correctly from the preceding tests
 	@Test
 	public void textFileContainsCorrectInfo() {

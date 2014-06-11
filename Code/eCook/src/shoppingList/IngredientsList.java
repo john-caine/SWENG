@@ -1,6 +1,6 @@
 /* Title: IngredientsList
  *
- * Programmers: Max, Ankita & Roger Tan
+ * Programmers: Max, Ankita, Roger Tan and James.
  *
  * Date Created: 15/04/14
  *
@@ -11,7 +11,6 @@
 package shoppingList;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import xmlparser.Recipe;
@@ -29,11 +28,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class IngredientsList {
-
+	// declare variables
 	static ArrayList<String> ingredientsList;
 	CheckBox[] checkboxes;
 	VBox ingredientsListBox, scrollBox;
@@ -63,19 +61,25 @@ public class IngredientsList {
 		setupIngredientsListGUI();
 	}
 
-	// method to get the ingredients list GUI VBox
+	/*
+	 *  method to get the ingredients list GUI VBox
+	 */
 	public VBox getIngredientsListGUI() {
 		return ingredientsListBox;
 	}
 
-	// method to update the status bar
+	/*
+	 *  method to update the status bar
+	 */
 	public void updateStatusBar(String text) {
 		if (text != null) {
 			statusBar.setText(text);
 		}
 	}
 
-	// method to update shopping list when user clicks checkbox
+	/*
+	 *  method to update shopping list when user clicks checkbox
+	 */
 	public void updateShoppingList() {	
 		// loop through the checkboxes and check their values
 		for (int i=0; i<ingredientsList.size(); i++) {
@@ -95,7 +99,9 @@ public class IngredientsList {
 		}	
 	}
 
-	// method to create the ingredients list VBox
+	/*
+	 *  method to create the ingredients list VBox
+	 */
 	public void setupIngredientsListGUI() {	
 		// create VBox for the ingredients list
 		ingredientsListBox = new VBox();
@@ -212,7 +218,9 @@ public class IngredientsList {
 		ingredientsListBox.getChildren().addAll(scrollPane, buttonBox);
 	}
 
-	// method to test for save button enable
+	/*
+	 *  method to test for save button enable
+	 */
 	public void testEnableSaveButton() {
 		// clear the status bar
 		if (!statusBar.getText().equals("")) {
@@ -237,5 +245,4 @@ public class IngredientsList {
 			updateShoppingListButton.setDisable(true);
 		}
 	}	
-
 }

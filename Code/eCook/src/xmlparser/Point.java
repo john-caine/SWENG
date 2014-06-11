@@ -8,14 +8,10 @@ package xmlparser;
  * 
  * Description: A class to contain all information associated with shape points.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
-
  */
 
 public class Point {
 	Integer num, x, y; 
-	
-	public Point() {
-	}
 
 	// getters
 	public Integer getNum() {

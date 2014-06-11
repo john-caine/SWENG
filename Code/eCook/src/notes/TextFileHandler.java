@@ -31,7 +31,9 @@ public class TextFileHandler {
 		logger = Logger.getLogger(eCook.class.getName());
 	}
 
-	// method to write String to text file
+	/*
+	 *  method to write String to text file
+	 */
 	public void writeTextFile(String notes, Integer slideID, String recipeTitle) {
 		if (notes != null && slideID != null && recipeTitle != null) {
 			try {
@@ -39,14 +41,13 @@ public class TextFileHandler {
 				FileWriter notesStream = new FileWriter(System.getenv("localappdata") + "/eCook/Recipes/" + recipeTitle + "_" + slideID.toString() + ".txt");
 				BufferedWriter output = new BufferedWriter(notesStream);
 				output.write(notes);
-				logger.log(Level.INFO, "File written");
+				logger.log(Level.INFO, "Notes text file written");
 				error = false;
 				// close the output stream
 				output.close();
 			} 
 			catch (IOException e) {
-				
-				logger.log(Level.WARNING, "Error when writing text file");
+				logger.log(Level.WARNING, "Error when writing notes text file");
 				error = true;
 			}
 		}
@@ -56,7 +57,9 @@ public class TextFileHandler {
 		}	
 	}
 	
-	// method to read String from text file
+	/*
+	 *  method to read String from text file
+	 */
 	public String readTextFile(String filename) {
 		File fileToRead = new File(System.getenv("localappdata") + "/eCook/Recipes/" + filename);
 		
@@ -81,7 +84,6 @@ public class TextFileHandler {
 		        input.close();
 		    }
 		    catch (IOException ex) {
-		    
 		    	logger.log(Level.WARNING, "Error reading text file");
 		        error = true;
 		    }
@@ -90,7 +92,6 @@ public class TextFileHandler {
 		}
 		// return null if the filename is invalid
 		else {
-			
 			error = true;
 			return null;
 		}  

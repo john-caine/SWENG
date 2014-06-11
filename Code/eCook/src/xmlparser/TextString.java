@@ -1,24 +1,10 @@
 package xmlparser;
-/* Title: TextString
- * 
- * Programmers: Ankita, Max
- * 
- * Date Created: 08/03/14
- * 
- * Description: TextString is a class that holds a String and three flags to tell if
- * 				the String should be displayed in bold and/or in italics and/or underlined
- * 
- * Version History: v1.01 (27/03/14) - Added branch field and setter and getter methods.
- * 					v1.1  (01/04/14) - Changed type of branch from int to Integer.
- */
 
 public class TextString {
+	// declare variables
 	Boolean bold = false, italic = false, underline = false;
 	Integer branch = null;
 	String text = "";
-	
-	public TextString() {
-	}
 
 	// getters
 	public Boolean getBold() {

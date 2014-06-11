@@ -15,13 +15,11 @@ package xmlparser;
  */
 
 public class Slide {
+	// declare variables
 	Integer id;
 	Integer duration = 0;
 	Boolean lastSlide = false;
 	Content content;
-		
-	public Slide() {
-	}
 
 	// getters
 	public Integer getID() {

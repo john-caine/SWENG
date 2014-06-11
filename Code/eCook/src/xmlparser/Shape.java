@@ -21,10 +21,12 @@ import java.util.List;
  */
 
 public class Shape extends Content {
+	// declare variables
 	private Integer totalPoints = null;
 	private List<Point> points;
 	private String fillColor, lineColor = "black";
 	
+	// constructor
 	public Shape() {
 		super();
 		points = new ArrayList<Point>();

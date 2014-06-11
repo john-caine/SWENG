@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
-	Integer width, height, xStart, yStart = null;
+	// declare fields
+	Integer width = null, height = null, xStart = null, yStart = null;
 	Integer layer, startTime, duration, branch, orientation = 0;
 	String urlName = null;
 	Boolean loop = false;
@@ -31,6 +32,7 @@ public class Content {
 	List<Image> images;
 	List<Video> videos;
 	
+	// constructor sets up arrays for all media types
 	public Content() {
 		texts = new ArrayList<TextBody>();
 		shapes = new ArrayList<Shape>();
