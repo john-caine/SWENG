@@ -49,20 +49,19 @@ public class eCook extends Application {
 		 * list of recipes available in the defaultRecipe folder */
 		recipeCollection = new RecipeCollection();
 
-		// get number of files in the defaultRecipe folder
-		//URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
-		//File filePath = new File(defaultDirectory.getPath());
-
+		// Get the path of where the JAR file is executing from
 		String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 		String decodedPath = null;
+		
+		// Decode the path to handle spaces and special characters
 		try {
 			decodedPath = URLDecoder.decode(path, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			new ErrorHandler("Decoding of path failed");
 		}
-		File filePath = new File(decodedPath + "/../defaultRecipes_new");
 		
-		System.out.print(filePath);
+		// Finally append the defaultRecipes folder onto the path ready for copy
+		File filePath = new File(decodedPath + "/../defaultRecipes_new");	
 		
 		// Make a recipes folder in %localappdata%
 		File recipeDirectory = new File(System.getenv("localappdata") + "/eCook/Recipes");			

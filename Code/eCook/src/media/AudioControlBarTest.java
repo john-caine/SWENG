@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
+import eCook.JavaFXThreadingRule;
+import eCook.SlideShow;
 import media.AudioHandler;
-
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.util.Duration;

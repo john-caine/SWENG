@@ -629,7 +629,7 @@
 	-fx-font-weight: bold;
 	/*Background*/
 	-fx-background-color: transparent;
-	-fx-background-image: url('Last.png');
+	-fx-background-image: url('LAST.png');
 	-fx-background-position: center center; 
 	-fx-background-size: contain;
 	-fx-background-repeat: no-repeat;
