@@ -1,15 +1,22 @@
 package eCook;
 
+/*
+ * Programmers: Jonathan Caine, Steve Thorpe, James Oatley, Max Holland
+ * 
+ * Date: 26/02/2014
+ * 
+ * Description: Main class for eCook that handles initial configuration so the application is ready to
+ * 				to be launched. Calls the MainMenu as entry point.
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
 import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
@@ -22,39 +29,44 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import errorhandler.ErrorHandler;
 import javafx.stage.StageStyle;
-
 import org.apache.commons.io.*;
 
 public class eCook extends Application {
 
-	Group root;
-	Stage stage;
-	SlideShow slideShow;
-	RecipeCollection recipeCollection;
-	static Logger logger;
+	protected Group root;
+	protected Stage stage;
+	protected SlideShow slideShow;
+	protected RecipeCollection recipeCollection;
+	protected static Logger logger;
 
+	/**
+	 * Start method as required by JavaFx, which is called upon launch of the application.
+	 * Sets up configuration specific to the application.
+	 * @param stage The stage the application should be initially launched with.
+	 */
 	@Override
 	public void start(Stage stage) {
 
+		// Add an icon to be displayed in the task bar, instead of the default Java one.
 		stage.getIcons().add(new Image("eCookIcon.png"));
+		
 		try {
-			// Load external font
+			// Load external font used for Menu screens
 			Font.loadFont(eCook.class.getResource("BuxtonSketch.ttf").toExternalForm(), 10);
-		} 
-		catch(NullPointerException e) {
+		} catch(NullPointerException e) {
 			logger.log(Level.WARNING, "Failed to import BoxtonSketch font");
 		}
 
-		/* This is where the parser is called to populate the 	 *
-		 * list of recipes available in the defaultRecipe folder */
+		// Create our recipe collection ready to be populated by the parser
 		recipeCollection = new RecipeCollection();
 
 		// Get the path of where the JAR file is executing from
 		String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 		String decodedPath = null;
 		
-		// Decode the path to handle spaces and special characters
+		
 		try {
+			// Decode the path to handle spaces and special characters
 			decodedPath = URLDecoder.decode(path, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			new ErrorHandler("Decoding of path failed");
@@ -71,26 +83,30 @@ public class eCook extends Application {
 		File shoppingListDirectory = new File(System.getenv("localappdata") + "/eCook/ShoppingLists");
 		shoppingListDirectory.mkdirs();
 
-		// Copy the defaultRecipes folder to our %localappdata% folder
 		try {
+			// Copy the defaultRecipes folder to our %localappdata% folder
 			FileUtils.copyDirectory(filePath, recipeDirectory);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Unable to copy defaultRecipes folder to Local Application Data folder");
 			new ErrorHandler("Unable to copy defaultRecipes folder to Local Application Data folder");
 		}
 
-		// parse all files in folder, adding recipes to collection
+		// parse all files in  defaultRecipes folder (in %localappdata%), adding recipes to collection
 		for (int i=0; i<recipeDirectory.list().length; i++) {
 			// only read XML files if for some reason other files exist
 			if (recipeDirectory.list()[i].endsWith(".xml")) {
 				XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+				
 				// Check filepaths for media in XML
 				if(filepathHandler.checkMediaPathsExistOffline(recipeDirectory.list()[i])) {
 					logger.log(Level.INFO, "Calling XML parser");
 					XMLReader reader = new XMLReader(recipeDirectory + "/" + recipeDirectory.list()[i]);
+					
 					// Make sure recipes pass through the validator
 					XMLValidator validator = new XMLValidator(reader);
+					
 					if (!validator.isXMLBroken()) {
+						// If the validator hasn't returned an error, set the display name and add to the collection
 						Recipe currentRecipe = reader.getRecipe();
 						currentRecipe.setFileName(recipeDirectory.list()[i]);
 						recipeCollection.addRecipe(currentRecipe);
@@ -101,18 +117,26 @@ public class eCook extends Application {
 		}
 
 
-		// This is the group for the main menu - DONT DELETE IT!
+		// Create the group for the MainMenu
 		root = new Group();
+		
 		// Set the title of the window
 		stage.setTitle("eCook");
 		stage.initStyle(StageStyle.UNDECORATED);
+		
 		// Add main menu to the stage
 		@SuppressWarnings("unused")
 		MainMenu mainMenu = new MainMenu(stage, recipeCollection);
+		
 		// Show the stage when ready
 		stage.show();
 	}
 
+	/**
+	 * Main method that configures the logger to be used throughout the application, and calls the JavaFx method launch.
+	 * 
+	 * @param args Any arguments to be passed to the Main method.
+	 */
 	public static void main(String[] args) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());

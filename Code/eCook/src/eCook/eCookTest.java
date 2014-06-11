@@ -7,7 +7,6 @@ package eCook;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,8 +16,8 @@ public class eCookTest {
 	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
-	static Group group;
-	static Scene scene;
+	private static Group group;
+	private static Scene scene;
 	
 	@Before
 	// perform JavaFX setup 
