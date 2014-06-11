@@ -8,8 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
+import xmlvalidation.XMLValidator;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -71,10 +73,17 @@ public class eCook extends Application {
 			if (recipeDirectory.list()[i].endsWith(".xml")) {
 				logger.log(Level.INFO, "Calling XML parser");
 				XMLReader reader = new XMLReader(recipeDirectory + "/" + recipeDirectory.list()[i]);
-				Recipe currentRecipe = reader.getRecipe();
-				currentRecipe.setFileName(recipeDirectory.list()[i]);
-				recipeCollection.addRecipe(currentRecipe);
-				logger.log(Level.INFO, "Logged Recipe" + recipeDirectory.list()[i]);
+				XMLValidator validator = new XMLValidator(reader);
+				if (!validator.isXMLBroken()) {
+					XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+					reader = filepathHandler.setMediaPaths(reader);
+					if (!filepathHandler.mediaPathsAreBroken()) {
+						Recipe currentRecipe = reader.getRecipe();
+						currentRecipe.setFileName(recipeDirectory.list()[i]);
+						recipeCollection.addRecipe(currentRecipe);
+						logger.log(Level.INFO, "Logged Recipe" + recipeDirectory.list()[i]);
+					}
+				}
 			}
 		}
 
@@ -115,7 +124,7 @@ public class eCook extends Application {
 
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.INFO);
-
+		
 		// Launch the JFx Application thread
 		Application.launch(args);
 	}
