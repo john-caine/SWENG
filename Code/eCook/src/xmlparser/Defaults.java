@@ -1,4 +1,9 @@
 package xmlparser;
+
+import java.util.logging.Logger;
+
+import eCook.eCook;
+
 /* Title: Defaults
  * 
  * Programmers: Ankita, Max, James, Prakruti
@@ -19,13 +24,11 @@ package xmlparser;
 public class Defaults {
 	String backgroundColor, font, fontColor, fillColor, lineColor = null;
 	Integer fontSize = null;
+	private Logger logger;
 		
 	public Defaults() {
-	}
-	
-	// method to report errors when setting fields
-	public void reportError(String errorMessage) {
-		System.out.println(errorMessage);
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 	}
 
 	// getters

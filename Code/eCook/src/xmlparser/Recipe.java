@@ -22,7 +22,10 @@ package xmlparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import eCook.eCook;
 import xmlfilepathhandler.XMLFilepathHandler;
 
 public class Recipe {
@@ -35,8 +38,12 @@ public class Recipe {
 	Boolean downloadingLocalContent;
 	Boolean localExistance;
 	Boolean localExistanceSet;
+	private Logger logger;
 		
 	public Recipe() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		slides = new ArrayList<Slide>();
 		info = new Info();
 		defaults = new Defaults();
@@ -75,10 +82,6 @@ public class Recipe {
 		}
 	}
 
-	// method to report errors when setting fields
-	public void reportError(String errorMessage) {
-		System.out.println(errorMessage);
-	}
 	
 	public void setFileName(String fileName) {
 		if (fileName != null && !fileName.equals("")){
@@ -140,7 +143,7 @@ public class Recipe {
 			return slides.get(slideNumber);
 		}
 		else {
-			reportError("Error getting slide: index out of range");
+			logger.log(Level.SEVERE, "Error getting slide: index out of range");
 			return null;
 		}
 	}
@@ -150,7 +153,7 @@ public class Recipe {
 			return ingredients.get(ingredientNumber);
 		}
 		else {
-			reportError("Error getting ingredient: index out of range");
+			logger.log(Level.SEVERE, "Error getting ingredient: index out of range");
 			return null;
 		}
 	}
@@ -160,7 +163,7 @@ public class Recipe {
 			slides.add(slide);
 		}
 		else {
-			reportError("Error adding slide: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding slide: object received from parser is null");
 		}
 	}
 	
@@ -169,7 +172,7 @@ public class Recipe {
 			ingredients.add(ingredient);
 		}
 		else {
-			reportError("Error adding ingredient: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding ingredient: object received from parser is null");
 		}
 	}
 
