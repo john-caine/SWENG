@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -39,11 +41,6 @@ public class SlideShowTest {
 	// Run tests on JavaFX thread ref. Andy Till
 	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
-	private ObservableList<Node> childList;
-	private HBox buttonBox;
-	private Button nextSlide;
-	private Button previousSlide;
-	private Button exitSlide;
 
 	@Before
 	public void setUp() throws Exception {
@@ -73,7 +70,8 @@ public class SlideShowTest {
 		//check the validator has been called
 		assertTrue(slideShow.validator != null);
 		
-		assertTrue(slideShow);
+		// Check the background colour is set correctly
+		assertEquals("0x00ff00ff", slideShow.slideScene.getFill().toString());
 	}
 
 	/*
@@ -86,7 +84,23 @@ public class SlideShowTest {
 		
 		// Assert the correct slideID has been set
 		assertTrue(slideShow.currentSlideID == 0);
+		assertTrue(slideShow.nextSlideID == 1);
+		assertTrue(slideShow.prevSlideID == -1);
 		
+		// Check that layering has been handled
+		assertTrue(slideShow.maxLayer != null);
+		
+		// Check that the slide has a duration
+		assertTrue(slideShow.duration != null);
+		
+		// Check the notesGUI is called
+		assertTrue(slideShow.notesGUI != null);
+		
+		// check a control bar is on the screen
+		assertTrue(slideShow.slideControls != null);
+		
+		// Check the timer array is populated
+		assertTrue(slideShow.timerList != null);
 	}
 
 	@Test
@@ -101,6 +115,17 @@ public class SlideShowTest {
 		assertTrue(slideShow.currentSlideID == 5);
 		assertTrue(slideShow.nextSlideID == 0);
 		assertTrue(slideShow.prevSlideID == 0);
+	}
+	
+	@Test
+	public void testLayering(){
+		slideShow.newSlide(3, false,null);
+		assertEquals(3, slideShow.maxLayer, 0.1);
+		assertEquals(4, slideShow.layers.size(),0.1);
+		assertEquals(1, slideShow.layers.get(0).getChildren().size());
+		assertEquals(0, slideShow.layers.get(1).getChildren().size());
+		assertEquals(0, slideShow.layers.get(2).getChildren().size());
+		assertEquals(1, slideShow.layers.get(3).getChildren().size());	
 	}
 
 
