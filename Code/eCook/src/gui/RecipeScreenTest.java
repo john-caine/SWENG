@@ -67,7 +67,7 @@ public class RecipeScreenTest {
 	@Test
 	public void recipeScreenTopBoxTest() {
 		/* Test if bigBox contains topBox */
-		//assertTrue(recipeScreen.bigBox.getChildren().get(0) instanceof HBox);
+		assertTrue(recipeScreen.bigBox.getChildren().get(0) instanceof HBox);
 		
 		/* Test if topBox contains topLeftBox & topRightBox */
 		HBox topBox = (HBox) recipeScreen.bigBox.getChildren().get(0);
