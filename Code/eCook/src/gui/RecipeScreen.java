@@ -45,7 +45,7 @@ public class RecipeScreen extends menu{
 		super (recipeCollection);
 		
 		//Get bigBox and set background image
-		this.bigBox = bigBox;
+		//this.bigBox = bigBox;
 		bigBox.setId("RecipeScreenBigBox");
 		bigBox.getStylesheets().add("css.css");
 
@@ -74,24 +74,34 @@ public class RecipeScreen extends menu{
 			row.setId("r" + i);
 			row.setPrefWidth(rightBox.getPrefWidth()-10);
 			row.setAlignment(Pos.CENTER_LEFT);
+
 			// Set up default button parameters
+
 			
 			// Set up buttons
+
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
 			downloadButtons[i].setId("downloadButtons");
 			downloadButtons[i].getStylesheets().add("css.css");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
+
 			playButtons[i].setId("playButtons");
 			playButtons[i].getStylesheets().add("css.css");
 
-			// Download button requires a thread on action, methods within the thread will be run in the background			
+			// Put some tooltips on the buttons
+			downloadButtons[i].setTooltip(new Tooltip("Downloads online content for this recipe"));
+			playButtons[i].setTooltip(new Tooltip("Opens the selected recipe"));
+			// Download button requires a thread on action, methods within the thread will be run in the background
+
+			
 			//Set tool tips
 			downloadButtons[i].setTooltip(new Tooltip("Download recipe content file to your local machine (speeds up playback)"));
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 			
 			// Configure the buttons
+
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {

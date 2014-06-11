@@ -44,9 +44,10 @@ public class IngredientsScreen extends menu {
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
 		
-		//Get bigBox and set barckground
+		//Get bigBox and set background
 		this.bigBox = bigBox;
-		bigBox.setStyle("-fx-background-size: cover; -fx-background-position: center center; -fx-background-image: url('backgroundBlur.png');");
+		bigBox.setId("IngredientsScreenBigBox");
+		bigBox.getStylesheets().add("css.css");
 		this.height = height;
 		this.width = width;
 
@@ -67,7 +68,7 @@ public class IngredientsScreen extends menu {
 
 		for (int i = 0; i < recipeCollection.getNumberOfRecipes(); i++) {
 			recipeTitles
-					.add(recipeCollection.getRecipe(i).getInfo().getTitle());
+			.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 		}
 
 		// Create a list view and populate it with the recipe titles
@@ -77,26 +78,26 @@ public class IngredientsScreen extends menu {
 				midBoxLeft.getPrefHeight());
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
 		listOfRecipes.getSelectionModel()
-				.setSelectionMode(SelectionMode.SINGLE);
+		.setSelectionMode(SelectionMode.SINGLE);
 
 		// Initialise the ingredients list VBox
 		ingredientsList = new VBox();
 
 		// when recipe selection changes, update the info and ingredients fields
 		listOfRecipes.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListener<String>() {
-					public void changed(ObservableValue<? extends String> ov,
-							String old_val, String new_val) {
-						// get the selected recipe
-						int selectedIndex = listOfRecipes.getSelectionModel()
-								.getSelectedIndex();
-						// call the update info labels method
-						updateInfoLabels(recipeCollection
-								.getRecipe(selectedIndex));
-						updateIngredientsList(recipeCollection
-								.getRecipe(selectedIndex));
-					}
-				});
+		.addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> ov,
+					String old_val, String new_val) {
+				// get the selected recipe
+				int selectedIndex = listOfRecipes.getSelectionModel()
+						.getSelectedIndex();
+				// call the update info labels method
+				updateInfoLabels(recipeCollection
+						.getRecipe(selectedIndex));
+				updateIngredientsList(recipeCollection
+						.getRecipe(selectedIndex));
+			}
+		});
 
 		// Create a new VBox to hold the recipe information
 		recipeInfoBox = new VBox();
@@ -115,7 +116,7 @@ public class IngredientsScreen extends menu {
 		else {
 			updateInfoLabels(null);
 		}
-		
+
 		//Add labels
 		Label recipesLabel = new Label("Recipes");
 		recipesLabel.setId("recipesLabel");
@@ -145,6 +146,7 @@ public class IngredientsScreen extends menu {
 		Label authorLabel = new Label("Author: " + author);
 		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label commentLabel = new Label("Comment: " + comment);
+		System.out.println(commentLabel);
 
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
@@ -162,8 +164,8 @@ public class IngredientsScreen extends menu {
 		recipeInfoBox.getChildren().addAll(authorLabel, guestsLabel,
 				commentLabel);
 	}
-	
-	
+
+
 
 	// Method to update list of ingredients from recipe and update for multiple guests
 	public void updateIngredientsList(final Recipe recipe) {	
@@ -175,47 +177,47 @@ public class IngredientsScreen extends menu {
 		final Label ingredientsLabel = new Label("Ingredients");
 		ingredientsLabel.setId("ingredientsLabel");
 		ingredientsLabel.getStylesheets().add("css.css");
-		
-	//Adding multiple guests functionality 
-	//Add label for nGuests
-	Label nGuestsLabel = new Label("Serves:");
-	nGuestsLabel.setId("nGuestsLabel");
-	nGuestsLabel.getStylesheets().add("css.css");
 
-	
-	//Add text field
-	nGuests = new TextField();
-	nGuests.setText("4");
-	nGuests.setMaxSize(midBoxRight.getPrefWidth()/20, midBoxRight.getPrefHeight()/20);
-	
-	// Add tool tip
-	Tooltip TTnGuests = new Tooltip("Must be a number more than 0 and less than 100");
-	Tooltip.install(nGuests, TTnGuests);
-	
-	// Add an eventhandler to detect when user selects number of guests
-	nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
-		public void handle(KeyEvent event) {
-			// only allows integer numbers
-			if (!nGuests.getText().equals("0")&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("") && Integer.valueOf(nGuests.getText()) < 100) {
-				updateIngredients.setDisable(false);
-				updateIngredients.setTooltip(new Tooltip("Click here to choose number of people to modify quantity of ingredients"));
-			} else {
-				updateIngredients.setDisable(true);
+		//Adding multiple guests functionality 
+		//Add label for nGuests
+		Label nGuestsLabel = new Label("Serves:");
+		nGuestsLabel.setId("nGuestsLabel");
+		nGuestsLabel.getStylesheets().add("css.css");
+
+
+		//Add text field
+		nGuests = new TextField();
+		nGuests.setText("4");
+		nGuests.setMaxSize(midBoxRight.getPrefWidth()/20, midBoxRight.getPrefHeight()/20);
+
+		// Add tool tip
+		Tooltip TTnGuests = new Tooltip("Must be a number more than 0 and less than 100");
+		Tooltip.install(nGuests, TTnGuests);
+
+		// Add an eventhandler to detect when user selects number of guests
+		nGuests.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				// only allows integer numbers
+				if (!nGuests.getText().equals("0")&& nGuests.getText().matches("[0-9]*") && !nGuests.getText().equals("") && Integer.valueOf(nGuests.getText()) < 100) {
+					updateIngredients.setDisable(false);
+					updateIngredients.setTooltip(new Tooltip("Click here to choose number of people to modify quantity of ingredients"));
+				} else {
+					updateIngredients.setDisable(true);
+				}
 			}
-		}
-	});
-		
-	//Add button 
-	updateIngredients = new Button("Update Ingredients");
-	updateIngredients.setDisable(true);
-	updateIngredients.setMaxSize(midBoxRight.getPrefWidth()/5, midBoxRight.getPrefHeight()/20);
-	updateIngredients.setId("nGuestsBtn");
-	updateIngredients.getStylesheets().add("css.css");
-	updateIngredients.setWrapText(true);
-	updateIngredients.setAlignment(Pos.CENTER);
-	updateIngredients.setTextAlignment(TextAlignment.CENTER);
-	
-		
+		});
+
+		//Add button 
+		updateIngredients = new Button("Update Ingredients");
+		updateIngredients.setDisable(true);
+		updateIngredients.setMaxSize(midBoxRight.getPrefWidth()/5, midBoxRight.getPrefHeight()/20);
+		updateIngredients.setId("nGuestsBtn");
+		updateIngredients.getStylesheets().add("css.css");
+		updateIngredients.setWrapText(true);
+		updateIngredients.setAlignment(Pos.CENTER);
+		updateIngredients.setTextAlignment(TextAlignment.CENTER);
+
+
 		if (recipe != null) {
 			// call the ingredients list generator
 			final IngredientsList generator = new IngredientsList(recipe, height, width);
@@ -235,12 +237,11 @@ public class IngredientsScreen extends menu {
 						// refresh the entire box contents
 						midBoxRight.getChildren().clear();
 						midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, nGuestsBox, ingredientsList);
-				}
-			}});
+					}
+				}});
 		} else {
 			ingredientsList.getChildren().clear();
-			ingredientsList.getChildren().add(
-					new Label("Sorry. Cannot find ingredients list."));
+			ingredientsList.getChildren().add(new Label("Sorry. Cannot find ingredients list."));
 		}
 
 		// add the buttons and the status bar to the bottom of the VBox
@@ -249,7 +250,7 @@ public class IngredientsScreen extends menu {
 		nGuestsBox.setSpacing(10);
 		nGuestsBox.getChildren().addAll(nGuestsLabel,nGuests,updateIngredients);
 		// midBoxRight.getChildren().add(nGuestsBox);
-		
+
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();
 		midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, nGuestsBox, ingredientsList);

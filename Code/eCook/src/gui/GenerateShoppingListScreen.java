@@ -34,14 +34,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 public class GenerateShoppingListScreen  extends menu{
-	private Label statusBar;
+	protected Label statusBar;
 	private Button saveBtn, printBtn, editBtn, addBtn;
 	private VBox shoppingListBox;
 	private ScrollPane scrollPane;
 	private CheckBox[] checkboxes;
 	private TextField newItem;
 	private boolean inEditMode = false;
-	protected Tooltip h,c,m;
 	protected VBox bigBox;
 	private PDDocument pdf = null;
 	
@@ -64,9 +63,10 @@ public class GenerateShoppingListScreen  extends menu{
 		rightBox.setPrefSize(width*0.2, height-topBox.getPrefHeight()-100);
 		
 		// Set the background of the shopping list to a shopping list image
-		midBox.setPadding(new Insets(50, 50, 150, 150));
 		midBox.setId("GenerateShoppingListMidBox");
 		midBox.getStylesheets().add("css.css");
+		midBox.setPadding(new Insets(50, 50, 150, 150));
+
 		
 		// create a scroll box for the shopping list display
 		// create VBox for the list	
@@ -243,7 +243,7 @@ public class GenerateShoppingListScreen  extends menu{
 		HBox buttonBar = new HBox(20);
 		buttonBar.setAlignment(Pos.CENTER);
 		buttonBar.getChildren().addAll(editBtn, addBtn, saveBtn, printBtn);
-		midBox.getChildren().addAll(shoppingListLabel,  statusBar, scrollPane, buttonBar);
+		midBox.getChildren().addAll(shoppingListLabel, statusBar, scrollPane, buttonBar);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
