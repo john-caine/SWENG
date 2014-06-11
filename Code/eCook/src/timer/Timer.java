@@ -76,6 +76,7 @@ public class Timer extends Task<Object>{
 	private Image closeIcon, startIcon, pauseIcon, resetIcon;
 	private NotesGUI notesGUI;
 	private Group slideRoot;
+	private Logger logger;
 	
 	/*
 	 * Timer Class constructor. As all objects from the slide group are deleted when the slide changes, the value of the timer before the slide was changed
@@ -92,6 +93,10 @@ public class Timer extends Task<Object>{
 	public Timer(Integer currentHours, Integer currentMinutes, Integer currentSeconds, Integer startSeconds, 
 			Integer startMinutes, Integer startHours, String timerLabel, int timerID, SlideShow main, NotesGUI notesGUI, Group slideRoot) {
 
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
+		
 		//If the timer is still running between slide transition, assign the current timer values to the variables
 		if((currentHours != null) && (currentMinutes != null) && (currentSeconds != null)){
 			timerValueHours = currentHours;
@@ -541,9 +546,9 @@ public class Timer extends Task<Object>{
 		try {
 			audio = new AudioClip(urlname);
 		} catch (IllegalArgumentException i) {
-			System.out.println("Audio File not found at " + urlname);
+			logger.log(Level.WARNING, "Audio File not found at " + urlname);
 		} catch (MediaException m) {
-			System.out.println("Audio File " + urlname + " was of an unexpected format");
+			logger.log(Level.WARNING, "Audio File " + urlname + " was of an unexpected format");
 		}
 	}
 	

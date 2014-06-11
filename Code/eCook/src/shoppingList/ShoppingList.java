@@ -12,12 +12,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
 
 public class ShoppingList {
 	List<String> shoppingList;
+	private Logger logger;
 	
 	// constructor
 	public ShoppingList() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		// get the current shopping list if it exists, create one if not
 		shoppingList = readFromTextFile();
 	}
@@ -37,7 +45,7 @@ public class ShoppingList {
 			}
 		}
 		else {
-			System.out.println("Cannot add to shopping list: invalid item");
+			logger.log(Level.SEVERE, "Cannot add to shopping list: invalid item");
 		}
 		saveToTextFile();
 	}
@@ -52,7 +60,7 @@ public class ShoppingList {
 			}
 		}
 		else {
-			System.out.println("Cannot remove from shopping list: invalid item");
+			logger.log(Level.SEVERE, "Cannot remove from shopping list: invalid item");
 		}
 		saveToTextFile();
 	}
@@ -69,7 +77,7 @@ public class ShoppingList {
 				}
 			}
 			else {
-				System.out.println("Cannot remove from shopping list: invalid list of items");
+				logger.log(Level.SEVERE, "Cannot remove from shopping list: invalid list of items");
 			}
 			saveToTextFile();
 		}
@@ -90,12 +98,12 @@ public class ShoppingList {
 				output.close();
 			} 
 			catch (IOException e) {
-				System.out.println("Error when updating shopping list file");
+				logger.log(Level.SEVERE, "Error when updating shopping list file");
 				e.printStackTrace();
 			}
 		}
 		else {
-			System.out.println("Cannot update shopping list file: shopping list is null");
+			logger.log(Level.SEVERE, "Cannot update shopping list file: shopping list is null");
 		}
 	}
 	
@@ -122,7 +130,7 @@ public class ShoppingList {
 		        input.close();
 		    }
 		    catch (IOException ex) {
-		    	System.out.println("Error when reading shopping list file");
+		    	logger.log(Level.SEVERE, "Error when reading shopping list file");
 		        ex.printStackTrace();
 		    }
 		    

@@ -27,6 +27,8 @@
 package xmlparser;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -35,6 +37,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import eCook.eCook;
 
 // enumerated type for keeping track of where we need to store content
 enum ProcessingElement {
@@ -73,8 +77,12 @@ public class XMLReader extends DefaultHandler {
 	// Error handling variables
 	private Boolean xmlIsBroken = false;
 	private String xmlReadError = null;
+	private Logger logger;
 	
 	public void readXMLFile(String inputFile) {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		try {
 			xmlIsBroken = false;
 			// use the default parser
@@ -288,8 +296,7 @@ public class XMLReader extends DefaultHandler {
 						text.setOrientation(attributes.getValue("orientation"));
 					}
 				} catch (Exception e) {
-					System.out.println("text attribute setting issue");
-					e.printStackTrace();
+					logger.log(Level.WARNING, "text attribute setting issue");
 				}
 				slideElement = ProcessingElement.TEXT;
 			}
@@ -322,7 +329,7 @@ public class XMLReader extends DefaultHandler {
 						shape.setLayer(attributes.getValue("layer"));
 					}
 				} catch (Exception e) {
-					System.out.println("shape attribute setting issue");
+					logger.log(Level.WARNING, "shape attribute setting issue");
 					e.printStackTrace();
 				}
 				slideElement = ProcessingElement.SHAPE;
@@ -368,7 +375,7 @@ public class XMLReader extends DefaultHandler {
 							textString.setBranch(attributes.getValue("branch"));
 						}
 					} catch (Exception e) {
-						System.out.println("textString (textBody in XML) attribute setting issue");
+						logger.log(Level.WARNING, "textString (textBody in XML) attribute setting issue");
 						e.printStackTrace();
 					}
 					
@@ -618,6 +625,5 @@ public class XMLReader extends DefaultHandler {
 
 	// called by the parser when it encounters the end of the XML file.
 	public void endDocument() throws SAXException {
-//		System.out.println("XML Parser: finished processing document: " + inputFile);
 	}
 }

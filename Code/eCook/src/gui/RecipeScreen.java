@@ -129,7 +129,6 @@ public class RecipeScreen extends menu{
 					int index = 0;
 					// get the selected recipe
 					Button focusButton = (Button) event.getSource();
-					System.out.println(focusButton.getId().substring(0));
 					index = Integer.valueOf(focusButton.getId().substring(0));
 					//Get filename of currently selected recipe
 					String fileName = recipeCollection.getRecipe(index).getFileName();

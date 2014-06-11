@@ -8,7 +8,10 @@ package media;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import eCook.eCook;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
@@ -34,9 +37,13 @@ public class AudioControlBar {
 	AudioHandler currentHandler;
 	int currentHandlerIndex = 0;
 	List<AudioHandler> audioHandlerObjects;
+	private Logger logger;
 	
 	// constructor
 	public AudioControlBar(final ArrayList<AudioHandler> audioHandlerList, Group root) {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		this.audioHandlerObjects = audioHandlerList;
 		currentHandler = audioHandlerList.get(currentHandlerIndex);
 		setupControlBar(root);
@@ -49,7 +56,7 @@ public class AudioControlBar {
 	// method to get the controlBar HBox
 	public HBox getControlBar() {
 		if (controlBar == null) {
-			System.out.println("audioControlBar has not been set yet! Will return null.");
+			logger.log(Level.WARNING, "audioControlBar has not been set yet! Will return null.");
 		}
 		return this.controlBar;
 	}

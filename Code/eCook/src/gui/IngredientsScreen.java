@@ -146,7 +146,6 @@ public class IngredientsScreen extends menu {
 		Label authorLabel = new Label("Author: " + author);
 		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label commentLabel = new Label("Comment: " + comment);
-		System.out.println(commentLabel);
 
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
