@@ -1,6 +1,11 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine, Roger Tan
+ * Date Created: 04/06/2014
+ * Description: Image Handler, generates an ImageView with image from the set attributes.
+ */
 package media;
 
-
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.scene.image.Image;
@@ -41,7 +46,7 @@ public class ImageHandler extends SubSlideMedia {
         //If a width and height has been given resize the image
         if (width != null && height != null) 
         	resizeImage( width, height);
-        
+        logger.log(Level.INFO, "Image attributes set");
         //Add the image to hbox
         hbox.getChildren().add(iv1);
         

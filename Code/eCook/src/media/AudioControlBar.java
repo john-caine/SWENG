@@ -30,17 +30,23 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 public class AudioControlBar {
-	// declare variables
-	HBox controlBar;
-	List<Button> buttons;
-	Slider trackBar, volBar;
-	Label fileLbl, timeLbl;
-	AudioHandler currentHandler;
-	int currentHandlerIndex = 0;
-	List<AudioHandler> audioHandlerObjects;
+	
+	protected HBox controlBar;
+	protected List<Button> buttons;
+	protected Slider trackBar;
+	protected Slider volBar;
+	protected Label fileLbl;
+	protected Label timeLbl;
+	protected AudioHandler currentHandler;
+	protected int currentHandlerIndex = 0;
+	protected List<AudioHandler> audioHandlerObjects;
 	private Logger logger;
 	
-	// constructor
+	/*
+	 * AudioControlBar constructor
+	 * @Param audioHandlerList: A list of audio handler objects which the AudioControlBar is to control
+	 * @Param root: The slideshow group
+	 */
 	public AudioControlBar(final ArrayList<AudioHandler> audioHandlerList, Group root) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -136,8 +142,7 @@ public class AudioControlBar {
 					buttons.get(0).setId("audioBarPause");
 					ImageView pauseImg = new ImageView(new Image("audioBarPause.png"));
 					buttons.get(0).setGraphic(pauseImg);
-				}
-				else {
+				} else {
 					currentHandler.pauseMedia();
 					buttons.get(0).setId("audioBarPlay");
 					ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
@@ -280,15 +285,13 @@ public class AudioControlBar {
 		// enable the next button if necessary
 		if ((currentHandlerIndex < audioHandlerObjects.size()-1) && (audioHandlerObjects.size() != 1)) {
 			buttons.get(3).setDisable(false);
-		}
-		else {
+		} else {
 			buttons.get(3).setDisable(true);
 		}
 		// enable the prev button if necessary
 		if ((currentHandlerIndex > 0) && (audioHandlerObjects.size() != 1)) {
 			buttons.get(2).setDisable(false);
-		}
-		else {
+		} else {
 			buttons.get(2).setDisable(true);
 		}
 		

@@ -1,6 +1,12 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine, Roger Tan
+ * Date Created: 04/06/2014
+ * Description: Graphics Handler, Creates a graphics object which appears on a screen sized Canvas.
+ */
 package media;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.geometry.Rectangle2D;
@@ -49,13 +55,22 @@ public class GraphicHandler extends SubSlideMedia{
 		graphicsContext.setStroke(Color.web(lineColour));
 		
 		drawGraphic(graphicsContext, totalPoints, points, width, height);
-		
+		logger.log(Level.INFO, "Graphics Object attributes set");
 		//Add the canvas into a HBox
 		hbox.getChildren().add(canvas);
 		
 		setTimingValues();
 	}
 	
+	/*
+	 * Sets the graphics context attributes
+	 * @Param graphicsContext: The graphics object which is to be set.
+	 * @Param totalPoints: The total number of points in the object.
+	 * @Param points: The list containing the point information.
+	 * @Param width: The width of the graphics object
+	 * @Param height: The height of the graphics object
+	 * @Return graphicsContext: The graphics context with attributes set.
+	 */
 	private GraphicsContext drawGraphic(GraphicsContext graphicsContext, int totalPoints, List<Point> points, int width, int height) {
 		Point point;
 				//Circle
