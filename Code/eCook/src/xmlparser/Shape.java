@@ -1,6 +1,10 @@
 package xmlparser;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
 
 /* Title: Shape
  * 
@@ -24,9 +28,14 @@ public class Shape extends Content {
 	private Integer totalPoints = null;
 	private List<Point> points;
 	private String fillColor, lineColor = "black";
+	private Logger logger;
 	
 	public Shape() {
 		super();
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+
 		points = new ArrayList<Point>();
 	}
 
@@ -72,7 +81,7 @@ public class Shape extends Content {
 			return points.get(pointNumber);
 		}
 		else {
-			reportError("Error getting point: index out of range");
+			logger.log(Level.SEVERE, "Error getting point: index out of range");
 			return null;
 		}
 	}
@@ -82,7 +91,7 @@ public class Shape extends Content {
 			points.add(point);
 		}
 		else {
-			reportError("Error adding point: object received from parser is null");
+			logger.log(Level.SEVERE, "Error adding point: object received from parser is null");
 		}
 	}
 

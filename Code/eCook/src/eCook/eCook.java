@@ -2,7 +2,9 @@ package eCook;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,9 +50,20 @@ public class eCook extends Application {
 		recipeCollection = new RecipeCollection();
 
 		// get number of files in the defaultRecipe folder
-		URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
-		File filePath = new File(defaultDirectory.getPath());
+		//URL defaultDirectory = getClass().getResource("/defaultRecipes_new");
+		//File filePath = new File(defaultDirectory.getPath());
 
+		String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+		String decodedPath = null;
+		try {
+			decodedPath = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			new ErrorHandler("Decoding of path failed");
+		}
+		File filePath = new File(decodedPath + "/../defaultRecipes_new");
+		
+		System.out.print(filePath);
+		
 		// Make a recipes folder in %localappdata%
 		File recipeDirectory = new File(System.getenv("localappdata") + "/eCook/Recipes");			
 		recipeDirectory.mkdirs();
