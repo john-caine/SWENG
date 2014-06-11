@@ -2,7 +2,7 @@ package gui;
 /*
  * Programmer: Ankita Gangotra
  * Date Created: 06/05/2014
- * Makes an abstract menu class for close, minimise and home buttons.
+ * Makes a class menuMock to be used by menuTest for testing.
  */
 import eCook.RecipeCollection;
 
