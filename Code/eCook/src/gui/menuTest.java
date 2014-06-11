@@ -1,5 +1,9 @@
 package gui;
-
+/*
+ * Programmer: Ankita Gangotra
+ * Date Created: 06/05/2014
+ * Makes a test class for menu.
+ */
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

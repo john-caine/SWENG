@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai & Roger Tan
+ * Programmer: Zayyad Tagwai, Ankita Gangotra & Roger Tan
  * Date Created: 26/05/2014
  * Junit Test for LoadExternalRecipe Class
  */
