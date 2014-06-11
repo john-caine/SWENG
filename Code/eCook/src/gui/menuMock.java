@@ -11,4 +11,12 @@ public class menuMock extends menu {
 		super(recipeCollection);
 		 
 	}
+
+	public double height() {
+		return height;
+	}
+
+	public double width() {
+		return width;
+	}
 }
