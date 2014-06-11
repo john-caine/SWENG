@@ -61,7 +61,7 @@ public class SlideShow {
 	private Scene slideScene;
 	private Group slideRoot;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlidesIncBranch, numOfSlidesExcBranch;
-	private int firstSlideID, lastSlideID;
+	protected int firstSlideID, lastSlideID;
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
@@ -81,7 +81,7 @@ public class SlideShow {
 	private Stage stage;
 	static Logger logger;
 	private RecipeCollection recipeCollection;
-	private XMLValidator validator;
+	protected XMLValidator validator;
 	String backGroundColor;
 	boolean onEndPage = false;
 	boolean bottomPanelShowing = false;

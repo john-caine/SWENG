@@ -81,12 +81,12 @@ html {
 }
 body {
 	color: #fff;
-	font: 75%/1.5em Courier, serif;
+	font: 75%/1.5em Century Gothic, serif;
 	;
 }
 h1, h2, h3, h4, h5, h6 {
 	color: #96673e;
-	font: 2em/1em Courier, serif;
+	font: 2em/1em Century Gothic, serif;
 }
 h1 {
 }
@@ -113,7 +113,7 @@ h6 {
 }
 p {
 	color: #000;
-	font-family: Courier, serif;
+	font-family: Century Gothic, serif;
 	font-size: 1.2em;
 	text-align: left;
     margin: 0.2em;
