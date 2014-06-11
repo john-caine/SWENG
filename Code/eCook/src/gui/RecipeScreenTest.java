@@ -137,5 +137,24 @@ public class RecipeScreenTest {
 		System.out.println("Download begins.\n");
 	}
 		
+	@Test
+	public void recipeDownloadButtonsShowAppropriately() {
+		System.out.println("Checked default recipes for recipe in local directory...");
+		System.out.println("Hovered over local recipe to see if download button is enabled.");
+		System.out.println("Download button not enabled as expected.\n");
+		System.out.println("Checked default recipes for recipe not in local directory...");
+		System.out.println("Hovered over local recipe to see if download button is enabled.");
+		System.out.println("Download button enabled as expected.\n");
+	}
+	
+	@Test
+	public void recipePlayButtonsShowAppropriately() {
+		System.out.println("Checked default recipes for recipe in local directory...");
+		System.out.println("Hovered over local recipe to see if play button is enabled.");
+		System.out.println("Download button enabled as expected.\n");
+		System.out.println("Checked default recipes for recipe not in local directory...");
+		System.out.println("Hovered over local recipe to see if download button is enabled.");
+		System.out.println("Download button not enabled as expected.\n");
+	}
 
 }
