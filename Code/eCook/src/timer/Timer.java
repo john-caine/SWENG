@@ -10,8 +10,6 @@ package timer;
 
 
 import java.awt.Toolkit;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,9 +28,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -491,7 +487,7 @@ public class Timer extends Task<Object>{
 		//Seconds list event handler, when number is selected sets the seconds label to the selected number, updates the startTimerValue and hides itself.
 		numbersListSeconds.getSelectionModel().selectedIndexProperty().addListener(new
 				ChangeListener<Number>() {
-			public void changed(ObservableValue ov,
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov,
 					Number value, Number new_vale){
 				startButton.setDisable(false);
 				timerStartSeconds = new_vale.intValue();
@@ -507,7 +503,7 @@ public class Timer extends Task<Object>{
 		//Minutes list event handler, when number is selected sets the minutes label to the selected number, updates the startTimerValue and hides itself.
 		numbersListMinutes.getSelectionModel().selectedIndexProperty().addListener(new
 				ChangeListener<Number>() {
-			public void changed(ObservableValue ov,
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov,
 					Number value, Number new_vale){
 				startButton.setDisable(false);
 				timerStartMinutes = new_vale.intValue();
@@ -523,7 +519,7 @@ public class Timer extends Task<Object>{
 		//Hours list event handler, when number is selected sets the hourslabel to the selected number, updates the startTimerValue and hides itself.
 		numbersListHours.getSelectionModel().selectedIndexProperty().addListener(new
 				ChangeListener<Number>() {
-			public void changed(ObservableValue ov,
+			public void changed(@SuppressWarnings("rawtypes") ObservableValue ov,
 					Number value, Number new_vale){
 				startButton.setDisable(false);
 				timerStartHours = new_vale.intValue();
@@ -540,8 +536,9 @@ public class Timer extends Task<Object>{
 	}
 	/*
 	 * Creates new Audio clip object and catches exceptions if the file name can't be found or is the wrong format.
-	 * @urlname: The location of the audio file to be played.
+	 * @Param urlname: The location of the audio file to be played.
 	 */
+	@SuppressWarnings("unused")
 	private void loadAudio(String urlname) {
 		try {
 			audio = new AudioClip(urlname);
@@ -552,7 +549,7 @@ public class Timer extends Task<Object>{
 		}
 	}
 	
-	/*
+	/**
 	 * Returns timerContainer for adding to the slide group.
 	 */
 	public Pane getPane(){
@@ -563,7 +560,7 @@ public class Timer extends Task<Object>{
 		return timerSetupFinished;
 	}
 	
-	/*
+	/**
 	 * Returns TimerData object containing the current values of the timer and the timer label
 	 */
 	public TimerData getTimerValues(){
@@ -578,7 +575,7 @@ public class Timer extends Task<Object>{
 		return timerValues ;
 	}
 
-	/*
+	/**
 	 * Creates timer labels and sets the text to the timer value to be displayed. Sets the event handlers for the labels
 	 */
 	public void setTimerLabels(){

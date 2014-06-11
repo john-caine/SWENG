@@ -42,7 +42,7 @@ public class AudioControlBar {
 	protected List<AudioHandler> audioHandlerObjects;
 	private Logger logger;
 	
-	/*
+	/**
 	 * AudioControlBar constructor
 	 * @Param audioHandlerList: A list of audio handler objects which the AudioControlBar is to control
 	 * @Param root: The slideshow group
@@ -60,7 +60,7 @@ public class AudioControlBar {
 		detectAutoPlay();
 	}
 	
-	/*
+	/**
 	 *  method to get the controlBar HBox
 	 */
 	public HBox getControlBar() {
@@ -70,7 +70,7 @@ public class AudioControlBar {
 		return this.controlBar;
 	}
 	
-	/*
+	/**
 	 *  method to populate the controlBar with buttons
 	 */
 	public void setupControlBar(Group root) {
@@ -128,7 +128,7 @@ public class AudioControlBar {
         controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volLbl, volBar);
 	}
 	
-	/*
+	/**
 	 *  set up event handlers for the buttons
 	 */
 	public void setupButtons() {
@@ -209,7 +209,7 @@ public class AudioControlBar {
 		});
 	}
 	
-	/*
+	/**
 	 *  set up event handlers for sliders
 	 */
 	public void setupSliders() {
@@ -278,7 +278,7 @@ public class AudioControlBar {
         trackBar.setMax(currentHandler.getDuration());
 	}
 	
-	/*
+	/**
 	 *  method to update the button enables to prevent undefined behaviour {
 	 */
 	public void validateButtons() {
@@ -314,7 +314,7 @@ public class AudioControlBar {
 		}
 	}
 	
-	/*
+	/**
 	 *  method to detect when audio is playing to update the GUI
 	 */
 	public void detectAutoPlay() {

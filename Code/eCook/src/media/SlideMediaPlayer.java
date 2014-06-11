@@ -27,9 +27,9 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 	private Logger logger;
 	private Media media = null;
 	protected MediaPlayer mediaPlayer;
-	private Duration currentTime;
 	
-	/*
+	
+	/**
 	 * Slide Media Player Constructor
 	 * @Param parent: Reference to the slideshow which called the handler 
 	 * @Param pathLocation: The file location of the media
@@ -80,7 +80,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 			@Override
 			public void changed(ObservableValue<? extends Duration> observableValue,
 					Duration duration, Duration current) {
-				currentTime = mediaPlayer.getCurrentTime();
+				 mediaPlayer.getCurrentTime();
 				
 			}
 			
@@ -90,7 +90,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		
 	}
 	
-	/*
+	/**
 	 * Set the startTime Timeline if not null else play the media player
 	 */
 	protected void setTimingValues(){
@@ -104,7 +104,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
   		}	
 	}
 	
-	/*
+	/**
 	 * When the startTime Timeline finishes play mediaPlayer
 	 */
 	protected void setTimeLineOnFinish(){
@@ -116,7 +116,8 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 			}	
 		});
 	}
-	/*
+	
+	/**
 	 * Set the volume of the media player if it is between 0 and 1
 	 */
 	public void setVolume(double volume){
@@ -125,21 +126,23 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		}
 	}
 	
-	/*
+	/**
 	 * Pauses the media and logs the pause
 	 */
 	public void pauseMedia(){
 		mediaPlayer.pause();
 		logger.log(Level.INFO, "Paused");
 	}
-	/*
+	
+	/**
 	 * Stops the media and logs the stop
 	 */
 	public void stopMedia(){
 		mediaPlayer.stop();
 		logger.log(Level.INFO, "Stopped");
 	}
-	/*
+	
+	/**
 	 * Resumes the media and logsthe resume
 	 */
 	public void resumeMedia(){
@@ -148,7 +151,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		
 	}
 	
-	/*
+	/**
 	 * Gets the duration of the media file or the duration that has been set
 	 * 
 	 *@Return duration: The duration set by the user given in milliseconds 
@@ -164,7 +167,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		}	
 	}
 	
-	/*
+	/**
 	 * Gets the current time of the media in the media player
 	 * @Return The current time of the media player
 	 */
@@ -172,7 +175,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		return mediaPlayer.getCurrentTime();
 	}
 
-	/*
+	/**
 	 * Get the file path location
 	 * @Return File path location string
 	 */
@@ -180,7 +183,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		return pathLocation;
 	}
 	
-	/*
+	/**
 	 * Stops the startTime Timeline and the mediaPlayer the disposes the media player.
 	 */
 	public void tearDown() {
@@ -189,7 +192,7 @@ public abstract class SlideMediaPlayer extends SlideMedia{
 		mediaPlayer.dispose();
 	}
 	
-	/* 
+	/** 
 	 * Gets the media player
 	 * @Return mediaPLayer: The media player playing the media
 	 */

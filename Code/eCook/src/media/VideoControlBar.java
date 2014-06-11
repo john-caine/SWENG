@@ -1,6 +1,10 @@
-package media;
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine 
+ * Date Created: 04/06/2014
+ * Description: Video Control Bar which is to be added to the VideoHandler HBox to control the video.
+ */
 
-import java.util.ArrayList;
+package media;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -9,9 +13,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -19,9 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class VideoControlBar {
@@ -37,14 +35,20 @@ public class VideoControlBar {
 	private ImageView pauseImage;
 	private Button fullScreenButton;
 
+	/**
+	 * The Video Control Bar constructor
+	 * @param videoHandler: The videoHandler which is to be controlled by VideoControlBar
+	 */
 	public VideoControlBar(VideoHandler videoHandler){
 		this.videoHandler = videoHandler;
 		setupControlBar();
 		setupButtons();
 		setupSliders();
-		
 	}
 	
+	/**
+	 * Instantiates the Control Buttons and Sliders
+	 */
 	public void setupControlBar() {
 		controlBar = new HBox();
 		videoHandler.getMediaView().getFitHeight();
@@ -58,16 +62,17 @@ public class VideoControlBar {
 		
         playPauseButton = new Button("");
 		playImage = new ImageView(new Image("audioBarPlay.png"));
+		playImage.setId("Play Image");
 		pauseImage = new ImageView(new Image("audioBarPause.png"));
+		pauseImage.setId("Pause Image");
 		playPauseButton.setGraphic(playImage);
       
 		stopButton = new Button ("");
 		ImageView stopImage = new ImageView(new Image("audioBarStop.png"));
+		stopImage.setId("Stop Image");
 		stopButton.setGraphic(stopImage);
 		
 		fullScreenButton = new Button("FS");
-		
-       
 		
         // set up sliders
         trackBar = new Slider();
@@ -88,12 +93,11 @@ public class VideoControlBar {
         Label volumeLabel = new Label();
         ImageView volumeImage = new ImageView(new Image("audioBarVol.png"));
 		volumeLabel.setGraphic(volumeImage);
-        
-        
-        
+
         // populate the controlBar
         controlBar.getChildren().addAll(playPauseButton, stopButton,  trackBar, timeLbl, volumeLabel,  volBar , fullScreenButton);
         
+        //Set playPauseButton to pause image when playing
         videoHandler.getMediaPlayer().setOnPlaying(new Runnable(){
 			@Override
 			public void run() {
@@ -102,6 +106,7 @@ public class VideoControlBar {
 			}   	
         });
         
+        //Return playPauseButton to play image at the end of the media
         videoHandler.getMediaPlayer().setOnEndOfMedia(new Runnable(){
 			@Override
 			public void run() {
@@ -109,6 +114,7 @@ public class VideoControlBar {
 			}
         });
         
+        //Sets the playPauseButton to pause image when the video media repeats
         videoHandler.getMediaPlayer().setOnRepeat(new Runnable(){
         	@Override
         	public void run(){
@@ -145,7 +151,7 @@ public class VideoControlBar {
 				playPauseButton.setGraphic(playImage);
 			}
 		});
-		
+		//Sets the full screen button event handler
 		fullScreenButton.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -157,6 +163,9 @@ public class VideoControlBar {
 		
 	}
 	
+	/*
+	 * Add the slider event handlers
+	 */
 	public void setupSliders() {
 		// volume bar
 		volBar.valueProperty().addListener(new ChangeListener<Number>() {
@@ -196,11 +205,14 @@ public class VideoControlBar {
         });    
 	}
 	
+	/**
+	 * Return the HBox containing the ControlBar
+	 */
 	protected HBox getVideoControlBar(){
 		return controlBar;
 	}
 	
-	 /*
+	 /**
      * Method to count and formulate the Timing of the MediaPlayer
      * 
      * @param elapsed The time elapsed so far
@@ -230,11 +242,7 @@ public class VideoControlBar {
             if (durationHours > 0) {
                 intDuration -= durationHours * 60 * 60;
             }
-            
-            // Get the duration in minutes & remaining seconds
-            int durationMinutes = intDuration / 60;
-            int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
-
+   
             // Check if the duration contains hours then format appropriately
             if (durationHours > 0) {
                 return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);

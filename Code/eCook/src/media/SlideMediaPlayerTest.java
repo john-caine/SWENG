@@ -17,11 +17,13 @@ public class SlideMediaPlayerTest {
 
 	private SlideMediaPlayerMock slideMediaPlayer;
 	private SlideShow parent;
+	
 	@Before
 	public void SetUp(){
 		
 		slideMediaPlayer =  new SlideMediaPlayerMock(parent, "http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4", 60, 50, 10, 40, false);
 	}
+	
 	/*
 	 * Tests that the slide media player has been created
 	 */	

@@ -32,7 +32,7 @@ public class TextHandler extends SubSlideMedia {
 	private TextFlow textBox;
 	private SlideShow parent;
 
-	/*
+	/**
 	 * Text Handler Constructor
 	 * @Param parent: Reference back to the slideshow which has called the handler
 	 * @Param textBody: TextBody containing the input text string, italic, bold, underline and branch elements
@@ -60,14 +60,12 @@ public class TextHandler extends SubSlideMedia {
 		 //Gets the screen width to wrap text to if the XML has not specified an X end value.
 		 if (xEnd == null){
 			 Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-
 			 xEnd = (int)screenBounds.getWidth();
 		 }
 		 
 		 //Gets the screen height to wrap text to if the XML has not specified an Y end value.
 		 if (yEnd == null){
 			 Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-
 			 yEnd =(int)screenBounds.getHeight();
 		 }
 		 
@@ -89,7 +87,7 @@ public class TextHandler extends SubSlideMedia {
 		 setTimingValues();		
 	}
 	
-	/*
+	/**
 	 * Sets all of the attributes for a a single text element
 	 * @Param textString: 
 	 */
@@ -154,7 +152,13 @@ public class TextHandler extends SubSlideMedia {
 		 return text;
 	}
 	
-	public Text getText(int text){
+	
+	/**
+	 * Gets a Text object from the TextFlow
+	 * @param text: The text reference to be retrieved
+	 * @return The modified text object
+	 */
+	protected Text getText(int text){
 		return (Text) textBox.getChildren().get(text);
 	}
 

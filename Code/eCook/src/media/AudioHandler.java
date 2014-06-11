@@ -19,7 +19,7 @@ public class AudioHandler extends SlideMediaPlayer{
 	private Logger logger;
 	private MediaView mediaView;
 	
-	/*
+	/**
 	 * AudioHandler Constructor
 	 * @Param parent: The slideshow which has called the handler.
 	 * @Param pathLocation: The file path of the audio media.

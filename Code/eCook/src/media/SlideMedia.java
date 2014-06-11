@@ -27,7 +27,7 @@ public abstract class SlideMedia {
 	private Logger logger;
 	protected HBox hbox;
 	
-	/*
+	/**
 	 * SlideMedia Constructor
 	 * @Param xStart: The x co-ordinate of the HBox
 	 * @Param yStart: The y co-ordinate of the HBox
@@ -47,7 +47,7 @@ public abstract class SlideMedia {
 		setLocation();
 		
 	}
-	/*
+	/**
 	 * Sets the XY co-ordinates of the HBox
 	 */
 	private void setLocation() {
@@ -55,7 +55,7 @@ public abstract class SlideMedia {
     	hbox.setLayoutY(yStart);
 	}
 	
-	/*
+	/**
 	 * Adds a 1 second keyframe to the Timeline, which decrements the startTime value
 	 */
 	private void createKeyFrame(){	
@@ -67,7 +67,7 @@ public abstract class SlideMedia {
 		 } ));
 	}
 	 
-	/*
+	/**
 	 * Pauses the startTimeline
 	 */
 	 public void pauseStartTimeTimeLine(){			
@@ -75,7 +75,7 @@ public abstract class SlideMedia {
 		 logger.log(Level.INFO, "Start Time Timeline Paused ");
 	 }
 	 
-	/*
+	/**
 	 * Stops the startTimeline
 	 */
 	 protected void stopStartTimeTimeLine() {
@@ -83,7 +83,7 @@ public abstract class SlideMedia {
 		logger.log(Level.INFO, "Start Time Timeline Stopped ");
 	}
 	 
-	/*
+	/**
 	 * Resumes the startTimeline if startTimeline has not finished 
 	 */
 	 public void resumeStartTimeTimeLine(){
@@ -93,21 +93,21 @@ public abstract class SlideMedia {
 		 }
 	 }
 	 
-	 /*
+	 /**
 	  * Displays the hbox when added on a slide
 	  */
 	 protected void showObject(){
 		 hbox.setVisible(true);
 	 }
 	 
-	 /*
+	 /**
 	  * Hides the hbox when added on a slide
 	  */
 	 protected void hideObject(){
 		 hbox.setVisible(false);	 
 	 }
 	 
-	 /*
+	 /**
 	  * Gets the hbox
 	  * @Return hbox: The main hbox used to contain all handler content on a slide
 	  */
@@ -115,17 +115,17 @@ public abstract class SlideMedia {
 		 return hbox;
 	 }
 
-	 /*
+	 /**
 	  * To to be used to set what happens the startTimeline Timeline has finished
 	  */
 	 protected abstract void setTimeLineOnFinish();
 	 
-	 /*
+	 /**
 	  * To be used to tidy up a handler for when the slideshow changes to the next slide
 	  */
 	 protected abstract void tearDown();
 	 
-	 /*
+	 /**
 	  * To be used to set and start any Timelines used within the inheriting class.
 	  */
 	 protected abstract void setTimingValues();

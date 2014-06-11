@@ -22,7 +22,7 @@ public class GraphicHandler extends SubSlideMedia{
 
 	private Logger logger;
 
-	/*
+	/**
 	 * Graphics Handler Constructor
 	 * @Param parent: The slideshow class which has called the constructor
 	 * @Param totalPoints: Total of number of points in the shape 
@@ -62,7 +62,7 @@ public class GraphicHandler extends SubSlideMedia{
 		setTimingValues();
 	}
 	
-	/*
+	/**
 	 * Sets the graphics context attributes
 	 * @Param graphicsContext: The graphics object which is to be set.
 	 * @Param totalPoints: The total number of points in the object.
