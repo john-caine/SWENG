@@ -7,11 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import eCook.JavaFXThreadingRule;
 
 /* Title: NotesGUITest

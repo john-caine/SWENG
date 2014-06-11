@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
+import eCook.JavaFXThreadingRule;
 
 public class TextFileHandlerTest {
 	static TextFileHandler handler;

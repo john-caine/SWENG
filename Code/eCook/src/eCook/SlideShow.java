@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import notes.NotesGUI;
+import media.AudioControlBar;
 import media.AudioHandler;
 import media.GraphicHandler;
 import media.ImageHandler;

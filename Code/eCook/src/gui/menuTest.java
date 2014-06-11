@@ -8,13 +8,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import eCook.MainMenu;
 import eCook.RecipeCollection;
+import eCook.JavaFXThreadingRule;
 
 public class menuTest {
 	

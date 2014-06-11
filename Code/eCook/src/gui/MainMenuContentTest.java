@@ -8,7 +8,6 @@ package gui;
 import static org.junit.Assert.*;
 
 import java.io.File;
-
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -20,15 +19,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import eCook.MainMenu;
 import eCook.RecipeCollection;
+import eCook.JavaFXThreadingRule;
 
 
 public class MainMenuContentTest {
