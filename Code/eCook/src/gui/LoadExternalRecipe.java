@@ -16,6 +16,7 @@ import java.nio.file.StandardCopyOption;
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
 import filebrowser.FileBrowser;
+import xmlfilepathhandler.XMLFilepathHandler;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import xmlvalidation.XMLValidator;
@@ -123,26 +124,30 @@ public class LoadExternalRecipe {
 					try {
 						// parse the source file through the reader to validate
 						XMLReader reader = new XMLReader(filepath);
-						// Check integrity of XML file, report error message if
-						// invalid
-						XMLValidator validator = new XMLValidator(reader);
-						if (validator.isXMLBroken()) {
-							statusBar.setText(validator.getErrorMsg());
-						} else {
-							// copy the file to the defaults folder if it passes
-							// the validation test
-							Files.copy(source, defaultsFolder.resolve(source
-									.getFileName()),
-									StandardCopyOption.REPLACE_EXISTING);
-							Recipe newRecipe = reader.getRecipe();
-							newRecipe.setFileName(source.getFileName()
-									.toString());
-							recipeCollection.addRecipe(newRecipe);
+
+						XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+						// Check filepaths for media in XML
+						filepathHandler.setMediaPaths(reader);
+						if (!filepathHandler.mediaPathsAreBroken()) {
+							// Check integrity of XML file, report error message if
+							// invalid
+							XMLValidator validator = new XMLValidator(reader);
+							if (validator.isXMLBroken()) {
+								statusBar.setText(validator.getErrorMsg());
+							} else {
+								// copy the file to the defaults folder if it passes
+								// the validation test
+								Files.copy(source, defaultsFolder.resolve(source
+										.getFileName()),
+										StandardCopyOption.REPLACE_EXISTING);
+								Recipe newRecipe = reader.getRecipe();
+								newRecipe.setFileName(source.getFileName()
+										.toString());
+								recipeCollection.addRecipe(newRecipe);
+							}
 							dialog.close();
 						}
 					} catch (IOException e) {
-						System.out
-						.println("Error copying XML file from local directory to defaults folder");
 						e.printStackTrace();
 					}
 				}

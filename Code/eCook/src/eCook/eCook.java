@@ -71,13 +71,14 @@ public class eCook extends Application {
 		for (int i=0; i<recipeDirectory.list().length; i++) {
 			// only read XML files if for some reason other files exist
 			if (recipeDirectory.list()[i].endsWith(".xml")) {
-				logger.log(Level.INFO, "Calling XML parser");
-				XMLReader reader = new XMLReader(recipeDirectory + "/" + recipeDirectory.list()[i]);
-				XMLValidator validator = new XMLValidator(reader);
-				if (!validator.isXMLBroken()) {
-					XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
-					reader = filepathHandler.setMediaPaths(reader);
-					if (!filepathHandler.mediaPathsAreBroken()) {
+				XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+				// Check filepaths for media in XML
+				if(filepathHandler.checkMediaPathsExistOffline(recipeDirectory.list()[i])) {
+					logger.log(Level.INFO, "Calling XML parser");
+					XMLReader reader = new XMLReader(recipeDirectory + "/" + recipeDirectory.list()[i]);
+					// Make sure recipes pass through the validator
+					XMLValidator validator = new XMLValidator(reader);
+					if (!validator.isXMLBroken()) {
 						Recipe currentRecipe = reader.getRecipe();
 						currentRecipe.setFileName(recipeDirectory.list()[i]);
 						recipeCollection.addRecipe(currentRecipe);
@@ -103,7 +104,7 @@ public class eCook extends Application {
 	public static void main(String[] args) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
-
+/*
 		// Create a file handler for the logger and catch any exceptions
 		FileHandler handler = null;
 		try {
@@ -124,7 +125,7 @@ public class eCook extends Application {
 
 		// The the minimum logging level to INFO
 		logger.setLevel(Level.INFO);
-		
+		*/
 		// Launch the JFx Application thread
 		Application.launch(args);
 	}

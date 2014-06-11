@@ -34,9 +34,8 @@ public class XMLFilepathHandler {
 	}
 	
 	/*
-	 * This method will check that all media paths EXIST and WORK
-	 * (including URLS)
-	 * It will NOT download any data.
+	 * Update references to media elements in reader object
+	 * 
 	 */
 	public XMLReader setMediaPaths(XMLReader reader) {
 		// Get the title from the recipe, by convention this is the filename for content
@@ -46,6 +45,11 @@ public class XMLFilepathHandler {
 		return reader;
 	}
 	
+	/*
+	 * This method will check that all media paths EXIST and WORK
+	 * (including URLS)
+	 * It will NOT download any data.
+	 */
 	public Boolean checkMediaPathsExistOffline(String filename) {
 		XMLReader reader = new XMLReader(filepath + "/" + filename);
 		title = reader.getRecipe().getInfo().getTitle();
@@ -62,7 +66,8 @@ public class XMLFilepathHandler {
 		return broken;
 	}
 	
-	public void downloadRecipeMedia(Recipe recipe) {;
+	
+	public void downloadRecipeMedia(Recipe recipe) {
 		title = recipe.getInfo().getTitle();
 		for (int i = 0; i < recipe.getNumberOfSlidesIncBranchSlides(); i++) {
 			// Image paths
@@ -254,9 +259,8 @@ public class XMLFilepathHandler {
 					return mediaAddress;
 				}
 				else {
-					System.out.println("Broken " + mediaAddress);
 					broken = true;
-					// e-Cock will not function correctly with this filepath
+					// eCook will not function correctly with this filepath
 					return null;
 				}
 			}
