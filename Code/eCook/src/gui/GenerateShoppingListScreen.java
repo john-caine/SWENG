@@ -50,6 +50,9 @@ public class GenerateShoppingListScreen  extends menu{
 	private PDDocument pdf = null;
 	private Logger logger;
 	
+	/*
+	 * Constructor for class GenerateShoppingListScreen which extends menu
+	 */
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
 		
@@ -262,7 +265,9 @@ public class GenerateShoppingListScreen  extends menu{
 	
 	}
 	
-	// Method to get the shopping list and create a Text Area
+	/*
+	 *  Method to get the shopping list and create a Text Area
+	 */
 	public ShoppingList getShoppingList(boolean editMode) {
 		// read the shopping list file
 		ShoppingList list = new ShoppingList();
@@ -318,7 +323,9 @@ public class GenerateShoppingListScreen  extends menu{
 		return list;
 	}
 	
-	// method to print the shopping list PDF
+	/*
+	 *  Method to print the shopping list PDF
+	 */
 	public void printShoppingList() {
 		pdf = null;
 		statusBar.setText("Printing shopping list...");

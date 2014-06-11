@@ -7,15 +7,25 @@ package gui;
 import eCook.RecipeCollection;
 
 public class menuMock extends menu {
+	
+	/*
+	 * Constructor for class menuMock used in menuTest class
+	 */
 	public menuMock(RecipeCollection recipeCollection) {
 		super(recipeCollection);
 		 
 	}
-
+	
+	/*
+	 * Method to return height 
+	 */
 	public double height() {
 		return height;
 	}
 
+	/*
+	 * Method to return weight 
+	 */
 	public double width() {
 		return width;
 	}

@@ -30,6 +30,9 @@ public class MainMenuContent extends menu{
 	public VBox bigBox;
 	protected Stage stage;
 
+	/*
+	 * Constructor for class MainMenuContent which extends abstract class menu
+	 */
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
 		this.stage =  stage;
