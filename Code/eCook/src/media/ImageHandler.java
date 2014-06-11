@@ -1,7 +1,6 @@
 package media;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.logging.Logger;
 
 import javafx.scene.image.Image;
@@ -13,6 +12,7 @@ import errorhandler.ErrorHandler;
 public class ImageHandler extends SubSlideMedia {
 	
 	private Logger logger;
+	private ImageView iv1;
 
 	/*
 	 * Image Handler Constructor
@@ -34,13 +34,13 @@ public class ImageHandler extends SubSlideMedia {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		//Create a new Image View
-    	ImageView iv1 = new ImageView();
+    	iv1 = new ImageView();
     	//Set the image from the file path
         iv1.setImage(retrieveImage(path));
         
         //If a width and height has been given resize the image
         if (width != null && height != null) 
-        	resizeImage(iv1, width, height);
+        	resizeImage( width, height);
         
         //Add the image to hbox
         hbox.getChildren().add(iv1);
@@ -54,18 +54,18 @@ public class ImageHandler extends SubSlideMedia {
 	 *@Param width: The new width of the image
 	 *@Param height: The new height of the image 
 	 */
-	public void resizeImage(ImageView imageView, Integer width, Integer height){
-    	imageView.setFitWidth(width);
-    	imageView.setFitHeight(height);
-    	imageView.setSmooth(true);
-    	imageView.setCache(true);
+	protected void resizeImage( Integer width, Integer height){
+    	iv1.setFitWidth(width);
+    	iv1.setFitHeight(height);
+    	iv1.setSmooth(true);
+    	iv1.setCache(true);
     }
 	
 	/*
 	 * Gets the image from a given path
 	 * @Param imageLocationPath: The image file location.
 	 */
-	public Image retrieveImage(String imageLocationPath) {	
+	protected Image retrieveImage(String imageLocationPath) {	
 		Image image = null;
 		try {
 			image = new Image(imageLocationPath);
@@ -76,4 +76,8 @@ public class ImageHandler extends SubSlideMedia {
 		
 		return image;
     }
+	
+	protected ImageView getImageView(){
+		return iv1;
+	}
 }
