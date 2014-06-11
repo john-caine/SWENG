@@ -13,7 +13,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import eCook.eCook;
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 
@@ -23,11 +26,15 @@ public class XMLFilepathHandler {
 	private String title;
 	Boolean broken;
 	Boolean existsLocally;
+	private Logger logger;
 	
 	/*
 	 * Constructor, only needs to be called once
 	 */
 	public XMLFilepathHandler() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		broken = false;
 		existsLocally = true;
 		filepath = new File(System.getenv("localappdata") + "/eCook/Recipes");
@@ -187,7 +194,6 @@ public class XMLFilepathHandler {
 	private String handleMediaPathsFor(String mediaAddress, Boolean localCheck) {
 		if (localCheck && !existsLocally) {
 			// We're doing a local filepath check but some files already do not exist locally
-			// System.out.println(mediaAddress);
 			return mediaAddress;
 		}
 		else {
@@ -207,7 +213,6 @@ public class XMLFilepathHandler {
 						mediaAddress = potentialWinner.toURI().toASCIIString();
 					}
 					// We're doing a local filepath check but some files already do not exist locally
-					// System.out.println("Full normal filepath location: " + mediaAddress);
 					return mediaAddress;
 				}
 			}
@@ -223,7 +228,6 @@ public class XMLFilepathHandler {
 						mediaAddress = filepath + "/" + title + "/" + mediaElementName;
 						mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
 					}
-					// System.out.println("Full downloaded filepath section: " + mediaAddress);
 					return mediaAddress;
 				}
 			}
@@ -244,17 +248,16 @@ public class XMLFilepathHandler {
 					existsLocally = false;
 				}
 				catch (Exception e) {
-					// System.out.println(mediaAddress);
+					logger.log(Level.WARNING, "file broken at: " + mediaAddress);
 					broken = true;
 				}
 				// If the media file exists online it is hopefully OK so re-return the online address
 				if (!broken) {
 					//mediaAddress = (new File(mediaAddress)).toURI().toASCIIString();
-					// System.out.println("Not broken online: " + mediaAddress);
 					return mediaAddress;
 				}
 				else {
-					System.out.println("Broken " + mediaAddress);
+					logger.log(Level.WARNING, "Broken at: " + mediaAddress);
 					broken = true;
 					// e-Cock will not function correctly with this filepath
 					return null;

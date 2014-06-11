@@ -3,6 +3,8 @@ package xmlparser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import eCook.eCook;
+
 /* Title: Defaults
  * 
  * Programmers: Ankita, Max, James, Prakruti
@@ -29,6 +31,11 @@ public class Defaults {
 	// method to report errors when setting fields
 	public void reportError(String errorMessage) {
 		logger.log(Level.WARNING, errorMessage);
+	}
+		
+	public Defaults() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
 	}
 
 	// getters

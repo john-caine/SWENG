@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -46,6 +48,7 @@ import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import xmlvalidation.XMLValidator;
 import eCook.RecipeCollection;
+import eCook.eCook;
 
 public class RecipeBrowser extends Application {
 	// declare variables
@@ -58,12 +61,17 @@ public class RecipeBrowser extends Application {
 	Label statusBar;
 	private Label downloadLabel;
 	boolean downloaded = false;
+	private Logger logger;
 	
 	// constructor
 	public RecipeBrowser(Stage primaryStage, RecipeCollection recipeCollection, boolean show, Label report) {
 		this.recipeCollection = recipeCollection;
 		// send any messages back to the GUI to help the user.
 		this.statusBar = report;
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		// only launch the GUI if required
 		if (show) {
 			start(primaryStage);
@@ -124,9 +132,12 @@ public class RecipeBrowser extends Application {
 		} catch (MalformedURLException e) {
 			statusBar.setText("Sorry URL doesn't exist. Cannot get recipe file.");
 		} catch (FileNotFoundException e) {
+			logger.log(Level.SEVERE, "Cannot get recipe file from URL.");
 			statusBar.setText("Sorry Cannot get recipe file from that URL.");
 		} catch (IOException e) {
 			statusBar.setText("Error getting recipe file.");
+			logger.log(Level.SEVERE, "Error getting recipe file.");
+			logger.log(Level.SEVERE, "URL doesn't exist. Cannot get recipe file.");
 		}
 	}
 	
@@ -197,7 +208,7 @@ public class RecipeBrowser extends Application {
             public void handle(ActionEvent event) {
             	downloaded = false;
             	// download and save all selected recipe files
-            	System.out.println("Downloading Recipes...");
+            	statusBar.setText("Downloading Recipes...");
             	// this is the location of the eCook webstore (for prototyping purposes)
             	String rootURL = "http://www.propartydj.co.uk/SWEng/";
             	ObservableList<String> selectedFilesList = listOfRecipeFiles.getSelectionModel().getSelectedItems();
@@ -234,6 +245,7 @@ public class RecipeBrowser extends Application {
             		} 
             		catch (Exception e) {
             			statusBar.setText("Error when downloading and saving selected recipe files");
+            			logger.log(Level.SEVERE, "Error when downloading and saving selected recipe files");
             		}
             	}
             	border.setTop(null);
@@ -269,6 +281,7 @@ public class RecipeBrowser extends Application {
 			border.setCenter(listOfRecipeFiles);
 		} catch (Exception e) {
 			statusBar.setText("Problem accessing recipe files on server.");
+			logger.log(Level.SEVERE, "Problem accessing recipe files on server.");
 		}
         BorderPane.setAlignment(header, Pos.TOP_CENTER);
         border.setTop(header);

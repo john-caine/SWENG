@@ -8,7 +8,6 @@ package gui;
 import static org.junit.Assert.*;
 
 import java.io.File;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -19,10 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import eCook.JavaFXThreadingRule;
 
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
@@ -74,61 +73,6 @@ public class GenerateShoppingListScreenTest {
 		topBox = (HBox) generateShoppingListScreen.bigBox.getChildren().get(0);
 	}
 
-//	@Test
-//	public void generateShoppingListScreenTopBoxTest() {
-//		/* Test if bigBox contains topBox */
-//		assertTrue(generateShoppingListScreen.bigBox.getChildren().get(0) instanceof HBox);
-//		
-//		/* Test if topBox contains topLeftBox & topRightBox */
-//		assertTrue(topBox.getChildren().get(0) instanceof HBox);
-//		assertTrue(topBox.getChildren().get(1) instanceof HBox);
-//		
-//		/* Test if topLeftBox contains 1 Imageview */
-//		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
-//		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
-//		
-//		/* Test the Width and Height of the topLeftBox */
-//		assertEquals(screenBounds.getWidth()/2, topLeftBox.getPrefWidth(),0.01);
-//		assertEquals(screenBounds.getHeight()*0.1, topLeftBox.getPrefHeight(),0.01);
-//		/* Test the Alignment of topLeftBox */
-//		assertEquals(Pos.TOP_LEFT, topLeftBox.getAlignment());
-//		
-//		/* Test Home Image */
-//		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
-//		assertTrue(homeHolder.getImage() instanceof Image);
-//		homeHolder.getOnMouseClicked();
-//		assertTrue(stage.getScene().getRoot().getChildrenUnmodifiable().get(0) instanceof VBox);	
-//		/* Test for homeHolder Tooltip */
-//		assertEquals("Home" ,generateShoppingListScreen.h.getText());
-//	
-//		/*Test if topRightBox contains 2 ImageView */
-//		HBox topRightBox = (HBox) topBox.getChildren().get(1);
-//		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
-//		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
-//		
-//		/* Test the Width and Height of the topRightBox */
-//		assertEquals(screenBounds.getWidth()/2, topRightBox.getPrefWidth(),0.01);
-//		assertEquals(screenBounds.getHeight()*0.1, topRightBox.getPrefHeight(),0.01);
-//		/* Test the Alignment of topRightBox */
-//		assertEquals(Pos.TOP_RIGHT, topRightBox.getAlignment());
-//		
-//		/* Test Minimise Image */
-//		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
-//		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
-//		minimiseBtnHolder.getOnMouseClicked();
-//		assertFalse(stage.isMaximized());
-//		/* Test for minimiseBtnHolder Tooltip */
-//		assertEquals("Minimise" ,generateShoppingListScreen.m.getText());
-//		
-//		/* Test Close Image */
-//		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
-//		assertTrue(closeBtnHolder.getImage() instanceof Image);	
-//		closeBtnHolder.getOnMouseClicked();
-//	    assertFalse(stage.isShowing());
-//	    /* Test for closeBtnHolder Tooltip */
-//		assertEquals("Close" ,generateShoppingListScreen.c.getText());
-//	}
-//	
 	@Test
 	public void generateShoppingListScreenHorizontalBoxTest() {
 		/* Test if bigBox contains horizontalBox */
@@ -213,15 +157,6 @@ public class GenerateShoppingListScreenTest {
 		
 		/* Test if midBox contains statusBar */
 		assertTrue(midBox.getChildren().get(1) instanceof Label);
-		
-		/* Test for the correct message for the statusBar */ 
-		/* -1 is required to remove the invisible TextField */
-		//statusBar = (Label) midBox.getChildren().get(1);
-		//newItem = (TextField) shoppingListBox.getChildren().get(0);
-		//assertEquals("Added " + newItem.getText() + " to Shopping List", statusBar.getText());
-		
-		/* Test if midBox contains midBoxBottom */
-		//assertTrue(midBox.getChildren().get(4) instanceof HBox);
 		
 		/* Test if midBoxBottom contains save Button */
 		buttonBar = (HBox) midBox.getChildren().get(3);

@@ -38,6 +38,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import eCook.eCook;
+
 // enumerated type for keeping track of where we need to store content
 enum ProcessingElement {
 	NONE,
@@ -67,7 +69,6 @@ public class XMLReader extends DefaultHandler {
 	private Image image;
 	private Video video;
 	private Ingredient ingredient;
-	Logger logger;
 	
 	// initialise the processing flags to nothing
 	private ProcessingElement currentElement = ProcessingElement.NONE;
@@ -78,6 +79,7 @@ public class XMLReader extends DefaultHandler {
 	// Error handling variables
 	private Boolean xmlIsBroken = false;
 	private String xmlReadError = null;
+	private Logger logger;
 	
 	/*
 	 * Constructor
@@ -90,6 +92,9 @@ public class XMLReader extends DefaultHandler {
 	 * The method to parse an XML file, provide the full filepath.
 	 */
 	public void readXMLFile(String inputFile) {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		try {
 			xmlIsBroken = false;
 			// use the default parser
@@ -293,7 +298,7 @@ public class XMLReader extends DefaultHandler {
 						text.setOrientation(attributes.getValue("orientation"));
 					}
 				} catch (Exception e) {
-					System.out.println("text attribute setting issue");
+					logger.log(Level.WARNING, "text attribute setting issue");
 				}
 				slideElement = ProcessingElement.TEXT;
 			}

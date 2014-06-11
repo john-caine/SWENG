@@ -5,19 +5,16 @@
  */
 package gui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -28,6 +25,7 @@ import org.junit.Test;
 
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
+import eCook.JavaFXThreadingRule;
 import eCook.RecipeCollection;
 
 public class IngredientsScreenTest {
@@ -37,7 +35,6 @@ public class IngredientsScreenTest {
 	private double height;
 	private double width;
 	private RecipeCollection recipeCollection;
-	private CheckBox[] checkboxes;
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
 	@Before

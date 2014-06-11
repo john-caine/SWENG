@@ -82,13 +82,13 @@ public class RecipeScreen extends menu{
 
 			downloadButtons[i] = new Button("Download Recipe Content");
 			downloadButtons[i].setVisible(false);
-			downloadButtons[i].setId("downloadButtons");
-			downloadButtons[i].getStylesheets().add("css.css");
+			downloadButtons[i].setId(Integer.toString(i));
+			downloadButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
 			playButtons[i] = new Button("Play");
 			playButtons[i].setVisible(false);
 
-			playButtons[i].setId("playButtons");
-			playButtons[i].getStylesheets().add("css.css");
+			playButtons[i].setId("p" + i);
+			playButtons[i].setStyle("-fx-background-color: rgba(0,0,0,0.04); -fx-font-size: 16px; -fx-text-fill:    #000000; -fx-font-family: 'Buxton Sketch';");
 
 			// Put some tooltips on the buttons
 			downloadButtons[i].setTooltip(new Tooltip("Downloads online content for this recipe"));
@@ -101,7 +101,7 @@ public class RecipeScreen extends menu{
 			playButtons[i].setTooltip(new Tooltip("Click here to open slideshow for selected recipe"));
 			
 			// Configure the buttons
-
+			
 			downloadButtons[i].setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(final ActionEvent event) {
@@ -129,7 +129,7 @@ public class RecipeScreen extends menu{
 					int index = 0;
 					// get the selected recipe
 					Button focusButton = (Button) event.getSource();
-					index = Integer.valueOf(focusButton.getId().substring(1));
+					index = Integer.valueOf(focusButton.getId().substring(0));
 					//Get filename of currently selected recipe
 					String fileName = recipeCollection.getRecipe(index).getFileName();
 					// play the slideshow
@@ -142,8 +142,10 @@ public class RecipeScreen extends menu{
 				@Override
 				public void handle(MouseEvent event) {
 					// hide any previously showing buttons
+					
 					playButtons[lastRowHovered].setVisible(false);
 					downloadButtons[lastRowHovered].setVisible(false);
+					
 					int index = 0;
 					// get the selected recipe
 					HBox focusBox = (HBox) event.getSource();

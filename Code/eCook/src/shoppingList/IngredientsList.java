@@ -12,7 +12,9 @@ package shoppingList;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import eCook.eCook;
 import xmlparser.Recipe;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -41,11 +43,16 @@ public class IngredientsList {
 	Label statusBar;
 	ShoppingList currentShoppingList;
 	double height, width;
+	private Logger logger;
 
 	// constructor
 	public IngredientsList(Recipe recipe, double height, double width) {
 		this.height = height;
 		this.width = width;
+		
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		// populate the ingredientsList
 		ingredientsList = new ArrayList<String>();
 		for (int i=0; i<recipe.getNumberOfIngredients(); i++) {
@@ -174,7 +181,7 @@ public class IngredientsList {
 					buttonBox.setSpacing(10);
 				}
 				else {
-					System.out.println("select all button is broken!");
+					logger.log(Level.SEVERE, "select all button is broken!");
 				}
 			}
 		});
@@ -204,7 +211,7 @@ public class IngredientsList {
 			public void handle(ActionEvent event) {
 				// when button pressed, send the shopping list to the PDF creator
 				new PDFCreator(currentShoppingList.readFromTextFile(), true);
-				System.out.println("shopping list saved to PDF");
+				logger.log(Level.INFO, "shopping list saved to PDF");
 			}
 		});
 		testEnableSaveButton();

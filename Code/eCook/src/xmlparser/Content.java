@@ -19,6 +19,10 @@ package xmlparser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import eCook.eCook;
 
 public class Content {
 	// declare fields
@@ -31,19 +35,18 @@ public class Content {
 	List<Audio> audios;
 	List<Image> images;
 	List<Video> videos;
+	private Logger logger;
 	
 	// constructor sets up arrays for all media types
 	public Content() {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
 		texts = new ArrayList<TextBody>();
 		shapes = new ArrayList<Shape>();
 		audios = new ArrayList<Audio>();
 		images = new ArrayList<Image>();
 		videos = new ArrayList<Video>();
-	}
-	
-	// method to report errors when setting fields
-	public void reportError(String errorMessage) {
-		System.out.println(errorMessage);
 	}
 
 	// getters
@@ -175,7 +178,7 @@ public class Content {
 			return texts.get(textNumber);
 		}
 		else {
-			reportError("Error getting text: index out of range");
+			logger.log(Level.SEVERE, "Error getting text: index out of range");
 			return null;
 		}
 	}
@@ -200,7 +203,7 @@ public class Content {
 			return shapes.get(shapeNumber);
 		}
 		else {
-			reportError("Error getting shape: index out of range");
+			logger.log(Level.SEVERE, "Error getting shape: index out of range");
 			return null;
 		}
 	}
@@ -225,7 +228,7 @@ public class Content {
 			return audios.get(audioNumber);
 		}
 		else {
-			reportError("Error getting audio: index out of range");
+			logger.log(Level.SEVERE, "Error getting audio: index out of range");
 			return null;
 		}
 	}
@@ -246,12 +249,11 @@ public class Content {
 	}
 
 	public Image getImage(Integer imageNumber) {
-		System.out.println(getNumberOfImages());
 		if (imageNumber >= 0 && imageNumber < this.getNumberOfImages()) {
 			return images.get(imageNumber);
 		}
 		else {
-			reportError("Error getting image: index out of range");
+			logger.log(Level.SEVERE, "Error getting image: index out of range");
 			return null;
 		}
 	}
@@ -276,7 +278,7 @@ public class Content {
 			return videos.get(videoNumber);
 		}
 		else {
-			reportError("Error getting video: index out of range");
+			logger.log(Level.SEVERE, "Error getting video: index out of range");
 			return null;
 		}
 	}

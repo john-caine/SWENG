@@ -8,25 +8,21 @@ package gui;
 import static org.junit.Assert.*;
 
 import java.io.File;
-
 import eCook.RecipeCollection;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
+import eCook.JavaFXThreadingRule;
 
 public class RecipeScreenTest {
 	
@@ -66,38 +62,6 @@ public class RecipeScreenTest {
 		recipeScreen = new RecipeScreen(bigBox, height, width, recipeCollection, stage);
 	}
 
-	@Test
-	public void recipeScreenTopBoxTest() {
-		/* Test if bigBox contains topBox */
-		//assertTrue(recipeScreen.bigBox.getChildren().get(0) instanceof HBox);
-		
-		/* Test if topBox contains topLeftBox & topRightBox */
-		HBox topBox = (HBox) recipeScreen.bigBox.getChildren().get(0);
-		assertTrue(topBox.getChildren().get(0) instanceof HBox);
-		assertTrue(topBox.getChildren().get(1) instanceof HBox);
-		
-		/* Test if topLeftBox contains 1 Imageview */
-		HBox topLeftBox = (HBox) topBox.getChildren().get(0);
-		assertTrue(topLeftBox.getChildren().get(0) instanceof ImageView);
-		
-		/* Test for Home Image */
-		ImageView homeHolder = (ImageView) topLeftBox.getChildren().get(0);
-		assertTrue(homeHolder.getImage() instanceof Image);
-	
-		/*Test if topRightBox contains 2 ImageView */
-		HBox topRightBox = (HBox) topBox.getChildren().get(1);
-		assertTrue(topRightBox.getChildren().get(0) instanceof ImageView);
-		assertTrue(topRightBox.getChildren().get(1) instanceof ImageView);
-		
-		/* Test for Minimise Image */
-		ImageView minimiseBtnHolder = (ImageView) topRightBox.getChildren().get(0);
-		assertTrue(minimiseBtnHolder.getImage() instanceof Image);
-		
-		/* Test for Close Image */
-		ImageView closeBtnHolder = (ImageView) topRightBox.getChildren().get(1);
-		assertTrue(closeBtnHolder.getImage() instanceof Image);
-	}
-	
 	@Test
 	public void recipeScreenHorizontalBoxTest() {
 		/* Test if bigBox contains horizontalBox */

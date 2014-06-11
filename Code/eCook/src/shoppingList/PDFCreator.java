@@ -22,10 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -33,6 +33,7 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import eCook.eCook;
 
 public class PDFCreator {
 	// declare variables
@@ -43,9 +44,15 @@ public class PDFCreator {
 	PDJpeg logo;
 	int numberOfLinesUsed;
 	boolean allowFilepathSelection;
+	private Logger logger;
+
 	
 	// constructor
 	public PDFCreator(ArrayList<String> shoppingList, boolean allowFilepathSelection) {
+		// Create a new logger instance with the package and class name
+		logger = Logger.getLogger(eCook.class.getName());
+		
+		
 		// constructor takes a list of strings (shopping list items) and turns them into a single PDF
 		if (shoppingList != null && shoppingList.size() != 0) {
 			// make a document and set up fonts and logo
@@ -62,7 +69,7 @@ public class PDFCreator {
 					logo = new PDJpeg(shoppingListDocument, in);
 				}
 				else {
-					System.out.println("cannot get logo for shopping list PDF");
+					logger.log(Level.WARNING, "cannot get logo for shopping list PDF");
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println("PDF Creator: file not found");
@@ -77,7 +84,7 @@ public class PDFCreator {
 			createPDFFromList(shoppingList);
 		}
 		else {
-			System.out.println("shopping list is empty! PDF file will not be created.");
+			logger.log(Level.WARNING, "shopping list is empty! PDF file will not be created.");
 		}
 	}
 	
@@ -190,7 +197,7 @@ public class PDFCreator {
 			return file.getAbsolutePath() + ".pdf";
 		}
 		else {
-			System.out.println("Saving shopping list: abandoned");
+			logger.log(Level.WARNING, "Saving shopping list: abandoned");
 			return null;
 		}
 	}

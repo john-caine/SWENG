@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import notes.NotesGUI;
+import media.AudioControlBar;
 import media.AudioHandler;
 import media.GraphicHandler;
 import media.ImageHandler;
@@ -57,17 +58,17 @@ import errorhandler.ErrorHandler;
 public class SlideShow {
 
 	// declare variables
-	private Scene slideScene;
-	private Group slideRoot;
+	protected Scene slideScene;
+	protected Group slideRoot;
 	public int currentSlideID, nextSlideID, prevSlideID, numOfSlidesIncBranch, numOfSlidesExcBranch;
-	private int firstSlideID, lastSlideID;
+	protected int firstSlideID, lastSlideID;
 	private XMLReader reader;
 	private Recipe recipe;
 	private Slide slide;
-	private Integer maxLayer, duration;
+	protected Integer maxLayer, duration;
 	private Timer timer;
 	private VBox timerbox;
-	private ArrayList<Timer> timerList;
+	protected ArrayList<Timer> timerList;
 	private ArrayList<TimerData> timerValues;
 	private ArrayList<TextHandler> textHandlerList;
 	private ArrayList<ImageHandler> imageHandlerList;
@@ -80,18 +81,19 @@ public class SlideShow {
 	private Stage stage;
 	static Logger logger;
 	private RecipeCollection recipeCollection;
-	private XMLValidator validator;
+	protected XMLValidator validator;
 	String backGroundColor;
 	boolean onEndPage = false;
 	boolean bottomPanelShowing = false;
 	boolean notesPanelShowing = false;
 	private int numberOfTimers = 0;
 	private SlideShow slideShow = this;
-	NotesGUI notesGUI;
-	SlideControls slideControls;
+	protected NotesGUI notesGUI;
+	protected SlideControls slideControls;
 	private ArrayList<SlideMedia> mediaList;
 	private ArrayList<SubSlideMedia> subSlideMediaList;
 	private ArrayList<SlideMediaPlayer> slideMediaPlayerList;
+	protected ArrayList<Pane> layers;
 	
 	// constructor
 	public SlideShow(Stage stage, String filepath, RecipeCollection recipeCollection) {
@@ -118,52 +120,44 @@ public class SlideShow {
     	reader = new XMLReader(recipePath + "/" + filepath);
     	//reader = new XMLReader(filepath);
 
-    	
-    	// Check integrity of XML file, report error message if invalid
-    	validator = new XMLValidator(reader);
-    	if (validator.isXMLBroken()) {
-    		stage.hide();
-    		new ErrorHandler(validator.getErrorMsg());
-		} else {
-			XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
-			reader = filepathHandler.setMediaPaths(reader);
-			System.out.println("If this file has broken paths the main menu will be called, needs more work");
-			if (filepathHandler.mediaPathsAreBroken()) {
-				stage  = (Stage) slideScene.getWindow();
-				Group root = (Group) stage.getScene().getRoot();
-				root.getChildren().clear();
-				new MainMenu(stage, recipeCollection);
-			}
-			else {
-				// If there's no error with the recipe then grab it from the parser
-				recipe = reader.getRecipe();
-			
-				// Scale the recipe for user resolution
-				RecipeScale recipeScale = new RecipeScale();
-				recipe = recipeScale.scaleRecipe(recipe);
-			
-				// Get the total number of slides
-				numOfSlidesExcBranch = recipe.getNumberOfSlidesExcBranchSlides();
-				numOfSlidesIncBranch = recipe.getNumberOfSlidesIncBranchSlides();
-			
-				// Set first & last slideIDs
-				firstSlideID  = 0;
-				lastSlideID = (numOfSlidesExcBranch - 1);
 
-				logger.log(Level.INFO, "Starting slideshow with slide index 0");
-				// set fullscreen here to ensure that the stage and scene bounds are the 
-				//	maximum possible when new slide is called
-				stage.setFullScreen(true);
-				stage.setFullScreenExitHint("Press ESC to return to the main menu.");
-				newSlide(0, false, null);
+    	XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+    	reader = filepathHandler.setMediaPaths(reader);
+    	if (filepathHandler.mediaPathsAreBroken()) {
+    		stage  = (Stage) slideScene.getWindow();
+    		Group root = (Group) stage.getScene().getRoot();
+    		root.getChildren().clear();
+    		new MainMenu(stage, recipeCollection);
+    	}
+    	else {
+    		// If there's no error with the recipe then grab it from the parser
+    		recipe = reader.getRecipe();
 
-				backGroundColor = recipe.getDefaults().getBackgroundColor();
-				// Set the colour of the slide
-				slideScene.setFill(Color.web(backGroundColor));
-				// get started
-				stage.show();
-			}
-		}
+    		// Scale the recipe for user resolution
+    		RecipeScale recipeScale = new RecipeScale();
+    		recipe = recipeScale.scaleRecipe(recipe);
+
+    		// Get the total number of slides
+    		numOfSlidesExcBranch = recipe.getNumberOfSlidesExcBranchSlides();
+    		numOfSlidesIncBranch = recipe.getNumberOfSlidesIncBranchSlides();
+
+    		// Set first & last slideIDs
+    		firstSlideID  = 0;
+    		lastSlideID = (numOfSlidesExcBranch - 1);
+
+    		logger.log(Level.INFO, "Starting slideshow with slide index 0");
+    		// set fullscreen here to ensure that the stage and scene bounds are the 
+    		//	maximum possible when new slide is called
+    		stage.setFullScreen(true);
+    		stage.setFullScreenExitHint("Press ESC to return to the main menu.");
+    		newSlide(0, false, null);
+
+    		backGroundColor = recipe.getDefaults().getBackgroundColor();
+    		// Set the colour of the slide
+    		slideScene.setFill(Color.web(backGroundColor));
+    		// get started
+    		stage.show();
+    	}
 	}
 	
 	public void newSlide(Integer slideID, Boolean isBranch, ArrayList<TimerData> currentTimerValues) {	
@@ -173,7 +167,7 @@ public class SlideShow {
 		List<Shape> graphics;
 		List<Video> videos;
 		Pane layer;
-		ArrayList<Pane> layers;
+		
 		int imageCount, textCount, audioCount, videoCount, graphicCount;
 		int fontSize;
 		String fontColor, font, lineColor, fillColor;
