@@ -16,7 +16,9 @@ import org.junit.Test;
 public class ContentTest {
 	Content content;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new content class
@@ -72,7 +74,9 @@ public class ContentTest {
 		assertEquals(47, content.orientation.intValue());
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 * check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new content class
@@ -128,7 +132,9 @@ public class ContentTest {
 		assertEquals(180, content.getOrientation().intValue());
 	}
 	
-	// check that the list operations work correctly
+	/*
+	 * check that the list operations work correctly
+	 */
 	@Test
 	public void canSetListAttributes() {
 		// instantiate a new content class
