@@ -17,13 +17,11 @@ public class eCookTest {
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	private static Group group;
-	private static Scene scene;
-	
 	@Before
 	// perform JavaFX setup 
 	public void setup() {
 		group = new Group();
-		scene = new Scene(group);
+		new Scene(group);
 	}
 	
 	@Test

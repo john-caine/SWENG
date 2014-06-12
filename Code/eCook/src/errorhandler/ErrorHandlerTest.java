@@ -7,23 +7,12 @@
 package errorhandler;
 
 import static org.junit.Assert.*;
-
 import java.awt.event.InputEvent;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.awt.AWTException;
 import java.awt.Robot;
-//import com.sun.glass.ui.Robot;
-
-
-
-
-
 import eCook.JavaFXThreadingRule;
-import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Pos;
 import javafx.scene.text.Text;
 
