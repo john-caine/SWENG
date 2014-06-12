@@ -1,3 +1,8 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine, Roger Tan
+ * Date Created: 04/06/2014
+ * Description: Graphics Handler test class
+ */
 package media;
 
 import static org.junit.Assert.*;
@@ -24,21 +29,20 @@ public class GraphicHandlerTest {
 	private List<Shape> shapeList;
 	private String fillColour = "#FFFFFF";
 	private String lineColour = "#000000";
+	// Run tests on JavaFX thread ref. Andy Till
+	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 
 	@Before
 	public void SetUp(){
-		
-		
-		
+		//Parse a playlist
 		reader = new XMLReader("../Resources/PWSExamplePlaylist_4.xml");
 		shapeList = reader.getRecipe().getSlide(1).getContent().getShapes();
 		graphicHandler = new GraphicHandler(parent, shapeList.get(0).getTotalPoints(), shapeList.get(0).getWidth(),
 											  shapeList.get(0).getHeight(), shapeList.get(0).getStartTime(), 
 											  shapeList.get(0).getDuration(),
 											  fillColour, lineColour, null/*branch*/, shapeList.get(0).getPoints());
-		
 		
 		bounds = Screen.getPrimary().getBounds();
 		

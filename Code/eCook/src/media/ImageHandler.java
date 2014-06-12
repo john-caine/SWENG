@@ -1,8 +1,12 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine, Roger Tan
+ * Date Created: 04/06/2014
+ * Description: Image Handler, generates an ImageView with image from the set attributes.
+ */
 package media;
 
-
+import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import eCook.SlideShow;
@@ -14,7 +18,7 @@ public class ImageHandler extends SubSlideMedia {
 	private Logger logger;
 	private ImageView iv1;
 
-	/*
+	/**
 	 * Image Handler Constructor
 	 * @Param parent: The slideshow that called the handler
 	 * @Param path: The file path of the image
@@ -33,14 +37,17 @@ public class ImageHandler extends SubSlideMedia {
 
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
+		
 		//Create a new Image View
     	iv1 = new ImageView();
+    	
     	//Set the image from the file path
         iv1.setImage(retrieveImage(path));
         
         //If a width and height has been given resize the image
         if (width != null && height != null) 
         	resizeImage( width, height);
+        logger.log(Level.INFO, "Image attributes set");
         
         //Add the image to hbox
         hbox.getChildren().add(iv1);
@@ -48,7 +55,7 @@ public class ImageHandler extends SubSlideMedia {
         setTimingValues();
 	}
 	
-	/*
+	/**
 	 *Resizes the image to a given width and height
 	 *@Param imageView: The image to be resized
 	 *@Param width: The new width of the image
@@ -61,7 +68,7 @@ public class ImageHandler extends SubSlideMedia {
     	iv1.setCache(true);
     }
 	
-	/*
+	/**
 	 * Gets the image from a given path
 	 * @Param imageLocationPath: The image file location.
 	 */
@@ -77,6 +84,10 @@ public class ImageHandler extends SubSlideMedia {
 		return image;
     }
 	
+	/**
+	 * Gets the ImageView object
+	 * @return The created ImageView oject
+	 */
 	protected ImageView getImageView(){
 		return iv1;
 	}

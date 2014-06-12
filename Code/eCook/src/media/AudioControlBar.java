@@ -30,17 +30,23 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 public class AudioControlBar {
-	// declare variables
-	HBox controlBar;
-	List<Button> buttons;
-	Slider trackBar, volBar;
-	Label fileLbl, timeLbl;
-	AudioHandler currentHandler;
-	int currentHandlerIndex = 0;
-	List<AudioHandler> audioHandlerObjects;
+	
+	protected HBox controlBar;
+	protected List<Button> buttons;
+	protected Slider trackBar;
+	protected Slider volBar;
+	protected Label fileLbl;
+	protected Label timeLbl;
+	protected AudioHandler currentHandler;
+	protected int currentHandlerIndex = 0;
+	protected List<AudioHandler> audioHandlerObjects;
 	private Logger logger;
 	
-	// constructor
+	/**
+	 * AudioControlBar constructor
+	 * @Param audioHandlerList: A list of audio handler objects which the AudioControlBar is to control
+	 * @Param root: The slideshow group
+	 */
 	public AudioControlBar(final ArrayList<AudioHandler> audioHandlerList, Group root) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -54,7 +60,7 @@ public class AudioControlBar {
 		detectAutoPlay();
 	}
 	
-	/*
+	/**
 	 *  method to get the controlBar HBox
 	 */
 	public HBox getControlBar() {
@@ -64,7 +70,7 @@ public class AudioControlBar {
 		return this.controlBar;
 	}
 	
-	/*
+	/**
 	 *  method to populate the controlBar with buttons
 	 */
 	public void setupControlBar(Group root) {
@@ -122,7 +128,7 @@ public class AudioControlBar {
         controlBar.getChildren().addAll(playPauseBtn, stopBtn, prevBtn, nextBtn, trackBar, timeLbl, fileLbl, volLbl, volBar);
 	}
 	
-	/*
+	/**
 	 *  set up event handlers for the buttons
 	 */
 	public void setupButtons() {
@@ -136,8 +142,7 @@ public class AudioControlBar {
 					buttons.get(0).setId("audioBarPause");
 					ImageView pauseImg = new ImageView(new Image("audioBarPause.png"));
 					buttons.get(0).setGraphic(pauseImg);
-				}
-				else {
+				} else {
 					currentHandler.pauseMedia();
 					buttons.get(0).setId("audioBarPlay");
 					ImageView playImg = new ImageView(new Image("audioBarPlay.png"));
@@ -204,7 +209,7 @@ public class AudioControlBar {
 		});
 	}
 	
-	/*
+	/**
 	 *  set up event handlers for sliders
 	 */
 	public void setupSliders() {
@@ -273,22 +278,20 @@ public class AudioControlBar {
         trackBar.setMax(currentHandler.getDuration());
 	}
 	
-	/*
+	/**
 	 *  method to update the button enables to prevent undefined behaviour {
 	 */
 	public void validateButtons() {
 		// enable the next button if necessary
 		if ((currentHandlerIndex < audioHandlerObjects.size()-1) && (audioHandlerObjects.size() != 1)) {
 			buttons.get(3).setDisable(false);
-		}
-		else {
+		} else {
 			buttons.get(3).setDisable(true);
 		}
 		// enable the prev button if necessary
 		if ((currentHandlerIndex > 0) && (audioHandlerObjects.size() != 1)) {
 			buttons.get(2).setDisable(false);
-		}
-		else {
+		} else {
 			buttons.get(2).setDisable(true);
 		}
 		
@@ -311,7 +314,7 @@ public class AudioControlBar {
 		}
 	}
 	
-	/*
+	/**
 	 *  method to detect when audio is playing to update the GUI
 	 */
 	public void detectAutoPlay() {

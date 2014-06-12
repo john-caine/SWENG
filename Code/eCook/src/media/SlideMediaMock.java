@@ -8,7 +8,7 @@ package media;
 
 public class SlideMediaMock extends SlideMedia{
 
-	/*
+	/**
 	 *SlideMediaMock constructor
 	 * @Param xStart: The x co-ordinate of the HBox
 	 * @Param yStart: The y co-ordinate of the HBox
@@ -20,7 +20,7 @@ public class SlideMediaMock extends SlideMedia{
 		 
 	}
 
-	/*
+	/**
 	 * Over rides are required for inherited abstract methods. Mocking class does not require an implementation for these methods.
 	 */
 	@Override

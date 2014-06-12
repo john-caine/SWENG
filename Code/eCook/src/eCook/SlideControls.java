@@ -1,6 +1,5 @@
 package eCook;
-/* Title: SlideControls
- * 
+/* 
  * Programmers: Max, Ankita, Steve Thorpe, Paul Mathema and James Oatley
  * 
  * Date Created: 09/05/14
@@ -32,18 +31,22 @@ import javafx.util.Duration;
 
 public class SlideControls {
 	
-	// declare variables
-	boolean bottomPanelVisible = false;
+	protected boolean bottomPanelVisible = false;
 	private Rectangle2D screenBounds;
 	private double width;
-    HBox controlPanel;
-    VBox bottomPanel;
-	List<Button> buttons;
+    protected HBox controlPanel;
+    protected VBox bottomPanel;
+	protected List<Button> buttons;
 	public Timeline timelineIn, timelineOut;
 	private boolean forceShow = false;
-	double panelHeight;
+	protected double panelHeight;
 	
-	// constructor
+	/**
+	 * Constructor to set the height of control bar based on whether audio is required on the slide.
+	 * @param root The visible group of objects.
+	 * @param forceShow Boolean to set whether to show the controlBar or not.
+	 * @param audioBar The AudioBar to be added to the control panel if required.
+	 */
 	public SlideControls(Group root, boolean forceShow, HBox audioBar) {
 		this.forceShow = forceShow;
 		
@@ -62,36 +65,39 @@ public class SlideControls {
 		}
 	}
 	
-	/*
-	 *  method to return the bottom panel VBox object
+	/**
+	 *  Method to return the bottom panel VBox object
 	 */
 	public VBox getBottomPanel() {
 		return bottomPanel;
 	}
 
-	/*
-	 *  method to return the controlPanel HBox object
+	/**
+	 *  Method to return the controlPanel HBox object
 	 */
 	public HBox getControlBar() {
 		return controlPanel;
 	}
 	
-	/*
-	 *  method to indicate when the bottom panel is onscreen
+	/**
+	 *  Method to indicate when the bottom panel is on screen
 	 */
 	public boolean getBottomPanelVisible() {
 		return bottomPanelVisible;
 	}
 
-	/*
+	/**
 	 *  method to access the list of buttons in the controlsBox
 	 */
 	public List<Button> getButtons() {
 		return buttons;
 	}
 	
-	/*
-	 *  set up the controls panel and add the buttons
+	/**
+	 * Adds all of the relevant buttons to the contolPanel, sets what to do when the mouse enters/leaves,
+	 * and adds the audioBar if it is required.
+	 * @param root the visible group of objects
+	 * @param audioBar The audioBar to be added to the control panel if required
 	 */
     public void setupcontrolPanel(final Group root, HBox audioBar) {   
         // get the size of the screen
@@ -186,6 +192,7 @@ public class SlideControls {
         	bottomPanel.getChildren().add(audioBar);
         }
         
+        // Create the timelines
         timelineIn = new Timeline();
         timelineOut = new Timeline();
         
@@ -230,8 +237,9 @@ public class SlideControls {
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverBottomHandler);
     }
     
-    /*
-     *  method to hide panel
+    /**
+     *  Hides the controlPanel from view on the slide
+     * @param root the visible group of objects
      */
     public void hidePanel(Group root) {
 		final KeyValue kv = new KeyValue(bottomPanel.translateYProperty(), panelHeight);
@@ -241,8 +249,9 @@ public class SlideControls {
       	bottomPanelVisible = false;
     }
     
-    /*
-     *  method to show panel
+    /**
+     * Shows the controlPanel on the slide.
+     * @param root The visible group of objects
      */
     public void showPanel(Group root) {
     	// normal transition on mouseover
