@@ -16,18 +16,18 @@ public class Ingredient {
 	public Ingredient() {
 	}
 
-	/*
-	 * Ingredient name
-	 * Return: String
+	/**
+	 * Get the ingredient name
+	 * @return name: The ingredient name
 	 * 
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/*
-	 * Ingredient units
-	 * Return: String
+	/**
+	 * Get the Ingredient units
+	 * @return units: The ingredient units
 	 * 
 	 */
 	public String getUnits() {
