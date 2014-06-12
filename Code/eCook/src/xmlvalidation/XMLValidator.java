@@ -1,8 +1,4 @@
-/*
- * Programmer: James
- * Date : 01/06/14
- * Description: 
- */
+
 
 package xmlvalidation;
 
@@ -14,12 +10,6 @@ package xmlvalidation;
  * 
  * Description: Class to validate contents of .xml file according to requirements
  * 
- * Version History: v0.1 (07/05/14) - Added method to determine if the version is correct 
- * 					v0.2 (08/05.14) - Added class to determine if missing slideshow content
- * 					v0.4 (11/05/14) - Can now determine if any "required" PWS content is missing
- * 					v1.0 (12/05/14)	- Refactoring of code, collects error messages from XML parser
- * 									  covers all errors that cannot/should not be solved automatically
- * 									  i.e. all fundamental slideshow/file issues
  */
 import xmlparser.XMLReader;
 

@@ -52,7 +52,7 @@ public class ErrorHandlerTest {
 	public void textObjectContainsErrorMessage() {
 		assertTrue(testError.text instanceof Text);
 		assertEquals(testError.text.getText(), textMessage);
-		assertEquals(testError.text.getFont().getSize(), 20);	
+		assertEquals( 20, testError.text.getFont().getSize(), 0.1);	
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class ErrorHandlerTest {
 	 */
 	@Test
 	public void newWindowContainsButton() {	
-		testError = new ErrorHandler(textMessage);
+		//testError = new ErrorHandler(textMessage);
 		assertEquals(testError.okButton.getLayoutX(), ((testError.stage.getScene().getWidth() / 2) - (testError.okButton.getPrefWidth() / 2) - 10), 0.1); 
 		assertEquals(testError.okButton.getLayoutY(), (testError.stage.getScene().getHeight() - 35), 0.1);
 		assertEquals(testError.okButton.getAlignment(), Pos.CENTER);

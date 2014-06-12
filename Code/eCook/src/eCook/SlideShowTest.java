@@ -51,8 +51,6 @@ public class SlideShowTest {
 		assertTrue(slideShow.firstSlideID == 0);
 		assertTrue(slideShow.lastSlideID == 4);
 		
-		//check the validator has been called
-		assertTrue(slideShow.validator != null);
 		
 		// Check the background colour is set correctly
 		assertEquals("0x00ff00ff", slideShow.slideScene.getFill().toString());
