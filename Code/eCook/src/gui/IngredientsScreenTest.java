@@ -35,6 +35,7 @@ public class IngredientsScreenTest {
 	private double height;
 	private double width;
 	private RecipeCollection recipeCollection;
+	
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
 	@Before
@@ -62,9 +63,14 @@ public class IngredientsScreenTest {
 				}
 			}
 		}
+		
 		ingredientsScreen = new IngredientsScreen(bigBox, height, width, recipeCollection);
 	}
 
+	/**
+	 * Tests the ingredients screen. Checks boxes contain correct content, labels display correct text,
+	 * and nGuests feature works.
+	 */
 	@Test
 	public void ingredientsScreenMidBoxTest() {
 		/* Test if bigBox contains midBox */

@@ -7,7 +7,6 @@
 package gui;
 
 import java.util.ArrayList;
-
 import shoppingList.IngredientsList;
 import xmlparser.Recipe;
 import eCook.RecipeCollection;
@@ -32,17 +31,23 @@ import javafx.scene.text.TextAlignment;
 public class IngredientsScreen extends menu {
 
 	private HBox midBox,nGuestsBox;
-	private VBox midBoxLeft, midBoxRight, recipeInfoBox;
-
+	private VBox midBoxLeft; 
+	private VBox midBoxRight; 
+	private VBox recipeInfoBox;
 	private VBox ingredientsList;
-
 	private TextField nGuests;
 	private Button updateIngredients;
 	protected VBox bigBox;
-	protected double height, width;
+	protected double height;
+	protected double width;
 
-	/*
-	 * Constructor for class IngredientsScreen which extends abstract class menu
+	/**
+	 * Constructs an ingredients screen. Populates it with a list of recipes, sets the first one selected, and updates
+	 * the labels as the selection changes.
+	 * @param bigBox The overall box for the shoppingList screen
+	 * @param height The height of the screen bounds
+	 * @param width The width of the screen bounds
+	 * @param recipeCollection The current recipe collection
 	 */
 	public IngredientsScreen(final VBox bigBox, final double height, final double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
@@ -54,11 +59,12 @@ public class IngredientsScreen extends menu {
 		this.height = height;
 		this.width = width;
 
-		//Define midBox
+		//Define midBoxes
 		midBox = new HBox(20);
 		midBoxLeft = new VBox();
 		midBoxRight = new VBox(20);
 
+		// Configure the midboxes
 		midBox.setPadding(new Insets(10, 20, 10, 20));
 		midBoxLeft.setPrefSize(width / 3, height - 100);
 		midBoxLeft.setPadding(new Insets(60, 60, 60, 60));
@@ -70,42 +76,33 @@ public class IngredientsScreen extends menu {
 		ArrayList<String> recipeTitles = new ArrayList<String>();
 
 		for (int i = 0; i < recipeCollection.getNumberOfRecipes(); i++) {
-			recipeTitles
-			.add(recipeCollection.getRecipe(i).getInfo().getTitle());
+			recipeTitles.add(recipeCollection.getRecipe(i).getInfo().getTitle());
 		}
 
 		// Create a list view and populate it with the recipe titles
 		final ListView<String> listOfRecipes = new ListView<String>();
 		listOfRecipes.getStylesheets().add("css.css");
-		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(),
-				midBoxLeft.getPrefHeight());
+		listOfRecipes.setPrefSize(midBoxLeft.getPrefWidth(), midBoxLeft.getPrefHeight());
 		listOfRecipes.setItems(FXCollections.observableList(recipeTitles));
-		listOfRecipes.getSelectionModel()
-		.setSelectionMode(SelectionMode.SINGLE);
+		listOfRecipes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
 		// Initialise the ingredients list VBox
 		ingredientsList = new VBox();
 
 		// when recipe selection changes, update the info and ingredients fields
-		listOfRecipes.getSelectionModel().selectedItemProperty()
-		.addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> ov,
-					String old_val, String new_val) {
+		listOfRecipes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> ov, String old_val, String new_val) {
 				// get the selected recipe
-				int selectedIndex = listOfRecipes.getSelectionModel()
-						.getSelectedIndex();
+				int selectedIndex = listOfRecipes.getSelectionModel().getSelectedIndex();
 				// call the update info labels method
-				updateInfoLabels(recipeCollection
-						.getRecipe(selectedIndex));
-				updateIngredientsList(recipeCollection
-						.getRecipe(selectedIndex));
+				updateInfoLabels(recipeCollection.getRecipe(selectedIndex));
+				updateIngredientsList(recipeCollection.getRecipe(selectedIndex));
 			}
 		});
 
 		// Create a new VBox to hold the recipe information
 		recipeInfoBox = new VBox();
-		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(),
-				midBoxRight.getPrefHeight() * 0.4 - 100);
+		recipeInfoBox.setPrefSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight() * 0.4 - 100);
 
 		// Set the first recipe in the list to be selected on loading
 		if (listOfRecipes.getItems().size() != 0) {
@@ -114,9 +111,7 @@ public class IngredientsScreen extends menu {
 				updateInfoLabels(recipeCollection.getRecipe(0));
 				updateIngredientsList(recipeCollection.getRecipe(0));
 			}
-		}
-
-		else {
+		} else {
 			updateInfoLabels(null);
 		}
 
@@ -134,8 +129,9 @@ public class IngredientsScreen extends menu {
 		bigBox.getChildren().addAll(topBox, midBox);
 	}
 
-	/*
-	 *  Method to update labels in the recipe info box
+	/**
+	 * Method to update labels in the recipe info box
+	 * @param recipe The current recipe to update labels for
 	 */
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", guests = "", comment = "";
@@ -152,34 +148,42 @@ public class IngredientsScreen extends menu {
 		Label guestsLabel = new Label("Number of People Serves: " + guests);
 		Label commentLabel = new Label("Comment: " + comment);
 
+		// Author label config
 		authorLabel.setWrapText(true);
 		authorLabel.setId("authorLabel");
 		authorLabel.getStylesheets().add("css.css");
+		
+		// guest label config
 		guestsLabel.setWrapText(true);
 		guestsLabel.setId("guestsLabel");
 		guestsLabel.getStylesheets().add("css.css");
+		
+		// comment label config
 		commentLabel.setWrapText(true);
 		commentLabel.setId("commentLabel");
 		commentLabel.getStylesheets().add("css.css");
 
 		// Remove old labels
 		recipeInfoBox.getChildren().clear();
+		
 		// add the labels to the info box
-		recipeInfoBox.getChildren().addAll(authorLabel, guestsLabel,
-				commentLabel);
+		recipeInfoBox.getChildren().addAll(authorLabel, guestsLabel, commentLabel);
 	}
 
 
 
-	/*
-	 *  Method to update list of ingredients from recipe and update for multiple guests
+	/**
+	 * Method to update list of ingredients from recipe and update for multiple guests
+	 * @param recipe the current recipe to update details for
 	 */
 	public void updateIngredientsList(final Recipe recipe) {	
 
+		// create and configure recipe info label
 		final Label recipeInformationLabel = new Label("Recipe Information");
 		recipeInformationLabel.setId("recipeInformationLabel");
 		recipeInformationLabel.getStylesheets().add("css.css");
 
+		// create and configure ingredients label
 		final Label ingredientsLabel = new Label("Ingredients");
 		ingredientsLabel.setId("ingredientsLabel");
 		ingredientsLabel.getStylesheets().add("css.css");
@@ -189,7 +193,6 @@ public class IngredientsScreen extends menu {
 		Label nGuestsLabel = new Label("Serves:");
 		nGuestsLabel.setId("nGuestsLabel");
 		nGuestsLabel.getStylesheets().add("css.css");
-
 
 		//Add text field
 		nGuests = new TextField();
@@ -213,7 +216,7 @@ public class IngredientsScreen extends menu {
 			}
 		});
 
-		//Add button 
+		//Add button and configure
 		updateIngredients = new Button("Update Ingredients");
 		updateIngredients.setDisable(true);
 		updateIngredients.setMaxSize(midBoxRight.getPrefWidth()/5, midBoxRight.getPrefHeight()/20);
@@ -228,6 +231,7 @@ public class IngredientsScreen extends menu {
 			// call the ingredients list generator
 			final IngredientsList generator = new IngredientsList(recipe, height, width);
 			ingredientsList = generator.getIngredientsListGUI();
+			
 			//Call updateIngredients button to change amount of ingredients
 			updateIngredients.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
@@ -240,6 +244,7 @@ public class IngredientsScreen extends menu {
 						ingredientsList.getChildren().clear();
 						IngredientsList changedingredients = new IngredientsList(recipe,height,width);
 						ingredientsList = changedingredients.getIngredientsListGUI();
+						
 						// refresh the entire box contents
 						midBoxRight.getChildren().clear();
 						midBoxRight.getChildren().addAll(recipeInformationLabel, recipeInfoBox, ingredientsLabel, nGuestsBox, ingredientsList);
@@ -255,7 +260,6 @@ public class IngredientsScreen extends menu {
 		nGuestsBox.setMaxSize(midBoxRight.getPrefWidth(), midBoxRight.getPrefHeight()/20);
 		nGuestsBox.setSpacing(10);
 		nGuestsBox.getChildren().addAll(nGuestsLabel,nGuests,updateIngredients);
-		// midBoxRight.getChildren().add(nGuestsBox);
 
 		// refresh the entire box contents
 		midBoxRight.getChildren().clear();

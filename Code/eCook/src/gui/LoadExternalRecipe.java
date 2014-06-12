@@ -1,9 +1,7 @@
 /*
- Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra and James Oatley
- * Programmer: Zayyad Tagwai & Prakruti Sinha, Roger Tan,  Max Holland & Ankita Gangotra
+ * Programmers: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra and James Oatley
  * Date Created: 26/05/2014
- * A small window pops up to enable to user to choose between Http or File Browser for Recipe
- * Re-factored by James on 03/06/2014
+ * Description:  A small window pops up to enable to user to choose between Http or File Browser for Recipe
  */
 package gui;
 
@@ -14,7 +12,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import recipehttpaccess.RecipeBrowser;
 import eCook.RecipeCollection;
 import eCook.eCook;
@@ -62,8 +59,11 @@ public class LoadExternalRecipe {
 	private HBox bottomBox;
 	private Logger logger;
 
-	/*
-	 * Constructor for class LoadRecipeScreen 
+	/**
+	 * Creates a secondary stage that contains the webstore button, local filebrowser button, and a field for 
+	 * accessing recipes over a generic HTTP URL.
+	 * @param stage The current stage in use
+	 * @param recipeCollection The current recipe collection in use
 	 */
 	public LoadExternalRecipe(final Stage stage, final RecipeCollection recipeCollection) {
 		// Create a new logger instance with the package and class name
@@ -71,12 +71,15 @@ public class LoadExternalRecipe {
 		
 		// New stage
 		dialog = new Stage();
+		
 		// Focus on new stage
 		dialog.initModality(Modality.APPLICATION_MODAL);
+		
 		// Undecorate the stage; remove close and minimise buttons
 		dialog.initStyle(StageStyle.UNDECORATED);
 		dialog.initStyle(StageStyle.TRANSPARENT);
 		dialog.initOwner(stage);
+		
 		// Allows for using the ESC key to exit the stage
 		dialog.addEventHandler(KeyEvent.KEY_PRESSED,
 				new EventHandler<KeyEvent>() {
@@ -87,7 +90,7 @@ public class LoadExternalRecipe {
 			}
 		});
 
-		// Download button
+		// Create a download button and configure it
 		Button downloadBtn = new Button("");
 		downloadBtn.setWrapText(true);
 		downloadBtn.setPrefSize(228, 228);
@@ -96,6 +99,7 @@ public class LoadExternalRecipe {
 		downloadBtn.setWrapText(true);
 		downloadBtn.setAlignment(Pos.CENTER);
 		downloadBtn.setTextAlignment(TextAlignment.CENTER);
+		
 		// download button calls the recipe browser class
 		downloadBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -106,12 +110,13 @@ public class LoadExternalRecipe {
 				popup.initOwner(dialog);
 				popup.initModality(Modality.APPLICATION_MODAL);
 				popup.initStyle(StageStyle.UNDECORATED);
+				
 				// Open recipe browser with popup stage
 				new RecipeBrowser(popup, recipeCollection, true, statusBar);
 			}
 		});
 
-		// File browser button
+		// Create a file browser button and configure it
 		Button fileBrowserBtn = new Button("");
 		fileBrowserBtn.setWrapText(true);
 		fileBrowserBtn.setPrefSize(228, 228);
@@ -120,11 +125,14 @@ public class LoadExternalRecipe {
 		fileBrowserBtn.setWrapText(true);
 		fileBrowserBtn.setAlignment(Pos.CENTER);
 		fileBrowserBtn.setTextAlignment(TextAlignment.CENTER);
+		
 		fileBrowser = new FileBrowser();
+		
 		// call the file handler to get a local XML file
 		fileBrowserBtn.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				String filepath = fileBrowser.openFile(dialog);
+				
 				// if the filepath points to a vaild XML file, copy to the
 				// defaults folder
 				if (filepath != null) {
@@ -135,6 +143,7 @@ public class LoadExternalRecipe {
 						XMLReader reader = new XMLReader(filepath);
 
 						XMLFilepathHandler filepathHandler = new XMLFilepathHandler();
+						
 						// Check filepaths for media in XML
 						filepathHandler.setMediaPaths(reader);
 						if (!filepathHandler.mediaPathsAreBroken()) {
@@ -146,12 +155,9 @@ public class LoadExternalRecipe {
 							} else {
 								// copy the file to the defaults folder if it passes
 								// the validation test
-								Files.copy(source, defaultsFolder.resolve(source
-										.getFileName()),
-										StandardCopyOption.REPLACE_EXISTING);
+								Files.copy(source, defaultsFolder.resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 								Recipe newRecipe = reader.getRecipe();
-								newRecipe.setFileName(source.getFileName()
-										.toString());
+								newRecipe.setFileName(source.getFileName().toString());
 								recipeCollection.addRecipe(newRecipe);
 							}
 							dialog.close();
@@ -169,28 +175,25 @@ public class LoadExternalRecipe {
 		httpField.setId("httpField");
 		httpField.getStylesheets().add("css.css");
 		httpField.setPrefSize(285, 30);
+		
 		// Add tool tip
 		Tooltip URL = new Tooltip("Link must end in .XML");
 		Tooltip.install(httpField, URL);
+		
 		// add a keylistener to detect when a URL is entered
 		httpField.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
 				// only allow URLs which end with ".xml"
-				if (!httpField.getText().equals("")
-						&& httpField.getText().endsWith(".xml")) {
+				if (!httpField.getText().equals("") && httpField.getText().endsWith(".xml")) {
 					getFromURLBtn.setDisable(false);
-					getFromURLBtn
-					.setTooltip(new Tooltip(
-							"Click here to download recipe from external website"));
+					getFromURLBtn.setTooltip(new Tooltip("Click here to download recipe from external website"));
 				} else {
 					getFromURLBtn.setDisable(true);
 				}
 			}
 		});
 
-		/*
-		 *  Method to always keep https:// in front of web address in text box
-		 */
+		//  always keep http:// in front of web address in text box
 		httpField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> arg0,
@@ -205,7 +208,7 @@ public class LoadExternalRecipe {
 			}
 		});
 
-		//Define URL button 
+		//Define URL button and configure it
 		getFromURLBtn = new Button("Get Recipe from URL");
 		getFromURLBtn.setDisable(true);
 		getFromURLBtn.setPrefSize(150, 30);
@@ -220,35 +223,29 @@ public class LoadExternalRecipe {
 			public void handle(ActionEvent event) {
 				String fileURL;
 				// if valid filepath
-				if (httpField != null && !httpField.getText().equals("")
-						&& httpField.getText().endsWith(".xml")
-						&& httpField.getText().contains("http://")) {
+				if (httpField != null && !httpField.getText().equals("") && httpField.getText().endsWith(".xml") && httpField.getText().contains("http://")) {
 					// complete the URL from the textfield
 					fileURL = httpField.getText().toString();
+					
 					// call the recipe browser (no GUI)
-					RecipeBrowser browser = new RecipeBrowser(dialog,
-							recipeCollection, false, statusBar);
+					RecipeBrowser browser = new RecipeBrowser(dialog, recipeCollection, false, statusBar);
 					try {
-						String assumedFileName = fileURL.substring(fileURL
-								.length() - 12);
-						browser.downloadRecipeFile(fileURL, System.getenv("localappdata") + "/eCook/Recipes"
-								+ assumedFileName);
-						// update the recipe collection with the new file
-						// (parse)
-						XMLReader reader = new XMLReader(System.getenv("localappdata") + "/eCook/Recipes"
-								+ assumedFileName);
+						String assumedFileName = fileURL.substring(fileURL.length() - 12);
+						browser.downloadRecipeFile(fileURL, System.getenv("localappdata") + "/eCook/Recipes" + assumedFileName);
+						
+						// update the recipe collection with the new file (parse)
+						XMLReader reader = new XMLReader(System.getenv("localappdata") + "/eCook/Recipes" + assumedFileName);
 						Recipe newRecipe = reader.getRecipe();
 						newRecipe.setFileName(assumedFileName);
-						// only add the recipe file if it doesn't already exist
-						// in eCook
+						
+						// only add the recipe file if it doesn't already exist in eCook
 						boolean exists = false;
-						for (int j = 0; j < recipeCollection
-								.getNumberOfRecipes(); j++) {
-							if (recipeCollection.getRecipe(j).getFileName()
-									.equals(newRecipe.getFileName())) {
+						for (int j = 0; j < recipeCollection.getNumberOfRecipes(); j++) {
+							if (recipeCollection.getRecipe(j).getFileName().equals(newRecipe.getFileName())) {
 								exists = true;
 							}
 						}
+						
 						if (!exists) {
 							recipeCollection.addRecipe(newRecipe);
 						}
@@ -256,6 +253,7 @@ public class LoadExternalRecipe {
 						logger.log(Level.WARNING, "error downloading recipe file from URL");
 					}
 				}
+				
 				dialog.close();
 			}
 		});
@@ -264,12 +262,14 @@ public class LoadExternalRecipe {
 		statusBar = new Label();
 		statusBar.setPadding(new Insets(10, 200, 0, 0));
 
+		// Create the bottomBox and configure it
 		bottomBox = new HBox(10); // add URL field and button below
 		bottomBox.getChildren().addAll(httpField, getFromURLBtn);
 		bottomBox.setAlignment(Pos.BASELINE_CENTER);
 		bottomBox.setPrefSize(500, 36);
 		bottomBox.setPadding(new Insets(14, 0, 36, 0));
 
+		// Create the topBix and configure it
 		topBox = new HBox();
 		topBox.setAlignment(Pos.TOP_RIGHT);
 		topBox.setId("LoadExternalRecipeTopBox");
@@ -283,9 +283,11 @@ public class LoadExternalRecipe {
 		Image closeIcon = new Image("redx.png");
 		Tooltip c = new Tooltip("Close");
 		Tooltip.install(loadExtWinCloseBtnHolder, c);
+		
 		// Creates and adds close button to top Box
 		loadExtWinCloseBtnHolder.setImage(closeIcon);
 		topBox.getChildren().addAll(statusBar, loadExtWinCloseBtnHolder);
+		
 		// Mouse click event
 		loadExtWinCloseBtnHolder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent mouseEvent) {
@@ -295,19 +297,20 @@ public class LoadExternalRecipe {
 			}
 		});
 
+		// Create midBox and configure it
 		midBox = new HBox(20);
-		// Adds buttons to midBox and aligns to middle
 		midBox.getChildren().addAll(downloadBtn, fileBrowserBtn);
 		midBox.setAlignment(Pos.CENTER);
 		midBox.setId("LoadExternalRecipeMidBox");
 		midBox.getStylesheets().add("css.css");
 
+		// Create loadExtBox and configure it
 		loadExtBox = new VBox(20);
 		loadExtBox.setId("LoadExteralRecipeLoadExtBox");
 		loadExtBox.getStylesheets().add("css.css");
 		loadExtBox.getChildren().addAll(topBox, midBox, bottomBox);
 
-
+		// Configure the scene
 		Scene dialogScene = new Scene(loadExtBox, 500, 350, Color.TRANSPARENT);
 		dialog.setScene(dialogScene);
 		dialog.show();
