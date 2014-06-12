@@ -16,7 +16,9 @@ import org.junit.Test;
 public class RecipeTest {
 	Recipe recipe;
 	
-	// check that setting attributes works correctly
+	/*
+	 *  check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAndAddAttributes() {
 		// instantiate a new recipe class
@@ -69,7 +71,9 @@ public class RecipeTest {
 		assertEquals("example filename", recipe.fileName);
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 *  check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new recipe class

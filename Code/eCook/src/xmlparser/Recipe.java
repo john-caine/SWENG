@@ -42,6 +42,9 @@ public class Recipe {
 	Logger logger;
 		
 	// constructor
+	/**
+	 * Constructor sets up fields needed for the recipe
+	 */
 	public Recipe() {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -56,23 +59,28 @@ public class Recipe {
 		localExistanceSet = false;
 	}
 	
-	/*
-	 *  James- use this method in a thread to check if the recipe is being downloaded
+
+	/**
+	 * Checks if the recipe is being downloaded
+	 * @return downloadingLocalContent: downloading local content recipe
 	 */
 	public Boolean isDownloading() {
 		return downloadingLocalContent;
 	}
 	
-	/*
-	 *  James- use this method to set the downloading var
+
+	/**
+	 * Sets the downloading var
+	 * @param value: defines whether isDownloading is ture or false
 	 */
 	public void setDownloading(Boolean value) {
 		localExistanceSet = false;
 		downloadingLocalContent = value;
 	}
-	
-	/*
-	 *  James- use this method to see if the file already exists locally
+
+	/**
+	 * Checks if the file already exists locally
+	 * @return false: if the local content is being downloaded
 	 */
 	public Boolean existsLocally() {
 		if (downloadingLocalContent) {
@@ -91,38 +99,56 @@ public class Recipe {
 		}
 	}
 
-	/*
-	 *  method to report errors when setting fields
+	/**
+	 * Reports errors when setting fields
+	 * @param errorMessage
 	 */
 	public void reportError(String errorMessage) {
 		logger.log(Level.WARNING, errorMessage);
 	}
 	
+	/**
+	 * Sets the fileName
+	 * @param fileName: of type String
+	 */
 	public void setFileName(String fileName) {
 		if (fileName != null && !fileName.equals("")){
 			this.fileName = fileName;
 		} 
 	}
 	
+	/**
+	 * Sets information about the recipe
+	 * @param info
+	 */
 	public void setInfo(Info info) {
 		if (info != null) {
 			this.info = info;
 		}
 	}
 	
+	/**
+	 * Sets the defaults of the recipe
+	 * @param defaults
+	 */
 	public void setDefaults(Defaults defaults) {
 		if (defaults != null) {
 			this.defaults = defaults;
 		}
 	}
 
+	/**
+	 * Gets a list of slides
+	 * @return slides
+	 */
 	public List<Slide> getSlides() {
 		return slides;
 	}
 	
-	/*
-	 * James and Prakruti
-	 * 
+
+	/**
+	 * Checks if last slide exists
+	 * @return true if it exists
 	 */
 	public Boolean lastSlideExists() {
 		for (int i = 0; i < slides.size(); i++) {
@@ -133,10 +159,18 @@ public class Recipe {
 		return false;
 	}
 	
+	/**
+	 * Gets a list of ingredients
+	 * @return ingredients
+	 */
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
+	/**
+	 * Sets the basic functionality for the multiple guests feature to multiply the amount of each ingredient by the number of guests
+	 * @param guests
+	 */
 	public void ingredientsAmountUpdate(Integer guests) {
 		if (guests != null) {
 			for (Integer i = 0; i < this.getNumberOfIngredients(); i++) {
@@ -152,6 +186,11 @@ public class Recipe {
 		}
 	}
 
+	/**
+	 * Sets range for slideshow and gets slide number
+	 * @param slideNumber
+	 * @return null if index of slide out of range
+	 */
 	public Slide getSlide(int slideNumber) {
 		if (slideNumber >= 0 && slideNumber < this.getNumberOfSlidesIncBranchSlides()) {
 			return slides.get(slideNumber);
@@ -162,6 +201,11 @@ public class Recipe {
 		}
 	}
 	
+	/**
+	 * Sets range for ingredients and gets ingredient number
+	 * @param ingredientNumber
+	 * @return null if index of ingredient is out of range
+	 */
 	public Ingredient getIngredient(int ingredientNumber) {
 		if (ingredientNumber >= 0 && ingredientNumber < this.getNumberOfIngredients()) {
 			return ingredients.get(ingredientNumber);
@@ -172,6 +216,10 @@ public class Recipe {
 		}
 	}
 
+	/**
+	 * Adds slide if slide had a value and isn't null
+	 * @param slide
+	 */
 	public void addSlide(Slide slide) {
 		if (slide != null) {
 			slides.add(slide);
@@ -181,6 +229,10 @@ public class Recipe {
 		}
 	}
 	
+	/**
+	 * Adds ingredient if ingredient has a value and isn't null
+	 * @param ingredient
+	 */
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredient != null) {
 			ingredients.add(ingredient);
@@ -190,7 +242,10 @@ public class Recipe {
 		}
 	}
 
-	// get the number of slides excluding branch slides
+	/**
+	 * Gets the number of slides excluding branch slides
+	 * @return i+1
+	 */
 	public int getNumberOfSlidesExcBranchSlides() {
 		for (int i=0; i<slides.size(); i++) {
 			if (slides.get(i).getLastSlide() == true) {
@@ -200,24 +255,42 @@ public class Recipe {
 		return slides.size();
 	}
 	
-	// get the number of slides including branch slides
+	/**
+	 * Gets the number of slides including branch slides
+	 * @return size of slides
+	 */
 	public int getNumberOfSlidesIncBranchSlides() {
 		return slides.size();
 	}
 	
-	// get the number of ingredients
+	/**
+	 * Gets the number of ingredients
+	 * @return size of ingredients
+	 */
 	public int getNumberOfIngredients() {
 		return ingredients.size();
 	}
 	
+	/**
+	 * Gets recipe defaults
+	 * @return recipe defaults
+	 */
 	public Defaults getDefaults() {
 		 return defaults;
 	}
 	
+	/**
+	 * Gets recipe information 
+	 * @return recipe info
+	 */
 	public Info getInfo() {
 		return info;
 	}
 	
+	/**
+	 * Gets file name of recipe
+	 * @return recipe fileName
+	 */
 	public String getFileName() {
 		return fileName;
 	}
