@@ -1,3 +1,9 @@
+/*
+ * Programmers: Jonathan Caine
+ * Date: 03/05/2014
+ * Description: Test class for the ErrorHandler
+ * 
+ */
 package errorhandler;
 
 import static org.junit.Assert.*;
@@ -11,6 +17,7 @@ import org.junit.Test;
 import java.awt.AWTException;
 import java.awt.Robot;
 //import com.sun.glass.ui.Robot;
+
 
 
 
@@ -37,41 +44,54 @@ public class ErrorHandlerTest {
 		testError = new ErrorHandler(textMessage);
 	}
 	
+	/**
+	 * Test to check the error message is inside the text object
+	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void textObjectContainsErrorMessage() {
 		assertTrue(testError.text instanceof Text);
 		assertEquals(testError.text.getText(), textMessage);
-		//assertEquals(testError.text.getFont().getSize(), 20);	
+		assertEquals(testError.text.getFont().getSize(), 20);	
 	}
 	
+	/**
+	 * Test to check the new ErrorHandler has mouse/keyboard focus
+	 */
 	@Test
 	public void newWindowHasFocus() {	
 		assertTrue(testError.stage.isFocused());
 	}
 	
+	/**
+	 * Test to check the pop-up window contains the "OK" button
+	 */
 	@Test
-	public void newWindowContainsButton() {	//Visual Test using eCook
+	public void newWindowContainsButton() {	
 		testError = new ErrorHandler(textMessage);
-		//assertEquals(testError.okButton.getLayoutX(), ((testError.stage.getScene().getWidth() / 2) - (testError.okButton.getPrefWidth() / 2) - 10), 0.1); 
-		//assertEquals(testError.okButton.getLayoutY(), (testError.stage.getScene().getHeight() - 35), 0.1);
-		//assertEquals(testError.okButton.getAlignment(), Pos.CENTER);
-		//assertNotNull(testError.okButton);
-		//assertTrue(testError.okButton.isVisible());
+		assertEquals(testError.okButton.getLayoutX(), ((testError.stage.getScene().getWidth() / 2) - (testError.okButton.getPrefWidth() / 2) - 10), 0.1); 
+		assertEquals(testError.okButton.getLayoutY(), (testError.stage.getScene().getHeight() - 35), 0.1);
+		assertEquals(testError.okButton.getAlignment(), Pos.CENTER);
+		assertNotNull(testError.okButton);
+		assertTrue(testError.okButton.isVisible());
 	}
 	
+	/**
+	 * Test to check the application closes when the "OK" button is pressed on the pop-up window
+	 */
 	@Test
-	public void windowClosesOnButtonPress() {	//VISUAL TEST USING ECOOK
+	public void windowClosesOnButtonPress() {
 		new ErrorHandler("button test");
-//		Robot bot = null;
-//		try {
-//			bot = new Robot();
-//		} catch (Exception fail) {
-//			System.err.println("Failed instantiation Robot: " + fail);
-//		}
-//		int mask = InputEvent.BUTTON1_DOWN_MASK;
-//		bot.mouseMove(100,100);
-//		bot.mousePress(mask);
-//		bot.mouseRelease(mask);
+		Robot bot = null;
+		try {
+			bot = new Robot();
+		} catch (Exception fail) {
+			System.out.println("Failed instantiation Robot: " + fail);
+		}
+		int mask = InputEvent.BUTTON1_DOWN_MASK;
+		bot.mouseMove(100,100);
+		bot.mousePress(mask);
+		bot.mouseRelease(mask);
 		
 		//assertTrue(testError.stage.onCloseRequestProperty());
 		//TODO find out how to press "ok" button then check - window.onCloseRequest() - called when closed
