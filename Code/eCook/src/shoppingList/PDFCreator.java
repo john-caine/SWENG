@@ -65,16 +65,7 @@ public class PDFCreator {
 			InputStream in;
 			try {
 				shoppingListDocument = new PDDocument();
-				// point to the correct directory before retrieving file
-				URL defaultDirectory = getClass().getResource("/");
-				File logoFile = new File(defaultDirectory.getPath() + "/eCookPDFLogo.jpg");
-				if (logoFile.exists()) {
-					in = new FileInputStream(logoFile);
-					logo = new PDJpeg(shoppingListDocument, in);
-				}
-				else {
-					logger.log(Level.WARNING, "cannot get logo for shopping list PDF");
-				}
+				
 			} catch (FileNotFoundException e) {
 				System.out.println("PDF Creator: file not found");
 			} catch (IOException e) {
@@ -103,12 +94,12 @@ public class PDFCreator {
 		currentContentStream = new PDPageContentStream(shoppingListDocument, currentPage);
 
 		// ensure that the logo image appears in the centre at the very top
-		currentContentStream.drawImage(logo, currentPage.getMediaBox().getWidth()/2-logo.getWidth()/2, currentPage.getMediaBox().getHeight()-logo.getHeight());
+		//currentContentStream.drawImage(logo, currentPage.getMediaBox().getWidth()/2-logo.getWidth()/2, currentPage.getMediaBox().getHeight()-logo.getHeight());
 
 		// Add a title underneath the logo
 		currentContentStream.beginText();
 		currentContentStream.setFont(headerFont, 18);
-		currentContentStream.moveTextPositionByAmount(50, currentPage.getMediaBox().getHeight()-logo.getHeight());
+		//currentContentStream.moveTextPositionByAmount(50, currentPage.getMediaBox().getHeight()-logo.getHeight());
 		currentContentStream.drawString("Shopping List:");
 
 		// change to body text font and go to main text area

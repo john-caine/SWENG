@@ -730,6 +730,13 @@
 	-fx-background-image: url('backgroundBlur.png');
 }
 
+#IngredientsScreenBigBox {
+	-fx-background-size: cover; 
+	-fx-background-position: center center; 
+	-fx-background-image: url('backgroundBlur.png');
+}
+
+
 #GenerateShoppingListMidBox {
 	-fx-background-color: transparent;
 	-fx-background-image: url('shoppingListImage.png');
