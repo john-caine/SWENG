@@ -6,7 +6,6 @@
 package gui;
 
 import static org.junit.Assert.*;
-
 import java.io.File;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,6 +27,7 @@ public class LoadExternalRecipeTest {
 	private Stage stage;
 	private RecipeCollection recipeCollection;
 	private LoadExternalRecipe loadExternalRecipe;
+	
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
@@ -47,10 +47,15 @@ public class LoadExternalRecipeTest {
 				}
 			}
 		}
+		
 		// pass a stage and a set of recipe collection into LoadExternalRecipe class
 		loadExternalRecipe = new LoadExternalRecipe(stage, recipeCollection);
 	}
 
+	/**
+	 * Test the loadExternalRecipe pop-out stage. Check the boxes contain what they should, and that buttons
+	 * have the right labels set.
+	 */
 	@Test
 	public void loadExternalRecipeTest() {
 		Scene dialogScene = loadExternalRecipe.dialog.getScene();
@@ -67,9 +72,7 @@ public class LoadExternalRecipeTest {
 		assertTrue(topBox.getChildren().get(1) instanceof ImageView);
 		
 		/* Test for Close Image */
-	
 		assertTrue(loadExtWinCloseBtnHolder.getImage() instanceof Image);
-		
 		
 		/* Test if the VBox contains midBox */
 		assertTrue(loadExtBox.getChildren().get(1) instanceof HBox);
