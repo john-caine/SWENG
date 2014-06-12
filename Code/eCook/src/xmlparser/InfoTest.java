@@ -13,7 +13,9 @@ import org.junit.Test;
 public class InfoTest {
 	Info info;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new info class
@@ -60,7 +62,9 @@ public class InfoTest {
 		assertEquals(100, info.height.intValue());
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 *  check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new info class

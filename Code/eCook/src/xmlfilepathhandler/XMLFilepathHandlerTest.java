@@ -1,9 +1,10 @@
-package xmlfilepathhandler;
-/* Title: XMLFilepathHandlerTest
- * 
+/* 
  * Programmers: James
-
+ * Date: 08/06/2014
+ * Description: Test class for the XMLFilePathHandler
  */
+
+package xmlfilepathhandler;
 
 import static org.junit.Assert.*;
 import java.io.File;
@@ -14,9 +15,9 @@ import org.junit.Test;
 import xmlparser.XMLReader;
 
 public class XMLFilepathHandlerTest {
-	File filepath;
-	XMLReader reader;
-	XMLFilepathHandler filepathHandler;
+	protected File filepath;
+	protected XMLReader reader;
+	protected XMLFilepathHandler filepathHandler;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -25,11 +26,10 @@ public class XMLFilepathHandlerTest {
 		filepath = new File(System.getenv("localappdata") + "/eCook/Recipes");
 	}
 	
-	/*
+	/**
 	 * When eCook is run firstly we run through the recipes and check that the content is all obtainable
 	 * - whether local or not local
 	 * Warning: If test doesn't pass try running eCook from the IDE! It will copy the test XMLs to your local app data
-	 * 
 	 */
 	@Test
 	public void assertFilepathsWork() {
@@ -38,7 +38,7 @@ public class XMLFilepathHandlerTest {
 		assertFalse(filepathHandler.checkMediaPathsExistOffline("TESTOfflineContent2.xml"));
 	}
 	
-	/*
+	/**
 	 * Delete any downloaded content
 	 * Instantiate a file path handler
 	 * Run the TestDownloadContent.xml through the file path handler
@@ -60,7 +60,7 @@ public class XMLFilepathHandlerTest {
 		assertTrue(downloadedContent.exists());
 	}
 	
-	/*
+	/**
 	 * By convention XML files should be provided with relative filepaths to their content folder
 	 * (within the same directory) called <title>
 	 * These filepaths should be made absolute
@@ -72,15 +72,18 @@ public class XMLFilepathHandlerTest {
 		filepathHandler = new XMLFilepathHandler();
 		XMLReader reader = new XMLReader(filepath + "/TESTOfflineContent.xml");
 		assertEquals("TEST Offline Content/slideBackground.png", reader.getRecipe().getSlide(0).getContent().getImage(0).getUrlName());
+		
 		// We require reader to contain absolute file paths
 		filepathHandler.setMediaPaths(reader);
+		
 		// Check that an absolute filepath has been provided
 		assertEquals(new File(filepath + "/TEST Offline Content/slideBackground.png").toURI().toASCIIString(), reader.getRecipe().getSlide(0).getContent().getImage(0).getUrlName());
+		
 		// Check that media paths are not broken
 		assertFalse(filepathHandler.mediaPathsAreBroken());
 	}
 	
-	/*
+	/**
 	 * TESTOfflineContent2 has incorrect media paths
 	 * Check that the mediaPathsAreBroken() if we ever try to get the updated path for something that does not exist
 	 */
@@ -89,8 +92,10 @@ public class XMLFilepathHandlerTest {
 		// Initially relative filepath, check the relative filepath exists
 		filepathHandler = new XMLFilepathHandler();
 		XMLReader reader = new XMLReader(filepath + "/TESTOfflineContent2.xml");
+		
 		// We require reader to contain absolute file paths
 		filepathHandler.setMediaPaths(reader);
+		
 		// Check that an absolute filepath has been provided
 		assertTrue(filepathHandler.mediaPathsAreBroken());
 	}
