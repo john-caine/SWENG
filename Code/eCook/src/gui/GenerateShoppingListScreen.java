@@ -1,5 +1,5 @@
 /*
- * Programmer: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra & James Oatley
+ * Programmers: Zayyad Tagwai, Roger Tan, Max Holland, Ankita Gangotra & James Oatley
  * Date Created: 07/05/2014
  * Adds components of the recipe screen to the bigBox window 
  */
@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
-
 import shoppingList.PDFCreator;
 import shoppingList.ShoppingList;
 import eCook.RecipeCollection;
@@ -38,9 +36,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-public class GenerateShoppingListScreen  extends menu{
+public class GenerateShoppingListScreen extends menu {
 	protected Label statusBar;
-	private Button saveBtn, printBtn, editBtn, addBtn;
+	private Button saveBtn;
+	private Button printBtn; 
+	private Button editBtn; 
+	private Button addBtn;
 	private VBox shoppingListBox;
 	private ScrollPane scrollPane;
 	private CheckBox[] checkboxes;
@@ -50,8 +51,13 @@ public class GenerateShoppingListScreen  extends menu{
 	private PDDocument pdf = null;
 	private Logger logger;
 	
-	/*
-	 * Constructor for class GenerateShoppingListScreen which extends menu
+	/**
+	 * Constructs the basic formatting of the ShoppingList screen. Creates all the buttons, bars, and panes required,
+	 * and sets their appropriate event handlers.
+	 * @param bigBox The overall box for the shoppingList screen
+	 * @param height The height of the screen bounds
+	 * @param width The width of the screen bounds
+	 * @param recipeCollection The current recipe collection
 	 */
 	public GenerateShoppingListScreen(VBox bigBox, double height, double width, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
@@ -78,18 +84,19 @@ public class GenerateShoppingListScreen  extends menu{
 		midBox.setId("GenerateShoppingListMidBox");
 		midBox.getStylesheets().add("css.css");
 		midBox.setPadding(new Insets(50, 50, 150, 150));
-
 		
 		// create a scroll box for the shopping list display
 		// create VBox for the list	
 		shoppingListBox = new VBox();
 		shoppingListBox.setSpacing(8);
 		shoppingListBox.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
+		
 		// set up the scroll pane
 		scrollPane = new ScrollPane();
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setPrefSize(midBox.getPrefWidth(), midBox.getPrefHeight()*2/3);
+		
 		// add the box to the scroll pane
 		scrollPane.setContent(shoppingListBox);
 		
@@ -104,6 +111,7 @@ public class GenerateShoppingListScreen  extends menu{
 		newItem.setVisible(false);
 		newItem.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
+			// Handler for key events
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ENTER)) {
 					if (addBtn.getText().equals("Save Changes")) {
@@ -114,8 +122,7 @@ public class GenerateShoppingListScreen  extends menu{
 						newItem.setPromptText("keep typing to add more items");
 						getShoppingList(inEditMode);
 					}
-				}
-				else {
+				} else {
 					statusBar.setText("Press enter to add multiple items");
 				}
 			}
@@ -143,6 +150,7 @@ public class GenerateShoppingListScreen  extends menu{
 		editBtn.setWrapText(true);
 		addBtn.setWrapText(true);
 		
+		// Set the alignment of the buttons
 		saveBtn.setAlignment(Pos.CENTER);
 		saveBtn.setTextAlignment(TextAlignment.CENTER);
 		printBtn.setAlignment(Pos.CENTER);
@@ -152,6 +160,7 @@ public class GenerateShoppingListScreen  extends menu{
 		addBtn.setAlignment(Pos.CENTER);
 		addBtn.setTextAlignment(TextAlignment.CENTER);
 		
+		// Set the CSS IDs of the buttons
 		saveBtn.setId("saveBtn");
 		printBtn.setId("printBtn");
 		editBtn.setId("editBtn");
@@ -172,6 +181,7 @@ public class GenerateShoppingListScreen  extends menu{
 		//Sets actions to be performed when saveBtn is clicked
 		saveBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+            	// call a PDF creator
             	new PDFCreator(getShoppingList(inEditMode).readFromTextFile(), true);
             	statusBar.setText("Shopping list saved to PDF");
             }
@@ -181,10 +191,10 @@ public class GenerateShoppingListScreen  extends menu{
 		addBtn.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
 				if (addBtn.getText().equals("Add Item")) {
+					// Add a new item and update the button label
 					newItem.setVisible(true);
 					addBtn.setText("Save Changes");
-				}
-				else if (addBtn.getText().equals("Save Changes")) {
+				} else if (addBtn.getText().equals("Save Changes")) {
 					newItem.setPromptText("Click to add an item");
 					if (!newItem.getText().equals("")) {
 						getShoppingList(inEditMode).addItem(newItem.getText());
@@ -216,13 +226,13 @@ public class GenerateShoppingListScreen  extends menu{
 					editBtn.setText("Edit List");
 					saveBtn.setDisable(false);
 					printBtn.setDisable(false);
-				}
-				else {
+				} else {
 					inEditMode = true;
 					editBtn.setText("Remove Selected Items");
 					saveBtn.setDisable(true);
 					printBtn.setDisable(true);
 				}
+				
 				getShoppingList(inEditMode);
 			}
 		});
@@ -246,7 +256,7 @@ public class GenerateShoppingListScreen  extends menu{
             }
         });
 		
-		// Set the Css file for shoppingListLabel
+		// Configure the shoppingList label
 		Label shoppingListLabel = new Label("Shopping List");
 		shoppingListLabel.setId("shoppingListLabel");
 		shoppingListLabel.getStylesheets().add("css.css");
@@ -254,19 +264,24 @@ public class GenerateShoppingListScreen  extends menu{
 		midBox.setAlignment(Pos.CENTER);
 		HBox buttonBar = new HBox(20);
 		buttonBar.setAlignment(Pos.CENTER);
+		
+		// Add buttons to the bar, then the bars, pane and label to the middle box.
 		buttonBar.getChildren().addAll(editBtn, addBtn, saveBtn, printBtn);
 		midBox.getChildren().addAll(shoppingListLabel, statusBar, scrollPane, buttonBar);
 		
 		//Horizontal aligns content horizontally 
 		//bigBox collecting all content of generateShoppingListScreen
 		HBox horizontalBox = new HBox();
-		horizontalBox.getChildren().addAll(leftBox,midBox,rightBox);
-		bigBox.getChildren().addAll(topBox,horizontalBox);
+		horizontalBox.getChildren().addAll(leftBox, midBox, rightBox);
+		bigBox.getChildren().addAll(topBox, horizontalBox);
 	
 	}
 	
-	/*
-	 *  Method to get the shopping list and create a Text Area
+	/**
+	 * Method to get at the shopping list and create a Text Area. Sets the buttons/labels appropriately
+	 * depending on if the editMode is set or not.
+	 * @param editMode Boolean for is the user editing the shopping list directly or not.
+	 * @return list The constructed shopping list
 	 */
 	public ShoppingList getShoppingList(boolean editMode) {
 		// read the shopping list file
@@ -289,33 +304,38 @@ public class GenerateShoppingListScreen  extends menu{
 				editBtn.setDisable(false);
 				saveBtn.setDisable(false);
 				printBtn.setDisable(false);
+				
+				// Iterate over all items in the shopping list, setting the labels or checkboxes appropriately
 				for (int i=0; i<shoppingList.size(); i++) {
 					if (inEditMode) {
+						// configure checkboxes
 						CheckBox box = checkboxes[i] = new CheckBox(shoppingList.get(i));
 						box.setId("box");
 						box.getStylesheets().add("css.css");
 						box.setSelected(false);
 						shoppingListBox.getChildren().add(checkboxes[i]);
-					}
-					else {
+					} else {
+						// Configure labels
 						Label item = new Label(shoppingList.get(i));
 						item.setId("item");
 						item.getStylesheets().add("css.css");
 						shoppingListBox.getChildren().add(item);
 					}
 				}
+				
 				statusBar.setText(shoppingList.size() + " items in your shopping list");
-			}
-			else {
+			} else {
+				// Otherwise tell the user there is nothing in the shopping list
 				statusBar.setText("No items in shopping list");
 				editBtn.setDisable(true);
 				saveBtn.setDisable(true);
 				printBtn.setDisable(true);
 			}
+			
 			// Add the new item field
 			shoppingListBox.getChildren().add(newItem);
-		}
-		else {
+		} else {
+			// catch errors
 			logger.log(Level.WARNING, "Shopping List display is broken.");
 		}
 		
@@ -323,27 +343,29 @@ public class GenerateShoppingListScreen  extends menu{
 		return list;
 	}
 	
-	/*
-	 *  Method to print the shopping list PDF
+	/**
+	 * Method to print the contents of the shopping list to a PDF
 	 */
 	public void printShoppingList() {
 		pdf = null;
 		statusBar.setText("Printing shopping list...");
+		
 		// run the print task on a new thread asynchronously
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
+					// try to print the shopping list to a PDF
 					pdf = PDDocument.load("ShoppingListTemp.pdf");
 					pdf.silentPrint();
 				} catch (IOException | PrinterException e) {
 					statusBar.setText("Sorry. Print error: cannot print file");
-					e.printStackTrace();
 				} finally {
-					// clean up and display finsh confirmation
+					// clean up and display finish confirmation
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
+							// If a PDF was created, close it so it doesn't interfere with our application
 							if (pdf != null) {
 								try {
 									pdf.close();
@@ -356,6 +378,6 @@ public class GenerateShoppingListScreen  extends menu{
 					});
 				}
 			}
-		}).start();																		
+		}).start();	// Run the thread																
 	}
 }

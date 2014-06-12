@@ -3,10 +3,10 @@
  * Date Created: 26/05/2014
  * Junit Test for GenerateShoppingListScreen Class
  */
+
 package gui;
 
 import static org.junit.Assert.*;
-
 import java.io.File;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -22,7 +22,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import eCook.JavaFXThreadingRule;
-
 import xmlparser.Recipe;
 import xmlparser.XMLReader;
 import eCook.MainMenu;
@@ -40,18 +39,20 @@ public class GenerateShoppingListScreenTest {
 	private HBox topBox;
 	private Button printBtn;
 	private Label statusBar;
+	
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
 	public void setUp() throws Exception {
 
-		//Gets the visual bounds of the screen
+		//Gets the bounds of the screen
 		screenBounds = Screen.getPrimary().getBounds();
 		width =  screenBounds.getWidth();
 		height = screenBounds.getHeight();
 		
 		bigBox =  new VBox();
 		stage =  new Stage();
+		
 		//Populate the recipeList
 		recipeCollection = new RecipeCollection();
 		File directory = new File(System.getenv("localappdata") + "/eCook/Recipes");
@@ -67,12 +68,19 @@ public class GenerateShoppingListScreenTest {
 				}
 			}
 		}
+		
 		new MainMenu(stage, recipeCollection);
 		generateShoppingListScreen = new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
-		/* Test if bigBox contains topBox */
+		
+		// Test if bigBox contains topBox 
 		topBox = (HBox) generateShoppingListScreen.bigBox.getChildren().get(0);
 	}
 
+	/**
+	 * Test the constructor of the GenerateShoppingList class
+	 * Are the correct boxes created, and contain what they are supposed to. Check the labels are set correctly, 
+	 * and the event handlers for the buttons respond as expected. etc ...
+	 */
 	@Test
 	public void generateShoppingListScreenHorizontalBoxTest() {
 		/* Test if bigBox contains horizontalBox */
@@ -82,6 +90,7 @@ public class GenerateShoppingListScreenTest {
 		HBox horizontalBox = (HBox) generateShoppingListScreen.bigBox.getChildren().get(1);
 		assertTrue(horizontalBox.getChildren().get(0) instanceof VBox);
 		VBox leftBox = (VBox) horizontalBox.getChildren().get(0);
+		
 		/* Test the Width and Height of the leftBox */
 		assertEquals(screenBounds.getWidth()*0.2, leftBox.getPrefWidth(),0.01);
 		assertEquals(screenBounds.getHeight()-topBox.getPrefHeight()-100, leftBox.getPrefHeight(),0.01);
@@ -92,6 +101,7 @@ public class GenerateShoppingListScreenTest {
 		/* Test if midBox contains Shopping List Label*/
 		VBox midBox = (VBox) horizontalBox.getChildren().get(1);
 		assertTrue(midBox.getChildren().get(0) instanceof Label);
+		
 		/* Test the Width and Height of the leftBox */
 		assertEquals(screenBounds.getWidth()*0.6, midBox.getPrefWidth(),0.01);
 		assertEquals(screenBounds.getHeight()-(topBox.getPrefHeight())-100, midBox.getPrefHeight(),0.01);
@@ -132,6 +142,7 @@ public class GenerateShoppingListScreenTest {
 		
 		/* Test if buttonBar contains addBtn */
 		assertTrue(buttonBar.getChildren().get(1) instanceof Button);
+		
 		/* addBtn's Text */
 		Button addBtn = (Button) buttonBar.getChildren().get(1);
 		assertEquals("Add Item", addBtn.getText());
@@ -185,10 +196,12 @@ public class GenerateShoppingListScreenTest {
 		assertEquals(200, printBtn.getPrefHeight(),0.01);
 		
 		/* Get ToolTip of the printBtn */
-		assertEquals("Click here to view your shopping list", printBtn.getTooltip().getText());
-		
+		assertEquals("Click here to view your shopping list", printBtn.getTooltip().getText());	
 }
 	
+	/**
+	 * Test that when the print button is pressed, a PDF is generated.
+	 */
 	@Test
 	public void printShoppingListTest() {
 		/* Setup to retrieve the printBtn and statusBar */
@@ -197,12 +210,16 @@ public class GenerateShoppingListScreenTest {
 		HBox buttonBar = (HBox) midBox.getChildren().get(3);
 		printBtn = (Button) buttonBar.getChildren().get(3);
 		statusBar = (Label) midBox.getChildren().get(1);
+		
 		/* Test when printBtn is Pressed */
 		printBtn.fire();
 		printBtn.getOnAction();
 		assertEquals("Printing shopping list...", statusBar.getText());
 	}
 	
+	/**
+	 * Test that the buttons do the correct actions, and a shopping list can be retrieved from the text file
+	 */
 	@Test
 	public void getShoppingListTest() {
 		/* Setup to retrieve the printBtn and statusBar */

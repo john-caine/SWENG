@@ -41,8 +41,13 @@ public class RecipeScreen extends menu{
 	final Button[] downloadButtons;
 	final Button[] playButtons;
 	
-	/*
-	 * Constructor for class RecipeScreen which extends menu
+	/**
+	 * Recipe Screen constructor
+	 * @param bigBox: VBox containing the GUI
+	 * @param height: Height of the recipe display
+	 * @param width: Width of the recipe display
+	 * @param recipeCollection: The collection of recipes
+	 * @param stage: the eCook main stage
 	 */
 	public RecipeScreen (VBox bigBox, double height, double width, final RecipeCollection recipeCollection, final Stage stage){
 		super (recipeCollection);
@@ -269,8 +274,10 @@ public class RecipeScreen extends menu{
 		}
 	}
 
-	/*
+	/**
 	 * Method for updating button labels
+	 * @param buttonID: The 
+	 * @param setting: The current status of the recipe media content
 	 */
 	private void updateButtonLabels(int buttonId, int setting) {
 		if (setting == downloading) {
@@ -294,8 +301,9 @@ public class RecipeScreen extends menu{
 		}
 	}
 	
-	/*
+	/**
 	 *  Method to update labels in the recipe info box
+	 *  @param recipe: The recipe to get the information from
 	 */
 	public void updateInfoLabels(Recipe recipe) {
 		String author = "", comment = "", cook = "", prep = "", guests = "", veg ="";
