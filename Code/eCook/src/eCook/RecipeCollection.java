@@ -11,13 +11,16 @@ import xmlparser.Recipe;
 public class RecipeCollection {
 	List<Recipe> recipes;
 	
-	// constructor
+	/**
+	 * Constructor that creates the recipes ArrayList
+	 */
 	public RecipeCollection() {
 		recipes = new ArrayList<Recipe>();
 	}
 	
-	/*
-	 *  method to add recipes to the list
+	/**
+	 * Adds a recipe to the ArrayList provided it is valid.
+	 * @param recipe the recipe to be added to the collection.
 	 */
 	public void addRecipe(Recipe recipe) {
 		if (recipe != null) {
@@ -25,15 +28,18 @@ public class RecipeCollection {
 		}
 	}
 	
-	/*
-	 *  method to get a recipe from the list
+	/**
+	 * Returns the requested recipe by index number of ArrayList
+	 * @param recipeNumber the recipe to be retrieved.
+	 * @return
 	 */
 	public Recipe getRecipe(int recipeNumber) {
 		return recipes.get(recipeNumber);
 	}
 	
-	/*
-	 *  method to get the number of recipes in the list
+	/**
+	 *  Returns the number of recipes currently in the ArrayList
+	 * @return
 	 */
 	public int getNumberOfRecipes() {
 		return recipes.size();

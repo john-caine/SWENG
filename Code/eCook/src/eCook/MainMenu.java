@@ -1,11 +1,9 @@
 /*
- Programmers : Roger, Zayyad, James and Ankita
- Date created: 27/2/2014
- Description: Create a Main Menu
-
+ *Programmers : Roger, Zayyad, James and Ankita
+ *Date created: 27/2/2014
+ *Description: Create a Main Menu
  */
 package eCook;
-
 
 import gui.MainMenuContent;
 import javafx.geometry.Rectangle2D;
@@ -21,6 +19,12 @@ public class MainMenu {
 	private Scene scene;
 	private MainMenuContent mainMenuContent;
 	
+	/**
+	 * The main menu for eCook, sets parameters required for the stage, and populates the menu with content.
+	 * 
+	 * @param stage The stage to be used.
+	 * @param recipeCollection The collection of recipes.
+	 */
 	public MainMenu(Stage stage, RecipeCollection recipeCollection) {
 		//Gets the visual bounds of the screen
 		Screen screen = Screen.getPrimary();
@@ -41,8 +45,10 @@ public class MainMenu {
         
         stage.setScene(scene);
         stage.setFullScreen(true);
+        
         //Removes the exit hint from the main menu
         stage.setFullScreenExitHint("");
+        
         //Removes the key combination to exit fullscreen when in main menu
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 	}

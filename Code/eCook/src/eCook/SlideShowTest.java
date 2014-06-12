@@ -2,36 +2,19 @@
  * Programmer: Steve Thorpe, Jonathan Caine
  * Date Created: 14/03/2014
  * Description: SlideShow test class. Tests the control panel for the slideshow and the layering of content on each slide
- * Tests of content creation are performed in the handler test classes.
- * 
+ * 				Tests of content creation are performed in the handler test classes. 
  */
 
 
 package eCook;
 
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import org.junit.Rule;
 import org.junit.Before;
 import org.junit.Test;
-
-import timer.TimerData;
-import xmlvalidation.XMLValidator;
 
 public class SlideShowTest {
 
@@ -51,8 +34,9 @@ public class SlideShowTest {
 
 	}
 
-	/*
-	 * Test that a slide Show has been created
+	/**
+	 * Tests that when a slideShow is created the relevant slideIDs are set, and that the validator is called,
+	 * along with the background colour being set.
 	 */
 	@Test
 	public void testCreateSlideShow(){
@@ -74,8 +58,9 @@ public class SlideShowTest {
 		assertEquals("0x00ff00ff", slideShow.slideScene.getFill().toString());
 	}
 
-	/*
-	 * Test that a slide has been created, that the control buttons appear correctly on the slide and that content is being added to the correct layer.
+	/**
+	 * Tests that key components are called for each slide - layering, duration, notesGUI, slideControls, timers.
+	 * @throws RuntimeException
 	 */
 	@Test
 	public void testCreateSlide() throws RuntimeException  {
@@ -103,6 +88,9 @@ public class SlideShowTest {
 		assertTrue(slideShow.timerList != null);
 	}
 
+	/**
+	 * Tests that slideIDs are set appropiately if slide is a branch
+	 */
 	@Test
 	public void testBranching() {
 		// call new slide with index 0
@@ -117,6 +105,9 @@ public class SlideShowTest {
 		assertTrue(slideShow.prevSlideID == 0);
 	}
 	
+	/**
+	 * Tests that each image object is in the right layer according to the playlist
+	 */
 	@Test
 	public void testLayering(){
 		slideShow.newSlide(3, false,null);
