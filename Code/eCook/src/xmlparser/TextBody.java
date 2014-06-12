@@ -30,7 +30,9 @@ public class TextBody extends Content {
 	private List<TextString> textBody;
 	private Logger logger;
 	
-	// constructor
+	/**
+	 * TextBody constructor
+	 */
 	public TextBody() {
 		super();
 		
@@ -41,51 +43,92 @@ public class TextBody extends Content {
 	}
 
 	// getters
+
+	 /**
+	  * Get the TextBody Xend
+	  * @return xEnd: The textBody xEnd
+	  */
 	public Integer getXEnd() {
 		return xEnd;
 	}
 
+	/**
+	 * Get the TextBody Yend
+	 * @return yEnd: The TextBody yEnd
+	 */
 	public Integer getYEnd() {
 		return yEnd;
 	}
 	
+	/**
+	 * Get the TextBody font
+	 * @return font: The TextBody font
+	 */
 	public String getFont() {
 		return font;
 	}
 	
+	/**
+	 * Get the TextBody font size
+	 * @return: The TextBody font size
+	 */
 	public Integer getFontSize() {
 		return fontSize;
 	}
 	
+	/**
+	 * Get the TextBody font colour
+	 * @return: The TextBody font colour
+	 */
 	public String getFontColor() {
 		return fontColor;
 	}
 	
 	// setters
+	/**
+	 * Set the TextBody XEnd
+	 * @param xEnd: The TextBody Xend
+	 */
 	public void setXEnd(Object xEnd) {
 		if (xEnd != null) {
 			this.xEnd = Integer.valueOf((String) xEnd);
 		}
 	}
 	
+	/**
+	 * Set the TextBody YEnd
+	 * @param yEnd: The TextBody Yend
+	 */
 	public void setYEnd(Object yEnd) {
 		if (yEnd != null) {
 			this.yEnd = Integer.valueOf((String) yEnd);
 		}
 	}
 	
+	/**
+	 * Set the TextBody font
+	 * @param font: The TextBody font
+	 */
 	public void setFont(Object font) {
 		if (font != null) {
 			this.font = (String) font;
 		}
 	}
 	
+	/**
+	 * Set the TextBody font size
+	 * @param fontSize: The TextBody font size
+	 */
 	public void setFontSize(Object fontSize) {
 		if (fontSize != null) {
 			this.fontSize = Integer.valueOf((String) fontSize);
 		}
 	}
 	
+	/**
+	 * Set the TextBody font colour
+	 * @param fontColor: Set the TextBody fontColour
+	 */
 	public void setFontColor(Object fontColor) {
 		if (fontColor != null) {
 			this.fontColor = (String) fontColor;
@@ -93,10 +136,19 @@ public class TextBody extends Content {
 	}
 	
 	// list operations
+	/**
+	 * Get the List of TextStrings
+	 * @return textBody: List of Text String objects
+	 */
 	public List<TextString> getTextBody() {
 		return textBody;
 	}
 
+	/**
+	 * Get a Text string from a TextString List index
+	 * @param textStringNumber: The TextString List index
+	 * @return The TextString at index textStringNumber
+	 */
 	public TextString getTextString(Integer textStringNumber) {
 		if (textStringNumber >= 0 && textStringNumber < this.getNumberOfTextStrings()) {
 			return textBody.get(textStringNumber);
@@ -107,6 +159,10 @@ public class TextBody extends Content {
 		}
 	}
 
+	/**
+	 * Add a TextString to the TextString List
+	 * @param textString: A TextString Object
+	 */
 	public void addTextString(TextString textString) {
 		if (textString != null) {
 			textBody.add(textString);
@@ -116,6 +172,10 @@ public class TextBody extends Content {
 		}
 	}
 
+	/**
+	 * Get the total number of TextString objects
+	 * @return The TextString List size
+	 */
 	public Integer getNumberOfTextStrings() {
 		return textBody.size();
 	}

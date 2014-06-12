@@ -14,7 +14,9 @@ public class SlideTest {
 	// declare variables
 	Slide slide;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new slide class
@@ -40,7 +42,9 @@ public class SlideTest {
 		assertEquals(testContent, slide.content);
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 *  check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new slide class

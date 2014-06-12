@@ -81,15 +81,17 @@ public class XMLReader extends DefaultHandler {
 	private String xmlReadError = null;
 	private Logger logger;
 	
-	/*
-	 * Constructor
+	/**
+	 * XML Reader constructor
+	 * @param inputFile: The file to be parsed
 	 */
 	public XMLReader(String inputFile) {
 		readXMLFile(inputFile);
 	}
 	
-	/*	
+	/**	
 	 * The method to parse an XML file, provide the full filepath.
+	 * 'param inputFile: The XML filepath
 	 */
 	public void readXMLFile(String inputFile) {
 		// Create a new logger instance with the package and class name
@@ -114,17 +116,18 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 	
-	/*
-	 * James and Prakruti
+	/**
+	 * 
 	 * Returns a boolean saying whether the xml file contains errors
+	 * @return xmlIsBroken: Set to true if the XML is broken
 	 */
 	public boolean isBroken() {
 		return xmlIsBroken;
 	}
 	
-	/*
-	 * James and Prakruti
+	/**
 	 * Returns a String explaining error with the xml file
+	 * @return xmlReadError: The error message
 	 */
 	public String getErrorMsg() {
 		if (xmlIsBroken) {
@@ -133,40 +136,41 @@ public class XMLReader extends DefaultHandler {
 		return "No errors.";
 	}
 	
-	/*
-	 * James and Prakruti
-	 * Returns recipe
+	/**
+	 * Get the recipe
+	 * @return recipe: The recipe parsed from the XML
 	 */
 	public Recipe getRecipe() {
 		return this.recipe;
 	}
 	
-	/*
-	 * James and Prakruti
-	 * Returns documentinfo
+	/**
+	 * Gets the SlideShow formation
+	 * @return info: The document information
 	 */
 	public Info getInfo() {
 		return this.info;
 	}
 	
-	/*
-	 * James and Prakruti
-	 * Returns defaults
+	/**
+	 * Gets the SlideShow defaults
+	 * @return defaults: The SlideShow defaults
 	 */
 	public Defaults getDefaults() {
 		return this.defaults;
 	}
 
-	/*
-	 * James and Prakruti
-	 * Returns content
+	/**
+	 * Get the SlideShow Content
+	 * @return content: The slideshow content
 	 */
 	public Content getContent() {
 		return this.content;
 	}
 	
-	/*
+	/**
 	 *  called by the parser when it encounters any start element tag
+	 *  
 	 */
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -492,7 +496,9 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 
-	// called by the parser when it encounters characters in the main body of an element
+	/**
+	 * called by the parser when it encounters characters in the main body of an element
+	 */
 	public void characters(char[] ch, int start, int length) throws SAXException {		
 		String elementValue = new String(ch,start,length);
 		switch (currentElement) {
@@ -560,7 +566,9 @@ public class XMLReader extends DefaultHandler {
 		}
 	}
 
-	// called by the parser when it encounters any end element tag
+	/**
+	 *  called by the parser when it encounters any end element tag
+	 */
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 		

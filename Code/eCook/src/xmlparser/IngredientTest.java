@@ -13,7 +13,9 @@ import org.junit.Test;
 public class IngredientTest {
 	Ingredient ingredient;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new ingredient class
@@ -35,7 +37,9 @@ public class IngredientTest {
 		assertEquals(12.68, ingredient.amount, 0.001);
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 * check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new ingredient class
