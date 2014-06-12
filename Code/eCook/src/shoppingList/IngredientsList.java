@@ -34,18 +34,24 @@ import javafx.scene.text.TextAlignment;
 
 public class IngredientsList {
 	// declare variables
-	static ArrayList<String> ingredientsList;
-	CheckBox[] checkboxes;
-	VBox ingredientsListBox, scrollBox;
-	ScrollPane scrollPane;
-	HBox buttonBox;
-	Button savePDFButton, updateShoppingListButton;
-	Label statusBar;
-	ShoppingList currentShoppingList;
-	double height, width;
+	protected static ArrayList<String> ingredientsList;
+	protected CheckBox[] checkboxes;
+	protected VBox ingredientsListBox, scrollBox;
+	protected ScrollPane scrollPane;
+	protected HBox buttonBox;
+	protected Button savePDFButton, updateShoppingListButton;
+	protected Label statusBar;
+	protected ShoppingList currentShoppingList;
+	protected double height, width;
 	private Logger logger;
 
 	// constructor
+	/**
+	 * IngredientsList Constructor
+	 * @param recipe: The recipe to get the ingredients from
+	 * @param height: The height of the Ingredients list
+	 * @param width The width of the Ingredients list
+	 */
 	public IngredientsList(Recipe recipe, double height, double width) {
 		this.height = height;
 		this.width = width;
@@ -68,15 +74,18 @@ public class IngredientsList {
 		setupIngredientsListGUI();
 	}
 
-	/*
-	 *  method to get the ingredients list GUI VBox
+	
+	/**
+	 * Gets the VBox containing the ingredients list
+	 * @return ingredientsListBox: The ingredients list VBox container
 	 */
 	public VBox getIngredientsListGUI() {
 		return ingredientsListBox;
 	}
 
-	/*
+	/**
 	 *  method to update the status bar
+	 *  @param text: 
 	 */
 	public void updateStatusBar(String text) {
 		if (text != null) {
@@ -84,7 +93,7 @@ public class IngredientsList {
 		}
 	}
 
-	/*
+	/**
 	 *  method to update shopping list when user clicks checkbox
 	 */
 	public void updateShoppingList() {	
@@ -106,7 +115,7 @@ public class IngredientsList {
 		}	
 	}
 
-	/*
+	/**
 	 *  method to create the ingredients list VBox
 	 */
 	public void setupIngredientsListGUI() {	
@@ -225,7 +234,7 @@ public class IngredientsList {
 		ingredientsListBox.getChildren().addAll(scrollPane, buttonBox);
 	}
 
-	/*
+	/**
 	 *  method to test for save button enable
 	 */
 	public void testEnableSaveButton() {
@@ -246,8 +255,7 @@ public class IngredientsList {
 		if (itemSelected) {
 			savePDFButton.setDisable(false);
 			updateShoppingListButton.setDisable(false);
-		}
-		else {
+		} else {
 			savePDFButton.setDisable(true);
 			updateShoppingListButton.setDisable(true);
 		}

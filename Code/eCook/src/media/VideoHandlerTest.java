@@ -1,3 +1,8 @@
+/*
+ * Programmer: Steve Thorpe, Jonathan Caine 
+ * Date Created: 04/06/2014
+ * Description: VideoHandler test class
+ */
 package media;
 
 import static org.junit.Assert.*;
@@ -27,17 +32,26 @@ public class VideoHandlerTest {
 		videoHandler = new VideoHandler(parent, "http://ystv.co.uk/~john.caine/swengrepo/14_Fusion_Promo_spr08.mp4",  60, 50, 100, 100, false, 10, 40);
 	}
 
+	/*
+	 * Test that a MediaView object has been created
+	 */
 	@Test
 	public void containsMediaView() {
 		assertTrue(videoHandler.getMediaView() instanceof MediaView);
 	}
 	
+	/*
+	 * Test that the Media View Object has the correct size
+	 */
 	@Test 
 	public void mediaViewSize(){
 		assertEquals(100, videoHandler.getMediaView().getFitHeight(), 0.1);
 		assertEquals(100, videoHandler.getMediaView().getFitWidth(), 0.1);
 	}
 	
+	/*
+	 * Test when the full screen method is called that a new stage is created and a MediaView Object which is the size of the screen.
+	 */
 	@Test
 	public void fullScreen(){
 		assertNull(videoHandler.stage);

@@ -43,22 +43,35 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
+@SuppressWarnings("unused")
 public class Timer extends Task<Object>{
 	
 	protected Button startButton;
-	private Label labelSeconds, labelMinutes, labelHours;
+	private Label labelSeconds;
+	private Label labelMinutes; 
+	private Label labelHours;
 	private Timeline timeLineSeconds; 
-	public HBox timerTFandExitBtn, timerLabelBox, buttonBox;
-	private Integer timerValueSeconds = null, timerValueMinutes = null, timerValueHours = null, timerStartSeconds = 0, timerStartMinutes = 0, timerStartHours = 0;
+	public HBox timerTFandExitBtn;
+	public HBox timerLabelBox;
+	public HBox buttonBox;
+	private Integer timerValueSeconds = null;
+	private Integer timerValueMinutes = null;
+	private Integer timerValueHours = null;
+	private Integer timerStartSeconds = 0; 
+	private Integer timerStartMinutes = 0;
+	private Integer timerStartHours = 0;
 	public ComboBox<Integer> numbersListSeconds;
 	protected ComboBox<Integer> numbersListMinutes;
 	protected ComboBox<Integer> numbersListHours; 
-	public boolean timerSetupFinished = false, resumeTimer = false, paused = false, started = false, ended = false;
+	public boolean timerSetupFinished = false;
+	private boolean resumeTimer = false;
+	private boolean paused = false;
+	private boolean started = false;
+	private boolean ended = false;
 	private TimerData timerValues;
 	private VBox timerVBox;
 	private int i;
 	protected Button resetTimer;
-	private AudioClip audio;
 	private VBox timerContainer;
 	private String timerLabel;
 	private TextField textField;
@@ -68,13 +81,19 @@ public class Timer extends Task<Object>{
 	private HBox completeTimer;
 	private int timerID;
 	private SlideShow main;
-	private ImageView closeBtnHolder, startBtnHolder, pauseBtnHolder, resetBtnHolder;
-	private Image closeIcon, startIcon, pauseIcon, resetIcon;
+	private ImageView closeBtnHolder;
+	private ImageView startBtnHolder;
+	private ImageView pauseBtnHolder;
+	private ImageView resetBtnHolder;
+	private Image closeIcon;
+	private Image startIcon;
+	private Image pauseIcon; 
+	private Image resetIcon;
 	private NotesGUI notesGUI;
 	private Group slideRoot;
 	private Logger logger;
 	
-	/*
+	/**
 	 * Timer Class constructor. As all objects from the slide group are deleted when the slide changes, the value of the timer before the slide was changed
 	 * must be passed into the constructor. If Timer values are passed in, set the values timer Values to the corresponding parameter. If no timers were 
 	 * present on the previous slide, this is ignored.
@@ -242,7 +261,7 @@ public class Timer extends Task<Object>{
 		
 	}
 	
-	/*
+	/**
 	 * Sets the event handlers for the Start button and Reset Button
 	 */
 	public void setButtonEventListeners(){
@@ -349,7 +368,8 @@ public class Timer extends Task<Object>{
 		
 	}
 	
-	/*Creates the keyframe that operates the timer. The keyframe counts for one second, decrementing the 
+	/**
+	 * Creates the keyframe that operates the timer. The keyframe counts for one second, decrementing the 
 	 * remaining seconds each time. Once the number of seconds reaches 0, the method evaluates if the 
 	 * minutes,hours need to be decremented.
 	 * 
@@ -367,16 +387,14 @@ public class Timer extends Task<Object>{
 					startButton.setDisable(true);
 					started = false;
 					paused = false;
-				}
-				else{
+				} else{
 					// Decrement time
 					timerValueSeconds--;
 					
 					// Set the seconds label 
 					if(timerValueSeconds > 9){
 						labelSeconds.setText(timerValueSeconds.toString());
-					}
-					else {
+					} else {
 					
 						labelSeconds.setText("0" + timerValueSeconds.toString());
 					}
@@ -392,9 +410,8 @@ public class Timer extends Task<Object>{
 						paused = false;
 						ended = true;
 						startButton.setDisable(true);
-					}
-					// Timer has moved past an hour
-					else if(timerValueMinutes <= 0 && timerValueSeconds < 0){
+					} else if(timerValueMinutes <= 0 && timerValueSeconds < 0){
+						// Timer has moved past an hour
 						startButton.setDisable(false);
 						timerValueHours--;
 						timerValueMinutes = 59;
@@ -403,23 +420,20 @@ public class Timer extends Task<Object>{
 						// Set the hours label 
 						if(timerValueHours > 9){
 							labelHours.setText(timerValueHours.toString() + " : ");
-						}
-						else {
+						} else {
 							labelHours.setText(" 0" + timerValueHours.toString() + " : ");
 						}
 						labelMinutes.setText(timerValueMinutes.toString() + " : ");
 						labelSeconds.setText(timerValueSeconds.toString());
-					}
-					//Timer has moved past a minute
-					else if(timerValueSeconds < 0){
+					} else if(timerValueSeconds < 0){
+						//Timer has moved past a minute
 						timerValueMinutes--;
 						timerValueSeconds = 59;
 						
 						// Set the minutes label 
 						if(timerValueMinutes > 9){
 							labelMinutes.setText(timerValueMinutes.toString() + " : ");
-						}
-						else{
+						} else{
 							labelMinutes.setText("0" + timerValueMinutes.toString() + " : ");
 						}
 						labelSeconds.setText(timerValueSeconds.toString());
@@ -428,7 +442,8 @@ public class Timer extends Task<Object>{
 			}
 		} ));	
 	}
-		/* The lists of numbers which can be selected by the user to set the timer are created in this method.
+		/**
+		 *  The lists of numbers which can be selected by the user to set the timer are created in this method.
 		 * There is a list for seconds, minutes and hours, which when clicked sets the start value of the timer to 
 		 * the selected value then hides the list again.
 		 */
@@ -534,14 +549,14 @@ public class Timer extends Task<Object>{
 		});
 		
 	}
-	/*
+	/**
 	 * Creates new Audio clip object and catches exceptions if the file name can't be found or is the wrong format.
+	 * Currently not to be used.
 	 * @Param urlname: The location of the audio file to be played.
 	 */
-	@SuppressWarnings("unused")
 	private void loadAudio(String urlname) {
 		try {
-			audio = new AudioClip(urlname);
+			//AudioClip audio = new AudioClip(urlname)
 		} catch (IllegalArgumentException i) {
 			logger.log(Level.WARNING, "Audio File not found at " + urlname);
 		} catch (MediaException m) {
@@ -555,7 +570,10 @@ public class Timer extends Task<Object>{
 	public Pane getPane(){
 		return completeTimer;
 	}
-	
+	/**
+	 * Get if the timer setup has completed
+	 * @return timerSetupFinished: Timer completed value
+	 */
 	public boolean getTimerSetupStatus(){
 		return timerSetupFinished;
 	}
@@ -688,7 +706,10 @@ public class Timer extends Task<Object>{
 		
 	}
 	
-	//Method to get the TimerID
+	/**
+	 * Method to get the TimerID
+	 * @return timerID: The timerID assigned to the constructor when the timer was created
+	 */
 	public int getTimerID() {
 		return timerID;
 	}

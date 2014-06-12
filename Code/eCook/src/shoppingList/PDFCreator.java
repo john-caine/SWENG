@@ -37,17 +37,21 @@ import eCook.eCook;
 
 public class PDFCreator {
 	// declare variables
-	PDDocument shoppingListDocument;
-	PDPage currentPage;
-	PDPageContentStream currentContentStream;
-	PDFont headerFont, bodyFont;
-	PDJpeg logo;
-	int numberOfLinesUsed;
-	boolean allowFilepathSelection;
+	protected PDDocument shoppingListDocument;
+	protected PDPage currentPage;
+	protected PDPageContentStream currentContentStream;
+	protected PDFont headerFont, bodyFont;
+	protected PDJpeg logo;
+	protected int numberOfLinesUsed;
+	protected boolean allowFilepathSelection;
 	private Logger logger;
 
 	
-	// constructor
+	/**
+	 *  PDFCreator Constructor
+	 * @param shoppingList: The shopping list to be written to the pdf
+	 * @param allowFilepathSelection: Allow the file path to be selected
+	 */
 	public PDFCreator(ArrayList<String> shoppingList, boolean allowFilepathSelection) {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -151,9 +155,8 @@ public class PDFCreator {
 					newLine(currentContentStream);
 					currentContentStream.drawString(newLine);
 					newLine(currentContentStream);
-				}
-				// else just add one ingredient per line
-				else {
+				} else {
+					// else just add one ingredient per line
 					currentContentStream.drawString(shoppingList.get(i));
 					newLine(currentContentStream);
 				}
@@ -195,8 +198,7 @@ public class PDFCreator {
 		File file = fileChooser.showSaveDialog(new Stage());
 		if (file != null) {
 			return file.getAbsolutePath() + ".pdf";
-		}
-		else {
+		} else {
 			logger.log(Level.WARNING, "Saving shopping list: abandoned");
 			return null;
 		}

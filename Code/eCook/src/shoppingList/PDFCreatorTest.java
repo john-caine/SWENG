@@ -35,7 +35,9 @@ public class PDFCreatorTest {
 	
 	/* Automated Tests */
 	
-	// test that no PDF is created when null arguments are parsed
+	/*
+	 *  test that no PDF is created when null arguments are parsed
+	 */
 	@Test
 	public void errorThrownWhenNullArgumentsParsed() {
 		pdfCreator = new PDFCreator(null, false);
@@ -43,7 +45,9 @@ public class PDFCreatorTest {
 		assertFalse(file.exists());
 	}
 	
-	// test that a PDF file is created in the default temp directory when no filepath is selected
+	/*
+	 *  test that a PDF file is created in the default temp directory when no filepath is selected
+	 */
 	@Test
 	public void tempPDFCreated() {
 		testList = new ArrayList<String>();
@@ -56,7 +60,9 @@ public class PDFCreatorTest {
 	
 	/* Visual Tests */
 	
-	// check that the file chooser prompt appears when filpath is set to check
+	/*
+	 *  check that the file chooser prompt appears when filpath is set to check
+	 */
 	@Test
 	public void userPromptedToChooseFilepath() {
 		testList = new ArrayList<String>();
@@ -66,7 +72,9 @@ public class PDFCreatorTest {
 		System.out.println("file browser appeared as expected.");
 	}
 	
-	// check that the contents of the temp shopping list PDF is correct
+	/*
+	 *  check that the contents of the temp shopping list PDF is correct
+	 */
 	public void tempPDFContainsCorrectItems() {
 		System.out.println("testing that the temp PDF created contains the correct items...");
 		System.out.println("opening file 'shoppingListTemp.pdf'");

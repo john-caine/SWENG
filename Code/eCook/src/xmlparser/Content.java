@@ -9,12 +9,6 @@ package xmlparser;
  * 				Methods are provided for 'setting' and 'getting' common fields.
  * 				Contains lists for holding Text, Shape, Audio, Image and Video objects.
  * 
- * Version History: v1.1 (01/04/14) - Changed Integer fields to Integers.
- * 									- Added validation to getting and setting lists.
- *  								- Added method to report errors (Console prInteger for now but will extend in future).
- *  				v1.2 (10/04/14) - Changed type of xStart and yStart from Integer to Integer as these fields are compulsory.
- *  								- Added validation to setXStart and setYStart to test for null objects.
- *  								- Added validation to URLName to ensure that the object is not null/empty before setting.
  */
 
 import java.util.ArrayList;
@@ -25,7 +19,7 @@ import java.util.logging.Logger;
 import eCook.eCook;
 
 public class Content {
-	// declare fields
+
 	Integer width = null, height = null, xStart = null, yStart = null;
 	Integer layer, startTime, duration, branch, orientation = 0;
 	String urlName = null;
@@ -50,26 +44,52 @@ public class Content {
 	}
 
 	// getters
+	/**
+	 * Get the xStart value
+	 * @return xStart: Starting x position of an object
+	 */
 	public Integer getXStart() {
 		return xStart;
 	}
 
+	/**
+	 * Get the yStart value
+	 * @return yStart: Start y position of an object
+	 */
 	public Integer getYStart() {
 		return yStart;
 	}
 
+	
+	/**
+	 * Get the slide layer the object is to be added to
+	 * @return layer: The objects slide layer
+	 */
 	public Integer getLayer() {
 		return layer;
 	}
 	
+	/**
+	 * Get the startTime
+	 * @return startTime: The time in seconds the object is to appear on the slide
+	 */
 	public Integer getStartTime() {
 		return startTime;
 	}
 	
+	/**
+	 * Get the duration of the object
+	 * @return duration: The time in seconds the object is to be removed from the slide
+	 */
 	public Integer getDuration() {
 		return duration;
 	}
 	
+	
+	/**
+	 * Get the width of 
+	 * @return
+	 */
 	public Integer getWidth() {
 		return width;
 	}
