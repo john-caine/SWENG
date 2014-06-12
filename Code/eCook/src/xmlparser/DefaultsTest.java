@@ -12,7 +12,9 @@ import org.junit.Test;
 public class DefaultsTest {
 	Defaults defaults;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new defaults class
@@ -47,7 +49,9 @@ public class DefaultsTest {
 		assertEquals(12, defaults.fontSize.intValue());
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 * check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new defaults class

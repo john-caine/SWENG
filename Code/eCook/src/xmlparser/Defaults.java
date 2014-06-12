@@ -14,13 +14,6 @@ import eCook.eCook;
  * Description: A class to contain display defaults associated with a recipe.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
  * 
- * Version History: v1.01 (27/03/14) - Changed type of fontSize from String to int. Removed lineColor.
- * 									 - Updated setters and getters accordingly.
- *  				v1.1  (01/04/14) - Changed type of fontSize from int to Integer.
- *  								 - Added validation to setters (throws error when null).
- *  								 - Added method to report errors (Console print for now but will extend in future).
- *  				v1.11 (06/04/14) - Re-added field 'lineColor' and setter and getter methods.
- *  				v1.2  (18/05/24) - Added function defaultsComplete() - James and Prakruti
  */
 public class Defaults {
 	// declare fields
@@ -39,32 +32,57 @@ public class Defaults {
 	}
 
 	// getters
+	
+	/**
+	 * Get the default background colour of the SlideShow
+	 * @return backgroundColor: The slideshow background colour
+	 */
 	public String getBackgroundColor() {
 		return backgroundColor;
 	}
 
+	/**
+	 * Get the default SlideShow Font
+	 * @return font: The SlideShow font
+	 */
 	public String getFont() {
 		return font;
 	}
 
+	/**
+	 * Get the default SlideShow font size
+	 * @return fontSize: The SlideShow font size
+	 */
 	public Integer getFontSize() {
 		return fontSize;
 	}
 	
+	/**
+	 * Get the default SlideShow font colour
+	 * @return fontColor: The SlideShow font colour
+	 */
 	public String getFontColor() {
 		return fontColor;
 	}
 	
+	/**
+	 * Get the default SlideShow shape fill colour
+	 * @return fillColor: The SlideShow shape fill colour
+	 */
 	public String getFillColor() {
 		return fillColor;
 	}
 	
+	/**
+	 * Get the default SlideShow shape line colour
+	 * @return lineColor: The SlideShow line color
+	 */
 	public String getLineColor() {
 		return lineColor;
 	}
 	
-	/*
-	 * James and Prakruti
+	/**
+	 * 
 	 * Decides whether default information has been set
 	 */
 	public boolean defaultsComplete() {
@@ -77,6 +95,10 @@ public class Defaults {
 	}
 	
 	// setters
+	/**
+	 * Set the default SlideShow background colour
+	 * @param backgroundColor: The SlideShow background colour
+	 */
 	public void setBackgroundColor(Object backgroundColor) {
 		if (backgroundColor != null) {
 			this.backgroundColor = (String) backgroundColor;
@@ -86,6 +108,10 @@ public class Defaults {
 		}
 	}
 	
+	/**
+	 * Set the default SlideShow font 
+	 * @param font: The SlideShow font
+	 */
 	public void setFont(Object font) {
 		if (font != null) {
 			this.font = (String) font;
@@ -95,6 +121,10 @@ public class Defaults {
 		}
 	}
 
+	/**
+	 * Set the default SlideShow font size
+	 * @param fontSize: The SlideShow font size
+	 */
 	public void setFontSize(Object fontSize) {
 		if (fontSize != null) {
 			this.fontSize = Integer.valueOf((String) fontSize);
@@ -104,6 +134,10 @@ public class Defaults {
 		}
 	}
 	
+	/**
+	 * Set the default SlideShow font colour
+	 * @param fontColor: The slideshow font colour
+	 */
 	public void setFontColor(Object fontColor) {
 		if (fontColor != null) {
 			this.fontColor = (String) fontColor;
@@ -113,6 +147,10 @@ public class Defaults {
 		}
 	}
 	
+	/**
+	 * Set the default SlideShow shape fill colour
+	 * @param fillColor: SlideShow shape fill colour
+	 */
 	public void setFillColor(Object fillColor) {
 		if (fillColor != null) {
 			this.fillColor = (String) fillColor;
@@ -122,6 +160,10 @@ public class Defaults {
 		}
 	}
 	
+	/**
+	 * Set the default SlideShow shape line colour
+	 * @param lineColor: SlideShow shape line colour
+	 */
 	public void setLineColor(Object lineColor) {
 		if (lineColor != null) {
 			this.lineColor = (String) lineColor;
