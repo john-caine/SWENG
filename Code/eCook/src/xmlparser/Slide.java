@@ -8,9 +8,6 @@ package xmlparser;
  * Description: A class to contain all information associated with a slide.
  * 				Methods are provided for 'setting' and 'getting' fields for this class.
  * 
- * Version History: v1.01 (27/03/14) - Changed type of ID from String to int. Updated setter and getter.
- * 					v1.1  (01/04/14) - Changed int fields to Integer.
- * 					v1.2  (10/04/14) - Changed field ID from type Integer to int, as it is compulsory.
  *  
  */
 
@@ -22,41 +19,73 @@ public class Slide {
 	Content content;
 
 	// getters
+	/**
+	 * Get the Slide ID
+	 * @return id: The slideID
+	 */
 	public Integer getID() {
 		return id;
 	}
 
+	/**
+	 * Get the slide duration in seconds
+	 * @return: The slide duration
+	 */
 	public Integer getDuration() {
 		return duration;
 	}
 
+	/**
+	 * Get if the slide is the last slide in the SlideShow
+	 * @return lastSlide: True if the slide is the last slide
+	 */
 	public Boolean getLastSlide() {
 		return lastSlide;
 	}
 	
 	// setters
+	/**
+	 * Set the slide ID
+	 * @param id: The slide ID
+	 */
 	public void setID(Object id) {
 		if (id != null) {
 			this.id = Integer.valueOf((String) id);
 		}
 	}
 	
+	/**
+	 * Set the slide duration in seconds
+	 * @param duration: The slide duration
+	 */
 	public void setDuration(Object duration) {
 		if (duration != null) {
 			this.duration = Integer.valueOf((String) duration);
 		}
 	}
 
+	/**
+	 * Set if the slide is the last slide in the SlideShow
+	 * @param lastSlide: Set true if the slide is the last slide
+	 */
 	public void setLastSlide(Object lastSlide) {
 		if (lastSlide != null) {
 			this.lastSlide = Boolean.valueOf((String) lastSlide);
 		}
 	}
 
+	/**
+	 * Get the slide content
+	 * @return content: The slide content object, contains information about all media types 
+	 */
 	public Content getContent() {
 		return content;
 	}
 
+	/**
+	 * Set the slide content
+	 * @param content: Slide content parsed from XML
+	 */
 	public void setContent(Content content) {
 		if (content != null) {
 			this.content = content;

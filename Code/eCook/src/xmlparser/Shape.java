@@ -16,12 +16,6 @@ import eCook.eCook;
  * 				Extends common methods and variables from Content class.
  * 				Methods are provided for 'setting' and 'getting' unique fields for this class.
  *
- * Version History: v1.1 (01/04/14) - Changed int fields to Integers (including list of <Integer>).
- * 									- Added validation to getting and setting lists.
- * 					v1.2 (06/04/14) - Changed points list to hold instances of new Point class.
- * 									- Updated setters and getters accordingly.
- * 					v1.3 (10/04/14) - Changed type of totalPoints from Integer to int as this is compulsory.
- * 									- Added overriding methods to set ints for width and height instead of Integer.
  */
 
 public class Shape extends Content {
@@ -31,7 +25,9 @@ public class Shape extends Content {
 	private String fillColor, lineColor = "black";
 	private Logger logger;
 	
-	// constructor
+	/**
+	 *  constructor
+	 */
 	public Shape() {
 		super();
 		
@@ -42,31 +38,55 @@ public class Shape extends Content {
 	}
 
 	// getters
+	/**
+	 * Get the total number of points in the shape
+	 * @return totalPoints: Number of shape points
+	 */
 	public Integer getTotalPoints() {
 		return totalPoints;
 	}
 
+	/**
+	 * Get the fill colour of the shape
+	 * @return fillColour: Shape fill colour 
+	 */
 	public String getFillColor() {
 		return fillColor;
 	}
 	
+	/**
+	 * Get the Shape line colour
+	 * @return lineColour: Shape line colour
+	 */
 	public String getLineColor() {
 		return lineColor;
 	}
 	
 	// setters
+	/**
+	 * Set the total number of points in the shape
+	 * @param totalPoints: Number of points in the shape
+	 */
 	public void setTotalPoints(Object totalPoints) {
 		if (totalPoints != null) {
 			this.totalPoints = Integer.valueOf((String) totalPoints);
 		}
 	}
 
+	/**
+	 * Set the line colour of the shape
+	 * @param lineColor: The shape line colour
+	 */
 	public void setLineColor(Object lineColor) {
 		if (lineColor != null) {
 			this.lineColor = (String) lineColor;
 		}
 	}
 	
+	/**
+	 * Set the fill colour of the shape
+	 * @param fillColor: The fill colour of the shape
+	 */
 	public void setFillColor(Object fillColor) {
 		if (fillColor != null) {
 			this.fillColor = (String) fillColor;
@@ -74,10 +94,19 @@ public class Shape extends Content {
 	}
 	
 	// list operations
+	/**
+	 * Get the list of point objects
+	 * @return points: List of points in the shape
+	 */
 	public List<Point> getPoints() {
 		return points;
 	}
 
+	/**
+	 * Get a point at an index of the Point List
+	 * @param pointNumber: The Point List index
+	 * @return The Point at index pointNumber
+	 */
 	public Point getPoint(int pointNumber) {
 		if (pointNumber >= 0 && pointNumber < this.getNumberOfPoints()) {
 			return points.get(pointNumber);
@@ -88,6 +117,10 @@ public class Shape extends Content {
 		}
 	}
 
+	/**
+	 * Add a point to the Point List
+	 * @param point: The point object to be added
+	 */
 	public void addPoint(Point point) {
 		if (point != null) {
 			points.add(point);
@@ -97,6 +130,11 @@ public class Shape extends Content {
 		}
 	}
 
+	/**
+	 * Get the total number of points in the shape
+	 * @return The size of the Point List
+	 * 
+	 */
 	public int getNumberOfPoints() {
 		return points.size();
 	}

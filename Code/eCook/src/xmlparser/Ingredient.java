@@ -34,18 +34,18 @@ public class Ingredient {
 		return units;
 	}
 
-	/*
-	 * Ingredient amount
-	 * Return: String
+	/**
+	 * Get the Ingredient amount
+	 * @return: The amount of ingredient
 	 * 
 	 */
 	public double getAmount() {
 		return amount;
 	}
 	
-	/*
+	/**
 	 * Set ingredient name
-	 * Input: Object (String)
+	 * @param value: The ingredient name
 	 * 
 	 */
 	public void setName(Object value) {
@@ -54,9 +54,9 @@ public class Ingredient {
 		}
 	}
 	
-	/*
+	/**
 	 * Set ingredient units
-	 * Input: Object (String)
+	 * @param value: The ingredient name
 	 * 
 	 */
 	public void setUnits(Object value) {
@@ -65,9 +65,9 @@ public class Ingredient {
 		}
 	}
 
-	/*
+	/**
 	 * Set ingredient amount
-	 * Input: Object (String)
+	 * @param value: The amount of ingredient
 	 * 
 	 */
 	public void setAmount(Object value) {

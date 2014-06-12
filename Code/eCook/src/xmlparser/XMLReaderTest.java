@@ -27,7 +27,9 @@ public class XMLReaderTest {
 	private XMLReader reader;
 	private Recipe recipe;
 
-	// create instances of the XML reader and recipe
+	/*
+	 * create instances of the XML reader and recipe
+	 */
 	@Before
 	public void setUp() throws Exception {
 		// get the example file from the defaultRecipe folder
@@ -36,13 +38,17 @@ public class XMLReaderTest {
 		recipe = reader.getRecipe();
 	}
 	
-	// test that a recipe has been created
+	/*
+	 * test that a recipe has been created
+	 */
 	@Test
 	public void createRecipe() {
 		assertTrue(recipe instanceof Recipe);
 	}
 
-	// check that the recipe contains information in all fields
+	/*
+	 * check that the recipe contains information in all fields
+	 */
 	@Test
 	public void recipeReturnsCorrectFields() {
 		assertNotNull(recipe.info);
@@ -76,7 +82,7 @@ public class XMLReaderTest {
 	
 	/*
 	 * A test to check that the ingredients are read in correctly from the .xml file
-	 * James and Sam
+	 * 
 	 */
 	@Test
 	public void ingredientsTest() {
@@ -108,8 +114,10 @@ public class XMLReaderTest {
 		assertEquals("pints", ingredientsList.get(5).getUnits());
 	}
 	
-	// confirm that all fields in the first slide of the recipe contain the correct data
-	// print out values of fields for this slide
+	/*
+	 * confirm that all fields in the first slide of the recipe contain the correct data
+	 * print out values of fields for this slide
+	 */
 	@Test
 	public void firstSlideReadCorrectly() {
 		// print slide information
@@ -205,8 +213,9 @@ public class XMLReaderTest {
 			assertTrue(recipe.slides.get(0).content.texts.get(3).getTextString(2).getUnderline());
 	}
 	
-	// confirm that all fields in the second slide of the recipe contain the correct data
-	// print out values of fields for this slide
+	/*confirm that all fields in the second slide of the recipe contain the correct data
+	 *print out values of fields for this slide
+	 */
 	@Test
 	public void secondSlideReadCorrectly() {		
 		// print slide information
@@ -286,8 +295,9 @@ public class XMLReaderTest {
 				assertEquals(250, recipe.slides.get(1).content.shapes.get(2).getPoint(1).getY().intValue());
 	}
 	
-	// confirm that all fields in the third slide of the recipe contain the correct data
-	// print out values of fields for this slide
+	/* confirm that all fields in the third slide of the recipe contain the correct data
+	 * print out values of fields for this slide
+	 */
 	@Test
 	public void thirdSlideReadCorrectly() {
 		// print slide information
@@ -320,8 +330,10 @@ public class XMLReaderTest {
 	}
 	
 	
-	// confirm that all fields in the fourth slide of the recipe contain the correct data
-	// print out values of fields for this slide
+	/*confirm that all fields in the fourth slide of the recipe contain the correct data
+	 * print out values of fields for this slide
+	 */
+	 
 	@Test
 	public void fourthSlideReadCorrectly() {
 		// print slide information
@@ -359,8 +371,9 @@ public class XMLReaderTest {
 			assertEquals(3, recipe.slides.get(3).content.images.get(1).getLayer().intValue());
 	}
 	
-	// confirm that all fields in the fifth slide of the recipe contain the correct data
-	// print out values of fields for this slide
+	/* confirm that all fields in the fifth slide of the recipe contain the correct data
+	 * print out values of fields for this slide
+	 */
 	@Test
 	public void fifthSlideReadCorrectly() {
 		// print slide information
@@ -398,7 +411,9 @@ public class XMLReaderTest {
 			assertEquals(15, recipe.slides.get(4).content.videos.get(1).getStartTime().intValue());
 	}
 	
-	// check the contents of the penultimate slide
+	/*
+	 * check the contents of the penultimate slide
+	 */
 	@Test
 	public void sixthSlideReadCorrectly() {
 		// print slide information
@@ -448,7 +463,9 @@ public class XMLReaderTest {
 		assertFalse(recipe.slides.get(5).content.texts.get(0).getTextString(0).getUnderline());
 	}
 	
-	// check the contents of the last slide
+	/*
+	 * check the contents of the last slide
+	 */
 		@Test
 		public void lastSlideReadCorrectly() {
 			// print slide information
