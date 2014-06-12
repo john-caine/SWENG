@@ -31,8 +31,11 @@ public abstract class menu {
 	public HBox topBox;
 	protected VBox bigBox;
 
-	/*
-	 * Constructor for abstract class menu
+	/**
+	 * Constructor for abstract class menu 
+	 * Makes a HBox (topBox) and adds the home, minimise and close button functionality 
+	 * Implemented in most of the other classes in the GUI package
+	 * @param recipeCollection
 	 */
 	public menu (final RecipeCollection recipeCollection) {
 
