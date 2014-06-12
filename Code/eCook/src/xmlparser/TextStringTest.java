@@ -13,7 +13,9 @@ import org.junit.Test;
 public class TextStringTest {
 	TextString textString;
 	
-	// check that setting attributes works correctly
+	/*
+	 * check that setting attributes works correctly
+	 */
 	@Test
 	public void canSetAttributes() {
 		// instantiate a new textString class
@@ -41,7 +43,9 @@ public class TextStringTest {
 		assertEquals(13, textString.branch.intValue());
 	}
 	
-	// check that getting attributes works correctly
+	/*
+	 *  check that getting attributes works correctly
+	 */
 	@Test
 	public void canGetAttributes() {
 		// instantiate a new textString class
