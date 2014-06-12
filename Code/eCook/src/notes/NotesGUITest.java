@@ -1,7 +1,12 @@
+/* 
+ * Programmers: Max, Ankita
+ * Date Created: 09/05/14 
+ * Description: Testing for NotesGUI Class. Test specifics are detailed below.
+ */
+
 package notes;
 
 import static org.junit.Assert.*;
-
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.InputEvent;
@@ -12,23 +17,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import eCook.JavaFXThreadingRule;
 
-/* Title: NotesGUITest
- * 
- * Programmers: Max, Ankita
- * 
- * Date Created: 09/05/14
- * 
- * Description: Testing for NotesGUI Class. Test specifics are detailed below.
- */
 
 public class NotesGUITest {
 	// Run tests on JavaFX thread ref. Andy Till
 	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
-	static Group group;
-	static Scene scene;
-	static VBox timerBox;
+	protected static Group group;
+	protected static Scene scene;
+	protected static VBox timerBox;
 	
 	@Before
 	// perform JavaFX setup to launch the notes GUI
@@ -43,6 +40,9 @@ public class NotesGUITest {
 		
 	/* Visual Tests */
 
+	/**
+	 * Test to check the panel is displayed when mouse is moved to left hand side of screen
+	 */
 	@Test
 	public void notesPanelDisplayedWhenMouseMovedToLHS() {
 		System.out.println("Testing if notes panel is displayed when mouse is moved to far LHS of screen...");
@@ -50,6 +50,9 @@ public class NotesGUITest {
 		System.out.println("notes panel displayed correctly.\n");
 	}
 	
+	/**
+	 * Test to check the panel shows any previous notes
+	 */
 	@Test
 	public void notesPanelReadsAnyPreviousNotes() {
 		System.out.println("Testing if notes panel shows previous notes if any...");
@@ -58,6 +61,9 @@ public class NotesGUITest {
 		System.out.println("notes text area contains contents of text file for the correct slide ID.\n");
 	}
 	
+	/**
+	 * Test to check the panel shows the default text if no previous notes
+	 */
 	@Test
 	public void notesPanelShowsDefaultViewIfNoPreviousNotes() {
 		System.out.println("Testing if notes panel shows default view if no previous notes found..");
@@ -66,6 +72,9 @@ public class NotesGUITest {
 		System.out.println("Notes panel shows default view: prompting user to add notes.\n");
 	}
 	
+	/**
+	 * Test to check the panel is not displayed when mouse moves out of the panel
+	 */
 	@Test
 	public void notesPanelDisappearsOnMouseout() {
 		System.out.println("Testing if notes panel is hidden correctly when mouse is moved out of the notes panel...");
@@ -73,6 +82,9 @@ public class NotesGUITest {
 		System.out.println("notes panel hidden correctly.");
 	}
 	
+	/**
+	 * Test to check any notes are saved to the correct text file
+	 */
 	@Test
 	public void notesSavedToTextFileCorrectly() {
 		System.out.println("Testing if notes are saved to correct text file when added...");
@@ -87,7 +99,9 @@ public class NotesGUITest {
 	
 	/* Automated Tests */
 	
-	// check that all of the UI components are instantiated correctly
+	/**
+	 * Test to check that all of the UI components are instantiated correctly
+	 */
 	@Test
 	public void GUISetupCorrectly() {
 		// if notes panel was not open previously:
@@ -109,7 +123,9 @@ public class NotesGUITest {
 		assertEquals("Write your notes here", notesGUI2.getContentOfNotesBox());
 	}
 	
-	// check that the notes box is updated when text is typed
+	/**
+	 * Test to check that the notes box is updated when text is typed
+	 */
 	@Test
 	public void notesBoxContainsTypedText() {
 		NotesGUI notesGUI = new NotesGUI("recipe title", 1, group, timerBox, false);

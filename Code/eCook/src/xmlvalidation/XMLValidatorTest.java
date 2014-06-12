@@ -1,3 +1,4 @@
+
 package xmlvalidation;
 /* Title: XMLValidation
  * 
@@ -6,9 +7,6 @@ package xmlvalidation;
  * Date Created: 07/05/14
  * 
  * Description: Test class for XMLValidator class
- * 
- * Version History: v0.1 (07/05/14) - Added test to check that a version 1.1 file is valid and a version 1.x (!= 2) is not valid
- * 					v1.0 (12/05/14)	- Complete test class with 12 tests written to diagnose a huge number of potential XML issues
  */
 import static org.junit.Assert.*;
 

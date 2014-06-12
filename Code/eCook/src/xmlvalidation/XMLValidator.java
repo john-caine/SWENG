@@ -1,3 +1,9 @@
+/*
+ * Programmer: James
+ * Date : 01/06/14
+ * Description: 
+ */
+
 package xmlvalidation;
 
 /* Title: XMLValidation
@@ -22,9 +28,9 @@ public class XMLValidator {
 	private Boolean broken;
 	private String errorMsg;
 	
-	/*
+	/**
 	 * Constructor reads in inputFile
-	 * Inputs: XMLReader
+	 * @param reader: the xml file to be tested
 	 * 
 	 */
 	public XMLValidator(XMLReader reader) {
@@ -49,10 +55,10 @@ public class XMLValidator {
 		}
 	}
 
-	/*
+	/**
 	 * Searches content elements for missing PWS essential attributes
-	 * Inputs: XMLReader
-	 * Returns: Boolean
+	 * @param reader: the xml file to be tested
+	 * @return broken: returns true if elements are missing
 	 */
 	private Boolean missingElementAttributes(XMLReader reader) {
 		// Loop through slides determining missing element attributes within them
@@ -112,10 +118,10 @@ public class XMLValidator {
 		return broken;
 	}
 	
-	/*
+	/**
 	 * Searches for missing fundamental slideshow elements
-	 * Inputs: XMLReader
-	 * Returns: Boolean
+	 * @param reader: the xml file to be tested
+	 * Returns broken: returns true if elements are missing.
 	 */
 	private Boolean missingSlideshowElements(XMLReader reader) {
 		// See if info, defaults or slide have not been initialised
@@ -158,17 +164,17 @@ public class XMLValidator {
 		return broken;
 	}
 
-	/*
-	 * Function to determine if XML file is broken
-	 * Returns: Boolean
+	/**
+	 * method to determine if XML file is broken
+	 * @return: returns true or false if the XML is broken
 	 */
 	public boolean isXMLBroken() {
 		return broken;
 	}
 
-	/*
-	 * Function to return String containing error message
-	 * Returns: String
+	/**
+	 * method to return String containing error message
+	 * @return errorMsg: The error message string
 	 */
 	public String getErrorMsg() {
 		return errorMsg;

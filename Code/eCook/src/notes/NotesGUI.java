@@ -1,17 +1,14 @@
-package notes;
-/* Title: NotesGUI
- * 
+/*
  * Programmers: Max, Ankita
- * 
  * Date Created: 09/05/14
- * 
  * Description: A basic GUI to display user-made notes about a particular recipe slide
  * 				The GUI allows the user to write, read and save notes.
  */
 
+package notes;
+
 import java.awt.MouseInfo;
 import java.awt.Point;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -29,15 +26,22 @@ import javafx.util.Duration;
 
 public class NotesGUI {
 	
-	// declare variables
-	boolean notesPanelVisible = false;
-	TextFileHandler handler;
-	TextArea notesBox;
-	VBox notesPanel;
-	public Timeline timelineIn, timelineOut;
-	boolean getNotesOnLoad = false;
+	protected boolean notesPanelVisible = false;
+	protected TextFileHandler handler;
+	protected TextArea notesBox;
+	protected VBox notesPanel;
+	public Timeline timelineIn;
+	public Timeline timelineOut;
+	protected boolean getNotesOnLoad = false;
 	
-	// constructor
+	/**
+	 * Creates a NotesPanel, and shows the panel if forceShow is set.
+	 * @param recipeTitle Title of the recipe
+	 * @param slideID The ID of the current slide
+	 * @param root The group of visible objects
+	 * @param timerbox The box containing the timers
+	 * @param forceShow Boolean for if the panel should be forced open
+	 */
 	public NotesGUI(String recipeTitle, Integer slideID, Group root, VBox timerbox, boolean forceShow) {
 		getNotesOnLoad = forceShow;
 		setupNotesPanel(recipeTitle, slideID, root, timerbox);
@@ -46,22 +50,25 @@ public class NotesGUI {
 		}
 	}
 	
-	/*
-	 *  method to return the notesPanel VBox object
+	/**
+	 *  Method to return the notesPanel VBox object
+	 *  @return notesPanel The panel to contain the notes
 	 */
 	public VBox getNotesPanel() {
 		return notesPanel;
 	}
 	
-	/*
-	 *  method to indicate when the notes panel is onscreen
+	/**
+	 *  Method to indicate when the notes panel is onscreen
+	 *  @return notesPanelVisible Boolean for if the panel is currently being shown or not
 	 */
 	public boolean getNotesPanelVisible() {
 		return notesPanelVisible;
 	}
 	
-	/*
-	 *  method to access the content of the notesBox
+	/**
+	 *  Method to access the content of the notesBox
+	 *  @return notesBox.getText() or null The contents of the NotesBox if it has any
 	 */
 	public String getContentOfNotesBox() {
 		if (notesBox != null) {
@@ -72,8 +79,12 @@ public class NotesGUI {
 		}
 	}
 
-	/*
-	 *  set up the panel, content and event handlers
+	/**
+	 * 
+	 * @param recipeTitle The title of the current recipe
+	 * @param slideID The ID of the current slide
+	 * @param root The visible group of objects
+	 * @param timerbox The box containing the timers
 	 */
     public void setupNotesPanel(final String recipeTitle, final Integer slideID, final Group root,  final VBox timerbox) {   
         // Set up the notes panel on the LHS of the screen
@@ -82,9 +93,14 @@ public class NotesGUI {
         notesPanel.setPrefSize(root.getScene().getWidth()/5, root.getScene().getHeight());
         notesPanel.setStyle("-fx-background-color: rgba(255,255,255,0.9);");
         
+        // Create a tempory label
         final Label searching = new Label("Searching for Notes...");
         searching.setStyle("fx-font-family: Century Gothic; -fx-font-size: 20px; -fx-background-color: gray;");
+        
+        // Create a progress indicator
         final ProgressIndicator pinwheel = new ProgressIndicator();
+        
+        // Create a textArea, and define its attributes
         notesBox = new TextArea();
         notesBox.setMaxWidth(4*root.getScene().getWidth()/25);
         notesBox.setPrefSize(4*root.getScene().getWidth()/25, root.getScene().getHeight()/4);
@@ -106,9 +122,9 @@ public class NotesGUI {
             }
         });
      
+        // Add the tempory label, prohress indicator and timers to the panel
         notesPanel.setSpacing(20);
         notesPanel.setAlignment(Pos.TOP_CENTER);
-        
         notesPanel.getChildren().addAll(searching, pinwheel, timerbox);
         
         // create an instance of the text file handler
@@ -139,6 +155,7 @@ public class NotesGUI {
 				}
 			}
         };
+        
         // dictate that the panel should hide on mouseout of the panel
         notesPanel.setOnMouseExited(new EventHandler<MouseEvent>(){
           	@Override
@@ -163,20 +180,20 @@ public class NotesGUI {
             }
         };
         
-        // get previous notes if any or display generic note
         // add the mouselistener
         notesPanel.addEventHandler(MouseEvent.MOUSE_EXITED, mouseoutNotesPanelHandler);
 
+        // get previous notes if any or display generic note
         // search for pre-made notes
         String existingNotes = handler.readTextFile(recipeTitle + "_" + slideID.toString() + ".txt");
+       
         // if notes have been made for this slide, stop loading and display them in the textarea
         if (existingNotes != null) {
         	notesBox.setText(existingNotes);
         	notesPanel.getChildren().clear();
         	notesPanel.getChildren().addAll(notesBox, timerbox);
-        }
-        // else show the empty notes panel
-        else {
+        } else {
+        	// else show the empty notes panel
         	notesPanel.getChildren().clear();
         	notesPanel.getChildren().addAll(notesBox, timerbox);
         }
@@ -185,8 +202,9 @@ public class NotesGUI {
         root.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, mouseoverLHSHandler);
     }
     
-    /*
+    /**
      *  method to hide panel
+     *  @param root The visible group of objects
      */
     public void hidePanel(Group root) {
     	final KeyValue kv = new KeyValue(notesPanel.translateXProperty(), -root.getScene().getWidth()/5);
@@ -196,8 +214,9 @@ public class NotesGUI {
       	timelineIn.stop();
     }
     
-    /*
+    /**
      *  method to show panel
+     *  @param root The visible group of objects
      */
     public void showPanel(Group root) {
     	// normal transition on mouseover
