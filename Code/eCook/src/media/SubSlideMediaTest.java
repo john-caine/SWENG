@@ -20,17 +20,19 @@ public class SubSlideMediaTest {
 	
 
 	private SubSlideMediaMock subSlideMedia;
+	
+	// Run tests on JavaFX thread ref. Andy Till
+	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
-	/*
-	 * Instantiates a stage and SlideShow to provide to the subSlideMedia constructor and creates a subSlideMediaMock object.
-	 */
+
 	@Before
 	public void Setup(){
 		Stage stage = new Stage();
 		SlideShow slideShow = new SlideShow(stage, "../Resources/PWSExamplePlaylist_4.xml", null );
 		subSlideMedia = new SubSlideMediaMock(slideShow, 20, 20, 10, 10, null, 0);
 	}
+	
 	/*
 	 * Tests the durationTimeline Timeline has been created.
 	 */
@@ -53,18 +55,11 @@ public class SubSlideMediaTest {
 	/*
 	 * Tests that hbox orientation has been correctly set.
 	 */
+	
 	@Test
 	public void hboxOrientation(){
 		assertEquals(0, subSlideMedia.hbox.getRotate(), 0.1);
 	}
 	
-	/*
-	 * Tests when given a valid branch ID that the current slide ID of the slideShow class will change to the branchID
-	 */
-	@Test
-	public void hboxBranch(){
-		
-		
-	}
-
+	
 }

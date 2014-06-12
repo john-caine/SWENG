@@ -5,6 +5,7 @@
  */
 package media;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -29,8 +29,9 @@ public class VideoHandler extends SlideMediaPlayer {
 	private MediaView mediaView;
 	private Integer width;
 	private Integer height;
-	private Stage stage;
+	protected Stage stage;
 	private SlideShow parent;
+	protected MediaView fullMediaView;
 
 
 	/*
@@ -59,7 +60,7 @@ public class VideoHandler extends SlideMediaPlayer {
 		
 		//Create the Video Control Bar
 		VideoControlBar controlBar = new VideoControlBar(this);
-		
+		logger.log(Level.INFO, "Video control bar added");
 		setMediaViewSize();
 		showObject();
 		//Create a VBox and add the media view and the control bar.
@@ -82,7 +83,7 @@ public class VideoHandler extends SlideMediaPlayer {
 			
 			mediaView.setPreserveRatio(false);
             mediaView.setFitWidth(width);
-            mediaView.setFitHeight(height-35);
+            mediaView.setFitHeight(height);
 		} else {
 			mediaView.setPreserveRatio(true);
 		}
@@ -107,7 +108,7 @@ public class VideoHandler extends SlideMediaPlayer {
 		Rectangle2D bounds = Screen.getPrimary().getBounds();
 		
 		//Create a new media view and adding the playing media Player
-		MediaView fullMediaView = new MediaView(mediaPlayer);
+		fullMediaView = new MediaView(mediaPlayer);
 		
 		//Set the size of the MediaView to the size of the screen
 		fullMediaView.setPreserveRatio(false);

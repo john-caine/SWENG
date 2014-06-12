@@ -30,7 +30,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 	private Logger logger;
 	private Integer orientation;
 	
-	/*
+	/**
 	 * Sub Slide Media Constructor
 	 * @Param parent: The reference to the slideshow which called the handler
 	 * @Param xStart: The x co ordinate of the top left corner of the hBox
@@ -43,19 +43,26 @@ public abstract class SubSlideMedia extends SlideMedia {
 
 	public SubSlideMedia(SlideShow parent, int xStart, int yStart, Integer startTime, Integer duration, Integer branchID, Integer orientation){
 		super(xStart, yStart, startTime);
+		
+		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
 		this.duration = duration;
 		this.parent = parent;
 		this.branchID = branchID;
 		this.orientation = orientation;
+		
 		//Create the duration Timeline
 		durationTimeLine = new Timeline();
+		
 		//Create the duration key frame
 		createDurationKeyFrame();
+		
 		//Set the duration Timeline on finish
 		setDurationTimeLineOnFinish();
+		
 		//Set the startTime Timeline on finish
 		setTimeLineOnFinish();
+		
 		//If there is an orientation value set the orientation
 		if(orientation != null){
 			setOrientation();
@@ -65,11 +72,9 @@ public abstract class SubSlideMedia extends SlideMedia {
 		if(this.branchID != null){
 			setOnBranch();
 		}
-
-
 	}
 
-	/*
+	/**
 	 * When the duration Timeline is finished hide the media object
 	 */
 	private void setDurationTimeLineOnFinish(){
@@ -81,7 +86,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		});
 	}
 
-	/*
+	/**
 	 * When the startTime Timeline is finished show the object and if the duration is set set start 
 	 * the duration Timeline
 	 */
@@ -99,7 +104,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		});
 	}
 
-	/*
+	/**
 	 * Add a keyframe with a duration of 1 second to the Duration Timeline
 	 */
 	private void createDurationKeyFrame(){
@@ -112,7 +117,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 
 	}
 
-	/*
+	/**
 	 *Log the Branch ID and then set the hBox mouse event handler
 	 */
 	protected void setOnBranch() {
@@ -135,7 +140,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		});
 	}
 
-	/*
+	/**
 	 * Pause the duration Timeline and log the event
 	 */
 	public void pauseDurationTimeLine(){
@@ -143,7 +148,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		logger.log(Level.INFO, "Duration Time Timeline Paused ");
 	}
 
-	/*
+	/**
 	 * Resume the Duration Timeline and log the event
 	 */
 	public void resumeDurationTimeLine(){
@@ -153,7 +158,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		}
 	}
 
-	/*
+	/**
 	 * Stop the duration Timeline and log the event
 	 */
 	private void stopDurationTimeLine() {
@@ -161,7 +166,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		logger.log(Level.INFO, "Duration Time Timeline Stopped ");
 	}
 	
-	/*
+	/**
 	 * Set the startTime Timeline if the value is not null
 	 * If duration is not null show the hBox and then start the duration time line
 	 * If both are null just show the hBox
@@ -185,14 +190,14 @@ public abstract class SubSlideMedia extends SlideMedia {
 		
 	}
 	
-	/*
+	/**
 	 * Set the orientation of the hbox
 	 */
 	public void setOrientation() {
 		hbox.setRotate(orientation);
 	}
 	
-	/*
+	/**
 	 * Stop all of the handlers currently running on the slide, call the new slide with the branchID and log the event
 	 */
 	protected void doBranch(){
@@ -201,7 +206,7 @@ public abstract class SubSlideMedia extends SlideMedia {
 		logger.log(Level.INFO, "Branched to Slide:"  + branchID);
 	}
 	
-	/*
+	/**
 	 *Stop the startTime and duration Timelines
 	 */
 	public void tearDown() {
