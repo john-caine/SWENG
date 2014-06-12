@@ -72,7 +72,6 @@ public class Timer extends Task<Object>{
 	private VBox timerVBox;
 	private int i;
 	protected Button resetTimer;
-
 	private VBox timerContainer;
 	private String timerLabel;
 	private TextField textField;
