@@ -8,23 +8,26 @@ import eCook.RecipeCollection;
 
 public class menuMock extends menu {
 	
-	/*
+	/**
 	 * Constructor for class menuMock used in menuTest class
+	 * @param recipeCollection: The collection of parsed XML recipes
 	 */
 	public menuMock(RecipeCollection recipeCollection) {
 		super(recipeCollection);
 		 
 	}
 	
-	/*
+	/**
 	 * Method to return height 
+	 * @return: The height of the menu
 	 */
 	public double height() {
 		return height;
 	}
 
-	/*
-	 * Method to return weight 
+	/**
+	 * Method to return width 
+	 * @return The width of the menu
 	 */
 	public double width() {
 		return width;
