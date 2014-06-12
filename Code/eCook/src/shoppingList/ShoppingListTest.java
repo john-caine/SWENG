@@ -18,7 +18,9 @@ import org.junit.Test;
 public class ShoppingListTest {
 	/* Automated Tests */
 	
-	// check that the information in the current shoppingList.txt file is read correctly
+	/*
+	 * check that the information in the current shoppingList.txt file is read correctly
+	 */
 	@Test
 	public void readTextFileReturnsCorrectStrings() {
 		String line1 = "butter";
@@ -48,7 +50,7 @@ public class ShoppingListTest {
 		assertEquals(testList, shoppingList.shoppingList);
 	}
 	
-	/* Paul
+	/* 
 	 * execute only once, in the starting
 	 */
 	@BeforeClass
@@ -66,7 +68,7 @@ public class ShoppingListTest {
 		}
 	}
 
-	/* Paul
+	/* 
 	 * execute only once, in the end
 	 */
 	@AfterClass
@@ -86,14 +88,18 @@ public class ShoppingListTest {
 
 
 
-	// check that the number of items in the list is correct
+	/*
+	 *  check that the number of items in the list is correct
+	 */
 	@Test
 	public void correctNumberOfItemsInList() {
 		ShoppingList shoppingList = new ShoppingList();
 		assertEquals(6, shoppingList.getNumberOfItems());
 	}
 
-	// check that adding an item works correctly
+	/*
+	 *  check that adding an item works correctly
+	 */
 	@Test
 	public void itemAddedCorrectlyAppearsInList() {
 		ShoppingList shoppingList = new ShoppingList();
@@ -103,7 +109,9 @@ public class ShoppingListTest {
 		shoppingList.removeItem("custard creams");
 	}
 
-	// check that removing an item works correctly
+	/*
+	 *  check that removing an item works correctly
+	 */
 	@Test
 	public void itemRemovedCorrectlyDisappearsFromList() {
 		ShoppingList shoppingList = new ShoppingList();
@@ -113,7 +121,9 @@ public class ShoppingListTest {
 		shoppingList.addItem("What happens if the ingredient is so long that it goes onto a new line does it break the shopping list who knows lets find out");
 	}
 
-	// check that removing several item works correctly
+	/*
+	 *  check that removing several item works correctly
+	 */
 	@Test
 	public void itemsRemovedCorrectlyDisappearFromList() {
 		ShoppingList shoppingList = new ShoppingList();

@@ -34,7 +34,9 @@ public class IngredientsListTest {
 	// http://andrewtill.blogspot.co.uk/2012/10/junit-rule-for-javafx-controller-testing.html
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
-	// check that the ingredients list held in the class is correct from the recipe file
+	/*
+	 *  check that the ingredients list held in the class is correct from the recipe file
+	 */
 	@SuppressWarnings({"static-access"})
 	@Test
 	public void ingredientsListCorrectlyRead() {
@@ -63,7 +65,9 @@ public class IngredientsListTest {
 		assertEquals(testIngList, testClass.ingredientsList);
 	}
 	
-	// check that the class constructs a VBox
+	/*
+	 *  check that the class constructs a VBox
+	 */
 	@Test
 	public void classReturnsVBox() {
 		// call the ingredients list class and test

@@ -21,7 +21,9 @@ public class ShoppingList {
 	List<String> shoppingList;
 	private Logger logger;
 	
-	// constructor
+	/**
+	 * Shopping List Constructor
+	 */
 	public ShoppingList() {
 		// Create a new logger instance with the package and class name
 		logger = Logger.getLogger(eCook.class.getName());
@@ -30,42 +32,48 @@ public class ShoppingList {
 		shoppingList = readFromTextFile();
 	}
 	
-	// method to get number of items in shopping list
+	/**
+	 * method to get number of items in shopping list
+	 * @return The size of the shopping list array
+	 */
 	public int getNumberOfItems() {
 		return shoppingList.size();
 	}
 	
-	/*
-	 * Adds the string 
+	/**
+	 * Adds an item to the shopping list
+	 * @param item: The item to be added to the shopping list
 	 */
 	public void addItem(String item) {
 		if (item != null | !item.equals("")) {
 			if (!shoppingList.contains(item)) {
 				shoppingList.add(item);
 			}
-		}
-		else {
+		} else {
 			logger.log(Level.SEVERE, "Cannot add to shopping list: invalid item");
 		}
 		saveToTextFile();
 	}
 	
-	/*
+	/**
 	 *  method to remove an item from the shopping list
+	 *  @param itemName: name of the item to be removed from the shopping list
 	 */
 	public void removeItem(String itemName) {
 		if (itemName != null | !itemName.equals("")) {
 			if (shoppingList.contains(itemName)) {
 				shoppingList.remove(itemName);
 			}
-		}
-		else {
+		} else {
 			logger.log(Level.SEVERE, "Cannot remove from shopping list: invalid item");
 		}
 		saveToTextFile();
 	}
 	
-	// method to remove several items from the shopping list with one call
+	/**
+	 *  method to remove several items from the shopping list with one call
+	 * @param itemNames: array of item names to be removed from the shopping list
+	 */
 		public void removeItems(List<String> itemNames) {
 			if (itemNames != null | !(itemNames.size() == 0)) {
 				for (int i=0; i<itemNames.size(); i++) {
@@ -75,14 +83,15 @@ public class ShoppingList {
 						}
 					}
 				}
-			}
-			else {
+			} else {
 				logger.log(Level.SEVERE, "Cannot remove from shopping list: invalid list of items");
 			}
 			saveToTextFile();
 		}
 	
-	// method to save the shopping list as a text file
+	/**
+	 * method to save the shopping list as a text file
+	 */
 	private void saveToTextFile() {
 		if (shoppingList != null) {
 			try {
@@ -101,13 +110,15 @@ public class ShoppingList {
 				logger.log(Level.SEVERE, "Error when updating shopping list file");
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			logger.log(Level.SEVERE, "Cannot update shopping list file: shopping list is null");
 		}
 	}
 	
-	// method to read out strings from a text file
+	/**
+	 * method to read out strings from a text file
+	 * @return shopping list: The items retrieved from the text file, returns an empty array if there are no items
+	 */
 	public ArrayList<String> readFromTextFile() {
 		File fileToRead = new File(System.getenv("localappdata") + "/eCook/ShoppingLists/" + "shoppingList.txt");
 		
@@ -135,9 +146,8 @@ public class ShoppingList {
 		    }
 		    
 		    return shoppingList;
-		}
-		// return a new list if the file doesn't exist
-		else {
+		} else {
+			// return a new list if the file doesn't exist
 			return new ArrayList<String>();
 		}  
 	}
