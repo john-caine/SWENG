@@ -1,7 +1,7 @@
 package eCook;
 
 /*
- * Programmers: Jonathan Caine, Steve Thorpe, James Oatley, Max Holland
+ * Programmers: Jonathan Caine, Steve Thorpe, James Oatley, Max Holland & Ankita Gangotra
  * 
  * Date: 26/02/2014
  * 

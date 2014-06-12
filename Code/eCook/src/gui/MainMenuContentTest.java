@@ -3,10 +3,10 @@
  * Date Created: 26/05/2014
  * Junit Test for MainMenuContent Class
  */
+
 package gui;
 
 import static org.junit.Assert.*;
-
 import java.io.File;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -36,6 +36,7 @@ public class MainMenuContentTest {
 	private Rectangle2D screenBounds;
 	private RecipeCollection recipeCollection;
 	private HBox bottomBox;
+	
 	@Rule public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 	
 	@Before
@@ -55,12 +56,17 @@ public class MainMenuContentTest {
 				}
 			}
 		}
+		
 		new MainMenu(stage, recipeCollection);
+		
 		// pass a stage and a set of recipe collection into MainMenuContent class
 		mainMenuContent = new MainMenuContent(stage, recipeCollection);
 		screenBounds = Screen.getPrimary().getBounds();
 	}
 	
+	/**
+	 * Test to check bigBox is the right size
+	 */
 	@Test
 	public void mainMenuBigBoxTest() {
 		/* Test the Width and Height of the bigBox */
@@ -69,6 +75,9 @@ public class MainMenuContentTest {
 		assertEquals("[css.css]", mainMenuContent.bigBox.getStylesheets().toString());
 	}
 	
+	/**
+	 * Test to check the midBox contains the right content and and is located correctly
+	 */
 	@Test
 	public void  mainMenuMidBoxTest(){
 		/* Test if bigBox contains midBox */
@@ -76,24 +85,30 @@ public class MainMenuContentTest {
 		
 		/* Test if midBox contains a ImageView(logoholder) */
 		HBox midBox = (HBox) mainMenuContent.bigBox.getChildren().get(1);
+		
 		/* Test the Width and Height of the midBox */
 		assertEquals(screenBounds.getWidth(),midBox.getPrefWidth(),0.01);
 		assertEquals(screenBounds.getHeight()*0.6,midBox.getPrefHeight(),0.01);
+		
 		/* Test the Alignment of midBox */
 		assertEquals(Pos.CENTER, midBox.getAlignment());
-		
 		assertTrue(midBox.getChildren().get(0) instanceof ImageView);
+		
 		/* Test for eCook Image */
 		ImageView logoHolder = (ImageView) midBox.getChildren().get(0);
 		assertTrue(logoHolder.getImage() instanceof Image);
 	}
 	
+	/**
+	 * Test to check the bottomBox contains the right content and and is located correctly, and loadExternalRecipe
+	 * button works correctly.
+	 */
 	@Test
 	public void bottomBoxMoreRecipesTest(){
 		/* Test if bigBox contains buttomBox */
 		assertTrue(mainMenuContent.bigBox.getChildren().get(2) instanceof HBox);
-		
 		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
+		
 		/* Test the Alignment of bottomBox */
 		assertEquals(Pos.CENTER, bottomBox.getAlignment());
 		
@@ -103,7 +118,6 @@ public class MainMenuContentTest {
 		
 		/* Test if bottomBox contains More Recipe Button */
 		assertTrue(bottomBox.getChildren().get(3) instanceof Button);
-		
 		Button loadExtBtn = (Button) bottomBox.getChildren().get(3);
 		
 		/* Test the Width and height of the Button */
@@ -120,20 +134,24 @@ public class MainMenuContentTest {
 		assertEquals("[css.css]", loadExtBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
-		assertEquals("Click here to load external recipes form the internet or locally"
-				, loadExtBtn.getTooltip().getText());
+		assertEquals("Click here to load external recipes form the internet or locally", loadExtBtn.getTooltip().getText());
+		
 		/* Test when More Recipe Button is Pressed */
 		loadExtBtn.fire();
 		loadExtBtn.getOnAction();
 		assertTrue(new LoadExternalRecipe(stage, recipeCollection).dialog.isShowing());		
 	}
 	
+	/**
+	 * Test to check the bottomBox contains the right content and and is located correctly, and generateShoppingList
+	 * button works correctly.
+	 */
 	@Test
 	public void bottomBoxGenearteShoppingListButtonTest(){
 		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
+		
 		/* Test if bottomBox contains Generate Shopping List Button */
 		assertTrue(bottomBox.getChildren().get(2) instanceof Button);
-		
 		Button generateListBtn = (Button) bottomBox.getChildren().get(2);
 		
 		/* Test the Width and height of the Button */
@@ -150,8 +168,8 @@ public class MainMenuContentTest {
 		assertEquals("[css.css]", generateListBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
-		assertEquals("Click here to make shopping list from ingredients chosen"
-				, generateListBtn.getTooltip().getText());
+		assertEquals("Click here to make shopping list from ingredients chosen", generateListBtn.getTooltip().getText());
+		
 		/* Test when Shopping List Button is Pressed */
 		generateListBtn.fire();
 		generateListBtn.getOnAction();
@@ -179,12 +197,16 @@ public class MainMenuContentTest {
 		assertEquals("Shopping List", shoppingListLabel.getText());
 	}
 	
+	/**
+	 * Test to check the bottomBox contains the right content and and is located correctly, and ingredientPicker
+	 * button works correctly.
+	 */
 	@Test
 	public void bottomBoxIngredientPickerButtonTest(){
 		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
+		
 		/* Test if bottomBox contains Ingredients Button */
 		assertTrue(bottomBox.getChildren().get(1) instanceof Button);
-		
 		Button ingredientsPickBtn = (Button) bottomBox.getChildren().get(1);
 		
 		/* Test the Width and height of the Button */
@@ -201,8 +223,8 @@ public class MainMenuContentTest {
 		assertEquals("[css.css]", ingredientsPickBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
-		assertEquals("Click here to choose ingredients from list of recipes"
-				, ingredientsPickBtn.getTooltip().getText());
+		assertEquals("Click here to choose ingredients from list of recipes", ingredientsPickBtn.getTooltip().getText());
+		
 		/* Test when Ingredients Button is Pressed */
 		ingredientsPickBtn.fire();
 		ingredientsPickBtn.getOnAction();
@@ -221,13 +243,18 @@ public class MainMenuContentTest {
 		
 	}
 	
+	/**
+	 * Test to check the bottomBox contains the right content and and is located correctly, and recipes
+	 * button works correctly.
+	 */
 	@Test
 	public void bottomBoxRecipesButtonTest(){
 		bottomBox = (HBox) mainMenuContent.bigBox.getChildren().get(2);
+		
 		/* Test if bottomBox contains Recipes Button */
 		assertTrue(bottomBox.getChildren().get(0) instanceof Button);
-		
 		Button recipesBtn = (Button) bottomBox.getChildren().get(0);
+		
 		/* Test the Width and height of the Button */
 		assertEquals(screenBounds.getWidth()/5, recipesBtn.getMinWidth(),0.01);
 		assertEquals(bottomBox.getPrefHeight()-40, recipesBtn.getMinHeight(),0.01);
@@ -242,8 +269,8 @@ public class MainMenuContentTest {
 		assertEquals("[css.css]", recipesBtn.getStylesheets().toString());
 		
 		/* Get ToolTip of the Button */
-		assertEquals("Click here to choose from a list of recipes"
-				, recipesBtn.getTooltip().getText());
+		assertEquals("Click here to choose from a list of recipes", recipesBtn.getTooltip().getText());
+		
 		/* Test when Ingredients Button is Pressed */
 		recipesBtn.fire();
 		recipesBtn.getOnAction();

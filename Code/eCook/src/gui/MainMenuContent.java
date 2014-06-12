@@ -30,8 +30,11 @@ public class MainMenuContent extends menu{
 	public VBox bigBox;
 	protected Stage stage;
 
-	/*
-	 * Constructor for class MainMenuContent which extends abstract class menu
+	/**
+	 * Defines the eCook logo, the main boxes used to hold GUI components (bigBox, bottomBox, midBox, topBox),
+	 * creates the 4 buttons for the MainMenu, and sets their event handlers
+	 * @param stage The currently in use stage
+	 * @param recipeCollection The currently in use recipe collection
 	 */
 	public MainMenuContent(final Stage stage, final RecipeCollection recipeCollection) {
 		super (recipeCollection);
@@ -42,7 +45,7 @@ public class MainMenuContent extends menu{
 		logoIcon = new Image("logo_board.png");
 		logoholder.setImage(logoIcon);
 
-		//Add bigBox, midBox, bottomBox
+		//Create bigBox, midBox, bottomBox
 		bigBox = new VBox();
 		midBox = new HBox();
 		bottomBox = new HBox(40);
@@ -91,19 +94,20 @@ public class MainMenuContent extends menu{
 		ingredientsPickBtn.setTooltip(new Tooltip("Click here to choose ingredients from list of recipes"));
 		recipesBtn.setTooltip(new Tooltip("Click here to choose from a list of recipes"));
 
+		// Add button to bottomBox
 		bottomBox.getChildren().add(recipesBtn);
 		bottomBox.getChildren().add(ingredientsPickBtn);
 		bottomBox.getChildren().add(generateListBtn);
 		bottomBox.getChildren().add(loadExtBtn);		
 
-		bigBox.getChildren().addAll(topBox,midBox,bottomBox);
+		// Add boxes to bigBox
+		bigBox.getChildren().addAll(topBox, midBox, bottomBox);
 
-		FadeTransition fadeTransition 
-		= new FadeTransition(Duration.millis(500), bigBox);
+		// Set the fade transition for bigBox
+		FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), bigBox);
 		fadeTransition.setFromValue(0.0);
 		fadeTransition.setToValue(1.0);
 		fadeTransition.play();
-
 
 		//BUTTON ACTIONS
 		//Making the Load External Recipe button make a new window that takes the focus off the main stage
@@ -126,6 +130,7 @@ public class MainMenuContent extends menu{
 				new GenerateShoppingListScreen(bigBox, height, width, recipeCollection);
 			}
 		});
+		
 		//Clears the bigBox and runs IngredientsScreen passing
 		//the bigBox, height and width to the class
 		ingredientsPickBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -134,6 +139,7 @@ public class MainMenuContent extends menu{
 				new IngredientsScreen(bigBox, height, width, recipeCollection);
 			}
 		});
+		
 		//Clears the bigBox and runs RecipeSceen passing 
 		//the bigBox, height and width to the class
 		recipesBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -142,7 +148,5 @@ public class MainMenuContent extends menu{
 				new RecipeScreen(bigBox, height, width, recipeCollection, stage);
 			}
 		});
-
-
 	}
 }
